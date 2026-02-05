@@ -1,0 +1,90 @@
+<div class="pdf-viewer__container">
+  <div
+    class="pdf-viewer__toolbar d-flex justify-content-between align-items-center p-1">
+    <!-- Left Section -->
+    @if (loading()) {
+      <div class="d-flex align-items-center">
+        <fa-icon [icon]="['fal', 'loader']" animation="spin"></fa-icon>
+      </div>
+    }
+
+    <!-- Center Section -->
+    <div class="d-flex align-items-center mx-auto">
+      <div class="d-flex align-items-center">
+        <button class="btn btn-sm me-1" (click)="changeZoom(-0.1)">
+          <fa-icon [icon]="['fal', 'minus']"></fa-icon>
+        </button>
+        <button class="btn btn-sm" (click)="changeZoom(0.1)">
+          <fa-icon [icon]="['fal', 'plus']"></fa-icon>
+        </button>
+      </div>
+
+      <div class="vr mx-2"></div>
+
+      <div class="d-flex align-items-center">
+        <input
+          type="number"
+          class="form-control form-control-sm me-2"
+          [(ngModel)]="page"
+          min="1"
+          [max]="totalPages()" />
+        <span>{{ 'common.of' | translate }}</span>
+        <button class="btn btn-sm" (click)="moveToLastPage()">
+          {{ totalPages() }}
+        </button>
+      </div>
+
+      <div class="vr mx-2"></div>
+
+      <button class="btn btn-sm" (click)="rotatePage()">
+        <fa-icon [icon]="['fal', 'rotate-right']"></fa-icon>
+      </button>
+    </div>
+
+    <!-- Right Section -->
+    <div class="d-flex align-items-center">
+      <button class="btn btn-sm" (click)="toggleSearch()">
+        <fa-icon [icon]="['fal', 'magnifying-glass']"></fa-icon>
+      </button>
+      @if (searchVisible()) {
+        <input
+          type="text"
+          class="form-control form-control-sm"
+          [(ngModel)]="searchText"
+          (keydown.enter)="search(true)" />
+
+        <button class="btn btn-sm" (click)="search(false)">
+          <fa-icon [icon]="['fal', 'chevron-up']"></fa-icon>
+        </button>
+        <button class="btn btn-sm" (click)="search(true)">
+          <fa-icon [icon]="['fal', 'chevron-down']"></fa-icon>
+        </button>
+      }
+      <div class="vr mx-2 mr-2"></div>
+      <button class="btn btn-sm me-3" (click)="downloadPdf()">
+        <fa-icon [icon]="['fal', 'download']"></fa-icon>
+      </button>
+    </div>
+  </div>
+
+  @if (pdfBinary) {
+    <pdf-viewer
+      #pdfViewer
+      class="pdf-viewer__pdf"
+      [src]="pdfBinary"
+      [zoom-scale]="'page-fit'"
+      [autoresize]="true"
+      [zoom]="zoom()"
+      [show-borders]="true"
+      [render-text]="true"
+      [show-all]="true"
+      [rotation]="rotation"
+      [(page)]="page"
+      (after-load-complete)="pdfLoaded($event)">
+    </pdf-viewer>
+  } @else {
+    <div class="no-pdf">
+      <fa-icon [icon]="['fal', 'file-slash']"></fa-icon>
+    </div>
+  }
+</div>

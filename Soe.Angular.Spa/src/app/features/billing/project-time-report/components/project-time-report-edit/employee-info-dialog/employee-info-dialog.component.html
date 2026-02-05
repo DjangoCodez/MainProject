@@ -1,0 +1,140 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (infoItem.scheduleBlocks.length > 0) {
+      <div class="row m-2">
+        <soe-expansion-panel
+          [title]="'common.schedule'"
+          [labelKey]="'common.schedule'"
+          [static]="true"
+          [noPadding]="true"
+          [addTopMargin]="true">
+          <div class="col-sm-12">
+            <table class="table table-condensed table-striped table-hover mt-2">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <soe-label [labelKey]="'common.from'"></soe-label>
+                  </th>
+                  <th scope="col">
+                    <soe-label [labelKey]="'common.to'"></soe-label>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  @for (
+                    item of infoItem.scheduleBlocks;
+                    track item;
+                    let i = $index
+                  ) {
+                    <td>
+                      {{ item.startTime | date: 'shortTime' }}
+                    </td>
+                    <td>
+                      {{ item.stopTime | date: 'shortTime' }}
+                    </td>
+                  }
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </soe-expansion-panel>
+      </div>
+    }
+
+    @if (infoItem.scheduleBlocks.length === 0) {
+      <div class="row">
+        <soe-label
+          [labelKey]="'billing.project.timesheet.edittime.noschedule'"
+          [labelClass]="'warningColor'"></soe-label>
+      </div>
+    }
+
+    @if (infoItem.timeBlocks.length > 0) {
+      <div class="row m-2">
+        <soe-expansion-panel
+          [title]="'common.reportedtime'"
+          [labelKey]="'common.reportedtime'"
+          [static]="true">
+          <div class="col-sm-12">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <soe-label [labelKey]="'common.from'"></soe-label>
+                  </th>
+                  <th scope="col">
+                    <soe-label [labelKey]="'common.to'"></soe-label>
+                  </th>
+                  <th scope="col">
+                    <soe-label
+                      [labelKey]="'common.time.timedeviationcause'"></soe-label>
+                  </th>
+                  <th scope="col">
+                    <soe-label
+                      [labelKey]="
+                        'common.report.selection.projectnr'
+                      "></soe-label>
+                  </th>
+                  <th scope="col">
+                    <soe-label
+                      [labelKey]="
+                        'common.report.selection.ordernr'
+                      "></soe-label>
+                  </th>
+                  <th scope="col">
+                    <soe-label
+                      [labelKey]="
+                        'billing.project.timesheet.note.external'
+                      "></soe-label>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of infoItem.timeBlocks; track item; let i = $index) {
+                  <tr>
+                    <td>
+                      {{ item.startTime | date: 'HH:mm' }}
+                    </td>
+                    <td>
+                      {{ item.stopTime | date: 'HH:mm' }}
+                    </td>
+                    <td>
+                      {{ item.timeDeviationCauseName }}
+                    </td>
+                    <td>
+                      {{ item.projectNr }}
+                    </td>
+                    <td>
+                      {{ item.invoiceNr }}
+                    </td>
+                    <td>
+                      {{ item.externalNote }}
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </soe-expansion-panel>
+      </div>
+    }
+
+    @if (infoItem.timeBlocks.length === 0) {
+      <div class="row mx-2 mb-3">
+        <soe-label
+          [labelKey]="'billing.project.timesheet.edittime.notransaction'"
+          [labelClass]="'warningColor'"></soe-label>
+      </div>
+    }
+  </ng-container>
+  <div dialog-footer>
+    <div class="pull-left">
+      <soe-button
+        [caption]="'core.ok'"
+        [behaviour]="'standard'"
+        (action)="close()">
+      </soe-button>
+    </div>
+  </div>
+</soe-dialog>

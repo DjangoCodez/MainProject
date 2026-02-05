@@ -1,0 +1,71 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-typeahead label-key="billing.stock.stocksaldo.productnumber" model="ctrl.selectedProduct" items="ctrl.products" options="item as item.name for item in items" is-disabled="!ctrl.isNew" required="true"></soe-typeahead>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-typeahead label-key="billing.stock.stocks.stock" model="ctrl.selectedStockProduct" items="ctrl.stockProductsForTypeahead" options="item as item.name for item in items" is-disabled="!ctrl.isNew" required="true"></soe-typeahead>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="billing.stock.stockplaces.stockplace" model="ctrl.stockProduct.stockShelfName" is-readonly="true" maxlength="100" tab-index="-1"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="billing.stock.stocksaldo.primaryunit" model="ctrl.stockProduct.productUnit" is-readonly="true" maxlength="100" tab-index="-1"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="billing.stock.stocksaldo.actiontype" model="ctrl.stockTransaction.actionType" items="ctrl.actionTypes" options="item.id as item.name for item in items" required="true" auto-focus="true" on-changing="ctrl.actionTypeOnChanging(item)"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="billing.stock.stocksaldo.actionquantity" model="ctrl.stockTransaction.quantity" is-readOnly="ctrl.stockTransaction.actionType == 6" input-type="number" is-required="ctrl.isQuantityRequired()" maxlength="100" label-value="ctrl.selectedProductUnitName" label-value-in-parentheses="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="billing.stock.stocksaldo.actionprice" model="ctrl.stockTransaction.price" is-readOnly="ctrl.isReadOnly || ctrl.stockTransaction.actionType == 7" numeric="true" decimals="2" required="true" label-value="ctrl.selectedProductUnitName" label-value-in-parentheses="true"> </soe-textbox>
+                    </div>
+                    <div class="col-sm-3" ng-if="ctrl.useProductUnitConvert">
+                        <soe-select label-key="billing.stock.stocksaldo.deliveryunit" model="ctrl.selectedUnitConvert" items="ctrl.productUnitConverts" is-disabled="ctrl.stockTransaction.actionType != 2 || ctrl.productUnitConverts.length < 2" options="item as item.nameAndConvertFactor for item in items"></soe-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3" ng-if="ctrl.stockTransaction.actionType == 7">
+                        <soe-typeahead label-key="billing.stock.stocksaldo.stockplaceto" model="ctrl.selectedTargetStockProduct" items="ctrl.targetStockProducts" options="item as item.name for item in items" editable="true" required="true"></soe-typeahead>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-textbox label-key="billing.stock.stocksaldo.actionnote" model="ctrl.stockTransaction.note"></soe-textbox>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-datepicker label-key="billing.stock.stocksaldo.actioncreated" model="ctrl.stockTransaction.transactionDate" is-disabled="ctrl.isReadOnly"></soe-datepicker>
+                    </div>
+                </div>
+
+            </div>
+        </soe-panel>
+        <soe-panel ng-if="!ctrl.isNew">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div id="transactions-grid" ag-grid="ctrl.transactionsGrid.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                    <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                </div>
+            </div>
+        </soe-panel>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.stockPlace"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

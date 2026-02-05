@@ -1,0 +1,50 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.planning.editmode.templatebreaks'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="info">
+            <div class="row">
+                <div class="col-sm-12">
+                    <span data-ng-bind-html="ctrl.info | formatHtml"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <soe-label label-key="common.date"></soe-label>
+                <span>{{::ctrl.date | date:'shortDate'}}</span>
+            </div>
+        </div>
+
+        <div class="table-outer-bordered margin-large-top">
+            <div class="table-scrollable-wrapper">
+                <div class="table-scrollable" style="height: 203px;">
+                    <table class="table table-more-condensed table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 20px;"><span class="fal link" data-ng-class="{'fa-check-square':ctrl.allItemsSelected, 'fa-square':!ctrl.allItemsSelected}" data-ng-click="ctrl.selectAllItems()"></span></th>
+                                <th scope="col" style="width: 75px;"><span data-l10n-bind="'common.number'"></span></th>
+                                <th scope="col"><span data-l10n-bind="'common.name'"></span></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr data-ng-repeat="employee in ctrl.employees" style="cursor: pointer;" data-ng-click="employee.selected = !employee.selected">
+                                <td><span class="fal link" data-ng-class="{'fa-check-square':employee.selected, 'fa-square':!employee.selected}"></span></td>
+                                <td><span>{{::employee.employeeNr}}</span></td>
+                                <td><span>{{::employee.name}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.create'" data-ng-disabled="ctrl.getSelectedEmployees().length === 0 || ctrl.executing" data-ng-click="ctrl.save()"></button>
+    </div>
+</div>

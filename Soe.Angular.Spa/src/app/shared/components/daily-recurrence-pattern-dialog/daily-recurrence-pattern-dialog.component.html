@@ -1,0 +1,280 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (patternForm) {
+      <div class="row">
+        <div class="col-sm-6">
+          <form
+            [formGroup]="patternForm"
+            class="soe-edit-form"
+            novalidate
+            autocomplete="off">
+            <soe-expansion-panel
+              [labelKey]="'common.dailyrecurrencepattern.patterntitle'"
+              [static]="true">
+              <div class="row">
+                <div class="col-sm-7">
+                  <soe-select
+                    [labelKey]="'common.dailyrecurrencepattern.type'"
+                    [selectedId]="patternForm.value.type"
+                    [items]="service.performTypes.data || []"
+                    (valueChanged)="onTypeChanged()"
+                    formControlName="type"></soe-select>
+                </div>
+                @if (
+                  patternForm.isPatternTypeDaily ||
+                  patternForm.isPatternTypeWeekly ||
+                  patternForm.isPatternTypeRelativeMonthly
+                ) {
+                  <div class="col-sm-2">
+                    <soe-numberbox
+                      [labelKey]="'common.dailyrecurrencepattern.interval'"
+                      formControlName="interval"></soe-numberbox>
+                  </div>
+                }
+                @if (
+                  patternForm.isPatternTypeDaily ||
+                  patternForm.isPatternTypeWeekly ||
+                  patternForm.isPatternTypeRelativeMonthly
+                ) {
+                  <div class="col-sm-3">
+                    @if (patternForm.isPatternTypeDaily) {
+                      <soe-label
+                        [labelKey]="
+                          'common.dailyrecurrencepattern.interval.day'
+                        "
+                        [inline]="true"
+                        [labelClass]="'font-md'"></soe-label>
+                    }
+                    @if (patternForm.isPatternTypeWeekly) {
+                      <soe-label
+                        [labelKey]="
+                          'common.dailyrecurrencepattern.interval.week'
+                        "
+                        [inline]="true"
+                        [labelClass]="'font-md'"></soe-label>
+                    }
+                    @if (patternForm.isPatternTypeRelativeMonthly) {
+                      <soe-label
+                        [labelKey]="
+                          'common.dailyrecurrencepattern.interval.month'
+                        "
+                        [inline]="true"
+                        [labelClass]="'font-md'"></soe-label>
+                    }
+                  </div>
+                }
+              </div>
+              @if (
+                patternForm.isPatternTypeRelativeMonthly ||
+                patternForm.isPatternTypeRelativeYearly
+              ) {
+                <div class="row">
+                  <div class="col-sm-4">
+                    <soe-select
+                      [labelKey]="'common.dailyrecurrencepattern.weekindex'"
+                      [selectedId]="patternForm.value.weekIndex"
+                      [items]="service.performWeekendIndexes.data || []"
+                      formControlName="weekIndex"></soe-select>
+                  </div>
+                  <div class="col-sm-3">
+                    <soe-select
+                      [selectedId]="patternForm.value.firstDayOfWeek"
+                      [items]="dayOfWeeks || []"
+                      formControlName="firstDayOfWeek"></soe-select>
+                  </div>
+                  @if (patternForm.isPatternTypeRelativeYearly) {
+                    <div class="col-sm-1">
+                      <soe-label
+                        [labelKey]="'common.in'"
+                        [labelLowercase]="true"
+                        [labelCentered]="true"
+                        [inline]="true"
+                        [labelClass]="'font-md'"></soe-label>
+                    </div>
+                    <div class="col-sm-3">
+                      <soe-select
+                        [selectedId]="patternForm.value.month"
+                        [items]="months || []"
+                        formControlName="month"></soe-select>
+                    </div>
+                  }
+                </div>
+              }
+              @if (patternForm.isPatternTypeWeekly) {
+                <div class="row mt-2">
+                  <div class="col-sm-2">
+                    <soe-checkbox
+                      [labelKey]="dayOfWeeks[0].name"
+                      (valueChanged)="patternForm.setDaysOfWeek()"
+                      formControlName="mondaySelected"></soe-checkbox>
+                  </div>
+                  <div class="col-sm-2">
+                    <soe-checkbox
+                      [labelKey]="dayOfWeeks[1].name"
+                      (valueChanged)="patternForm.setDaysOfWeek()"
+                      formControlName="tuesdaySelected"></soe-checkbox>
+                  </div>
+                  <div class="col-sm-2">
+                    <soe-checkbox
+                      [labelKey]="dayOfWeeks[2].name"
+                      (valueChanged)="patternForm.setDaysOfWeek()"
+                      formControlName="wednesdaySelected"></soe-checkbox>
+                  </div>
+                  <div class="col-sm-2">
+                    <soe-checkbox
+                      [labelKey]="dayOfWeeks[3].name"
+                      (valueChanged)="patternForm.setDaysOfWeek()"
+                      formControlName="thursdaySelected"></soe-checkbox>
+                  </div>
+                  <div class="col-sm-2">
+                    <soe-checkbox
+                      [labelKey]="dayOfWeeks[4].name"
+                      (valueChanged)="patternForm.setDaysOfWeek()"
+                      formControlName="fridaySelected"></soe-checkbox>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <soe-checkbox
+                      [labelKey]="dayOfWeeks[5].name"
+                      (valueChanged)="patternForm.setDaysOfWeek()"
+                      formControlName="saturdaySelected"></soe-checkbox>
+                  </div>
+                  <div class="col-sm-2">
+                    <soe-checkbox
+                      [labelKey]="dayOfWeeks[6].name"
+                      (valueChanged)="patternForm.setDaysOfWeek()"
+                      formControlName="sundaySelected"></soe-checkbox>
+                  </div>
+                </div>
+              }
+              @if (patternForm.isPatternTypeAbsoluteMonthly) {
+                <div class="row">
+                  <div class="col-sm-2">
+                    <soe-numberbox
+                      [labelKey]="'common.day'"
+                      formControlName="dayOfMonth"></soe-numberbox>
+                  </div>
+                  <div class="col-sm-2">
+                    <soe-numberbox
+                      [labelKey]="'common.dailyrecurrencepattern.interval'"
+                      formControlName="interval"></soe-numberbox>
+                  </div>
+                  <div class="col-sm-4">
+                    <soe-label
+                      [labelKey]="'common.dailyrecurrencepattern.month'"
+                      [labelLowercase]="true"
+                      [inline]="true"
+                      [labelClass]="'font-md'"></soe-label>
+                  </div>
+                </div>
+              }
+              @if (patternForm.isPatternTypeAbsoluteYearly) {
+                <div class="row">
+                  <div class="col-sm-2">
+                    <soe-numberbox
+                      [labelKey]="'common.dailyrecurrencepattern.dayofmonth'"
+                      formControlName="dayOfMonth"></soe-numberbox>
+                  </div>
+                  <div class="col-sm-3">
+                    <soe-select
+                      [selectedId]="patternForm.value.month"
+                      [items]="months || []"
+                      formControlName="month"></soe-select>
+                  </div>
+                </div>
+              }
+              @if (patternForm.isPatternTypeSysHoliday) {
+                <div class="row mt-3">
+                  <div class="col-sm-7">
+                    <soe-multi-select-grid
+                      [rows]="service.performHolidayTypes.dataSubject"
+                      [selectedIds]="patternForm.value?.sysHolidayTypeIds"
+                      (selectedItemsChanged)="
+                        onHolidayTypesChanged($event)
+                      "></soe-multi-select-grid>
+                  </div>
+                </div>
+              }
+              @if (
+                !patternForm.isPatternTypeNone &&
+                !patternForm.isPatternTypeSysHoliday
+              ) {
+                <div class="row mt-3">
+                  <div class="col-sm-12">
+                    <soe-instruction
+                      [text]="suggestionInfo()"></soe-instruction>
+                  </div>
+                </div>
+              }
+            </soe-expansion-panel>
+          </form>
+        </div>
+        <div class="col-sm-6">
+          <form
+            [formGroup]="rangeForm"
+            class="soe-edit-form"
+            novalidate
+            autocomplete="off">
+            <soe-expansion-panel
+              [labelKey]="'common.dailyrecurrencepattern.rangetitle'"
+              [static]="true">
+              <div class="row">
+                <div class="col-sm-6">
+                  <soe-datepicker
+                    [labelKey]="'common.dailyrecurrencepattern.startdate'"
+                    formControlName="startDate">
+                  </soe-datepicker>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <soe-select
+                    [labelKey]="'common.dailyrecurrencepattern.rangetype'"
+                    [selectedId]="rangeForm.value.type"
+                    [items]="service.performRangeTypes.data || []"
+                    (valueChanged)="onRangeTypeChanged()"
+                    formControlName="type"></soe-select>
+                </div>
+                @if (rangeForm.isRangeTypeEndDate) {
+                  <div class="col-sm-6">
+                    <soe-datepicker formControlName="endDate"></soe-datepicker>
+                  </div>
+                }
+                @if (rangeForm.isRangeTypeNumbered) {
+                  <div class="col-sm-3">
+                    <soe-numberbox
+                      formControlName="numberOfOccurrences"></soe-numberbox>
+                  </div>
+                  <div class="col-sm-3">
+                    <soe-label
+                      [labelKey]="
+                        'common.dailyrecurrencepattern.numberofoccurrences'
+                      "
+                      [labelLowercase]="true"
+                      [inline]="true"
+                      [labelClass]="'font-md'"></soe-label>
+                  </div>
+                }
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <soe-datespicker
+                    [labelKey]="'common.dailyrecurrencepattern.excludeddates'"
+                    [(dates)]="excludedDates"
+                    [sortByDesc]="true"></soe-datespicker>
+                </div>
+              </div>
+            </soe-expansion-panel>
+          </form>
+        </div>
+      </div>
+    }
+  </div>
+  <div dialog-footer>
+    <soe-dialog-footer
+      [form]="patternForm"
+      (cancelled)="cancel()"
+      (committed)="ok()"></soe-dialog-footer>
+  </div>
+</soe-dialog>

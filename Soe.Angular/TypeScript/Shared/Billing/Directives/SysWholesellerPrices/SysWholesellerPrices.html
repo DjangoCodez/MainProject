@@ -1,0 +1,21 @@
+﻿<div class="form-group form-group-sm">
+    <div class="row margin-small-bottom" data-ng-if="ctrl.searching || ctrl.searchingErrorMessage">
+        <div class="col-sm-12">
+            <soe-progressbar data-ng-if="ctrl.searching" is-busy="ctrl.searching" message="ctrl.searchingMessage"></soe-progressbar>
+            <label class="info control-label ngSoeInstructionLabel" style="color: #DB000C; width: 100%;" data-ng-if="ctrl.searchingErrorMessage">{{ctrl.searchingErrorMessage}}</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div ag-grid="ctrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+        </div>
+    </div>
+    <div class="info" data-ng-if="ctrl.compPriceExist">
+        <div class="row">
+            <div class="col-sm-12">
+                <span data-l10n-bind="'common.syswholesellerprices.containscompprices'"></span>
+            </div>
+        </div>
+    </div>
+</div>

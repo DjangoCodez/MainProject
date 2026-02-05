@@ -1,0 +1,31 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (editRowClicked)="edit($event)"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+    (selectionChanged)="selectionChanged($event)">
+    <soe-purchase-grid-header
+      toolbar-content-left
+      (filterReady)="onFilterReady($event)"
+      (filterChange)="filterOnChange($event)"></soe-purchase-grid-header>
+    <div class="row" footer>
+      <div class="col-sm-12 p-2 d-flex flex-row-reverse align-items-end">
+        <soe-menu-button
+          class="me-2"
+          [caption]="'core.functions'"
+          [list]="menuList"
+          [variant]="'split'"
+          [selectedItem]="menuList[0]"
+          [disabled]="
+            !flowHandler.modifyPermission() || hasDisabledFunctionButton()
+          "
+          [behaviour]="'primary'"
+          [dropUp]="true"
+          (itemSelected)="peformAction($event)"
+          (selectedItem)="(menuList)">
+        </soe-menu-button>
+      </div>
+    </div>
+  </soe-grid-wrapper>
+}

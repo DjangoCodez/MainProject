@@ -1,0 +1,5 @@
+﻿<button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.save'" data-l10n-bind-title="'core.save'" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.edit.$valid" data-ng-disabled="!ctrl.edit.$dirty || ctrl.edit.$invalid || ctrl.saveInProgress" data-ng-click="$event.stopPropagation();ctrl.save()"></button>
+<div class="btn-group" role="group" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.edit.$invalid">
+    <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.save'" data-ng-disabled="ctrl.edit.$invalid || ctrl.saveInProgress"></button>
+    <button type="button" class="btn btn-sm ngSoeMainButtonInvalid" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+</div>

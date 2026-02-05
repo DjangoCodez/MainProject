@@ -1,0 +1,13 @@
+﻿<div class="form-inline">
+    <div data-ng-if="ctrl.showNavigation">
+        <div class="form-group form-group-sm margin-large-right">
+            <record-navigator records="ctrl.filteredEmployees" selected-record="ctrl.selectedEmployee" show-always="true" show-dropdown="true" dropdown-text-property="description" on-selection-changed="ctrl.setSelectedEmployee(record);"></record-navigator>
+        </div>
+        <div class="form-group form-group-sm" data-ng-if="ctrl.filteredEmployees">
+            <soe-textbox hidelabel="true" placeholder-key="core.search" model="ctrl.searchEmployeeCondition" use-ignore-dirty="true" enter="ctrl.searchEmployee();" on-change="ctrl.clearSearchEmployee();" button-icon="fa-search" button-tooltip-key="time.employee.employee.searchinfo" on-button-click="ctrl.searchEmployee();" second-button-icon="fa-times" second-button-class="iconDelete" second-button-tooltip-key="core.clearsearchcondition" on-second-button-click="ctrl.searchEmployeeCondition = null; ctrl.clearSearchEmployee();"></soe-textbox>
+        </div>
+        <div class="form-group form-group-sm margin-large-left" data-ng-if="ctrl.filteredEmployees">
+            <soe-checkbox label-key="time.employee.employee.showinactive" model="ctrl.showInactive" use-ignore-dirty="true" on-changing="ctrl.showInactiveChanged();"></soe-checkbox>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+@use '../../components/schedule-planning/schedule-planning-common.scss';
+@use '../../../../../shared/styles/core-styles/fonts.scss';
+
+:host {
+  display: inline-flex;
+  align-items: center;
+}
+
+.container {
+  display: contents;
+  line-height: 2rem;
+  font-size: fonts.$soe-font-size-xl;
+
+  .is-saturday,
+  .is-sunday {
+    // Class exists in schedule-planning-common.scss, but we need to override background color here
+    background-color: transparent;
+  }
+}

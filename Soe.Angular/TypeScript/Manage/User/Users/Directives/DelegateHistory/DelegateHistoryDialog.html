@@ -1,0 +1,100 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="manage.user.user.delegatehistory.new"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-3">
+                <soe-textbox label-key="manage.user.user.delegatehistory.search" placeholder-key="manage.user.user.delegatehistory.searchplaceholder" model="ctrl.searchUserCondition" use-ignore-dirty="true" enter="ctrl.searchUser();" button-icon="fa-search" button-tooltip-key="manage.user.user.delegatehistory.search" on-button-click="ctrl.searchUser();" second-button-icon="fa-times" second-button-class="iconDelete" second-button-tooltip-key="core.clearsearchcondition" on-second-button-click="ctrl.clearSearchUser();"></soe-textbox>
+            </div>
+            <div class="col-sm-2">
+                <soe-textbox label-key="common.name" model="ctrl.targetUser.name" readonly="true"></soe-textbox>
+            </div>
+            <div class="col-sm-2">
+                <soe-datepicker label-key="common.fromdate" model="ctrl.headDateFrom" second-model="ctrl.headDateTo" validate-date-range="true" is-start-in-range="true" use-ignore-dirty="true"></soe-datepicker>
+            </div>
+            <div class="col-sm-2">
+                <soe-datepicker label-key="common.todate" model="ctrl.headDateTo" second-model="ctrl.headDateFrom" validate-date-range="true" use-ignore-dirty="true"></soe-datepicker>
+            </div>
+        </div>
+        <div class="row margin-large-top" data-ng-if="ctrl.targetUser">
+            <div class="col-sm-5">
+                <div class="table-outer-bordered margin-large-top">
+                    <table class="table table-condensed table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-l10n-bind="'common.user.roles'"></th>
+                                <th scope="col" data-l10n-bind="'common.datefrom'"></th>
+                                <th scope="col" data-l10n-bind="'common.dateto'"></th>
+                                <th scope="col" colspan="2" class="right-align-cell" style="width: 56px"><span class="fal fa-plus link" data-ng-click="ctrl.addRole();" data-ng-if="ctrl.targetUser.possibleTargetRoles.length > 0"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="role in ctrl.targetUser.targetRoles | orderBy:['name', 'dateFrom'] track by $index">
+                                <td><span class="indiscreet" style="word-break: break-all;">{{role.name}}</span></td>
+                                <td><span>{{role.dateFrom | date:'shortDate'}}</span></td>
+                                <td><span>{{role.dateTo | date:'shortDate'}}</span></td>
+                                <td style="width: 28px"><span class="fal fa-pencil iconEdit link" data-ng-click="ctrl.editRole(role);"></span></td>
+                                <td style="width: 28px"><span class="fal fa-times iconDelete link" data-ng-click="ctrl.deleteRole(role);"></span></td>
+                            </tr>
+                            <tr data-ng-if="ctrl.targetUser.possibleTargetRoles.length === 0">
+                                <td colspan="5">
+                                    <span data-l10n-bind="'manage.user.user.delegatehistory.noroles'"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="table-outer-bordered margin-large-top">
+                    <table class="table table-condensed table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-l10n-bind="'common.user.attestroles'"></th>
+                                <th scope="col" data-l10n-bind="'common.accountdim'"></th>
+                                <th scope="col" data-l10n-bind="'common.name'"></th>
+                                <th scope="col" data-l10n-bind="'core.permission'"></th>
+                                <th scope="col" data-l10n-bind="'common.datefrom'"></th>
+                                <th scope="col" data-l10n-bind="'common.dateto'"></th>
+                                <th scope="col" colspan="2" class="right-align-cell" style="width: 56px"><span class="fal fa-plus link" data-ng-click="ctrl.addAttestRole();" data-ng-if="ctrl.targetUser.possibleTargetAttestRoles.length>0"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="attestRole in ctrl.targetUser.targetAttestRoles | orderBy:['name', 'dateFrom'] track by $index">
+                                <td><span class="indiscreet" style="word-break: break-all;">{{attestRole.name}}</span></td>
+                                <td><span>{{attestRole.accountDimName}}</span></td>
+                                <td><span>{{attestRole.accountName}}</span></td>
+                                <td><span>{{attestRole.accountPermissionTypeName}}</span></td>
+                                <td><span>{{attestRole.dateFrom | date:'shortDate'}}</span></td>
+                                <td><span>{{attestRole.dateTo | date:'shortDate'}}</span></td>
+                                <td style="width: 28px"><span class="fal fa-pencil iconEdit link" data-ng-click="ctrl.editAttestRole(attestRole);"></span></td>
+                                <td style="width: 28px"><span class="fal fa-times iconDelete link" data-ng-click="ctrl.deleteAttestRole(attestRole);"></span></td>
+                            </tr>
+                            <!-- Children -->
+                            <tr data-ng-repeat="child in attestRole.children">
+                                <td></td>
+                                <td>- <span class="italic">{{child.accountDimName}}</span></td>
+                                <td>- <span class="italic">{{child.accountName}}</span></td>
+                                <td><span class="italic">{{child.accountPermissionTypeName}}</span></td>
+                                <td><span class="italic">{{child.dateFrom | date:'shortDate'}}</span></td>
+                                <td><span class="italic">{{child.dateTo | date:'shortDate'}}</span></td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr data-ng-if="ctrl.targetUser.possibleTargetAttestRoles.length === 0">
+                                <td colspan="8">
+                                    <span data-l10n-bind="'manage.user.user.delegatehistory.noattestroles'"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.save'" data-ng-disabled="!ctrl.enableSave" data-ng-click="ctrl.save()"></button>
+    </div>
+</div>

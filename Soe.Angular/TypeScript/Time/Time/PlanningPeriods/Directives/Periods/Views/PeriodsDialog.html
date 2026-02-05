@@ -1,0 +1,31 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></h6>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'" data-ng-if="!ctrl.isNew"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-4">
+                <soe-textbox label-key="common.name" model="ctrl.timePeriod.name" max-length="100" required="true" auto-focus="true"></soe-textbox>
+            </div>
+            <div class="col-sm-4">
+                <!--<soe-datepicker label-key="common.fromdate" model="ctrl.timePeriod.startDate" options="ctrl.startDateOptions" required="true" on-change="ctrl.startDateChanged();"></soe-datepicker>-->
+                <soe-datepicker label-key="common.fromdate" model="ctrl.timePeriod.startDate" required="true"></soe-datepicker>
+            </div>
+            <div class="col-sm-4">
+                <!--<soe-datepicker label-key="common.todate" model="ctrl.timePeriod.stopDate" options="ctrl.stopDateOptions" required="true" on-change="ctrl.stopDateChanged();"></soe-datepicker>-->
+                <soe-datepicker label-key="common.todate" model="ctrl.timePeriod.stopDate" required="true"></soe-datepicker>
+            </div>
+        </div>
+        <!--<div class="row">
+            <div class="col-sm-8 col-sm-offset-4">
+                <soe-instruction label-key="time.time.planningperiod.daterangeinfo"></soe-instruction>
+            </div>
+        </div>-->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-disabled="ctrl.isSaveDisabled();" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

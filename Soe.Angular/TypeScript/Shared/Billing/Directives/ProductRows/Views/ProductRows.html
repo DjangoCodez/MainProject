@@ -1,0 +1,84 @@
+﻿<div class="product-row-grid">
+    <soe-progressbar is-busy="directiveCtrl.progressBusy" message="directiveCtrl.progressMessage"></soe-progressbar>
+
+    <div product-rows-validation ng-model="directiveCtrl.productRows" use-freight-amount="directiveCtrl.useFreightAmount" freight-amount-product-id="directiveCtrl.freightAmountProductId" use-invoice-fee="directiveCtrl.useInvoiceFee" invoice-fee-product-id="directiveCtrl.invoiceFeeProductId" 
+         use-cent-rounding="directiveCtrl.useCentRounding" cent-rounding-product-id="directiveCtrl.centRoundingProductId" origin-type="directiveCtrl.originType" billing-type="directiveCtrl.billingType" total-amount="directiveCtrl.totalAmountCurrency" data-ng-show="!directiveCtrl.progressBusy">
+        <div class="row btn-toolbar">
+            <div class="col">
+                <div class="pull-left" style="margin-top: 15px; margin-left: 15px;">
+                    <soe-toolbar buttons="directiveCtrl.sortMenuButtons" hide-border="true" style="margin: -16px -16px 0px -16px"></soe-toolbar>
+                </div>
+            </div>
+            <div class="col pull-right">
+                <div class="col pull-right">
+                    <soe-splitbutton class="margin-large-left" label-key="billing.productrows.addproductrow" options="directiveCtrl.addRowFunctions" option-selected="directiveCtrl.executeAddRowFunction(option)" is-disabled="directiveCtrl.readOnly || !directiveCtrl.productsLoaded"></soe-splitbutton>
+                </div>
+                <div class="col pull-right">
+                    <soe-select class="margin-large-left" style="width:170px" hidelabel="true" model="directiveCtrl.selectedAttestState" items="directiveCtrl.availableAttestStateOptions" options="item.id as item.name for item in items" data-ng-if="directiveCtrl.useAttestState && !directiveCtrl.hideChangeAttestState" is-readonly="directiveCtrl.readOnly" on-changing="directiveCtrl.attestStateChanged()" on-button-click="directiveCtrl.saveAttestState(directiveCtrl.selectedAttestState)" button-icon="'fa-play-circle'" button-class="border-radius-right" button-tooltip-key="billing.productrows.changeatteststate" button-disabled="!directiveCtrl.gridHasSelectedRows || !directiveCtrl.selectedAttestStateValid || directiveCtrl.readOnly || directiveCtrl.executing"></soe-select>
+                </div>
+                <div class="col pull-right">
+                    <soe-menubutton label-key="core.functions" options="directiveCtrl.rowFunctions" option-selected="directiveCtrl.executeRowFunction(option)" is-disabled="directiveCtrl.readOnly || !directiveCtrl.productsLoaded"></soe-menubutton>
+                </div>
+                <div class="col pull-right">
+                    <label style="margin: 7px 0 0 0;" data-ng-if="directiveCtrl.useAttestState">({{directiveCtrl.nbrOfTransferredRows}})</label>
+                </div>
+                <div class="col pull-right" data-ng-if="directiveCtrl.container!=4">
+                    <soe-checkbox style="margin: 2px 5px 0 0;" label-key="billing.productrows.hidetransferred" model="directiveCtrl.hideTransferred" data-ng-if="directiveCtrl.useAttestState" use-ignore-dirty="true"></soe-checkbox>
+                </div>
+                <div class="col pull-right" data-ng-if="directiveCtrl.container!=4">
+                    <soe-checkbox style="margin: 2px 5px 0 0;" label-key="billing.productrows.showallrows" model="directiveCtrl.showAllRows" use-ignore-dirty="true"></soe-checkbox>
+                </div>
+                <div class="col pull-right" data-ng-if="directiveCtrl.container==4">
+                    <soe-checkbox style="margin: 2px 5px 0 0;" label-key="billing.contract.hiderowspasseddate" model="directiveCtrl.hideTransferred" inline=""></soe-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="margin-small-top">
+            <div id="article-rows-grid" ag-grid="directiveCtrl.soeGridOptions.gridOptions" context-menu="directiveCtrl.getContextMenuOptions()" class="ag-theme-balham" style="height: 100%; width: 100%;" prevent-enter></div>            
+            <div id="article-sum-footer-grid" class="ag-theme-balham" style="height: 30px; width: 100%;" prevent-enter></div>
+            <div id="article-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+
+            <debug class="pull-left" on-debug="directiveCtrl.debug()"></debug>
+        </div>
+        <div class="info margin-large-top" data-ng-if="directiveCtrl.showSalesPricePermission">
+            <div class="row">
+                <div class="col-sm-1" data-ng-if="!directiveCtrl.hideIncomeRatioAndPercentage && directiveCtrl.showPurchasePricePermission">
+                    <soe-textbox label-key="billing.productrows.marginalincome.short" model="directiveCtrl.marginalIncomeCurrency" title="{{directiveCtrl.marginalIncomeCurrencyToolTip}}" numeric="true" decimals="2" readonly="true" input-class="errorColor" input-class-condition="directiveCtrl.marginalIncomeRatio < directiveCtrl.marginalIncomeLimit" button-icon="fa-info-circle" button-class="border-radius-right" button-tooltip-key="billing.order.showordersummary" on-button-click="$event.stopPropagation();directiveCtrl.viewOrderInformation()" data-ng-if="directiveCtrl.isOrder"></soe-textbox>
+                    <soe-textbox label-key="billing.productrows.marginalincome.short" model="directiveCtrl.marginalIncomeCurrency" title="{{directiveCtrl.marginalIncomeCurrencyToolTip}}" numeric="true" decimals="2" readonly="true" input-class="errorColor" input-class-condition="directiveCtrl.marginalIncomeRatio < directiveCtrl.marginalIncomeLimit" data-ng-if="!directiveCtrl.isOrder"></soe-textbox>
+                </div>
+                <div class="col-sm-1" data-ng-if="!directiveCtrl.hideIncomeRatioAndPercentage && directiveCtrl.showPurchasePricePermission">
+                    <soe-textbox label-key="billing.productrows.marginalincomeratio.short" model="directiveCtrl.marginalIncomeRatio" title="{{directiveCtrl.marginalIncomeRatioToolTip}}" numeric="true" decimals="0" readonly="true" input-class="errorColor" input-class-condition="directiveCtrl.marginalIncomeRatio < directiveCtrl.marginalIncomeLimit"></soe-textbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-label model="directiveCtrl.sumAmountCurrencyLabel"></soe-label>
+                    <soe-textbox hidelabel="true" model="directiveCtrl.sumAmountCurrency" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                </div>
+                <div class="col-sm-1">
+                    <soe-label model="directiveCtrl.feeCurrencyLabel"></soe-label>
+                    <soe-textbox hidelabel="true" model="directiveCtrl.feeAmountCurrency" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-textbox label-key="billing.productrows.vatamount" label-value="directiveCtrl.vatPercent" label-value-in-parentheses="true" label-postfix-value="'%'" hide-label-value="directiveCtrl.hideVatRate" model="directiveCtrl.vatAmountCurrency" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                </div>
+                <div class="col-sm-1" data-ng-if="(directiveCtrl.useCentRounding || directiveCtrl.isCashSale) && directiveCtrl.showSalesPricePermission">
+                    <soe-textbox label-key="billing.productrows.centrounding" model="directiveCtrl.centRounding" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-textbox label-key="billing.productrows.totalamount" model="directiveCtrl.totalAmountCurrency" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                    <div data-ng-if="!directiveCtrl.isBaseCurrency">
+                        <soe-textbox label-key="billing.productrows.totalamount" label-value="directiveCtrl.baseCurrencyCode" label-value-in-parentheses="true" model="directiveCtrl.totalAmount" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                    </div>
+                </div>
+                <div class="col-sm-2" data-ng-if="directiveCtrl.container==2 && directiveCtrl.showRemainingAmountExVat">
+                    <soe-textbox label-key="billing.productrows.remainingamount" model="directiveCtrl.remainingAmountExVat" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                </div>
+                <div class="col-sm-2" data-ng-if="directiveCtrl.container==2 && !directiveCtrl.showRemainingAmountExVat">
+                    <soe-textbox label-key="billing.productrows.remainingamount" model="directiveCtrl.remainingAmount" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                </div>
+                <div class="col-sm-1" data-ng-if="directiveCtrl.container==2">
+                    <soe-checkbox label-key="billing.productrows.showremainingamountexvat" model="directiveCtrl.showRemainingAmountExVat" inline="true"></soe-checkbox>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

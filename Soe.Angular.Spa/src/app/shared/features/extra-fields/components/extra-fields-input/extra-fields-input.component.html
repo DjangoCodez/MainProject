@@ -1,0 +1,67 @@
+@if (form && form.rows.controls.length > 0) {
+  <form [formGroup]="form" novalidate autocomplete="off">
+    <div formArrayName="rows">
+      @for (row of form.rows.controls; track row; let i = $index) {
+        <div [formGroupName]="i" class="row mb-2">
+          <div class="col-sm-4">
+            @switch (row.controls.extraFieldType.value) {
+              @case (extraFieldType.FreeText) {
+                <div>
+                  <soe-textbox
+                    [labelKey]="row.controls.extraFieldText.value"
+                    formControlName="strData"></soe-textbox>
+                </div>
+              }
+              @case (extraFieldType.Integer) {
+                <div>
+                  <soe-numberbox
+                    [labelKey]="row.controls.extraFieldText.value"
+                    formControlName="intData"></soe-numberbox>
+                </div>
+              }
+              @case (extraFieldType.Decimal) {
+                <div>
+                  <soe-numberbox
+                    [labelKey]="row.controls.extraFieldText.value"
+                    formControlName="decimalData"></soe-numberbox>
+                </div>
+              }
+              @case (extraFieldType.YesNo) {
+                <div>
+                  <soe-select
+                    [labelKey]="row.controls.extraFieldText.value"
+                    [items]="yesNoDict"
+                    formControlName="intData"></soe-select>
+                </div>
+              }
+              @case (extraFieldType.Checkbox) {
+                <div>
+                  <soe-checkbox
+                    [labelKey]="row.controls.extraFieldText.value"
+                    formControlName="boolData"></soe-checkbox>
+                </div>
+              }
+              @case (extraFieldType.Date) {
+                <div>
+                  <soe-datepicker
+                    [labelKey]="row.controls.extraFieldText.value"
+                    formControlName="dateData"></soe-datepicker>
+                </div>
+              }
+              @case (extraFieldType.SingleChoice) {
+                <div>
+                  <soe-select
+                    [labelKey]="row.controls.extraFieldText.value"
+                    [items]="row.controls.extraFieldValues.value"
+                    [optionIdField]="'extraFieldValueId'"
+                    [optionNameField]="'value'"
+                    formControlName="intData"></soe-select>
+                </div>
+              }
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </form>
+}

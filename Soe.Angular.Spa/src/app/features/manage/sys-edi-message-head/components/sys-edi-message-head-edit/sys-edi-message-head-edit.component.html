@@ -1,0 +1,670 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sysEdiMessageHeadId'"
+          [maxLength]="100"
+          formControlName="sysEdiMessageHeadId">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sysEdiMessageHeadGuid'"
+          [maxLength]="100"
+          formControlName="sysEdiMessageHeadGuid">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sysEdiMessageHeadStatus'"
+          [maxLength]="100"
+          formControlName="sysEdiMessageHeadStatus">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-autocomplete
+          [labelKey]="'sysCompanyId'"
+          [items]="sysCompanies"
+          [optionIdField]="'id'"
+          [optionNameField]="'name'"
+          [limit]="10"
+          formControlName="sysCompanyId">
+        </soe-autocomplete>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sysEdiMessageRawId'"
+          [maxLength]="100"
+          formControlName="sysEdiMessageRawId">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'eDISourceType'"
+          [maxLength]="100"
+          formControlName="ediSourceType">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sysEdiType'"
+          [maxLength]="100"
+          formControlName="sysEdiType">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sysEdiMsgId'"
+          [maxLength]="100"
+          formControlName="sysEdiMsgId">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sysWholesellerId'"
+          [maxLength]="100"
+          formControlName="sysWholesellerId">
+        </soe-textbox>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      @if (form.value.errorMessage) {
+        <div class="col-sm-6">
+          <soe-textbox
+            [labelKey]="'errorMessage'"
+            [maxLength]="100"
+            formControlName="errorMessage">
+          </soe-textbox>
+        </div>
+      }
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'messageSenderId'"
+          [maxLength]="100"
+          formControlName="messageSenderId">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'messageType'"
+          [maxLength]="100"
+          formControlName="messageType">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'messageDate'"
+          [maxLength]="100"
+          formControlName="messageDate">
+        </soe-textbox>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headInvoiceNumber'"
+          [maxLength]="100"
+          formControlName="headInvoiceNumber">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headInvoiceOcr'"
+          [maxLength]="100"
+          formControlName="headInvoiceOcr">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headInvoiceType'"
+          [maxLength]="100"
+          formControlName="headInvoiceType">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headInvoiceDate'"
+          [maxLength]="100"
+          formControlName="headInvoiceDate">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headInvoiceDueDate'"
+          [maxLength]="100"
+          formControlName="headInvoiceDueDate">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headDeliveryDate'"
+          [maxLength]="100"
+          formControlName="headDeliveryDate">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headBuyerOrderNumber'"
+          [maxLength]="100"
+          formControlName="headBuyerOrderNumber">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headBuyerProjectNumber'"
+          [maxLength]="100"
+          formControlName="headBuyerProjectNumber">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headBuyerInstallationNumber'"
+          [maxLength]="100"
+          formControlName="headBuyerInstallationNumber">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headSellerOrderNumber'"
+          [maxLength]="100"
+          formControlName="headSellerOrderNumber">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headPostalGiro'"
+          [maxLength]="100"
+          formControlName="headPostalGiro">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headBankGiro'"
+          [maxLength]="100"
+          formControlName="headBankGiro">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headBank'"
+          [maxLength]="100"
+          formControlName="headBank">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headBicAddress'"
+          [maxLength]="100"
+          formControlName="headBicAddress">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headIbanNumber'"
+          [maxLength]="100"
+          formControlName="headIbanNumber">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headCurrencyCode'"
+          [maxLength]="100"
+          formControlName="headCurrencyCode">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headVatPercentage'"
+          [maxLength]="100"
+          formControlName="headVatPercentage">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headPaymentConditionDays'"
+          [maxLength]="100"
+          formControlName="headPaymentConditionDays">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headPaymentConditionText'"
+          [maxLength]="100"
+          formControlName="headPaymentConditionText">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headInterestPaymentPercent'"
+          [maxLength]="100"
+          formControlName="headInterestPaymentPercent">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headInterestPaymentText'"
+          [maxLength]="100"
+          formControlName="headInterestPaymentText">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headInvoiceGrossAmount'"
+          [maxLength]="100"
+          formControlName="headInvoiceGrossAmount">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headInvoiceNetAmount'"
+          [maxLength]="100"
+          formControlName="headInvoiceNetAmount">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headVatBasisAmount'"
+          [maxLength]="100"
+          formControlName="headVatBasisAmount">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headVatAmount'"
+          [maxLength]="100"
+          formControlName="headVatAmount">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headFreightFeeAmount'"
+          [maxLength]="100"
+          formControlName="headFreightFeeAmount">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headHandlingChargeFeeAmount'"
+          [maxLength]="100"
+          formControlName="headHandlingChargeFeeAmount">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headInsuranceFeeAmount'"
+          [maxLength]="100"
+          formControlName="headInsuranceFeeAmount">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headRemainingFeeAmount'"
+          [maxLength]="100"
+          formControlName="headRemainingFeeAmount">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headDiscountAmount'"
+          [maxLength]="100"
+          formControlName="headDiscountAmount">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headRoundingAmount'"
+          [maxLength]="100"
+          formControlName="headRoundingAmount">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headBonusAmount'"
+          [maxLength]="100"
+          formControlName="headBonusAmount">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headInvoiceArrival'"
+          [maxLength]="100"
+          formControlName="headInvoiceArrival">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headInvoiceAuthorized'"
+          [maxLength]="100"
+          formControlName="headInvoiceAuthorized">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'headInvoiceAuthorizedBy'"
+          [maxLength]="100"
+          formControlName="headInvoiceAuthorizedBy">
+        </soe-textbox>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sellerId'"
+          [maxLength]="100"
+          formControlName="sellerId">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sellerOrganisationNumber'"
+          [maxLength]="100"
+          formControlName="sellerOrganisationNumber">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sellerVatNumber'"
+          [maxLength]="100"
+          formControlName="sellerVatNumber">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sellerName'"
+          [maxLength]="100"
+          formControlName="sellerName">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sellerAddress'"
+          [maxLength]="100"
+          formControlName="sellerAddress">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sellerPostalCode'"
+          [maxLength]="100"
+          formControlName="sellerPostalCode">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sellerPostalAddress'"
+          [maxLength]="100"
+          formControlName="sellerPostalAddress">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sellerCountryCode'"
+          [maxLength]="100"
+          formControlName="sellerCountryCode">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sellerPhone'"
+          [maxLength]="100"
+          formControlName="sellerPhone">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sellerFax'"
+          [maxLength]="100"
+          formControlName="sellerFax">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sellerReference'"
+          [maxLength]="100"
+          formControlName="sellerReference">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'sellerReferencePhone'"
+          [maxLength]="100"
+          formControlName="sellerReferencePhone">
+        </soe-textbox>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerId'"
+          [maxLength]="100"
+          formControlName="buyerId">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerOrganisationNumber'"
+          [maxLength]="100"
+          formControlName="buyerOrganisationNumber">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerVatNumber'"
+          [maxLength]="100"
+          formControlName="buyerVatNumber">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerName'"
+          [maxLength]="100"
+          formControlName="buyerName">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerAddress'"
+          [maxLength]="100"
+          formControlName="buyerAddress">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerPostalCode'"
+          [maxLength]="100"
+          formControlName="buyerPostalCode">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerPostalAddress'"
+          [maxLength]="100"
+          formControlName="buyerPostalAddress">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerCountryCode'"
+          [maxLength]="100"
+          formControlName="buyerCountryCode">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerReference'"
+          [maxLength]="100"
+          formControlName="buyerReference">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerPhone'"
+          [maxLength]="100"
+          formControlName="buyerPhone">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerFax'"
+          [maxLength]="100"
+          formControlName="buyerFax">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerEmailAddress'"
+          [maxLength]="100"
+          formControlName="buyerEmailAddress">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerDeliveryName'"
+          [maxLength]="100"
+          formControlName="buyerDeliveryName">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerDeliveryCoAddress'"
+          [maxLength]="100"
+          formControlName="buyerDeliveryCoAddress">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerDeliveryAddress'"
+          [maxLength]="100"
+          formControlName="buyerDeliveryAddress">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerDeliveryPostalCode'"
+          [maxLength]="100"
+          formControlName="buyerDeliveryPostalCode">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerDeliveryPostalAddress'"
+          [maxLength]="100"
+          formControlName="buyerDeliveryPostalAddress">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerDeliveryCountryCode'"
+          [maxLength]="100"
+          formControlName="buyerDeliveryCountryCode">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerDeliveryNoteText'"
+          [maxLength]="100"
+          formControlName="buyerDeliveryNoteText">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'buyerDeliveryGoodsMarking'"
+          [maxLength]="100"
+          formControlName="buyerDeliveryGoodsMarking">
+        </soe-textbox>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      @if (flowHandler.allowFetchGrid()) {
+        <soe-grid
+          [rows]="rowData"
+          (cellValueChanged)="onCellValueChanged($event)"
+          [height]="245">
+        </soe-grid>
+      }
+    </div>
+    <div class="soe-form-footer">
+      <div class="col-sm-12">
+        <div class="float-end">
+          @if (this.form.value[this.idFieldName] > 0) {
+            <soe-delete-button
+              class="me-3"
+              [disabled]="!flowHandler.modifyPermission()"
+              (action)="triggerDelete()"></soe-delete-button>
+          }
+          <soe-save-button
+            [invalid]="form.invalid"
+            [dirty]="form.dirty"
+            [inProgress]="performAction.inProgress()"
+            [disabled]="!flowHandler.modifyPermission()"
+            (action)="performSave()"
+            (validationErrorsAction)="
+              form.openFormValidationErrors()
+            "></soe-save-button>
+        </div>
+      </div>
+    </div>
+  </form>
+}

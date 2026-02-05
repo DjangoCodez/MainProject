@@ -1,0 +1,82 @@
+<soe-dialog>
+  <div dialog-content>
+    <div class="px-3">
+      @if (form) {
+        <div class="row">
+          <div class="col-sm-12">
+            <form
+              [formGroup]="form"
+              class="soe-edit-form"
+              novalidate
+              autocomplete="off"
+              style="padding-left: 0; padding-right: 0">
+              <div class="row">
+                <div class="col-sm-3">
+                  <soe-textbox
+                    formControlName="registrationNr"
+                    [labelKey]="
+                      'common.external.company.search.dialog.regnumber'
+                    "
+                    [autofocus]="true">
+                  </soe-textbox>
+                </div>
+                <div class="col-sm-6">
+                  <soe-textbox
+                    formControlName="name"
+                    [labelKey]="
+                      'common.external.company.search.dialog.companyname'
+                    ">
+                  </soe-textbox>
+                </div>
+                <div class="col-sm-3 pt-4">
+                  <soe-button
+                    [behaviour]="'standard'"
+                    [caption]="'core.search'"
+                    [tooltip]="'core.search'"
+                    (action)="onSearchClick()"></soe-button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-expansion-panel
+              [labelKey]="'common.external.company.search.dialog.searchresult'"
+              [static]="true"
+              [addTopMargin]="false"
+              [noPadding]="true"
+              [noTopPadding]="true">
+              <soe-dynamic-grid
+                [gridName]="'common.external.company.search'"
+                [columns]="gridColumns"
+                [suppressFiltering]="true"
+                [suppressGridMenu]="true"
+                [enableRowSelection]="true"
+                [isSingleRowSelection]="true"
+                [height]="250"
+                [gridData]="gridData"
+                [(gridRef)]="gridRef"
+                (rowSelectionChanged)="
+                  onRowSelectionChanged($event)
+                "></soe-dynamic-grid>
+            </soe-expansion-panel>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+  <div dialog-footer>
+    <div class="d-flex justify-content-between">
+      <soe-button
+        [caption]="'core.cancel'"
+        [behaviour]="'standard'"
+        (action)="onCancelClick()"></soe-button>
+      <soe-button
+        [caption]="'core.select'"
+        [behaviour]="'primary'"
+        [disabled]="disableOK()"
+        (action)="onOkClick()"></soe-button>
+    </div>
+  </div>
+</soe-dialog>

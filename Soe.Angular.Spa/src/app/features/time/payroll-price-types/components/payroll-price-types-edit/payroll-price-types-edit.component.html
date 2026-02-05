@@ -1,0 +1,109 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'time.payroll.payrollpricetype.payrollpricetype'"
+      [static]="true">
+      <div class="row">
+        <div class="col-md-3">
+          <soe-select
+            [labelKey]="'common.type'"
+            [selectedId]="form.value.type"
+            [items]="payrollPriceTypeTypes || []"
+            formControlName="type">
+          </soe-select>
+        </div>
+        <div class="col-md-3">
+          <soe-textbox
+            [labelKey]="'common.code'"
+            [minlength]="1"
+            [maxLength]="10"
+            (input)="onCodeInput($event)"
+            formControlName="code">
+          </soe-textbox>
+        </div>
+        <div class="col-md-6">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [minlength]="1"
+            [maxLength]="100"
+            [autoFocus]="true"
+            formControlName="name">
+          </soe-textbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <soe-textbox
+            [labelKey]="'common.description'"
+            [maxLength]="100"
+            formControlName="description">
+          </soe-textbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mt-3">
+          <soe-expansion-panel
+            [labelKey]="'time.payroll.payrollpricetype.periods'"
+            [static]="true"
+            [noTopPadding]="true">
+            <div class="row">
+              <div class="periodsgrid-container">
+                <soe-payroll-price-types-edit-periods-grid
+                  [form]="form"></soe-payroll-price-types-edit-periods-grid>
+              </div>
+            </div>
+          </soe-expansion-panel>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel [labelKey]="'time.payroll.payrollpricetype.demand'">
+      <div class="row">
+        <div class="col-md-4">
+          <soe-numberbox
+            [labelKey]="'time.payroll.payrollpricetype.age'"
+            [value]="form.value.conditionAgeYears"
+            [showArrows]="true"
+            [noFormatting]="true"
+            [disallowNegative]="true"
+            formControlName="conditionAgeYears">
+          </soe-numberbox>
+        </div>
+        <div class="col-md-4">
+          <soe-numberbox
+            [labelKey]="'time.payroll.payrollpricetype.employeed'"
+            [value]="form.value.conditionEmployeedMonths"
+            [showArrows]="true"
+            [noFormatting]="true"
+            [disallowNegative]="true"
+            formControlName="conditionEmployeedMonths">
+          </soe-numberbox>
+        </div>
+        <div class="col-md-4">
+          <soe-numberbox
+            [labelKey]="'time.payroll.payrollpricetype.experience'"
+            [value]="form.value.conditionExperienceMonths"
+            [showArrows]="true"
+            [noFormatting]="true"
+            [disallowNegative]="true"
+            formControlName="conditionExperienceMonths">
+          </soe-numberbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [showActive]="false"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

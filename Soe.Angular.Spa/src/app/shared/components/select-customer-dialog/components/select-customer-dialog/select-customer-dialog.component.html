@@ -1,0 +1,50 @@
+
+<soe-dialog>
+    <ng-container dialog-content>
+        <div class="soe-edit-form">
+          <div class="row mb-3">
+            <soe-instruction [text]="'common.customer.searchdialog.howto'"
+            ></soe-instruction>
+          </div>
+            <div class="row">
+                <soe-select-customer-grid
+                    [rows]="customerData"
+                    (changeSelection)="changeSelection($event)"
+                    (rowDoubleClicked)="onRowDoubleClicked($event)"
+                    (changeFilter)="
+                      filterChange($event)
+                    ">
+                </soe-select-customer-grid>
+            </div>
+
+            <div class="soe-form-footer">
+                <div class="col-sm-12">
+                  <div class="float-end">
+                    <soe-button
+                      class="ms-3"
+                      [caption]="'core.cancel'"
+                      typeClass="btn btn-secondary"
+                      [behaviour]="'standard'"
+                      (action)="cancel()"></soe-button>
+        
+                    <soe-button
+                      class="ms-3"
+                      [caption]="'core.ok'"
+                      typeClass="btn btn-secondary"
+                      [behaviour]="'primary'"
+                      [disabled]="!customerData.value.length"
+                      (action)="ok()"></soe-button>
+                  </div>
+                </div>
+              </div>
+
+        </div>
+    </ng-container>
+</soe-dialog>
+
+
+
+
+
+
+  

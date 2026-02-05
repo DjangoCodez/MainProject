@@ -1,0 +1,61 @@
+﻿<div class="info" style="margin-top: 16px; margin-bottom: 8px;">
+    <div class="row">
+        <div class="col-sm-12 pull-right">
+            <div class="col-sm-2">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="economy.supplier.invoice.linkedtoproject"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredTotalLinkedToProject | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="economy.supplier.invoice.sumlinkedtoordercost"></soe-label>
+                </div>
+                <div class="row">
+                    <div class="pull-right discreet">
+                        <span>
+                            {{ctrl.filteredTotalLinkedToOrder | amount}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="economy.supplier.invoice.sumcost"></soe-label>
+                </div>
+                <div class="row">
+                    <div class="pull-right discreet">
+                        <span>
+                            {{ctrl.filteredTotalLinkedCost | amount}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="economy.supplier.invoice.sumlinkedtoordersale"></soe-label>
+                </div>
+                <div class="row">
+                    <div class="pull-right discreet">
+                        <span>
+                            {{ctrl.filteredTotalLinkedToOrderSale | amount}}
+                        </span>
+                        <span data-l10n-bind-title="economy.supplier.invoice.surcharge">
+                            ({{ctrl.surchargePercentage | amount}}%)
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="economy.supplier.invoice.amountexvat"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredTotal | amount}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></h6>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'" data-ng-if="!ctrl.isNew"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-9">
+                <soe-select label-key="time.payrollproduct.payrollproduct" model="ctrl.trans.payrollProductId" items="ctrl.payrollProducts" options="item.id as item.name for item in items" required="true" auto-focus="true" on-changing="ctrl.payrollProductChanged();"></soe-select>
+            </div>
+            <div class="col-sm-3" data-ng-if="!ctrl.trans.isQuantityOrFixed">
+                <soe-textbox label-key="common.time" model="ctrl.trans.quantityTimeFormatted" update-on="blur" is-time="true" on-change="ctrl.quantityChanged();"></soe-textbox>
+            </div>
+            <div class="col-sm-3" data-ng-if="ctrl.trans.isQuantityOrFixed">
+                <soe-textbox label-key="common.quantity" model="ctrl.trans.quantity" numeric="true" decimals="2" on-change="ctrl.quantityChanged();"></soe-textbox>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <accounting-settings setting-types="ctrl.settingTypes" settings="ctrl.settings" min-rows="1" must-have-standard-if-internal="true" set-dim-nr-if-zero="true" is-valid="ctrl.isAccountingSettingsValid" ignore-hierarchy-only="true"></accounting-settings>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <soe-textarea label-key="common.comment" model="ctrl.trans.comment" maxlength="2048" rows="3" is-readonly="!ctrl.trans.manuallyAdded"></soe-textarea>
+            </div>
+        </div>
+        <div class="row margin-large-top" data-ng-if="!ctrl.trans.manuallyAdded">
+            <div class="col-sm-12">
+                <div class="info">
+                    <span data-l10n-bind="'time.time.attest.transaction.commentreadonly.inforow'"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.delete'" data-ng-if="!ctrl.isNew" data-ng-click="ctrl.delete()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-disabled="!ctrl.isValid()" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

@@ -1,0 +1,170 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></h6>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'" data-ng-if="!ctrl.isNew"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="info" data-ng-if="ctrl.selectedAttestRole.hasAttestRoleSettings">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-label label-key="common.user.attestrole.settingsonattestrole"></soe-label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-11 margin-large-left">
+                    <ul>
+                        <li data-ng-if="ctrl.selectedAttestRole.showUncategorized"><span data-l10n-bind="'common.user.attestrole.showuncategorized.info'"></span></li>
+                        <li data-ng-if="ctrl.selectedAttestRole.showAllCategories"><span data-l10n-bind="'common.user.attestrole.showallcategories.info'"></span></li>
+                        <li data-ng-if="ctrl.selectedAttestRole.showTemplateSchedule"><span data-l10n-bind="'common.user.attestrole.showtemplateschedule.info'"></span></li>
+                        <li data-ng-if="ctrl.selectedAttestRole.alsoAttestAdditionsFromTime"><span data-l10n-bind="'common.user.attestrole.alsoattestadditionsfromtime.info'"></span></li>
+                        <li data-ng-if="ctrl.selectedAttestRole.humanResourcesPrivacy"><span data-l10n-bind="'common.user.attestrole.humanresourcesprivacy.info'"></span></li>
+                        <li data-ng-if="ctrl.selectedAttestRole.isExecutive"><span data-l10n-bind="'common.user.attestrole.isexecutive.info'"></span></li>
+                        <li data-ng-if="ctrl.selectedAttestRole.attestByEmployeeAccount"><span data-l10n-bind="'common.user.attestrole.attestbyemployeeaccount.info'"></span></li>
+                        <li data-ng-if="ctrl.selectedAttestRole.staffingByEmployeeAccount"><span data-l10n-bind="'common.user.attestrole.staffingbyemployeeaccount.info'"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-5 padding-none-left padding-none-right">
+                <div class="col-sm-4">
+                    <soe-select label-key="common.user.attestrole" model="ctrl.selectedAttestRole" items="ctrl.companyAttestRoles" options="item as item.name for item in items" on-changing="ctrl.setDirty();"></soe-select>
+                </div>
+                <div class="col-sm-4">
+                    <soe-textbox label-key="common.user.maxamount" model="ctrl.userCompanyAttestRoleDTO.maxAmount" numeric="true" decimals="2" on-change="ctrl.setDirty();"></soe-textbox>
+                </div>
+                <div class="col-sm-4">
+                    <soe-select label-key="common.role" model="ctrl.userCompanyAttestRoleDTO.roleId" items="ctrl.roles" options="item.id as item.name for item in items" on-changing="ctrl.setDirty();"></soe-select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-large-bottom">
+            <div class="col-sm-5">
+                <soe-select label-key="common.accountdim" model="ctrl.selectedAccountDim" items="ctrl.selectableAccountDims" options="item as item.name for item in items" on-changing="ctrl.setDirty();"></soe-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5">
+                <soe-select label-value="ctrl.selectedAccountDim.name" label-value-indiscreet="true" model="ctrl.selectedAccount" items="ctrl.selectedAccountDim.accounts" options="item as item.name for item in items | orderBy:'name'" required="true" auto-focus="true" on-changing="ctrl.setDirty();"></soe-select>
+            </div>
+            <div class="col-sm-4 padding-none-left padding-none-right">
+                <div class="col-sm-4">
+                    <soe-select label-key="core.permission" model="ctrl.userCompanyAttestRoleDTO.accountPermissionType" items="ctrl.accountPermissionTypes" options="item.id as item.name for item in items" on-changing="ctrl.setDirty();"></soe-select>
+                </div>
+                <div class="col-sm-4">
+                    <soe-datepicker label-key="common.fromdate" model="ctrl.userCompanyAttestRoleDTO.dateFrom" second-model="ctrl.userCompanyAttestRoleDTO.dateTo" validate-date-range="true" is-start-in-range="true" on-change="ctrl.setDirty();"></soe-datepicker>
+                </div>
+                <div class="col-sm-4">
+                    <soe-datepicker label-key="common.todate" model="ctrl.userCompanyAttestRoleDTO.dateTo" second-model="ctrl.userCompanyAttestRoleDTO.dateFrom" validate-date-range="true" on-change="ctrl.setDirty();"></soe-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <soe-label label-key="common.user.attestrole.isexecutive"></soe-label>
+                <soe-checkbox hidelabel="true" model="ctrl.userCompanyAttestRoleDTO.isExecutive" on-changing="ctrl.setDirty();"></soe-checkbox>
+            </div>
+            <div class="col-sm-1" data-ng-if="ctrl.useIsNearestManagerOnAttestRoleUser">
+                <soe-label label-key="common.user.attestrole.isnearestmanager"></soe-label>
+                <soe-checkbox hidelabel="true" model="ctrl.userCompanyAttestRoleDTO.isNearestManager" on-changing="ctrl.setDirty();"></soe-checkbox>
+            </div>
+            <div class="col-sm-1" data-ng-if="ctrl.showChildren && ctrl.selectedAccount">
+                <soe-label class="margin-small-top"></soe-label>
+                <button type="button" style="height: 30px; width: 30px;" class="btn btn-sm btn-default fal fa-level-up fa-rotate-90 textColor" data-l10n-bind data-l10n-bind-title="'common.user.attestrole.addchild'" data-ng-click="$event.stopPropagation();ctrl.addChild();"></button>
+            </div>
+        </div>
+
+        <!-- Children -->
+        <div class="row" data-ng-repeat="child in ctrl.userCompanyAttestRoleDTO.children" data-ng-if="ctrl.showChildren">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-5 padding-none-left padding-none-right">
+                        <div class="col-sm-2 text-right margin-large-top">
+                            <soe-label></soe-label>
+                            <span class="fal fa-level-up fa-rotate-90 extraLargeFont"></span>
+                        </div>
+                        <div class="col-sm-10">
+                            <soe-select label-value="ctrl.childAccountDim.name" label-value-indiscreet="true" model="child.accountId" items="ctrl.accounts" options="item.accountId as item.name for item in items | orderBy:'name'" required="true" auto-focus="true" on-changing="ctrl.childAccountChanged(child);"></soe-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 padding-none-left padding-none-right">
+                        <div class="col-sm-4">
+                            <soe-select label-key="core.permission" model="child.accountPermissionType" items="ctrl.accountPermissionTypes" options="item.id as item.name for item in items" on-changing="ctrl.setDirty();"></soe-select>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-datepicker label-key="common.fromdate" model="child.dateFrom" second-model="child.dateTo" validate-date-range="true" is-start-in-range="true" on-change="ctrl.setDirty();"></soe-datepicker>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-datepicker label-key="common.todate" model="child.dateTo" second-model="child.dateFrom" validate-date-range="true" on-change="ctrl.setDirty();"></soe-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <soe-label label-key="common.user.attestrole.isexecutive"></soe-label>
+                        <soe-checkbox hidelabel="true" model="child.isExecutive" is-disabled="ctrl.employeeAccount.default && ctrl.employeeAccount.children.length===1" on-changing="ctrl.setDirty();"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-1" data-ng-if="ctrl.useIsNearestManagerOnAttestRoleUser">
+                        <soe-label label-key="common.user.attestrole.isnearestmanager"></soe-label>
+                        <soe-checkbox hidelabel="true" model="child.isNearestManager" on-changing="ctrl.setDirty();"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-1 padding-none-left padding-none-right">
+                        <div class="col-sm-6">
+                            <soe-label class="margin-small-top"></soe-label>
+                            <button type="button" style="height: 30px; width: 30px;" class="btn btn-sm btn-default fal fa-level-up fa-rotate-90 textColor" data-l10n-bind data-l10n-bind-title="'common.user.attestrole.addchild'" data-ng-if="ctrl.showSubChildren && child.accountId" data-ng-click="$event.stopPropagation();ctrl.addSubChild(child);"></button>
+                        </div>
+                        <div class="col-sm-6">
+                            <soe-label class="margin-small-top"></soe-label>
+                            <button type="button" style="height: 30px; width: 30px;" class="btn btn-sm btn-default fal fa-times iconDelete" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.deleteChild(child);"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub children -->
+            <div data-ng-repeat="subChild in child.children" data-ng-if="ctrl.showSubChildren">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-5 padding-none-left padding-none-right">
+                            <div class="col-sm-4 text-right margin-large-top">
+                                <soe-label></soe-label>
+                                <span class="fal fa-level-up fa-rotate-90 extraLargeFont"></span>
+                            </div>
+                            <div class="col-sm-8">
+                                <soe-select label-value="ctrl.subChildAccountDim.name" label-value-indiscreet="true" model="subChild.accountId" items="child.accounts" options="item.accountId as item.name for item in items | orderBy:'name'" required="true" auto-focus="true" on-changing="ctrl.subChildAccountChanged(child, subChild);"></soe-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 padding-none-left padding-none-right">
+                            <div class="col-sm-4">
+                                <soe-select label-key="core.permission" model="subChild.accountPermissionType" items="ctrl.accountPermissionTypes" options="item.id as item.name for item in items" on-changing="ctrl.setDirty();"></soe-select>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-datepicker label-key="common.fromdate" model="subChild.dateFrom" second-model="subChild.dateTo" validate-date-range="true" is-start-in-range="true" on-change="ctrl.setDirty();"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-datepicker label-key="common.todate" model="subChild.dateTo" second-model="subChild.dateFrom" validate-date-range="true" on-change="ctrl.setDirty();"></soe-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <soe-label label-key="common.user.attestrole.isexecutive"></soe-label>
+                            <soe-checkbox hidelabel="true" model="subChild.isExecutive" is-disabled="child.default && child.children.length===1" on-changing="ctrl.setDirty();"></soe-checkbox>
+                        </div>
+                        <div class="col-sm-1" data-ng-if="ctrl.useIsNearestManagerOnAttestRoleUser">
+                            <soe-label label-key="common.user.attestrole.isnearestmanager"></soe-label>
+                            <soe-checkbox hidelabel="true" model="subChild.isNearestManager" on-changing="ctrl.setDirty();"></soe-checkbox>
+                        </div>
+                        <div class="col-sm-1 padding-none-left padding-none-right">
+                            <div class="col-sm-6 col-sm-offset-6">
+                                <soe-label class="margin-small-top"></soe-label>
+                                <button type="button" style="height: 30px; width: 30px;" class="btn btn-sm btn-default fal fa-times iconDelete" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.deleteSubChild(child, subChild);"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-disabled="ctrl.isSaveDisabled();" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

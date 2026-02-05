@@ -1,0 +1,49 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title"><span data-l10n-bind="'core.reportmenu.selection.save'"></span></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-textbox label-key="common.name" model="ctrl.selection.name" set-focus="true" is-required="true"></soe-textbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-textbox label-key="common.description" model="ctrl.selection.description"></soe-textbox>
+            </div>
+        </div>
+        <div class="row margin-small-top margin-small-bottom" data-ng-if="ctrl.showIncludeColumnsSelection">
+            <div class="col-sm-12">
+                <soe-checkbox label-key="core.reportmenu.selection.includecolumns" model="ctrl.includeColumnsSelection"></soe-checkbox>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.savePublicPermission">
+            <div class="col-sm-12">
+                <soe-select label-key="core.reportmenu.selection.access" model="ctrl.accessType" items="ctrl.accessTypes" options="item.id as item.name for item in items" on-changing="ctrl.accessTypeChanged();"></soe-select>
+            </div>
+        </div>
+        <div class="row" data-ng-show="ctrl.accessTypeIsRole || ctrl.accessTypeIsMessageGroup">
+            <div class="col-sm-12">
+                <ul class="checkable-list margin-small-top" style="height: 223px; overflow-x: hidden; overflow-y: auto;">
+                    <li data-ng-repeat="role in ctrl.roles" data-ng-click="role.selected = !role.selected" data-ng-if="ctrl.accessTypeIsRole">
+                        <span><span class="fal link" data-ng-class="{'fa-check-square':role.selected, 'fa-square':!role.selected}" style="margin-left: 5px;"></span> <span>{{role.name}}</span></span>
+                    </li>
+                    <li data-ng-repeat="messageGroup in ctrl.messageGroups" data-ng-click="messageGroup.selected = !messageGroup.selected" data-ng-if="ctrl.accessTypeIsMessageGroup">
+                        <span><span class="fal link" data-ng-class="{'fa-check-square':messageGroup.selected, 'fa-square':!messageGroup.selected}" style="margin-left: 5px;"></span> <span>{{messageGroup.name}}</span></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.accessTypeIsPrivate && ctrl.selection.validForScheduledJobHead">
+            <div class="col-sm-12">
+                <soe-select label-key="common.report.scheduledjobhead" model="ctrl.selection.scheduledJobHeadId" items="ctrl.scheduledJobHeads" options="item.id as item.name for item in items"></soe-select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default " data-l10n-bind="'core.cancel'" data-ng-click="$event.stopPropagation();ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-disabled="!ctrl.selection.name" data-ng-click="$event.stopPropagation();ctrl.initSave()"></button>
+    </div>
+</div>

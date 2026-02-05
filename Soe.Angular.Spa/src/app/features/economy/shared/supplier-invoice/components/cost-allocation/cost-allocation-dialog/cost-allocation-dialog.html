@@ -1,0 +1,162 @@
+<soe-dialog>
+  <div dialog-content>
+    <div class="modal-body">
+      @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="row">
+              <soe-select
+                [labelKey]="'economy.supplier.invoice.customerinvoice'"
+                [items]="filteredCustomerInvoices || []"
+                [optionIdField]="'invoiceId'"
+                [optionNameField]="'customerInvoiceNumberNameWithoutDescription'"
+                formControlName="orderId">
+              </soe-select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row">
+              <soe-select
+                [labelKey]="'economy.supplier.invoice.project'"
+                [items]="projects || []"
+                [optionIdField]="'id'"
+                [optionNameField]="'name'"
+                formControlName="projectId">
+              </soe-select>
+            </div>
+          </div>
+        </div>
+        @if(isCostAllocationModeChargedToProject()) {
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="row">
+              <soe-select
+                [labelKey]="'economy.supplier.invoice.timecode'"
+                [items]="timeCodes || []"
+                [optionIdField]="'id'"
+                [optionNameField]="'name'"
+                formControlName="timeCodeId">
+              </soe-select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row">
+              <soe-select
+                [labelKey]="'economy.supplier.invoice.chargedtoproject.employee'"
+                [items]="employees || []"
+                [optionIdField]="'id'"
+                [optionNameField]="'name'"
+                formControlName="employeeId">
+              </soe-select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="row">
+              <soe-numberbox
+                [labelKey]="'common.amount'"
+                [decimals]="2"
+                formControlName="projectAmountCurrency">
+              </soe-numberbox>
+            </div>
+            <div class="row">
+              <soe-label
+                [inline]="false"
+                [labelValue]="remainingAmountMessage()"></soe-label>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-12">
+            <soe-checkbox
+              [labelKey]="'economy.supplier.invoice.chargecosttoproject'"
+              formControlName="chargeCostToProject">
+            </soe-checkbox>
+          </div>
+        </div>
+        } @if(!isCostAllocationModeChargedToProject()) {
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="row">
+              <soe-select
+                [labelKey]="'economy.supplierInvoice.costAllocation.product'"
+                [items]="products || []"
+                [optionIdField]="'productId'"
+                [optionNameField]="'numberName'"
+                formControlName="productId">
+              </soe-select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="row">
+              <soe-numberbox
+                [labelKey]="'common.amount'"
+                [decimals]="2"
+                formControlName="rowAmountCurrency">
+              </soe-numberbox>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="row">
+              <soe-numberbox
+                [labelKey]="'economy.supplier.invoice.surcharge'"
+                [decimals]="2"
+                formControlName="supplementCharge">
+              </soe-numberbox>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="row">
+              <soe-numberbox
+                [labelKey]="'common.amount'"
+                [decimals]="2"
+                formControlName="orderAmountCurrency">
+              </soe-numberbox>
+            </div>
+            <div class="row">
+              <soe-label
+                [inline]="false"
+                [labelValue]="remainingAmountMessage()"></soe-label>
+            </div>
+          </div>
+        </div>
+        }
+        <div class="row mt-2">
+          <div class="col-sm-12">
+            <soe-checkbox
+              [labelKey]="'economy.supplier.invoice.includeimage'"
+              formControlName="includeSupplierInvoiceImage">
+            </soe-checkbox>
+          </div>
+        </div>
+      </form>
+      }
+    </div>
+  </div>
+  <div dialog-footer>
+    <soe-button
+      [behaviour]="'standard'"
+      [caption]="'core.cancel'"
+      (action)="closeDialog()"></soe-button>
+
+    <soe-save-button
+      [caption]="'core.ok'"
+      [behaviour]="'primary'"
+      [disabled]="form.invalid || !form.dirty"
+      [invalid]="form.invalid"
+      (validationErrorsAction)="form.openFormValidationErrors()"
+      (action)="ok()"></soe-save-button>
+  </div>
+</soe-dialog>

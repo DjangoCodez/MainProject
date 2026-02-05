@@ -1,0 +1,46 @@
+﻿<div class="accounting-row-grid">
+    <!--<soe-toolbar buttons="directiveCtrl.buttonGroups"></soe-toolbar>-->
+
+    <soe-progressbar is-busy="directiveCtrl.progressBusy" message="directiveCtrl.progressMessage"></soe-progressbar>
+
+    <div accounting-rows-validation allow-zero-amount="directiveCtrl.allowZeroAmount" allow-unbalanced-rows="directiveCtrl.allowUnbalancedRows" ignore-internal="directiveCtrl.ignoreInternalAccounts" ng-model="directiveCtrl.accountingRows" data-ng-show="!directiveCtrl.progressBusy">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="pull-left">
+                    <soe-toolbar buttons="directiveCtrl.sortMenuButtons" data-ng-if="directiveCtrl.showSortButtonsValue" hide-border="true" no-margin="true" style="margin-left: -5px;"></soe-toolbar>
+                    <soe-checkbox class="pull-right" style="margin: 7px 0 0 0;" label-key="common.grouprows" model="directiveCtrl.collapseAllRowGroups" data-ng-if="directiveCtrl.showGrouping"></soe-checkbox>
+                </div>
+            </div>
+            <div class="col-sm-6 pull-right margin-large-right margin-large-top">
+                <soe-toolbar buttons="directiveCtrl.buttonGroups" hide-border="true"></soe-toolbar>
+            </div>
+        </div>
+        <div class="two-row-footer">
+            <div id="accounting-rows-grid" ag-grid="directiveCtrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;" prevent-enter></div>
+            <div id="accounting-sum-footer-grid" class="ag-theme-balham" style="height: 50px; width: 100%;" prevent-enter></div>
+            <div id="accounting-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+            <debug class="pull-left" on-debug="directiveCtrl.debug()"></debug>
+        </div>
+        <div>
+            <div class="row" data-ng-if="directiveCtrl.showInstructionsValue">
+                <br />
+                <div class="col-sm-12">
+                    <div class="info">
+                        <soe-label label-key="common.accountingrows.instructionrow1" medium-font="true" discreet="true"></soe-label>
+                        <soe-label label-key="common.accountingrows.instructionrow2" medium-font="true" discreet="true"></soe-label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" data-ng-if="directiveCtrl.showVoucherSeries">
+                <div class="col-sm-12">
+                    <div class="col-sm-2">
+                        <soe-select label-key="common.customer.invoices.voucherseries" model="directiveCtrl.voucherSeriesId" items="directiveCtrl.voucherSeries" options="item.voucherSeriesId as item.voucherSeriesTypeName for item in items" is-disabled="directiveCtrl.lockVoucherSeries"></soe-select>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-datepicker label-key="common.customer.invoices.voucherdate" model="directiveCtrl.voucherDate" is-disabled="directiveCtrl.lockVoucherSeries"></soe-datepicker>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

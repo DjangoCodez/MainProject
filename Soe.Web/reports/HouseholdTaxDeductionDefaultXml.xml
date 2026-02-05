@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" standalone="yes"?>
+<SOE_HousholdTaxDeduction>
+  <xs:schema id="SOE_HousholdTaxDeduction" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="SOE_HousholdTaxDeduction" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="HousholdTaxDeduction">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="HousholdTaxDeductionHead" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="CompanyName" type="xs:string" minOccurs="0" />
+                      <xs:element name="CompanyOrgNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="CompanyAddressDistribution" type="xs:string" minOccurs="0" />
+                      <xs:element name="CompanyAddressCODistribution" type="xs:string" minOccurs="0" />
+                      <xs:element name="CompanyPostalCodeDistribution" type="xs:string" minOccurs="0" />
+                      <xs:element name="CompanyPostalAddressDistribution" type="xs:string" minOccurs="0" />
+                      <xs:element name="CompanyCountryDistribution" type="xs:string" minOccurs="0" />
+                      <xs:element name="SequenceNumber" type="xs:long" minOccurs="1" maxOccurs="1" />
+                      <xs:element name="DeductionIsRut" type="xs:boolean" minOccurs="0" />
+                      <xs:element name="HousholdTaxDeductionRow" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="SocialSecNr" type="xs:string" minOccurs="1" maxOccurs="1" msdata:Ordinal="0" />
+                            <xs:element name="PaymentDate" type="xs:dateTime" minOccurs="1" maxOccurs="1" msdata:Ordinal="1" />
+                            <xs:element name="Property" type="xs:string" minOccurs="1" maxOccurs="1" msdata:Ordinal="2" />
+							              <xs:element name="ApartmentNr" type="xs:string" minOccurs="0" maxOccurs="1" msdata:Ordinal="3" />
+							              <xs:element name="CooperativeOrgNr" type="xs:string" minOccurs="0" maxOccurs="1" msdata:Ordinal="4" />
+                            <xs:element name="AmountTotal" type="xs:long" minOccurs="1" maxOccurs="1" msdata:Ordinal="5" />
+                            <xs:element name="AmountPayed" type="xs:long" minOccurs="1" maxOccurs="1" msdata:Ordinal="6" />
+                            <xs:element name="AmountRequest" type="xs:long" minOccurs="1" maxOccurs="1" msdata:Ordinal="7" />
+                            <xs:element name="InvoiceNr" type="xs:string" minOccurs="1" maxOccurs="1" msdata:Ordinal="8" />
+                          </xs:sequence>
+                          <xs:attribute name="id" type="xs:string" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="id" type="xs:string" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <HousholdTaxDeduction>
+    <HousholdTaxDeductionHead id="1">
+      <CompanyName />
+      <CompanyOrgNr />
+      <CompanyAddressDistribution />
+      <CompanyAddressCODistribution />
+      <CompanyPostalCodeDistribution />
+      <CompanyPostalAddressDistribution />
+      <CompanyCountryDistribution />
+      <SequenceNumber>1</SequenceNumber>
+      <DeductionIsRut>0</DeductionIsRut>
+      <HousholdTaxDeductionRow id="1">
+		  <SocialSecNr>111111111111</SocialSecNr>
+      <PaymentDate>1900-01-01T00:00:00+00:00</PaymentDate>
+		  <Property>Skogen 1</Property>
+		  <ApartmentNr />
+		  <CooperativeOrgNr />
+      <AmountTotal>0</AmountTotal>
+      <AmountPayed>0</AmountPayed>
+      <AmountRequest>0</AmountRequest>
+      <InvoiceNr></InvoiceNr>
+      </HousholdTaxDeductionRow>
+    </HousholdTaxDeductionHead>
+  </HousholdTaxDeduction>
+</SOE_HousholdTaxDeduction>

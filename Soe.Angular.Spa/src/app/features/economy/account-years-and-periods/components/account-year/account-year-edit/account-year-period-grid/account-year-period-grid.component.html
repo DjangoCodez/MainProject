@@ -1,0 +1,38 @@
+<form
+  [formGroup]="form"
+  class="soe-edit-form p-0"
+  novalidate
+  autocomplete="off">
+  <div class="row">
+    <div class="my-2">
+      <div class="float-end">
+        <soe-select
+          [labelKey]="''"
+          [inline]="true"
+          [width]="250"
+          [selectedId]="form.value.periodStatus"
+          [items]="accountStatuses || []"
+          (valueChange)="statusChange($event)"
+          formControlName="status">
+          <soe-icon-button
+            [iconName]="'play-circle'"
+            [disabled]="isNew || status > 3"
+            [iconClass]="'border-radius-right'"
+            [tooltip]="'billing.productrows.changeatteststate'"
+            [noBorder]="false"
+            (action)="changeStatusOnPeriod()"></soe-icon-button>
+        </soe-select>
+      </div>
+    </div>
+  </div>
+
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [height]="367"
+      [rows]="rows"
+      [noMargin]="true"
+      (editRowClicked)="edit($event)"
+      [parentGuid]="guid()">
+    </soe-grid-wrapper>
+  }
+</form>

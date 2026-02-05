@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="SOE_EmployeeTimePeriodReport">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="EmployeeTimePeriodReport">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="LoginNameLabel" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="PageLabel" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="DateLabel" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="TimeLabel" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="TimePeriodLabel" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="DateIntervalLabel" type="xsd:string" minOccurs="0" />
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ReportHeader">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="ReportTitle" type="xsd:string" />
+                    <xsd:element name="ReportDescription" type="xsd:string" />
+                    <xsd:element name="ReportNr" type="xsd:string" />
+                    <xsd:element name="Company" type="xsd:string" />
+                    <xsd:element name="Orgnr" type="xsd:string" />
+                    <xsd:element name="LoginName" type="xsd:string" />
+                    <xsd:element name="TimePeriod" type="xsd:string" />
+                    <xsd:element name="SortByLevel1" type="xsd:string" />
+                    <xsd:element name="SortByLevel2" type="xsd:string" />
+                    <xsd:element name="SortByLevel3" type="xsd:string" />
+                    <xsd:element name="SortByLevel4" type="xsd:string" />
+                    <xsd:element name="IsSortAscending" type="xsd:string" />
+                    <xsd:element name="GroupByLevel1" type="xsd:string" />
+                    <xsd:element name="GroupByLevel2" type="xsd:string" />
+                    <xsd:element name="GroupByLevel3" type="xsd:string" />
+                    <xsd:element name="GroupByLevel4" type="xsd:string" />
+                    <xsd:element name="Special" type="xsd:string" />
+                    <xsd:element name="DateInterval" type="xsd:string" />
+                    <xsd:element name="CompanyLogo" type="xsd:string" />
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element maxOccurs="unbounded" name="Employee">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="EmployeeNr" type="xsd:string" />
+                    <xsd:element name="FirstName" type="xsd:string" />
+                    <xsd:element name="LastName" type="xsd:string" />
+                    <xsd:element name="SocialSec" type="xsd:string" />
+                    <xsd:element name="Note" type="xsd:string" />
+                    <xsd:element name="Period0SumTypeNone"  type="xsd:decimal" />
+                    <xsd:element name="Period0SumTypeTableTax"  type="xsd:decimal" />
+                    <xsd:element name="Period0SumTypeOneTimeTax"  type="xsd:decimal" />
+                    <xsd:element name="Period0SumTypeSINKTax"  type="xsd:decimal" />
+                    <xsd:element name="Period0SumTypeASINKTax"  type="xsd:decimal" />
+                    <xsd:element name="Period0SumTypeEmploymentTaxDebit"  type="xsd:decimal" />
+                    <xsd:element name="Period0SumTypeSupplementChargeDebit"  type="xsd:decimal" />
+                    <xsd:element name="Period0SumTypeGrossSalary"  type="xsd:decimal" />
+                    <xsd:element name="Period0SumTypeNetSalary"  type="xsd:decimal" />
+                    <xsd:element name="Period0SumTypeVacationCompensation"  type="xsd:decimal" />
+                    <xsd:element name="Period0SumTypeBenefit"  type="xsd:decimal" />
+                    <xsd:element name="Period0SumTypeCompensation"  type="xsd:decimal" />
+                    <xsd:element name="Period0SumTypeDeduction"  type="xsd:decimal" />
+                    <xsd:element name="Period0SumTypeUnionFee"  type="xsd:decimal" />
+                    <xsd:element name="Period1SumTypeNone"  type="xsd:decimal" />
+                    <xsd:element name="Period1SumTypeTableTax"  type="xsd:decimal" />
+                    <xsd:element name="Period1SumTypeOneTimeTax"  type="xsd:decimal" />
+                    <xsd:element name="Period1SumTypeSINKTax"  type="xsd:decimal" />
+                    <xsd:element name="Period1SumTypeASINKTax"  type="xsd:decimal" />
+                    <xsd:element name="Period1SumTypeEmploymentTaxDebit"  type="xsd:decimal" />
+                    <xsd:element name="Period1SumTypeSupplementChargeDebit"  type="xsd:decimal" />
+                    <xsd:element name="Period1SumTypeGrossSalary"  type="xsd:decimal" />
+                    <xsd:element name="Period1SumTypeNetSalary"  type="xsd:decimal" />
+                    <xsd:element name="Period1SumTypeVacationCompensation"  type="xsd:decimal" />
+                    <xsd:element name="Period1SumTypeBenefit"  type="xsd:decimal" />
+                    <xsd:element name="Period1SumTypeCompensation"  type="xsd:decimal" />
+                    <xsd:element name="Period1SumTypeDeduction"  type="xsd:decimal" />
+                    <xsd:element name="Period1SumTypeUnionFee"  type="xsd:decimal" />
+                    <xsd:element name="Period2SumTypeNone"  type="xsd:decimal" />
+                    <xsd:element name="Period2SumTypeTableTax"  type="xsd:decimal" />
+                    <xsd:element name="Period2SumTypeOneTimeTax"  type="xsd:decimal" />
+                    <xsd:element name="Period2SumTypeSINKTax"  type="xsd:decimal" />
+                    <xsd:element name="Period2SumTypeASINKTax"  type="xsd:decimal" />
+                    <xsd:element name="Period2SumTypeEmploymentTaxDebit"  type="xsd:decimal" />
+                    <xsd:element name="Period2SumTypeSupplementChargeDebit"  type="xsd:decimal" />
+                    <xsd:element name="Period2SumTypeGrossSalary"  type="xsd:decimal" />
+                    <xsd:element name="Period2SumTypeNetSalary"  type="xsd:decimal" />
+                    <xsd:element name="Period2SumTypeVacationCompensation"  type="xsd:decimal" />
+                    <xsd:element name="Period2SumTypeBenefit"  type="xsd:decimal" />
+                    <xsd:element name="Period2SumTypeCompensation"  type="xsd:decimal" />
+                    <xsd:element name="Period2SumTypeDeduction"  type="xsd:decimal" />
+                    <xsd:element name="Period2SumTypeUnionFee"  type="xsd:decimal" />
+                    <xsd:element name="Period3SumTypeNone"  type="xsd:decimal" />
+                    <xsd:element name="Period3SumTypeTableTax"  type="xsd:decimal" />
+                    <xsd:element name="Period3SumTypeOneTimeTax"  type="xsd:decimal" />
+                    <xsd:element name="Period3SumTypeSINKTax"  type="xsd:decimal" />
+                    <xsd:element name="Period3SumTypeASINKTax"  type="xsd:decimal" />
+                    <xsd:element name="Period3SumTypeEmploymentTaxDebit"  type="xsd:decimal" />
+                    <xsd:element name="Period3SumTypeSupplementChargeDebit"  type="xsd:decimal" />
+                    <xsd:element name="Period3SumTypeGrossSalary"  type="xsd:decimal" />
+                    <xsd:element name="Period3SumTypeNetSalary"  type="xsd:decimal" />
+                    <xsd:element name="Period3SumTypeVacationCompensation"  type="xsd:decimal" />
+                    <xsd:element name="Period3SumTypeBenefit"  type="xsd:decimal" />
+                    <xsd:element name="Period3SumTypeCompensation"  type="xsd:decimal" />
+                    <xsd:element name="Period3SumTypeDeduction"  type="xsd:decimal" />
+                    <xsd:element name="Period3SumTypeUnionFee"  type="xsd:decimal" />
+                    <xsd:element maxOccurs="unbounded" name="EmployeeTimePeriod">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="Modified" type="xsd:dateTime" />
+                          <xsd:element name="ModifiedBy" type="xsd:string" />
+                          <xsd:element name="Created" type="xsd:dateTime" />
+                          <xsd:element name="CreatedBy" type="xsd:string" />
+                          <xsd:element name="Status" type="xsd:int" />
+                          <xsd:element name="DisbursementAccountNr" type="xsd:string" />
+                          <xsd:element name="DisburementNetAmount" type="xsd:decimal" />
+                          <xsd:element name="DisburementExportDate" type="xsd:dateTime" />
+                          <xsd:element name="TimePeriodName" type="xsd:string" />
+                          <xsd:element name="TimePeriodStartDate" type="xsd:dateTime" />
+                          <xsd:element name="TimePeriodStopDate" type="xsd:dateTime" />
+                          <xsd:element name="TimePeriodPayrollStartDate" type="xsd:dateTime" />
+                          <xsd:element name="TimePeriodPayrollStopDate" type="xsd:dateTime" />
+                          <xsd:element name="TimePeriodPaymentDate" type="xsd:dateTime" />
+                          <xsd:element name="SumTypeNone" type="xsd:decimal" />
+                          <xsd:element name="SumTypeTableTax" type="xsd:decimal" />
+                          <xsd:element name="SumTypeOneTimeTax" type="xsd:decimal" />
+                          <xsd:element name="SumTypeSINKTax" type="xsd:decimal" />
+                          <xsd:element name="SumTypeASINKTax" type="xsd:decimal" />
+                          <xsd:element name="SumTypeEmploymentTaxDebit" type="xsd:decimal" />
+                          <xsd:element name="SumTypeSupplementChargeDebit" type="xsd:decimal" />
+                          <xsd:element name="SumTypeGrossSalary" type="xsd:decimal" />
+                          <xsd:element name="SumTypeNetSalary" type="xsd:decimal" />
+                          <xsd:element name="SumTypeVacationCompensation" type="xsd:decimal" />
+                          <xsd:element name="SumTypeBenefit" type="xsd:decimal" />
+                          <xsd:element name="SumTypeCompensation" type="xsd:decimal" />
+                          <xsd:element name="SumTypeDeduction" type="xsd:decimal" />
+                          <xsd:element name="SumTypeUnionFee" type="xsd:decimal" />
+                          <xsd:element maxOccurs="unbounded" name="EmployeeTimeValuePeriod">
+                            <xsd:complexType>
+                              <xsd:sequence>
+                                <xsd:element name="Type" type="xsd:int" />
+                                <xsd:element name="TypeString" type="xsd:string" />
+                                <xsd:element name="Value" type="xsd:decimal" />
+                              </xsd:sequence>
+                              <xsd:attribute name="Id" type="xsd:int" />
+                            </xsd:complexType>
+                          </xsd:element>
+                        </xsd:sequence>
+                        <xsd:attribute name="Id" type="xsd:int" />
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                  <xsd:attribute name="Id" type="xsd:int" />
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

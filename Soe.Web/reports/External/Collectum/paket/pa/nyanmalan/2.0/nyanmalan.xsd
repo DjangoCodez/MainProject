@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:typer="http://collectum.se/typer/2.0" xmlns:nyanmalan="http://collectum.se/paket/pa/nyanmalan/2.0" targetNamespace="http://collectum.se/paket/pa/nyanmalan/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://collectum.se/typer/2.0" schemaLocation="..\..\..\..\typer\2.0\centrala typer.xsd"/>
+	<xs:complexType name="Nyanmalan">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">
+			2013-09-11 separat version 2.0.1.0 för BlueGarden för att möjliggöra flytt från txt format till xml
+			2014-03-07 version 2.0.2.0 justerade typer för namnfält, tillåts inte vara tomma
+			2020-05-27 version 2.1 Element AvtaladManadslon inkluderas för ITP1 (ITSM 111149)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Organisationsnummer" type="typer:Organisationsnummer"/>
+			<xs:element name="KostnadsstalleId" type="typer:KostnadsstalleId"/>
+			<xs:element name="Avtalsplanid" type="typer:Avtalsplanid"/>
+			<xs:element name="Personnummer" type="typer:Personnummer"/>
+			<xs:element name="Handelsetidpunkt" type="xs:date"/>
+			<xs:element name="Efternamn" type="typer:EfternamnGU"/>
+			<xs:element name="Fornamn" type="typer:FornamnGU"/>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="Arslon" type="typer:LonUtanOren"/>
+					<xs:element name="ArslonEfterLoneavstaende" type="typer:LonUtanOren" minOccurs="0"/>
+				</xs:sequence>
+				<xs:sequence>
+					<xs:element name="Manadslon" type="typer:LonUtanOren"/>
+					<xs:element name="AvtaladManadslon" type="typer:LonUtanOren"/>
+				</xs:sequence>
+			</xs:choice>
+			<xs:element name="FulltArbetsfor" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="GradAvArbetsoformaga" type="typer:GradAvArbetsoformaga" minOccurs="0"/>
+			<xs:element name="Tjanstgoringsgrad" type="typer:Tjanstgoringsgrad" minOccurs="0"/>
+			<xs:element name="OrsakTjanstgoringsgrad" type="typer:OrsakTjanstgoringsgrad" minOccurs="0"/>
+			<xs:element name="VanligITP2" type="typer:ValAltITPJN" minOccurs="0"/>
+			<xs:element name="Tidsstampel" type="typer:Timestamp"/>
+		</xs:sequence>
+		<xs:attribute name="version" default="2.1.0.0"/>
+	</xs:complexType>
+</xs:schema>

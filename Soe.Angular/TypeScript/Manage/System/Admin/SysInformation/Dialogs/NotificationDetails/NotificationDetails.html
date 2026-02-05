@@ -1,0 +1,31 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">
+            <span data-l10n-bind="'manage.system.admin.sysinformation.notificationdetails'"></span>
+        </h6>
+    </div>
+    <div class="modal-body">
+        <div class="table-responsive">
+            <table class="table table-condensed table-hover table-outer-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" data-l10n-bind="'manage.system.admin.sysinformation.syscompdb'"></th>
+                        <th scope="col" data-l10n-bind="'core.informationmenu.companyinformation.notificationsent'"></th>
+                        <th scope="col" data-ng-if="ctrl.modifyPermission"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="compDb in ctrl.information.sysInformationSysCompDbs"">
+                        <td><span>{{compDb.siteName}}</span></td>
+                        <td><span>{{compDb.notificationSent | date:'shortDate'}} {{compDb.notificationSent | date:'shortTime'}}</span></td>
+                        <td data-ng-if="ctrl.modifyPermission" data-l10n-bind data-l10n-bind-title="'core.informationmenu.companyinformation.notificationsent.delete'"><i class="fal fa-times iconDelete link" data-ng-if="compDb.notificationSent" data-ng-click="ctrl.deleteNotificationSent(compDb);"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.cancel()"></button>
+    </div>
+</div>

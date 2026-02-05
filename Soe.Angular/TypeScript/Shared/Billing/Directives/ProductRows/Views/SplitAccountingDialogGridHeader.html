@@ -1,0 +1,10 @@
+﻿<form class="form-inline">
+    <div>
+        <div class="col form-group form-group-sm margin-small-right">
+            <soe-label label-key="billing.productrows.splitaccounting.splittype"></soe-label>
+        </div>
+        <div class="col form-group form-group-sm">
+            <soe-select hidelabel="true" model="ctrl.splitType" items="ctrl.splitTypes" options="item as item.name for item in items" is-readonly="ctrl.isReadonly || ctrl.multipleRowSplit" on-changing="ctrl.splitTypeChanged()"></soe-select>
+        </div>
+    </div>
+</form>

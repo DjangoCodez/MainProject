@@ -1,0 +1,46 @@
+﻿<form name="ctrl.dialogform" employee-setting-dialog-validation ng-model="ctrl.setting" settings="ctrl.settings">
+    <div class="messagebox">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></h6>
+            <h6 class="modal-title" data-l10n-bind="'core.edit'" data-ng-if="!ctrl.isNew"></h6>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-select label-key="common.group" model="ctrl.setting.employeeSettingGroupType" items="ctrl.groupTypes" options="item.employeeSettingGroupType as item.name for item in items" is-required="true" auto-focus="true" on-changing="ctrl.groupTypeChanged();"></soe-select>
+                </div>
+                <div class="col-sm-6">
+                    <soe-select label-key="common.type" model="ctrl.setting.employeeSettingType" items="ctrl.filteredTypes" options="item.employeeSettingType as item.name for item in items" is-required="true" on-changing="ctrl.typeChanged();"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-datepicker label-key="common.fromdate" model="ctrl.setting.validFromDate" second-model="ctrl.setting.validToDate" validate-date-range="true" is-start-in-range="true"></soe-datepicker>
+                </div>
+                <div class="col-sm-6">
+                    <soe-datepicker label-key="common.todate" model="ctrl.setting.validToDate" second-model="ctrl.setting.validFromDate" validate-date-range="true"></soe-datepicker>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.selectedType">
+                <div class="col-sm-6">
+                    <soe-textbox label-key="common.value" model="ctrl.setting.strData" max-length="ctrl.selectedType.maxLength" data-ng-if="ctrl.setting.isDataTypeString"></soe-textbox>
+                    <soe-textbox label-key="common.value" model="ctrl.setting.intData" numeric="true" decimals="0" data-ng-if="ctrl.setting.isDataTypeInteger && !ctrl.selectedType.hasOptions"></soe-textbox>
+                    <soe-textbox label-key="common.value" model="ctrl.setting.decimalData" numeric="true" decimals="2" data-ng-if="ctrl.setting.isDataTypeDecimal"></soe-textbox>
+                    <soe-checkbox label-key="common.value" model="ctrl.setting.boolData" data-ng-if="ctrl.setting.isDataTypeBoolean"></soe-checkbox>
+                    <soe-datepicker label-key="common.value" model="ctrl.setting.dateData" data-ng-if="ctrl.setting.isDataTypeDate"></soe-datepicker>
+                    <soe-timebox label-key="common.value" model="ctrl.setting.timeData" data-ng-if="ctrl.setting.isDataTypeTime" is-time="true" ></soe-timebox>
+                    <soe-select label-key="common.value" model="ctrl.setting.intData" items="ctrl.selectedType.options" options="item.id as item.name for item in items" data-ng-if="ctrl.setting.isDataTypeInteger && ctrl.selectedType.hasOptions"></soe-select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-show="!ctrl.dialogform.$invalid && !ctrl.readOnly" data-ng-click="ctrl.ok()"></button>
+            <div class="btn-group" role="group" data-ng-show="ctrl.dialogform.$invalid && !ctrl.readOnly">
+                <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.ok'" data-ng-disabled="ctrl.dialogform.$invalid"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButtonInvalid" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+            </div>
+        </div>
+    </div>
+</form>

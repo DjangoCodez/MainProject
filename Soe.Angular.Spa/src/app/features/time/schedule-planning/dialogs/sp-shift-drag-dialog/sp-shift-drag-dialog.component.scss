@@ -1,0 +1,40 @@
+@use '../../../../../shared/styles/core-styles/colors.scss';
+@use '../../../../../shared/styles/core-styles/fonts.scss';
+@use '../../../../../shared/styles/core-styles/variables.scss';
+
+/* If soe-expansion-panel has its own internal wrapper limiting height */
+:host ::ng-deep soe-expansion-panel.panel-fill > * {
+  flex: 1 1 auto;
+}
+
+.content-container {
+  margin: 1rem 1rem 0.5rem 1rem;
+
+  soe-expansion-panel.panel-fill {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%; // fill the column height
+  }
+
+  .employee-row-container {
+    font-size: fonts.$soe-font-size-lg;
+    font-weight: fonts.$font-weight-bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .action-info-container {
+    height: 2rem;
+    align-content: center;
+
+    .action-info {
+      font-size: fonts.$soe-font-size-md;
+    }
+  }
+}
+
+.footer-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

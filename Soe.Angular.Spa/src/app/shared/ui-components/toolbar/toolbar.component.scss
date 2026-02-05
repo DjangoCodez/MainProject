@@ -1,0 +1,109 @@
+@use '../../styles/core-styles/colors.scss';
+@use '../../styles/core-styles/fonts.scss';
+@use '../../styles/core-styles/variables.scss';
+
+.toolbar-container {
+  display: block;
+  min-height: 3rem;
+  border: 1px solid colors.$soe-border-color;
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  padding: 0.5rem;
+
+  &.no-padding {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  &.no-top-bottom-padding {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    min-height: 2.5rem;
+  }
+
+  &.no-margin {
+    margin: 0px;
+  }
+
+  &.no-border {
+    border: 0px;
+  }
+
+  .btn-group.float-start {
+    margin-right: 8px;
+  }
+
+  .btn-group.float-end {
+    margin-left: 8px;
+  }
+
+  .btn-group > .btn:not(:last-child):not(.dropdown-toggle),
+  .btn-group > .btn.dropdown-toggle-split:first-child,
+  .btn-group > .btn-group:not(:last-child) > .btn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .btn-group > .btn:nth-child(n + 3),
+  .btn-group > :not(.btn-check) + .btn,
+  .btn-group > .btn-group:not(:first-child) > .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .btn {
+    height: 32px !important;
+    min-width: 32px;
+    --bs-btn-line-height: 1rem;
+    border: 1px solid colors.$soe-border-color;
+    border-radius: variables.$button-border-radius;
+    background-color: colors.$soe-background-color;
+    padding: 8px 16px;
+    font-size: fonts.$soe-font-size-md;
+    color: colors.$soe-text-color;
+
+    --bs-btn-active-color: colors.$soe-text-color;
+    --bs-btn-active-bg: colors.$soe-color-secondary-blue-70;
+    --bs-btn-disabled-color: colors.$soe-disabled-text-color;
+    --bs-btn-focus-shadow-rgb: unset;
+
+    &.btn:disabled,
+    &.btn.disabled {
+      border-color: colors.$soe-disabled-border-color;
+      background-color: colors.$soe-disabled-background-color;
+      color: colors.$soe-disabled-input-color;
+    }
+
+    &.btn:hover {
+      border-color: colors.$soe-border-color;
+      background-color: colors.$soe-button-hover-background-color;
+      color: colors.$soe-text-color;
+    }
+
+    &.btn:focus {
+      border-color: colors.$soe-color-secondary-blue;
+      background-color: colors.$soe-background-color;
+      color: colors.$soe-text-color;
+    }
+
+    &.btn.is-disabled,
+    &.btn.is-disabled:hover,
+    &.btn.is-disabled:focus,
+    &.btn.is-disabled:active {
+      border-color: colors.$soe-disabled-border-color;
+      background-color: colors.$soe-disabled-background-color;
+      color: colors.$soe-disabled-input-color;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    &:active {
+      outline: none;
+    }
+
+    fa-icon {
+      font-size: fonts.$soe-font-size-lg;
+    }
+  }
+}

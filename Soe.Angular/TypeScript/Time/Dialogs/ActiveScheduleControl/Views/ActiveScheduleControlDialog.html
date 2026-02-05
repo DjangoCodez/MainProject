@@ -1,0 +1,43 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <strong>
+            <span data-l10n-bind="'time.schedule.activate.to'"></span>
+            <span>{{ctrl.activateDate | date:'shortDate'}}</span>
+        </strong>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="info">
+                    <strong><span data-l10n-bind="'time.schedule.activate.absencerequest'"></span></strong>
+                    <span data-l10n-bind="'time.schedule.activate.absencerequestinfotext'"></span>
+                    <br />
+                    <strong><span data-l10n-bind="'time.schedule.activate.absence'"></span></strong>
+                    <span data-l10n-bind="'time.schedule.activate.absenceinfotext'"></span>
+                    <br />
+                    <strong><span data-l10n-bind="'time.schedule.activate.changedschedule'"></span></strong>
+                    <span data-l10n-bind="'time.schedule.activate.changedscheduleinfotext'"></span>
+                    <br />
+                    <strong><span data-l10n-bind="'time.schedule.activate.changedresult'"></span></strong>
+                    <span data-l10n-bind="'time.schedule.activate.changedresultinfotext'"></span>
+                    <br /><br />
+                    <span data-l10n-bind="'time.schedule.activate.exportinfotext'"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <div id="activeSchedule-grid" ag-grid="ctrl.gridHandler.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.exportexcel'" data-ng-click="ctrl.exportToExcel()"></button>
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'time.schedule.activate.confirm'" data-ng-click="ctrl.ok()"></button>
+    </div>
+
+</form>

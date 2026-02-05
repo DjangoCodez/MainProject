@@ -1,0 +1,106 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></h6>
+        <h6 class="modal-title" data-ng-if="!ctrl.isNew"><span data-l10n-bind="'core.edit'"></span><span> {{ctrl.setting.payrollGroupName}}</span></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-select label-key="time.payroll.payrollproduct.setting.centroundingtype" model="ctrl.centRoundingType" items="ctrl.centRoundingTypes" options="item as item.name for item in items" is-disabled="ctrl.isCentRoundingTypeDisabled"></soe-select>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-select label-key="time.payroll.payrollproduct.setting.centroundinglevel" model="ctrl.centRoundingLevel" items="ctrl.centRoundingLevels" options="item as item.name for item in items" is-disabled="ctrl.isCentRoundingLevelDisabled"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-select label-key="time.payroll.payrollproduct.setting.taxcalculationtype" model="ctrl.taxCalculationType" items="ctrl.taxCalculationTypes" options="item as item.name for item in items" is-disabled="ctrl.isTaxCalculationTypeDisabled"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-select label-key="time.payroll.payrollproduct.setting.pensioncompany" model="ctrl.pensionCompany" items="ctrl.pensionCompanies" options="item as item.name for item in items" is-disabled="ctrl.isPensionCompanyDisabled"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-select label-key="time.payroll.payrollproduct.setting.timeunit" model="ctrl.timeUnit" items="ctrl.timeUnits" options="item as item.name for item in items" is-disabled="ctrl.isTimeUnitDisabled"></soe-select>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-select label-key="time.payroll.payrollproduct.setting.quantityroundingtype" model="ctrl.quantityRoundingType" items="ctrl.quantityRoundingTypes" options="item as item.name for item in items" is-disabled="ctrl.isQuantityRoundingTypeDisabled"></soe-select>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-textbox label-key="time.payroll.payrollproduct.setting.quantityroundingminutes" model="ctrl.setting.quantityRoundingMinutes" numeric="true" decimals="0" update-on="blur" is-disabled="ctrl.isQuantityRoundingMinutesDisabled"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-select label-key="time.payroll.payrollproduct.setting.childproduct" model="ctrl.childProduct" items="ctrl.payrollProductChildren" options="item as item.name for item in items" is-disabled="ctrl.isChildProductDisabled"></soe-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <soe-checkbox label-key="time.payroll.payrollproduct.setting.printonsalaryspecification" text-class="margin-small-top" text-class-condition="true" is-readonly="ctrl.isPrintOnSalarySpecificationReadOnly" model="ctrl.setting.printOnSalarySpecification"></soe-checkbox>
+                    <soe-checkbox label-key="time.payroll.payrollproduct.setting.dontprintonsalaryspecificationwhenzeroamount" text-class="margin-small-top" text-class-condition="true" is-readonly="ctrl.isPrintOnSalarySpecificationReadOnly" model="ctrl.setting.dontPrintOnSalarySpecificationWhenZeroAmount"></soe-checkbox>
+                    <soe-checkbox label-key="time.payroll.payrollproduct.setting.printdate" text-class="margin-small-top" text-class-condition="true" is-readonly="ctrl.isPrintDateReadOnly" model="ctrl.setting.printDate"></soe-checkbox>
+                    <soe-checkbox label-key="time.payroll.payrollproduct.setting.dontincludeinretroactivepayroll" text-class="margin-small-top" text-class-condition="true" is-readonly="ctrl.isDontIncludeInRetroactivePayrollReadOnly" model="ctrl.setting.dontIncludeInRetroactivePayroll"></soe-checkbox>
+                    <soe-checkbox label-key="time.payroll.payrollproduct.setting.vacationsalarypromoted" text-class="margin-small-top" text-class-condition="true" is-readonly="ctrl.isVacationSalaryPromotedReadOnly" model="ctrl.setting.vacationSalaryPromoted"></soe-checkbox>
+                    <soe-checkbox label-key="time.payroll.payrollproduct.setting.unionfeepromoted" text-class="margin-small-top" text-class-condition="true" is-readonly="ctrl.isUnionFeePromotedReadOnly" model="ctrl.setting.unionFeePromoted"></soe-checkbox>
+                    <soe-checkbox label-key="time.payroll.payrollproduct.setting.workingtimepromoted" text-class="margin-small-top" text-class-condition="true" is-readonly="ctrl.isWorkingTimePromotedReadOnly" model="ctrl.setting.workingTimePromoted"></soe-checkbox>
+                    <soe-checkbox label-key="time.payroll.payrollproduct.setting.calculatesupplementcharge" text-class="margin-small-top" text-class-condition="true" is-readonly="ctrl.isCalculateSupplementChargeReadOnly" model="ctrl.setting.calculateSupplementCharge"></soe-checkbox>
+                    <soe-checkbox label-key="time.payroll.payrollproduct.setting.calculatesicknesssalary" text-class="margin-small-top" text-class-condition="true" is-readonly="ctrl.isCalculateSicknessSalaryReadOnly" model="ctrl.setting.calculateSicknessSalary"></soe-checkbox>
+                    <soe-checkbox label-key="time.payroll.payrollproduct.setting.dontincludeinabsencecost" text-class="margin-small-top" text-class-condition="true" is-readonly="ctrl.readOnly" model="ctrl.setting.dontIncludeInAbsenceCost"></soe-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-8">
+                    <payroll-product-price-types-and-formulas read-only="ctrl.readOnly" product-price-types="ctrl.setting.priceTypes" product-formulas="ctrl.setting.priceFormulas" payroll-price-types-and-formulas="ctrl.payrollPriceTypesAndFormulas"></payroll-product-price-types-and-formulas>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <accounting-settings setting-types="ctrl.accountSettingTypes" settings="ctrl.setting.accountingSettings" show-base-account="false" min-rows="1" read-only="ctrl.readOnly" parent-guid="ctrl.guid" set-dim-nr-if-zero="true"> </accounting-settings>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-label label-key="time.payroll.payrollproduct.setting.accountingprio"></soe-label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2" data-ng-repeat="dim in ctrl.accountDims">
+                    <soe-label label-key="common.accountingsettings.account" data-ng-if="dim.accountDimNr === 1"></soe-label>
+                    <soe-label model="dim.name" data-ng-if="dim.accountDimNr !== 1"></soe-label>
+                    <soe-select hidelabel="true" model="ctrl.payrollProductAccountingPrioRows[$index]" items="ctrl.payrollProductAccountingPrios" options="item.id as item.name for item in items"></soe-select>
+                </div>
+            </div>
+            <div class="row margin-large-top">
+                <div class="col-sm-12">
+                    <uib-accordion close-others="false">
+                        <soe-accordion label-key="common.extrafields.extrafields" is-open="true" ng-if="ctrl.showExtraFieldsExpander" on-open="ctrl.onExtraFieldsExpanderOpenClose()" on-close="ctrl.onExtraFieldsExpanderOpenClose()">
+                            <div class="form-group form-group-sm" ng-if="ctrl.extraFieldsExpanderRendered">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <extra-fields record-id="ctrl.setting.payrollProductSettingId" entity="77" parent-guid="ctrl.guid" extra-field-records="ctrl.extraFieldRecords"></extra-fields>
+                                    </div>
+                                </div>
+                            </div>
+                        </soe-accordion>
+                    </uib-accordion>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

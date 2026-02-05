@@ -1,0 +1,15 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (selectionChanged)="selectionChanged($event)"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+    <soe-net-prices-grid-header
+      toolbar-content-left
+      [wholesellersDict]="wholesellersDict"
+      [disableDeleteFunction]="disableDeleteFunction()"
+      (clickRemoveNetprices)="removeNetPrices()"
+      (clickAddNetprices)="importNetPrices()"
+      (filterChanged)="changeWholeseller($event)"></soe-net-prices-grid-header>
+  </soe-grid-wrapper>
+}

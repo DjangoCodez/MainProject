@@ -1,0 +1,57 @@
+<div class="context-menu" cdkMenu>
+  @if (!filterService.showAllEmployees()) {
+    <button
+      class="context-menu-item"
+      cdkMenuItem
+      (cdkMenuItemTriggered)="
+        onMenuSelected(EmployeeMenuOption.ShowAllEmployees)
+      ">
+      <fa-icon [icon]="['fal', 'user-group']" [fixedWidth]="true"></fa-icon>
+      <span>{{ 'time.schedule.planning.showallemployees' | translate }}</span>
+    </button>
+  } @else {
+    <button
+      class="context-menu-item"
+      cdkMenuItem
+      (cdkMenuItemTriggered)="
+        onMenuSelected(EmployeeMenuOption.HideEmployeesWithoutShifts)
+      ">
+      <fa-icon [icon]="['fal', 'poll-people']" [fixedWidth]="true"></fa-icon>
+      <!-- New term -->
+      <span>{{ 'Dölj anställda utan pass' }}</span>
+    </button>
+  }
+  <div class="border-bottom"></div>
+  @if (employee()) {
+    <button
+      class="context-menu-item"
+      cdkMenuItem
+      (cdkMenuItemTriggered)="
+        onMenuSelected(EmployeeMenuOption.ReloadEmployee)
+      ">
+      <fa-icon [icon]="['fal', 'arrows-rotate']" [fixedWidth]="true"></fa-icon>
+      <span>{{
+        'time.schedule.planning.employee.contextmenu.reloademployee' | translate
+      }}</span>
+    </button>
+  }
+  <button
+    class="context-menu-item"
+    cdkMenuItem
+    (cdkMenuItemTriggered)="
+      onMenuSelected(EmployeeMenuOption.ReloadAllEmployees)
+    ">
+    <fa-icon [icon]="['fal', 'arrows-rotate']" [fixedWidth]="true"></fa-icon>
+    <span>{{ 'time.schedule.planning.reloadallemployees' | translate }}</span>
+  </button>
+  @if (employee() && SoeConfigUtil.isSupportAdmin) {
+    <div class="border-bottom"></div>
+    <button
+      class="context-menu-item"
+      cdkMenuItem
+      (cdkMenuItemTriggered)="onMenuSelected(EmployeeMenuOption.Debug)">
+      <fa-icon [icon]="['fal', 'ban-bug']" [fixedWidth]="true"></fa-icon>
+      <span>{{ 'Debug (console.log)' }}</span>
+    </button>
+  }
+</div>

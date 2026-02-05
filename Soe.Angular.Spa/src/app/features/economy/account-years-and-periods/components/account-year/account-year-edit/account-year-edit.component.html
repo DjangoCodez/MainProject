@@ -1,0 +1,137 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'economy.accounting.accountyear.accountyear'"
+      [open]="true"
+      [static]="true">
+      <div class="row">
+        @if (form.isNew) {
+          <div class="col-sm-4">
+            <soe-instruction text="economy.accounting.accountyear.headerinfo">
+            </soe-instruction>
+          </div>
+        }
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-datepicker
+            [labelKey]="'common.from'"
+            [view]="'month'"
+            formControlName="from"
+            required="true"
+            [lastInPeriod]="false"></soe-datepicker>
+        </div>
+        <div class="col-sm-2">
+          <soe-datepicker
+            [labelKey]="'common.to'"
+            [view]="'month'"
+            formControlName="to"
+            required="true"
+            [lastInPeriod]="true">
+          </soe-datepicker>
+        </div>
+        @if (!form.isNew) {
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'common.status'"
+              formControlName="status"
+              [items]="accountStatuses || []">
+            </soe-select>
+          </div>
+        }
+      </div>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel
+      [labelKey]="'economy.accounting.accountyear.periods'"
+      [noPadding]="true">
+      <div class="row">
+        <soe-account-year-period-grid
+          [parentForm]="form"
+          [rows]="periodData"
+          [isNew]="form.isNew"
+          [from]="form.from.value"
+          [to]="form.to.value"
+          [status]="form.accountYearStatus"
+          (isDirty)="doDirty($event)"></soe-account-year-period-grid>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel
+      [labelKey]="'economy.accounting.voucherseriestypes'"
+      [noPadding]="true">
+      <div class="row">
+        <soe-voucher-series-type-grid
+          [headForm]="form"
+          [rows]="voucherSeriesData"
+          [isNew]="form.isNew"
+          [status]="form.accountYearStatus"
+          [voucherSeriesTypes]="
+            voucherSeriesTypes
+          "></soe-voucher-series-type-grid>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel
+      [labelKey]="'economy.accounting.accountyear.vouchertemplates'"
+      [noPadding]="true">
+      <div class="row">
+        <soe-voucher-template-grid
+          [form]="form"
+          [rows]="voucherTemplateData"
+          [status]="form.accountYearStatus"
+          [isDirty]="form.dirty"
+          [accountYearId]="form.value.accountYearId"
+          (reloadVoucherTemplate)="
+            reloadVoucherTemplate()
+          "></soe-voucher-template-grid>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel
+      [labelKey]="'economy.accounting.grossprofitcode.grossprofitcodes'"
+      [noPadding]="true">
+      <div class="row">
+        <soe-gross-profit-codes-grid
+          [form]="form"
+          [rows]="grossProfitData"
+          [status]="form.accountYearStatus"
+          [isDirty]="form.dirty"
+          [accountYearId]="form.value.accountYearId"
+          (reloadGrossProfit)="
+            reloadGrossProfit()
+          "></soe-gross-profit-codes-grid>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [hideDelete]="!enableDeleteYear()"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()">
+      @if (hasUnlockYearPermission && visibleUnlockButton()) {
+        <soe-button
+          [caption]="'economy.accounting.accountyear.unlock'"
+          (action)="unlockYear()">
+        </soe-button>
+      }
+      @if (form.isNew) {
+        <soe-checkbox
+          [labelKey]="'economy.accounting.accountyear.keepnumbers'"
+          [checked]="form.value.keepNumberSeries"
+          formControlName="keepNumberSeries"></soe-checkbox>
+      }
+    </soe-edit-footer>
+  </form>
+}

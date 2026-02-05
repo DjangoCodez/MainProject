@@ -1,0 +1,64 @@
+﻿<div>
+    <soe-panel label-key="time.time.timeabsencerules.timeabsencerulerow" condensed="true">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col" data-ng-if="ctrl.timeAbsenceRuleRows.length>0 && !ctrl.allPayrollProductRowsExpanded"><span data-l10n-bind data-l10n-bind-title="'time.time.timeabsencerules.timeabsencerulerow.expandpayrollproductrows'"><span class="link" data-ng-click="ctrl.expandAllPayrollProductRows();">+</span></span></th>
+                    <th scope="col" data-ng-if="ctrl.timeAbsenceRuleRows.length>0 && ctrl.allPayrollProductRowsExpanded"><span data-l10n-bind data-l10n-bind-title="'time.time.timeabsencerules.timeabsencerulerow.collapsepayrollproductrows'"><span class="link" data-ng-click="ctrl.collapseAllPayrollProductRows();">-</span></span></th>
+                    <th scope="col" id="header_start" data-l10n-bind="'common.start'"></th>
+                    <th scope="col" id="header_stop" data-l10n-bind="'common.stop'"></th>
+                    <th scope="col" id="header_type" data-l10n-bind="'common.type'"></th>
+                    <th scope="col" id="header_scope" data-l10n-bind="'time.time.timeabsencerules.timeabsencerulerow.scope'" data-ng-if="ctrl.showScope()"></th>
+                    <th scope="col" id="header_payrollproduct" data-ng-if="ctrl.showPayrollProduct()" data-l10n-bind="'common.payrollproduct'"></th>
+                    <th scope="col" class="table-header-button" style="width: 130px;" colspan="4" data-ng-if="!ctrl.readOnly">
+                        <span data-l10n-bind data-l10n-bind-title="'time.time.timeabsencerules.timeabsencerulerow.new'" data-ng-click="ctrl.editTimeAbsenceRuleRow(null);"><i class="fal fa-plus"></i><span data-l10n-bind="'time.time.timeabsencerules.timeabsencerulerow.new'"></span></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="timeAbsenceRuleRow in ctrl.timeAbsenceRuleRows | orderBy:'sort' track by $index">
+                <tr data-ng-class="{'table-selected-row': ctrl.selectedTimeAbsenceRuleRow === timeAbsenceRuleRow}" data-ng-click="ctrl.selectedTimeAbsenceRuleRow = timeAbsenceRuleRow">
+                    <td style="width: 20px"><i class="fas fa-caret-right" data-ng-if="ctrl.selectedTimeAbsenceRuleRow === timeAbsenceRuleRow"></i></td>
+                    <td>
+                        <span data-l10n-bind data-l10n-bind-title="'time.time.timeabsencerules.timeabsencerulerow.expandpayrollproductrow'" data-ng-if="timeAbsenceRuleRow.payrollProductRows.length>0 && !timeAbsenceRuleRow.expanded"><span class="link" data-ng-click="timeAbsenceRuleRow.expanded=true">+</span></span>
+                        <span data-l10n-bind data-l10n-bind-title="'time.time.timeabsencerules.timeabsencerulerow.collapsepayrollproductrow'" data-ng-if="timeAbsenceRuleRow.payrollProductRows.length>0 && timeAbsenceRuleRow.expanded"><span class="link" data-ng-click="timeAbsenceRuleRow.expanded=false">-</span></span>
+                    </td>
+                    <td style="width: 100px"><span>{{timeAbsenceRuleRow.start}}</span></td>
+                    <td style="width: 100px"><span>{{timeAbsenceRuleRow.stop}}</span></td>
+                    <td style="width: auto"><span>{{timeAbsenceRuleRow.typeName}}</span></td>
+                    <td style="width: auto" data-ng-if="ctrl.showScope()"><span>{{timeAbsenceRuleRow.scopeName}}</span></td>
+                    <td data-ng-if="ctrl.showPayrollProduct()" style="width: auto"><span>{{timeAbsenceRuleRow.payrollProductNr}}</span>&nbsp;<span>{{timeAbsenceRuleRow.payrollProductName}}</span></td>
+                    <td style="width: 74px"></td>
+                    <td style="width: 28px" data-ng-if="!ctrl.readOnly"><span data-l10n-bind data-l10n-bind-title="'time.time.timeabsencerules.timeabsencerulerow.newpayrollproductrow'"><i class="fal fa-calendar-plus link" data-ng-click="ctrl.editPayrollProductRow(null);"></i></span></td>
+                    <td style="width: 28px" data-ng-if="!ctrl.readOnly"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-click="ctrl.editTimeAbsenceRuleRow(timeAbsenceRuleRow);"></i></span></td>
+                    <td style="width: 28px" data-ng-if="!ctrl.readOnly"><span data-l10n-bind data-l10n-bind-title="'core.deleterow'"><i class="fal fa-times iconDelete link" data-ng-click="ctrl.deleteTimeAbsenceRuleRow(timeAbsenceRuleRow);"></i></span></td>
+                </tr>
+                <tr data-ng-if="timeAbsenceRuleRow.payrollProductRows.length>0 && timeAbsenceRuleRow.expanded">
+                    <td colspan="10">
+                        <div class="table-outer-bordered">
+                            <table class="table table-condensed table-striped table-hover" style="margin-bottom: 0;">
+                                <thead>
+                                    <tr>
+                                        <th id="row_sourceproduct" data-l10n-bind="'time.time.timeabsencerules.timeabsencerulerow.sourcepayrollproduct'"></th>
+                                        <th id="row_targetproduct" data-l10n-bind="'time.time.timeabsencerules.timeabsencerulerow.targetpayrollproduct'"></th>
+                                        <th id="row_button" class="table-header-button" colspan="2" data-ng-if="!ctrl.readOnly">
+                                            &nbsp;
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="payrollProductRow in timeAbsenceRuleRow.payrollProductRows | orderBy:'sourcePayrollProductNr' track by $index">
+                                        <td style="width: 295px"><span>{{payrollProductRow.sourcePayrollProductNr}}&nbsp;{{payrollProductRow.sourcePayrollProductName}}</span></td>
+                                        <td style="width: auto"><span>{{payrollProductRow.targetPayrollProductNr}}&nbsp;{{payrollProductRow.targetPayrollProductName}}</span></td>
+                                        <td style="width: 28px" data-ng-if="!ctrl.readOnly"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-click="ctrl.selectedTimeAbsenceRuleRow = timeAbsenceRuleRow; ctrl.editPayrollProductRow(payrollProductRow);"></i></span></td>
+                                        <td style="width: 28px" data-ng-if="!ctrl.readOnly"><span data-l10n-bind data-l10n-bind-title="'core.deleterow'"><i class="fal fa-times iconDelete link" data-ng-click="ctrl.selectedTimeAbsenceRuleRow = timeAbsenceRuleRow; ctrl.deletePayrollProductRow(payrollProductRow);"></i></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </soe-panel>
+</div>

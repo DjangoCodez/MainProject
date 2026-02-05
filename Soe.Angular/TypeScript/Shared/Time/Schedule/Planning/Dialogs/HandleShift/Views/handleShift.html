@@ -1,0 +1,308 @@
+﻿<div>
+    <div class="modal-header" data-ng-class="{'scheduleview-header':!ctrl.isTemplateView && !ctrl.isEmployeePostView, 'templateview-header': ctrl.isTemplateView, 'employeepostview-header': ctrl.isEmployeePostView}">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">{{ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <!-- Header -->
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <span data-ng-class="{'errorColor': !ctrl.hasActionPermission}">{{ctrl.headerRow1}}</span>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.hasActionPermission">
+                <div class="col-sm-12">
+                    <span data-l10n-bind="'time.schedule.planning.handleshift.headerrow2'"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-12 info">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <soe-textbox label-key="common.date" model="ctrl.dateRangeText" input-class="borderless" input-class-condition="true"></soe-textbox>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <soe-textbox label-key="common.employee" model="ctrl.employeeText" input-class="borderless" input-class-condition="true"></soe-textbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shifts -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-panel label-value="ctrl.shiftsUndefined | toUpperCaseFirstLetter" condensed="true">
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col" data-ng-if="ctrl.isSchedulePlanningMode"><span data-l10n-bind="'common.shifttype'"></span></th>
+                                        <th scope="col" data-ng-if="ctrl.isOrderPlanningMode"><span data-l10n-bind="'common.ordershifttype'"></span></th>
+                                        <th scope="col" data-ng-if="ctrl.multipleDates"><span data-l10n-bind="'common.date'"></span></th>
+                                        <th scope="col"><span data-l10n-bind="'common.time'"></span></th>
+                                        <th scope="col"><span data-l10n-bind="'common.status'"></span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="shift in ctrl.shifts" data-ng-class="{'table-selected-row': ctrl.selectedShift === shift}" data-ng-click="ctrl.selectedShift = shift">
+                                        <td style="width: 20px;"><i class="fas fa-caret-right" data-ng-if="ctrl.selectedShift === shift"></i></td>
+                                        <td><span>{{::shift.shiftTypeName}}</span><span data-ng-if="ctrl.hasMultipleEmployeeAccounts && shift.accountName"> ({{::shift.accountName}})</span></td>
+                                        <td data-ng-if="ctrl.multipleDates"><span>{{::shift.actualStartTime|date:'shortDate'}}</span></td>
+                                        <td><span>{{::shift.actualStartTime|date:'shortTime'}} - {{::shift.actualStopTime|date:'shortTime'}}</span></td>
+                                        <td><span>{{::shift.shiftUserStatusName}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </soe-panel>
+                    </div>
+                </div>
+
+                <!-- Breaks -->
+                <div class="row margin-large-top">
+                    <div class="col-sm-12">
+                        <soe-panel label-key="time.schedule.planning.breaks" condensed="true">
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col"><span data-l10n-bind="'time.schedule.planning.editshift.breaktimecode'"></span></th>
+                                        <th scope="col"><span data-l10n-bind="'common.time'"></span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="brk in ctrl.breaks track by $index">
+                                        <td style="width: 20px;"></td>
+                                        <td><span>{{::brk.shiftTypeName}}</span></td>
+                                        <td><span>{{::brk.actualStartTime|date:'shortTime'}} - {{::brk.actualStopTime|date:'shortTime'}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </soe-panel>
+                    </div>
+                </div>
+                <div data-ng-if="ctrl.isOrderPlanningMode && ctrl.selectedShift">
+                    <div class="info margin-small-bottom">
+                        <div class="row" data-ng-if="ctrl.selectedShift.order.priority">
+                            <div class="col-sm-4">
+                                <soe-label label-key="common.priority"></soe-label>
+                            </div>
+                            <div class="col-sm-8">
+                                <soe-text model="ctrl.selectedShift.order.priority"></soe-text>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-label label-key="time.schedule.planning.ordernumber"></soe-label>
+                            </div>
+                            <div class="col-sm-8">
+                                <soe-text model="ctrl.selectedShift.order.orderNr"></soe-text>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-label label-key="common.customer"></soe-label>
+                            </div>
+                            <div class="col-sm-8">
+                                <soe-text model="ctrl.customerInfo"></soe-text>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-label label-key="common.customer.customer.orderproject"></soe-label>
+                            </div>
+                            <div class="col-sm-8">
+                                <soe-text model="ctrl.projectInfo"></soe-text>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info margin-small-top" data-ng-if="ctrl.selectedShift.order.workingDescription">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-label label-key="common.description"></soe-label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-text model="ctrl.selectedShift.order.workingDescription"></soe-text>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <!-- Queue -->
+                <div class="row margin-small-bottom" data-ng-if="ctrl.showQueuePermission && ctrl.selectedShift.nbrOfWantedInQueue > 0">
+                    <div class="col-sm-12">
+                        <uib-accordion close-others="false">
+                            <soe-accordion label-model="ctrl.queueTitle" label-value="ctrl.nbrOfQueues" label-value-in-parentheses="true" condensed="true" is-open="true">
+                                <div style="margin: -5px -10px;">
+                                    <shift-queue shift-id="ctrl.selectedShift.timeScheduleTemplateBlockId" nbr-of-queues="ctrl.nbrOfQueues" selected-queue="ctrl.selectedQueue" is-readonly="true"></shift-queue>
+                                </div>
+                            </soe-accordion>
+                        </uib-accordion>
+                    </div>
+                </div>
+                <!-- Skills -->
+                <div class="row" data-ng-if="ctrl.showSkills">
+                    <div class="col-sm-12">
+                        <uib-accordion close-others="false">
+                            <soe-accordion label-key="time.schedule.planning.editshift.skills" label-class="{'errorColor':ctrl.invalidSkills}" label-value="ctrl.nbrOfSkills" label-value-in-parentheses="true" condensed="true" is-open="ctrl.skillsOpen">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <skill-matcher invalid="ctrl.invalidSkills" date="ctrl.selectedDate" shift-type-ids="ctrl.shiftTypeIds" employee-id="ctrl.employeeId" nbr-of-skills="ctrl.nbrOfSkills" on-open="ctrl.skillsOpened()"></skill-matcher>
+                                    </div>
+                                </div>
+                            </soe-accordion>
+                        </uib-accordion>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Actions -->
+        <div class="row margin-large-top" data-ng-if="ctrl.hasActionPermission">
+            <div class="col-sm-12">
+                <soe-panel label-key="time.schedule.planning.handleshift.actions">
+                    <div class="toggle-group">
+                        <!-- Wanted -->
+                        <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.showWanted">
+                            <div class="col-sm-3">
+                                <input type="radio" id="action_wanted" name="action" data-ng-model="ctrl.selectedActionValue" value="1" data-ng-class="{ 'checked': ctrl.selectedAction == 1 }">
+                                <label class="btn btn-default btn-block" for="action_wanted">{{ctrl.buttonWantedLabel}}</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 1 }">{{ctrl.informationWanted}}</span>
+                            </div>
+                        </div>
+                        <!-- Undo wanted -->
+                        <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.showUndoWanted">
+                            <div class="col-sm-3">
+                                <input type="radio" id="action_undowanted" name="action" data-ng-model="ctrl.selectedActionValue" value="11" data-ng-class="{ 'checked': ctrl.selectedAction == 11 }">
+                                <label class="btn btn-default btn-block" for="action_undowanted">{{ctrl.buttonUndoWantedLabel}}</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 11 }">{{ctrl.informationUndoWanted}}</span>
+                            </div>
+                        </div>
+                        <!-- Unwanted -->
+                        <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.showUnwanted">
+                            <div class="col-sm-3">
+                                <input type="radio" id="action_unwanted" name="action" data-ng-model="ctrl.selectedActionValue" value="2" data-ng-class="{ 'checked': ctrl.selectedAction == 2 }">
+                                <label class="btn btn-default btn-block" for="action_unwanted">{{ctrl.buttonUnwantedLabel}}</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 2 }">{{ctrl.informationUnwanted}}</span>
+                            </div>
+                        </div>
+                        <!-- Undo unwanted -->
+                        <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.showUndoUnwanted">
+                            <div class="col-sm-3">
+                                <input type="radio" id="action_undounwanted" name="action" data-ng-model="ctrl.selectedActionValue" value="12" data-ng-class="{ 'checked': ctrl.selectedAction == 12 }">
+                                <label class="btn btn-default btn-block" for="action_undounwanted">{{ctrl.buttonUndoUnwantedLabel}}</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 12 }">{{ctrl.informationUndoUnwanted}}</span>
+                            </div>
+                        </div>
+                        <!-- Absence -->
+                        <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.showAbsence">
+                            <div class="col-sm-3">
+                                <input type="radio" id="action_absence" name="action" data-ng-model="ctrl.selectedActionValue" value="3" data-ng-class="{ 'checked': ctrl.selectedAction == 3 }">
+                                <label class="btn btn-default btn-block" for="action_absence">{{ctrl.buttonAbsenceLabel}}</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 3 }">{{ctrl.informationAbsence}}</span>
+                            </div>
+                        </div>
+                        <div class="row vertical-align margin-small-top" data-ng-if="ctrl.selectedAction == 3">
+                            <div class="col-sm-3">
+                                <soe-select hidelabel="true" model="ctrl.selectedDeviationCause" items="ctrl.deviationCauses" options="item as item.name for item in items" required="true"></soe-select>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-l10n-bind="'time.schedule.planning.handleshift.information.deviationcause'" data-ng-class="{ 'indiscreet': !ctrl.selectedDeviationCause.timeDeviationCauseId }"></span>
+                            </div>
+                        </div>
+                        <div class="row vertical-align margin-small-top" data-ng-if="ctrl.selectedAction == 3 && ctrl.selectedDeviationCause.specifyChild">
+                            <div class="col-sm-3">
+                                <soe-select hidelabel="true" model="ctrl.selectedEmployeeChildId" items="ctrl.employeeChilds" options="item.id as item.name for item in items" required="true"></soe-select>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-l10n-bind="'time.schedule.planning.dragshift.information.selectchild'" data-ng-class="{ 'indiscreet': !ctrl.selectedEmployeeChildId }"></span>
+                            </div>
+                        </div>
+                        <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.selectedAction == 3">
+                            <div class="col-sm-3">
+                                <soe-checkbox label-key="time.schedule.planning.dragshift.action.wholedayabsence" model="ctrl.isWholeDayAbsence"></soe-checkbox>
+                            </div>
+                            <div class="col-sm-9">
+                                <span>{{ctrl.informationWholeDayAbsence}}</span>
+                            </div>
+                        </div>
+                        <!-- Undo absence -->
+                        <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.showUndoAbsence">
+                            <div class="col-sm-3">
+                                <input type="radio" id="action_undoabsence" name="action" data-ng-model="ctrl.selectedActionValue" value="13" data-ng-class="{ 'checked': ctrl.selectedAction == 13 }">
+                                <label class="btn btn-default btn-block" for="action_undoabsence">{{ctrl.buttonUndoAbsenceLabel}}</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 13 }">{{ctrl.informationUndoAbsence}}</span>
+                            </div>
+                        </div>
+                        <!-- Change employee -->
+                        <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.showChangeEmployee">
+                            <div class="col-sm-3">
+                                <input type="radio" id="action_changeemployee" name="action" data-ng-model="ctrl.selectedActionValue" value="4" data-ng-class="{ 'checked': ctrl.selectedAction == 4 }">
+                                <label class="btn btn-default btn-block" for="action_changeemployee" data-l10n-bind="'time.schedule.planning.handleshift.action.changeemployee'"></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 4 }">{{ctrl.informationChangeEmployee}}</span>
+                            </div>
+                        </div>
+                        <!-- Swap employee -->
+                        <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.showSwapEmployee">
+                            <div class="col-sm-3">
+                                <input type="radio" id="action_swapemployee" name="action" data-ng-model="ctrl.selectedActionValue" value="5" data-ng-class="{ 'checked': ctrl.selectedAction == 5 }">
+                                <label class="btn btn-default btn-block" for="action_swapemployee" data-l10n-bind="'time.schedule.planning.handleshift.action.swapemployee'"></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 5 }">{{ctrl.informationSwapEmployee}}</span>
+                            </div>
+                        </div>
+                        <!-- Absence announcement -->
+                        <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.showAbsenceAnnouncement">
+                            <div class="col-sm-3">
+                                <input type="radio" id="action_absenceannouncement" name="action" data-ng-model="ctrl.selectedActionValue" value="6" data-ng-class="{ 'checked': ctrl.selectedAction == 6 }">
+                                <label class="btn btn-default btn-block" for="action_absenceannouncement" data-l10n-bind="'time.schedule.planning.handleshift.action.absenceannouncement'"></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 6 }">{{ctrl.informationAbsenceAnnouncement}}</span>
+                            </div>
+                        </div>
+                        <div class="row vertical-align margin-small-top" data-ng-if="ctrl.selectedAction == 6">
+                            <div class="col-sm-3">
+                                <soe-select hidelabel="true" model="ctrl.selectedDeviationCauseAbsenceAnnouncement" items="ctrl.deviationCausesAbsenceAnnouncement" options="item as item.name for item in items" required="true"></soe-select>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-l10n-bind="'time.schedule.planning.handleshift.information.deviationcause'" data-ng-class="{ 'indiscreet': !ctrl.selectedDeviationCauseAbsenceAnnouncement.id }"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info" data-ng-if="ctrl.noActionAvailable">
+                        <span data-ng-bind-html="ctrl.noActionAvailableInfo"></span>
+                    </div>
+                </soe-panel>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'core.ok'" data-ng-disabled="ctrl.executing" data-ng-if="ctrl.hasActionPermission && !ctrl.noActionAvailable" data-ng-click="ctrl.save()"></button>
+        <button type="button" class="btn btn-sm btn-default pull-right margin-small-right margin-large-left" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+    </div>
+</div>

@@ -1,0 +1,485 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal(false)" aria-hidden="true">&times;</button>
+    </div>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+    <div data-ng-if="!ctrl.progress.progressBusy" ng-class="ctrl.isModal ? 'edit-padding': ''">       
+        <soe-panel label-value="ctrl.title">
+            <!--Head-->
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <soe-typeahead is-readonly="ctrl.readOnly || ctrl.isRequestNotPending() || ctrl.isRegularAbsenceGuiMode()" label-key="common.employee" model="ctrl.selectedEmployee" items="ctrl.employees" options="item as item.name for item in items" limit="50" required="true"></soe-typeahead>
+                            </div>
+                            <div ng-if="ctrl.showStartAndStopDate()" class="col-sm-5">
+                                <soe-datepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="common.fromdate" model="ctrl.selectedDateFrom"></soe-datepicker>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <soe-typeahead is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="common.time.timedeviationcause" model="ctrl.selectedDeviationCause" items="ctrl.deviationCauses" options="item as item.name for item in items" required="true" limit="50"></soe-typeahead>
+                            </div>
+                            <div ng-if="ctrl.showStartAndStopDate()" class="col-sm-5">
+                                <soe-datepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="common.todate" model="ctrl.selectedDateTo"></soe-datepicker>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div ng-if="ctrl.showEmployeeChild()" class="col-sm-7">
+                                <soe-typeahead is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="time.schedule.absencerequests.employeechild" model="ctrl.selectedEmployeeChild" items="ctrl.employeeChilds" options="item as item.name for item in items" required="true"></soe-typeahead>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="!ctrl.onlySelectedWholeDaysMode()">
+                            <div class="col-sm-4">
+                                <soe-radiobutton is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="time.schedule.absencerequests.absencetypefulltime" model="ctrl.selectedAbsenceType" group="selectionAbsenceType" value="1"></soe-radiobutton>
+                            </div>
+                            <div class="col-sm-4" ng-if="ctrl.showOptionPartTime()">
+                                <soe-radiobutton is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="time.schedule.absencerequests.absencetypeparttime" model="ctrl.selectedAbsenceType" group="selectionAbsenceType" value="2"></soe-radiobutton>
+                            </div>
+                            <div class="col-sm-4" ng-if="ctrl.showOptionSelectedShifts()">
+                                <soe-radiobutton is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="time.schedule.absencerequests.absencetypeselectedshifts" model="ctrl.selectedAbsenceType" group="selectionAbsenceType" value="3"></soe-radiobutton>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-textarea is-required="ctrl.isNoteRequired()" is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="common.note" model="ctrl.employeeRequest.comment" rows="5"></soe-textarea>
+                        <soe-instruction ng-if="!ctrl.isRegularAbsenceGuiMode() && ctrl.includeNoteInMessages" label-key="time.schedule.absencerequests.includenoteinmessages"></soe-instruction>
+                    </div>
+                    <div class="col-sm-2" style="margin: 0 0 -15px 0;" data-ng-if="ctrl.vacationPermission">
+                        <employee-vacation-summary employee-id="ctrl.employeeId" date="ctrl.selectedDateFrom"></employee-vacation-summary>
+                    </div>
+                </div>
+            </div>  
+            <br />
+            <!--Parttime settings-->
+            <div class="row"  ng-if="!ctrl.onlySelectedWholeDaysMode()">
+                <div class="col-sm-12">
+                    <soe-panel>
+                        <div class="form-group form-group-sm">
+                            <div ng-if="ctrl.selectedAbsenceType == 2">
+                                <!--First and Last day-->
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <soe-checkbox is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="time.schedule.absencerequests.absencefirstandlastday" model="ctrl.employeeRequest.extendedSettings.absenceFirstAndLastDay" data-ng-click="ctrl.setExtendSettingsHasChanged()"></soe-checkbox>
+                                            </div>
+                                        </div>
+                                        <div class="margin-large-left" ng-if="ctrl.employeeRequest.extendedSettings.absenceFirstAndLastDay">
+                                            <div class="row">
+                                                <div class="col-sm-9">
+                                                    <!--Absence first day-->
+                                                    <div class="row">
+                                                        <div class="col-sm-2">
+                                                            <soe-checkbox is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="time.schedule.absencerequests.absencewholefirstday" model="ctrl.employeeRequest.extendedSettings.absenceWholeFirstDay" data-ng-click="ctrl.setExtendSettingsHasChanged()"></soe-checkbox>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="col-sm-3">
+                                                                <soe-label label-key="time.schedule.absencerequests.absencestarts" discreet="true"></soe-label>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.absenceFirstDayStart" is-disabled="ctrl.employeeRequest.extendedSettings.absenceWholeFirstDay" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <soe-label label-key="time.schedule.absencerequests.firstday" discreet="true"></soe-label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--Absence last day-->
+                                                    <div class="row">
+                                                        <div class="col-sm-2">
+                                                            <soe-checkbox is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="time.schedule.absencerequests.absencewholelastday" model="ctrl.employeeRequest.extendedSettings.absenceWholeLastDay" data-ng-click="ctrl.setExtendSettingsHasChanged()"></soe-checkbox>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="col-sm-3">
+                                                                <soe-label label-key="time.schedule.absencerequests.absenceends" discreet="true"></soe-label>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.absenceLastDayStart" is-disabled="ctrl.employeeRequest.extendedSettings.absenceWholeLastDay" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <soe-label label-key="time.schedule.absencerequests.lastday" discreet="true"></soe-label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <soe-instruction label-key="time.schedule.absencerequests.AbsenceTimeInformationRow" class="margin-large-top"></soe-instruction>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Percentage-->
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <soe-checkbox is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="time.schedule.absencerequests.absencepercentage" model="ctrl.employeeRequest.extendedSettings.percentalAbsence" data-ng-click="ctrl.percentalAbsenceIsClicked()"></soe-checkbox>
+                                            </div>
+                                        </div>
+                                        <div class="margin-large-left" ng-if="ctrl.employeeRequest.extendedSettings.percentalAbsence">
+                                            <div class="row">
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <soe-label></soe-label>
+                                                        <div class="col-sm-1 padding-small-right">
+                                                            <soe-textbox is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.percentalValue" numeric="true" decimals="2" on-change="ctrl.setExtendSettingsHasChanged()"></soe-textbox>
+                                                        </div>
+                                                        <div class="col-sm-1 padding-none-left">
+                                                            <soe-label label-key="%" discreet="true"></soe-label>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <soe-label label-key="time.schedule.absencerequests.percentageabsencetypelabel" discreet="true"></soe-label>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <soe-radiobutton is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="time.schedule.absencerequests.percentageabsencetypestartofday" model="ctrl.selectedPercentageAbsenceType" group="percentageabsencetype" value="0"></soe-radiobutton>
+                                                            <soe-radiobutton is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="time.schedule.absencerequests.percentageabsencetypestendofday" model="ctrl.selectedPercentageAbsenceType" group="percentageabsencetype" value="1"></soe-radiobutton>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <soe-instruction label-key="time.schedule.absencerequests.percentageabsencetypeinformationrow" class="margin-large-top"></soe-instruction>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Adjustment-->
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <soe-checkbox is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" label-key="time.schedule.absencerequests.adjustabsenceperday" model="ctrl.employeeRequest.extendedSettings.adjustAbsencePerWeekDay" data-ng-click="ctrl.adjustAbsencePerWeekDayIsClicked()"></soe-checkbox>
+                                            </div>
+                                        </div>
+                                        <div class="margin-large-left" ng-if="ctrl.employeeRequest.extendedSettings.adjustAbsencePerWeekDay">
+                                            <div class="row">
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <soe-label></soe-label>
+                                                        <div class="col-sm-offset-2 col-sm-1">
+                                                            <soe-label label-key="common.alldays" discreet="true"></soe-label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label label-key="common.monday" discreet="true"></soe-label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label label-key="common.tuesday" discreet="true"></soe-label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label label-key="common.wednesday" discreet="true"></soe-label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label label-key="common.thursday" discreet="true"></soe-label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label label-key="common.friday" discreet="true"></soe-label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label label-key="common.saturday" discreet="true"></soe-label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label label-key="common.sunday" discreet="true"></soe-label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-2">
+                                                            <soe-label></soe-label>
+                                                            <soe-label label-key="time.schedule.absencerequests.absencestarts" discreet="true"></soe-label>
+                                                            <soe-label label-key="time.schedule.absencerequests.absenceends" discreet="true"></soe-label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label></soe-label>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceAllDaysStart" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceAllDaysStop" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label></soe-label>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceMonStart" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceMonStop" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label></soe-label>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceTueStart" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceTueStop" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label></soe-label>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceWedStart" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceWedStop" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label></soe-label>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceThuStart" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceThuStop" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label></soe-label>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceFriStart" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceFriStop" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label></soe-label>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceSatStart" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceSatStop" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <soe-label></soe-label>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceSunStart" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                            <soe-timepicker is-readonly="ctrl.readOnly || ctrl.isRequestNotPending()" hidelabel="true" model="ctrl.employeeRequest.extendedSettings.adjustAbsenceSunStop" changed="ctrl.setExtendSettingsHasChanged()"></soe-timepicker>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                            <div ng-if="ctrl.showUpdateShiftsButton()" class="pull-right">
+                                <button type="button" class="btn btn-default" data-ng-disabled="ctrl.isRequestNotPending()" data-l10n-bind="'time.schedule.absencerequests.updateaffectedshifts'" data-ng-click="ctrl.updateAffectedShifts()"></button>
+                            </div>                            
+                        </div>
+                    </soe-panel>
+                </div>
+            </div>
+            <br />
+            <!--Affected Shifts-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-panel label-key="time.schedule.absencerequests.affectedshifts">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div ng-if="!ctrl.isRequestNotPending() && ctrl.lockDownRequestPlanning()" class="pull-left">
+                                    <soe-label class="margin-large-top" label-key="time.schedule.absencerequests.performrequestwarning" style="color: #DB000C;"></soe-label>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-ng-repeat="shift in ctrl.affectedShifts" class="repeater-condensed" data-ng-click="ctrl.selectedShift = shift">
+                            <div class="form-group form-group-sm">
+                                <div data-ng-if="$first">
+                                    <div class="row">
+                                        <div ng-if="ctrl.showApprovalTypeAndReplacewithEmployee()" class="col-sm-offset-9 col-sm-3">
+                                            <div class="col-sm-4">
+                                                <soe-select is-readonly="ctrl.readOnly || ctrl.isRequestDefinate() || ctrl.lockDownRequestPlanning()" label-key="time.schedule.absencerequests.approveall" model="ctrl.selectedApproveAllApprovalTypeId" items="ctrl.approvalTypes" options="item.id as item.name for item in items" on-changing="ctrl.replaceWithAllApprovalTypeChanged(item)"></soe-select>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <soe-typeahead is-readonly="ctrl.readOnly || ctrl.isRequestDefinate() || ctrl.lockDownRequestPlanning()" label-key="time.schedule.absencerequests.replaceallwith" model="ctrl.selectedReplaceAllWithEmployee" items="ctrl.replaceAllWithEmployees" options="item as item.name for item in items" limit="50"></soe-typeahead>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <soe-label></soe-label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <soe-label label-key="common.day"></soe-label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <soe-label label-key="common.date"></soe-label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <soe-label label-key="common.start"></soe-label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <soe-label label-key="common.stop"></soe-label>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="col-sm-6">
+                                                <soe-label label-key="time.schedule.absencerequests.absencestart"></soe-label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <soe-label label-key="time.schedule.absencerequests.absencestop"></soe-label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">                                           
+                                            <div class="col-sm-10">
+                                                <soe-label label-key="time.schedule.absencerequests.shifttype"></soe-label>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-label></soe-label>
+                                            </div>
+                                        </div>
+
+                                        <div ng-if="ctrl.showApprovalTypeAndReplacewithEmployee()" class="col-sm-3">
+                                            <div class="col-sm-4">
+                                                <soe-label label-key="time.schedule.absencerequests.approve"></soe-label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <soe-label label-key="time.schedule.absencerequests.replacewith"></soe-label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <soe-label></soe-label>
+                                    </div>
+                                </div>
+                                <div class="row" data-ng-class="{'repeater-selected-row': ctrl.selectedShift === shift}">
+                                    <div class="col-sm-1">
+                                        <soe-label model="shift.getDayName()" discreet="true"></soe-label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <soe-label model="shift.date | date:'shortDate'" discreet="true"></soe-label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <soe-label model="shift.actualStartTime | date:'shortTime'" discreet="true"></soe-label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <soe-label model="shift.actualStopTime | date:'shortTime'" discreet="true"></soe-label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="col-sm-6">
+                                            <soe-label ng-if="ctrl.showAbsenceDateAndTime()" ng-style="{'color':ctrl.getStyle(shift, true)}" model="shift.absenceStartTime| date:'short'" discreet="true"></soe-label>
+                                            <soe-label ng-if="!ctrl.showAbsenceDateAndTime()" ng-style="{'color':ctrl.getStyle(shift, true)}" model="shift.absenceStartTime| date:'shortTime'" discreet="true"></soe-label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <soe-label ng-if="ctrl.showAbsenceDateAndTime()" ng-style="{'color':ctrl.getStyle(shift, false)}" model="shift.absenceStopTime| date:'short'" discreet="true"></soe-label>
+                                            <soe-label ng-if="!ctrl.showAbsenceDateAndTime()" ng-style="{'color':ctrl.getStyle(shift, false)}" model="shift.absenceStopTime| date:'shortTime'" discreet="true"></soe-label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="col-sm-10">
+                                            <soe-label model="shift.getAbsenceRequestShiftTypeLabel()" discreet="true"></soe-label>                                            
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <i class="fas" data-ng-class="{'fa-map-marker-exclamation': shift.isLended, 'fa-map-marker-question': shift.isOtherAccount}" style="color: #990000; margin-top: 8px;" data-ng-if="shift.isLended || shift.isOtherAccount" title="{{ctrl.isLendedLabel}}"></i>
+                                            <i class="fas" data-ng-class="{'fa-alarm-exclamation':shift.isOnDuty}" style="margin-top: 8px;"  data-ng-if="shift.isOnDuty" title="{{ctrl.isOnDutyLabel}}"></i>                                            
+                                        </div>
+                                    </div>
+                                    <div ng-if="ctrl.showApprovalTypeAndReplacewithEmployee()" class="col-sm-3">
+                                        <div class="col-sm-4">
+                                            <soe-select is-readonly="ctrl.readOnly || ctrl.isRequestDefinate() || ctrl.lockDownRequestPlanning() || shift.isLended" hidelabel="true" model="shift.approvalTypeId" items="ctrl.approvalTypes" options="item.id as item.name for item in items"></soe-select>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <soe-typeahead is-readonly="ctrl.readOnly || ctrl.isRequestDefinate() || ctrl.lockDownRequestPlanning() || shift.isLended" hidelabel="true" model="shift.replaceWithEmployee" items="ctrl.replaceWithEmployees" options="item as item.name for item in items" limit="50" on-selection-changed="ctrl.replaceWithEmployeeChanged()" on-focus="ctrl.replaceWithEmployeeOnFocus(shift)"></soe-typeahead>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-ng-if="$last">
+                                    <div class="row" data-ng-if="!ctrl.readOnly && ctrl.isSchedulePlanningMode()">
+                                        <div class="col-sm-offset-8 col-sm-4">
+                                            <div class="col-sm-12">
+                                                <div ng-if="ctrl.isAttestRoleMode()" class="pull-right">
+                                                    <soe-instruction label-key="time.schedule.absencerequests.performrequestinfo" class="margin-large-top"></soe-instruction>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-panel>
+                </div>
+            </div>
+            <br />
+            <!--History-->
+            <div ng-if="ctrl.isEmployeeRequestGuiMode()" class="row">
+                <div class="col-sm-12">
+                    <uib-accordion close-others="false">
+                        <soe-accordion label-key="time.schedule.absencerequests.history">
+                            <div data-ng-repeat="shift in ctrl.historyShifts track by $index" class="repeater-condensed">
+                                <div class="form-group form-group-sm">
+                                    <div data-ng-if="$first">                                       
+                                        <div class="row">
+                                            <div class="col-sm-1">
+                                                <soe-label label-key="common.day"></soe-label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <soe-label label-key="common.date"></soe-label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <soe-label label-key="common.start"></soe-label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <soe-label label-key="common.stop"></soe-label>
+                                            </div>  
+                                            <div class="col-sm-1">
+                                                <soe-label label-key="time.schedule.absencerequests.shifttype"></soe-label>
+                                            </div>   
+                                            <div class="col-sm-1">
+                                                <soe-label label-key="time.schedule.absencerequests.approvedtext"></soe-label>
+                                            </div>  
+                                            <div class="col-sm-1">
+                                                <soe-label label-key="time.schedule.absencerequests.replacedwithtext"></soe-label>
+                                            </div>                                            
+                                        </div>
+                                        <div class="row">
+                                            <soe-label></soe-label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <soe-label model="ctrl.getDayName(shift)" discreet="true"></soe-label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <soe-label model="shift.toStart | date:'shortDate'" discreet="true"></soe-label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <soe-label  model="shift.toStart | date:'shortTime'" discreet="true"></soe-label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <soe-label model="shift.toStop | date:'shortTime' " discreet="true"></soe-label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <soe-label model="shift.toShiftType" discreet="true"></soe-label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <soe-label model="shift.absenceRequestApprovedText" discreet="true"></soe-label>
+                                        </div>
+                                        <div class="col-sm-2">                                            
+                                            <soe-label model="shift.toEmployeeName" discreet="true"></soe-label>
+                                        </div>
+                                    </div>
+                                    <div data-ng-if="$last">
+                                        <div class="row">
+                                            <div class="col-sm-offset-10 col-sm-2">
+                                                <div ng-if="!ctrl.readOnly && ctrl.isAttestRoleMode()" class="col-sm-12">
+                                                    <soe-menubutton class="full-height" label-key="core.functions" options="ctrl.restoreOptions" drop-up="true" option-selected="ctrl.executeRestoreFunction(option)"></soe-menubutton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </soe-accordion>
+                    </uib-accordion>
+                </div>
+            </div>                          
+        </soe-panel>                
+        <div class="ngSoeFormFooter" data-ng-class="{'modal-margin': ctrl.isModal}">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.employeeRequest"></created-modified>
+            </div>
+            <div class="col-sm-8" data-ng-if="!ctrl.readOnly">
+                <div class="pull-right">
+                    <div ng-if="ctrl.showReactive()" class="col margin-small-right">
+                        <soe-checkbox label-key="time.schdule.activate.reactivatenewactiveschedule" model="ctrl.employeeRequest.reActivate"></soe-checkbox>
+                    </div>
+
+                    <div ng-if="ctrl.showSkipXEMailOnShiftChanges()" class="col margin-small-right">
+                        <soe-checkbox label-key="time.schedule.absencerequests.skipxemailonshiftchanges" model="ctrl.skipXEMailOnShiftChanges"></soe-checkbox>
+                    </div>
+                    <div ng-if="ctrl.showSetAsDefinitive()" class="col margin-small-right">
+                        <soe-checkbox label-key="time.schedule.absencerequests.setasdefinate" model="ctrl.setAsDefinitive"></soe-checkbox>
+                    </div>
+                    <div ng-if="ctrl.isEmployeeRequestGuiMode()" class="col">
+                        <button type="button" class="btn btn-sm btn-default" data-ng-disabled="ctrl.disableDeleteButton()" data-l10n-bind="'core.delete'" data-l10n-bind-title="'core.delete'" data-ng-if="ctrl.modifyPermission && !ctrl.isNew" data-ng-click="$event.stopPropagation();ctrl.delete()"></button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="ctrl.saveButtonLabel" data-l10n-bind-title="ctrl.saveButtonLabel" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.edit.$valid && !ctrl.isNoteInvalid()" data-ng-disabled="!ctrl.edit.$dirty || ctrl.edit.$invalid || ctrl.saveInProgress" data-ng-click="$event.stopPropagation();ctrl.save()"></button>
+                        <div class="btn-group" role="group" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.edit.$invalid || ctrl.isNoteInvalid()">
+                            <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="ctrl.saveButtonLabel" data-ng-disabled="ctrl.edit.$invalid || ctrl.saveInProgress || ctrl.isNoteInvalid()"></button>
+                            <button type="button" class="btn btn-sm ngSoeMainButtonInvalid" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>        
+    </div>
+</form>

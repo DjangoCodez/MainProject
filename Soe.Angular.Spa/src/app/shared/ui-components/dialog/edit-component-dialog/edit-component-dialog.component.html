@@ -1,0 +1,9 @@
+<soe-dialog>
+  <div dialog-content [class.content-container]="!data.noToolbar">
+    <ng-container
+      *ngComponentOutlet="
+        editComponent;
+        inputs: editComponentInputs
+      "></ng-container>
+  </div>
+</soe-dialog>

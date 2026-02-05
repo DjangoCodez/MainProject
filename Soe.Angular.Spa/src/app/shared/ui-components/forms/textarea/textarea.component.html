@@ -1,0 +1,62 @@
+<div
+  [class.mt-2]="!inline()"
+  [ngStyle]="width() && !inline() ? { 'width.px': width() } : {}"
+  [class.d-flex]="inline()"
+  [class.flex-nowrap]="inline()"
+  [class.form-label-inline-top-alignment]="alignInline()">
+  @if (hasLabel()) {
+    <div
+      class="form-label-container d-flex align-items-center"
+      [class.me-2]="inline()">
+      <soe-label
+        [labelKey]="labelKey()"
+        [secondaryLabelKey]="secondaryLabelKey()"
+        [secondaryLabelBold]="secondaryLabelBold()"
+        [secondaryLabelParantheses]="secondaryLabelParantheses()"
+        [secondaryLabelPostfixKey]="secondaryLabelPostfixKey()"
+        [secondaryLabelPrefixKey]="secondaryLabelPrefixKey()"
+        [isRequired]="isRequired()"></soe-label>
+    </div>
+  }
+  <div class="input-value-length float-end">
+    @if (showLength()) {
+      <span class="font-sm">{{ input.value.length }}/{{ maxLength() }}</span>
+    }
+    @if (
+      !readOnly() && textUtilityService.hasPermission() && this.controlValue
+    ) {
+      <soe-icon-button
+        iconName="wand-sparkles"
+        class="ms-2"
+        [noBorder]="true"
+        [noMargins]="true"
+        [animation]="
+          textUtilityService.isDoingWork() ? 'spin-pulse' : undefined
+        "
+        (action)="aiImprove()"
+        [tooltip]="'common.ai.improvetext'"></soe-icon-button>
+    }
+  </div>
+  <div
+    class="d-flex input-group"
+    [ngStyle]="width() && inline() ? { 'width.px': width() } : {}">
+    <textarea
+      #input
+      type="text"
+      class="form-control input-sm"
+      [placeholder]="placeholderKey() | translate"
+      [ngStyle]="{ resize: resizeable() ? 'vertical' : 'none' }"
+      [class.no-border-top-right-radius]="hasContent() && rows() > 1"
+      [class.no-border-right-radius]="hasContent() && rows() === 1"
+      [autofocus]="autoFocus()"
+      [maxLength]="maxLength()"
+      [rows]="rows()"
+      (change)="onValueChange(input.value)"
+      [formControl]="control"
+      [readOnly]="readOnly()">
+    </textarea>
+    <div #content class="d-flex align-center soe-button-group">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

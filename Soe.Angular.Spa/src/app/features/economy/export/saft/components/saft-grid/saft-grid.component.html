@@ -1,0 +1,14 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    [masterDetail]="false"
+    [toolbarGroups]="toolbarUtils.toolbarGroups">
+    <soe-saft-grid-search
+      toolbar-content-left
+      [fromDate]="fromDate"
+      [toDate]="toDate"
+      (searchClick)="executeSearch($event)">
+    </soe-saft-grid-search>
+  </soe-grid-wrapper>
+}

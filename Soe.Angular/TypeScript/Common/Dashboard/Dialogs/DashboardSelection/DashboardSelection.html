@@ -1,0 +1,45 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'common.dashboard.panelgroup'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-textbox label-key="core.filter" model="ctrl.filter" on-change=""></soe-textbox>
+            </div>
+            <div class="col-sm-6">
+                <button style="margin-top:20px;" class="btn btn-sm ngSoeMainButton pull-right" data-ng-click="ctrl.new()" data-l10n-bind="'common.createnew'"></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-outer-bordered table-condensed table-hover margin-large-top margin-large-bottom">
+                    <thead>
+                        <tr>
+                            <th scope="col" data-l10n-bind="'common.module'"></th>
+                            <th scope="col" data-l10n-bind="'common.priority'"></th>
+                            <th scope="col" data-l10n-bind="'common.name'"></th>
+                            <th scope="col" data-l10n-bind="'common.description'"></th>
+                            <th scope="col" data-l10n-bind=""></th>
+                            <th scope="col" data-l10n-bind=""></th>
+                        </tr>
+                    </thead>
+                    <tbody data-ng-repeat="head in ctrl.heads | filter:ctrl.filter">
+                        <tr>
+                            <td><span>{{head.moduleName}}</span></td>
+                            <td><span>{{head.priority}}</span></td>
+                            <td><span>{{head.name}}</span></td>
+                            <td><span>{{head.description}}</span></td>
+                            <td><i class="fal fa-pen iconEdit link" data-ng-click="ctrl.edit(head)"></i></td>
+                            <td><i class="fal fa-tachometer iconEdit link" data-ng-click="ctrl.close(head)"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.cancel()"></button>
+    </div>
+</div>

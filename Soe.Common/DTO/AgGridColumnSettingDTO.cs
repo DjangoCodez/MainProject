@@ -1,0 +1,149 @@
+﻿namespace SoftOne.Soe.Common.DTO
+{
+    public enum AgGridType
+    {
+        Unknown = 0,
+        AttestEmployee = 1,
+        AttestGroup = 2,
+        AttestMyTime = 3,
+    }
+
+    /// <summary>
+    /// Name is same as column name in AttestEmployeeDirective. Thats why first letter is lowercase
+    /// </summary>
+    public enum AgGridTimeAttestEmployee
+    {
+        day = 1,
+        date = 2,
+        dayName = 3,
+        weekNr = 4,
+        attestStateColor = 5,
+        attestStateName = 6,
+        workedInsideScheduleColor = 7,
+        workedOutsideScheduleColor = 8,
+        absenceTimeColor = 9,
+        standbyTimeColor = 10,
+        expenseColor = 11,
+        templateScheduleStartTime = 12,
+        templateScheduleStopTime = 13,
+        templateScheduleTime = 14,
+        templateScheduleBreakTime = 15,
+        scheduleStartTime = 16,
+        scheduleStopTime = 17,
+        scheduleTime = 18,
+        scheduleBreakTime = 19,
+        isPreliminary = 20, //only MyTime
+        presenceStartTime = 21,
+        presenceStopTime = 22,
+        presenceTime = 23,
+        presenceBreakTime = 24,
+        presencePayedTime = 25,
+        sumExpenseRows = 26,
+        sumExpenseAmount = 27,
+        sumTimeWorkedScheduledTime = 28,
+        sumTimeAccumulator = 29,
+        sumTimeAccumulatorOverTime = 30,
+        sumGrossSalaryAbsence = 31,
+        sumGrossSalaryAbsenceText = 32,
+        sumGrossSalaryAbsenceVacation = 33,
+        sumGrossSalaryAbsenceSick = 34,
+        sumGrossSalaryAbsenceLeaveOfAbsence = 35,
+        sumGrossSalaryAbsenceParentalLeave = 36,
+        sumGrossSalaryAbsenceTemporaryParentalLeave = 37,
+        sumGrossSalaryWeekendSalary = 38,
+        sumGrossSalaryDuty = 39,
+        sumGrossSalaryAdditionalTime = 40,
+        sumGrossSalaryAdditionalTime35 = 41,
+        sumGrossSalaryAdditionalTime70 = 42,
+        sumGrossSalaryAdditionalTime100 = 43,
+        sumGrossSalaryOBAddition = 44,
+        sumGrossSalaryOBAddition40 = 45,
+        sumGrossSalaryOBAddition50 = 46,
+        sumGrossSalaryOBAddition57 = 47,
+        sumGrossSalaryOBAddition70 = 48,
+        sumGrossSalaryOBAddition79 = 49,
+        sumGrossSalaryOBAddition100 = 50,
+        sumGrossSalaryOBAddition113 = 51,
+        sumGrossSalaryOvertime = 52,
+        sumGrossSalaryOvertime35 = 53,
+        sumGrossSalaryOvertime50 = 54,
+        sumGrossSalaryOvertime70 = 55,
+        sumGrossSalaryOvertime100 = 56,
+
+        sumInvoicedTime = 57,
+        additionalStatusIconValue = 58,
+        informations = 59,
+        warnings = 60,
+        comment = 61,
+    }
+
+    /// <summary>
+    /// Name is same as column name in AttestEmployeeDirective. Thats why first letter is lowercase
+    /// </summary>
+    public enum AgGridTimeAttestGroup
+    {
+        employeeNrAndName = 1,
+        attestStateColor = 2,
+        attestStateName = 3,
+        scheduleDays = 4,
+        scheduleTimeInfo = 5,
+        scheduleBreakTimeInfo = 6,
+        presenceDays = 7,
+        presenceTimeInfo = 8,
+        presenceBreakTimeInfo = 9,
+        presencePayedTimeInfo = 10,
+        sumExpenseRows = 11,
+        sumExpenseAmount = 12,
+        sumTimeWorkedScheduledTimeText = 13,
+        sumTimeAccumulatorText = 14,
+        sumTimeAccumulatorOverTimeText = 15,
+        sumGrossSalaryAbsenceText = 16,
+        sumGrossSalaryAbsenceVacationText = 17,
+        sumGrossSalaryAbsenceSickText = 18,
+        sumGrossSalaryAbsenceLeaveOfAbsenceText = 19,
+        sumGrossSalaryAbsenceParentalLeaveText = 20,
+        sumGrossSalaryAbsenceTemporaryParentalLeaveText = 21,
+        sumGrossSalaryWeekendSalaryText = 22,
+        sumGrossSalaryDutyText = 23,
+        sumGrossSalaryAdditionalTimeText = 24,
+        sumGrossSalaryAdditionalTime35Text = 25,
+        sumGrossSalaryAdditionalTime70Text = 26,
+        sumGrossSalaryAdditionalTime100Text = 27,
+        sumGrossSalaryOBAdditionText = 28,
+        sumGrossSalaryOBAddition50Text = 29,
+        sumGrossSalaryOBAddition70Text = 30,
+        sumGrossSalaryOBAddition100Text = 31,
+        sumGrossSalaryOvertimeText = 32,
+        sumGrossSalaryOvertime35Text = 33,
+        sumGrossSalaryOvertime50Text = 34,
+        sumGrossSalaryOvertime70Text = 35,
+        sumGrossSalaryOvertime100Text = 36,
+        sumInvoicedTimeText = 37,
+        view = 38,
+        info = 39,
+    }
+
+    public class AgGridColumnSettingDTO
+    {
+        public const string SOE_ROW_SELECTION = "soe-row-selection";
+        public const string SOE_AG_SINGLE_VALUE_COLUMN = "soe-ag-single-value-column";
+        public const string SOE_GRID_MENU_COLUMN = "soe-grid-menu-column";
+
+        //Properties must be camel-case as long as we use JavascriptSerializer
+        public string colId { get; set; }
+        public int? width { get; set; }
+        public bool hide { get; set; }
+        public string pinned { get; set; }
+        public string aggFunc { get; set; }
+        public int? rowGroupIndex { get; set; }
+        public int? pivotIndex { get; set; }
+
+        public bool IsSystemColumn()
+        {
+            return
+                this.colId == SOE_ROW_SELECTION ||
+                this.colId == SOE_AG_SINGLE_VALUE_COLUMN ||
+                this.colId == SOE_GRID_MENU_COLUMN;
+        }
+    }
+}

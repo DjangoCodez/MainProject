@@ -1,0 +1,175 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'common.connect.importdefinition'"
+      [static]="true">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-select
+            [optionIdField]="'sysImportDefinitionId'"
+            [labelKey]="'common.connect.standardimportdefinition'"
+            formControlName="importDefinitionId"
+            (valueChanged)="importDefinitionChanged($event)"
+            [items]="importDefinitions || []"></soe-select>
+        </div>
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.connect.importtype'"
+            formControlName="typeText"></soe-textbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            formControlName="name"></soe-textbox>
+        </div>
+        <div class="col-sm-9">
+          @if (isCustomerInvoice) {
+            <div class="col-sm-2">
+              <soe-checkbox
+                [labelKey]="'common.connect.updateexistinginvoice'"
+                formControlName="updateExistingInvoice"
+                [inline]="true"></soe-checkbox>
+            </div>
+          }
+          @if (isCustomerInvoiceRow || isVoucher) {
+            <div class="col-sm-2">
+              <soe-checkbox
+                [labelKey]="'common.connect.useaccountdistribution'"
+                formControlName="useAccountDistribution"
+                [inline]="true"></soe-checkbox>
+            </div>
+          }
+          @if (isVoucher) {
+            <div class="col-sm-2">
+              <soe-checkbox
+                [labelKey]="'common.connect.useaccountdims'"
+                formControlName="useAccountDimensions"
+                [inline]="true"></soe-checkbox>
+            </div>
+          }
+        </div>
+      </div>
+      @if (isCustomerInvoiceRow || isVoucher) {
+        <div class="row">
+          <div class="col-sm-3">
+            <soe-select
+              [labelKey]="'common.connect.accountyear'"
+              formControlName="accountYearId"
+              [items]="accountYears || []"
+              (valueChanged)="accountYearChanged($event)"></soe-select>
+          </div>
+          @if (isVoucher) {
+            <div class="col-sm-3">
+              <soe-select
+                [optionIdField]="'voucherSeriesId'"
+                [optionNameField]="'voucherSeriesTypeName'"
+                [labelKey]="'common.connect.voucherserie'"
+                formControlName="voucherSeriesId"
+                [items]="(voucherSeries | async) || []"></soe-select>
+            </div>
+          }
+          @if (isVoucher) {
+            <div class="col-sm-3">
+              <soe-autocomplete
+                [labelKey]="'common.connect.diffaccount'"
+                formControlName="dim1AccountId"
+                [items]="accountStds || []"
+                [optionIdField]="'accountId'"
+                [optionNameField]="'numberName'"></soe-autocomplete>
+            </div>
+          }
+        </div>
+      }
+      @if (form.useAccountDimensions.getRawValue()) {
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-account-dims
+              [hideStdDim]="true"
+              [form]="accountDimsForm"
+              (accountDimsChanged)="accountDimsChanged($event)"
+              [addNotUsed]="true"></soe-account-dims>
+          </div>
+        </div>
+      }
+      <div class="row my-3">
+        <div class="col-sm-12">
+          <div class="pull-right">
+            <soe-delete-button
+              class="ms-3"
+              [disabled]="!flowHandler.modifyPermission()"
+              (action)="triggerDelete()"></soe-delete-button>
+            <soe-save-button
+              class="ms-3"
+              [invalid]="form.invalid"
+              [dirty]="form.dirty"
+              [inProgress]="performAction.inProgress()"
+              [disabled]="!flowHandler.modifyPermission()"
+              (action)="performSave()"
+              (validationErrorsAction)="
+                form.openFormValidationErrors()
+              "></soe-save-button>
+          </div>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [labelKey]="'common.connect.import'"
+      [static]="fileUploadInitiallyOpen">
+      @if (!showImportRows) {
+        <soe-expansion-panel
+          [labelKey]="'core.document'"
+          [static]="fileUploadInitiallyOpen">
+          <div class="row">
+            <soe-file-upload
+              formControlName="file"
+              [labelKey]="'core.fileupload.choosefiletoimport'"
+              [showCancelButton]="false"
+              [showClearButton]="false"
+              [showUploadButton]="false"
+              [uploadOnAttach]="true"
+              [showStatus]="true"
+              [hideDetails]="true"
+              [fileUploader]="fileUploader"
+              [asBinary]="true"
+              [multipleFiles]="true"
+              [updateAttachedFiles]="updateAttachedFiles"
+              (afterFilesUploaded)="onFilesUploaded($event)"></soe-file-upload>
+          </div>
+        </soe-expansion-panel>
+      }
+      @if (showImportRows) {
+        <soe-expansion-panel
+          [labelKey]="'common.connect.result'"
+          [static]="true">
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-import-rows
+                [batchId]="batchId"
+                [importHeadType]="importHeadType"
+                [useAccountDistribution]="form.useAccountDistribution.value"
+                [useAccountDimensions]="form.useAccountDimensions.value"
+                [defaultDimAccounts]="accountDimsForm"></soe-import-rows>
+            </div>
+          </div>
+        </soe-expansion-panel>
+      }
+    </soe-expansion-panel>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      [hideDelete]="true"
+      [hideSave]="true"></soe-edit-footer>
+  </form>
+}

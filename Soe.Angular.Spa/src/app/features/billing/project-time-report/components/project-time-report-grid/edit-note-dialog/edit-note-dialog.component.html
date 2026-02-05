@@ -1,0 +1,61 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <soe-textarea
+              [labelKey]="'billing.project.timesheet.editnote.externalnote'"
+              formControlName="externalNote"></soe-textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <soe-textarea
+              [labelKey]="'billing.project.timesheet.editnote.internalnote'"
+              formControlName="internalNote"></soe-textarea>
+          </div>
+        </div>
+      </form>
+    }
+    <div dialog-footer class="soe-form-footer" style="margin: 0">
+      <div class="col-sm-12">
+        <div class="pull-left">
+          <soe-icon-button
+            [iconName]="'chevron-left'"
+            [iconClass]="'border-radius-left'"
+            [tooltip]="'core.previous'"
+            (action)="leftButtonClick()"
+            [disabled]="isLeftButtonDisabled()"></soe-icon-button>
+          <soe-icon-button
+            [iconName]="'chevron-right'"
+            [iconClass]="'border-radius-right'"
+            [tooltip]="'core.next'"
+            (action)="rightButtonClick()"
+            [disabled]="isRightButtonDisabled()"></soe-icon-button>
+        </div>
+
+        <div class="pull-right margin-large-right">
+          <soe-button
+            class="ms-3"
+            [caption]="'core.cancel'"
+            typeClass="btn btn-secondary"
+            [behaviour]="'standard'"
+            (action)="cancel()"></soe-button>
+          <soe-save-button
+            class="ms-3"
+            [caption]="'core.ok'"
+            [disabled]="isButtonDisable()"
+            typeClass="btn btn-secondary"
+            [invalid]="form.invalid"
+            (action)="ok()"></soe-save-button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</soe-dialog>

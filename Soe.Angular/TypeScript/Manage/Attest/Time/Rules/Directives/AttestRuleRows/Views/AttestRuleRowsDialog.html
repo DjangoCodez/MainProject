@@ -1,0 +1,42 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></h6>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'" data-ng-if="!ctrl.isNew"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-8" data-ng-class="{'col-sm-4': ctrl.row.leftValueTypeIsTimeCode || ctrl.row.leftValueTypeIsPayrollProduct || ctrl.row.leftValueTypeIsInvoiceProduct}">
+                <soe-select label-key="manage.attest.time.leftoperator" model="ctrl.row.leftValueType" items="ctrl.leftOperators" options="item.id as item.name for item in items" on-changing="ctrl.leftOperatorChanged()" tab-with-enter></soe-select>
+            </div>
+            <div class="col-sm-4" data-ng-if="ctrl.row.leftValueTypeIsTimeCode || ctrl.row.leftValueTypeIsPayrollProduct || ctrl.row.leftValueTypeIsInvoiceProduct">
+                <soe-label model="ctrl.row.leftValueTypeName"></soe-label>
+                <soe-select hidelabel="true" model="ctrl.row.leftValueId" items="ctrl.timeCodes" options="item.id as item.name for item in items" data-ng-if="ctrl.row.leftValueTypeIsTimeCode"></soe-select>
+                <soe-select hidelabel="true" model="ctrl.row.leftValueId" items="ctrl.payrollProducts" options="item.id as item.name for item in items" data-ng-if="ctrl.row.leftValueTypeIsPayrollProduct"></soe-select>
+                <soe-select hidelabel="true" model="ctrl.row.leftValueId" items="ctrl.invoiceProducts" options="item.id as item.name for item in items" data-ng-if="ctrl.row.leftValueTypeIsInvoiceProduct"></soe-select>
+            </div>
+            <div class="col-sm-4">
+                <soe-select label-key="manage.attest.time.operator" model="ctrl.row.comparisonOperator" items="ctrl.comparisonOperators" options="item.id as item.name for item in items" tab-with-enter></soe-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8" data-ng-class="{'col-sm-4': ctrl.row.rightValueTypeIsTimeCode || ctrl.row.rightValueTypeIsPayrollProduct || ctrl.row.rightValueTypeIsInvoiceProduct}">
+                <soe-select label-key="manage.attest.time.rightoperator" model="ctrl.row.rightValueType" items="ctrl.rightOperators" options="item.id as item.name for item in items" on-changing="ctrl.rightOperatorChanged()" tab-with-enter></soe-select>
+            </div>
+            <div class="col-sm-4" data-ng-if="ctrl.row.rightValueTypeIsTimeCode || ctrl.row.rightValueTypeIsPayrollProduct || ctrl.row.rightValueTypeIsInvoiceProduct">
+                <soe-label model="ctrl.row.rightValueTypeName"></soe-label>
+                <soe-select hidelabel="true" model="ctrl.row.rightValueId" items="ctrl.timeCodes" options="item.id as item.name for item in items" data-ng-if="ctrl.row.rightValueTypeIsTimeCode"></soe-select>
+                <soe-select hidelabel="true" model="ctrl.row.rightValueId" items="ctrl.payrollProducts" options="item.id as item.name for item in items" data-ng-if="ctrl.row.rightValueTypeIsPayrollProduct"></soe-select>
+                <soe-select hidelabel="true" model="ctrl.row.rightValueId" items="ctrl.invoiceProducts" options="item.id as item.name for item in items" data-ng-if="ctrl.row.rightValueTypeIsInvoiceProduct"></soe-select>
+            </div>
+            <div class="col-sm-4">
+                <soe-textbox label-key="manage.attest.time.minutes" model="ctrl.row.minutes" input-type="number" numeric="true" prefix-button-icon="fa-plus" prefix-button-class="textColor" on-prefix-button-click="ctrl.togglePlusMinus();" data-ng-if="!ctrl.isNegative" on-change="ctrl.minutesChanged();"></soe-textbox>
+                <soe-textbox label-key="manage.attest.time.minutes" model="ctrl.row.minutes" input-type="number" numeric="true" prefix-button-icon="fa-minus" prefix-button-class="textColor" on-prefix-button-click="ctrl.togglePlusMinus();" data-ng-if="ctrl.isNegative" on-change="ctrl.minutesChanged();"></soe-textbox>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

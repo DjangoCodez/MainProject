@@ -1,0 +1,13 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [masterDetail]="true"
+    [parentGuid]="guid()"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+    <soe-bankintegration-downloadrequest-grid-filter
+      toolbar-content-left
+      (searchClick)="
+        doSearch($event)
+      "></soe-bankintegration-downloadrequest-grid-filter>
+  </soe-grid-wrapper>
+}

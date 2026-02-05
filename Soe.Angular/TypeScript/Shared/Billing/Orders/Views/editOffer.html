@@ -1,0 +1,409 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal()" aria-hidden="true">&times;</button>
+        <h6 class="modal-title">{{ctrl.modalTitle}}</h6>
+    </div>
+
+    <div order-validation ng-class="ctrl.isModal ? 'edit-padding': ''" ng-model="ctrl.invoice" is-locked="ctrl.isLocked" edit-permission="ctrl.modifyPermission" account-year-open="ctrl.currentAccountYearIsOpen" save-as-template="ctrl.invoice.isTemplate" standard-voucher-series-id="ctrl.invoiceEditHandler.defaultVoucherSeriesId" customer-blocked="ctrl.customer.blockOrder" is-contract="ctrl.isContract" data-ng-if="!ctrl.progressBusy">
+        <div class="margin-large-top margin-large-right margin-large-bottom margin-small-left">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="pull-left">
+                        <soe-toolbar buttons="ctrl.toolbar.navigationMenuButtons" hide-border="true" style="margin-bottom:0px;" ng-if="ctrl.showNavigationButtons"></soe-toolbar>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <soe-toolbar buttons="ctrl.toolbar.buttonGroups" hide-border="true" style="margin-bottom:0px;"></soe-toolbar>
+                </div>
+            </div>
+        </div>
+        <uib-accordion close-others="false">
+            <soe-accordion hidelabel="true" label-value="ctrl.orderExpanderLabel" is-open="ctrl.orderExpanderIsOpen" on-open="ctrl.headRendered = true">
+                <div ng-show="ctrl.headRendered">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-4" data-ng-if="!ctrl.showPayingCustomer">
+                                <soe-typeahead label-key="common.customer.customer.customer" model="ctrl.selectedCustomer" items="ctrl.customers" options="item as item.name for item in items" limit="100" is-required="!ctrl.saveAsTemplate" on-edit="ctrl.openCustomer(false)" edit-tooltip-key="core.edit" is-disabled="ctrl.orderClosed()" edit-disabled="!ctrl.editCustomerPermission || ctrl.orderClosed()" on-search="ctrl.searchCustomer(false)" search-tooltip-key="economy.customer.customercentral.seekcustomerbutton" search-disabled="ctrl.orderClosed()" on-info="ctrl.invoiceEditHandler.showCustomerNote(ctrl.customer)" info-tooltip-key="common.customer.customer.customernote" info-disabled="(!ctrl.selectedCustomer || ctrl.customer.note.length==0)"></soe-typeahead>
+                            </div>
+                            <div class="col-sm-4" data-ng-if="ctrl.showPayingCustomer">
+                                <soe-typeahead label-key="common.customer.customer.customer" model="ctrl.selectedDeliveryCustomer" items="ctrl.customers" options="item as item.name for item in items" on-edit="ctrl.openCustomer(true)" edit-tooltip-key="core.edit" is-disabled="ctrl.orderClosed()" edit-disabled="!ctrl.editCustomerPermission || ctrl.orderClosed()" on-search="ctrl.searchCustomer(true)" search-tooltip-key="economy.customer.customercentral.seekcustomerbutton" search-disabled="ctrl.orderClosed()" on-info="ctrl.invoiceEditHandler.showCustomerNote(ctrl.deliveryCustomer)" info-tooltip-key="common.customer.customer.customernote" info-disabled="(!ctrl.selectedDeliveryCustomer || ctrl.deliveryCustomer.note.length==0)"></soe-typeahead>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="billing.offer.offernumber" model="ctrl.invoice.invoiceNr" readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="billing.order.status" model="ctrl.invoice.originStatusName" readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <soe-label label-key="billing.order.users"></soe-label>
+                                <div class="input-group horizontal-list border-radius-right">
+                                    <div style="margin-left:0px; padding-right:0px" data-ng-repeat="user in ctrl.originUserHelper.originUsers | orderBy:['-main', 'name']" class="horizontal-list-item">
+                                        <span data-ng-if="!$last" data-ng-class="user.main ? 'indiscreet' : ''">{{user.name}},</span>
+                                        <span data-ng-if="$last" data-ng-class="user.main ? 'indiscreet' : ''">{{user.name}}</span>
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-default fal fa-pencil iconEdit border-radius-right pull-right" data-l10n-bind data-l10n-bind-title="'billing.order.users.select'" data-ng-click="$event.stopPropagation();ctrl.selectUsers()" ng-disabled="ctrl.isLocked"></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4" data-ng-if="ctrl.showPayingCustomer">
+                                <soe-typeahead label-key="billing.order.payingcustomer" model="ctrl.selectedCustomer" items="ctrl.customers" options="item as item.name for item in items" is-required="!ctrl.invoice.isTemplate" on-edit="ctrl.openCustomer(false)" edit-tooltip-key="core.edit" is-disabled="ctrl.orderClosed()" edit-disabled="!ctrl.editCustomerPermission || ctrl.isLocked" on-search="ctrl.searchCustomer(false)" search-tooltip-key="economy.customer.customercentral.seekcustomerbutton" search-disabled="ctrl.orderClosed()" on-info="ctrl.invoiceEditHandler.showCustomerNote(ctrl.customer)" info-tooltip-key="common.customer.customer.customernote" info-disabled="(!ctrl.selectedCustomer || ctrl.customer.note.length==0)"></soe-typeahead>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <soe-select label-key="common.customer.invoices.fixedpriceordertype" model="ctrl.selectedFixedPriceOrder" items="ctrl.fixedPriceOrderTypes" options="item as item.name for item in items" is-disabled="ctrl.isLocked"></soe-select>
+                            </div>
+                            <div class="col-sm-2" data-ng-if="ctrl.templatesPermission && ctrl.isNew">
+                                <soe-select label-key="common.customer.invoices.offertemplates" model="ctrl.selectedOrderTemplate" items="ctrl.orderTemplates" options="item.id as item.name for item in items" on-changing="ctrl.changeOrderTemplate()"></soe-select>
+                            </div>
+                            <div class="col-sm-8">
+                                <soe-textbox label-key="billing.order.origindescription" model="ctrl.invoice.originDescription" button-class="border-radius-right" button-icon="fa-pencil" button-tooltip-key="core.edit" on-button-click="$event.stopPropagation();ctrl.invoiceEditHandler.editOriginDescription()" is-required="ctrl.invoice.isTemplate" is-disabled="ctrl.isLocked" button-disabled="ctrl.readOnly"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <account-dims hide-std-dim="true" account1="ctrl.invoice.defaultDim1AccountId" account2="ctrl.invoice.defaultDim2AccountId" account3="ctrl.invoice.defaultDim3AccountId" account4="ctrl.invoice.defaultDim4AccountId" account5="ctrl.invoice.defaultDim5AccountId" account6="ctrl.invoice.defaultDim6AccountId" is-readonly="ctrl.isLocked" parent-guid="ctrl.guid"></account-dims>
+                    </div>
+
+                    <uib-accordion close-others="false">
+                        <soe-accordion label-key="common.customer.invoices.offer" is-open="ctrl.orderOrderExpanderIsOpen">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <soe-datepicker label-key="billing.offer.offerdate" model="ctrl.selectedInvoiceDate" is-disabled="ctrl.isLocked"></soe-datepicker>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-datepicker label-key="billing.order.orderdate" model="ctrl.invoice.orderDate" is-disabled="ctrl.isLocked"></soe-datepicker>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-datepicker label-key="billing.offer.validtodate" model="ctrl.invoice.dueDate" is-disabled="ctrl.isLocked"></soe-datepicker>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-typeahead label-key="common.customer.invoices.yourreference" model="ctrl.invoice.referenceYour" items="ctrl.customerReferences" options="item.name as item.name for item in items" editable="true" is-disabled="ctrl.isLocked" on-info="$event.stopPropagation();ctrl.showYourReferenceInfo()" info-disabled="!ctrl.invoice.referenceYour"></soe-typeahead>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-select label-key="common.contactaddresses.ecommenu.email" model="ctrl.invoice.contactEComId" items="ctrl.customerEmails" options="item.id as item.name for item in items" is-disabled="ctrl.isLocked"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-typeahead label-key="billing.order.ourreference" model="ctrl.invoice.referenceOur" items="ctrl.ourReferences" options="item.name as item.name for item in items" editable="true" is-disabled="ctrl.isLocked"></soe-typeahead>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2" data-ng-if="ctrl.isOrderTypeUnspecified || ctrl.isOrderTypeProject">
+                                    <soe-select label-key="billing.order.syswholeseller" model="ctrl.invoice.sysWholeSellerId" items="ctrl.invoiceEditHandler.wholesellers" options="item.id as item.name for item in items" is-disabled="ctrl.isLocked"></soe-select>
+                                </div>
+                                <div class="col-sm-2" data-ng-if="!ctrl.isOrderTypeInternal">
+                                    <soe-select label-key="billing.order.pricelisttype" model="ctrl.selectedPriceListType" items="ctrl.priceListTypes" options="item as item.name for item in items" is-disabled="ctrl.isLocked"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-select label-key="common.customer.invoices.vattype" model="ctrl.invoice.vatType" items="ctrl.invoiceEditHandler.filteredVatTypes" options="item.id as item.name for item in items" required="true" on-changing="ctrl.vatTypeChanging(ctrl.invoice.vatType)" is-disabled="ctrl.isLocked"></soe-select>
+                                </div>
+                                <div class="col-sm-2" data-ng-if="ctrl.invoiceEditHandler.customerGLNs && ctrl.invoiceEditHandler.customerGLNs.length > 1">
+                                    <soe-select label-key="common.contactaddresses.ecommenu.gln" model="ctrl.invoice.contactGLNId" items="ctrl.invoiceEditHandler.customerGLNs" options="item.id as item.name for item in items" is-disabled="ctrl.isLocked"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="common.customer.customer.contractnr" model="ctrl.invoice.contractNr" maxlength="100" is-disabled="ctrl.isLocked"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-checkbox label-key="common.customer.customer.einvoiceattachments" model="ctrl.invoice.addAttachementsToEInvoice" inline="true" is-disabled="ctrl.isLocked"></soe-checkbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <soe-textbox label-key="billing.order.invoicelabel" model="ctrl.invoice.invoiceLabel" maxlength="1024" is-disabled="ctrl.isLocked"></soe-textbox>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <soe-textarea label-key="billing.order.workingdescription" model="ctrl.invoice.workingDescription" rows="2" button-icon="fa-pencil" button-tooltip-key="core.edit" button-class="border-radius-right" on-button-click="$event.stopPropagation();ctrl.editWorkingDescription()" is-disabled="ctrl.isLocked"></soe-textarea>
+                                            <soe-checkbox label-key="billing.order.includeoninvoice" model="ctrl.invoice.includeOnInvoice" is-disabled="ctrl.isLocked"></soe-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </soe-accordion>
+
+                        <soe-accordion label-key="billing.order.conditions" data-ng-if="!ctrl.isOrderTypeInternal" is-open="ctrl.orderConditionExpanderIsOpen">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <soe-datepicker label-key="billing.order.deliverydate" model="ctrl.invoice.deliveryDate" is-disabled="ctrl.isLocked"></soe-datepicker>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-select label-key="billing.order.deliverytype" model="ctrl.invoice.deliveryTypeId" items="ctrl.invoiceEditHandler.deliveryTypes" options="item.id as item.name for item in items" is-disabled="ctrl.isLocked"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-select label-key="billing.order.deliverycondition" model="ctrl.invoice.deliveryConditionId" items="ctrl.invoiceEditHandler.deliveryConditions" options="item.id as item.name for item in items" is-disabled="ctrl.isLocked"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-label label-key="billing.order.deliveryaddress"></soe-label>
+                                    <div class="input-group">
+                                        <soe-select model="ctrl.invoice.deliveryAddressId" items="ctrl.invoiceEditHandler.deliveryAddresses" options="item.contactAddressId as item.address for item in items" button-icon="'fa-pencil'" is-disabled="ctrl.isLocked"></soe-select>
+                                        <span class="input-group-btn">
+                                            <button ng-class="{ 'border-radius-right' : ctrl.invoice.deliveryAddressId }" button" class="btn btn-sm btn-default fal fa-pencil iconEdit no-border-radius" data-l10n-bind data-l10n-bind-title="'billing.order.deliveryaddress.edit'" data-ng-click="$event.stopPropagation();ctrl.editDeliveryAddress()" ng-disabled="(!ctrl.selectedCustomer || ctrl.isLocked)"></button>
+                                        </span>
+                                        <span class="input-group-btn" data-ng-if="!ctrl.invoice.deliveryAddressId">
+                                            <button type="button" class="btn btn-sm btn-default fal fa-info-circle iconEdit border-radius-right" data-l10n-bind data-l10n-bind-title="'billing.order.deliveryaddressnotconnected'" data-ng-click="$event.stopPropagation()" ng-disabled="ctrl.isLocked"></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="billing.order.deliverydatetext" model="ctrl.invoice.deliveryDateText" maxlength="1024" is-disabled="ctrl.isLocked"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-select label-key="billing.order.invoiceaddress" model="ctrl.invoice.billingAddressId" items="ctrl.invoiceEditHandler.invoiceAddresses" options="item.contactAddressId as item.address for item in items" is-disabled="ctrl.isLocked"></soe-select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <soe-select label-key="common.customer.invoices.paymentcondition" model="ctrl.invoice.paymentConditionId" items="ctrl.invoiceEditHandler.paymentConditions" options="item.paymentConditionId as item.name for item in items" is-disabled="ctrl.isLocked"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-select label-key="billing.order.invoicepaymentservice" model="ctrl.invoice.invoicePaymentService" items="ctrl.invoicePaymentServices" options="item.id as item.name for item in items" is-disabled="ctrl.isLocked"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-select label-key="common.customer.invoices.currency" model="ctrl.currencyHelper.currencyId" items="ctrl.invoiceEditHandler.currencies" options="item.currencyId as item.name for item in items" is-disabled="ctrl.isLocked"></soe-select>
+                                </div>
+                                <div class="col-sm-2" data-ng-if="!ctrl.currencyHelper.amountHelper.isBaseCurrency">
+                                    <soe-textbox label-key="common.customer.invoices.currencyrate" label-value="ctrl.invoice.currencyDate | date: 'shortDate'" label-value-in-parentheses="true" model="ctrl.invoice.currencyRate" input-type="number" readonly="true"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <!--<soe-textbox label-key="billing.order.freightamount" model="ctrl.invoice.freightAmountCurrency" numeric="true" decimals="2" data-ng-if="ctrl.useFreightAmount" is-disabled="ctrl.isLocked"></soe-textbox>-->
+                                </div>
+                                <div class="col-sm-2">
+                                    <!--<soe-textbox label-key="billing.order.invoicefee" model="ctrl.invoice.invoiceFeeCurrency" numeric="true" decimals="2" data-ng-if="ctrl.useInvoiceFee" is-disabled="ctrl.disableInvoiceFee || ctrl.isLocked"></soe-textbox>-->
+                                </div>
+                            </div>
+                            <div class="row" data-ng-if="ctrl.triangulationSales && !ctrl.currencyHelper.amountHelper.isBaseCurrency">
+                                <div class="col-sm-2">
+                                    <soe-checkbox label-key="billing.order.tripartitetrade" model="ctrl.invoice.triangulationSales" inline="true" is-disabled="ctrl.isLocked"></soe-checkbox>
+                                </div>
+
+                            </div>
+                        </soe-accordion>
+                    </uib-accordion>
+                </div>
+            </soe-accordion>
+
+            <soe-accordion label-key="billing.order.productrows" label-value="ctrl.productRowsExpanderLabel" data-ng-if="ctrl.productRowsPermission" is-open="ctrl.productRowsExpanderIsOpen" on-open="ctrl.openProductRowExpander()">
+                <div class="row" ng-if="ctrl.productRowsRendered">
+                    <div class="col-sm-12">
+                        <product-rows container="1"
+                                      invoice-id="ctrl.invoiceId"
+                                      product-rows="ctrl.invoice.customerInvoiceRows"
+                                      nbr-of-visible-rows="ctrl.nbrOfVisibleRows"
+                                      nbr-of-active-rows="ctrl.nbrOfActiveRows"
+                                      billing-type="ctrl.invoice.billingType"
+                                      wholeseller-id="ctrl.invoice.sysWholeSellerId"
+                                      price-list-type-id="ctrl.selectedPriceListType.priceListTypeId"
+                                      price-list-type-inclusive-vat="ctrl.selectedPriceListType.inclusiveVat"
+                                      price-list-type-is-project="ctrl.selectedPriceListType.isProjectPriceList"
+                                      is-credit="ctrl.isCredit"
+                                      amount-helper="ctrl.currencyHelper.amountHelper"
+                                      vat-type="ctrl.invoice.vatType"
+                                      fixed-price="ctrl.fixedPrice"
+                                      fixed-price-keep-prices="ctrl.fixedPriceKeepPrices"
+                                      freight-amount="ctrl.invoice.freightAmount"
+                                      freight-amount-currency="ctrl.invoice.freightAmountCurrency"
+                                      invoice-fee="ctrl.invoice.invoiceFee"
+                                      invoice-fee-currency="ctrl.invoice.invoiceFeeCurrency"
+                                      disable-invoice-fee="ctrl.disableInvoiceFee"
+                                      sum-amount="ctrl.invoice.sumAmount"
+                                      sum-amount-currency="ctrl.invoice.sumAmountCurrency"
+                                      vat-amount="ctrl.invoice.vatAmount"
+                                      vat-amount-currency="ctrl.invoice.vatAmountCurrency"
+                                      vat-percent="ctrl.vatPercent"
+                                      total-amount="ctrl.invoice.totalAmount"
+                                      total-amount-currency="ctrl.invoice.totalAmountCurrency"
+                                      cent-rounding="ctrl.invoice.centRounding"
+                                      marginal-income-currency="ctrl.invoice.marginalIncomeCurrency"
+                                      marginal-income-ratio="ctrl.invoice.marginalIncomeRatio"
+                                      remaining-amount="ctrl.invoice.remainingAmount"
+                                      remaining-amount-ex-vat="ctrl.invoice.remainingAmountExVat"
+                                      show-remaining-amount-ex-vat="ctrl.showRemainingAmountExVat"
+                                      has-household-tax-deduction="ctrl.hasHouseholdTaxDeduction"
+                                      is-valid-to-change-attest-state="ctrl.isValidToChangeAttestState()"
+                                      change-attest-states="ctrl.changeAttestStates(canCreateInvoice)"
+                                      read-only="ctrl.isLocked"
+                                      data-ng-if="ctrl.invoice"
+                                      loading="ctrl.loadingInvoice"
+                                      parent-guid="ctrl.guid"
+                                      tripartite-trade="ctrl.invoice.triangulationSales"
+                                      origin-status="ctrl.invoice.originStatus">
+                        </product-rows>
+                    </div>
+                </div>
+            </soe-accordion>
+
+            <soe-accordion label-key="billing.order.timeproject" data-ng-if="ctrl.timeProjectPermission && !ctrl.invoice.isTemplate && !ctrl.isOrderTypeSales && ctrl.invoice.projectId && ctrl.invoice.invoiceId && !ctrl.projectNotSaved" is-open="ctrl.timeProjectRowsExpanderIsOpen" on-open="ctrl.loadTimeProjectRows()">
+                <div class="row" ng-if="ctrl.timeProjectRendered">
+                    <div class="col-sm-12">
+                        <time-project-report read-only="ctrl.isLocked" rows="ctrl.projectTimeBlockRows" vat-type="ctrl.invoice.vatType" project-type="ctrl.projectType" record-type="ctrl.recordType" employee-id="ctrl.employeeId" project-id="ctrl.invoice.projectId" print-time-report="ctrl.invoice.printTimeReport" include-only-invoiced-time="ctrl.invoice.includeOnlyInvoicedTime" set-loading="ctrl.loadingTimeProjectRows" from-date="ctrl.timeProjectFrom" to-date="ctrl.timeProjectTo" invoice-id="ctrl.invoiceId" project-container="ctrl.projectContainer" parent-guid="ctrl.guid" parent-is-dirty="ctrl.dirtyHandler.isDirty"></time-project-report>
+                    </div>
+                </div>
+            </soe-accordion>
+
+            <soe-accordion label-key="core.document" label-value="ctrl.invoiceFilesHelper.nbrOfFiles" label-value-in-parentheses="true" is-open="ctrl.documentExpanderIsOpen" on-open="ctrl.invoiceFilesHelper.loadFiles(ctrl.invoiceId)" data-ng-if="ctrl.filesPermission">
+                <!--<div class="col-sm-12" ng-if="ctrl.invoiceFilesHelper.filesRendered">
+        <soe-file-display files="ctrl.invoiceFilesHelper.files" nbr-of-files-changed="ctrl.invoiceFilesHelper.nbrOfFilesChanged(nbrOfFiles)" file-name-changed="ctrl.invoiceFilesHelper.fileNameChanged(file)" read-only="ctrl.isLocked"></soe-file-display>
+        <soe-file-upload callback="ctrl.invoiceFilesHelper.fileUploadedCallback(result)" entity="{{::ctrl.invoiceFilesHelper.entity}}" image-type="{{::ctrl.invoiceFilesHelper.type}}" read-only="ctrl.isLocked"></soe-file-upload>
+    </div>-->
+                <div class="col-sm-12" ng-if="ctrl.invoiceFilesHelper.filesRendered">
+                    <div class="row">
+                        <soe-file-upload callback="ctrl.invoiceFilesHelper.fileUploadedCallback(result)" entity="{{::ctrl.invoiceFilesHelper.entity}}" image-type="{{::ctrl.invoiceFilesHelper.type}}" read-only="ctrl.isLocked" toolbarmode="true" parent-guid="ctrl.guid" show-transfer-check-box="true" show-distribution-check-box="true"></soe-file-upload>
+                    </div>
+                    <div class="row">
+                        <soe-documents guid="ctrl.guid" read-only="ctrl.isLocked" files="ctrl.invoiceFilesHelper.files" permission="Feature.Billing_Offer_Offers_Edit" parent-feature="ctrl.feature" loading="ctrl.invoiceFilesHelper.loadingFiles" reset-grid-data="ctrl.resetDocumentsGridData"></soe-documents>
+                    </div>
+                </div>
+            </soe-accordion>
+
+            <soe-accordion label-key="common.checklists" label-value="ctrl.checklistHeads.length" label-value-in-parentheses="true" data-ng-if="ctrl.checklistsPermission && !ctrl.isOrderTypeSales && !ctrl.isOrderTypeInternal && ctrl.isOrder" is-open="ctrl.checklistExpanderIsOpen">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <checklists read-only="ctrl.isLocked" record-id="ctrl.invoiceId" records="ctrl.checklistHeads" checklist-head-type="1" entity="6" load="ctrl.loadChecklistsRecords" copy="ctrl.reloadChecklists" loaded="ctrl.checklistsLoaded" signatures="ctrl.signatures"></checklists>
+                    </div>
+                </div>
+            </soe-accordion>
+
+            <soe-accordion label-key="common.customer.invoices.accountingrows" data-ng-if="ctrl.accountingRowsPermission && !ctrl.invoice.isTemplate" is-open="ctrl.accountingRowsExpanderIsOpen" on-open="ctrl.loadAccountRows()">
+                <div class="row" ng-if="ctrl.accountingRowsRendered">
+                    <div class="col-sm-12">
+                        <div class="info form-group form-group-sm" data-ng-if="ctrl.hasModifiedProductRows">
+                            <div class="margin-small-left row">
+                                <label class="info" data-l10n-bind="'billing.offer.productrowsmodified'"></label>
+                                <button type="button" class="btn btn-sm btn-default fal fa-sync" data-l10n-bind data-l10n-bind-title="'common.savereload'" ng-if="!ctrl.isDisabled()" data-ng-click="$event.stopPropagation();ctrl.save(false, false, false)"></button>
+                            </div>
+                        </div>
+                        <accounting-rows data-ng-if="!ctrl.hasModifiedProductRows && ctrl.accountRows.length>0"
+                                         container="3"
+                                         is-readonly="true"
+                                         accounting-rows="ctrl.accountRows"
+                                         actor-id="ctrl.invoice.actorId"
+                                         currency-date="ctrl.currencyHelper.currencyDate"
+                                         currency-id="ctrl.currencyHelper.currencyIdReadonly"
+                                         is-base-currency="ctrl.currencyHelper.isBaseCurrency"
+                                         is-ledger-currency="ctrl.currencyHelper.isLedgerCurrency"
+                                         on-amount-converted="ctrl.amountConverted(item)"
+                                         show-row-nr="true"
+                                         show-text="true"
+                                         show-transaction-currency="ctrl.showTransactionCurrency"
+                                         show-enterprise-currency="ctrl.showEnterpriseCurrency"
+                                         show-ledger-currency="ctrl.showLedgerCurrency"
+                                         show-amount-summary="true"
+                                         min-rows-to-show="20"
+                                         show-grouping="true"
+                                         show-voucher-series="true"
+                                         voucher-series-id="ctrl.invoice.voucherSeriesId"
+                                         voucher-date="ctrl.invoice.voucherDate"
+                                         parent-record-id="ctrl.invoice.invoiceId"
+                                         override-diff-validation="true">
+                        </accounting-rows>
+                    </div>
+                </div>
+            </soe-accordion>
+
+            <soe-accordion label-key="billing.order.planning" label-value="ctrl.plannedShifts.length" label-value-in-parentheses="true" data-ng-if="ctrl.orderPlanningPermission && !ctrl.isOrderTypeSales && !ctrl.isOrderTypeInternal && !ctrl.invoice.isTemplate && ctrl.isOrder" is-open="ctrl.planningExpanderIsOpen" on-open="ctrl.loadOrderShifts()">
+                <div ng-if="ctrl.planningRendered">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <soe-typeahead label-key="billing.order.planning.shifttype" model="ctrl.selectedShiftType" items="ctrl.shiftTypes" options="item as item.name for item in items" is-disabled="ctrl.isLocked"></soe-typeahead>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="billing.order.planning.estimatedtime" model="ctrl.invoice.estimatedTimeFormatted" update-on="blur" is-time="true" is-disabled="ctrl.isLocked"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="billing.order.planning.remainingtime" model="ctrl.invoice.remainingTimeFormatted" update-on="blur" is-time="true" is-disabled="ctrl.isLocked"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="billing.order.planning.priority" model="ctrl.invoice.priority" numeric="2" decimals="0" is-disabled="ctrl.isLocked"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-datepicker label-key="billing.order.planning.plannedstartdate" model="ctrl.invoice.plannedStartDate" is-disabled="ctrl.isLocked"></soe-datepicker>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-datepicker label-key="billing.order.planning.plannedstopdate" model="ctrl.invoice.plannedStopDate" is-disabled="ctrl.isLocked"></soe-datepicker>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <soe-instruction label-key="billing.order.planning.priorityinfo"></soe-instruction>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <soe-checkbox label-key="billing.order.planning.keepasplanned" model="ctrl.invoice.keepAsPlanned"></soe-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <soe-instruction label-key="billing.order.planning.keepasplanned.info"></soe-instruction>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <planned-shifts shifts="ctrl.plannedShifts"></planned-shifts>
+                    </div>
+                </div>
+            </soe-accordion>
+
+            <soe-accordion label-key="common.tracing" data-ng-if="ctrl.tracingPermission && !ctrl.isNew && !ctrl.invoice.isTemplate" is-open="ctrl.traceRowsExpanderIsOpen" on-open="ctrl.traceRowsRendered = true">
+                <div class="row" ng-if="ctrl.traceRowsRendered">
+                    <div class="col-sm-12">
+                        <trace-rows trace-id="ctrl.invoice.invoiceId" page-name="'offerEdit'"></trace-rows>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="margin-large-left pull-left">
+                <div class="col">
+                    <created-modified model="ctrl.invoice"></created-modified>
+                </div>
+                <div class="col margin-large-left" ng-if="ctrl.autoSaveActive">
+                    <div class="col">
+                        <button type="button" class="btn-toolbar fal fa-pause-circle" data-ng-click="$event.stopPropagation();ctrl.pauseAutoSaveTimer()" ng-if="!ctrl.timerPaused"></button>
+                        <button type="button" class="btn-toolbar fal fa-play-circle" data-ng-click="$event.stopPropagation();ctrl.pauseAutoSaveTimer()" ng-if="ctrl.timerPaused"></button>
+                        <button type="button" class="btn-toolbar fal fa-stop-circle" data-ng-click="$event.stopPropagation();ctrl.stopAutoSaveTimer()"></button>
+                        <span class="control-label">{{ctrl.autoSaveText}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right margin-large-right">
+                <div>
+                    <div class="col margin-large-right" data-ng-if="ctrl.templatesPermission && !ctrl.invoice.projectId">
+                        <soe-checkbox label-key="billing.order.saveastemplate" model="ctrl.invoice.isTemplate" is-disabled="ctrl.invoice.invoiceId || ctrl.lockTemplateFlag"></soe-checkbox>
+                    </div>
+                    <div class="col margin-large-right" data-ng-if="ctrl.useDiffWarning">
+                        <soe-checkbox label-key="billing.order.checkconflicts" tooltip-key="billing.order.checkconflictstooltip" model="ctrl.checkConflictsOnSave"></soe-checkbox>
+                    </div>
+                    <div class="col" data-ng-if="ctrl.modifyPermission && ctrl.invoice && !ctrl.isNew && ctrl.invoice.originStatus !== 4">
+                        <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.delete'" data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.delete()"></button>
+                    </div>
+                    <div class="col" data-ng-if="ctrl.modifyPermission && !ctrl.invoice.isTemplate">
+                        <soe-splitbutton label-key="common.report.report.print" options="ctrl.printFunctions" drop-up="true" last-button-class="last-button" is-disabled="!ctrl.invoice.invoiceId || ctrl.dirtyHandler.isDirty" option-selected="ctrl.executePrintFunction(option)"></soe-splitbutton>
+                    </div>
+                    <div class="col" data-ng-if="!ctrl.invoice.isTemplate">
+                        <soe-splitbutton label-key="billing.offer.transfertoorder" options="ctrl.transferFunctions" last-button-class="last-button" drop-up="true" selected-option="ctrl.transferButtonSelectedOption" option-selected="ctrl.executeTransferFunction(option)" is-disabled="ctrl.orderClosed()"></soe-splitbutton>
+                    </div>
+                    <div class="col" data-ng-if="ctrl.modifyPermission" data-ng-class="{'no-border-radius-on-specified-last-button' : ctrl.edit.$invalid}">
+                        <soe-splitbutton label-key="core.save" options="ctrl.saveFunctions" last-button-class="last-button" main-button="true" drop-up="true" is-disabled="ctrl.isDisabled()" option-selected="ctrl.executeSaveFunction(option)"></soe-splitbutton>
+                    </div>
+                    <button type="button" class="btn btn-sm ngSoeMainButtonInvalid no-left-border-radius" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.edit.$invalid" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

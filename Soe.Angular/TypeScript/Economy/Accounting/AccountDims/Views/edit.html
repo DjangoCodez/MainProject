@@ -1,0 +1,127 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div account-dim-validation ng-model="ctrl.accountDim" linked-to-project="ctrl.accountDim.linkedToProject" linked-to-shift-type="ctrl.accountDim.linkedToShiftType">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="common.general" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.number" model="ctrl.accountDim.accountDimNr" type="number" required="true" is-readonly="ctrl.isStdAccountDim" auto-focus="true" on-blur="ctrl.validateAccountDimNr()"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-textbox label-key="common.shortname" model="ctrl.accountDim.shortName" required="true" maxlength="10"></soe-textbox>
+                        </div>
+                        <div class="col-sm-8">
+                            <soe-textbox label-key="common.name" model="ctrl.accountDim.name" required="true" maxlength="100"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.accountDim != null && ctrl.accountDim.accountDimNr === 1">
+                        <div class="col-sm-4">
+                            <soe-select label-key="economy.accounting.sysaccountstdtype" model="ctrl.accountDim.sysAccountStdTypeParentId" items="ctrl.sysAccountStdTypes" options="item.id as item.name for item in items"></soe-select>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.settings" data-ng-if="ctrl.accountDim != null && ctrl.accountDim.accountDimNr !== 1">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-select label-key="economy.accounting.minlength" model="ctrl.accountDim.minChar" items="ctrl.chars" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-select label-key="economy.accounting.maxlength" model="ctrl.accountDim.maxChar" items="ctrl.chars" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="economy.accounting.siedim" model="ctrl.accountDim.sysSieDimNr" input-type="number"></soe-textbox>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-label class="margin-small-top"></soe-label>
+                        <soe-select hidelabel="true" model="ctrl.accountDim.sysSieDimNr" items="ctrl.sieDims" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                </div>
+                <div class="row margin-large-top">
+                    <div class="col-sm-2">
+                        <soe-checkbox label-key="economy.accounting.linkedtoproject" model="ctrl.accountDim.linkedToProject"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-10">
+                        <soe-instruction label-key="economy.accounting.linkedtoprojectinfo"></soe-instruction>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-checkbox label-key="economy.accounting.linkedtoshifttype" model="ctrl.accountDim.linkedToShiftType"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-10">
+                        <soe-instruction label-key="economy.accounting.linkedtoshifttypeinfo"></soe-instruction>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" data-ng-if="!ctrl.vatDeductionExists">
+                        <soe-checkbox label-key="economy.accounting.usevatdeduction" model="ctrl.useVatDeduction"></soe-checkbox>
+                    </div>
+                </div>
+                <br>
+                <soe-panel label-key="economy.accounting.salessettings">
+                    <div class="row">
+                        <div class="row margin-small-left">
+                            <div class="col-sm-6">
+                                <soe-checkbox label-key="economy.accounting.mandatoryorder" model="ctrl.accountDim.mandatoryInOrder"></soe-checkbox>
+                            </div>
+                        </div>
+                        <div class="row margin-small-left">
+                            <div class="col-sm-6">
+                                <soe-checkbox label-key="economy.accounting.mandatoryinvoice" model="ctrl.accountDim.mandatoryInCustomerInvoice"></soe-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+                <br>
+                <soe-panel label-key="common.staffsettings">
+                    <div class="row">
+                        <div class="row margin-small-left">
+                            <div class="col-sm-6">
+                                <soe-checkbox label-key="economy.accounting.useinscheduleplanning" model="ctrl.accountDim.useInSchedulePlanning"></soe-checkbox>
+                            </div>
+                        </div>
+                        <div class="row margin-small-left">
+                            <div class="col-sm-6">
+                                <soe-checkbox label-key="economy.accounting.excludeinaccountingexport" model="ctrl.accountDim.excludeinAccountingExport"></soe-checkbox>
+                            </div>
+                        </div>
+                        <div class="row margin-small-left">
+                            <div class="col-sm-6">
+                                <soe-checkbox label-key="economy.accounting.excludeinsalaryreport" model="ctrl.accountDim.excludeinSalaryReport"></soe-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+            </soe-accordion>
+            <soe-accordion label-key="economy.accounting.account.parentaccount">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-select label-key="economy.accounting.account.childdim" model="ctrl.accountDim.parentAccountDimId" items="ctrl.accountDims" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.accountDim"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.accountDim.isActive" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.accountDim.accountDimNr !== 1 && ctrl.inactivatePermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

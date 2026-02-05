@@ -1,0 +1,102 @@
+﻿<form name="ctrl.edit" class="messagebox modal-wide" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'billing.invoices.householddeduction.editinfo'"></h6>
+    </div>
+    <div class="modal-body">
+                                <div data-ng-repeat="row in ctrl.rows track by $index" class="repeater-condensed">
+                                    <uib-accordion close-others="false">
+                                        <soe-accordion label-value="ctrl.getAccordionLabelValue($index)" label-value-class="{'indiscreet':true}" is-open="($index === 0)">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <div class="margin-small-left">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <soe-textbox label-key="common.customer.invoices.invoicenr" is-readonly="true" model="row.invoiceNr"></soe-textbox>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <soe-textbox label-key="common.customer.customer.rot.socialsecnr" is-readonly="true" model="row.socialSecNr" social-security-number="true"></soe-textbox>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <soe-datepicker label-key="common.customer.invoices.paydate" model="row.paidDate" is-readonly="true"></soe-datepicker>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <soe-textbox label-key="common.customer.customer.rot.property" is-readonly="true" model="row.property"></soe-textbox>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <soe-textbox label-key="common.customer.customer.rot.apartmentnr" ng-if="row.apartmentNr" is-readonly="true" model="row.apartmentNr" social-security-number="true"></soe-textbox>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <soe-textbox label-key="common.customer.customer.rot.cooperativeorgnr" ng-if="row.cooperativeOrgNr" is-readonly="true" model="row.cooperativeOrgNr"></soe-textbox>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <soe-textbox label-key="common.customer.invoices.invoiceamount" is-readonly="true" model="row.invoiceTotalAmount" numeric="true"></soe-textbox>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <soe-textbox label-key="billing.invoices.householddeduction.validfordeduction" is-readonly="true" model="row.workAmount" numeric="true">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <soe-textbox label-key="common.customer.invoices.paidamount" is-readonly="true" model="row.paidAmount" numeric="true"></soe-textbox>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <soe-textbox label-key="billing.invoices.householddeduction.appliedamount" is-readonly="true" model="row.appliedAmount" numeric="true"></soe-textbox>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <soe-textbox label-key="billing.invoices.householddeduction.othercost" model="row.nonValidAmount" numeric="true"></soe-textbox>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <div data-ng-repeat="type in row.types track by $index" class="repeater-condensed">
+                                                        <div class="col-sm-12 margin-large-left">
+                                                            <div class="col-sm-4">
+                                                                <soe-label model="type.text" ng-if="($index == 0)" style="margin-top: 13px;"></soe-label>
+                                                                <soe-label model="type.text" ng-if="($index > 0)" style="margin-top: 10px;"></soe-label>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <soe-textbox label-key="billing.projects.list.budgethours" ng-if="!ctrl.hideLabel($index)" model="type.hours" numeric="true" decimals="2"></soe-textbox>
+                                                                <soe-textbox hide-label="true" ng-if="ctrl.hideLabel($index)" model="type.hours" numeric="true" decimals="2"></soe-textbox>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <soe-textbox label-key="billing.invoices.householddeduction.materialcost" ng-if="!ctrl.hideLabel($index)" model="type.amount" numeric="true" decimals="2"></soe-textbox>
+                                                                <soe-textbox hide-label="true" ng-if="ctrl.hideLabel($index)" model="type.amount" numeric="true" decimals="2"></soe-textbox>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 margin-large-top">
+                                                <soe-textarea label-key="common.customer.customer.rot.comment" model="row.comment" rows="5"></soe-textarea>
+                                            </div>
+                                        </soe-accordion>
+                                </uib-accordion>
+    </div>
+</div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.buttonOkClick()" data-ng-disabled="ctrl.isLocked"></button>
+    </div>
+</form>
+

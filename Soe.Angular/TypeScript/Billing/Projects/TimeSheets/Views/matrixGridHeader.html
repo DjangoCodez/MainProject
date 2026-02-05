@@ -1,0 +1,30 @@
+﻿<div class="form-inline btn-toolbar-no-border" role="toolbar">
+    <div class="form-group form-group-sm">
+        <soe-select model="ctrl.selectedEmployeeId" input-width="150px" items="ctrl.employeesDict" options="item.id as item.name for item in items" is-disabled="this.employeesDict.length < 2"></soe-select>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-sm btn-default fal fa-chevron-left" data-l10n-bind data-l10n-bind-title="'common.from'" data-ng-click="ctrl.decreaseDate()"></button>
+            </span>
+            <soe-datepicker hidelabel="true" model="ctrl.timeProjectFrom" button-class="no-border-radius" use-ignore-dirty="true"></soe-datepicker>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-sm btn-default fal fa-chevron-right border-radius-right" data-l10n-bind data-l10n-bind-title="'common.to'" data-ng-click="ctrl.increaseDate()"></button>
+            </span>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <soe-label label-key="common.week" style="display:inline-block"></soe-label>
+        <soe-textbox hide-label="true" style="display:inline-block" model="ctrl.weekNr" is-readonly="true" numeric-not-zero="true" input-width="30px" maxlength="2"></soe-textbox>
+    </div>
+    <div class="form-group form-group-sm">
+        <button type="button" class="btn btn-sm btn-default ngSoeSplitButton ng-binding ngSoeMainButton" data-l10n-bind="'billing.project.central.getdata'" data-l10n-bind-title="'billing.project.central.getdata'" data-ng-click="ctrl.loadGridData()" data-ng-disabled="!ctrl.selectedEmployeeId || !ctrl.timeProjectFrom"></button>
+    </div>
+    <div class="form-group form-group-sm">
+        <soe-splitbutton class="pull-right" is-disabled="!ctrl.selectedEmployeeId || !ctrl.hasFetchedData || !ctrl.isProjectsLoaded || !ctrl.isOrdersLoaded" label-key="common.newrow" options="ctrl.buttonFunctionsHeader" option-selected="$event.stopPropagation();ctrl.executeButtonFunction(option)"></soe-splitbutton>
+    </div>
+
+        <div class="form-group form-group-sm">
+            <soe-checkbox label-key="billing.project.timesheet.showweekend" model="ctrl.showWeekend"></soe-checkbox>
+        </div>
+    </div>

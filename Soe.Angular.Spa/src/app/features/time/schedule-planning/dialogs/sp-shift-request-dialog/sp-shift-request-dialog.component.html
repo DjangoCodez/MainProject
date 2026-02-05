@@ -1,0 +1,111 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    <form [formGroup]="form" novalidate autocomplete="off">
+      <soe-toolbar>
+        <div toolbar-content-left select="[toolbar-content-left]">
+          <sp-toolbar-employee-date
+            [employeeName]="form.controls.employeeName.value"
+            [dateFrom]="form.controls.date.value"
+            [showWeekdayColor]="true"></sp-toolbar-employee-date>
+        </div>
+      </soe-toolbar>
+      <div class="row mt-3 mb-2 mx-2">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-3">
+              @for (shiftCtrl of form.shiftForms.controls; track $index) {
+                <div [formGroup]="shiftCtrl">
+                  <div class="shift-row-container">
+                    <sp-shift-simple
+                      [shift]="form.shifts[$index]"
+                      [dayShifts]="form.shifts"></sp-shift-simple>
+                  </div>
+                </div>
+              }
+            </div>
+            <div class="col-sm-9">
+              <mat-stepper
+                #stepper
+                class="mb-1"
+                orientation="vertical"
+                [@.disabled]="true">
+                <!-- Step 1 - Message -->
+                <mat-step [stepControl]="form">
+                  <ng-template matStepLabel>
+                    <span>
+                      {{ 'common.messages.message' | translate }}
+                    </span>
+                    @if (stepper.selectedIndex !== 0) {
+                      <span class="font-normal" style="margin-left: -3px"
+                        >&nbsp;{{ form.controls.subject.value }}</span
+                      >
+                    }
+                  </ng-template>
+                  <soe-textbox
+                    [labelKey]="'core.xemail.subject'"
+                    formControlName="subject"></soe-textbox>
+                  <soe-texteditor
+                    [showBlock]="false"
+                    [showSubSuper]="false"
+                    [showIndent]="false"
+                    [showFont]="false"
+                    [showFontSize]="false"
+                    [showHeading]="false"
+                    [showColor]="false"
+                    [showClean]="false"
+                    [showLink]="false"
+                    formControlName="text"></soe-texteditor>
+                </mat-step>
+                <!-- Step 2 - Recipients -->
+                <mat-step [stepControl]="form">
+                  <ng-template matStepLabel>
+                    <span>{{ 'common.messages.reciever' | translate }}</span>
+                    <span class="font-normal"
+                      >&nbsp;{{ form.recipientsSummary }}</span
+                    >
+                  </ng-template>
+                  <div class="row mb-1">
+                    <sp-shift-request-recipients [form]="form">
+                    </sp-shift-request-recipients>
+                  </div>
+                </mat-step>
+                <!-- Step 3 - Send -->
+                <mat-step [stepControl]="form">
+                  <ng-template matStepLabel>
+                    <span>{{ 'core.send' | translate }}</span>
+                  </ng-template>
+                  <div
+                    class="d-flex justify-content-end"
+                    style="margin-bottom: 8px">
+                    <div class="d-flex align-items-center gap-3">
+                      <soe-checkbox
+                        [labelKey]="'core.xemail.copytomail'"
+                        [noMargin]="true"
+                        formControlName="copyToEmail">
+                      </soe-checkbox>
+
+                      <soe-button
+                        [caption]="'core.send'"
+                        [behaviour]="'primary'"
+                        [iconName]="'paper-plane'"
+                        [disabled]="executing()"
+                        (action)="ok()">
+                      </soe-button>
+                    </div>
+                  </div>
+                </mat-step>
+                <!-- Spep icons -->
+                <ng-template matStepperIcon="edit">
+                  <fa-icon [icon]="['fal', 'pen']"></fa-icon>
+                </ng-template>
+                <ng-template matStepperIcon="done">
+                  <fa-icon [icon]="['fal', 'check']"></fa-icon>
+                </ng-template>
+              </mat-stepper>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</soe-dialog>

@@ -1,0 +1,70 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      @if (useAccountHierarchy) {
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="this.accountDim?.name ?? ''"
+            formControlName="accountId"
+            [items]="this.accountDim?.accounts || []"
+            [optionIdField]="'accountId'">
+          </soe-select>
+        </div>
+      }
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          [autoFocus]="true"
+          formControlName="name">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'common.description'"
+          [maxLength]="100"
+          formControlName="description">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        @if (useAveragingPeriod) {
+          <soe-select
+            [labelKey]="'time.time.planningperiod.child'"
+            formControlName="childId"
+            [items]="this.filteredTimePeriodHeads"></soe-select>
+        }
+      </div>
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="
+            'time.time.planningperiod.planningperiods.distribution.rule'
+          "
+          formControlName="payrollProductDistributionRuleHeadId"
+          [items]="this.payrollProductDistributionRules"></soe-select>
+      </div>
+    </div>
+    <div class="row">
+      <soe-expansion-panel
+        [labelKey]="'time.time.timeperiod.periods'"
+        [addTopMargin]="true"
+        [static]="true">
+        <soe-pp-timeperiods-grid [form]="form"></soe-pp-timeperiods-grid>
+      </soe-expansion-panel>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

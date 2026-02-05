@@ -1,0 +1,67 @@
+<div class="context-menu" cdkMenu>
+  <button
+    class="context-menu-item"
+    cdkMenuItem
+    (cdkMenuItemTriggered)="
+      onMenuSelected(DocumentMenuContextMenuOption.NewDocument)
+    ">
+    <fa-icon [icon]="['fal', 'plus']" [fixedWidth]="true"></fa-icon>
+    <span>{{ 'core.document.new' | translate }}</span>
+  </button>
+  <button
+    class="context-menu-item"
+    cdkMenuItem
+    (cdkMenuItemTriggered)="
+      onMenuSelected(DocumentMenuContextMenuOption.EditDocument)
+    ">
+    <fa-icon [icon]="['fal', 'pencil']" [fixedWidth]="true"></fa-icon>
+    <span>{{ 'core.document.edit' | translate }}</span>
+  </button>
+  <div class="border-bottom"></div>
+  <button
+    class="context-menu-item"
+    cdkMenuItem
+    [disabled]="!document.canViewDocument"
+    (cdkMenuItemTriggered)="
+      onMenuSelected(DocumentMenuContextMenuOption.ViewDocument)
+    ">
+    <fa-icon [icon]="['fal', 'eye']" [fixedWidth]="true"></fa-icon>
+    <span>{{ 'core.document.view' | translate }}</span>
+  </button>
+  <button
+    class="context-menu-item"
+    cdkMenuItem
+    (cdkMenuItemTriggered)="
+      onMenuSelected(DocumentMenuContextMenuOption.DownloadDocument)
+    ">
+    <fa-icon [icon]="['fal', 'download']" [fixedWidth]="true"></fa-icon>
+    <span>{{ 'core.document.downloadfile' | translate }}</span>
+  </button>
+  @if (document.messageId) {
+    <button
+      class="context-menu-item"
+      cdkMenuItem
+      (cdkMenuItemTriggered)="
+        onMenuSelected(DocumentMenuContextMenuOption.ViewMessage)
+      ">
+      <fa-icon
+        [icon]="['fal', 'envelope-open-text']"
+        [fixedWidth]="true"></fa-icon>
+      <span>{{ 'core.document.viewmessage' | translate }}</span>
+    </button>
+  }
+  @if (document.needsConfirmation) {
+    <button
+      class="context-menu-item"
+      cdkMenuItem
+      (cdkMenuItemTriggered)="
+        onMenuSelected(DocumentMenuContextMenuOption.SendConfirmation)
+      ">
+      <fa-icon
+        [icon]="['fal', 'file-check']"
+        [fixedWidth]="true"
+        class="color-success"></fa-icon>
+      <span>{{ 'common.messages.sendconfirmation' | translate }}</span>
+    </button>
+  }
+</div>

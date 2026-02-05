@@ -1,0 +1,68 @@
+@use '../../../../../shared/styles/core-styles/colors.scss';
+@use '../../components/schedule-planning/schedule-planning-common.scss' as
+  sp-common;
+
+form {
+  padding: 0.25rem 0;
+
+  .shift-panel {
+  }
+
+  .breaks-panel {
+    margin-top: 0.5rem;
+
+    .break-labels {
+      margin-bottom: -0.5rem;
+    }
+
+    .break-fields {
+    }
+
+    .break-buttons {
+      margin: 0.125rem 0 0.125rem 0;
+    }
+
+    .delete-icon-container {
+      margin-top: 0.75rem;
+
+      .delete-icon {
+        cursor: pointer;
+        color: colors.$soe-color-semantic-error;
+
+        &:hover {
+          color: colors.$soe-color-semantic-warning;
+        }
+      }
+    }
+  }
+
+  .skills-panel {
+    margin-top: 0.5rem;
+  }
+}
+
+::ng-deep {
+  .schedule-color {
+    color: colors.$border-color;
+    // border: 1px solid colors.$border-color;
+    // border-radius: 2px;
+  }
+
+  .booking-color {
+    color: sp-common.$booking-border-color;
+    // border: 1px solid colors.$border-color;
+    // border-radius: 2px;
+  }
+
+  .onduty-color {
+    color: sp-common.$onduty-border-color;
+    // border: 1px solid colors.$border-color;
+    // border-radius: 2px;
+  }
+
+  .standby-color {
+    color: sp-common.$standby-border-color;
+    // border: 1px solid colors.$border-color;
+    // border-radius: 2px;
+  }
+}

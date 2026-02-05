@@ -1,0 +1,93 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></h6>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'" data-ng-if="!ctrl.isNew"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row" data-ng-if="ctrl.trans">
+            <div class="col-sm-12">
+                <div class="info">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span class="indiscreet" data-l10n-bind="'time.time.attest.payrollimporttransactions'"></span>
+                        </div>
+                    </div>
+                    <div class="row margin-small-top">
+                        <div class="col-sm-12">
+                            <span>
+                                <span>{{ctrl.trans.code}}</span><span class="margin-small-left">{{ctrl.trans.name}}</span>
+                                <span class="margin-large-left">{{ctrl.trans.date | date:'shortDate'}}</span>
+                                <span class="margin-small-left" data-ng-if="ctrl.trans.startTime || ctrl.trans.stopTime">
+                                    <span>{{ctrl.trans.startTime | date:'shortTime'}}</span> - <span>{{ctrl.trans.stopTime | date:'shortTime'}}</span>
+                                </span>
+                                <span class="margin-large-left">{{ctrl.trans.quantity | minutesToTimeSpan}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row margin-small-top" data-ng-if="ctrl.trans.note">
+                        <div class="col-sm-12">
+                            <span>{{ctrl.trans.note}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-checkbox label-key="time.time.attest.timeblocks.setdates" model="ctrl.showDates"></soe-checkbox>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.showDates">
+            <div class="col-sm-3">
+                <soe-datepicker label-key="common.from" model="ctrl.timeBlock.startTime" options="ctrl.dateOptions" is-readonly="!ctrl.isNew" on-change="ctrl.startDateChanged();"></soe-datepicker>
+            </div>
+            <div class="col-sm-3">
+                <soe-timebox label-key="common.clock" model="ctrl.timeBlock.startTime" is-time="true" is-readonly="!ctrl.isNew"></soe-timebox>
+            </div>
+            <div class="col-sm-3">
+                <soe-datepicker label-key="common.to" model="ctrl.timeBlock.stopTime" options="ctrl.dateOptions" is-readonly="!ctrl.isNew && !ctrl.changingStopTime" on-change="ctrl.stopDateChanged();"></soe-datepicker>
+            </div>
+            <div class="col-sm-3">
+                <soe-timebox label-key="common.clock" model="ctrl.timeBlock.stopTime" is-time="true" is-readonly="!ctrl.isNew && !ctrl.changingStopTime"></soe-timebox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" data-ng-if="!ctrl.showDates">
+                <soe-timebox label-key="common.from" model="ctrl.timeBlock.startTime" is-time="true" is-readonly="!ctrl.isNew && !ctrl.changingStartTime" set-focus="ctrl.isNew || ctrl.changingStartTime"></soe-timebox>
+            </div>
+            <div class="col-sm-3" data-ng-if="!ctrl.showDates">
+                <soe-timebox label-key="common.to" model="ctrl.timeBlock.stopTime" is-time="true" is-readonly="!ctrl.isNew && !ctrl.changingStopTime" set-focus="ctrl.changingStopTime"></soe-timebox>
+            </div>
+            <div class="col-sm-6">
+                <soe-select label-key="common.time.timedeviationcause" model="ctrl.selectedDeviationCause" items="ctrl.deviationCauses" options="item as item.name for item in items" required="true" is-readonly="!ctrl.isNew && !ctrl.changingStartTime && !ctrl.changingStopTime"></soe-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-textarea label-key="common.comment" is-required="ctrl.isNoteRequired()" model="ctrl.timeBlock.comment" maxlength="2048" rows="3" set-focus="!ctrl.isNew && !ctrl.changingStartTime && !ctrl.changingStopTime"></soe-textarea>
+            </div>
+        </div>
+        <div class="row margin-small-top" data-ng-if="ctrl.trans && !ctrl.isLengthSameAsTrans">
+            <div class="col-sm-12">
+                <div class="warning">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span class="indiscreet" data-l10n-bind="'time.time.attest.timeblocks.lengthdifffromtrans'"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-top" data-ng-if="ctrl.readPermission">
+            <div class="col-sm-12">
+                <accounting-settings label-key="common.accountingsettings.deviatingaccountingsettings" setting-types="ctrl.settingTypes" settings="ctrl.settings" hide-std-dim="!ctrl.showStdAccount" show-base-account="false" use-no-account="false" min-rows="1" tab-index="ctrl.tabIndexes['accounting']" read-only="!ctrl.editPermission" ignore-hierarchy-only="true" hide-above-company-std="true" on-change="ctrl.accountingChanged();"></accounting-settings>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'time.time.attest.timeblocks.setasprocessed'" data-ng-click="ctrl.setAsProcessed()" data-ng-if="ctrl.trans"></button>
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()" data-ng-disabled="ctrl.timeBlock.startTime >= ctrl.timeBlock.stopTime || !ctrl.timeBlock.timeDeviationCauseStartId || ctrl.isNoteInvalid()"></button>
+    </div>
+</div>

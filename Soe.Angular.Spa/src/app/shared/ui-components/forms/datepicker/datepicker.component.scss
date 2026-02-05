@@ -1,0 +1,264 @@
+@use '@angular/material' as mat;
+@use '../../../styles/core-styles/colors.scss';
+@use '../../../styles/core-styles/fonts.scss';
+@use '../../../styles/core-styles/variables.scss';
+
+:root {
+  @include mat.datepicker-overrides(
+    (
+      calendar-container-background-color: colors.$soe-background-color,
+      calendar-container-text-color: colors.$soe-text-color,
+      calendar-header-text-color: colors.$soe-text-color,
+      calendar-header-text-size: fonts.$soe-font-size-md,
+      calendar-header-text-weight: fonts.$font-weight-normal,
+      calendar-header-divider-color: colors.$soe-border-color,
+      calendar-navigation-button-icon-color: colors.$soe-text-color,
+      calendar-period-button-icon-color: colors.$soe-text-color,
+      calendar-period-button-text-color: colors.$soe-text-color,
+      calendar-period-button-text-size: fonts.$soe-font-size-md,
+      calendar-period-button-text-weight: fonts.$font-weight-normal,
+      // Calendar body currently hidden (.mat-calendar-body-label)
+      calendar-body-label-text-color: colors.$soe-text-color,
+      calendar-body-label-text-size: fonts.$soe-font-size-md,
+      calendar-body-label-text-weight: fonts.$font-weight-normal,
+      calendar-date-text-color: colors.$soe-text-color,
+      calendar-date-disabled-state-text-color: colors.$soe-disabled-text-color,
+      calendar-date-hover-state-background-color:
+        colors.$soe-color-secondary-medium-blue,
+      calendar-date-selected-state-background-color:
+        colors.$soe-color-secondary-blue-70,
+      calendar-date-selected-state-text-color: colors.$soe-text-color,
+    )
+  );
+}
+
+.mat-datepicker-input {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.grid-mode .mat-datepicker-input {
+  margin-left: -1px;
+  padding-left: 8px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border-radius: 0 !important;
+}
+
+.soe-datepicker-button {
+  height: 32px;
+  width: 32px;
+  border: 1px solid colors.$soe-border-color !important;
+  background-color: colors.$soe-background-color !important;
+  padding: 0px 2px 2px 2px !important;
+  font-size: fonts.$soe-font-size-xxl !important;
+  color: colors.$soe-text-color !important;
+  border-top-right-radius: variables.$border-radius !important;
+  border-bottom-right-radius: variables.$border-radius !important;
+
+  &.btn:hover {
+    border-color: colors.$soe-border-color !important;
+    background-color: colors.$soe-button-hover-background-color !important;
+    color: colors.$soe-text-color !important;
+  }
+
+  &.btn:focus {
+    border-color: colors.$soe-color-secondary-blue !important;
+    background-color: colors.$soe-background-color !important;
+    color: colors.$soe-text-color !important;
+  }
+
+  &.btn:active {
+    outline: none;
+  }
+
+  &.inside-group {
+    border-radius: 0 !important;
+  }
+}
+
+button[disabled].soe-datepicker-button {
+  border-color: colors.$soe-disabled-border-color !important;
+  background-color: colors.$soe-disabled-background-color !important;
+  color: colors.$soe-disabled-input-color !important;
+}
+
+.grid-mode .soe-datepicker-button {
+  border-radius: 0 !important;
+}
+
+.no-radius-left {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.no-radius-right > .btn {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.mat-datepicker-popup {
+  margin-left: 50px;
+}
+
+// Week number items
+.show-iso-week {
+  &::before {
+    position: absolute;
+    font-size: fonts.$soe-font-size-md;
+    margin-left: -50px;
+    color: colors.$soe-text-color;
+    top: 0 !important;
+    padding-top: 19px !important;
+    text-align: center;
+    background: colors.$soe-color-neutral-ag-white;
+  }
+  &.day-of-week-0 {
+    &::before {
+      // If on sunday we need the adjust the left pos
+      margin-left: -290px;
+    }
+  }
+  $cssPrefix: 'iso-week';
+  @for $i from 0 to 54 {
+    &.#{$cssPrefix}-#{$i} {
+      &::before {
+        content: '#{$i}';
+      }
+    }
+  }
+}
+
+.mat-month-cell {
+  .mat-calendar-body-cell-content {
+    display: inline-block;
+    line-height: 34px;
+    text-transform: lowercase;
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}
+
+.mdc-button__label {
+  span {
+    display: inline-block;
+    text-transform: lowercase;
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}
+
+.mat-calendar {
+  display: block;
+  font-family: fonts.$font !important;
+  font-size: fonts.$soe-font-size-md !important;
+  margin-bottom: -0.5rem;
+
+  .mat-calendar-header {
+    padding: 0 0.5rem 0 0.5rem !important;
+    margin-top: -0.5rem !important;
+
+    .mat-calendar-controls {
+      .mat-mdc-icon-button[disabled],
+      .mat-mdc-icon-button.mat-mdc-button-disabled {
+        color: colors.$soe-disabled-text-color;
+      }
+    }
+  }
+
+  .mat-calendar-content {
+    &:has(mat-multi-year-view) {
+      margin-top: -14px;
+    }
+    &:has(mat-year-view) {
+      margin-top: -14px;
+    }
+    &:has(mat-month-view) {
+      margin-top: -16px;
+    }
+  }
+
+  .mdc-button {
+    font-family: fonts.$font !important;
+    font-size: fonts.$soe-font-size-md !important;
+  }
+
+  .mat-calendar-body-label {
+    visibility: hidden;
+    font-family: fonts.$font !important;
+    text-transform: capitalize;
+    &:only-child {
+      display: none;
+    }
+  }
+  .mat-calendar-body-selected {
+    border-width: 0;
+    box-shadow: none !important;
+  }
+  .mat-calendar-body-today {
+    border: 1px solid colors.$soe-border-color !important;
+    background-color: colors.$today-background-color;
+
+    &.mat-calendar-body-selected {
+      background-color: colors.$soe-color-secondary-blue-70;
+    }
+  }
+  .mat-calendar-body-active {
+    border-width: 0;
+  }
+  .mat-calendar-body-cell-content {
+    border-width: 0;
+  }
+}
+
+.mat-calendar-table {
+  &:has(.mat-month-cell) {
+    border-spacing: 0px 0px;
+    border-collapse: separate;
+  }
+}
+
+.mat-datepicker-content {
+  border-radius: 0 variables.$border-radius variables.$border-radius 0 !important;
+  box-shadow: 0 0.5rem 1rem rgba(102, 102, 102, 0.15) !important;
+
+  // Week number container
+  &:has(.mat-datepicker-content-container):has(mat-calendar):has(
+      .mat-calendar-content
+    ):has(mat-month-view)::before {
+    content: '';
+    background-color: colors.$soe-color-neutral-ag-white;
+    position: absolute;
+    height: 100%;
+    width: 50px;
+    box-shadow: 0 0.5rem 1rem rgba(102, 102, 102, 0.15);
+    left: -50px;
+  }
+
+  .mat-calendar {
+    height: unset !important;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.mat-datepicker-close-button {
+  display: none; // Close button that appears when tabbing inactivated
+}
+
+.mat-datepicker-capitalize {
+  text-transform: capitalize;
+}
+
+.mat-datepicker-uppercase {
+  text-transform: uppercase;
+}
+
+.monthYearPanel .mat-calendar-period-button {
+  pointer-events: none;
+}
+
+.monthYearPanel .mat-calendar-arrow {
+  display: none;
+}

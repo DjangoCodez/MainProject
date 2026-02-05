@@ -1,0 +1,32 @@
+﻿<div class="ngSoeFormFooter" data-ng-class="{'modal-margin': ctrl.isModal}" style="height: 75px; margin-top: 5px;">
+    <div class="row pull-right margin-small-bottom">
+        <div class="col-sm-12">
+            <div class="col">
+                <soe-select class="pull-right margin-small-right" label-key="core.function" model="ctrl.selectedFunction" items="ctrl.functions" options="item.id as item.name for item in items" on-changing="ctrl.functionChanged(item)"></soe-select>
+            </div>
+            <div class="col" data-ng-if="ctrl.templateHeads.length > 0 && ctrl.selectedFunction == 1">
+                <soe-select class="pull-right margin-small-right" label-key="time.schedule.activate.templatename" model="ctrl.selectedHeadId" items="ctrl.templateHeads" options="item.timeScheduleTemplateHeadId as item.name for item in items"></soe-select>
+            </div>
+            <div class="col" data-ng-if="ctrl.templatePeriods.length > 0 && ctrl.selectedFunction == 1 && ctrl.selectedHeadId">
+                <soe-select class="pull-right margin-small-right" label-key="time.schedule.activate.startday" model="ctrl.selectedPeriodId" items="ctrl.templatePeriods" options="item.timeScheduleTemplatePeriodId as item.dayNumber for item in items"></soe-select>
+            </div>
+            <div class="col">
+                <soe-datepicker class="pull-right margin-small-right" style="width: 130px;" label-key="common.startdate" model="ctrl.startDate" hide-today-button="true" is-disabled="ctrl.selectedFunction == 2"></soe-datepicker>
+            </div>
+            <div class="col">
+                <soe-datepicker class="pull-right margin-small-right" style="width: 130px;" label-key="common.stopdate" model="ctrl.stopDate" options="ctrl.stopDateOptions" hide-today-button="true"></soe-datepicker>
+            </div>
+            <div class="col" data-ng-if="ctrl.showPreliminary" style="margin-top: 4px;">
+                <soe-checkbox class="pull-right" inline="true" label-key="time.schedule.planning.templateschedule.activate.preliminary" model="ctrl.preliminary"></soe-checkbox>
+            </div>
+            <div class="col">
+                <soe-label></soe-label>
+                <button type="button" class="btn btn-sm ngSoeMainButton margin-small-top margin-small-right" data-l10n-bind="'time.schedule.planning.contextmenu.activate'" data-l10n-bind-title="'time.schedule.planning.contextmenu.activate'" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.gridform.$valid" data-ng-disabled="ctrl.gridform.$invalid || ctrl.executing" data-ng-click="$event.stopPropagation();ctrl.initActivate();"></button>
+                <div class="btn-group" role="group" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.gridform.$invalid">
+                    <button type="button" class="btn btn-sm ngSoeMainButton margin-small-top" data-l10n-bind="'time.schedule.planning.contextmenu.activate'" data-ng-disabled="ctrl.gridform.$invalid"></button>
+                    <button type="button" class="btn btn-sm ngSoeMainButtonInvalid margin-small-top margin-small-right" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

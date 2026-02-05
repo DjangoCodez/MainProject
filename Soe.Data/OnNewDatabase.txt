@@ -1,0 +1,58 @@
+﻿-- Declare the new database name
+DECLARE @clone NVARCHAR(128);
+SET @clone = 'soecompv_128';
+
+-- Cloning the database
+DBCC CLONEDATABASE(soecompv2, @clone);
+
+-- Setting the cloned database to read-write
+EXEC('ALTER DATABASE ' + @clone + ' SET READ_WRITE');
+
+-- Changing the database owner
+EXEC('ALTER AUTHORIZATION ON DATABASE::[' + @clone + '] TO [dba]');
+
+-- Set context to the cloned database
+EXEC('USE ' + @clone);
+
+-- Declare variables for dynamic SQL
+DECLARE @TableName NVARCHAR(256), @SQL NVARCHAR(MAX);
+
+-- Cursor to iterate through all tables in the cloned database
+DECLARE table_cursor CURSOR FOR 
+SELECT TABLE_NAME 
+FROM INFORMATION_SCHEMA.TABLES 
+WHERE TABLE_TYPE = 'BASE TABLE';
+
+-- Open cursor
+OPEN table_cursor;
+
+-- Fetch first table
+FETCH NEXT FROM table_cursor INTO @TableName;
+
+-- Iterate through all tables
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    -- Update statistics
+    SET @SQL = N'UPDATE STATISTICS ' +  QUOTENAME(@TableName) + ' WITH NORECOMPUTE;';
+    EXEC sp_executesql @SQL;
+
+    -- Check for identity column and reseed if necessary
+    IF EXISTS (SELECT * FROM sys.columns 
+               WHERE OBJECT_NAME(object_id) = @TableName 
+               AND is_identity = 1)
+    BEGIN
+        SET @SQL = N'DBCC CHECKIDENT (' + QUOTENAME(@TableName) + ', RESEED, 0);';
+        EXEC sp_executesql @SQL;
+    END;
+
+    -- Fetch next table
+    FETCH NEXT FROM table_cursor INTO @TableName;
+END
+
+-- Clean up
+CLOSE table_cursor;
+DEALLOCATE table_cursor;
+
+-- Reseed table EmploymentType to 1000
+SET @SQL = N'DBCC CHECKIDENT (EmploymentType, RESEED, 1000);';
+

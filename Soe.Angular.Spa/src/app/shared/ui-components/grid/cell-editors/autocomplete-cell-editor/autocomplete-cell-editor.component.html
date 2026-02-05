@@ -1,0 +1,53 @@
+@if (showButton) {
+  <div class="autocomplete-edit-button-container">
+    <button
+      (click)="params.buttonConfiguration.onClick(params.data)"
+      class="autocomplete-edit-button"
+      [title]="params.buttonConfiguration.tooltip || '' | translate">
+      <fa-icon
+        [icon]="params.buttonConfiguration.icon"
+        [class]="params.buttonConfiguration.iconClass"
+        [fixedWidth]="true"></fa-icon>
+    </button>
+  </div>
+}
+<div class="filter autocomplete-filter">
+  <input
+    [name]="'agGridAutocomplete'"
+    type="text"
+    #input
+    container="body"
+    class="form-control ag-cell"
+    [formControl]="localControl"
+    [matAutocomplete]="auto" />
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    [panelWidth]="'auto'"
+    [autoActiveFirstOption]="true">
+    <div class="autocomplete-list-panel" (mousedown)="$event.preventDefault()">
+      <div class="autocomplete-list-group">
+        <div class="autocomplete-list-info">
+          <span style="float: left">{{ 'core.typetofilter' | translate }}</span>
+          <span style="float: right"
+            >{{ (filteredRecords | async)?.length }} ({{
+              records.length
+            }})</span
+          >
+        </div>
+        @for (filteredItem of filteredRecords | async; track filteredItem.id) {
+          <mat-option
+            [id]="filteredItem.id.toString()"
+            [value]="filteredItem.name"
+            (onSelectionChange)="onSelectionChange($event, filteredItem)">
+            {{ filteredItem.name }}
+          </mat-option>
+        }
+      </div>
+    </div>
+  </mat-autocomplete>
+  @if (localControl.value && localControl.value !== ' ') {
+    <button (click)="onClearClick()" class="btn autocomplete__clear-button">
+      <fa-icon class="icon-delete" [icon]="['fal', 'times']"></fa-icon>
+    </button>
+  }
+</div>

@@ -1,0 +1,8 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [height]="300"
+    [parentGuid]="guid()"
+    [noMargin]="true"
+    (selectionChanged)="selectionChanged($event)">
+  </soe-grid-wrapper>
+}

@@ -1,0 +1,419 @@
+@use '@angular/material' as mat;
+@use './colors.scss';
+@use './fonts.scss';
+@use './variables.scss';
+
+// Form
+.soe-edit-form {
+  padding: 1rem;
+
+  .scroll-container {
+    max-height: 65vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 1rem;
+    margin: -1rem -1rem 0 0;
+  }
+
+  .no-scroll-container {
+    margin: -0.5rem 0 -1rem 0;
+  }
+}
+
+// Form control
+.form-control,
+.form-group-sm .form-control {
+  height: 32px;
+  border-color: colors.$soe-border-color !important;
+  border-radius: variables.$border-radius !important;
+  padding: 0.25rem 0.5rem !important;
+  font-size: fonts.$soe-font-size-md !important;
+  font-weight: fonts.$font-weight-normal !important;
+  color: colors.$soe-text-color !important;
+  box-shadow: none !important;
+}
+
+.form-group-sm select.form-control {
+  height: 32px;
+  line-height: 32px;
+  padding: 0 0.5rem !important;
+}
+
+.form-control:hover {
+  // According to the design system hover should use a light beige background,
+  // but since that is the same color as disabled, we use the same blue border as in focus instead.
+  border: 1px solid colors.$soe-color-secondary-blue !important;
+}
+
+.form-control:focus {
+  border: 1px solid colors.$soe-color-secondary-blue !important;
+}
+
+// Get rid of Chromes black focus ring that appears when tabbing into an element
+*:focus-visible {
+  outline: none;
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+  background-color: colors.$soe-disabled-background-color !important;
+  color: colors.$soe-disabled-input-color !important;
+  cursor: default;
+}
+
+.form-control.is-invalid {
+  background-image: unset !important;
+}
+
+input[type='number'] {
+  text-align: right;
+}
+
+input::placeholder {
+  color: colors.$soe-disabled-text-color !important;
+}
+
+// Form label
+.form-label,
+.form-check-label {
+  margin-bottom: 0px !important;
+  font-size: fonts.$soe-font-size-md;
+  font-weight: fonts.$font-weight-bold;
+  color: colors.$soe-text-color;
+}
+
+.form-check-label {
+  font-weight: fonts.$font-weight-normal;
+  margin-left: 0.5rem;
+}
+
+.form-label-container {
+  line-height: 1rem;
+}
+
+.form-label-inline-top-alignment {
+  margin-top: 1.65rem;
+}
+
+.icon-required {
+  position: relative;
+  top: -2px;
+  margin-left: 2px;
+  font-size: fonts.$soe-font-size-sm !important;
+  color: colors.$soe-color-primary;
+}
+
+// Checkbox, Radio, Switch
+.form-check {
+  padding-left: 1rem !important;
+  margin-bottom: 0px !important;
+}
+
+.form-check-input {
+  margin-top: 0.25rem !important;
+  margin-left: -1rem !important;
+  width: 1rem !important;
+  height: 1rem !important;
+  border-color: colors.$soe-color-neutral-dark-grey !important;
+  cursor: pointer;
+}
+
+.form-check-input[type='checkbox'] {
+  border-radius: 2px;
+}
+
+.form-check-input[role='switch'] {
+  width: 2rem !important;
+}
+
+.form-check-input:focus {
+  // Remove Bootstrap blur
+  outline: none !important;
+  box-shadow: none !important;
+  border: 1px solid colors.$soe-color-secondary-blue !important;
+}
+
+.form-check-input:checked {
+  border-color: colors.$soe-color-secondary-blue !important;
+  background-color: colors.$soe-color-secondary-blue !important;
+}
+
+.form-check-input[type='checkbox']:indeterminate {
+  border-color: colors.$soe-color-secondary-blue !important;
+  background-color: colors.$soe-color-secondary-blue !important;
+}
+
+.form-check-input:disabled {
+  border-color: colors.$soe-border-color !important;
+  background-color: colors.$soe-disabled-background-color !important;
+  cursor: default;
+  pointer-events: all !important;
+}
+
+.form-check-input:checked.form-check-input:disabled {
+  border-color: colors.$soe-color-neutral-dark-grey !important;
+  background-color: colors.$soe-color-neutral-grey !important;
+}
+
+.form-check-input[disabled] ~ soe-label,
+.form-check-input:disabled ~ soe-label {
+  label {
+    color: colors.$soe-disabled-text-color;
+    opacity: 1 !important;
+    cursor: default !important;
+  }
+}
+
+// Footer
+.soe-form-footer {
+  height: 3rem;
+  margin: 1rem -1rem -1rem -1rem;
+  border: 1px solid colors.$soe-border-color;
+  border-bottom: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  padding: 0.5rem 0;
+
+  .col-sm-6 {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+}
+
+// Stepper
+.mat-stepper-vertical {
+  margin-top: -0.25rem;
+}
+
+.mat-step-icon {
+  font-size: fonts.$soe-font-size-md !important;
+  background-color: colors.$soe-disabled-text-color !important;
+  color: colors.$soe-inverted-text-color !important;
+  z-index: 1;
+
+  &.mat-step-icon-selected {
+    background-color: colors.$soe-color-secondary-blue-70 !important;
+    color: colors.$soe-text-color !important;
+  }
+
+  &.mat-step-icon-state-edit {
+    background-color: colors.$soe-color-neutral-dark-grey !important;
+    color: colors.$soe-inverted-text-color !important;
+  }
+}
+
+.mat-step-label {
+  color: colors.$soe-disabled-text-color !important;
+  font-family: fonts.$font !important;
+  font-size: fonts.$soe-font-size-md !important;
+  font-weight: fonts.$font-weight-bold !important;
+
+  &.mat-step-label-active {
+    color: colors.$soe-text-color !important;
+  }
+}
+
+.mat-stepper-horizontal-line {
+  border-top-color: colors.$soe-border-color !important;
+}
+
+.mat-vertical-stepper-header {
+  height: 1.5rem !important;
+  padding: 0.25rem 0.5rem !important;
+}
+
+.mat-vertical-content-container {
+  margin-left: 20px !important;
+
+  .mat-vertical-stepper-content {
+    overflow-y: auto;
+  }
+
+  .mat-vertical-content {
+    font-size: fonts.$soe-font-size-md !important;
+    padding: 0 0.5rem 0 1.5rem !important;
+  }
+}
+
+// Table
+
+.table {
+  border-color: colors.$soe-border-color !important;
+  font-size: fonts.$soe-font-size-md;
+
+  thead {
+    --bs-table-bg: colors.$soe-header-background-color;
+
+    th {
+      font-weight: fonts.$font-weight-normal;
+      border-bottom-width: 1px;
+    }
+  }
+
+  &.table-sm {
+    thead {
+      tr {
+        th {
+          padding: 4px;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          padding: 4px;
+        }
+      }
+    }
+  }
+
+  &.table-xs {
+    thead {
+      tr {
+        th {
+          padding: 2px;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          padding: 2px;
+        }
+      }
+    }
+  }
+}
+
+.table > :not(caption) > * > * {
+  border-bottom-width: 0px;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd),
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: colors.$soe-color-neutral-ag-white !important;
+  --bs-table-bg-type: colors.$soe-color-neutral-ag-white !important;
+}
+
+.table-more-condensed {
+  margin-bottom: 0px;
+}
+
+.table-more-condensed > thead > tr > th,
+.table-more-condensed > tbody > tr > th,
+.table-more-condensed > tfoot > tr > th,
+.table-more-condensed > thead > tr > td,
+.table-more-condensed > tbody > tr > td,
+.table-more-condensed > tfoot > tr > td {
+  padding: 1px 1px 1px 3px;
+  vertical-align: middle;
+
+  input[type='checkbox'] {
+    margin: 3px 0 0 5px;
+  }
+}
+
+.table-more-condensed > tbody > tr > td {
+  i {
+    margin-top: 3px;
+  }
+}
+
+.table-outer-bordered {
+  border: 1px solid colors.$soe-border-color;
+}
+
+.table-scrollable-wrapper {
+  position: relative;
+}
+
+.table-scrollable-wrapper table {
+  width: 100%;
+}
+
+.table-scrollable-wrapper table thead th span {
+  position: absolute;
+  top: -20px;
+  z-index: 2;
+  height: 20px;
+}
+
+.table-scrollable-wrapper table thead th i {
+  position: absolute;
+  top: -18px;
+  z-index: 2;
+  height: 20px;
+}
+
+.table-scrollable {
+  overflow: auto;
+  //margin-top: 25px;
+
+  table {
+    border-top: 1px solid colors.$soe-border-color;
+  }
+
+  table.table-more-condensed {
+    margin-top: -1px;
+  }
+}
+
+// Toaster
+
+.toast-container {
+  .ngx-toastr {
+    font-size: fonts.$soe-font-size-lg;
+    color: colors.$soe-text-color !important;
+
+    &.toast-info {
+      //color: colors.$soe-color-semantic-information !important;
+      background-color: colors.$soe-color-semantic-information-20;
+      border: 1px solid colors.$soe-color-semantic-information;
+      background-size: 16px;
+    }
+
+    &.toast-warning {
+      //color: colors.$soe-color-semantic-warning !important;
+      background-color: colors.$soe-color-semantic-warning-20;
+      border: 1px solid colors.$soe-color-semantic-warning;
+      background-size: 16px;
+    }
+
+    &.toast-error {
+      //color: colors.$soe-color-semantic-error !important;
+      background-color: colors.$soe-color-semantic-error-20;
+      border: 1px solid colors.$soe-color-semantic-error;
+      background-size: 16px;
+    }
+
+    &.toast-success {
+      //color: colors.$soe-color-semantic-success !important;
+      background-color: colors.$soe-color-semantic-success-20;
+      border: 1px solid colors.$soe-color-semantic-success;
+      background-size: 16px;
+    }
+  }
+}
+
+// Tooltip
+
+:root {
+  @include mat.tooltip-overrides(
+    (
+      container-color: colors.$soe-color-semantic-information-20,
+      supporting-text-color: colors.$soe-text-color,
+      supporting-text-size: fonts.$soe-font-size-md,
+    )
+  );
+}
+
+.mdc-tooltip--multiline .mat-mdc-tooltip-surface {
+  white-space: break-spaces;
+}
+
+.mat-mdc-tooltip-surface {
+  border: 1px solid colors.$soe-color-semantic-information;
+}

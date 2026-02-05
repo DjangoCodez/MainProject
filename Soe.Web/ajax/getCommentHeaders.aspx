@@ -1,0 +1,2 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="getCommentHeaders.aspx.cs" Inherits="SoftOne.Soe.Web.ajax.getCommentHeaders" %>
+<%@ outputcache Duration="1" Location="None" VaryByParam="*" %>

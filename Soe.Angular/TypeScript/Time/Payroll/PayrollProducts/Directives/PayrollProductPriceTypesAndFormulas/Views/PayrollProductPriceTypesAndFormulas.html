@@ -1,0 +1,26 @@
+﻿<div>
+    <soe-panel label-key="time.payroll.payrollproduct.setting.pricetypesandformulas.title" condensed="true">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" data-l10n-bind="'common.name'"></th>
+                    <th scope="col" data-l10n-bind="'common.fromdate'"></th>
+                    <th scope="col" class="right-align-cell" data-l10n-bind="'common.amount'"></th>
+                    <th scope="col" class="table-header-button" style="width: 130px;" colspan="4"  data-ng-if="!ctrl.readOnly">
+                        <span data-l10n-bind data-l10n-bind-title="'core.newrow'" data-ng-click="ctrl.edit(null);"><i class="fal fa-plus"></i><span data-l10n-bind="'core.newrow'"></span></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="productPriceTypesAndFormula in ctrl.productPriceTypesAndFormulas | orderBy:'name' track by $index">
+                <tr>
+                    <td><span>{{productPriceTypesAndFormula.name}}</span></td>
+                    <td><span>{{productPriceTypesAndFormula.fromDate | date:'shortDate'}}</span></td>
+                    <td class="right-align-cell"><span>{{productPriceTypesAndFormula.amount | amount:2:true}}</span></td>
+                    <td style="width: 44px"></td>
+                    <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.edit(productPriceTypesAndFormula);"></i></span></td>
+                    <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.delete(productPriceTypesAndFormula);"></i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </soe-panel>
+</div>

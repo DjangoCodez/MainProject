@@ -1,0 +1,30 @@
+﻿<div class="container-fluid">
+    <uib-tabset data-ng-hide="ctrl.tabs.length==0" active="ctrl.activeTabIndex">
+        <uib-tab class="tab" index="tab.index" data-ng-repeat="tab in ctrl.tabs" disable="tab.disable" select="tab.selected()">
+            <uib-tab-heading>
+                <label data-ng-dblclick="tab.doubleClick()">{{tab.label}}</label>
+                <!-- Icons -->
+                <span class="dirtyTabIcon" data-ng-if="tab.isDirty">*</span>
+                <i class="removableTabIcon fal fa-times" title="{{tab.iconToolTip}}" ng-if="tab.canClose" data-ng-click="ctrl.removeTab(tab);$event.stopPropagation();$event.preventDefault();"></i>
+            </uib-tab-heading>
+            <tab-controller tab="tab"></tab-controller>
+        </uib-tab>
+        
+        <uib-tab class="tab slim" index="200" ng-if="ctrl.addTab" disable="ctrl.addTab.disable" select="ctrl.add()">
+            <uib-tab-heading>
+                <i class="{{ctrl.addTab.disable ? 'addTabIconDisabled' : 'addTabIcon'}} fal fa-plus" title="{{ctrl.addTab.iconToolTip}}"></i>
+            </uib-tab-heading>
+        </uib-tab>
+        
+        <uib-tab class="tab slim" index="201" ng-if="ctrl.removeAllTab" disable="!ctrl.canRemoveAllTabs()" select="ctrl.removeAllTabs()">
+            <uib-tab-heading>
+                <i class="{{ctrl.canRemoveAllTabs() ? 'removeAllTabIcon' : 'removeAllTabIconDisabled'}} fal fa-times" title="{{ctrl.removeAllTab.iconToolTip}}"></i>
+            </uib-tab-heading>
+        </uib-tab>
+    </uib-tabset>
+
+    <!-- Show progress bar while tabs are beeing created-->
+    <div data-ng-hide="ctrl.tabs.length">
+        <progressbar class="progress-striped active" type="warning" />
+    </div>
+</div>

@@ -1,0 +1,28 @@
+﻿<div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-6">
+                <date-time-interval-selection on-selected="$ctrl.onDateRangeSelectionUpdated(selection)" label-key="common.period" selected-interval="daterange" user-selection-input="$ctrl.userSelectionInputDate" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-instruction label-key="common.report.timestamphistory.selection.dateinfo"></soe-instruction>
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-12">
+                <employees-selection on-selected="$ctrl.onEmployeeSelectionUpdated(employeeSelection)" label-key="common.employees" show-inactive="true" show-only-inactive="true" show-ended="false" show-vacant="true" show-hidden="true" enable-filters="true" from-date="$ctrl.fromDate" to-date="$ctrl.toDate" user-selection-input="$ctrl.userSelectionInputEmployee" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm" data-ng-if="$ctrl.isAnalysis">
+        <div class="row">
+            <div class="col-sm-12">
+                <matrix-column-selection on-selected="$ctrl.onMatrixColumnSelectionUpdated(selection)" module="$ctrl.module" sys-report-template-type-id="$ctrl.sysReportTemplateTypeId" report-id="$ctrl.reportId" user-selection-input="$ctrl.userSelectionInputColumns" selections="$ctrl.selections" show-insights="true" />
+            </div>
+        </div>
+    </div>
+</div>

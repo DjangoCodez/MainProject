@@ -1,0 +1,35 @@
+﻿<div>
+    <soe-progressbar is-busy="directiveCtrl.progressBusy" message="directiveCtrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-show="!directiveCtrl.progressBusy">
+        <div class="row btn-toolbar">
+            <div class="col pull-right">
+                <div class="col">
+                    <button type="button"
+                            class="btn btn-default btn-sm"
+                            data-l10n-bind="'billing.purchase.pricelists.getallproducts'"
+                            data-ng-click="directiveCtrl.getAllProducts();$event.stopPropagation()"
+                            data-ng-disabled="!directiveCtrl.supplierId || directiveCtrl.rows.length > 0" />
+                </div>
+                <div class="col" ng-if="directiveCtrl.pricelistId">
+                    <button type="button"
+                            class="btn btn-default btn-sm margin-large-left"
+                            data-l10n-bind="'billing.purchase.product.getactualprices'"
+                            data-ng-click="directiveCtrl.getComparisonValues();$event.stopPropagation()"
+                            data-ng-disabled="!directiveCtrl.supplierId || directiveCtrl.rows.length === 0" />
+                </div>
+                <div class="col">
+                    <soe-splitbutton class="margin-large-left"
+                                     label-key="common.newrow"
+                                     options="directiveCtrl.rowFunctions"
+                                     option-selected="directiveCtrl.executeRowFunction(option)"
+                                     is-disabled="directiveCtrl.readOnly || !directiveCtrl.supplierId" />
+                </div>
+            </div>
+        </div>
+        <div>
+            <div ag-grid="directiveCtrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+        </div>
+    </div>
+</div>

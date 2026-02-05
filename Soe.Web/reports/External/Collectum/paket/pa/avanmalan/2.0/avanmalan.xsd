@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:typer="http://collectum.se/typer/2.0" xmlns:avanmalan="http://collectum.se/paket/pa/avanmalan/2.0" targetNamespace="http://collectum.se/paket/pa/avanmalan/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://collectum.se/typer/2.0" schemaLocation="..\..\..\..\typer\2.0\centrala typer.xsd"/>
+	<xs:complexType name="Avanmalan">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">
+			2012-02-17  Avgångsorsak 9 (Annullering av avanmälan) tillagd
+			2012-03-22  rev 2.0.0.1  element "DatumForForalderledighet" ändrad till "DatumForForaldraledighet".
+			2012-10-01  rev 2.0.0.2  tillåter både "DatumForForalderledighet" och "DatumForForaldraledighet" under en period.
+			2014-01-14  rev 2.0.0.3  "DatumForForalderledighet" borttagen. Nu endast "DatumForForaldraledighet" tillåten.
+			2022-01-20  rev 2.0.0.4  "AvgangsOrsak" värde 3 (tjänstledighet) tas bort
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Organisationsnummer" type="typer:Organisationsnummer"/>
+			<xs:element name="KostnadsstalleId" type="typer:KostnadsstalleId"/>
+			<xs:element name="Personnummer" type="typer:Personnummer"/>
+			<xs:element name="Handelsetidpunkt" type="xs:date"/>
+			<xs:element name="Avgangsorsak" type="avanmalan:AvgangsOrsak"/>
+			<xs:element name="DatumForForaldraledighet" type="xs:date" minOccurs="0"/>
+			<xs:element name="Tidsstampel" type="typer:Timestamp"/>
+		</xs:sequence>
+		<xs:attribute name="version" default="2.0.0.4"/>
+	</xs:complexType>
+	<xs:simpleType name="AvgangsOrsak">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:pattern value="(1|2|9)"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

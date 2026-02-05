@@ -1,0 +1,156 @@
+@use '../../../../../shared/styles/core-styles/colors.scss';
+@use '../../../../../shared/styles/core-styles/fonts.scss';
+@use '../schedule-planning/schedule-planning-common.scss' as sp-common;
+
+.shift {
+  --fa-counter-background-color: #1e1e1e; //$soe-text-color;
+  --fa-counter-scale: 0.75;
+
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+
+  &.full-height {
+    height: 48px;
+  }
+  &.half-height {
+    height: 27px;
+  }
+
+  &.show-left-bar {
+    padding-left: 28px;
+    overflow: visible; // Allow queue counter to be visible outside shift block
+
+    .left-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 28px;
+      pointer-events: none;
+      z-index: 2;
+
+      fa-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: fonts.$soe-font-size-xl;
+        z-index: 3;
+      }
+
+      .queue-icon {
+        position: absolute;
+        top: 12px;
+        left: 4px;
+        transform: translate(-50%, -50%);
+        z-index: 4;
+
+        fa-layers {
+          position: relative;
+          z-index: 4;
+
+          fa-layers-counter {
+            position: absolute;
+            top: -8px;
+            right: 0px;
+            z-index: 5;
+          }
+        }
+      }
+    }
+  }
+
+  .first-row {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    .shift-time {
+      flex: 0 0 auto;
+    }
+
+    .shift-types,
+    .shift-type,
+    .description {
+      flex: 1 1 auto;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .second-row {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    .deviation-cause {
+      flex: 0 0 auto;
+    }
+
+    .shift-types {
+      flex: 1 1 auto;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .leisure-code {
+    height: 100%;
+    padding-right: 4px;
+    align-content: center;
+    text-align: center;
+
+    .leisure-code-description {
+      font-size: fonts.$soe-font-size-xxl;
+    }
+  }
+
+  .shift-break {
+    position: absolute;
+    height: calc(100% - 2px);
+    margin-top: 1px;
+    padding: 1px 0.125rem 0.125rem 0.125rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-size: fonts.$soe-font-size-xs;
+    color: colors.$soe-text-color;
+  }
+
+  &.is-selected {
+    // Compensate for border added in parent
+
+    &.show-left-bar {
+      padding-left: 26px;
+
+      .left-bar {
+        left: -2px;
+
+        .queue-icon {
+          top: 10px;
+        }
+      }
+    }
+
+    .shift-break {
+      height: calc(100% + 1px);
+      margin-top: -1px;
+      margin-left: -2px;
+    }
+  }
+
+  &.day-view {
+    border-radius: 0px;
+    margin: -1px 0px 0px -1px;
+  }
+
+  &.is-hidden {
+    opacity: 0.35;
+  }
+}

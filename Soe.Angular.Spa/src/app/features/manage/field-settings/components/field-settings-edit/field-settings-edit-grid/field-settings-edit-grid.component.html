@@ -1,0 +1,10 @@
+<soe-expansion-panel
+  [labelKey]="'manage.preferences.fieldsettings.settingsforrole'"
+  [static]="true">
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid
+      [rows]="subData"
+      (cellValueChanged)="onCellValueChanged($event)"
+      (cellKeyDown)="onCellKeyDown($event)"></soe-grid>
+  }
+</soe-expansion-panel>

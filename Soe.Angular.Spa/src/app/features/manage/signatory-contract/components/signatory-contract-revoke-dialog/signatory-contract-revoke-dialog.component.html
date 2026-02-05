@@ -1,0 +1,44 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+    <form
+      [formGroup]="form"
+      class="soe-edit-form"
+      novalidate
+      autocomplete="off"
+    >
+
+      <div class="row">
+        <div class="col-sm-12">
+            <soe-textarea
+            [labelKey]="'manage.registry.signatorycontract.revokereason'"
+            formControlName="revokedReason"
+            ></soe-textarea>
+        </div>
+      </div>
+
+    </form>
+
+    }
+  </div>
+  <div dialog-footer>
+    <soe-button
+      [behaviour]="'standard'"
+      [caption]="'core.cancel'"
+      (action)="closeDialog()"
+    ></soe-button>
+
+    <soe-save-button
+      [behaviour]="'standard'"
+      [caption]="'core.ok'"
+      (action)="ok()"
+      [invalid]="form.invalid"
+      [dirty]="form.dirty"
+      (validationErrorsAction)="
+          form.openFormValidationErrors()
+        "
+    ></soe-save-button>
+
+
+  </div>
+</soe-dialog>

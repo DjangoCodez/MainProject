@@ -1,0 +1,85 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-expansion-panel
+              [labelKey]="'common.customer.customer.rot.personinfo'"
+              [static]="true">
+              <div class="row">
+                <div class="col-sm-3">
+                  <soe-textbox
+                    [labelKey]="'common.customer.customer.rot.property'"
+                    formControlName="property">
+                  </soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                  <soe-textbox
+                    [labelKey]="'common.customer.customer.rot.socialsecnr'"
+                    formControlName="socialSecNr"
+                    [placeholderKey]="
+                      'common.customer.customer.rot.socialsecnrinfo'
+                    ">
+                  </soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                  <soe-textbox
+                    [labelKey]="'common.customer.customer.rot.name'"
+                    formControlName="name">
+                  </soe-textbox>
+                </div>
+              </div>
+            </soe-expansion-panel>
+
+            <soe-expansion-panel
+              [labelKey]="'common.customer.customer.rot.brfinfo'"
+              [static]="true">
+              <div class="row">
+                <div class="col-sm-3">
+                  <soe-textbox
+                    [labelKey]="'common.customer.customer.rot.apartmentnr'"
+                    formControlName="apartmentNr">
+                  </soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                  <soe-textbox
+                    [labelKey]="'common.customer.customer.rot.cooperativeorgnr'"
+                    formControlName="cooperativeOrgNr"
+                    [placeholderKey]="
+                      'common.customer.customer.rot.cooperativeorgnrinfo'
+                    ">
+                  </soe-textbox>
+                </div>
+              </div>
+            </soe-expansion-panel>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textarea
+              [rows]="10"
+              [labelKey]="'common.customer.customer.rot.comment'"
+              formControlName="comment">
+            </soe-textarea>
+          </div>
+        </div>
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    <soe-button
+      [behaviour]="'standard'"
+      [caption]="'core.cancel'"
+      (action)="closeDialog()"></soe-button>
+    <soe-save-button
+      [behaviour]="'standard'"
+      [caption]="'core.ok'"
+      (action)="ok()"
+      [invalid]="form.invalid"></soe-save-button>
+  </div>
+</soe-dialog>

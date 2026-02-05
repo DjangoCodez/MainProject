@@ -1,0 +1,134 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'common.dailyrecurrencepattern.title'"></h6>
+    </div>
+    <div class="modal-body">
+        <soe-panel label-key="common.dailyrecurrencepattern.patterntitle">
+            <div class="row">
+                <div class="col-sm-7">
+                    <soe-select label-key="common.dailyrecurrencepattern.type" model="ctrl.pattern.type" items="ctrl.types" options="item.id as item.name for item in items" auto-focus="true" on-changing="ctrl.typeChanged()"></soe-select>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.isPatternTypeDaily() || ctrl.isPatternTypeWeekly() || ctrl.isPatternTypeRelativeMonthly()">
+                    <soe-textbox label-key="common.dailyrecurrencepattern.interval" model="ctrl.pattern.interval" numeric="true" decimals="0" on-change="ctrl.numberChanged('interval')"></soe-textbox>
+                </div>
+                <div class="col-sm-3 margin-small-top" data-ng-if="ctrl.isPatternTypeDaily() || ctrl.isPatternTypeWeekly() || ctrl.isPatternTypeRelativeMonthly()">
+                    <soe-label></soe-label>
+                    <soe-label label-key="common.dailyrecurrencepattern.interval.day" discreet="true" data-ng-if="ctrl.isPatternTypeDaily()"></soe-label>
+                    <soe-label label-key="common.dailyrecurrencepattern.interval.week" discreet="true" data-ng-if="ctrl.isPatternTypeWeekly()"></soe-label>
+                    <soe-label label-key="common.dailyrecurrencepattern.interval.month" discreet="true" data-ng-if="ctrl.isPatternTypeRelativeMonthly()"></soe-label>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.isPatternTypeRelativeMonthly() || ctrl.isPatternTypeRelativeYearly()">
+                <div class="col-sm-4">
+                    <soe-select label-key="common.dailyrecurrencepattern.weekindex" model="ctrl.pattern.weekIndex" items="ctrl.weekIndexes" options="item.id as item.name for item in items"></soe-select>
+                </div>
+                <div class="col-sm-3 margin-small-top">
+                    <soe-label></soe-label>
+                    <soe-select hidelabel="true" model="ctrl.pattern.firstDayOfWeek" items="ctrl.dayOfWeeks" options="item.id as item.name for item in items"></soe-select>
+                </div>
+                <div class="col-sm-1 margin-small-top">
+                    <soe-label></soe-label>
+                    <soe-label label-key="common.in" discreet="true" text-class="lowercase" text-class-condition="true" data-ng-if="ctrl.isPatternTypeRelativeYearly()"></soe-label>
+                </div>
+                <div class="col-sm-3 margin-small-top" data-ng-if="ctrl.isPatternTypeRelativeYearly()">
+                    <soe-label></soe-label>
+                    <soe-select hidelabel="true" model="ctrl.pattern.month" items="ctrl.months" options="item.id as item.name for item in items" on-changing="ctrl.monthChanged()"></soe-select>
+                </div>
+            </div>
+            <div class="row margin-large-top" data-ng-if="ctrl.isPatternTypeWeekly()">
+                <div class="col-sm-2">
+                    <soe-checkbox label="{{::ctrl.getDayName(1)}}" model="ctrl.mondaySelected"></soe-checkbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-checkbox label="{{::ctrl.getDayName(2)}}" model="ctrl.tuesdaySelected"></soe-checkbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-checkbox label="{{::ctrl.getDayName(3)}}" model="ctrl.wednesdaySelected"></soe-checkbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-checkbox label="{{::ctrl.getDayName(4)}}" model="ctrl.thursdaySelected"></soe-checkbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-checkbox label="{{::ctrl.getDayName(5)}}" model="ctrl.fridaySelected"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.isPatternTypeWeekly()">
+                <div class="col-sm-2">
+                    <soe-checkbox label="{{::ctrl.getDayName(6)}}" model="ctrl.saturdaySelected"></soe-checkbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-checkbox label="{{::ctrl.getDayName(0)}}" model="ctrl.sundaySelected"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.isPatternTypeAbsoluteMonthly()">
+                <div class="col-sm-2">
+                    <soe-textbox label-key="common.day" model="ctrl.pattern.dayOfMonth" numeric="true" decimals="0" on-change="ctrl.numberChanged('dayOfMonth')"></soe-textbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-textbox label-key="common.dailyrecurrencepattern.interval" model="ctrl.pattern.interval" numeric="true" decimals="0" on-change="ctrl.numberChanged('interval')"></soe-textbox>
+                </div>
+                <div class="col-sm-4 margin-small-top">
+                    <soe-label></soe-label>
+                    <soe-label label-key="common.dailyrecurrencepattern.month" discreet="true" text-class="lowercase" text-class-condition="true"></soe-label>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.isPatternTypeAbsoluteYearly()">
+                <div class="col-sm-2">
+                    <soe-textbox label-key="common.dailyrecurrencepattern.dayofmonth" model="ctrl.pattern.dayOfMonth" numeric="true" decimals="0" on-change="ctrl.numberChanged('dayOfMonth')"></soe-textbox>
+                </div>
+                <div class="col-sm-3 margin-small-top">
+                    <soe-label></soe-label>
+                    <soe-select hidelabel="true" model="ctrl.pattern.month" items="ctrl.months" options="item.id as item.name for item in items" on-changing="ctrl.monthChanged()"></soe-select>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.isPatternTypeSysHoliday()">
+                <div class="col-sm-7">
+                    <ul class="checkable-list margin-small-top" style="height: 223px; overflow-x: hidden; overflow-y: auto;">
+                        <li>
+                            <span style="margin-left: 5px;" class="fal link" data-ng-class="{'fa-check-square':ctrl.allSysHolidayTypesSelected, 'fa-square':!ctrl.allSysHolidayTypesSelected}" data-ng-click="ctrl.selectAllSysHolidayTypes()"></span>
+                        </li>
+                        <li data-ng-repeat="type in ctrl.sysHolidayTypes" data-ng-click="type.selected = !type.selected">
+                            <span><span class="fal link" data-ng-class="{'fa-check-square':type.selected, 'fa-square':!type.selected}" style="margin-left: 5px;"></span> <span>{{type.name}}</span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <soe-instruction class="margin-large-top" model="ctrl.suggestionInfo" data-ng-if="!ctrl.isPatternTypeNone() && !ctrl.isPatternTypeSysHoliday()"></soe-instruction>
+        </soe-panel>
+
+        <soe-panel label-key="common.dailyrecurrencepattern.rangetitle" data-ng-if="!ctrl.hideRange">
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-datepicker label-key="common.dailyrecurrencepattern.startdate" model="ctrl.range.startDate"></soe-datepicker>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-select label-key="common.dailyrecurrencepattern.rangetype" model="ctrl.range.type" items="ctrl.rangeTypes" options="item.id as item.name for item in items" on-changing="ctrl.rangeTypeChanged()"></soe-select>
+                </div>
+                <div class="col-sm-6 margin-small-top" data-ng-if="ctrl.range.type==0">
+                    <soe-label></soe-label>
+                    <soe-datepicker hidelabel="true" model="ctrl.range.endDate"></soe-datepicker>
+                </div>
+                <div class="col-sm-3 margin-small-top" data-ng-if="ctrl.range.type==2">
+                    <soe-label></soe-label>
+                    <soe-textbox hidelabel="true" model="ctrl.range.numberOfOccurrences" numeric="true" decimals="0" on-change="ctrl.numberChanged('numberOfOccurrences')"></soe-textbox>
+                </div>
+                <div class="col-sm-3 margin-small-top" data-ng-if="ctrl.range.type==2">
+                    <soe-label></soe-label>
+                    <soe-label label-key="common.dailyrecurrencepattern.numberofoccurrences" discreet="true" text-class="lowercase" text-class-condition="true"></soe-label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <datespicker label-key="common.dailyrecurrencepattern.excludeddates" dates="ctrl.excludedDates" order-by-desc="true"></datespicker>
+                </div>
+            </div>
+        </soe-panel>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+    </div>
+</form>

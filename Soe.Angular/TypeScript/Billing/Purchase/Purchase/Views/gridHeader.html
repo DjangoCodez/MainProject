@@ -1,0 +1,10 @@
+﻿<form class="form-inline">
+   
+    <div class="form-group form-group-sm">
+        <soe-multiselect hidelabel="true" options="ctrl.purchaseStatus" display-prop="name" model="ctrl.selectedPurchaseStatus" on-selection-complete="ctrl.onPurchaseStatusSelectionChanged()" search="false"></soe-multiselect>
+    </div>
+    <div class="form-group form-group-sm">
+        <soe-select model="ctrl.allItemsSelection" items="ctrl.allItemsSelectionDict" options="item.id as item.name for item in items"></soe-select>
+    </div>
+    
+</form>

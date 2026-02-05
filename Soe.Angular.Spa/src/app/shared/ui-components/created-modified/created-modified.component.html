@@ -1,0 +1,62 @@
+<div class="row created-modified-container" data-testid="created-modified">
+  <table class="table table-sm table-borderless">
+    <tbody>
+      @if (model().created) {
+        <tr>
+          <td>
+            <span class="font-sm-bold">{{ 'common.created' | translate }}</span>
+          </td>
+          <td class="text-right">
+            <span
+              >{{ model().created | date: 'shortDate' : '' : currentLanguage }}
+            </span>
+          </td>
+          <td class="text-right">
+            <span>
+              {{
+                model().created | date: 'shortTime' : '' : currentLanguage
+              }}</span
+            >
+          </td>
+          <td>
+            @if (model().createdBy) {
+              <span class="font-sm-bold">{{ 'common.by' | translate }} </span>
+            }
+          </td>
+          <td>
+            <span>{{ model().createdBy }}</span>
+          </td>
+        </tr>
+      }
+      @if (model().modified) {
+        <tr>
+          <td>
+            <span class="font-sm-bold">{{
+              'common.modified' | translate
+            }}</span>
+          </td>
+          <td class="text-right">
+            <span
+              >{{ model().modified | date: 'shortDate' : '' : currentLanguage }}
+            </span>
+          </td>
+          <td class="text-right">
+            <span>
+              {{
+                model().modified | date: 'shortTime' : '' : currentLanguage
+              }}</span
+            >
+          </td>
+          <td>
+            @if (model().modifiedBy) {
+              <span class="font-sm-bold">{{ 'common.by' | translate }} </span>
+            }
+          </td>
+          <td>
+            <span>{{ model().modifiedBy }}</span>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

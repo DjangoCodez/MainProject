@@ -1,0 +1,128 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="row">
+        <div class="col-sm-8 padding-none-right">
+            <div class="time-calendar-selections margin-large-bottom">
+                <div class="row">
+                    <div class="col-sm-12 padding-none-right form-inline">
+                        <!-- Employee -->
+                        <div class="form-group form-group-sm aliged-label">
+                            <soe-label label-key="common.employee"></soe-label>
+                        </div>
+                        <div class="form-group form-group-sm margin-small-left margin-large-right">
+                            <soe-typeahead hidelabel="true" model="ctrl.employee" items="ctrl.employees" options="item as item.numberAndName for item in items" filter-property="numberAndName" limit="50"></soe-typeahead>
+                        </div>
+
+                        <soe-radiobutton label-key="common.year" model="ctrl.intervalType" group="interval" value="1"></soe-radiobutton>
+                        <soe-radiobutton label-key="common.date" model="ctrl.intervalType" group="interval" value="2"></soe-radiobutton>
+
+                        <!-- Year -->
+                        <div class="form-group form-group-sm" data-ng-if="ctrl.intervalType == 1">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-default fal fa-chevron-left" data-ng-click="ctrl.addYears(-1)"></button>
+                                </span>
+                                <div class="content-border-no-radius">
+                                    <span class="largeFont">{{ctrl.fromDate | date:'yyyy'}}</span>
+                                </div>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-default fal fa-chevron-right" data-ng-click="ctrl.addYears(1)"></button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Date range -->
+                        <div class="form-group form-group-sm" data-ng-if="ctrl.intervalType == 2">
+                            <div class="form-group form-group-sm">
+                                <soe-datepicker hidelabel="true" model="ctrl.fromDate"></soe-datepicker>
+                            </div>
+                            <span>-</span>
+                            <div class="form-group form-group-sm">
+                                <soe-datepicker hidelabel="true" model="ctrl.toDate"></soe-datepicker>
+                            </div>
+                        </div>
+
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-sm ngSoeMainButton margin-large-right" data-l10n-bind="'time.time.timecalendar.loaddata'" data-l10n-bind-title="'time.time.timecalendar.loaddata'" data-ng-disabled="ctrl.loading || !ctrl.employee || !ctrl.fromDate || !ctrl.toDate || ctrl.fromDate > ctrl.toDate" data-ng-click="$event.stopPropagation();ctrl.loadData()"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-small-bottom">
+                    <div class="col-sm-12 form-inline">
+                        <div class="form-group form-group-sm aliged-label">
+                            <soe-label label-key="time.payroll.payrollproduct.payrolltype"></soe-label>
+                        </div>
+                        <div class="form-group form-group-sm margin-small-left">
+                            <payroll-product-selection hide-label="true" hide-products="true" on-selected="ctrl.onPayrollProductSelectionUpdated(selections)"></payroll-product-selection>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 padding-small-left margin-small-bottom">
+            <div class="time-calendar-summary table-responsive">
+                <table class="table table-outer-bordered table-condensed table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" colspan="2" data-l10n-bind="'common.sum'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'common.quantity'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'common.occations'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'common.days'"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="sum in ctrl.summary">
+                            <td colspan="2" data-ng-if="sum.isGroup" class="indiscreet"><span>{{sum.name}}</span></td>
+                            <td data-ng-if="!sum.isGroup" class="right-align-cell"><span>{{sum.number}}</span></td>
+                            <td data-ng-if="!sum.isGroup"><span>{{sum.name}}</span></td>
+                            <td class="right-align-cell" data-ng-class="{'indiscreet': sum.isGroup}"><span>{{sum.amount | minutesToTimeSpan:false:false:false:true}}</span></td>
+                            <td class="right-align-cell" data-ng-class="{'indiscreet': sum.isGroup}"><span>{{sum.occations}}</span></td>
+                            <td class="right-align-cell" data-ng-class="{'indiscreet': sum.isGroup}"><span>{{sum.days}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="time-calendar row">
+        <div class="col-sm-12">
+            <table>
+                <thead>
+                    <tr>
+                        <td class="time-calendar-top-left" rowspan="2"></td>
+                        <td class="time-calendar-daterange" colspan="7">{{ctrl.getDateRangeText()}}</td>
+                    </tr>
+                    <tr>
+                        <td class="time-calendar-day-header" data-ng-repeat="day in ctrl.dayOfWeeks track by day">{{::ctrl.getDayName(day)}}</td>
+                    </tr>
+                    <tr>
+                        <td class="time-calendar-horizontal-separator" colspan="8">
+                    </tr>
+                    <tr data-ng-repeat="week in ctrl.weeks" class="time-calendar-week-row">
+                        <td class="time-calendar-week">
+                            <span data-l10n-bind="'common.weekshort'"></span><span>.&nbsp;{{::week.week}}</span>
+                        </td>
+                        <td data-ng-repeat="date in week.days track by date.date" class="time-calendar-day" data-ng-class="{'time-calendar-day-today': date.date.isToday(), 'time-calendar-day-saturday': ctrl.isSaturday(date.date), 'time-calendar-day-sunday': ctrl.isSunday(date.date), 'time-calendar-day-passed': ctrl.dateHasPassed(date.date) && date.date.getDay() !== 6 && date.date.getDay() !== 0, 'time-calendar-day-saturday-passed': date.date.getDay() === 6 && ctrl.dateHasPassed(date.date), 'time-calendar-day-sunday-passed': date.date.getDay() === 0 && ctrl.dateHasPassed(date.date), 'time-calendar-day-out-of-range': ctrl.isOutOfRange(date.date)}">
+                            <div>
+                                <span class="day-number">{{::date.date | date:'d'}}</span>
+                            </div>
+                            <div>{{::date.date | date:'MMMM'}}</div>
+                            <div data-ng-if="date.date.isBeginningOfYear() || date.date.isEndOfYear()">{{::date.date.getFullYear()}}</div>
+                            <div data-ng-class="{'saturday':ctrl.isSaturday(date.date), 'sunday':ctrl.isSunday(date.date)}" data-ng-if="ctrl.hasHoliday(date.date)" data-ng-attr-title="{{ctrl.getHolidayDescription(date.date)}}">{{ctrl.getHolidayName(date.date)}}</div>
+
+                            <div class="time-calendar-periods time-calendar-periods-left">
+                                <div class="period-type1" data-ng-if="date.period.type1Amount" data-ng-style="{'background-color': date.period.type1Color}" title="{{date.period.type1ToolTip}}"><span>{{date.period.type1Amount | minutesToTimeSpan}}</span></div>
+                                <div class="period-type2" data-ng-if="date.period.type2Amount" data-ng-style="{'background-color': date.period.type2Color}" title="{{date.period.type2ToolTip}}"><span>{{date.period.type2Amount | minutesToTimeSpan}}</span></div>
+                                <div class="period-types" data-ng-if="date.period.typesAmount" data-ng-style="{'background-color': date.period.typesColor}" title="{{date.period.typesToolTip}}"><span>{{date.period.typesAmount}}</span></div>
+                            </div>
+                            <div class="time-calendar-periods time-calendar-periods-right">
+                                <div class="period-type3" data-ng-if="date.period.type3Amount" data-ng-style="{'background-color': date.period.type3Color}" title="{{date.period.type3ToolTip}}"><span>{{date.period.type3Amount | minutesToTimeSpan}}</span></div>
+                                <div class="period-type4" data-ng-if="date.period.type4Amount" data-ng-style="{'background-color': date.period.type4Color}" title="{{date.period.type4ToolTip}}"><span>{{date.period.type4Amount | minutesToTimeSpan}}</span></div>
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</form>

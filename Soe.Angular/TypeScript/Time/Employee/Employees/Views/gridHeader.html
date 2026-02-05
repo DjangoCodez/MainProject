@@ -1,0 +1,9 @@
+﻿<form class="form-inline">
+    <div class="form-group form-group-sm">
+        <div class="col"><soe-label class="pull-right" discreet="true" label-key="time.employee.employment.basedondate"></soe-label></div>
+        <div class="col" style="margin-left:5px"><soe-datepicker hidelabel="true" hide-clear-button="true" model="ctrl.selectedDate" use-ignore-dirty="true" on-change="$event.stopPropagation();ctrl.reloadGridData()"></soe-datepicker></div>
+        <div class="col" style="margin-left:5px"><soe-checkbox label-key="time.employee.employee.showinactive" model="ctrl.showInactive" on-changing="ctrl.showInactiveChanged();"></soe-checkbox></div>
+        <div class="col" style="margin-left:5px"><soe-checkbox label-key="time.employee.employee.showended" model="ctrl.showEnded" on-changing="ctrl.showEndedChanged();"></soe-checkbox></div>
+        <div class="col" style="margin-left:5px"><soe-checkbox label-key="time.employee.employee.shownotstarted" model="ctrl.showNotStarted" on-changing="ctrl.showNotStartedChanged();"></soe-checkbox></div>
+    </div>
+</form>

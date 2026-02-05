@@ -1,0 +1,13 @@
+﻿<form class="form-inline">
+    <div>
+        <div class="form-group form-group-sm margin-large-left">
+            <soe-label label-key="common.country" discreet="true"></soe-label>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-select hidelabel="true" model="ctrl.sysCountryId" items="ctrl.sysCountries" options="item.id as item.name for item in items" on-changing="ctrl.sysCountryChanged();"></soe-select>
+        </div>
+        <div class="form-group form-group-sm margin-large-left">
+            <soe-checkbox label-key="manage.system.syspayrollprices.showall" model="ctrl.showAll" on-changing="ctrl.showAllChanged();"></soe-checkbox>
+        </div>
+    </div>
+</form>

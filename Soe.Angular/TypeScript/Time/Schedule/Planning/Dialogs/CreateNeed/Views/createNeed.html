@@ -1,0 +1,65 @@
+﻿<form name="ctrl.edit" autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.staffingneeds.planning.functions.add'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="content-border">
+            <div class="margin-small-left margin-small-right margin-small-bottom">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="time.schedule.timescheduletask.task" model="ctrl.selectedTimeScheduleTaskId" items="ctrl.frequencyTasks" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-datepicker label-key="time.schedule.staffingneeds.planning.fromdate" model="ctrl.selectedFromDate" required="true" options="ctrl.fromDateOptions"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-3" data-ng-if="!ctrl.wholeWeek">
+                        <soe-select label-key="common.weekday" model="ctrl.selectedWeekday" items="ctrl.weekdays" options="item.dayOfWeek as item.name for item in items" on-changing="ctrl.weekdayChanged()"></soe-select>
+                    </div>
+                    <div class="col-sm-3" data-ng-if="!ctrl.wholeWeek">
+                        <soe-datepicker label-key="common.date" model="ctrl.selectedDate" on-change="ctrl.dateChanged()"></soe-datepicker>
+                    </div>
+                </div>
+                <div class="row margin-small-top">
+                    <div class="col-sm-3 col-sm-offset-3">
+                        <soe-checkbox label-key="time.schedule.staffingneeds.planning.createwholeweek" model="ctrl.wholeWeek"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-6" data-ng-if="!ctrl.wholeWeek">
+                        <div class="col-sm-12 info center-text margin-large-right">
+                            <span data-l10n-bind="'time.schedule.staffingneeds.planning.createinfo'"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm margin-large-top">
+            <soe-panel label-key="time.schedule.staffingneeds.planning.basedon">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-label label-key="time.schedule.staffingneeds.planning.frequency"></soe-label>
+                    </div>
+                </div>
+                <div class="row margin-large-top">
+                    <div class="col-sm-3">
+                        <soe-datepicker label-key="common.datefrom" model="ctrl.intervalDateFrom" required="true"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-datepicker label-key="common.dateto" model="ctrl.intervalDateTo" required="true"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-3" data-ng-if="ctrl.selectedDate">
+                        <soe-multiselect label-key="time.schedule.staffingneeds.planning.averageperday" options="ctrl.weekdays" id-prop="dayOfWeek" display-prop="name" model="ctrl.dayOfWeeks"></soe-multiselect>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="time.schedule.staffingneeds.planning.adjustpercent" label-value="'%'" label-value-in-parentheses="true" model="ctrl.adjustPercent" numeric="true" decimals="2"></soe-textbox>
+                    </div>
+                </div>
+            </soe-panel>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-inline">
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-l10n-bind-title="'core.ok'" data-ng-disabled="ctrl.edit.$invalid" data-ng-click="$event.stopPropagation();ctrl.ok()"></button>
+        </div>
+    </div>
+</form>

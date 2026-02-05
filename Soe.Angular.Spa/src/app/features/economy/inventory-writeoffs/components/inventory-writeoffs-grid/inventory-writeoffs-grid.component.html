@@ -1,0 +1,12 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    [masterDetail]="true"
+    [toolbarGroups]="toolbarUtils.toolbarGroups"
+    (selectionChanged)="triggerSelectedItem($event)">
+    <soe-inventory-writeoffs-search
+      toolbar-content-left
+      (onSearchClick)="doFilterByDate($event)"></soe-inventory-writeoffs-search>
+  </soe-grid-wrapper>
+}

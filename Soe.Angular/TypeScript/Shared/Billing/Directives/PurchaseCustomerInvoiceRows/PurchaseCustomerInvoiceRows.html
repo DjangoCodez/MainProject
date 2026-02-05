@@ -1,0 +1,29 @@
+﻿<div>
+    <div class="row btn-toolbar">
+        <div class="col pull-right">
+            <soe-toolbar buttons="directiveCtrl.toolbar.buttonGroups" hide-border="true" no-margin="true"></soe-toolbar>
+        </div>
+        <div class="col pull-right" ng-if="directiveCtrl.attestHelper">
+            <soe-select class="margin-large-left"
+                        style="width:170px"
+                        hidelabel="true"
+                        model="directiveCtrl.attestHelper.selectedAttestState"
+                        items="directiveCtrl.attestHelper.availableAttestStateOptions"
+                        options="item.id as item.name for item in items"
+                        is-readonly=""
+                        on-changing="directiveCtrl.attestHelper.attestStateChanged()"
+                        on-button-click="directiveCtrl.saveAttestState(directiveCtrl.selectedAttestState)"
+                        button-icon="'fa-play-circle'"
+                        button-class="border-radius-right"
+                        button-tooltip-key="billing.productrows.changeatteststate"
+                        button-disabled=""
+                        use-ignore-dirty="true" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div ag-grid="directiveCtrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+        </div>
+    </div>
+</div>

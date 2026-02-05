@@ -1,0 +1,69 @@
+﻿<div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-6">
+                <date-time-interval-selection on-selected="$ctrl.onInvoiceDateSelectionUpdated(selection)"
+                                              label-key="common.customer.invoices.invoicedate"
+                                              selected-interval="date"
+                                              user-selection-input="$ctrl.userSelectionInputInvoiceDate"
+                                              use-min-max-if-empty="true" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-6">
+                <date-time-interval-selection on-selected="$ctrl.onDueDateSelectionUpdated(selection)"
+                                              label-key="common.customer.invoices.duedate"
+                                              selected-interval="date"
+                                              user-selection-input="$ctrl.userSelectionInputDueDate"
+                                              use-min-max-if-empty="true" />
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="row">
+            <div class="col-sm-2">
+                <bool-selection on-selected="$ctrl.onBoolSelectionInputShowOpen(selection)" label-key="common.showopen" user-selection-input="$ctrl.userSelectionInputShowOpen" />
+            </div>
+            <div class="col-sm-2">
+                <bool-selection on-selected="$ctrl.onBoolSelectionInputShowClosed(selection)" label-key="common.showclosed" user-selection-input="$ctrl.userSelectionInputShowClosed" />
+            </div>
+            <div class="col-sm-8">
+                <bool-selection on-selected="$ctrl.onBoolSelectionInputViewMy(selection)" label-key="common.viewmy" user-selection-input="$ctrl.userSelectionInputViewMy" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-2">
+                <bool-selection on-selected="$ctrl.onBoolSelectionInputPreliminary(selection)" label-key="common.report.selection.includepreliminaryinvoices" user-selection-input="$ctrl.userSelectionInputPreliminary" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group form-group-sm">
+        <Account-dims-multi-selection hide-std-dim="true"
+                                      on-change="$ctrl.onAccountDimSelectionUpdated(selectedValues)"
+                                      account1="ctrl.invoice.defaultDim1AccountId"
+                                      account2="ctrl.invoice.defaultDim2AccountId"
+                                      account3="ctrl.invoice.defaultDim3AccountId"
+                                      account4="ctrl.invoice.defaultDim4AccountId"
+                                      account5="ctrl.invoice.defaultDim5AccountId"
+                                      account6="ctrl.invoice.defaultDim6AccountId"
+                                      is-readonly="ctrl.isLocked" parent-guid="ctrl.guid">
+        </Account-dims-multi-selection>
+    </div>
+
+
+    <div class="form-group form-group-sm" data-ng-if="$ctrl.isAnalysis">
+        <div class="row">
+            <div class="col-sm-12">
+                <matrix-column-selection on-selected="$ctrl.onMatrixColumnSelectionUpdated(selection)" module="$ctrl.module" sys-report-template-type-id="$ctrl.sysReportTemplateTypeId" report-id="$ctrl.reportId" user-selection-input="$ctrl.userSelectionInputColumns" selections="$ctrl.selections" show-insights="true" />
+            </div>
+        </div>
+    </div>
+</div>

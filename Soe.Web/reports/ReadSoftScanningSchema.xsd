@@ -1,0 +1,67 @@
+﻿<xs:schema id="Message" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="Document" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:sequence>
+          <xs:element name="Id" type="xs:string" minOccurs="0" />
+          <xs:element name="Version" type="xs:string" minOccurs="0" />
+          <xs:element name="Type" type="xs:string" minOccurs="0" />
+          <xs:element name="OriginalFileName" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+        <xs:element name="Parties" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Party" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Type" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                    <xs:element name="Name" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                    <xs:element name="Id" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                    <xs:element name="ExternalId" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="HeaderFields" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="HeaderField" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Name" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                    <xs:element name="Type" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                    <xs:element name="Format" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                    <xs:element name="Text" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                    <xs:element name="ValidationError" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                    <xs:element name="Position" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                    <xs:element name="PageNumber" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="History" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Item" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="TimeStamp" type="xs:dateTime" minOccurs="0" msdata:Ordinal="0" />
+                    <xs:element name="UserFullName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                    <xs:element name="Status" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                    <xs:element name="Comment" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                    <xs:element name="EntryType" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                    <xs:element name="Changes" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,57 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.isDirty" confirm-on-exit>
+
+    <div class="messagebox modal-wide">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+            <h6 class="modal-title">{{::ctrl.title}}</h6>
+        </div>
+        <div class="modal-body">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-panel label-key="common.customer.customer.rot.personinfo">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="common.customer.customer.rot.property" model="ctrl.applicant.property" maxlength="50" set-focus="true"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="common.customer.customer.rot.socialsecnr" label-value="ctrl.socialSecurityNumberFormat" label-value-in-parentheses="true" hide-label-value="false" placeholder-key="common.customer.customer.rot.socialsecnrinfo" model="ctrl.applicant.socialSecNr" required="true" social-security-number="true" check-valid-date="true" must-specify-century="true" must-specify-dash="true"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="common.customer.customer.rot.name" model="ctrl.applicant.name" required="true"></soe-textbox>
+                                </div>
+                            </div>
+                        </soe-panel>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-panel label-key="common.customer.customer.rot.brfinfo">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="common.customer.customer.rot.apartmentnr" model="ctrl.applicant.apartmentNr"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="common.customer.customer.rot.cooperativeorgnr" placeholder-key="common.customer.customer.rot.cooperativeorgnrinfo" model="ctrl.applicant.cooperativeOrgNr" allow-empty="true" social-security-number="true" check-valid-date="false" must-specify-century="false" must-specify-dash="true"></soe-textbox>
+                                </div>
+                            </div>
+                        </soe-panel>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="col-sm-8 pull-left">
+                <span style="color: red;">{{ ctrl.errorMessage }}</span>
+            </div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.ok'" data-ng-show="!ctrl.edit.$invalid" data-ng-click="ctrl.buttonOkClick()"></button>
+                <div class="btn-group" role="group" data-ng-show="ctrl.edit.$invalid" >
+                    <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.ok'" data-ng-disabled="!ctrl.edit.$dirty || ctrl.edit.$invalid" data-ng-click="ctrl.buttonOkClick()"></button>
+                    <button type="button" data-ng-show="ctrl.edit.$invalid" class="btn btn-sm ngSoeMainButtonInvalid" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,38 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" data-ng-click="ctrl.closeModal(false)" aria-hidden="true">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'common.setting'"></h6>
+    </div>
+    <div class="edit-padding">
+        <soe-panel label-value="ctrl.labelKey">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-checkbox label-key="common.report.settings.isvisible" model="ctrl.model.visible"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" data-ng-if="ctrl.isCheckbox">
+                    <soe-checkbox label-key="common.report.settings.defaultvalue" model="ctrl.model.defaultValue"></soe-checkbox>
+                </div>
+                <div class="col-sm-12" data-ng-if="ctrl.isNumber || ctrl.isText">
+                    <soe-textbox label-key="common.report.settings.defaultvalue" model="ctrl.model.defaultValue" input-type="{{ctrl.isNumber ? 'number' : ''}}"></soe-textbox>
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-checkbox label-key="common.report.settings.forcedefaultvalue" model="ctrl.model.forceDefaultValue"></soe-checkbox>
+                </div>
+            </div>
+        </soe-panel>
+        <div class="ngSoeFormFooter modal-margin">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <div class="col">
+                        <button type="button" class="btn btn-sm" data-ng-click="ctrl.closeModal(false)" data-l10n-bind="'core.cancel'"></button>
+                    </div>
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

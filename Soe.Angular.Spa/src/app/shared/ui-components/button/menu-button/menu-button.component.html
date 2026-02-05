@@ -1,0 +1,106 @@
+<div
+  [ngStyle]="
+    width() && !fitContainer()
+      ? { 'width.px': width() }
+      : fitContainer()
+        ? { width: '100%' }
+        : {}
+  "
+  class="soe-menu-button-wrapper"
+  [class.dropup]="dropUp()"
+  [class.dropleft]="dropLeft()"
+  soeClickOutside
+  (clickOutside)="closeList()">
+  <div class="soe-menu-button-content-wrapper btn-group" role="group">
+    <button
+      class="soe-menu-button"
+      [ngClass]="typeClass()"
+      [class.inside-group]="insideGroup()"
+      [class.no-border-radius]="noBorderRadius()"
+      [class.no-min-width]="iconName() && !caption()"
+      [class.is-hidden]="hidden()"
+      [class.is-disabled]="disabled()"
+      [disabled]="disabled()"
+      [title]="tooltip() | translate"
+      (click)="onButtonAction()">
+      @if (showSelectedItemIcon() && selectedItem()?.icon) {
+        <fa-icon
+          [ngClass]="selectedItem()!.iconClass"
+          [fixedWidth]="true"
+          [icon]="selectedItem()!.icon!"></fa-icon>
+      } @else if (iconName()) {
+        <fa-icon
+          [icon]="[iconPrefix(), iconName()!]"
+          [ngClass]="iconClass()"></fa-icon>
+      }
+      <span
+        class="soe-menu-button__label"
+        [class.me-4]="isMenu() && !hideDropdownArrow()">
+        {{
+          (isSplit() || showSelectedItemLabel()
+            ? selectedItem()?.label || caption()
+            : caption()
+          ) | translate
+        }}
+      </span>
+      @if (isMenu() && !hideDropdownArrow()) {
+        <fa-icon
+          class="soe-menu-button__dropdown-icon"
+          [icon]="['fal', dropUp() ? 'angle-up' : 'angle-down']"></fa-icon>
+      }
+    </button>
+    @if (isSplit()) {
+      @if (invalid()) {
+        <button
+          type="button"
+          [ngClass]="typeClass()"
+          class="btn-invalid"
+          [title]="'error.unabletosave_tooltip' | translate"
+          (click)="onValidationErrorsAction($event)">
+          !
+        </button>
+      } @else {
+        <button
+          class="soe-menu-button__split split"
+          [ngClass]="typeClass()"
+          [class.inside-group]="insideGroup()"
+          [class.no-border-radius]="noBorderRadius()"
+          [disabled]="disabled()"
+          [title]="tooltip() | translate"
+          (click)="toggleList()">
+          <fa-icon
+            [icon]="['fal', dropUp() ? 'angle-up' : 'angle-down']"></fa-icon>
+        </button>
+      }
+    }
+  </div>
+  @if (isOpen()) {
+    <ul
+      class="soe-menu-button__list"
+      [class.dropup-content]="dropUp()"
+      [class.dropleft-content]="dropLeft()">
+      @for (item of list(); track item) {
+        @if (!(item.hidden && item.hidden())) {
+          <li
+            [class.header]="item.type === 'header'"
+            [class.disabled]="item.disabled ? item.disabled() : false"
+            [class.selected]="item.id === selectedItem()?.id"
+            [ngClass]="item.type"
+            (click)="isSplit() ? updateOption(item) : selectItem(item)">
+            @if (item.icon) {
+              <div>
+                <fa-icon
+                  [ngClass]="item.iconClass"
+                  class="soe-menu-button__list-icon"
+                  [fixedWidth]="true"
+                  [icon]="item.icon"></fa-icon>
+              </div>
+            }
+
+            <div>{{ item.label || '' | translate }}</div>
+          </li>
+        }
+      }
+    </ul>
+  }
+</div>

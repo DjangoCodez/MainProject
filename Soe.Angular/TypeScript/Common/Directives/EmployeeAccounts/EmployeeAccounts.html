@@ -1,0 +1,8 @@
+﻿<div class="col-sm-12">
+    <div class="row" data-ng-if="ctrl.showAccountDims">
+        <soe-select label-key="common.accountdim" model="ctrl.selectedAccountDim" items="ctrl.accountDims" options="item as item.name for item in items"></soe-select>
+    </div>
+    <div class="row">
+        <div id="employee-accounts-grid" ag-grid="ctrl.soeGridOptions.gridOptions" class="ag-theme-balham" prevent-enter></div>
+    </div>
+</div>

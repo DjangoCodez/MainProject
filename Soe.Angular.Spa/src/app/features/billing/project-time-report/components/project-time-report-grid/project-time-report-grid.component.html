@@ -1,0 +1,59 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (editRowClicked)="edit($event)"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+    (selectionChanged)="selectionChanged($event)">
+    <soe-project-time-report-grid-header
+      toolbar-content-left
+      [splitTimeProductRowsPermission]="splitTimeProductRowsPermission()"
+      [useExtendedTimeRegistration]="useExtendedTimeRegistration"
+      (groupByDate)="getGroupByDate($event)"
+      [isDisable]="isRowNotSelected"
+      [projectsDict]="projectsDict"
+      [ordersDict]="ordersDict"
+      [timeDeviationCauseDict]="timeDeviationCauseDict"
+      [employeesDict]="employeesDict"
+      [employeeCategoryDict]="employeeCategoryDict"
+      [timeDeviationCauseDict]="timeDeviationCauseDict"
+      [projectContainer]="projectContainer"
+      (dateRange)="getDateRange($event)"
+      (projectsOrdersLoad)="loadProjectsOrderWithProgress()"
+      (categoriesLoad)="loadCategories()"
+      (employeesLoad)="loadEmployeeswithProgess($event)"
+      (timeDeviationCausesLoad)="loadTimeDeviationCausesWithProgress()"
+      (actionEvent)="doActionEvent($event)"
+      (searchEvent)="doSearch($event)">
+    </soe-project-time-report-grid-header>
+    <div class="row" footer>
+      <div class="col-sm-12 p-2 d-flex flex-row-reverse align-items-end">
+        <soe-menu-button
+          class="me-2"
+          [caption]="'billing.project.atteststate'"
+          [list]="menuList"
+          [disabled]="disableButtonFunction"
+          [behaviour]="'primary'"
+          [dropUp]="true"
+          (itemSelected)="saveAttestState($event)"
+          (selectedItem)="(menuList)">
+        </soe-menu-button>
+
+        <soe-button
+          class="me-2"
+          [caption]="'billing.project.timesheet.recalulatework'"
+          [behaviour]="'standard'"
+          (action)="recalculateWork()"
+          [disabled]="disableButtonFunction"></soe-button>
+
+        @if (showMigrateButton) {
+          <soe-button
+            class="me-2"
+            [behaviour]="'primary'"
+            [caption]="'billing.project.timesheet.converttimes'"
+            (action)="runMigrateTimesJob()"></soe-button>
+        }
+      </div>
+    </div>
+  </soe-grid-wrapper>
+}

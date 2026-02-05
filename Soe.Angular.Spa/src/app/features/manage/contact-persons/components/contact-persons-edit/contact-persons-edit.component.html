@@ -1,0 +1,93 @@
+@if (!form?.openInDialog) {
+  <soe-toolbar
+    [recordConfig]="recordConfig"
+    [form]="form"
+    [itemGroups]="toolbarService.toolbarItemGroups"
+    (navigatorRecordChanged)="navigatorRecordChanged($event)">
+    <ng-content
+      toolbar-content-left
+      select="[toolbar-content-left]"></ng-content>
+  </soe-toolbar>
+}
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="scroll-container">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'common.firstname'"
+                [maxLength]="100"
+                [autoFocus]="true"
+                [required]="true"
+                formControlName="firstName">
+              </soe-textbox>
+            </div>
+            <div class="col-sm-8">
+              <soe-textbox
+                [labelKey]="'common.lastname'"
+                [maxLength]="100"
+                formControlName="lastName">
+              </soe-textbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'common.email'"
+                [maxLength]="100"
+                formControlName="email">
+              </soe-textbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'common.phone'"
+                [maxLength]="100"
+                formControlName="phoneNumber">
+              </soe-textbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.contactperson.position'"
+                [selectedId]="form.value.position"
+                [items]="position"
+                formControlName="position"></soe-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-checkbox
+                [labelKey]="'common.consent'"
+                formControlName="hasConsent"
+                (valueChanged)="consentChange($event)"></soe-checkbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-datepicker
+                [labelKey]="'common.consentdate'"
+                formControlName="consentDate"></soe-datepicker>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <soe-categories
+            [categoryType]="4"
+            [form]="form"
+            [categoryIds]="form.categoryIds.value"
+            [readOnly]="!flowHandler.modifyPermission()"
+            (categoriesChange)="categoryChanged($event)"></soe-categories>
+        </div>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      [hideDelete]="form.openInDialog"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

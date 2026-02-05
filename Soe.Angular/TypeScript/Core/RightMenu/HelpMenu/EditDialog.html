@@ -1,0 +1,28 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-textbox label-key="common.subject" model="ctrl.model.title" required="true" maxlength="100" auto-focus="true"></soe-textbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-textbox label-key="common.tags" model="ctrl.model.plainText"></soe-textbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-label label-key="common.text"></soe-label>
+                <textarea rows="22" ng-if="ctrl.model && ctrl.tinyMceOptions" ui-tinymce="ctrl.tinyMceOptions" ng-model="ctrl.model.text"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

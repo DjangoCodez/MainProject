@@ -1,0 +1,42 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="statistics-selections margin-large-bottom">
+                <div class="row margin-large-top">
+                    <div class="col-sm-2" data-ng-if="ctrl.seeOtherEmployeesPermission">
+                        <div class="form-group form-group-sm">
+                            <soe-typeahead label-key="common.employee" model="ctrl.employee" items="ctrl.employees" options="item as item.name for item in items" limit="50" on-selection-changed="ctrl.clearChartData()"></soe-typeahead>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <date-time-interval-selection label-key="common.period" selected-interval="month" on-time-period-changed="ctrl.onTimePeriodChanged(item)" on-selected="ctrl.onTimeIntervalSelected(selection)"></date-time-interval-selection>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group form-group-sm">
+                            <soe-select label-key="time.employee.statistics.statisticstype" model="ctrl.selectedType" items="ctrl.statisticTypes" options="item as item.name for item in items" on-changing="ctrl.clearChartData()"></soe-select>
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-sm ngSoeMainButton margin-large-right" data-l10n-bind="'time.employee.statistics.loaddata'" data-l10n-bind-title="'time.employee.statistics.loaddata'" data-ng-disabled="ctrl.loading || !ctrl.employee || !ctrl.dateFrom || !ctrl.dateTo || ctrl.dateFrom > ctrl.dateTo" data-ng-click="$event.stopPropagation();ctrl.loadData()"></button>
+                    </div>
+                    <div class="pull-right">
+                        <div class="form-group form-group-sm">
+                            <soe-checkbox label-key="time.employee.statistics.autoload" model="ctrl.autoLoad"></soe-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <span class="statistics-legend pull-right" data-ng-if="ctrl.hasData">
+                <span data-ng-if="ctrl.showArrival"><svg class="early-arrival"><rect width="16" height="16" /></svg><span data-l10n-bind="'time.employee.statistics.earlyarrival'"></span></span>
+                <span data-ng-if="ctrl.showArrival"><svg class="late-arrival"><rect width="16" height="16" /></svg><span data-l10n-bind="'time.employee.statistics.latearrival'"></span></span>
+                <span data-ng-if="ctrl.showGoHome"><svg class="early-gohome"><rect width="16" height="16" /></svg><span data-l10n-bind="'time.employee.statistics.earlygohome'"></span></span>
+                <span data-ng-if="ctrl.showGoHome"><svg class="late-gohome"><rect width="16" height="16" /></svg><span data-l10n-bind="'time.employee.statistics.lategohome'"></span></span>
+            </span>
+            <nvd3 options="ctrl.chartOptions" data="ctrl.chartData"></nvd3>
+        </div>
+    </div>
+</form>

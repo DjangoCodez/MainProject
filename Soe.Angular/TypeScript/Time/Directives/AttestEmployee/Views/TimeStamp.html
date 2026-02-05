@@ -1,0 +1,126 @@
+﻿<div>
+    <soe-panel label-key="time.time.attest.timestamps" label-value="ctrl.model.timeStampEntrys.length" label-value-in-parentheses="true" condensed="true">
+        <div class="row margin-small-top margin-small-bottom" data-ng-if="!ctrl.isReadonly">
+            <div class="col-sm-3">
+                <soe-progressbar class="margin-small-left" custom-class="progress-in-toolbar" is-busy="ctrl.executing" message="ctrl.progressMessage" data-ng-if="ctrl.executing"></soe-progressbar>
+            </div>
+            <div class="col-sm-9">
+                <button type="button" class="btn btn-sm pull-right margin-small-right ngSoeMainButton" style="margin-left: 0px;" data-l10n-bind="'core.save'" data-l10n-bind-title="'time.time.attest.timestamps.save.tooltip'" data-ng-disabled="ctrl.executing" data-ng-if="ctrl.editPermission" data-ng-click="$event.stopPropagation();ctrl.saveTimeStamps();"></button>
+                <button type="button" class="btn btn-sm btn-default pull-right margin-small-right" data-l10n-bind="'time.time.attest.timestamps.new'" data-ng-if="ctrl.editPermission" data-ng-click="$event.stopPropagation();ctrl.addTimeStamp();"></button>
+                <button type="button" class="btn btn-sm btn-default pull-right margin-small-right" data-l10n-bind="'time.time.attest.timestamps.fromschedule'" data-l10n-bind-title="'time.time.attest.timestamps.fromschedule.tooltip'" data-ng-if="ctrl.createTimeStampsAccourdingToSchedulePermission" data-ng-disabled="!ctrl.enableCreateTimeStampsFromSchedule" data-ng-click="$event.stopPropagation();ctrl.fromSchedule();"></button>
+                <soe-checkbox class="pull-right margin-small-right" label-key="time.time.attest.timestamps.discardbreakevaluation" model="ctrl.discardBreakEvaluation" is-disabled="ctrl.discardBreakEvaluationDisabled" data-ng-if="ctrl.discardBreakEvaluationPermission"></soe-checkbox>
+            </div>
+        </div>
+        <div class="row margin-small-top margin-small-bottom" data-ng-if="ctrl.isReadonly">
+            <div class="col-sm-11">
+                <soe-checkbox class="pull-right margin-small-right" label-key="time.time.attest.timestamps.discardbreakevaluation" model="ctrl.discardBreakEvaluation" is-disabled="true" data-ng-if="ctrl.discardBreakEvaluationPermission"></soe-checkbox>
+            </div>
+        </div>
+        <div class="row margin-small-top margin-small-bottom" data-ng-if="ctrl.showUnlockDay()">
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-sm pull-right margin-small-right ngSoeMainButton" style="margin-left: 0px;" data-l10n-bind="'time.time.attest.timestamps.unlockday'" data-l10n-bind-title="'time.time.attest.timestamps.unlockday.tooltip'" data-ng-disabled="ctrl.executing" data-ng-click="$event.stopPropagation();ctrl.unlockDay();"></button>
+            </div>
+        </div>
+        <div class="repeater-condensed margin-large-left margin-small-right" data-ng-repeat="timeStamp in ctrl.model.timeStampEntrys track by $index" data-ng-click="ctrl.selectedTimeStamp = timeStamp">
+            <div class="form-group form-group-sm">
+                <div data-ng-if="$first">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="col-sm-8 padding-none-left">
+                                <soe-label class="margin-large-left" label-key="common.date"></soe-label>
+                            </div>
+                            <div class="col-sm-4 padding-none-right">
+                                <soe-label label-key="common.time"></soe-label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="padding-none-left" data-ng-class="{'col-sm-6':ctrl.showEmployeeChild, 'col-sm-12':!ctrl.showEmployeeChild}">
+                                <soe-label label-key="common.time.timedeviationcause"></soe-label>
+                            </div>
+                            <div class="col-sm-6" data-ng-if="ctrl.showEmployeeChild">
+                                <soe-label label-key="time.schedule.absencerequests.employeechild"></soe-label>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div data-ng-class="{'col-sm-4':ctrl.useAccountHierarchy && ctrl.useTimeScheduleTypeFromTime, 'col-sm-6':(ctrl.useAccountHierarchy && !ctrl.useTimeScheduleTypeFromTime) || (!ctrl.useAccountHierarchy && ctrl.useTimeScheduleTypeFromTime), 'col-sm-12':!ctrl.useAccountHierarchy && !ctrl.useTimeScheduleTypeFromTime}" data-ng-if="ctrl.showAccountDim">
+                                <soe-label model="ctrl.accountingLabel"></soe-label>
+                            </div>
+                            <div data-ng-class="{'col-sm-4':ctrl.showAccountDim && ctrl.useTimeScheduleTypeFromTime, 'col-sm-6':(ctrl.showAccountDim && !ctrl.useTimeScheduleTypeFromTime) || (!ctrl.showAccountDim && ctrl.useTimeScheduleTypeFromTime), 'col-sm-12':!ctrl.showAccountDim && !ctrl.useTimeScheduleTypeFromTime}" data-ng-if="ctrl.useAccountHierarchy">
+                                <div data-ng-if="ctrl.showAccountDim2">
+                                    <soe-label model="ctrl.accountingLabel2"></soe-label>
+                                </div>
+                                <div data-ng-if="!ctrl.showAccountDim2">
+                                    <soe-label model="ctrl.terminalAccountingLabel"></soe-label>
+                                </div>
+                            </div>
+                            <div data-ng-class="{'col-sm-4':ctrl.useAccountHierarchy && ctrl.showAccountDim, 'col-sm-6':(ctrl.useAccountHierarchy && !ctrl.showAccountDim) || (!ctrl.useAccountHierarchy && ctrl.showAccountDim), 'col-sm-12':!ctrl.useAccountHierarchy && !ctrl.showAccountDim}" data-ng-if="ctrl.useTimeScheduleTypeFromTime">
+                                <soe-label label-key="time.schedule.scheduletype.scheduletype"></soe-label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-label label-key="common.comment"></soe-label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" data-ng-class="{'repeater-selected-row': ctrl.selectedTimeStamp === timeStamp}">
+                    <div class="col-sm-2">
+                        <div class="col-sm-8 padding-none-left">
+                            <i class="fas fa-caret-right" data-ng-if="ctrl.selectedTimeStamp === timeStamp"></i>
+                            <i class="fas link" style="position: absolute; margin: 4px 0px 0px -3px;" data-ng-class="{'fa-building fa-fw okColor': timeStamp.type==1, 'fa-home fa-fw errorColor': timeStamp.type==2 && !timeStamp.isBreak, 'fa-mug-hot fa-fw infoColor': timeStamp.type==2 && timeStamp.isBreak}" data-ng-attr-title="{{ctrl.getTypeToolTip(timeStamp)}}" data-ng-click="ctrl.changeType(timeStamp);"></i>
+                            <soe-datepicker class="margin-large-left" hidelabel="true" model="timeStamp.time" on-focus="ctrl.selectedTimeStamp = timeStamp" is-readonly="ctrl.isReadonly || !ctrl.editTimePermission || (timeStamp.isReadonly && !ctrl.hasAttestByEmployeeAccount)" on-change="ctrl.dateChanged(timeStamp);"></soe-datepicker>
+                        </div>
+                        <div class="col-sm-4 padding-none-right">
+                            <soe-timebox hidelabel="true" model="timeStamp.time" is-time="true" is-readonly="ctrl.isReadonly || !ctrl.editTimePermission || (timeStamp.isReadonly && !ctrl.hasAttestByEmployeeAccount)" set-focus="$last || (ctrl.selectedTimeStamp === timeStamp && ctrl.setFocusInTime)" on-change="ctrl.timeChanged(timeStamp);"></soe-timebox>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="padding-none-left" data-ng-class="{'col-sm-6':ctrl.showEmployeeChild, 'col-sm-12':!ctrl.showEmployeeChild}">
+                            <soe-select hidelabel="true" model="timeStamp.timeDeviationCauseId" items="ctrl.deviationCauses" options="item.timeDeviationCauseId as item.name for item in items" is-readonly="ctrl.isReadonly || (timeStamp.isReadonly && !ctrl.hasAttestByEmployeeAccount)" on-changing="ctrl.deviationCauseChanged(timeStamp);"></soe-select>
+                        </div>
+                        <div class="col-sm-6" data-ng-if="ctrl.showEmployeeChild">
+                            <soe-select hidelabel="true" model="timeStamp.employeeChildId" items="ctrl.employeeChilds" options="item.id as item.name for item in items" is-readonly="ctrl.isReadonly || timeStamp.isReadonly" data-ng-if="timeStamp.specifyChild" on-changing="ctrl.setDirty(timeStamp);"></soe-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div data-ng-class="{'col-sm-4':ctrl.useAccountHierarchy && ctrl.useTimeScheduleTypeFromTime, 'col-sm-6':(ctrl.useAccountHierarchy && !ctrl.useTimeScheduleTypeFromTime) || (!ctrl.useAccountHierarchy && ctrl.useTimeScheduleTypeFromTime), 'col-sm-12':!ctrl.useAccountHierarchy && !ctrl.useTimeScheduleTypeFromTime}" data-ng-if="ctrl.showAccountDim">
+                            <soe-select hidelabel="true" model="timeStamp.accountId" items="timeStamp.filteredAccounts" options="item.accountId as item.numberAndName for item in items" is-readonly="ctrl.isReadonly || timeStamp.isReadonly" on-changing="ctrl.setDirty(timeStamp);"></soe-select>
+                        </div>
+                        <div data-ng-class="{'col-sm-4':ctrl.showAccountDim && ctrl.useTimeScheduleTypeFromTime, 'col-sm-6':(ctrl.showAccountDim && !ctrl.useTimeScheduleTypeFromTime) || (!ctrl.showAccountDim && ctrl.useTimeScheduleTypeFromTime), 'col-sm-12':!ctrl.showAccountDim && !ctrl.useTimeScheduleTypeFromTime}" data-ng-if="ctrl.useAccountHierarchy">
+                            <div data-ng-if="ctrl.showAccountDim2">
+                                <soe-select hidelabel="true" model="timeStamp.accountId2" items="timeStamp.filteredAccounts2" options="item.accountId as item.numberAndName for item in items" is-readonly="ctrl.isReadonly || timeStamp.isReadonly" on-changing="ctrl.secondaryAccountChanged(timeStamp);"></soe-select>
+                            </div>
+                            <div data-ng-if="!ctrl.showAccountDim2">
+                                <soe-select hidelabel="true" model="timeStamp.timeTerminalAccountId" items="ctrl.terminalAccounts" options="item.accountId as item.numberName for item in items" on-changing="ctrl.setFilteredAccountsFromGui(timeStamp, 1); ctrl.setDirty(timeStamp);" data-ng-if="!ctrl.isReadonly && !timeStamp.isReadonly"></soe-select>
+                                <soe-textbox hidelabel="true" model="timeStamp.timeTerminalAccountName" is-readonly="true" data-ng-if="ctrl.isReadonly || timeStamp.isReadonly"></soe-textbox>
+                            </div>
+                        </div>
+                        <div data-ng-class="{'col-sm-4':ctrl.useAccountHierarchy && ctrl.showAccountDim, 'col-sm-6':(ctrl.useAccountHierarchy && !ctrl.showAccountDim) || (!ctrl.useAccountHierarchy && ctrl.showAccountDim), 'col-sm-12':!ctrl.useAccountHierarchy && !ctrl.showAccountDim}" data-ng-if="ctrl.useTimeScheduleTypeFromTime">
+                            <soe-textbox hidelabel="true" model="timeStamp.timeScheduleTypeName" is-readonly="true"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-textbox hidelabel="true" model="timeStamp.note" is-readonly="ctrl.isReadonly || (timeStamp.isReadonly && !ctrl.hasAttestByEmployeeAccount)" on-change="ctrl.setDirty(timeStamp);"></soe-textbox>
+                    </div>
+                    <div class="col-sm-1" style="padding-left: 0; padding-right: 0;">
+                        <div class="col-sm-3">
+                            <span class="fa-stack fa-1x" style="margin-top: -2px; margin-left: -6px;" data-l10n-bind data-l10n-bind-title="'time.time.attest.timestamps.autostampout'" data-ng-if="timeStamp.autoStampOut">
+                                <i class="fas fa-home errorColor fa-stack-1x"></i>
+                                <i class="fal fa-clock fa-stack-1x" style="font-style: normal; font-size: 10px; left: 7px; top: -4px;"></i>
+                            </span>
+                            <button type="button" class="btn btn-sm btn-link fal fa-file-invoice-dollar textColor" ng-class="{'infoColor': timeStamp.hasTimeScheduleTypes || timeStamp.hasTimeCodes}" data-l10n-bind data-l10n-bind-title="'time.time.attest.timestamps.additions'" data-ng-if="timeStamp && timeStamp.type == 1 && !timeStamp.autoStampOut && ctrl.possibilityToRegisterAdditionsInTerminal" data-ng-click="$event.stopPropagation();ctrl.openTimeStampAdditions(timeStamp)"></button>
+                        </div>
+                        <div class="col-sm-3">
+                            <i class="fal fa-user-edit" style="margin-top: 4px;" data-l10n-bind data-l10n-bind-title="'time.time.attest.timestamps.manuallyadjusted'" data-ng-if="timeStamp.manuallyAdjusted"></i>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-sm btn-link fal fa-info-circle infoColor" data-l10n-bind data-l10n-bind-title="'core.info'" data-ng-if="timeStamp && timeStamp.timeStampEntryId" data-ng-click="$event.stopPropagation();ctrl.showTimeStampDetails(timeStamp)"></button>
+                        </div>
+                        <div class="col-sm-3" data-ng-if="!ctrl.isReadonly">
+                            <button type="button" class="btn btn-sm btn-link fal fa-times iconDelete" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-if="!ctrl.isReadonly && !timeStamp.isReadonly" data-ng-focus="ctrl.selectedTimeStamp = timeStamp" data-ng-click="$event.stopPropagation();ctrl.deleteTimeStamp(timeStamp)"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </soe-panel>
+</div>

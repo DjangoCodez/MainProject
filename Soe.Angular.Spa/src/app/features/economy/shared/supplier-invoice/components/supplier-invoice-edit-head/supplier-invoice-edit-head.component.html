@@ -1,0 +1,228 @@
+<form
+  [formGroup]="form()"
+  class="soe-edit-form"
+  novalidate
+  autocomplete="off">
+  <div>
+    <div class="row row-cols-6">
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-4'">
+        <soe-textbox
+          [labelKey]="'economy.supplier.invoice.seqnr'"
+          [manualReadOnly]="true"
+          formControlName="seqNr"></soe-textbox>
+      </div>
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-4'">
+        <soe-select
+          [labelKey]="'common.status'"
+          [items]="invoiceLoader.statusTypes()"
+          [optionIdField]="'id'"
+          [optionNameField]="'name'"
+          [manualReadOnly]="true"
+          formControlName="status"></soe-select>
+      </div>
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-4'">
+        <soe-select
+          [labelKey]="'core.source'"
+          [items]="invoiceLoader.sourceTypes()"
+          [optionIdField]="'id'"
+          [optionNameField]="'name'"
+          [manualReadOnly]="true"
+          formControlName="source"></soe-select>
+      </div>
+      <div class="w-100"></div>
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-8'">
+        <soe-autocomplete
+          [labelKey]="'economy.supplier.supplier.supplier'"
+          [items]="invoiceLoader.supplierDict()"
+          [optionIdField]="'id'"
+          [optionNameField]="'name'"
+          [manualReadOnly]="isLocked()"
+          [class]="getFieldClasses('supplierId')"
+          formControlName="actorId">
+          <soe-button
+            (action)="editSupplier()"
+            [caption]="'core.edit'"
+            class="ms-2"
+            [iconName]="'pen'"></soe-button>
+        </soe-autocomplete>
+      </div>
+      @if (featureService.hasCurrency()) {
+        <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-4'">
+          <soe-select
+            [labelKey]="'economy.supplier.invoice.currency'"
+            [items]="this.invoiceLoader.currencies()"
+            [optionIdField]="'currencyId'"
+            [manualReadOnly]="isLocked()"
+            formControlName="currencyId">
+          </soe-select>
+        </div>
+      }
+      @if (!isLocked()) {
+        <div class="w-100"></div>
+      }
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-4'">
+        <soe-textbox
+          [labelKey]="'economy.supplier.invoice.invoicenr'"
+          [maxLength]="20"
+          [manualReadOnly]="isLocked()"
+          [class]="getFieldClasses('invoiceNumber')"
+          formControlName="invoiceNr"></soe-textbox>
+      </div>
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-4'">
+        <soe-textbox
+          [labelKey]="'economy.supplier.invoice.ocr'"
+          [maxLength]="20"
+          [manualReadOnly]="isLocked()"
+          [class]="getFieldClasses('paymentReferenceNumber')"
+          formControlName="ocr"></soe-textbox>
+      </div>
+      @if (!isLocked()) {
+        <div class="w-100"></div>
+      }
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-4'">
+        <soe-datepicker
+          [labelKey]="'economy.supplier.invoice.invoicedate'"
+          formControlName="invoiceDate"
+          [class]="getFieldClasses('invoiceDate')"
+          [manualReadOnly]="isLocked()"></soe-datepicker>
+      </div>
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-4'">
+        <soe-datepicker
+          [labelKey]="'economy.supplier.invoice.voucherdate'"
+          formControlName="voucherDate"
+          [manualReadOnly]="isLocked()"></soe-datepicker>
+      </div>
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-4'">
+        <soe-datepicker
+          [labelKey]="'economy.supplier.invoice.duedate'"
+          formControlName="dueDate"
+          [class]="getFieldClasses('dueDate')"
+          [manualReadOnly]="isLocked()"></soe-datepicker>
+      </div>
+      @if (!isLocked()) {
+        <div class="w-100"></div>
+      }
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-4'">
+        <soe-numberbox
+          [labelKey]="'economy.supplier.invoice.total'"
+          [decimals]="2"
+          [manualReadOnly]="isLocked()"
+          [secondaryLabelKey]="
+            !currencyService.isBaseCurrency()
+              ? currencyService.transactionCurrencyCode ?? ''
+              : ''
+          "
+          [class]="getFieldClasses('amountIncVat')"
+          formControlName="totalAmountCurrency"></soe-numberbox>
+      </div>
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-4'">
+        <soe-numberbox
+          [labelKey]="'economy.supplier.invoice.vat'"
+          [decimals]="2"
+          [manualReadOnly]="isLocked()"
+          [class]="getFieldClasses('vatAmount')"
+          [secondaryLabelKey]="
+            !currencyService.isBaseCurrency()
+              ? currencyService.transactionCurrencyCode ?? ''
+              : ''
+          "
+          formControlName="vatAmountCurrency"></soe-numberbox>
+      </div>
+
+      @if (featureService.hasCurrency() && !currencyService.isBaseCurrency()) {
+        <div class="col-sm-3 col-md-2">
+          <soe-numberbox
+            [manualReadOnly]="isLocked()"
+            [labelKey]="'economy.supplier.invoice.total'"
+            [secondaryLabelKey]="currencyService.baseCurrencyCode"
+            [decimals]="2"
+            [disabled]="true"
+            formControlName="totalAmount"></soe-numberbox>
+        </div>
+        <div class="col-sm-3 col-md-2">
+          <soe-numberbox
+            [manualReadOnly]="isLocked()"
+            [labelKey]="'economy.supplier.invoice.currencyrate'"
+            [secondaryLabelKey]="currencyService.currencyRateDateString"
+            [disabled]="true"
+            [decimals]="2"
+            formControlName="currencyRate"></soe-numberbox>
+        </div>
+      }
+      @if (!isLocked()) {
+        <div class="w-100"></div>
+      }
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-4'">
+        <soe-select
+          [labelKey]="'economy.supplier.invoice.vattype'"
+          [items]="this.invoiceLoader.vatTypes()"
+          [manualReadOnly]="isLocked()"
+          formControlName="vatType">
+        </soe-select>
+      </div>
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-4'">
+        <soe-select
+          [labelKey]="'economy.supplier.invoice.vatcode'"
+          [items]="this.invoiceLoader.vatCodes()"
+          [optionIdField]="'vatCodeId'"
+          [optionNameField]="'name'"
+          [manualReadOnly]="isLocked()"
+          formControlName="vatCodeId">
+        </soe-select>
+      </div>
+      @if (!isLocked()) {
+        <div class="w-100"></div>
+      }
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-6'">
+        <soe-textbox
+          [labelKey]="'economy.supplier.invoice.yourreference'"
+          [maxLength]="20"
+          [manualReadOnly]="isLocked()"
+          [class]="getFieldClasses('sellerContactName')"
+          formControlName="supplierReference"></soe-textbox>
+      </div>
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-6'">
+        <soe-textbox
+          [labelKey]="'economy.supplier.invoice.ourreference'"
+          [manualReadOnly]="isLocked()"
+          [class]="getFieldClasses('buyerContactName')"
+          formControlName="ourReference">
+        </soe-textbox>
+      </div>
+      @if (!isLocked()) {
+        <div class="w-100"></div>
+      }
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-5'">
+        <soe-select
+          [labelKey]="'economy.supplier.invoice.paytoaccount'"
+          (valueChanged)="paymentRowIdChanged($event)"
+          [items]="paymentInformationRows()"
+          [manualReadOnly]="isLocked()"
+          [optionIdField]="'paymentInformationRowId'"
+          [optionNameField]="'paymentNrDisplay'"
+          [secondaryLabelKey]="selectedPaymentInformationRow()?.name ?? ''"
+          formControlName="paymentInformationRowId">
+        </soe-select>
+      </div>
+      <div class="w-100"></div>
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-6'">
+        <soe-select
+          [labelKey]="'economy.supplier.invoice.customerinvoice'"
+          [items]="projectOrderLoader.customerInvoices() || []"
+          [optionIdField]="'invoiceId'"
+          [optionNameField]="'customerInvoiceNumberNameWithoutDescription'"
+          formControlName="orderCustomerInvoiceId">
+        </soe-select>
+      </div>
+      <div [ngClass]="isLocked() ? 'col-sm-3 col-md-2' : 'col-sm-6'">
+        <soe-select
+          [labelKey]="'economy.supplier.invoice.project'"
+          [items]="projectOrderLoader.projects() || []"
+          [optionIdField]="'id'"
+          [optionNameField]="'name'"
+          formControlName="projectId">
+        </soe-select>
+      </div>
+    </div>
+  </div>
+</form>

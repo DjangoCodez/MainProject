@@ -1,0 +1,23 @@
+﻿<form class="form-inline margin-small-left">
+    <div>
+        <div class="form-group form-group-sm margin-large-right">
+            <soe-multiselect label-key="time.schedule.planning.employees" options="ctrl.employees" id-prop="employeeId" display-prop="numberAndName" model="ctrl.selectedEmployees" hidelabel="true" is-disabled="!ctrl.employees"></soe-multiselect>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-label label-key="common.fromdate"></soe-label>
+        </div>
+        <div class="form-group form-group-sm margin-large-right">
+            <soe-datepicker hidelabel="true" model="ctrl.selectedDateFrom" style="width:150px;"></soe-datepicker>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-label label-key="common.todate"></soe-label>
+        </div>
+        <div class="form-group form-group-smt">
+            <soe-datepicker hidelabel="true" model="ctrl.selectedDateTo" style="width:150px;"></soe-datepicker>
+        </div>
+        <div class="form-group form-group-sm margin-large-right">
+            <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.search'" data-l10n-bind-title="'core.search'" data-ng-click="$event.stopPropagation();ctrl.search()"></button>
+        </div>
+    </div>
+</form>
+

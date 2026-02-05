@@ -1,0 +1,385 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [open]="true"
+      [labelKey]="'economy.supplier.supplier.supplier'">
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-checkbox
+              [labelKey]="'common.active'"
+              formControlName="isActive"></soe-checkbox>
+          </div>
+          <div class="col-sm-3">
+            <soe-checkbox
+              [labelKey]="'common.privateperson'"
+              formControlName="isPrivatePerson"></soe-checkbox>
+          </div>
+          <div class="col-sm-2">
+            @if (form.value.isPrivatePerson) {
+              <soe-checkbox
+                [labelKey]="'common.consent'"
+                formControlName="hasConsent"
+                [title]="consentToolTip"></soe-checkbox>
+            }
+          </div>
+          <div class="row">
+            <div class="col-sm-offset-7 col-sm-4" style="padding-left: 16px">
+              @if (form.value.isPrivatePerson) {
+                <soe-datepicker
+                  [labelKey]="'common.consentdate'"
+                  formControlName="consentDate"></soe-datepicker>
+              }
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 pt-2">
+            <soe-textbox
+              [labelKey]="'economy.supplier.supplier.suppliernrshort'"
+              formControlName="supplierNr"></soe-textbox>
+          </div>
+          <div class="col-sm-8">
+            <soe-textarea
+              [labelKey]="'common.name'"
+              formControlName="name"
+              [rows]="2"></soe-textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-textbox
+              [labelKey]="'common.orgnrshort'"
+              formControlName="orgNr"></soe-textbox>
+          </div>
+          <div class="col-sm-4">
+            <soe-textbox
+              [labelKey]="'economy.supplier.supplier.vatnr'"
+              formControlName="vatNr"></soe-textbox>
+          </div>
+          <div class="col-sm-4">
+            <soe-textbox
+              [labelKey]="'economy.supplier.supplier.ourcustomernr'"
+              formControlName="ourCustomerNr"></soe-textbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'common.country'"
+              [selectedId]="form.value.sysCountryId"
+              [items]="countries"
+              formControlName="sysCountryId"></soe-select>
+          </div>
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'common.language'"
+              [selectedId]="form.value.sysLanguageId"
+              [items]="languages"
+              formControlName="sysLanguageId"></soe-select>
+          </div>
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'common.currency.vouchercurrency'"
+              [selectedId]="form.value.currencyId"
+              [items]="currencies"
+              formControlName="currencyId"></soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-textbox
+              [labelKey]="'economy.supplier.supplier.ourreference'"
+              formControlName="ourReference"></soe-textbox>
+          </div>
+          <div class="col-sm-4">
+            <soe-textbox
+              [labelKey]="'economy.supplier.supplier.invoicereference'"
+              formControlName="invoiceReference"></soe-textbox>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <soe-contact-addresses
+            [contactType]="1"
+            [form]="form"
+            [addresses]="form.contactAddresses.value"
+            [readOnly]="!flowHandler.modifyPermission()"
+            [allowShowSecret]="flowHandler.modifyPermission()"
+            [ignoreSys]="true"
+            (addressesChange)="
+              contactAddressesChanged($event)
+            "></soe-contact-addresses>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [open]="false"
+      [labelKey]="'common.contactperson.contactpersons'"
+      (isOpened)="
+        isContactPersonsAccordionOpen = !isContactPersonsAccordionOpen
+      ">
+      @if (isContactPersonsAccordionOpen) {
+        <soe-contact-persons
+          [actorId]="form.actorSupplierId.value"
+          [form]="form"
+          (personsChange)="contactPersonsChanged($event)"></soe-contact-persons>
+      }
+    </soe-expansion-panel>
+    <soe-expansion-panel [open]="false" [labelKey]="'common.settings'">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="row">
+            <div class="col-sm-3">
+              <soe-select
+                [labelKey]="'common.vattype'"
+                formControlName="vatType"
+                [items]="vatTypes"></soe-select>
+            </div>
+            <div class="col-sm-3">
+              <soe-select
+                [labelKey]="'economy.accounting.vatcode.vatcode'"
+                formControlName="vatCodeId"
+                [items]="vatCodes"></soe-select>
+            </div>
+            <div class="col-sm-3">
+              <soe-select
+                [labelKey]="
+                  'economy.accounting.paymentcondition.paymentcondition'
+                "
+                formControlName="paymentConditionId"
+                [items]="paymentConditions"></soe-select>
+            </div>
+            <div class="col-sm-3">
+              <soe-select
+                [labelKey]="'economy.supplier.supplier.factoringsupplier'"
+                formControlName="factoringSupplierId"
+                [items]="factoringSuppliers"></soe-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <soe-select
+                [labelKey]="'economy.supplier.supplier.syswholeseller'"
+                formControlName="sysWholeSellerId"
+                [items]="sysWholesellers"></soe-select>
+            </div>
+            <div class="col-sm-3">
+              <soe-select
+                [labelKey]="
+                  'economy.supplier.attestworkflow.attestworkflowgroup.attestworkflowgroup'
+                "
+                formControlName="attestWorkFlowGroupId"
+                [items]="attestGroups"></soe-select>
+            </div>
+            <div class="col-sm-3">
+              <soe-select
+                [labelKey]="'common.customer.customer.deliverytype'"
+                formControlName="deliveryTypeId"
+                [items]="deliveryTypes"></soe-select>
+            </div>
+            <div class="col-sm-3">
+              <soe-select
+                [labelKey]="'common.customer.customer.deliverycondition'"
+                formControlName="deliveryConditionId"
+                [items]="deliveryConditions"></soe-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <soe-select
+                [labelKey]="'economy.supplier.supplier.purchaseemail'"
+                formControlName="contactEcomId"
+                [items]="supplierEmails"></soe-select>
+            </div>
+            <div class="col-sm-3">
+              @if (showCommodityCodes()) {
+                <soe-autocomplete
+                  [labelKey]="'common.commoditycodes.code'"
+                  formControlName="intrastatCodeId"
+                  [items]="commodityCodes"
+                  [optionIdField]="'id'"
+                  [optionNameField]="'name'"></soe-autocomplete>
+              }
+            </div>
+            <div class="col-sm-3">
+              <soe-checkbox
+                [inline]="true"
+                [labelKey]="'economy.supplier.supplier.copyinvoicenrtoocr'"
+                formControlName="copyInvoiceNrToOcr"></soe-checkbox>
+            </div>
+            <div class="col-sm-3">
+              <soe-checkbox
+                [inline]="true"
+                [labelKey]="'economy.supplier.supplier.blockpayment'"
+                formControlName="blockPayment"></soe-checkbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <soe-checkbox
+                [inline]="true"
+                [labelKey]="'economy.supplier.supplier.isedisupplier'"
+                formControlName="isEDISupplier"></soe-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 mb-1">
+          <soe-categories
+            [categoryType]="3"
+            [form]="form"
+            [categoryIds]="form.categoryIds.value"
+            [readOnly]="!flowHandler.modifyPermission()"
+            (categoriesChange)="categoriesChanged($event)"></soe-categories>
+        </div>
+      </div>
+      <soe-expansion-panel
+        [open]="false"
+        [labelKey]="'economy.supplier.supplier.paymentinformation'"
+        (isOpened)="
+          isPaymentInformationAccordionOpen = !isPaymentInformationAccordionOpen
+        ">
+        @if (isPaymentInformationAccordionOpen) {
+          <div class="row mb-1">
+            <div class="col-sm-12">
+              <soe-instruction
+                [text]="
+                  'economy.supplier.supplier.changingofbankaccountnumber'
+                "></soe-instruction>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-payment-information
+                [isForeign]="false"
+                [paymentInformation]="form.paymentInformationDomestic.value"
+                [form]="form"
+                (paymentInformationChange)="
+                  paymentInformationDomesticChange($event)
+                "></soe-payment-information>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-payment-information
+                [isForeign]="true"
+                [paymentInformation]="form.paymentInformationForegin.value"
+                [form]="form"
+                (paymentInformationChange)="
+                  paymentInformationForeginChange($event)
+                "></soe-payment-information>
+            </div>
+          </div>
+        }
+      </soe-expansion-panel>
+      <soe-expansion-panel
+        [open]="false"
+        [labelKey]="'economy.supplier.supplier.accountsettings'"
+        (isOpened)="
+          isAccountingSettingsAccordionOpen = !isAccountingSettingsAccordionOpen
+        ">
+        @if (isAccountingSettingsAccordionOpen) {
+          <div class="row">
+            <div class="col-sm-8">
+              <soe-checkbox
+                [labelKey]="'economy.supplier.supplier.manualaccounting'"
+                formControlName="manualAccounting"></soe-checkbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
+              <soe-accounting-settings
+                [settingTypes]="accountSettingTypes"
+                [settings]="form.accountingSettings.value"
+                [showBaseAccount]="true"
+                [minRows]="4"
+                [readOnly]="!flowHandler.modifyPermission()"
+                [form]="form"
+                [baseAccounts]="baseAccounts"
+                (settingsChange)="
+                  accountSettingsChanged($event)
+                "></soe-accounting-settings>
+            </div>
+          </div>
+        }
+      </soe-expansion-panel>
+    </soe-expansion-panel>
+    @if (supplierId) {
+      <soe-expansion-panel
+        [open]="false"
+        [labelKey]="'core.document'"
+        [secondaryLabelKey]="filesHelper.nbrOfFilesStr()"
+        [secondaryLabelParantheses]="true"
+        (isOpened)="fileListOpened($event)">
+        @if (isFileDisplayAccordionOpen) {
+          <soe-file-display
+            [gridHeight]="250"
+            [helper]="filesHelper"></soe-file-display>
+        }
+      </soe-expansion-panel>
+    }
+
+    <soe-expansion-panel
+      [open]="false"
+      [labelKey]="'common.note'"
+      [secondaryLabelKey]="noteLengthLabel()"
+      [secondaryLabelParantheses]="true">
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-textarea [rows]="5" formControlName="note"></soe-textarea>
+          <soe-checkbox
+            [labelKey]="'economy.supplier.supplier.shownoteininvoice'"
+            formControlName="showNote"></soe-checkbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    @if (showTrackChanges()) {
+      <soe-expansion-panel
+        [open]="false"
+        [labelKey]="'common.changehistory'"
+        (isOpened)="isTrackChangesAccordionOpen = !isTrackChangesAccordionOpen">
+        @if (isTrackChangesAccordionOpen) {
+          <soe-track-changes
+            [entityType]="27"
+            [entityId]="form.actorSupplierId.value"></soe-track-changes>
+        }
+      </soe-expansion-panel>
+    }
+    @if (showExtraFields()) {
+      <soe-expansion-panel
+        [open]="false"
+        [labelKey]="'common.extrafields.extrafields'"
+        (isOpened)="isExtraFieldsAccordionOpen = !isExtraFieldsAccordionOpen">
+        @if (isExtraFieldsAccordionOpen) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-extra-fields-input
+                [recordId]="form.actorSupplierId.value"
+                [entity]="entityType"
+                [readOnly]="!flowHandler.modifyPermission()"
+                (recordsChange)="
+                  extraFieldsChanged($event)
+                "></soe-extra-fields-input>
+            </div>
+          </div>
+        }
+      </soe-expansion-panel>
+    }
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

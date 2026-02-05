@@ -1,0 +1,1184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ServiceMetaDataExternalSF" targetNamespace="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="CustomBinding_IServiceMetaDataExternal_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpToken />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp />
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:SignedSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:WssUsernameToken10 />
+              </wsp:Policy>
+            </sp:UsernameToken>
+          </wsp:Policy>
+        </sp:SignedSupportingTokens>
+        <sp:Wss11 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy />
+        </sp:Wss11>
+        <sp:Trust10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:MustSupportIssuedTokens />
+            <sp:RequireClientEntropy />
+            <sp:RequireServerEntropy />
+          </wsp:Policy>
+        </sp:Trust10>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://www.altinn.no/services/2009/10">
+      <xsd:element name="Test">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="TestResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+    <xsd:schema xmlns:tns="http://www.altinn.no/services/common/fault/2009/10" elementFormDefault="qualified" targetNamespace="http://www.altinn.no/services/common/fault/2009/10">
+      <xsd:complexType name="AltinnFault">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+              <d1p1:Text z:Id="2">&lt;summary&gt;
+            Altinn Fault Contract to be used by FaultContractAttribute in a WCF service
+            to return a fault Soap Message to the Caller
+            &lt;/summary&gt;
+            &lt;remarks&gt;
+            Author : Vijay Singh 
+            Date : 18/12/08
+            &lt;/remarks&gt;</d1p1:Text>
+            </Surrogate>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AltinnErrorMessage" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Altinn Error Message
+             &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AltinnExtendedErrorMessage" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Altinn Extended Error Message
+             &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AltinnLocalizedErrorMessage" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Altinn Extended Error Message in localized text
+             &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ErrorGuid" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Altinn Error GUID
+             &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ErrorID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Altinn Error ID
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UserGuid" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Altinn User Guid
+             &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UserId" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Altinn User ID
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="AltinnFault" nillable="true" type="tns:AltinnFault" />
+    </xsd:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10">
+      <xsd:import namespace="http://schemas.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10" />
+      <xsd:import namespace="http://schemas.altinn.no/services/ServiceEngine/ServiceMetaData/2010/10" />
+      <xsd:import namespace="http://schemas.altinn.no/serviceengine/formsengine/2009/10" />
+      <xsd:element name="GetSchemaDefinitionsForFormTask">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="externalServiceCode" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="externalServiceEditionCode" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetSchemaDefinitionsForFormTaskResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q1="http://schemas.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10" minOccurs="0" name="GetSchemaDefinitionsForFormTaskResult" nillable="true" type="q1:LogicalFormSchemaDefinitionBEList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableServices">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="languageID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableServicesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q2="http://schemas.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10" minOccurs="0" name="GetAvailableServicesResult" nillable="true" type="q2:AvailableServiceBEList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableServicesV2">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="languageID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAvailableServicesV2Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q3="http://schemas.altinn.no/services/ServiceEngine/ServiceMetaData/2010/10" minOccurs="0" name="GetAvailableServicesV2Result" nillable="true" type="q3:AvailableServiceBEV2List" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCodeList">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="codeListName" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="codeListVersion" type="xsd:int" />
+            <xsd:element minOccurs="0" name="languageID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCodeListResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q4="http://schemas.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10" minOccurs="0" name="GetCodeListResult" nillable="true" type="q4:CodeList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetFilteredCodeList">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="codeListName" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="codeListVersion" type="xsd:int" />
+            <xsd:element minOccurs="0" name="languageID" type="xsd:int" />
+            <xsd:element minOccurs="0" name="code" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="value1Filter" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="value2Filter" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="value3Filter" nillable="true" type="xsd:string" />
+            <xsd:element xmlns:q5="http://schemas.altinn.no/serviceengine/formsengine/2009/10" minOccurs="0" name="filterMatchType" type="q5:FilterMatchType" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetFilteredCodeListResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q6="http://schemas.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10" minOccurs="0" name="GetFilteredCodeListResult" nillable="true" type="q6:CodeList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+    <xsd:schema xmlns:tns="http://schemas.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10" elementFormDefault="qualified" targetNamespace="http://schemas.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10">
+      <xsd:complexType name="LogicalFormSchemaDefinitionBEList">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+              <d1p1:Text z:Id="2">&lt;summary&gt;
+            Collection of LogicalFormSchemaDefinitionBE
+            &lt;/summary&gt;</d1p1:Text>
+            </Surrogate>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="LogicalFormSchemaDefinition" nillable="true" type="tns:LogicalFormSchemaDefinition" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="LogicalFormSchemaDefinitionBEList" nillable="true" type="tns:LogicalFormSchemaDefinitionBEList" />
+      <xsd:complexType name="LogicalFormSchemaDefinition">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+              <d1p1:Text z:Id="2">&lt;summary&gt;
+            Entity for representing various Logical Form Schema
+            &lt;/summary&gt;
+            
+            &lt;remarks&gt;    
+            Author: Amit Goyanka
+            Date: 3/3/2009 16:16:49 PM
+            &lt;/remarks&gt;</d1p1:Text>
+            </Surrogate>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="DataFormatID" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier used to identify Logical form Data Format ID
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DataFormatProviderTypeID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier used to identify Logical form Data Format Provider
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DataFormatVersion" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier used to identify Logical form Data Format Version
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DataFormatXsd" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            This value contains the Logical Form XSD content 
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="LogicalFormID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier used to uniquely identify Logical Form 
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="LogicalFormSchemaDefinition" nillable="true" type="tns:LogicalFormSchemaDefinition" />
+      <xsd:complexType name="AvailableServiceBEList">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+              <d1p1:Text z:Id="2">&lt;summary&gt;
+            Collection of AvailableServiceBE
+            &lt;/summary&gt;</d1p1:Text>
+            </Surrogate>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="AvailableService" nillable="true" type="tns:AvailableService" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="AvailableServiceBEList" nillable="true" type="tns:AvailableServiceBEList" />
+      <xsd:complexType name="AvailableService">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+              <d1p1:Text z:Id="2">&lt;summary&gt;
+            Entity for representing various Available Service 
+            &lt;/summary&gt;
+            
+            &lt;remarks&gt;    
+            Author: Amit Goyanka
+            Date: 3/3/2009 16:16:49 PM
+            &lt;/remarks&gt;</d1p1:Text>
+            </Surrogate>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="BuildPackageVersion" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier uset to identify Service Build Package Version
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ExternalServiceCode" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier used for identifying Service by External System
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ExternalServiceEditionCode" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier used for identifying Service Edition by External System
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ServiceEditionVersionId" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier uset to identify Service Edition Version Name
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ServiceEditionVersionName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier uset to identify Service Edition Version Name
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ServiceName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Name of Available Service
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ServiceOwnerCode" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier used to identify Service Owner Code
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ServiceOwnerName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Name of Service Owner
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ValidFrom" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Date from when Service is Valid 
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ValidTo" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Date till when Service is Valid 
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="AvailableService" nillable="true" type="tns:AvailableService" />
+      <xsd:complexType name="CodeList">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+              <d1p1:Text z:Id="2">&lt;summary&gt;
+            Entity for representing various Code List
+            &lt;/summary&gt;
+            
+            &lt;remarks&gt;    
+            Author: Amit Goyanka
+            Date: 3/3/2009 16:16:49 PM
+            &lt;/remarks&gt;</d1p1:Text>
+            </Surrogate>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="CodeListID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier used to identify Code List
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="CodeListName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier used to identify Name of Code List
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="CodeListRows" nillable="true" type="tns:CodeRowBEList">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Content details of Code List
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="CodeListVersion" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Version of Code List
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="LanguageTypeID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Language Type ID
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="CodeList" nillable="true" type="tns:CodeList" />
+      <xsd:complexType name="CodeRowBEList">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+              <d1p1:Text z:Id="2">&lt;summary&gt;
+            Collection of CodeRowBE
+            &lt;/summary&gt;</d1p1:Text>
+            </Surrogate>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="CodeListRow" nillable="true" type="tns:CodeListRow" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="CodeRowBEList" nillable="true" type="tns:CodeRowBEList" />
+      <xsd:complexType name="CodeListRow">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+              <d1p1:Text z:Id="2">&lt;summary&gt;
+            Entity for representing various CodeRow
+            &lt;/summary&gt;
+            
+            &lt;remarks&gt;    
+            Author: Amit Goyanka
+            Date: 3/3/2009 16:16:49 PM
+            &lt;/remarks&gt;</d1p1:Text>
+            </Surrogate>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Code" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier used to Code
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Value1" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Code Value1
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Value2" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Code Value2
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Value3" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Code Value3
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="CodeListRow" nillable="true" type="tns:CodeListRow" />
+    </xsd:schema>
+    <xsd:schema xmlns:tns="http://schemas.altinn.no/services/ServiceEngine/ServiceMetaData/2010/10" elementFormDefault="qualified" targetNamespace="http://schemas.altinn.no/services/ServiceEngine/ServiceMetaData/2010/10">
+      <xsd:import namespace="http://schemas.altinn.no/ServiceDevelopment/Service/2010/10" />
+      <xsd:complexType name="AvailableServiceBEV2List">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+              <d1p1:Text z:Id="2">&lt;summary&gt;
+            Collection of AvailableServiceBE
+            &lt;/summary&gt;</d1p1:Text>
+            </Surrogate>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="AvailableServiceV2" nillable="true" type="tns:AvailableServiceV2" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="AvailableServiceBEV2List" nillable="true" type="tns:AvailableServiceBEV2List" />
+      <xsd:complexType name="AvailableServiceV2">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+              <d1p1:Text z:Id="2">&lt;summary&gt;
+            Entity for representing various Available Service 
+            &lt;/summary&gt;
+            
+            &lt;remarks&gt;    
+            Author: Amit Goyanka
+            Date: 3/3/2009 16:16:49 PM
+            &lt;/remarks&gt;</d1p1:Text>
+            </Surrogate>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="BuildPackageVersion" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier uset to identify Service Build Package Version
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ExternalServiceCode" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier used for identifying Service by External System
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ExternalServiceEditionCode" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier used for identifying Service Edition by External System
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="IsMatched" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Is record matched
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ServiceEditionVersionId" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier uset to identify Service Edition Version Name
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ServiceEditionVersionName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier uset to identify Service Edition Version Name
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ServiceName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Name of Available Service
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ServiceOwnerCode" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Identifier used to identify Service Owner Code
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ServiceOwnerName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Name of Service Owner
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element xmlns:q7="http://schemas.altinn.no/ServiceDevelopment/Service/2010/10" minOccurs="0" name="ServiceType" type="q7:ServiceTypeV2">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Holds Service Type Id
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ValidFrom" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Date from when Service is Valid 
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ValidTo" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <Surrogate z:Id="1" i:type="d1p1:Annotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+                  <d1p1:Text z:Id="2">&lt;summary&gt;
+            Date till when Service is Valid 
+            &lt;/summary&gt;</d1p1:Text>
+                </Surrogate>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="AvailableServiceV2" nillable="true" type="tns:AvailableServiceV2" />
+    </xsd:schema>
+    <xsd:schema xmlns:tns="http://schemas.altinn.no/ServiceDevelopment/Service/2010/10" elementFormDefault="qualified" targetNamespace="http://schemas.altinn.no/ServiceDevelopment/Service/2010/10">
+      <xsd:simpleType name="ServiceTypeV2">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <Surrogate z:Id="1" i:type="d1p1:EnumAnnotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+              <d1p1:EnumText z:Id="2">&lt;summary&gt;
+            Provides Enum for the types of services
+            &lt;/summary&gt;
+            
+            &lt;remarks&gt;
+            
+            Author: gautam.chongtham
+            Date: 2/25/2009 3:25:40 PM
+            &lt;/remarks&gt;</d1p1:EnumText>
+              <d1p1:Members z:Id="3" z:Size="5" xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+                <d2p1:KeyValueOfstringstring>
+                  <d2p1:Key z:Id="4">None</d2p1:Key>
+                  <d2p1:Value z:Id="5">&lt;summary&gt;
+            Service type not defined yet
+            &lt;/summary&gt;</d2p1:Value>
+                </d2p1:KeyValueOfstringstring>
+                <d2p1:KeyValueOfstringstring>
+                  <d2p1:Key z:Id="6">Correspondence</d2p1:Key>
+                  <d2p1:Value z:Id="7">&lt;summary&gt;
+            Correspondence/Message Service
+             &lt;/summary&gt;</d2p1:Value>
+                </d2p1:KeyValueOfstringstring>
+                <d2p1:KeyValueOfstringstring>
+                  <d2p1:Key z:Id="8">Reporting</d2p1:Key>
+                  <d2p1:Value z:Id="9">&lt;summary&gt;
+            Reporting Service
+            &lt;/summary&gt;</d2p1:Value>
+                </d2p1:KeyValueOfstringstring>
+                <d2p1:KeyValueOfstringstring>
+                  <d2p1:Key z:Id="10">Collaboration</d2p1:Key>
+                  <d2p1:Value z:Id="11">&lt;summary&gt;
+            Collaboration Service
+            &lt;/summary&gt;</d2p1:Value>
+                </d2p1:KeyValueOfstringstring>
+                <d2p1:KeyValueOfstringstring>
+                  <d2p1:Key z:Id="12">Lookup</d2p1:Key>
+                  <d2p1:Value z:Id="13">&lt;summary&gt;
+            Lookup Service
+            &lt;/summary&gt;</d2p1:Value>
+                </d2p1:KeyValueOfstringstring>
+              </d1p1:Members>
+            </Surrogate>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="None" />
+          <xsd:enumeration value="Correspondence" />
+          <xsd:enumeration value="Reporting" />
+          <xsd:enumeration value="Collaboration" />
+          <xsd:enumeration value="Lookup" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="ServiceTypeV2" nillable="true" type="tns:ServiceTypeV2" />
+    </xsd:schema>
+    <xsd:schema xmlns:tns="http://schemas.altinn.no/serviceengine/formsengine/2009/10" elementFormDefault="qualified" targetNamespace="http://schemas.altinn.no/serviceengine/formsengine/2009/10">
+      <xsd:simpleType name="FilterMatchType">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <Surrogate z:Id="1" i:type="d1p1:EnumAnnotation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:d1p1="XmlCommentsExporter.Annotation">
+              <d1p1:EnumText z:Id="2">&lt;summary&gt;
+             Enum types specifying the Filter Match type.
+            &lt;/summary&gt;</d1p1:EnumText>
+              <d1p1:Members z:Id="3" z:Size="5" xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+                <d2p1:KeyValueOfstringstring>
+                  <d2p1:Key z:Id="4">DEFAULT</d2p1:Key>
+                  <d2p1:Value z:Id="5">&lt;summary&gt;
+            The default with no filter
+            &lt;/summary&gt;</d2p1:Value>
+                </d2p1:KeyValueOfstringstring>
+                <d2p1:KeyValueOfstringstring>
+                  <d2p1:Key z:Id="6">EXACT</d2p1:Key>
+                  <d2p1:Value z:Id="7">&lt;summary&gt;
+            Exact match with the 
+            &lt;/summary&gt;</d2p1:Value>
+                </d2p1:KeyValueOfstringstring>
+                <d2p1:KeyValueOfstringstring>
+                  <d2p1:Key z:Id="8">STARTSWITH</d2p1:Key>
+                  <d2p1:Value z:Id="9">&lt;summary&gt;
+            The archive web-mva receipts
+            &lt;/summary&gt;</d2p1:Value>
+                </d2p1:KeyValueOfstringstring>
+                <d2p1:KeyValueOfstringstring>
+                  <d2p1:Key z:Id="10">ENDSWITH</d2p1:Key>
+                  <d2p1:Value z:Id="11">&lt;summary&gt;
+            The PSAN form
+            &lt;/summary&gt;</d2p1:Value>
+                </d2p1:KeyValueOfstringstring>
+                <d2p1:KeyValueOfstringstring>
+                  <d2p1:Key z:Id="12">CONTAINS</d2p1:Key>
+                  <d2p1:Value z:Id="13">&lt;summary&gt;
+            The PSAN form
+            &lt;/summary&gt;</d2p1:Value>
+                </d2p1:KeyValueOfstringstring>
+              </d1p1:Members>
+            </Surrogate>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="DEFAULT" />
+          <xsd:enumeration value="EXACT" />
+          <xsd:enumeration value="STARTSWITH" />
+          <xsd:enumeration value="ENDSWITH" />
+          <xsd:enumeration value="CONTAINS" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="FilterMatchType" nillable="true" type="tns:FilterMatchType" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IServiceMetaDataExternal_Test_InputMessage">
+    <wsdl:part xmlns:q8="http://www.altinn.no/services/2009/10" name="parameters" element="q8:Test" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_Test_OutputMessage">
+    <wsdl:part xmlns:q9="http://www.altinn.no/services/2009/10" name="parameters" element="q9:TestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_Test_AltinnFaultFault_FaultMessage">
+    <wsdl:part xmlns:q10="http://www.altinn.no/services/common/fault/2009/10" name="detail" element="q10:AltinnFault" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetSchemaDefinitionsForFormTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSchemaDefinitionsForFormTask" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetSchemaDefinitionsForFormTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSchemaDefinitionsForFormTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetSchemaDefinitionsForFormTask_AltinnFaultFault_FaultMessage">
+    <wsdl:part xmlns:q11="http://www.altinn.no/services/common/fault/2009/10" name="detail" element="q11:AltinnFault" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetAvailableServices_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableServices" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetAvailableServices_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableServicesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetAvailableServices_AltinnFaultFault_FaultMessage">
+    <wsdl:part xmlns:q12="http://www.altinn.no/services/common/fault/2009/10" name="detail" element="q12:AltinnFault" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetAvailableServicesV2_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableServicesV2" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetAvailableServicesV2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableServicesV2Response" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetAvailableServicesV2_AltinnFaultFault_FaultMessage">
+    <wsdl:part xmlns:q13="http://www.altinn.no/services/common/fault/2009/10" name="detail" element="q13:AltinnFault" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetCodeList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodeList" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetCodeList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodeListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetCodeList_AltinnFaultFault_FaultMessage">
+    <wsdl:part xmlns:q14="http://www.altinn.no/services/common/fault/2009/10" name="detail" element="q14:AltinnFault" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetFilteredCodeList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFilteredCodeList" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetFilteredCodeList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFilteredCodeListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMetaDataExternal_GetFilteredCodeList_AltinnFaultFault_FaultMessage">
+    <wsdl:part xmlns:q15="http://www.altinn.no/services/common/fault/2009/10" name="detail" element="q15:AltinnFault" />
+  </wsdl:message>
+  <wsdl:portType name="IServiceMetaDataExternal">
+    <wsdl:documentation>&lt;summary&gt;
+            Service contract for ServiceMetaData on WS binding. Used by end user system to retrieve available services and their specification.
+            &lt;/summary&gt;</wsdl:documentation>
+    <wsdl:operation name="Test">
+      <wsdl:input wsaw:Action="http://www.altinn.no/services/2009/10/IAltinnContractBase/Test" message="tns:IServiceMetaDataExternal_Test_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.altinn.no/services/2009/10/IAltinnContractBase/TestResponse" message="tns:IServiceMetaDataExternal_Test_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.altinn.no/services/2009/10/IAltinnContractBase/TestAltinnFaultFault" name="AltinnFaultFault" message="tns:IServiceMetaDataExternal_Test_AltinnFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSchemaDefinitionsForFormTask">
+      <wsdl:documentation>&lt;summary&gt;
+            GetFormTaskSchemaDefinitions returns the XSD files for all forms in a form set for the service specified by the input.
+            &lt;/summary&gt;
+            &lt;remarks&gt;
+            At a given time there is only ONE ServiceEditionVersion that is valid. 
+            Get the XSDs of the LogicalForms that are included in the FormSet of the valid ServiceEditionVersion 
+            that the input parameters identify. The ServiceEditionVersion is valid if today’s date is within
+            the range of the dates defined by the service edition version’s ValidFrom and ValidTo dates
+            &lt;/remarks&gt;
+            &lt;param name="externalServiceCode"&gt;External service code for the service to retrieve the specification for - mandatory parameter&lt;/param&gt;
+            &lt;param name="externalServiceEditionCode"&gt;External service edition code for the service to retrieve the specification for - mandatory parameter&lt;/param&gt;
+            &lt;returns&gt;A LogicalFormSchemaDefinition list of results with the data format XSD&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetSchemaDefinitionsForFormTask" message="tns:IServiceMetaDataExternal_GetSchemaDefinitionsForFormTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetSchemaDefinitionsForFormTaskResponse" message="tns:IServiceMetaDataExternal_GetSchemaDefinitionsForFormTask_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetSchemaDefinitionsForFormTaskAltinnFaultFault" name="AltinnFaultFault" message="tns:IServiceMetaDataExternal_GetSchemaDefinitionsForFormTask_AltinnFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableServices">
+      <wsdl:documentation>&lt;summary&gt;
+            GetAvailableServices operation returns a list of available service editions.  
+            &lt;/summary&gt;
+            &lt;remarks&gt;
+            GetAvailableServices returns a list of available service editions where today's date
+            is within the range of the dates defined by the service edition version's ValidFrom and ValidTo dates.
+            &lt;/remarks&gt;     
+            &lt;param name="languageID"&gt;Localization Language (English 1033, Bokmål 1044, Nynorsk 2068) - mandatory paremeter&lt;/param&gt;
+            &lt;returns&gt;A list of all available services, service code and service edition code in addition to other meta data&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetAvailableServices" message="tns:IServiceMetaDataExternal_GetAvailableServices_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetAvailableServicesResponse" message="tns:IServiceMetaDataExternal_GetAvailableServices_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetAvailableServicesAltinnFaultFault" name="AltinnFaultFault" message="tns:IServiceMetaDataExternal_GetAvailableServices_AltinnFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableServicesV2">
+      <wsdl:documentation>&lt;summary&gt;
+            GetAvailableServices operation returns a list of available service editions.  
+            &lt;/summary&gt;
+            &lt;remarks&gt;
+            GetAvailableServices returns a list of available service editions where today's date
+            is within the range of the dates defined by the service edition version's ValidFrom and ValidTo dates.
+            This operation is versioned as V2 as it contain some additional information. Prefered over GetAvailableServicesBasic.
+            &lt;/remarks&gt;     
+            &lt;param name="languageID"&gt;Localization Language (English 1033, Bokmål 1044, Nynorsk 2068) - mandatory paremeter&lt;/param&gt;
+            &lt;returns&gt;A list of all available services, type of service, service code and service edition code in addition to other meta data&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetAvailableServicesV2" message="tns:IServiceMetaDataExternal_GetAvailableServicesV2_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetAvailableServicesV2Response" message="tns:IServiceMetaDataExternal_GetAvailableServicesV2_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetAvailableServicesV2AltinnFaultFault" name="AltinnFaultFault" message="tns:IServiceMetaDataExternal_GetAvailableServicesV2_AltinnFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCodeList">
+      <wsdl:documentation>&lt;summary&gt;
+            GetCodeList returns all rows in CodeList database table that match the input parameters
+            &lt;/summary&gt;
+            &lt;remarks&gt;
+            CodeList Version is passed 0 if Maximum version number is required
+            &lt;/remarks&gt;        
+            &lt;param name="codeListName"&gt;The code list name to search for - mandatory parameter&lt;/param&gt;        
+            &lt;param name="codeListVersion"&gt;The code list version to search for - mandatory parameter&lt;/param&gt; 
+            &lt;param name="languageID"&gt;Localization Language (English 1033, Bokmål 1044, Nynorsk 2068) - mandatory paremeter&lt;/param&gt;
+            &lt;returns&gt;Code list of results from the databases.&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetCodeList" message="tns:IServiceMetaDataExternal_GetCodeList_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetCodeListResponse" message="tns:IServiceMetaDataExternal_GetCodeList_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetCodeListAltinnFaultFault" name="AltinnFaultFault" message="tns:IServiceMetaDataExternal_GetCodeList_AltinnFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFilteredCodeList">
+      <wsdl:documentation>&lt;summary&gt;
+            GetFiltereCodeList returns all rows in CodeList database table that match the input parameters
+            &lt;/summary&gt;
+            &lt;remarks&gt;
+            CodeList Version is passed 0 if Maximum version number is required
+            &lt;/remarks&gt;        
+            &lt;param name="codeListName"&gt;Code List Name to Search&lt;/param&gt;        
+            &lt;param name="codeListVersion"&gt;Code List Version to Search&lt;/param&gt;  
+            &lt;param name="languageID"&gt;Language Code for which records need to be fetched&lt;/param&gt;
+            &lt;param name="code"&gt;Code List Code to search&lt;/param&gt;
+            &lt;param name="value1Filter"&gt;value 1 filter condition&lt;/param&gt;
+            &lt;param name="value2Filter"&gt;value 2 filter condition&lt;/param&gt;
+            &lt;param name="value3Filter"&gt;value 3 filter condition&lt;/param&gt;
+            &lt;param name="filterMatchType"&gt;Filter matching type. 1- exact, 2- starts with, 3- ends with and 4 - contains for value1/2/3 filter check&lt;/param&gt;
+            &lt;returns&gt;Code list of results from the databases.&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetFilteredCodeList" message="tns:IServiceMetaDataExternal_GetFilteredCodeList_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetFilteredCodeListResponse" message="tns:IServiceMetaDataExternal_GetFilteredCodeList_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetFilteredCodeListAltinnFaultFault" name="AltinnFaultFault" message="tns:IServiceMetaDataExternal_GetFilteredCodeList_AltinnFaultFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CustomBinding_IServiceMetaDataExternal" type="tns:IServiceMetaDataExternal">
+    <wsp:PolicyReference URI="#CustomBinding_IServiceMetaDataExternal_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Test">
+      <soap12:operation soapAction="http://www.altinn.no/services/2009/10/IAltinnContractBase/Test" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AltinnFaultFault">
+        <soap12:fault use="literal" name="AltinnFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetSchemaDefinitionsForFormTask">
+      <soap12:operation soapAction="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetSchemaDefinitionsForFormTask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AltinnFaultFault">
+        <soap12:fault use="literal" name="AltinnFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableServices">
+      <soap12:operation soapAction="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetAvailableServices" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AltinnFaultFault">
+        <soap12:fault use="literal" name="AltinnFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableServicesV2">
+      <soap12:operation soapAction="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetAvailableServicesV2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AltinnFaultFault">
+        <soap12:fault use="literal" name="AltinnFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetCodeList">
+      <soap12:operation soapAction="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetCodeList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AltinnFaultFault">
+        <soap12:fault use="literal" name="AltinnFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilteredCodeList">
+      <soap12:operation soapAction="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10/IServiceMetaDataExternal/GetFilteredCodeList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AltinnFaultFault">
+        <soap12:fault use="literal" name="AltinnFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServiceMetaDataExternalSF">
+    <wsdl:port name="CustomBinding_IServiceMetaDataExternal" binding="tns:CustomBinding_IServiceMetaDataExternal">
+      <soap12:address location="http://tt02.altinn.basefarm.net/ServiceEngineExternal/ServiceMetaDataExternal.svc" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>http://tt02.altinn.basefarm.net/ServiceEngineExternal/ServiceMetaDataExternal.svc</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,429 @@
+<soe-toolbar [itemGroups]="toolbarService.toolbarItemGroups">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel [labelKey]="'economy.import.sie.file'" [static]="true">
+      <soe-file-upload
+        formControlName="file"
+        [required]="true"
+        [labelKey]="'core.fileupload.choosefiletoimport'"
+        [multipleFiles]="false"
+        [asBinary]="true"
+        [showUploadButton]="false"
+        [showDeleteButton]="false"
+        [acceptedFileExtensions]="['.sie', '.se', '.si', '.txt']"
+        [fileUploader]="uploadService"
+        [uploadOnAttach]="true"
+        (afterFilesAttached)="afterFilesAttached($event)"
+        (afterFilesUploaded)="afterFilesUploaded($event)"></soe-file-upload>
+    </soe-expansion-panel>
+    <!-- Accounting Year & Settings -->
+    <soe-expansion-panel
+      [labelKey]="'economy.accounting.accountyear'"
+      [static]="true">
+      @if (noYearFoundMessage()) {
+        <soe-instruction
+          [text]="noYearFoundMessage()"
+          [type]="'error'"></soe-instruction>
+      }
+      <div class="row">
+        <div class="col-sm-4">
+          <soe-select
+            [labelKey]="'economy.accounting.accountyear'"
+            [items]="accountingYears"
+            formControlName="accountYearId">
+          </soe-select>
+        </div>
+        <div class="col-sm-4">
+          <soe-checkbox
+            [inline]="true"
+            [labelKey]="'economy.import.sie.allowonlyopenyear'"
+            formControlName="allowNotOpenAccountYear">
+          </soe-checkbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <!-- Account Settings -->
+
+    <soe-expansion-panel
+      [labelKey]="'economy.import.sie.accounts'"
+      [static]="true">
+      <div headerContent>
+        <soe-checkbox
+          [behaviour]="'switch'"
+          [labelKey]="'economy.import.sie.import'"
+          formControlName="importAccounts"></soe-checkbox>
+      </div>
+      @if (!preview()?.fileContainsAccountStd && hasPreview()) {
+        <div class="row">
+          <div class="col">
+            <soe-instruction
+              [type]="'info'"
+              [text]="
+                'economy.import.sie.preview.message.missingrequireddatainimportedfile'
+              "></soe-instruction>
+          </div>
+        </div>
+      }
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-checkbox
+            [labelKey]="'economy.import.sie.importaccountsinternal'"
+            formControlName="importAccountInternal">
+          </soe-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-checkbox
+            [labelKey]="'economy.import.sie.overrideexistingaccountnames'"
+            formControlName="overrideNameConflicts">
+          </soe-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-checkbox
+            [labelKey]="'economy.import.sie.allowemptyaccountnames'"
+            formControlName="approveEmptyAccountNames">
+          </soe-checkbox>
+        </div>
+      </div>
+      <br />
+
+      @if (hasPreviewErrors()) {
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-expansion-panel
+              [labelKey]="'economy.import.sie.preview.account.errors'"
+              [static]="true">
+              @for (error of previewErrors(); track idx; let idx = $index) {
+                <div class="row mt-3">
+                  <div class="col-sm-12">
+                    <soe-instruction
+                      [type]="'error'"
+                      [text]="error"></soe-instruction>
+                  </div>
+                </div>
+              }
+            </soe-expansion-panel>
+          </div>
+        </div>
+      }
+
+      @if (preview()?.fileContainsAccountStd && hasPreview()) {
+        @if (form && form.preview && form.preview.accountStd) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-expansion-panel
+                [labelKey]="form.preview.accountStd.name.value"
+                [static]="true">
+                <div headerContent>
+                  <soe-checkbox
+                    [behaviour]="'switch'"
+                    [labelKey]="
+                      form.importAccountStd.value
+                        ? 'economy.import.sie.import'
+                        : 'common.disable'
+                    "
+                    formControlName="importAccountStd"
+                    (valueChanged)="
+                      isAccountStdImportValueChanged($event)
+                    "></soe-checkbox>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <sie-preview-account-grid
+                      [dim]="form.preview.accountStd.value"
+                      [internalAccounts]="stdAccounts"
+                      [dimInternals]="dimInternals"
+                      [rows]="form.preview.accountStd.accountMappings.value"
+                      [importAccounts]="form.importAccounts.value"
+                      [importAccountInternal]="form.importAccountInternal.value"
+                      [overrideNameConflicts]="form.overrideNameConflicts.value"
+                      [approveEmptyAccountNames]="
+                        form.approveEmptyAccountNames.value
+                      "
+                      (sieAccountDimMappingChanged)="
+                        sieAccountStdMappingChanged($event)
+                      "></sie-preview-account-grid>
+                  </div>
+                </div>
+              </soe-expansion-panel>
+            </div>
+          </div>
+        }
+        @if (
+          form && form.preview && form.preview.accountDims.value.length > 0
+        ) {
+          @if (hasDimErrors()) {
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-expansion-panel
+                  [labelKey]="'economy.import.sie.preview.dim.errors'"
+                  [static]="true">
+                  @for (
+                    dim of form.preview.accountDims.controls;
+                    track idx;
+                    let idx = $index
+                  ) {
+                    @if (!dim.isImport.value) {
+                      <div class="row">
+                        <div class="col-sm-12 form-label">
+                          <ul class="mt-2 mb-2">
+                            <li>{{ dim.name.value }}</li>
+                          </ul>
+                        </div>
+                        <div class="col-sm-12">
+                          <soe-instruction
+                            [type]="'error'"
+                            [text]="
+                              'economy.import.sie.preview.dim.account.import.disable.message'
+                            "></soe-instruction>
+                        </div>
+                      </div>
+                    }
+                  }
+                </soe-expansion-panel>
+              </div>
+            </div>
+          }
+
+          @for (
+            dim of form.preview.accountDims.controls;
+            track idx;
+            let idx = $index
+          ) {
+            <div class="row" [formGroup]="dim">
+              <div class="col-sm-12">
+                <soe-expansion-panel
+                  [labelKey]="dim.name.value"
+                  [static]="true">
+                  <div headerContent>
+                    <soe-checkbox
+                      [behaviour]="'switch'"
+                      [labelKey]="
+                        dim.isImport.value
+                          ? 'economy.import.sie.import'
+                          : 'common.disable'
+                      "
+                      formControlName="isImport"
+                      [checked]="dim.isImport.value"
+                      (valueChanged)="
+                        isImportValueChanged($event, dim.value)
+                      "></soe-checkbox>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <sie-preview-account-grid
+                        [dim]="dim.value"
+                        [internalAccounts]="accounts"
+                        [dimInternals]="dimInternals"
+                        [rows]="dim.accountMappings.value"
+                        [importAccounts]="form.importAccounts.value"
+                        [importAccountInternal]="
+                          form.importAccountInternal.value
+                        "
+                        [overrideNameConflicts]="
+                          form.overrideNameConflicts.value
+                        "
+                        [approveEmptyAccountNames]="
+                          form.approveEmptyAccountNames.value
+                        "
+                        (sieAccountDimMappingChanged)="
+                          sieAccountDimMappingChanged($event)
+                        "></sie-preview-account-grid>
+                    </div>
+                  </div>
+                </soe-expansion-panel>
+              </div>
+            </div>
+          }
+        }
+      }
+    </soe-expansion-panel>
+    <!-- Voucher Settings -->
+
+    <soe-expansion-panel
+      [labelKey]="'economy.import.sie.vouchers'"
+      [static]="true">
+      <div headerContent>
+        <soe-checkbox
+          [behaviour]="'switch'"
+          [labelKey]="'economy.import.sie.import'"
+          formControlName="importVouchers"></soe-checkbox>
+      </div>
+      @if (!preview()?.fileContainsVouchers && hasPreview()) {
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-instruction
+              [type]="'info'"
+              [text]="
+                'economy.import.sie.preview.message.missingrequireddatainimportedfile'
+              "></soe-instruction>
+          </div>
+        </div>
+      }
+      <div class="row">
+        <div class="col-sm-4">
+          <soe-select
+            [labelKey]="'economy.import.sie.defaultvoucherseries'"
+            [items]="voucherSeries"
+            [optionIdField]="'voucherSeriesId'"
+            [optionNameField]="'voucherSeriesTypeName'"
+            formControlName="defaultVoucherSeriesId">
+          </soe-select>
+        </div>
+      </div>
+      @for (
+        voucherSeriesMappings of form.voucherSeriesMappings.controls;
+        track idx;
+        let idx = $index
+      ) {
+        @if (idx === 0) {
+          <div class="row mt-3">
+            <soe-label
+              [labelKey]="
+                'economy.import.sie.voucherseriesfromfile'
+              "></soe-label>
+          </div>
+        }
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="idx === 0 ? 'economy.import.sie.voucherseriesnr' : ''"
+              [readOnly]="true"
+              [formControl]="voucherSeriesMappings.number"></soe-textbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-numberbox
+              [labelKey]="idx === 0 ? 'economy.export.sie.vouchernofrom' : ''"
+              [noFormatting]="true"
+              [decimals]="0"
+              [formControl]="
+                voucherSeriesMappings.voucherNrFrom
+              "></soe-numberbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-numberbox
+              [labelKey]="idx === 0 ? 'economy.export.sie.vouchernoto' : ''"
+              [noFormatting]="true"
+              [decimals]="0"
+              [formControl]="voucherSeriesMappings.voucherNrTo"></soe-numberbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="idx === 0 ? 'common.voucherseries' : ''"
+              [items]="voucherSeries"
+              [formControl]="voucherSeriesMappings.voucherSeriesTypeId"
+              [optionIdField]="'voucherSeriesTypeId'"
+              [optionNameField]="'voucherSeriesTypeName'"></soe-select>
+          </div>
+        </div>
+      }
+      <div class="row">
+        <div class="col-sm-6">
+          <soe-checkbox
+            [labelKey]="'economy.import.sie.skipexistingvouchernr'"
+            formControlName="skipAlreadyExistingVouchers">
+          </soe-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <soe-checkbox
+            [labelKey]="'economy.import.sie.takevouchernrfromseries'"
+            formControlName="takeVoucherNrFromSeries">
+          </soe-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <soe-checkbox
+            [labelKey]="'economy.import.sie.useautomaticcoding'"
+            formControlName="useAccountDistribution">
+          </soe-checkbox>
+        </div>
+      </div>
+      <div class="mt-3">
+        <soe-expansion-panel
+          [labelKey]="'economy.import.sie.deletebeforeimport'"
+          [borderless]="true">
+          <div class="row">
+            <div class="col-sm-3">
+              <soe-multi-select
+                formControlName="voucherSeriesDelete"
+                [showSelected]="true"
+                [dropUp]="true"
+                [labelKey]="'economy.import.sie.deleteinvoucherseries'"
+                [items]="voucherSeriesTypes"></soe-multi-select>
+            </div>
+            <div class="col-sm-3">
+              <soe-checkbox
+                formControlName="overrideVoucherSeriesDelete"
+                [inline]="true"
+                [labelKey]="'economy.import.sie.deleteallvouchersbeforeimport'">
+              </soe-checkbox>
+            </div>
+          </div>
+        </soe-expansion-panel>
+      </div>
+    </soe-expansion-panel>
+    <!-- Account Balance Settings -->
+    <soe-expansion-panel
+      [labelKey]="'economy.import.sie.ingoingbalance'"
+      [static]="true">
+      <div headerContent>
+        <soe-checkbox
+          [behaviour]="'switch'"
+          [labelKey]="'economy.import.sie.import'"
+          formControlName="importAccountBalances"></soe-checkbox>
+      </div>
+      @if (!preview()?.fileContainsAccountBalances && hasPreview()) {
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-instruction
+              [type]="'info'"
+              [text]="
+                'economy.import.sie.preview.message.missingrequireddatainimportedfile'
+              "></soe-instruction>
+          </div>
+        </div>
+      }
+      <div class="row">
+        <div class="col-sm-4">
+          <soe-checkbox
+            [labelKey]="'economy.import.sie.overrideexistingib'"
+            formControlName="overrideAccountBalance">
+          </soe-checkbox>
+        </div>
+        <div class="col-sm-4">
+          <soe-checkbox
+            [labelKey]="'economy.import.sie.useUBinsteadofIB'"
+            formControlName="useUBInsteadOfIB">
+          </soe-checkbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    @if (hasConflictRows()) {
+      <soe-economy-import-sie-conflicts-grid
+        [conflictRows]="conflictRows()"></soe-economy-import-sie-conflicts-grid>
+    }
+    <!-- Footer / Submit -->
+    <div class="row mt-3">
+      <div class="col-sm-12 text-right">
+        <soe-save-button
+          [title]="'economy.import.sie.import'"
+          [caption]="'economy.import.sie.import'"
+          [disabled]="importIsProcessing()"
+          [invalid]="form.invalid"
+          (validationErrorsAction)="form.openFormValidationErrors()"
+          (action)="triggerImport()">
+        </soe-save-button>
+      </div>
+    </div>
+  </form>
+}

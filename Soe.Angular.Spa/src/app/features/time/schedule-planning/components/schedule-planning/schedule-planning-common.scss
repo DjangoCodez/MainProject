@@ -1,0 +1,164 @@
+@use '../../../../../shared/styles/core-styles/colors.scss';
+@use '../../../../../shared/styles/core-styles/fonts.scss';
+
+// Colors
+$passed-day-background-color: fade(colors.$soe-color-neutral-light-grey, 10%);
+$saturday-passed-background-color: fade(
+  colors.$soe-color-semantic-information,
+  10%
+);
+$sunday-passed-background-color: fade(colors.$soe-color-semantic-error, 10%);
+
+$shift-no-shift-type-color: colors.$soe-color-neutral-grey;
+$shift-absence-color: colors.$soe-color-primary-tone-85;
+$shift-absence-request-color: colors.$soe-color-semantic-warning;
+$shift-lended-color: colors.$soe-border-color;
+$shift-leisure-code-color: colors.$soe-color-neutral-light-grey;
+
+$available-color: colors.$soe-color-semantic-success;
+$available-background-color: colors.$soe-color-semantic-success-20;
+$unavailable-color: colors.$soe-color-semantic-error;
+$unavailable-background-color: colors.$soe-color-semantic-error-20;
+
+$booking-border-color: colors.$soe-color-semantic-success;
+$onduty-border-color: colors.$soe-color-semantic-information;
+$standby-border-color: colors.$soe-color-semantic-yellow;
+
+.is-today {
+  background-color: colors.$today-background-color;
+}
+
+// .planning-day-passed {
+//   background-color: $passed-day-background-color !important;
+// }
+
+.is-saturday {
+  background-color: colors.$saturday-background-color;
+  color: colors.$saturday-color;
+}
+
+// .planning-day-saturday-passed {
+//   background-color: $saturday-passed-background-color !important;
+//   color: $saturday-color;
+// }
+
+.is-sunday {
+  background-color: colors.$sunday-background-color;
+  color: colors.$sunday-color;
+}
+
+// .planning-day-sunday-passed {
+//   background-color: $sunday-passed-background-color !important;
+//   color: $sunday-color;
+// }
+
+.available {
+  color: $available-color;
+}
+
+.unavailable {
+  color: $unavailable-color;
+}
+
+.is-fully-available {
+  background-color: $available-background-color !important;
+}
+
+.is-partially-available {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 3px,
+    colors.$soe-color-semantic-success-20 3px,
+    colors.$soe-color-semantic-success-20 6px
+  ) !important;
+}
+
+.is-fully-unavailable {
+  background-color: $unavailable-background-color !important;
+}
+
+.is-partially-unavailable {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 3px,
+    colors.$soe-color-semantic-error-20 3px,
+    colors.$soe-color-semantic-error-20 6px
+  ) !important;
+}
+
+.is-partially-available.is-partially-unavailable {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 3px,
+    colors.$soe-color-semantic-success-20 3px,
+    colors.$soe-color-semantic-success-20 6px,
+    transparent 6px,
+    transparent 9px,
+    colors.$soe-color-semantic-error-20 9px,
+    colors.$soe-color-semantic-error-20 12px
+  ) !important;
+}
+
+$striped-background: repeating-linear-gradient(
+  -60deg,
+  transparent,
+  transparent 16px,
+  rgba(colors.$soe-color-neutral-white, 0.25) 16px,
+  rgba(colors.$soe-color-neutral-white, 0.25) 32px
+);
+
+// Sizes
+$sp-employee-width: 200px;
+
+// Common classes
+.employee-slot {
+  width: $sp-employee-width;
+  align-self: stretch;
+  flex-shrink: 0;
+  flex-grow: 0;
+  padding: 0.25rem;
+  font-size: fonts.$soe-font-size-md;
+  border-width: 0 1px 0 0;
+  border-style: solid;
+  border-color: colors.$soe-border-color;
+}
+
+.time-slots {
+  display: flex;
+  width: 100%;
+
+  .time-slot {
+    flex: 1;
+    text-align: center;
+    border-width: 0 1px 0 0;
+    border-style: solid;
+    border-color: colors.$soe-border-color;
+    padding: 0.125rem;
+    // This will make shifts span over multiple days
+    min-width: 0;
+    overflow: visible;
+
+    &:last-child {
+      border-right: 0;
+    }
+
+    &.time-slot-hour {
+      font-size: fonts.$soe-font-size-sm;
+    }
+
+    &.time-slot-week-day {
+      font-size: fonts.$soe-font-size-sm;
+      min-width: 75px;
+    }
+  }
+}
+
+.scrollbar-placeholder {
+  width: 18px;
+  background-color: #f1f1f1;
+  border-left: 1px solid colors.$soe-border-color;
+  margin-bottom: -2px;
+}

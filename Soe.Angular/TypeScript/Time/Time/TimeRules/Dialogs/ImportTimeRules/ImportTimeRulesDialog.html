@@ -1,0 +1,175 @@
+﻿<form name="ctrl.edit" class="messagebox" novalidate autocomplete="off">
+    <div import-time-rules-validation ng-model="ctrl.importResult.timeRules">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'time.time.timerule.import'"></h6>
+        </div>
+        <div class="modal-body">
+            <div class="row margin-large-bottom">
+                <div class="col-sm-12 form-inline">
+                    <button type="button" class="btn btn-default margin-large-right" data-ng-class="{'active accentColor': ctrl.showExpressions}" data-ng-click="ctrl.showExpressions = !ctrl.showExpressions;">
+                        <span data-l10n-bind="'time.time.timerule.import.matching.showexpressions'"></span>
+                    </button>
+                    <soe-checkbox label-key="time.time.timerule.import.matching.showexpressions.onlydiff" model="ctrl.showExpressionsOnlyDiff" data-ng-if="ctrl.showExpressions"></soe-checkbox>
+                </div>
+            </div>
+            <div class="repeater-condensed" data-ng-repeat="rule in ctrl.importResult.timeRules">
+                <div class="form-group form-group-sm">
+                    <div data-ng-if="$first">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <div class="col-sm-5">
+                                    <soe-label label-key="common.name" required="true"></soe-label>
+                                </div>
+                                <div class="col-sm-5">
+                                    <soe-label label-key="common.description"></soe-label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-label label-key="common.sort"></soe-label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-sm-2">
+                                    <soe-label label-key="common.type" required="true"></soe-label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-label label-key="time.time.timerule.rulestartdirection" required="true"></soe-label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-label label-key="common.timecode" required="true"></soe-label>
+                                </div>
+                                <div class="col-sm-1">
+                                    <soe-label label-key="time.time.timerule.timecodemaxlength"></soe-label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-label label-key="common.startdate"></soe-label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-label label-key="common.stopdate"></soe-label>
+                                </div>
+                                <div class="col-sm-1">
+                                    <soe-label label-key="time.time.timerule.isiwh"></soe-label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="col-sm-3">
+                                    <soe-label label-key="common.employeegroups"></soe-label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-label label-key="time.schedule.scheduletype.scheduletypes"></soe-label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-label label-key="time.schedule.planning.deviationcauses"></soe-label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-label label-key="time.schedule.daytype.daytypes"></soe-label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="col-sm-5">
+                                <soe-textbox hidelabel="true" model="rule.name" required="true" maxlength="100"></soe-textbox>
+                            </div>
+                            <div class="col-sm-5">
+                                <soe-textbox hidelabel="true" model="rule.description" maxlength="512"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="rule.sort" numeric="true" decimals="0"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="col-sm-2">
+                                <soe-select hidelabel="true" model="rule.type" items="ctrl.types" options="item.id as item.name for item in items" required="true"></soe-select>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-select hidelabel="true" model="rule.ruleStartDirection" items="ctrl.directions" options="item.id as item.name for item in items" required="true"></soe-select>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="col-sm-12" data-ng-style="{'padding-right': rule.hasUnmatchedTimeCode ? '20px' : '0px'}">
+                                    <soe-select hidelabel="true" model="rule.timeCodeId" items="ctrl.timeCodes" options="item.id as item.name for item in items" required="true"></soe-select>
+                                </div>
+                                <span class="far link" data-ng-class="{'fa-exclamation-triangle errorColor': !rule.timeCodeId, 'fa-check-circle okColor': rule.timeCodeId}" style="position: absolute; top: 4px; right: 3px;" data-l10n-bind data-l10n-bind-title="'time.time.timerule.import.unmatched.tooltip'" data-ng-if="rule.hasUnmatchedTimeCode" data-ng-click="ctrl.showUnmatchedTimeCode(rule);"></span>
+                            </div>
+                            <div class="col-sm-1">
+                                <soe-textbox hidelabel="true" model="rule.timeCodeMaxLength" numeric="true" decimals="0" allow-empty="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-datepicker hidelabel="true" model="rule.startDate"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-datepicker hidelabel="true" model="rule.stopDate"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-1">
+                                <soe-checkbox hidelabel="true" model="rule.isInconvenientWorkHours"></soe-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="col-sm-3">
+                                <div class="col-sm-12" data-ng-style="{'padding-right': rule.hasUnmatchedEmployeeGroup ? '20px' : '0px'}">
+                                    <soe-multiselect hidelabel="true" options="ctrl.employeeGroups" display-prop="name" model="rule.selectedEmployeeGroups" dynamic-title="true"></soe-multiselect>
+                                </div>
+                                <span class="far link" data-ng-class="{'fa-exclamation-triangle errorColor': rule.selectedEmployeeGroups.length !== rule.nbrOfExportedEmployeeGroups, 'fa-check-circle okColor': rule.selectedEmployeeGroups.length === rule.nbrOfExportedEmployeeGroups}" style="position: absolute; top: 4px; right: 3px;" data-l10n-bind data-l10n-bind-title="'time.time.timerule.import.unmatched.tooltip'" data-ng-if="rule.hasUnmatchedEmployeeGroup" data-ng-click="ctrl.showUnmatchedEmployeeGroup(rule);"></span>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="col-sm-12" data-ng-style="{'padding-right': rule.hasUnmatchedTimeScheduleType ? '20px' : '0px'}">
+                                    <soe-multiselect hidelabel="true" options="ctrl.scheduleTypes" display-prop="name" model="rule.selectedScheduleTypes" dynamic-title="true"></soe-multiselect>
+                                </div>
+                                <span class="far link" data-ng-class="{'fa-exclamation-triangle errorColor': rule.selectedScheduleTypes.length !== rule.nbrOfExportedTimeScheduleTypes, 'fa-check-circle okColor': rule.selectedScheduleTypes.length === rule.nbrOfExportedTimeScheduleTypes}" style="position: absolute; top: 4px; right: 3px;" data-l10n-bind data-l10n-bind-title="'time.time.timerule.import.unmatched.tooltip'" data-ng-if="rule.hasUnmatchedTimeScheduleType" data-ng-click="ctrl.showUnmatchedTimeScheduleType(rule);"></span>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="col-sm-12" data-ng-style="{'padding-right': rule.hasUnmatchedTimeDeviationCause ? '20px' : '0px'}">
+                                    <soe-multiselect hidelabel="true" options="ctrl.timeDeviationCauses" display-prop="name" model="rule.selectedTimeDeviationCauses" dynamic-title="true"></soe-multiselect>
+                                </div>
+                                <span class="far link" data-ng-class="{'fa-exclamation-triangle errorColor': rule.selectedTimeDeviationCauses.length !== rule.nbrOfExportedTimeDeviationCauses, 'fa-check-circle okColor': rule.selectedTimeDeviationCauses.length === rule.nbrOfExportedTimeDeviationCauses}" style="position: absolute; top: 4px; right: 3px;" data-l10n-bind data-l10n-bind-title="'time.time.timerule.import.unmatched.tooltip'" data-ng-if="rule.hasUnmatchedTimeDeviationCause" data-ng-click="ctrl.showUnmatchedTimeDeviationCause(rule);"></span>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="col-sm-12" data-ng-style="{'padding-right': rule.hasUnmatchedDayType ? '20px' : '0px'}">
+                                    <soe-multiselect hidelabel="true" options="ctrl.dayTypes" display-prop="name" model="rule.selectedDayTypes" dynamic-title="true"></soe-multiselect>
+                                </div>
+                                <span class="far link" data-ng-class="{'fa-exclamation-triangle errorColor': rule.selectedDayTypes.length !== rule.nbrOfExportedDayTypes, 'fa-check-circle okColor': rule.selectedDayTypes.length === rule.nbrOfExportedDayTypes}" style="position: absolute; top: 4px; right: 3px;" data-l10n-bind data-l10n-bind-title="'time.time.timerule.import.unmatched.tooltip'" data-ng-if="rule.hasUnmatchedDayType" data-ng-click="ctrl.showUnmatchedDayType(rule);"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="margin-large-bottom" data-ng-if="ctrl.showExpressions && (!ctrl.showExpressionsOnlyDiff || rule.hasUnmatchedExpression)">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-label label-key="time.time.timerule.start"></soe-label>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-label label-key="time.time.timerule.stop"></soe-label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <span data-ng-class="{'errorColor': rule.hasUnmatchedStartExpression}">{{rule.importStartExpression}}</span>
+                            </div>
+                            <div class="col-sm-4">
+                                <span data-ng-class="{'errorColor': rule.hasUnmatchedStopExpression}">{{rule.importStopExpression}}</span>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="rule.hasUnmatchedExpression">
+                            <div class="col-sm-4">
+                                <span>{{rule.exportStartExpression}}</span>
+                            </div>
+                            <div class="col-sm-4">
+                                <span>{{rule.exportStopExpression}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-right">
+                <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.cancel'" data-l10n-bind-title="'core.cancel'" data-ng-click="$event.stopPropagation();ctrl.cancel()"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.save'" data-l10n-bind-title="'core.save'" data-ng-show="ctrl.edit.$valid" data-ng-disabled="ctrl.edit.$invalid" data-ng-click="$event.stopPropagation();ctrl.ok()"></button>
+                <div class="btn-group" role="group" data-ng-show="ctrl.edit.$invalid">
+                    <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.save'" data-ng-disabled="ctrl.edit.$invalid"></button>
+                    <button type="button" class="btn btn-sm ngSoeMainButtonInvalid" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

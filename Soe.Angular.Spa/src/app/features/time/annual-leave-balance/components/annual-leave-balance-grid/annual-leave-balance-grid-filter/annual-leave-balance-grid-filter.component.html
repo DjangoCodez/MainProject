@@ -1,0 +1,45 @@
+<div>
+  <form [formGroup]="formFilter" novalidate autocomplete="off">
+    <div class="row">
+      <div class="d-sm-inline">
+        <soe-datepicker
+          [labelKey]="'common.fromdate'"
+          [inline]="true"
+          formControlName="dateFrom" />
+      </div>
+      <div class="d-sm-inline">
+        <soe-datepicker
+          [labelKey]="'common.todate'"
+          [inline]="true"
+          formControlName="dateTo" />
+      </div>
+      <div class="d-sm-inline">
+        <soe-multi-select
+          [labelKey]="'common.employee'"
+          [inline]="true"
+          [items]="employees"
+          [width]="200"
+          [showSelected]="true"
+          formControlName="employeeIds"></soe-multi-select>
+      </div>
+      <div class="d-sm-inline">
+        <soe-button
+          [caption]="'core.filter'"
+          [behaviour]="'primary'"
+          [disabled]="loadingEmployees()"
+          (action)="search()" />
+      </div>
+      <div class="d-sm-inline">
+        @if (loadingEmployees()) {
+          <soe-icon-button
+            [iconName]="'spinner'"
+            [iconClass]="'icon-spinner'"
+            [tooltip]="'core.loading'"
+            [transparent]="true"
+            [animation]="'spin-pulse'"
+            [noBorder]="true"></soe-icon-button>
+        }
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,105 @@
+<form [formGroup]="formHeader" novalidate autocomplete="off">
+  <div class="row">
+    <div class="d-sm-inline">
+      <soe-date-period
+        [labelKey]="' '"
+        [dateFromControl]="formHeader.from"
+        [dateToControl]="formHeader.to"
+        [defaultPeriod]="3"></soe-date-period>
+    </div>
+
+    @if (isTimeSheet) {
+      <div class="d-sm-inline">
+        <soe-multi-select
+          [placeholderKey]="'common.categories'"
+          [labelKey]="' '"
+          [items]="employeeCategoryDict || []"
+          [width]="100"
+          [dropdownWidth]="200"
+          (onSelectionOpened)="populateEmployeeCategories()"
+          (onSelectionComplete)="categoriesSelectionComplete($event)"
+          formControlName="categoriesIds"></soe-multi-select>
+      </div>
+    }
+    @if (showEmployeeSelect) {
+      <div class="d-sm-inline">
+        <soe-multi-select
+          [placeholderKey]="'common.employee'"
+          [labelKey]="' '"
+          [items]="employeesDict || []"
+          [width]="100"
+          [dropdownWidth]="200"
+          (onSelectionOpened)="populateEmployees()"
+          (onSelectionComplete)="employeeSelectionComplete($event)"
+          formControlName="employeeIds"></soe-multi-select>
+      </div>
+    }
+    @if (isTimeSheet || isProjectCentral) {
+      <div class="d-sm-inline">
+        <soe-multi-select
+          [placeholderKey]="'common.order'"
+          [labelKey]="' '"
+          [items]="ordersDict || []"
+          [width]="100"
+          [dropdownWidth]="250"
+          (onSelectionComplete)="orderSelectionComplete($event)"
+          (onSelectionOpened)="populateProjectAndInvoice()"
+          formControlName="orderIds"></soe-multi-select>
+      </div>
+    }
+    @if (isTimeSheet || isProjectCentral) {
+      <div class="d-sm-inline">
+        <soe-multi-select
+          [placeholderKey]="'billing.project.project'"
+          [labelKey]="' '"
+          [items]="projectsDict || []"
+          [width]="100"
+          [dropdownWidth]="250"
+          (onSelectionOpened)="populateProjectAndInvoice()"
+          formControlName="projectIds"></soe-multi-select>
+      </div>
+    }
+    @if (showTimeDeviationCauseSelect) {
+      <div class="d-sm-inline">
+        <soe-multi-select
+          [placeholderKey]="'common.time.timedeviationcause'"
+          [labelKey]="' '"
+          [items]="timeDeviationCauseDict"
+          [width]="100"
+          [dropdownWidth]="200"
+          formControlName="timeDeviationCauseIds"
+          (onSelectionComplete)="timeDeviationCauseSelectionComplete($event)"
+          (onSelectionOpened)="
+            populateTimeDeviationCauses()
+          "></soe-multi-select>
+      </div>
+    }
+
+    <div class="mt-4 d-sm-inline align-items-end">
+      <soe-menu-button
+        class="me-2"
+        [caption]="'core.search'"
+        [list]="searchFunctions"
+        [behaviour]="'primary'"
+        [variant]="'split'"
+        [dropUp]="false"
+        (itemSelected)="performSearch($event)"
+        [selectedItem]="searchFunctions[0]">
+      </soe-menu-button>
+    </div>
+    @if (!isExpenses.value) {
+      <div class="mt-4 d-sm-inline align-items-end">
+        <soe-menu-button
+          class="me-2"
+          [caption]="'common.newrow'"
+          [list]="actionFunctions"
+          [behaviour]="'secondary'"
+          [variant]="'split'"
+          [dropUp]="false"
+          (itemSelected)="performFunctionAction($event)"
+          [selectedItem]="actionFunctions[0]">
+        </soe-menu-button>
+      </div>
+    }
+  </div>
+</form>

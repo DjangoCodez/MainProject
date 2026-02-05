@@ -1,0 +1,40 @@
+@if (
+  (toolbarItemGroups() && toolbarItemGroups().length > 0) ||
+  (toolbarGroups() && toolbarGroups().length > 0)
+) {
+  <soe-toolbar
+    [itemGroups]="toolbarItemGroups()"
+    [toolbarGroups]="toolbarGroups()"
+    [noPadding]="toolbarNoPadding()"
+    [noTopBottomPadding]="toolbarNoTopBottomPadding()"
+    [noMargin]="toolbarNoMargin()"
+    [noBorder]="toolbarNoBorder()">
+    <ng-content
+      toolbar-content-left
+      select="[toolbar-content-left]"></ng-content>
+    <ng-content
+      toolbar-content-right
+      select="[toolbar-content-right]"></ng-content>
+  </soe-toolbar>
+}
+
+<ng-content select="[header]"></ng-content>
+
+<div class="grid-container" [class.no-margin]="noMargin()">
+  <soe-grid
+    [rows]="rows"
+    [height]="height()"
+    [parentGuid]="parentGuid()"
+    [masterDetail]="masterDetail()"
+    (rowSelected)="triggerRowSelected($event)"
+    (selectionChanged)="triggerSelectionChanged($event)"
+    (selectedItemsChanged)="triggerSelectedItemsChanged($event)"
+    (cellKeyDown)="triggerCellKeyDown($event)"
+    (editRowClicked)="edit($event)"
+    (cellClicked)="triggerCellClicked($event)"></soe-grid>
+</div>
+
+<ng-content select="[footer]"></ng-content>
+@if (setAutoHeight()) {
+  <div [soeAutoHeight]="'bottom'"></div>
+}

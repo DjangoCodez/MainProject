@@ -1,0 +1,31 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.employee.payrollreview.massadjustment'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="info">
+                    <span data-l10n-bind="'time.employee.payrollreview.massadjustment.info'"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-2">
+                <soe-radiobutton label-key="common.amount" model="ctrl.adjustmentType" group="adjustmentType" value="1"></soe-radiobutton>
+                <soe-radiobutton label-key="common.percent" model="ctrl.adjustmentType" group="adjustmentType" value="2"></soe-radiobutton>
+            </div>
+            <div class="col-sm-4">
+                <soe-textbox label-key="common.value" model="ctrl.value" numeric="true" decimals="2" required="true" auto-focus="true"></soe-textbox>
+            </div>
+            <div class="col-sm-6">
+                <span class="pull-right indiscreet" style="margin-top: 30px;"><span>{{ctrl.nbrOfEmployeesSelected}}</span> <span data-l10n-bind="'time.employee.payrollreview.massadjustment.selected'"></span></span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿<form name="searchFilter" class="ngSoeForm form-group form-group-sm" style="margin: -8px -8px 16px -8px;">
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <uib-accordion close-others="false">
+        <soe-accordion label-key="economy.accounting.vouchersearch" is-open="ctrl.headerExpanderOpen">
+            <div>
+                <div class="form-group row">
+                    <soe-datepicker class="col-sm-2" label-key="common.fromdate" model="ctrl.search.voucherDateFrom" form="searchFilter"></soe-datepicker>
+                    <soe-select class="col-sm-2" label-key="economy.accounting.vouchersearch.selectvoucherseriesfrom" model="ctrl.search.voucherSeriesIdFrom" setselectedindex="ctrl.setselectedfromvoucherseriesindex" items="ctrl.fromVoucherSeriesFilterOptions" options="item.id as item.name for item in items"></soe-select>
+                    <soe-textbox class="col-sm-1" label-key="economy.accounting.vouchersearch.debetfrom" model="ctrl.searchFilterDebetFrom" on-blur="ctrl.debetBlur()"></soe-textbox>
+                    <soe-textbox class="col-sm-1" label-key="economy.accounting.vouchersearch.creditfrom" model="ctrl.searchFilterCreditFrom" on-blur="ctrl.creditBlur()"></soe-textbox>
+                    <soe-textbox class="col-sm-1" label-key="economy.accounting.vouchersearch.amountfrom" model="ctrl.searchFilterAmountFrom" on-blur="ctrl.amountBlur()"></soe-textbox>
+                    <soe-datepicker class="col-sm-2" label-key="economy.accounting.vouchersearch.fromcreateddate" model="ctrl.search.createdFrom" form="searchFilter"></soe-datepicker>
+                    <soe-select class="col-sm-3" label-key="economy.accounting.vouchersearch.selectuser" model="ctrl.search.createdBy" setselectedindex="ctrl.setselecteduserindex" items="ctrl.userFilterOptions" options="item.id as item.name for item in items"></soe-select>
+                </div>
+                <div class="form-group row">
+                    <soe-datepicker class="col-sm-2" label-key="common.todate" model="ctrl.search.voucherDateTo" form="searchFilter"></soe-datepicker>
+                    <soe-select class="col-sm-2" model="ctrl.search.voucherSeriesIdTo" setselectedindex="ctrl.setselectedtovoucherseriesindex" items="ctrl.toVoucherSeriesFilterOptions" options="item.id as item.name for item in items"></soe-select>
+                    <soe-textbox class="col-sm-1" model="ctrl.searchFilterDebetTo"></soe-textbox>
+                    <soe-textbox class="col-sm-1" model="ctrl.searchFilterCreditTo"></soe-textbox>
+                    <soe-textbox class="col-sm-1" model="ctrl.searchFilterAmountTo"></soe-textbox>
+                    <soe-datepicker class="col-sm-2" model="ctrl.search.createdTo" form="searchFilter"></soe-datepicker>
+                    <soe-textbox class="col-sm-3" label-key="economy.accounting.vouchersearch.vouchertext" model="ctrl.search.voucherText"></soe-textbox>
+                </div>
+                <div class="form-group row">
+                    <div data-ng-repeat="itemDim in ctrl.accountDimsFrom">
+                        <soe-typeahead class="col-sm-2" label-key="{{itemDim.name}}" filter-property="numberName" model="itemDim.selected" items="itemDim.accounts" options="item as item.numberName for item in items" limit="10"></soe-typeahead>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div data-ng-repeat="itemDim in ctrl.accountDimsTo">
+                        <soe-typeahead class="col-sm-2" label-key="{{itemDim.name}}" filter-property="numberName" model="itemDim.selected" items="itemDim.accounts" options="item as item.numberName for item in items" limit="10"></soe-typeahead>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-2 col-sm-offset-10">
+                        <div class="pull-right">
+                            <button type="button" ng-disabled="searchFilter.$invalid" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.search'" data-l10n-bind-title="'core.search'" data-ng-click="$event.stopPropagation();ctrl.startVoucherSearch()"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </soe-accordion>
+    </uib-accordion>
+</form>

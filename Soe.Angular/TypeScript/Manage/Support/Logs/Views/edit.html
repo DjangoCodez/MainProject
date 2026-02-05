@@ -1,0 +1,90 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" style="min-height:750px">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups">
+            <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+        </soe-toolbar>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="manage.support.logs.eventinfo" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-1 col-xs-2">
+                            <soe-textbox label-key="manage.support.logs.syslogid" model="ctrl.sysLog.sysLogId" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-1 col-xs-2">
+                            <soe-textbox label-key="manage.support.logs.level" model="ctrl.sysLog.level" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2 col-xs-2">
+                            <soe-textbox label-key="common.date" model="ctrl.sysLog.dateStr" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-4 col-xs-3">
+                            <soe-textbox label-key="manage.support.logs.requesturi" model="ctrl.sysLog.requestUri" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-4 col-xs-3">
+                            <soe-textbox label-key="manage.support.logs.refereruri" model="ctrl.sysLog.refererUri" readonly="true"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-textarea label-key="common.message" rows="8" model="ctrl.sysLog.message" readonly="true"></soe-textarea>
+                            <soe-textarea label-key="manage.support.logs.exception" rows="12" model="ctrl.sysLog.exception" readonly="true"></soe-textarea>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="manage.support.logs.taskwatchlog" is-open="ctrl.taskWatchAccordionInitiallyOpen">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-1 col-xs-2">
+                            <soe-textbox label-key="common.id" model="ctrl.sysLog.taskWatchLogId" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-1 col-xs-2">
+                            <soe-textbox label-key="common.start" model="ctrl.sysLog.taskWatchLogStart" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-1 col-xs-2">
+                            <soe-textbox label-key="common.stop" model="ctrl.sysLog.taskWatchLogStart" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-3 col-xs-2">
+                            <soe-textbox label-key="common.name" model="ctrl.sysLog.taskWatchLogName" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-6 col-xs-4">
+                            <soe-textbox label-key="manage.support.logs.taskwatchlog.parameters" model="ctrl.sysLog.taskWatchLogParameters" readonly="true"></soe-textbox>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="manage.support.logs.userinfo" is-open="ctrl.userInfoAccordionInitiallyOpen">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <soe-textbox label-key="common.licenseid" model="ctrl.sysLog.licenseId" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.licensenr" model="ctrl.sysLog.licenseNr" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-1">
+                            <soe-textbox label-key="common.actorcompanyid" model="ctrl.sysLog.actorCompanyId" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.companyname" model="ctrl.sysLog.companyName" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-1">
+                            <soe-textbox label-key="common.roleid" model="ctrl.sysLog.roleId" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.rolename" model="ctrl.sysLog.roleName" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-1">
+                            <soe-textbox label-key="common.userid" model="ctrl.sysLog.userId" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.username" model="ctrl.sysLog.loginName" readonly="true"></soe-textbox>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+    </div>
+</form>

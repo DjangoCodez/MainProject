@@ -1,0 +1,45 @@
+﻿<div>
+    <div class="row margin-large-bottom">
+        <div class="col-sm-2">
+            <soe-select label-key="time.employee.payrollgroup.account.showdate" model="ctrl.selectedDate" items="ctrl.dates" options="item as item | date:'shortDate' for item in items"></soe-select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-condensed table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col" rowspan="2" style="width: 28px"></th>
+                        <th scope="col"></th>
+                        <th scope="col" colspan="2" data-l10n-bind="'time.employee.tax.employmenttax'"></th>
+                        <th scope="col" colspan="2" data-l10n-bind="'time.employee.payrollgroup.account.payrolltax'" data-ng-if="ctrl.usePayrollTax"></th>
+                        <th scope="col" colspan="2" data-l10n-bind="'time.employee.payrollgroup.account.ownsupplementcharge'"></th>
+                        <th scope="col" rowspan="2" style="width: 28px"></th>
+                    </tr>
+                    <tr>
+                        <th scope="col" data-l10n-bind="'time.employee.payrollgroup.account.birthyear'"></th>
+                        <th scope="col" data-l10n-bind="'common.percent'"></th>
+                        <th scope="col" data-l10n-bind="'common.accountingsettings.account'"></th>
+                        <th scope="col" data-l10n-bind="'common.percent'" data-ng-if="ctrl.usePayrollTax"></th>
+                        <th scope="col" data-l10n-bind="'common.accountingsettings.account'" data-ng-if="ctrl.usePayrollTax"></th>
+                        <th scope="col" data-l10n-bind="'common.percent'"></th>
+                        <th scope="col" data-l10n-bind="'common.accountingsettings.account'"></th>
+                    </tr>
+                </thead>
+                <tbody data-ng-repeat="accountRow in ctrl.accountRows | orderBy:['fromIntervalSort','toIntervalSort']">
+                    <tr>
+                        <td><span class="dirtyTabIcon" data-ng-if="accountRow.isModified">*</span></td>
+                        <td>{{accountRow.fromInterval}}&nbsp;-&nbsp;{{accountRow.toInterval}}</td>
+                        <td class="right-align-cell">{{(accountRow.employmentTaxPercent || 0) | amount:2}}%</td>
+                        <td>{{accountRow.employmentTaxAccountNr}} {{accountRow.employmentTaxAccountName}}</td>
+                        <td class="right-align-cell" data-ng-if="ctrl.usePayrollTax">{{(accountRow.payrollTaxPercent || 0) | amount:2}}%</td>
+                        <td data-ng-if="ctrl.usePayrollTax">{{accountRow.payrollTaxAccountNr}} {{accountRow.payrollTaxAccountName}}</td>
+                        <td class="right-align-cell">{{(accountRow.ownSupplementChargePercent || 0) | amount:2}}%</td>
+                        <td>{{accountRow.ownSupplementChargeAccountNr}} {{accountRow.ownSupplementChargeAccountName}}</td>
+                        <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editAccountRow(accountRow);"></i></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

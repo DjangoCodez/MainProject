@@ -1,0 +1,28 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+        <h6 class="modal-title">{{::ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-checkbox label-key="common.dashboard.notaddedwidgets" model="ctrl.onlyNotAdded" data-ng-click="ctrl.updateGauges()" />
+                </div>
+                <div class="col-sm-6">
+                    <soe-checkbox label-key="common.dashboard.onlycurrentmodule" model="ctrl.onlyCurrentModule" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div data-ui-grid="ctrl.soeGridOptions.gridOptions" ui-grid-auto-resize ui-grid-selection></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.close()"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.select'" data-ng-disabled="ctrl.soeGridOptions.getSelectedCount() === 0" data-ng-click="ctrl.choose()"></button>
+        </div>
+    </div>
+</div>
+

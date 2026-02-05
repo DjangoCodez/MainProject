@@ -1,0 +1,458 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div employee-vehicle-validation ng-model="ctrl.employeeVehicle" from-date="ctrl.employeeVehicle.fromDate" to-date="ctrl.employeeVehicle.toDate" data-ng-if="!ctrl.progress.progressBusy">
+
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);"></soe-toolbar>
+
+        <soe-panel label-key="time.employee.vehicle.employeevehicle">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-typeahead label-key="common.employee" model="ctrl.selectedEmployee" items="ctrl.employees" options="item as item.name for item in items" required="true" is-readonly="ctrl.employeeVehicleId"></soe-typeahead>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="time.employee.vehicle.licenseplatenumber" model="ctrl.licensePlateNumber" allow-invalid="true" required="true" alpha-numeric="true" minlength="2" maxlength="7"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="common.year" model="ctrl.selectedYear" input-type="number" required="true" maxlength="4" auto-focus="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-datepicker label-key="common.fromdate" model="ctrl.employeeVehicle.fromDate" on-change="ctrl.fromDateChanged();"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-datepicker label-key="common.todate" model="ctrl.employeeVehicle.toDate"></soe-datepicker>
+                    </div>
+                </div>
+            </div>
+            <uib-accordion close-others="false">
+                <soe-accordion label-key="time.employee.vehicle.type" is-open="ctrl.typeExpanderInitiallyOpen">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <soe-label label-key="time.employee.vehicle.selecttype"></soe-label>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-label label-key="time.employee.vehicle.searchmodelcode"></soe-label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="btn-group text-toggle-button radio">
+                                    <label class="btn btn-default" data-ng-class="{ 'active': ctrl.vehicleType == 1 }" style="height: 48px; width: 100px; padding: 5px 10px;">
+                                        <a data-l10n-bind="'time.employee.vehicle.type.car'"></a>
+                                        <br />
+                                        <em class="fal fa-car"></em>
+                                        <input type="radio" name="vehicleType" data-ng-model="ctrl.vehicleTypeValue" value="1">
+                                    </label>
+                                    <label class="btn btn-default" data-ng-class="{ 'active': ctrl.vehicleType == 2 }" style="height: 48px; width: 100px; padding: 5px 10px;">
+                                        <a data-l10n-bind="'time.employee.vehicle.type.lorry'"></a>
+                                        <br />
+                                        <em class="fal fa-truck"></em>
+                                        <input type="radio" name="vehicleType" data-ng-model="ctrl.vehicleTypeValue" value="2">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" data-ng-model="ctrl.modelCode">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-default fal fa-search" data-l10n-bind data-l10n-bind-title="'core.search'" data-ng-click="$event.stopPropagation();ctrl.getVehicleByCode()"></button>
+                                    </span>
+                                </div>
+                                <soe-label discreet="true" label-key="time.employee.vehicle.modelcodeexample"></soe-label>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="time.employee.vehicle.model" is-open="ctrl.modelExpanderInitiallyOpen">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <soe-select label-key="time.employee.vehicle.year" model="ctrl.manufacturingYear" items="ctrl.years" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <soe-datepicker label-key="time.employee.vehicle.registereddate" model="ctrl.registeredDate" on-change="ctrl.registeredDateChanged();"></soe-datepicker>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-offset-3 col-sm-6">
+                                        <soe-instruction label-key="time.employee.vehicle.registereddate.info"></soe-instruction>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <soe-label label-key="time.employee.vehicle.makeandmodels"></soe-label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <soe-label label-key="time.employee.vehicle.unlisted"></soe-label>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <soe-select label-key="time.employee.vehicle.make" model="ctrl.vehicleMake" items="ctrl.vehicleMakes" options="item.id as item.name for item in items" is-disabled="ctrl.loadingMakes"></soe-select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <soe-label label-key="time.employee.vehicle.usecalculatedprice"></soe-label>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <soe-textbox hidelabel="true" model="ctrl.employeeVehicleAmounts.price" numeric="true" decimals="2"></soe-textbox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <soe-select label-key="time.employee.vehicle.model" model="ctrl.vehicleModel" items="ctrl.vehicleModels" options="item.id as item.name for item in items" is-disabled="ctrl.loadingModels"></soe-select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <soe-instruction label-key="time.employee.vehicle.usecalculatedpriceinfo"></soe-instruction>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <soe-label label-key="time.employee.vehicle.tax"></soe-label>
+                                    </div>
+                                    <div class="col-sm-4 margin-large-bottom">
+                                        <soe-toolbar buttons="ctrl.taxGridButtonGroups" hide-border="true" no-margin="true"></soe-toolbar>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div data-ui-grid="ctrl.taxGridOptions.gridOptions" enableCellEdit="true" ui-grid-auto-resize data-ui-grid-edit ui-grid-cellNav></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="time.employee.vehicle.equipment">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                
+                                <div class="col-sm-6">
+                                    <div class="form-inline">
+                                        <div class="form-group form-group-sm">
+                                            <soe-radiobutton label-key="time.employee.vehicle.noequipment" model="ctrl.hasEquipment" group="equipment" value="false"></soe-radiobutton>
+                                            <soe-radiobutton label-key="time.employee.vehicle.hasequipment" model="ctrl.hasEquipment" group="equipment" value="true"></soe-radiobutton>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 margin-large-bottom" data-ng-if="ctrl.employeeVehicle.hasEquipment">
+                                    <soe-toolbar buttons="ctrl.equipmentGridButtonGroups" hide-border="true" no-margin="true"></soe-toolbar>
+                                </div>
+                                <div class="row" data-ng-if="ctrl.employeeVehicle.hasEquipment">
+                                    <div class="col-sm-12">
+                                        <div data-ui-grid="ctrl.equipmentGridOptions.gridOptions" enableCellEdit="true" ui-grid-auto-resize data-ui-grid-edit ui-grid-cellNav></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-label label-key="time.employee.vehicle.whatisequipment"></soe-label>
+                                <soe-instruction label-key="time.employee.vehicle.equipmentinfo"></soe-instruction>
+                                <soe-label label-key="core.example"></soe-label>
+                                <div class="col-sm-12">
+                                    <ul>
+                                        <li data-l10n-bind="'time.employee.vehicle.equipmentexample1'"></li>
+                                        <li data-l10n-bind="'time.employee.vehicle.equipmentexample2'"></li>
+                                        <li data-l10n-bind="'time.employee.vehicle.equipmentexample3'"></li>
+                                        <li data-l10n-bind="'time.employee.vehicle.equipmentexample4'"></li>
+                                    </ul>
+                                </div>
+                                <a data-ng-href="{{ctrl.vehicleEquipmentReadMoreUrl}}" target="_blank" data-l10n-bind="'time.employee.vehicle.equipmentreadmore'"></a>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="time.employee.vehicle.extensivedriving">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-radiobutton label-key="time.employee.vehicle.extensivedriving.nodeduction" model="ctrl.hasExtensiveDriving" group="extensivedriving" value="false"></soe-radiobutton>
+                                <soe-radiobutton label-key="time.employee.vehicle.extensivedriving.3000mil" model="ctrl.hasExtensiveDriving" group="extensivedriving" value="true"></soe-radiobutton>
+                                <soe-instruction label-key="time.employee.vehicle.extensivedriving.3000milinfo"></soe-instruction>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="time.employee.vehicle.benefitvalueadjustmentpercent" model="ctrl.employeeVehicleAmounts.benefitValueAdjustment" numeric="true" decimals="2"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-instruction label-key="time.employee.vehicle.benefitvalueadjustmentinfo"></soe-instruction>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="time.employee.vehicle.netsalarydeductionandcalculatedtaxablevalue">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <soe-label label-key="time.employee.vehicle.netsalarydeduction"></soe-label>
+                                    </div>
+                                    <div class="col-sm-6 margin-large-bottom">
+                                        <soe-toolbar buttons="ctrl.netSalaryDeductionGridButtonGroups" hide-border="true" no-margin="true"></soe-toolbar>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div data-ui-grid="ctrl.netSalaryDeductionGridOptions.gridOptions" enableCellEdit="true" ui-grid-auto-resize data-ui-grid-edit ui-grid-cellNav></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-label label-key="time.employee.vehicle.calculatedtaxablevalue"></soe-label>
+                                    </div>
+                                </div>
+                                <div class="row margin-large-top">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <br />
+                                            <div class="col-sm-4 text-right">
+                                                <soe-label label-key="time.employee.vehicle.permonth" discreet="true"></soe-label>
+                                                <span>
+                                                    {{ctrl.employeeVehicleAmounts.taxableValuePerMonth | amount:0}} kr
+                                                </span>
+                                            </div>
+                                            <div class="col-sm-4 text-right">
+                                                <soe-label label-key="time.employee.vehicle.peryear" discreet="true"></soe-label>
+                                                <span>
+                                                    {{ctrl.employeeVehicleAmounts.taxableValuePerYearSum | amount:0}} kr
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4 text-right">
+                                                <span>
+                                                    {{ctrl.employeeVehicleAmounts.netSalaryDeductionPerMonth | amount:0}} kr
+                                                </span>
+                                            </div>
+                                            <div class="col-sm-4 text-right">
+                                                <span>
+                                                    {{ctrl.employeeVehicleAmounts.netSalaryDeductionPerYear | amount:0}} kr
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4 text-right">
+                                                <span style="font-weight: bold;">
+                                                    {{ctrl.employeeVehicleAmounts.totalTaxableValuePerMonth | amount:0}} kr
+                                                </span>
+                                            </div>
+                                            <div class="col-sm-4 text-right">
+                                                <span style="font-weight: bold;">
+                                                    {{ctrl.employeeVehicleAmounts.totalTaxableValuePerYear | amount:0}} kr
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <soe-instruction label-key="time.employee.vehicle.calculatedtaxablevalueinfo"></soe-instruction>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="time.employee.vehicle.detailedcalculation">
+                    <div class="col-sm-8 table-responsive">
+                        <table class="table table-outer-bordered table-condensed table-hover">
+                            <tbody>
+                                <tr>
+                                    <td><span class="indiscreet" data-l10n-bind="'time.employee.vehicle.selectedcarinformation'"></span></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-l10n-bind="'time.employee.vehicle.calculatedvaluefrom'"></span></td>
+                                    <td><span>{{ctrl.calculateDate | date:'shortDate'}}</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-l10n-bind="'time.employee.vehicle.make'"></span></td>
+                                    <td><span>{{ctrl.vehicleMake}}</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-l10n-bind="'time.employee.vehicle.year'"></span></td>
+                                    <td><span>{{ctrl.manufacturingYear}}</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-l10n-bind="'time.employee.vehicle.model'"></span></td>
+                                    <td><span>{{ctrl.employeeVehicle.vehicleModel}}</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-l10n-bind="'time.employee.vehicle.modelcode'"></span></td>
+                                    <td><span>{{ctrl.employeeVehicle.modelCode}}</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-l10n-bind="'time.employee.vehicle.fueltype'"></span></td>
+                                    <td><span>{{ctrl.fuelTypeText}}</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-l10n-bind="'time.employee.vehicle.price'"></span></td>
+                                    <td class="right-align-cell"><span class="indiscreet">{{ctrl.employeeVehicleAmounts.price | amount:0}}</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="indiscreet" data-l10n-bind="'time.employee.vehicle.taxableprice'"></span></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr data-ng-if="!ctrl.employeeVehicle.codeForComparableModel">
+                                    <td><span data-l10n-bind="'time.employee.vehicle.price'"></span></td>
+                                    <td class="right-align-cell"><span>{{ctrl.employeeVehicleAmounts.price | amount:0}}</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr data-ng-if="ctrl.employeeVehicle.codeForComparableModel">
+                                    <td><span data-l10n-bind="'time.employee.vehicle.comparablemodel.price'"></span></td>
+                                    <td class="right-align-cell"><span>{{ctrl.employeeVehicleAmounts.comparablePrice | amount:0}}</span></td>
+                                    <td><span>({{ctrl.employeeVehicle.codeForComparableModel}})</span></td>
+                                </tr>
+                                <tr data-ng-if="ctrl.employeeVehicleAmounts.priceAdjustment !== 0">
+                                    <td><span data-l10n-bind="'time.employee.vehicle.comparablemodel.priceadjustment'"></span></td>
+                                    <td class="right-align-cell"><span>{{ctrl.employeeVehicleAmounts.priceAdjustment | amount:0}}</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-l10n-bind="'time.employee.vehicle.equipment'"></span></td>
+                                    <td class="right-align-cell"><span>{{ctrl.employeeVehicleAmounts.equipmentSum | amount:0}}</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="indiscreet" data-l10n-bind="'common.sum'"></span></td>
+                                    <td class="right-align-cell indiscreet"><span>{{ctrl.employeeVehicleAmounts.totalSum | amount:0}}</span></td>
+                                    <td><span class="smallFont" data-ng-if="ctrl.employeeVehicleAmounts.sixYearsInfo"> <label class="discreet" data-l10n-bind="'time.employee.vehicle.sixyearsinfo'" /></span></td>
+                                </tr>
+                                <tr data-ng-if="ctrl.employeeVehicle.codeForComparableModel">
+                                    <td>
+                                        <span>
+                                            <label class="discreet" data-l10n-bind="'time.employee.vehicle.comparablemodel.info'" />
+                                            <a data-ng-href="{{ctrl.comparableModelReadMoreUrl}}" target="_blank" data-l10n-bind="'time.employee.vehicle.comparablemodel.urltext'"></a>
+                                        </span>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="indiscreet" data-l10n-bind="'time.employee.vehicle.taxablevalueperyear'"></span></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-l10n-bind="'time.employee.vehicle.baseamountpart'"></span></td>
+                                    <td class="right-align-cell"><span>{{ctrl.employeeVehicleAmounts.baseAmountPart | amount:0}}</span></td>
+                                    <td><span class="smallFont">{{ctrl.employeeVehicleAmounts.baseAmountPartPercent * 100 | amount:1}} <span data-l10n-bind="'time.employee.vehicle.baseamountpartinfo'" class="smallFont"></span></span></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-l10n-bind="'time.employee.vehicle.interestpart'"></span></td>
+                                    <td class="right-align-cell"><span>{{ctrl.employeeVehicleAmounts.interestPart | amount:0}}</span></td>
+                                    <td>
+                                        <span class="smallFont" data-l10n-bind="'time.employee.vehicle.interestpartinfo'" data-ng-if="!ctrl.employeeVehicleAmounts.useCalculationAfter20210701"></span>
+                                        <span class="smallFont" data-l10n-bind="'time.employee.vehicle.interestpartinfo20210701'" data-ng-if="ctrl.employeeVehicleAmounts.useCalculationAfter20210701"></span>
+                                    </td>
+                                </tr>
+                                <tr data-ng-if="ctrl.employeeVehicleAmounts.useCalculationAfter20210701">
+                                    <td><span data-l10n-bind="'time.employee.vehicle.pricepart'"></span></td>
+                                    <td class="right-align-cell"><span>{{ctrl.employeeVehicleAmounts.pricePart | amount:0}}</span></td>
+                                    <td><span class="smallFont" data-l10n-bind="'time.employee.vehicle.pricepartinfo'"></span></td>
+                                </tr>
+                                <tr data-ng-if="!ctrl.employeeVehicleAmounts.useCalculationAfter20210701">
+                                    <td><span data-l10n-bind="'time.employee.vehicle.pricepart1'"></span></td>
+                                    <td class="right-align-cell"><span>{{ctrl.employeeVehicleAmounts.pricePart1 | amount:0}}</span></td>
+                                    <td><span class="smallFont" data-l10n-bind="'time.employee.vehicle.pricepart1info'"></span></td>
+                                </tr>
+                                <tr data-ng-if="!ctrl.employeeVehicleAmounts.useCalculationAfter20210701">
+                                    <td><span data-l10n-bind="'time.employee.vehicle.pricepart2'"></span></td>
+                                    <td class="right-align-cell"><span>{{ctrl.employeeVehicleAmounts.pricePart2 | amount:0}}</span></td>
+                                    <td><span class="smallFont" data-l10n-bind="'time.employee.vehicle.pricepart2info'"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-l10n-bind="'time.employee.vehicle.extensivedriving3000mil'"></span></td>
+                                    <td class="right-align-cell"><span>{{ctrl.employeeVehicleAmounts.extensiveDriving | amount:0}}</span></td>
+                                    <td><span class="smallFont" data-l10n-bind="'time.employee.vehicle.extensivedriving3000milinfo'"></span></td>
+                                </tr>
+                                <tr data-ng-if="ctrl.employeeVehicleAmounts.benefitValueAdjustmentAmountNeg > 0">
+                                    <td><span data-l10n-bind="'time.employee.vehicle.benefitvalueadjustment'"></span></td>
+                                    <td class="right-align-cell"><span>{{ctrl.employeeVehicleAmounts.benefitValueAdjustmentValue | amount:0}}</span></td>
+                                    <td>
+                                        <span class="smallFont">{{ctrl.employeeVehicleAmounts.benefitValueAdjustmentAmountNeg}} </span>
+                                        <span class="smallFont" data-l10n-bind="'time.payroll.unionfee.percent'"> </span>
+                                        <span class="smallFont" data-l10n-bind="'time.employee.vehicle.benefitvalueadjustmentinfodescription'"></span>
+                                    </td>
+                                </tr>
+                                <tr data-ng-if="ctrl.isDeductableEcoCar">
+                                    <td><span data-l10n-bind="'time.employee.vehicle.ecocardeduction'"></span></td>
+                                    <td class="right-align-cell"><span>{{ctrl.employeeVehicleAmounts.ecoCarDeduction | amount:0}}</span></td>
+                                    <td><span class="smallFont" data-l10n-bind="'time.employee.vehicle.ecocardeductioninfo'"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-l10n-bind="'time.employee.vehicle.tax'"></span></td>
+                                    <td class="right-align-cell"><span>{{ctrl.employeeVehicleAmounts.taxAmount | amount:0}}</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="indiscreet" data-l10n-bind="'common.sum'"></span></td>
+                                    <td class="right-align-cell indiscreet"><span>{{ctrl.employeeVehicleAmounts.taxableValuePerYearSum | amount:0}}</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-l10n-bind="'time.employee.vehicle.baseamount'"></span> <span>{{ctrl.employeeVehicleAmounts.baseAmount | amount:0}}</span> kr</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span data-l10n-bind="'time.employee.vehicle.governmentloaninterest'"></span> <span>{{ctrl.employeeVehicleAmounts.governmentLoanInterest | amount:2}}</span> %</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </soe-accordion>
+            </uib-accordion>
+        </soe-panel>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.employeeVehicle"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <sectionGroup name="SuperOffice">
+      <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+        <section name="Soe.Scheduler.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+      </sectionGroup>
+      <sectionGroup name="Security">
+        <section name="Cryptography" type="System.Configuration.NameValueSectionHandler, System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+        <section name="Sentry" type="System.Configuration.NameValueSectionHandler, System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+      </sectionGroup>
+      <sectionGroup name="Mail">
+        <section name="Component" type="System.Configuration.NameValueSectionHandler, System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+      </sectionGroup>
+      <section name="Diagnostics" type="System.Configuration.NameValueSectionHandler, System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+      <sectionGroup name="Data">
+        <section name="Session" type="System.Configuration.NameValueSectionHandler, System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+      </sectionGroup>
+      <sectionGroup name="Factory">
+        <section name="CustomFactories" type="System.Configuration.NameValueSectionHandler, System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+        <section name="DynamicLoad" type="System.Configuration.NameValueSectionHandler, System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+      </sectionGroup>
+      <section name="Services" type="System.Configuration.NameValueSectionHandler, System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    </sectionGroup>    
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+  <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+</configSections>
+  <SuperOffice>
+    <Data>
+      <Session>
+        <!-- Thread means that session information is stored in the Thread context -->
+        <add key="Mode" value="Thread" />
+      </Session>
+    </Data>
+    <Services>
+      <!-- Mode can be Local, Remote, Switch; local for web + appserver on same machine, remote otherwise -->
+      <add key="DefaultMode" value="Remote" />
+      <!-- Default mode for the switch.  Can be Local or Remote -->
+      <add key="SwitchDefault" value="Remote" />
+      <!-- Timeout before failover in seconds -->
+      <add key="SwitchFailover" value="60" />
+      <!-- Base URL for remote services, use when web and app servers are not on the same machine -->
+      <add key="RemoteBaseURL" value="" />
+      <!--This MUST be set to the application users have authorized-->
+      <!--In this example, that is the SupreOffice.DevNet.Online.SystemUser.Mvc application -->
+      <!--add key="ApplicationToken" value="f1798a3a7cbc3759d4b220e9a9c99301" /-->
+      <add key="ApplicationToken" value="f0c7efaf0cb77879bd318133e49e88d4"/>
+    </Services>
+  </SuperOffice>
+  <appSettings>
+    <add key="smtpHost" value="smtp.dnsdrift.net" />
+    <add key="smtpPort" value="25" />
+    <add key="smtpUser" value="" />
+    <add key="smtpPsw" value="" />
+    <!-- Timer interval in seconds-->
+    <add key="interval" value="60" />
+    <add key="SOE_EDI_FTP" value="ftp://ftp.softone.se/Leveransbesked/" />
+    <add key="SOE_EDI_FTP_NELFO" value="ftp://ftp.softone.se/Grossister/Nelfo/" />
+    <add key="SOE_EDI_FTP_ADMIN_USERNAME" value="edi-test" />
+    <add key="SOE_EDI_FTP_ADMIN_PASSWORD" value="sql" />
+    <add key="SOE_EDI_FOLDERWATCH_BASEPATH" value="c:/tmp/EdiFolders/" />
+    <add key="SOE_EDI_WHOLESALESAVEFOLDER" value="c:/tmp/SaveFolder/" />
+    <add key="SOE_EDI_WHOLESALEFTPPATH" value="ftp.softone.se/DEBUG" />
+    <add key="webpages:Version" value="3.0.0.0" />
+    <add key="webpages:Enabled" value="false" />
+    <add key="ClientValidationEnabled" value="true" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+    <!-- SuperOffice Partner Application Settings -->
+    <add key="SoAuthCookie" value="PartnerAuth" />
+    <add key="SoAppId" value="be802e5b4e4334bbe781e9345c3f53a9"/>
+    <!--add key="SoAppId" value="35044df26c0490e61dee93228feea426" /-->
+    <add key="SoFederationGateway" value="https://online.superoffice.com/login/"/>
+    <add key="BaseURL" value="http://DevNet.Online.SystemUser.Mvc/" />
+    <add key="SystemTokenCertificatePath" value="c:\Certificates\SoftOneOnline.xml"/>
+    <add key="SuperIdCertificate" value="60b61583dbb2b7eec46fd01ec0056e62451d61f3"/>
+    <add key="CertificatesInAppDataFolder" value="false" />
+    <add key="ClientSettingsProvider.ServiceUri" value="" />
+  </appSettings>
+  <connectionStrings>
+    <clear/>
+    <add name="SOESysEntities" connectionString="metadata=res://*/SoftOne.Soe.Data.SOESysModel.csdl|res://*/SoftOne.Soe.Data.SOESysModel.ssdl|res://*/SoftOne.Soe.Data.SOESysModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data source=192.168.50.100;Initial Catalog=SOESysV2;Persist Security Info=True;User ID=XE;Password=65Bastards2luv;MultipleActiveResultSets=True&quot;"
+      providerName="System.Data.EntityClient" />
+    <add name="SOECompEntities" connectionString="metadata=res://*/SoftOne.Soe.Data.SOECompModel.csdl|res://*/SoftOne.Soe.Data.SOECompModel.ssdl|res://*/SoftOne.Soe.Data.SOECompModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data source=192.168.50.100;Initial Catalog=SOECompV_ref;Persist Security Info=True;User ID=XE;Password=65Bastards2luv;MultipleActiveResultSets=True&quot;"
+      providerName="System.Data.EntityClient" />
+    <add name="Log4net" connectionString="data source=192.168.50.100;initial catalog=SOESysV2;User ID=XE;Password=65Bastards2luv;persist security info=True" />
+ </connectionStrings>
+   <entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.SqlConnectionFactory, EntityFramework" />
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+    </providers>
+  </entityFramework>
+  <system.serviceModel>
+    <client>
+      <endpoint address="http://localhost:56746/Edi/EdiService.asmx" binding="basicHttpBinding" contract="WebServices.External.EdiServiceSoap" name="EdiServiceSoap" />
+    </client>
+  </system.serviceModel>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-7.0.0.0" newVersion="7.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="ICSharpCode.SharpZipLib" publicKeyToken="1b03e6acf1164f73" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-0.86.0.518" newVersion="0.86.0.518" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+  <system.web>
+    <membership defaultProvider="ClientAuthenticationMembershipProvider">
+      <providers>
+        <add name="ClientAuthenticationMembershipProvider" type="System.Web.ClientServices.Providers.ClientFormsAuthenticationMembershipProvider, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" serviceUri="" />
+      </providers>
+    </membership>
+    <roleManager defaultProvider="ClientRoleProvider" enabled="true">
+      <providers>
+        <add name="ClientRoleProvider" type="System.Web.ClientServices.Providers.ClientRoleProvider, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" serviceUri="" cacheTimeout="86400" />
+      </providers>
+    </roleManager>
+  </system.web>
+</configuration>

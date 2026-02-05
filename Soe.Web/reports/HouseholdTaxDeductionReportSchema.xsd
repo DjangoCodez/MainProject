@@ -1,0 +1,48 @@
+﻿<xs:schema id="SOE_HousholdTaxDeductionReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SOE_HousholdTaxDeductionReport" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Begaran">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BegaranNr" type="xs:string" minOccurs="1" />
+              <xs:element name="RotBegaran" minOccurs="1" >
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Arenden" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+					      <xs:element name="Id" type="xs:int" minOccurs="1" />
+                          <xs:element name="Kopare" type="xs:string" minOccurs="1" />
+                          <xs:element name="BetalningsDatum" type="xs:string" minOccurs="1" />
+                          <xs:element name="PrisForArbete" type="xs:decimal" minOccurs="1" />
+                          <xs:element name="BetaltBelopp" type="xs:decimal" minOccurs="1" />
+                          <xs:element name="BegartBelopp" type="xs:decimal" minOccurs="1" />
+                          <xs:element name="FakturaNr" type="xs:string" minOccurs="1" />
+                          <xs:element name="Ovrigkostnad" type="xs:decimal" minOccurs="1" />
+                          <xs:element name="Fastighetsbeteckning" type="xs:string" minOccurs="0" />
+                          <xs:element name="LagenhetsNr" type="xs:string" minOccurs="0" />
+                          <xs:element name="BrfOrgNr" type="xs:string" minOccurs="0" />
+                          <xs:element name="UtfortArbete" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+							    <xs:element name="Id" type="xs:int" minOccurs="1" />
+                                <xs:element name="Typ" type="xs:string" minOccurs="1" />
+                                <xs:element name="AntalTimmar" type="xs:int" minOccurs="1" maxOccurs="1" />
+                                <xs:element name="Materialkostnad" type="xs:decimal" minOccurs="1" maxOccurs="1" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

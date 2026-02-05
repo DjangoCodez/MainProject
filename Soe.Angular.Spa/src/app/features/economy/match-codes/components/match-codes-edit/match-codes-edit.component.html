@@ -1,0 +1,77 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+@if (form) {
+  <form
+    [formGroup]="form"
+    name=""
+    class="soe-edit-form"
+    novalidate
+    autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'economy.accounting.matchcode.matchcode'"
+      [open]="true"
+      [static]="true">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            formControlName="name"
+            [autoFocus]="true">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'common.type'"
+            [selectedId]="form.value.type"
+            [items]="matchCodeTypes"
+            formControlName="type">
+          </soe-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <soe-textbox
+            [labelKey]="'common.description'"
+            formControlName="description">
+          </soe-textbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-autocomplete
+            [labelKey]="'economy.accounting.account'"
+            [items]="accountsDict"
+            [optionIdField]="'accountId'"
+            [optionNameField]="'numberName'"
+            (valueChanged)="accountChanged($event)"
+            [limit]="10"
+            formControlName="accountId">
+          </soe-autocomplete>
+        </div>
+        <div class="col-sm-3">
+          <soe-autocomplete
+            [labelKey]="'economy.accounting.matchcode.vataccount'"
+            [items]="accountsDict"
+            [optionIdField]="'accountId'"
+            [optionNameField]="'numberName'"
+            (valueChanged)="vatAccountchanged($event)"
+            [limit]="10"
+            formControlName="vatAccountId">
+          </soe-autocomplete>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

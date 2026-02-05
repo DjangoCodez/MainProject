@@ -1,0 +1,342 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'economy.inventory.inventories.inventory'"
+      [static]="true">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'economy.inventory.inventories.inventorynr'"
+                [maxLength]="20"
+                formControlName="inventoryNr"></soe-textbox>
+            </div>
+            <div class="col-sm-8">
+              <soe-textbox
+                [labelKey]="'common.name'"
+                [maxLength]="100"
+                formControlName="name"></soe-textbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'economy.inventory.inventories.status'"
+                [maxLength]="20"
+                formControlName="statusName"></soe-textbox>
+            </div>
+            <div class="col-sm-8">
+              <soe-select
+                [labelKey]="'economy.inventory.inventories.parentname'"
+                [selectedId]="form.value.parentId"
+                [items]="inventories || []"
+                formControlName="parentId">
+              </soe-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="'economy.inventory.inventories.writeoffamount'"
+                [decimals]="2"
+                formControlName="writeOffAmount"></soe-numberbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="
+                  'economy.inventory.inventories.writeoffremainingamount'
+                "
+                [decimals]="2"
+                formControlName="writeOffRemainingAmount"></soe-numberbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="'economy.inventory.inventories.accwriteoffamount'"
+                [decimals]="2"
+                formControlName="accWriteOffAmount"></soe-numberbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-datepicker
+                [labelKey]="'economy.inventory.inventories.purchasedate'"
+                formControlName="purchaseDate"
+                (valueChanged)="purchaseDateChange($event)"></soe-datepicker>
+            </div>
+            <div class="col-sm-4">
+              <soe-datepicker
+                [labelKey]="'economy.inventory.inventories.writeoffdate'"
+                formControlName="writeOffDate"></soe-datepicker>
+            </div>
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'economy.inventory.inventories.writeoffperiods'"
+                [maxLength]="20"
+                formControlName="writeOffPeriods"></soe-textbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="'economy.inventory.inventories.purchaseamount'"
+                formControlName="purchaseAmount"
+                [decimals]="2"
+                [updateInstantly]="true"
+                (valueChanged)="purchaseAmountChanged($event)">
+              </soe-numberbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="'economy.inventory.inventories.writeoffsum'"
+                formControlName="writeOffSum"
+                [decimals]="2"
+                [updateInstantly]="true"
+                (valueChanged)="
+                  previouslyDepreciatedAmountChanged($event)
+                "></soe-numberbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="'economy.inventory.inventories.endamount'"
+                formControlName="endAmount"
+                [decimals]="2"
+                [updateInstantly]="true"
+                (valueChanged)="endAmountChanged($event)"></soe-numberbox>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-8">
+              <soe-textarea
+                [labelKey]="'common.description'"
+                [rows]="4"
+                [resizeable]="true"
+                formControlName="description">
+              </soe-textarea>
+              <soe-categories
+                [categoryType]="9"
+                [form]="form"
+                [nbrOfRows]="3"
+                [showDefault]="false"
+                [showDateFrom]="false"
+                [showDateTo]="false"
+                [showIsExecutive]="false"
+                [categoryIds]="form.categoryIds.value"
+                [readOnly]="false"
+                (categoriesChange)="categoriesChanged($event)"></soe-categories>
+            </div>
+          </div>
+        </div></div
+    ></soe-expansion-panel>
+
+    <soe-expansion-panel [labelKey]="'common.note'" [noTopPadding]="true">
+      <soe-textarea
+        [rows]="7"
+        [resizeable]="true"
+        formControlName="notes"></soe-textarea>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel
+      [labelKey]="'economy.inventory.inventories.writeoff'"
+      [open]="true">
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'economy.inventory.inventories.writeofftemplate'"
+            [items]="inventoryWriteOffTemplates"
+            [optionIdField]="'inventoryWriteOffTemplateId'"
+            [optionNameField]="'name'"
+            formControlName="writeOffTemplateId"
+            (valueChange)="writeOffTemplateChanged()"></soe-select>
+        </div>
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'economy.inventory.inventories.voucherseriestype'"
+            [items]="voucherSeries"
+            formControlName="voucherSeriesTypeId"></soe-select>
+        </div>
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'economy.inventory.inventories.writeoffmethod'"
+            [items]="inventoryWriteOffMethods"
+            [optionIdField]="'inventoryWriteOffMethodId'"
+            [optionNameField]="'name'"
+            formControlName="inventoryWriteOffMethodId"
+            (valueChanged)="writeOffMethodIdChanged()"></soe-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'economy.inventory.inventories.periodtype'"
+            [items]="periodTypes"
+            formControlName="periodType"></soe-select>
+        </div>
+        <div class="col-sm-2">
+          <soe-numberbox
+            [labelKey]="'economy.inventory.inventories.periodvalue'"
+            formControlName="periodValue"></soe-numberbox>
+        </div>
+        @if (form.info.value) {
+          <div class="col-sm-3 mt-4">
+            <soe-instruction [text]="form.info.value"> </soe-instruction>
+          </div>
+        }
+      </div>
+      <div class="row mt-3">
+        <div class="col-sm-9">
+          <soe-accounting-settings
+            [settingTypes]="accountSettingTypes"
+            [showBaseAccount]="true"
+            [minRows]="8"
+            [readOnly]="false"
+            [form]="form"
+            [baseAccounts]="baseAccounts"
+            [settings]="form.accountingSettings.value"
+            (settingsChange)="
+              accountSettingsChanged($event)
+            "></soe-accounting-settings>
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    @if (inventoryId) {
+      <soe-expansion-panel
+        [open]="false"
+        [labelKey]="'core.document'"
+        (isOpened)="fileListOpened($event)"
+        [secondaryLabelKey]="filesHelper.nbrOfFilesStr()"
+        [secondaryLabelParantheses]="true">
+        @if (isFileDisplayAccordionOpen) {
+          <soe-file-display
+            [gridHeight]="250"
+            [helper]="filesHelper"></soe-file-display>
+        }
+      </soe-expansion-panel>
+    }
+
+    <soe-expansion-panel
+      [labelKey]="'common.tracing'"
+      [static]="false"
+      [noMargin]="false"
+      [noPadding]="false">
+      <div class="row">
+        <div class="col-sm-6">
+          <soe-inventories-tracing-grid
+            [inventoryId]="form.inventoryId.value"
+            [reload$]="reload$"
+            (openEditInNewTab)="openEditInNewTab($event)"></soe-inventories-tracing-grid>
+        </div>
+        <div class="col-sm-3">
+          <div class="row">
+            <soe-autocomplete
+              [labelKey]="'economy.inventory.inventories.supplierinvoice'"
+              [items]="supplierInvoices"
+              [optionIdField]="'supplierInvoiceId'"
+              [optionNameField]="'supplierName'"
+              [limit]="10"
+              formControlName="supplierInvoiceId">
+              <soe-icon-button
+                [disabled]="!form.supplierInvoiceId.value"
+                [noBorder]="false"
+                [iconName]="'pencil'"
+                [iconClass]="'icon-edit'"
+                [tooltip]="'core.edit'"
+                (action)="openSupplierInvoice()"></soe-icon-button>
+            </soe-autocomplete>
+          </div>
+          <div class="row">
+            <soe-autocomplete
+              [labelKey]="'economy.inventory.inventories.customerinvoice'"
+              [items]="customerInvoices || []"
+              [optionIdField]="'customerInvoiceId'"
+              [optionNameField]="'actorCustomerName'"
+              [limit]="10"
+              formControlName="customerInvoiceId">
+              <soe-icon-button
+                [disabled]="!form.customerInvoiceId.value"
+                [noBorder]="false"
+                [iconName]="'pencil'"
+                [iconClass]="'icon-edit'"
+                [tooltip]="'core.edit'"
+                (action)="openCustomerInvoice()"></soe-icon-button>
+            </soe-autocomplete>
+          </div>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    
+    <soe-expansion-panel [open]="false" [labelKey]="'common.changehistory'"
+        (isOpened)="isTrackChangesAccordionOpen = !isTrackChangesAccordionOpen">
+        @if (isTrackChangesAccordionOpen) {
+        <soe-track-changes [entityType]="9" [entityId]="form.inventoryId.value"></soe-track-changes>
+        }
+    </soe-expansion-panel>
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [hideDelete]="true"
+      [hideSave]="true"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()">
+        <soe-checkbox
+          [labelKey]="'economy.inventory.inventories.preliminary'"
+          [checked]="form.value.showPreliminary"
+          formControlName="showPreliminary"
+          (valueChanged)="showPreliminaryChanged($event)"></soe-checkbox>
+        @if (isDraftOrActive() && !isWriteOffsStarted()) {
+          <soe-button
+            class="ms-3"
+            [caption]="'core.delete'"
+            typeClass="btn btn-secondary"
+            [behaviour]="'standard'"
+            (action)="triggerDelete()"></soe-button>
+        }
+
+      <soe-save-button
+        class="mx-3"
+        [invalid]="form.invalid"
+        [dirty]="form.dirty"
+        (action)="performSave()"
+        (validationErrorsAction)="
+          form.openFormValidationErrors()
+        "></soe-save-button>
+
+      <soe-menu-button
+        class="me-2"
+        [caption]="'economy.inventory.inventories.adjust'"
+        [variant]="'split'"
+        [list]="adjustFunctions"
+        [disabled]="!isActive()"
+        [behaviour]="'secondary'"
+        [dropUp]="true"
+        (itemSelected)="executeAdjustFunction($event)"
+        (selectedItem)="(adjustFunctions)"
+        (validationErrorsAction)="form.openFormValidationErrors()">
+      </soe-menu-button>
+
+      <soe-menu-button
+        class="pull-right mx-2"
+        [caption]="'economy.inventory.inventories.dispose'"
+        [variant]="'split'"
+        [list]="disposeFunctions"
+        [disabled]="isDisposed() || isDraft()"
+        [behaviour]="'secondary'"
+        [dropUp]="true"
+        (itemSelected)="executeDisposeFunction($event)"
+        (selectedItem)="(disposeFunctions)">
+      </soe-menu-button>
+    </soe-edit-footer>
+  </form>
+}

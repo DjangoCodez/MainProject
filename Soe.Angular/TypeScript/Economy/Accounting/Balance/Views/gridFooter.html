@@ -1,0 +1,43 @@
+﻿<div style="margin-top: 25px;">
+    <div class="info" style="margin-bottom: 10px;">
+        <div class="row">
+            <div class="col-sm-12 pull-right">
+                <div class="col-sm-2 pull-right">
+                    <div class="row">
+                        <soe-label class="pull-right" label-key="economy.accounting.reconciliation.diffamount"></soe-label>
+                    </div>
+                    <div class="row">
+                        <label class="pull-right discreet">{{ctrl.diffAmount | amount}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-2 margin-small-right pull-right">
+                    <div class="row">
+                        <soe-label class="pull-right" label-key="common.credit"></soe-label>
+                    </div>
+                    <div class="row">
+                        <label class="pull-right discreet">{{ctrl.creditAmount | amount}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-2 margin-small-right pull-right">
+                    <div class="row">
+                        <soe-label class="pull-right" label-key="common.debit"></soe-label>
+                    </div>
+                    <div class="row">
+                        <label class="pull-right discreet">{{ctrl.debitAmount | amount}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ngSoeFormFooter">
+        <div class="row">
+            <div class="col-sm-6 pull-left margin-small-left">
+                <created-modified model="ctrl.createModified"></created-modified>
+            </div>
+            <div class="col-sm-6 pull-right">
+                <button type="button" class="btn btn-sm ngSoeMainButton pull-right margin-small-right" data-l10n-bind="'core.save'" data-l10n-bind-title="'core.save'" data-ng-click="$event.stopPropagation();ctrl.save()" data-ng-disabled="ctrl.saveDisabled"></button>
+                <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind="'core.delete'" data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.delete()" data-ng-disabled="ctrl.deleteDisabled"></button>
+            </div>
+        </div>
+    </div>
+</div>

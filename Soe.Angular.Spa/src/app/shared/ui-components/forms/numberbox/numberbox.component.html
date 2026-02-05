@@ -1,0 +1,83 @@
+<div
+  [class.mt-2]="!inline() && !gridMode()"
+  [class.grid-mode]="gridMode()"
+  [ngStyle]="width() && !inline() ? { 'width.px': width() } : {}"
+  [class.d-flex]="inline()"
+  [class.no-margins]="noMargins()"
+  [class.flex-nowrap]="inline()"
+  [class.form-label-inline-top-alignment]="alignInline()">
+  @if (hasLabel()) {
+    <div
+      class="form-label-container d-flex align-items-center"
+      [class.me-2]="inline()">
+      <soe-label
+        [labelKey]="labelKey()"
+        [secondaryLabelKey]="secondaryLabelKey()"
+        [secondaryLabelBold]="secondaryLabelBold()"
+        [secondaryLabelParantheses]="secondaryLabelParantheses()"
+        [secondaryLabelPostfixKey]="secondaryLabelPostfixKey()"
+        [secondaryLabelPrefixKey]="secondaryLabelPrefixKey()"
+        [isRequired]="isRequired()"></soe-label>
+    </div>
+  }
+  @if (isReadOnly()) {
+    <soe-label [labelValue]="visibleValue()" [applyMinHeight]="true">
+    </soe-label>
+  } @else {
+    <div
+      class="d-flex input-group"
+      [ngStyle]="width() && inline() ? { 'width.px': width() } : {}">
+      @if (showLeftRangeArrow() && !gridMode()) {
+        <soe-icon-button
+          [iconName]="'chevron-left'"
+          [disabled]="isDisabled() || (control && control.value === '')"
+          (action)="!isDisabled() ? notifyRangeStepLeft() : ''"
+          [attachedToTextbox]="true"
+          [class.no-radius-right]="true"></soe-icon-button>
+      }
+      <input
+        #input
+        type="text"
+        class="form-control text-right d-sm-inline-block"
+        [class.ag-cell]="gridMode()"
+        [class.is-invalid]="control.invalid"
+        [class.no-border-right-radius]="
+          showArrows() || showRightRangeArrow() || hasContent()
+        "
+        [class.no-radius-left]="showLeftRangeArrow()"
+        [placeholder]="placeholderKey() | translate"
+        [autofocus]="autoFocus()"
+        [value]="visibleValue()"
+        [maxLength]="maxLength()"
+        [disabled]="isDisabled()"
+        (focus)="onFocus($event)"
+        (keydown)="onKeyDown($event)"
+        (blur)="setValues()"
+        (paste)="onPaste($event)"
+        (keyup)="onKeyUp($event)" />
+      <div #content class="d-flex align-center soe-button-group">
+        @if (showArrows()) {
+          <soe-icon-button
+            [disabled]="control.disabled"
+            [iconName]="'chevron-up'"
+            [narrow]="true"
+            (action)="stepUp()"></soe-icon-button>
+          <soe-icon-button
+            [disabled]="control.disabled"
+            [iconName]="'chevron-down'"
+            [narrow]="true"
+            (action)="stepDown()"></soe-icon-button>
+        }
+        @if (showRightRangeArrow() && !gridMode()) {
+          <soe-icon-button
+            [iconName]="'chevron-right'"
+            [lastInGroup]="true"
+            [disabled]="isDisabled() || (control && control.value === '')"
+            (action)="!isDisabled() ? notifyRangeStepRight() : ''"
+            [attachedToTextbox]="true"></soe-icon-button>
+        }
+        <ng-content></ng-content>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,8 @@
+﻿<div>
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+    <div data-ng-if="!ctrl.progressBusy">
+        <soe-panel on-button-click="ctrl.newProduct()" button-label-key="common.createnew" button-icon="fa-plus" button-hidden="!ctrl.modifyPermission" condensed="true">
+            <div ag-grid="ctrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+        </soe-panel>
+    </div>
+</div>

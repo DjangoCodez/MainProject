@@ -1,0 +1,63 @@
+@use '../../../styles/core-styles/colors.scss';
+@use '../../../styles/core-styles/fonts.scss';
+@use '../../../styles/core-styles/variables.scss';
+
+.soe-dropzone {
+  input.form-control {
+    padding: 7px 8px !important;
+    max-width: 400px;
+    margin-bottom: 8px;
+  }
+
+  .soe-dropzone__section {
+    border: 2px dashed colors.$soe-border-color;
+    padding: 32px 16px;
+    border-radius: variables.$border-radius;
+    background-color: colors.$soe-background-color;
+
+    &.file-over {
+      background-color: colors.$soe-color-secondary-light-beige;
+    }
+
+    soe-button {
+      display: block;
+      margin: 8px auto auto;
+      width: 100%;
+      text-align: center;
+    }
+
+    .soe-dropzone__section-title {
+      font-size: fonts.$soe-font-size-xl;
+      text-align: center;
+      color: colors.$soe-text-color;
+    }
+  }
+  .soe-dropzone__table {
+    overflow: auto;
+    max-height: 40vh;
+  
+    table {
+      thead {
+        tr {
+          th {
+            border-bottom: 0;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          td {
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+.soe-dropzone__section-file {
+  max-width: 50px;
+}

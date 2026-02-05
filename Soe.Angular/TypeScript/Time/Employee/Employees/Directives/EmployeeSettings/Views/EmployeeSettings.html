@@ -1,0 +1,51 @@
+﻿<div>
+    <soe-panel label-value="ctrl.label" label-value-class="{'indiscreet':true}" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.editSetting();">
+        <div>
+            <div class="col-sm-12 margin-small-top margin-small-bottom">
+                <table class="margin-small-left">
+                    <tbody>
+                        <tr>
+                            <td style="width: 250px"> <soe-checkbox label-key="time.employee.employee.factor.showallgenerations" model="ctrl.showAllGenerations" on-changing="ctrl.showAllGenerationsChanged();"></soe-checkbox></td>
+                            <td><soe-instruction model="ctrl.headerText" data-ng-if="ctrl.showHeader"></soe-instruction></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-12 margin-small-top margin-small-bottom">
+
+            </div>
+
+            <div class="col-sm-12">
+                <table class="table table-outer-bordered table-condensed table-hover margin-large-bottom">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 20px"></th>
+                            <th scope="col" style="width: 20px"></th>
+                            <th scope="col" data-l10n-bind="'common.group'"></th>
+                            <th scope="col" data-l10n-bind="'common.type'"></th>
+                            <th scope="col" data-l10n-bind="'common.fromdate'"></th>
+                            <th scope="col" data-l10n-bind="'common.todate'"></th>
+                            <th data-ng-if="!ctrl.hideValue" scope="col" data-l10n-bind="'common.value'"></th>
+                            <th data-ng-if="ctrl.hideValue" scope="col"></th>
+                            <th scope="col" style="width: 28px"></th>
+                            <th scope="col" style="width: 28px"></th>
+                        </tr>
+                    </thead>
+                    <tbody data-ng-repeat="setting in ctrl.filteredSettings">
+                        <tr data-ng-class="{'table-selected-row': ctrl.selectedSetting === setting}" data-ng-click="ctrl.selectedSetting = setting">
+                            <td><span class="fas fa-caret-right" data-ng-if="ctrl.selectedSetting === setting"></span></td>
+                            <td><span class="fal fa-asterisk errorColor smallFont" style="margin: 2px 0px 0px 0px;" data-ng-if="setting.isModified"></span></td>
+                            <td><span data-ng-class="{'indiscreet': setting.isCurrent}">{{setting.groupTypeName}}</span></td>
+                            <td><span data-ng-class="{'indiscreet': setting.isCurrent}">{{setting.typeName}}</span></td>
+                            <td><span data-ng-class="{'indiscreet': setting.isCurrent}">{{setting.validFromDate | date:'shortDate'}}</span></td>
+                            <td><span data-ng-class="{'indiscreet': setting.isCurrent}">{{setting.validToDate | date:'shortDate'}}</span></td>
+                            <td><span data-ng-if="!ctrl.hideValue" data-ng-class="{'indiscreet': setting.isCurrent}">{{setting.value}}</span></td>
+                            <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editSetting(setting);"></i></span></td>
+                            <td><span data-l10n-bind data-l10n-bind-title="'core.deleterow'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteSetting(setting);"></i></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </soe-panel>
+</div>

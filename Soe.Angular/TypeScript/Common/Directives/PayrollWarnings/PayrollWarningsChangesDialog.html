@@ -1,0 +1,62 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.ok()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.payroll.payrollcalculation.warnings.changes'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="margin-small-top margin-large-left margin-small-right repeater-semi-condensed" data-ng-repeat="row in ctrl.changes.changes">
+            <div class="form-group form-group-sm">
+                <div data-ng-if="$first">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-label label-key="common.type"></soe-label>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-label label-key="common.field"></soe-label>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-label label-key="common.from"></soe-label>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-label label-key="common.to"></soe-label>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-label label-key="common.created"></soe-label>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-label label-key="common.createdby"></soe-label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="col-sm-2">
+                        <soe-label model="row.typeName" discreet="true"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label model="row.fieldTypeName" discreet="true"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label model="ctrl.getAttestState(row.fromValue, row.fieldType)" discreet="true"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label model="ctrl.getAttestState(row.toValue, row.fieldType)" discreet="true"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>{{row.created | date:'shortDate'}} {{row.created | date:'shortTime'}}</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label model="row.createdBy" discreet="true"></soe-label>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+    </div>
+
+</form>

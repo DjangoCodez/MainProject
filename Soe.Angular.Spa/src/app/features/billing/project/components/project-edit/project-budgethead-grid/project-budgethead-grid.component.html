@@ -1,0 +1,39 @@
+@if (flowHandler.allowFetchGrid()) {
+  @if (migrationNeeded()) {
+    <div class="row information-container">
+      <soe-label [labelKey]="'billing.projects.budget.migratetext'"></soe-label>
+    </div>
+    <div class="row">
+      <soe-button
+        [caption]="'billing.projects.budget.migrate'"
+        [behaviour]="'primary'"
+        (action)="migrate()"
+        class="ms-2">
+      </soe-button>
+    </div>
+  } @else {
+    @if (showBudgetTypeSelect()) {
+      <div class="row" toolbar-content-left>
+        <form [formGroup]="form" novalidate autocomplete="off">
+          <div class="row">
+            <div class="d-sm-inline" style="padding-left: 15px">
+              <soe-select
+                [labelKey]="'common.createnew'"
+                [items]="budgetTypes"
+                formControlName="budgetTypeId">
+                <soe-icon-button [iconName]="'plus'" (action)="addBudget()">
+                </soe-icon-button>
+              </soe-select>
+            </div>
+          </div>
+        </form>
+      </div>
+    }
+
+    <soe-grid-wrapper
+      [rows]="budgetHeadRows"
+      [height]="250"
+      [parentGuid]="guid()">
+    </soe-grid-wrapper>
+  }
+}

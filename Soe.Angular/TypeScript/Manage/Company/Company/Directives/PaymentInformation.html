@@ -1,0 +1,18 @@
+﻿<div>
+    <soe-progressbar is-busy="directiveCtrl.progressBusy" message="directiveCtrl.progressMessage"></soe-progressbar>
+
+    <div class="row">
+        <div class="col-sm-2">
+            <soe-select label-key="manage.company.standardpaymentinfo" model="directiveCtrl.paymentInformation.defaultSysPaymentTypeId" items="directiveCtrl.sysPaymentTypes" options="item.value as item.label for item in items" is-disabled="directiveCtrl.isLocked"></soe-select>
+        </div>
+        <div class="col-sm-10 margin-large-top">
+            <button type="button" class="btn btn-default btn-sm pull-right margin-large-top" data-l10n-bind="'common.newrow'" ng-click="directiveCtrl.addRow()" inline="true"></button>
+        </div>
+    </div>
+
+    <div class="row margin-small-top">
+        <div class="col-sm-12">
+            <div id="paymentrowinfo-grid" ag-grid="directiveCtrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;" prevent-enter></div>
+        </div>
+    </div>
+</div>

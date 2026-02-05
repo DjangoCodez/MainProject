@@ -1,0 +1,35 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-panel label-key="common.selection">
+            <div class="row">
+                <div class="col-sm-3">
+                    <payroll-period-selection show-time-period-head-selector="true" label-key="time.time.timeperiod.timeperiodhead" additional-label-key="common.period" on-time-period-head-selected="ctrl.onPeriodHeadSelectionUpdated(selections)" on-selected="ctrl.onPeriodSelectionUpdated(selections)" />
+                </div>
+                <div class="col-sm-2" data-ng-if="!ctrl.publishPayrollSlipWhenLockingPeriod">
+                    <soe-datepicker label-key="time.payroll.payment.salaryspecificationpublishdate" model="ctrl.salarySpecificationPublishDate"></soe-datepicker>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.showDebitDate()">
+                    <soe-datepicker label-key="time.payroll.payment.debitdate" model="ctrl.debitDate"></soe-datepicker>
+                </div>
+                <div class="col-sm-2" style="padding-top:17px" data-ng-if="ctrl.showDebitDate()" >
+                    <soe-instruction label-key="time.payroll.payment.debitdateinfo"></soe-instruction>
+                </div>
+            </div>
+            <div class="row margin-large-top">
+                <div class="col-sm-3">
+                    <payroll-employees-selection time-period-id="ctrl.timePeriodId" on-selected="ctrl.onEmployeesSelectionUpdated(selections)"></payroll-employees-selection>
+                </div>
+            </div>
+        </soe-panel>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.create'" data-l10n-bind-title="'time.payroll.payment.new'" data-ng-disabled="ctrl.exporting" data-ng-click="$event.stopPropagation();ctrl.initExport()"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

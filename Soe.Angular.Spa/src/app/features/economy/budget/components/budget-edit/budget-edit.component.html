@@ -1,0 +1,134 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'economy.accounting.budget.budget'"
+      [static]="true">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [autoFocus]="true"
+            formControlName="name">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'economy.accounting.budget.noofperiods'"
+            formControlName="noOfPeriods">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'economy.accounting.accountyear.accountyear'"
+            formControlName="accountYearId"
+            [items]="accountYearsDict || []"
+            (valueChanged)="editLoadResultDialog()">
+          </soe-select>
+        </div>
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'economy.accounting.budget.defaultdistributioncode'"
+            formControlName="distributionCodeHeadId"
+            [items]="distributionCodes || []">
+          </soe-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-checkbox
+            [labelKey]="useDim2Label"
+            formControlName="useDim2"
+            [inline]="true">
+          </soe-checkbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="dim2Label"
+            formControlName="dim2Id"
+            [items]="dim2s"></soe-select>
+        </div>
+        <div class="col-sm-3">
+          <soe-checkbox
+            [labelKey]="useDim3Label"
+            formControlName="useDim3"
+            [inline]="true"></soe-checkbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="dim3Label"
+            formControlName="dim3Id"
+            [items]="dim3s"></soe-select>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-sm-12" ng-if="budgetHeadId > 0">
+          <soe-budget-edit-grid
+            [form]="form"
+            [nofPeriod]="noOfPeriod"
+            [distCodeDict]="distCodesHeads"
+            [rows]="budgetRowData"
+            [isGridDisabled]="budgetHeadStatus === 2 || !flowHandler.modifyPermission()"></soe-budget-edit-grid>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      [hideSave]="budgetHeadStatus === 2"
+      [hideDelete]="budgetHeadStatus === 2"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()">
+      @if (budgetHeadStatus !== 2 && flowHandler.modifyPermission()) {
+        <div pageButtons>
+          <soe-button
+            [caption]="'economy.accounting.budget.clear'"
+            [behaviour]="'standard'"
+            [disabled]="!form.rows.length"
+            (action)="clearGridRows()">
+          </soe-button>
+          <soe-button
+            [caption]="'economy.accounting.budget.getresult'"
+            [behaviour]="'standard'"
+            [disabled]="!form.accountYearId.value"
+            (action)="editLoadResultDialog()"
+            class="ms-2">
+          </soe-button>
+          @if (setDefinitePersmission) {
+            <soe-button
+              [caption]="'economy.accounting.budget.lock'"
+              [behaviour]="'standard'"
+              [disabled]="form.invalid || form.isNew"
+              (action)="lock()"
+              class="ms-2">
+            </soe-button>
+          }
+
+        </div>
+      }
+      @if (budgetHeadStatus === 2 
+        && flowHandler.modifyPermission() 
+        && setDefinitePersmission) {
+        <div pageButtons>
+          <soe-button
+            [caption]="'economy.accounting.budget.unlock'"
+            [behaviour]="'standard'"
+            [disabled]="form.isNew"
+            (action)="unlock()"
+            class="ms-2">
+          </soe-button>
+        </div>
+      }
+    </soe-edit-footer>
+  </form>
+}

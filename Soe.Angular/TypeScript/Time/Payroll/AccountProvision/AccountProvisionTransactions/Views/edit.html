@@ -1,0 +1,36 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.isDirty" data-ng-init="ctrl = tab.controller" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progressBusy">
+        <soe-toolbar buttons="ctrl.buttonGroups"></soe-toolbar>
+
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-select label-key="time.time.timeperiod.timeperiodhead" model="ctrl.timePeriodHeadId" items="ctrl.timePeriodHeads" options="item.id as item.name for item in items" on-changing="ctrl.timePeriodHeadSelected(item)"></soe-select>
+                </div>
+                <div class="col-sm-2">
+                    <soe-select label-key="time.time.timeperiod.timeperiod" model="ctrl.timePeriod" items="ctrl.timePeriods" options="item.id as item.name for item in items" is-disabled="!ctrl.timePeriods" on-changing="ctrl.timePeriodSelected(item)"></soe-select>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-12">
+                    <div data-ui-grid="ctrl.gridOptions.gridOptions" enableCellEdit="true" ui-grid-selection ui-grid-auto-resize data-ui-grid-edit ui-grid-cellNav style="height: 800px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <div class="col">
+                        <soe-menubutton drop-up="true" label-key="time.atteststate.state" options="ctrl.attestStateOptions" is-disabled="ctrl.isAttestDisabled()" option-selected="ctrl.applyAttest(option)"></soe-menubutton>
+                    </div>
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

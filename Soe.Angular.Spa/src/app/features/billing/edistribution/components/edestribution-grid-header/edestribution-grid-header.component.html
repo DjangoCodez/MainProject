@@ -1,0 +1,28 @@
+<form
+  [formGroup]="form"
+  novalidate
+  autocomplete="off">
+  <div class="row">
+    <div class="d-sm-inline">
+      <soe-select
+        [inline]="true"
+        [items]="distributionTypesDict"
+        formControlName="selectedDistributedTypeId"
+        (valueChanged)="distributionTypefilterChanged.emit($event)" />
+    </div>
+    <div class="d-sm-inline">
+        <soe-select
+          [inline]="true"
+          [items]="originTypesDict"
+          formControlName="selectedOriginTypeId"
+          (valueChanged)="originTypefilterChanged.emit($event)" />
+      </div>
+      <div class="d-sm-inline">
+        <soe-select
+          [inline]="true"
+          [items]="allItemsSelectionDict"
+          formControlName="selectedSelectionTypeId"
+          (valueChanged)="allItemSelectionfilterChanged.emit($event)" />
+      </div>
+  </div>
+</form>

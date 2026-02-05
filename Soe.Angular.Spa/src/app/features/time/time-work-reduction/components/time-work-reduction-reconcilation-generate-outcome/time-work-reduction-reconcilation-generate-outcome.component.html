@@ -1,0 +1,46 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          @if (this.usePayroll) {
+            <div class="col-sm-2">
+              <soe-select
+                labelKey="time.time.timeperiod.paymentdate"
+                [selectedId]="form.value.paymentDates"
+                (valueChanged)="updateDate()"
+                [items]="paymentDates"
+                formControlName="paymentDateId">
+              </soe-select>
+            </div>
+          }
+          @if (!this.usePayroll) {
+            <div class="col-sm-12">
+              <span class="me-1">
+                {{ 'time.time.timeworkreduction.stopdate' | translate }}:
+                {{ this.data.stop | date: 'yyyy-MM-dd' }}</span
+              >
+              <soe-button
+                class="float-end"
+                [caption]="'core.save'"
+                [disabled]="!flowHandler.modifyPermission()"
+                [behaviour]="'primary'"
+                (action)="perform()"></soe-button>
+            </div>
+          }
+        </div>
+        @if (this.usePayroll) {
+          <soe-edit-footer
+            [form]="form"
+            [modifyPermission]="flowHandler.modifyPermission()"
+            [inProgress]="performAction.inProgress()"
+            (saved)="perform()"></soe-edit-footer>
+        }
+      </form>
+    }
+  </ng-container>
+</soe-dialog>

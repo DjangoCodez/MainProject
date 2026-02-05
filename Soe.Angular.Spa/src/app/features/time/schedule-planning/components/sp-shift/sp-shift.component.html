@@ -1,0 +1,198 @@
+<div
+  [id]="shift().timeScheduleTemplateBlockId"
+  class="shift"
+  [style.background-color]="shift().shiftTypeColor"
+  [style.color]="shift().textColor"
+  [class.day-view]="filterService.isCommonDayView()"
+  [class.full-height]="filterService.isCommonScheduleView()"
+  [class.half-height]="filterService.isCommonDayView()"
+  [class.show-left-bar]="showLeftBar()"
+  [class.is-preliminary]="shift().isPreliminary"
+  [class.is-absence]="shift().isAbsence"
+  [class.is-absence-request]="shift().isAbsenceRequest"
+  [class.has-absence-request]="shift().hasAbsenceRequest"
+  [class.is-booking]="shift().isBooking"
+  [class.is-onduty]="shift().isOnDuty"
+  [class.is-standby]="shift().isStandby"
+  [class.is-leisure-code]="shift().isLeisureCode"
+  [class.is-hidden]="!shift().isVisible"
+  [class.is-selected]="shift().isSelected"
+  matTooltip="{{ tooltipText }}"
+  #shiftTooltip="matTooltip"
+  (mouseenter)="onShiftMouseEnter($event, shiftTooltip)"
+  (mouseleave)="shiftTooltip.hide()"
+  (click)="onShiftClick($event)"
+  (dblclick)="onShiftDoubleClick($event)"
+  (contextmenu)="onShiftRightClick($event)"
+  cdkDrag
+  [cdkDragDisabled]="shift().isReadOnly"
+  [cdkDragData]="shift"
+  cdkDragBoundary=".content-container"
+  [cdkContextMenuTriggerFor]="context_menu"
+  (cdkDragStarted)="onDragStarted()"
+  (cdkDragEnded)="dragService.onDragEnded()">
+  <ng-template cdkDragPlaceholder>
+    <!-- Hide the placeholder -->
+  </ng-template>
+  <ng-template #context_menu>
+    <sp-shift-menu
+      [shift]="shift()"
+      (menuSelected)="onMenuSelected($event)"></sp-shift-menu>
+  </ng-template>
+  @if (showLeftBar()) {
+    <div class="left-bar">
+      @if (shift().isAbsence) {
+        <fa-icon [icon]="['far', 'user-xmark']"></fa-icon>
+      } @else if (shift().isAbsenceRequest) {
+        <fa-icon [icon]="['far', 'user-question']"></fa-icon>
+      } @else if (shift().isOnDuty) {
+        <fa-icon [icon]="['far', 'mobile-vibrate']"></fa-icon>
+      } @else if (shift().isStandby) {
+        <fa-icon [icon]="['far', 'bed']"></fa-icon>
+      }
+
+      @if (shift().nbrOfWantedInQueue > 0) {
+        <div class="queue-icon">
+          <fa-layers [fixedWidth]="true">
+            <fa-icon [icon]="['fal', 'user-group']"></fa-icon>
+            <fa-layers-counter
+              content="{{ shift().nbrOfWantedInQueue }}"></fa-layers-counter>
+          </fa-layers>
+        </div>
+      }
+    </div>
+  }
+  <div class="first-row">
+    @if (this.settingService.showTimesOnShift() && !shift().isLeisureCode) {
+      <div class="shift-time">
+        <!-- Arrow icon for shift beginning previous day -->
+        @if (
+          filterService.isCommonDayView() &&
+          shift().actualStartTime.isBeforeOnDay(daySlot().start)
+        ) {
+          <span class="me-1"
+            ><fa-icon [icon]="['far', 'arrow-right-to-line']"></fa-icon
+          ></span>
+        }
+        <!-- Show whole day text or time -->
+        @if (shift().isWholeDay) {
+          <span>{{ 'time.schedule.planning.wholedaylabel' | translate }}</span>
+        } @else if (!shift().isAbsenceRequest) {
+          <span
+            >{{ shift().startTime | date: 'shortTime' }}-{{
+              shift().stopTime | date: 'shortTime'
+            }}</span
+          >
+          @if (
+            filterService.isCommonScheduleView() && shiftBreaksLength() > 0
+          ) {
+            <span class="ms-1"
+              >({{ shiftBreaksLength() | minutesToTimeSpan }})</span
+            >
+          }
+        }
+        <!-- Arrow icon for shift ending nex day -->
+        @if (
+          filterService.isCommonDayView() &&
+          shift().actualStopTime.isAfterOnDay(daySlot().start)
+        ) {
+          <span class="ms-1"
+            ><fa-icon [icon]="['far', 'arrow-right-from-line']"></fa-icon
+          ></span>
+        }
+      </div>
+      @if (shiftService.singleRowShift()) {
+        <div class="shift-types ms-1">
+          @if (shift().isAbsenceRequest) {
+            <span class="deviation-cause">{{
+              shift().timeDeviationCauseName
+            }}</span>
+          } @else {
+            <span class="shift-type">{{ shift().shiftTypeName }}</span>
+            @if (scheduleTypeText) {
+              <span class="mx-1">-</span>
+              <span>{{ scheduleTypeText }}</span>
+            }
+          }
+        </div>
+      }
+    }
+  </div>
+  @if (!shiftService.singleRowShift() && !shift().isLeisureCode) {
+    <div class="second-row">
+      @if (shift().timeDeviationCauseId) {
+        <span class="deviation-cause">{{ shift().timeDeviationCauseName }}</span
+        ><span class="mx-1">-</span>
+      }
+      <span class="shift-types">
+        @if (shift().isAbsenceRequest) {
+          <span>{{
+            'time.schedule.absencerequests.absencerequest' | translate
+          }}</span>
+        } @else {
+          @if (shift().isOnDuty) {
+            <span class="font-bold">{{
+              'time.schedule.planning.blocktype.onduty' | translate
+            }}</span
+            ><span class="mx-1">-</span>
+          } @else if (shift().isStandby) {
+            <span class="font-bold">{{
+              'time.schedule.planning.blocktype.standby' | translate
+            }}</span
+            ><span class="mx-1">-</span>
+          }
+          <span class="shift-type">{{ shift().shiftTypeName }}</span>
+          @if (scheduleTypeText) {
+            <span class="mx-1">-</span>
+            <span>{{ scheduleTypeText }}</span>
+          }
+          @if (shift().description) {
+            <span class="mx-1">-</span>
+            <span class="description">{{ shift().description }}</span>
+          }
+        }
+      </span>
+    </div>
+  }
+
+  @if (shift().isLeisureCode) {
+    <div class="leisure-code">
+      <span class="leisure-code-description">{{ shift().description }}</span>
+    </div>
+  }
+
+  <!-- Icons -->
+  <div class="shift-icons">
+    @if (shift().extraShift) {
+      <fa-icon [icon]="['fal', 'calendar-plus']"></fa-icon>
+    }
+    @if (shift().substituteShift) {
+      <fa-icon
+        [icon]="['fal', 'user-plus']"
+        matTooltip="{{
+          'time.schedule.planning.editshift.substitute' | translate
+        }}"></fa-icon>
+    }
+  </div>
+
+  <!-- Breaks -->
+  @if (filterService.isCommonDayView()) {
+    @for (brk of shift().breaks; track $index) {
+      @if (brk.timeCodeId && brk.positionWidth > 0) {
+        <div
+          class="shift-break"
+          [style.top.px]="brk.positionTop"
+          [style.left.px]="brk.positionLeft"
+          [style.width.px]="brk.positionWidth">
+          @if (this.settingService.showTimesOnShift()) {
+            <span>
+              {{ brk.startTime | date: 'shortTime' }}-{{
+                brk.stopTime | date: 'shortTime'
+              }}
+            </span>
+          }
+        </div>
+      }
+    }
+  }
+</div>

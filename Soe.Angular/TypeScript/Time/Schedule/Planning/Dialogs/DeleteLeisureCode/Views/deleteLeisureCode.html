@@ -1,0 +1,48 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header scheduleview-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.planning.contextmenu.deleteleisurecode'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row" data-ng-if="ctrl.shifts.length === 0">
+            <div class="col-sm-12">
+                <soe-instruction label-key="time.schedule.planning.deleteleisurecode.noleisurecodes" is-warning="true"></soe-instruction>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.shifts.length > 0">
+            <div class="col-sm-12">
+                <soe-instruction label-key="time.schedule.planning.deleteshift.warning" is-warning="true"></soe-instruction>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <span class="indiscreet largeFont"><span>{{ctrl.shiftEmployee}}</span><span class="margin-small-left">{{ctrl.shiftDate}}</span></span>
+            </div>
+        </div>
+        <div class="row margin-large-top" data-ng-if="ctrl.shifts.length > 1">
+            <div class="col-sm-12">
+                <span data-l10n-bind="'time.schedule.planning.deleteleisurecode.selectleisurecodes'"></span>
+            </div>
+        </div>
+
+        <div class="row margin-large-top" data-ng-if="ctrl.shifts.length > 0">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover table-borderless" role="presentation">
+                        <tbody>
+                            <tr data-ng-repeat="shift in ctrl.shifts">
+                                <td style="width: 25px; text-align: right;" data-ng-if="ctrl.shifts.length > 1"><soe-checkbox hidelabel="true" model="shift.selected" style="margin-top: -4px;"></soe-checkbox></td>
+                                <td style="width: 1px; white-space: nowrap;"><span data-ng-class="{indiscreet: shift.selected}">{{::shift.actualStartDate | date:'shortDate'}}</span></td>
+                                <td><span data-ng-class="{indiscreet: shift.selected}">{{::shift.shiftTypeName}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'core.ok'" data-ng-if="ctrl.shifts.length>0" data-ng-disabled="ctrl.nbrOfSelectedShifts===0 || ctrl.executing" data-ng-click="ctrl.ok()"></button>
+        <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+    </div>
+</form>

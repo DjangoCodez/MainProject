@@ -1,0 +1,73 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <div class="form-group form-group-sm">
+            <div class="row" style="margin-left: 5px; margin-right: 5px;">
+                <soe-panel label-key="manage.admin.language.choosetermgroup">
+                    <div class="col-sm-2">
+                        <soe-select label-key="manage.admin.language.termgroup" model="ctrl.selectedTermGroup" items="ctrl.termGroups" options="item.id as item.name for item in items" use-ignore-dirty="true"></soe-select>
+                    </div>
+                    <!--<div class="col-sm-2">
+        <soe-datepicker label-key="common.modified" model="ctrl.selectedDateFrom"></soe-datepicker>
+    </div>-->
+                    <div class="col-sm-3">
+                        <soe-label></soe-label>
+                        <button type="button" class="btn btn-sm ngSoeMainButton margin-small-top" data-l10n-bind="'core.search'" data-l10n-bind-title="'core.search'" data-ng-click="$event.stopPropagation();ctrl.search()" data-ng-disabled="!ctrl.selectedTermGroup"></button>
+                    </div>
+                </soe-panel>
+            </div>
+            <div class="row margin-large-top" style="margin-left: 5px; margin-right: 5px;">
+                <soe-panel label-key="manage.admin.language.translateterms">
+                    <div class="row col-sm-12">
+                        <div class="row col-sm-6">
+                            <soe-select label-key="manage.admin.language.languagefrom" model="ctrl.selectedPrimaryLanguage" items="ctrl.primaryLanguages" options="item.id as item.name for item in items" class="col-sm-6"></soe-select>
+                        </div>
+                        <div class="row col-sm-6" style="padding-left:30px;">
+                            <soe-select label-key="manage.admin.language.languageto" model="ctrl.selectedSecondaryLanguage" items="ctrl.secondaryLanguages" options="item.id as item.name for item in items" class="col-sm-6"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div style="overflow-y: auto;">
+                            <div class="row col-sm-6 margin-large-top">
+                                <div ag-grid="ctrl.fromGridOptions.gridOptions" class="ag-theme-balham" style="height: 300px; width: 95%;"></div>
+                                <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 95%;" prevent-enter></div>
+                            </div>
+                            <div class="row col-sm-6 margin-large-top">
+                                <div ag-grid="ctrl.toGridOptions.gridOptions" class="ag-theme-balham" style="height: 300px; width: 95%;"></div>
+                                <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 95%;" prevent-enter></div>
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+            </div>
+        </div>
+        <div class="ngSoeFormFooter" style="margin-right:100px;">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <div class="col margin-large-right">
+                            <soe-checkbox label-key="manage.admin.language.onlytnottranslated" model="ctrl.onlyNotTranslated"></soe-checkbox>
+                        </div>
+                        <!--<div class="col margin-large-right">
+        <button type="button" class="btn btn-sm ngSoeMainButton margin-small-top" data-l10n-bind="'manage.admin.language.suggestion'" data-l10n-bind-title="'manage.admin.language.suggestion'" data-ng-click="$event.stopPropagation();ctrl.suggestion()"></button>
+    </div>
+    <div class="col margin-large-right">
+        <button type="button" class="btn btn-sm ngSoeMainButton margin-small-top" data-l10n-bind="'core.previous'" data-l10n-bind-title="'core.previous'" data-ng-click="$event.stopPropagation();ctrl.previous()"></button>
+    </div>
+    <div class="col margin-large-right">
+        <button type="button" class="btn btn-sm ngSoeMainButton margin-small-top" data-l10n-bind="'core.next'" data-l10n-bind-title="'core.next'" data-ng-click="$event.stopPropagation();ctrl.next()"></button>
+    </div>-->
+                        <div class="col margin-large-right">
+                            <button type="button" class="btn btn-sm ngSoeMainButton margin-small-top" data-l10n-bind="'core.save'" data-l10n-bind-title="'core.save'" data-ng-click="$event.stopPropagation();ctrl.save()"></button>
+                        </div>
+                        <!--<div class="col margin-large-right">
+        <button type="button" class="btn btn-sm ngSoeMainButton margin-small-top" data-l10n-bind="'manage.admin.language.savenext'" data-l10n-bind-title="'manage.admin.language.savenext'" data-ng-click="$event.stopPropagation();ctrl.savenext()"></button>
+    </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

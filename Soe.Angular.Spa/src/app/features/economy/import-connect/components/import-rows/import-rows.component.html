@@ -1,0 +1,35 @@
+@if (flowHandler.allowFetchGrid()) {
+  <div class="row">
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [parentGuid]="guid()"
+      (selectionChanged)="selectionChanged($event)"
+      (editRowClicked)="edit($event)">
+    </soe-grid-wrapper>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <soe-button
+        class="btn btn-default pull-right"
+        [caption]="'common.connect.importrows'"
+        [disabled]="loadingIOResult || importingRows || !processingRowsSelected"
+        (action)="initImportSelectedRows()">
+      </soe-button>
+      <soe-button
+        class="btn btn-default pull-right margin-small-right"
+        [caption]="'core.save'"
+        [disabled]="loadingIOResult || importingRows"
+        (action)="save()">
+      </soe-button>
+      @if (showPrintButton) {
+        <soe-button
+          class="btn btn-default pull-right margin-small-right"
+          [caption]="'core.print'"
+          [disabled]="loadingIOResult || importingRows || isPrinting"
+          (action)="print()"
+          >
+        </soe-button>
+      }
+    </div>
+  </div>
+}

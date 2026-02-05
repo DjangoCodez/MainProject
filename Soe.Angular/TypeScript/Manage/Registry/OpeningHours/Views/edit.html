@@ -1,0 +1,56 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="common.name" model="ctrl.openingHours.name" required="true" maxlength="50" auto-focus="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                    <div class="col-sm-8">
+                        <soe-textbox label-key="manage.registry.openinghours.description" model="ctrl.openingHours.description" maxlenght="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row margin-large-top">
+                    <div class="col-sm-2">
+                        <soe-select label-key="manage.registry.openinghours.standardweekday" model="ctrl.openingHours.standardWeekDay" items="ctrl.days" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.standardWeekDayChanged();"></soe-select>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-datepicker label-key="manage.registry.openinghours.specificdate" model="ctrl.openingHours.specificDate" is-readonly="!ctrl.modifyPermission || ctrl.openingHours.standardWeekDay !== 0"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-1">
+                        <soe-timebox label-key="manage.registry.openinghours.openingtime" model="ctrl.openingHours.openingTime" is-time="true" is-readonly="!ctrl.modifyPermission"></soe-timebox>
+                    </div>
+                    <div class="col-sm-1">
+                        <soe-timebox label-key="manage.registry.openinghours.closingtime" model="ctrl.openingHours.closingTime" is-time="true" is-readonly="!ctrl.modifyPermission"></soe-timebox>
+                    </div>
+                </div>
+                <div class="row margin-large-top">
+                    <div class="col-sm-2">
+                        <soe-datepicker label-key="common.validfrom" model="ctrl.openingHours.fromDate" is-readonly="!ctrl.modifyPermission"></soe-datepicker>
+                    </div>
+                </div>
+                <div class="row margin-large-top">
+                    <div class="col-sm-4" data-ng-if="ctrl.useAccountsHierarchy">
+                        <soe-select label-key="common.user.attestrole.accounthierarchy" model="ctrl.selectedAccount" items="ctrl.accounts" options="item as item.name for item in items"></soe-select>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.openingHours"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

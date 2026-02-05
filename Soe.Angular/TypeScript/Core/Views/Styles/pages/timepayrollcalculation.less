@@ -1,0 +1,130 @@
+﻿@import (reference) "../variables.less";
+@import (reference) "timetree.less";
+
+// Colors
+
+// Sizes
+
+.payrollcalculation-periodselector {
+    margin: 0 0 0 0;
+}
+
+.payrollcalculation-container {
+    border: 1px solid #CCCCCC;
+}
+
+.payrollcalculation-header {
+    height: auto;
+    padding: 5px 10px 5px 10px;
+    margin: 1px;
+    background: #F5F5F5;
+    border-bottom: 1px solid #CCCCCC;
+}
+/* Fix for IE 10,11 */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .payrollcalculation-header {
+        border-left: 1px solid #CCCCCC;
+        border-right: 1px solid #CCCCCC;
+    }
+}
+/* Fix for edge */
+@supports
+
+(-ms-accelerator:true) {
+    .payrollcalculation-header {
+        border-left: 1px solid #CCCCCC;
+        border-right: 1px solid #CCCCCC;
+    }
+}
+
+.payrollcalculation-header-info {
+    .employee {
+        cursor: pointer;
+    }
+}
+
+.payrollcalculation-header-charts {
+    margin: 10px 0 0 0;
+}
+
+.payrollcalculation-header-toolbar {
+    margin: 10px 0 0 0;
+}
+
+.payrollcalculation-header-sums {
+    margin: 12px 0 0 0;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+}
+
+.payrollcalculation-header-sums-preview {
+    padding: 4px 10px 4px 10px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.payrollcalculation-header-sums-preview:hover {
+    cursor: pointer;
+}
+
+.payrollcalculation-header-sums-content {
+    padding: 10px;
+}
+
+.payrollcalculation-header-sums-content-box {
+    min-height: 155px;
+    padding: 5px;
+    border: 1px solid #CCCCCC;
+    background: #FFFFFF;
+}
+
+.payrollcalculation-progress-loading {
+    padding: 10px;
+}
+
+.payrollcalculation-grid {
+    margin: -2px -1px -1px -1px;
+}
+
+.payrollcalculation-footer {
+    margin: -1px -1px -5px -1px;
+}
+
+.retroreview-list ul {
+    width: 95%;
+    height: 570px;
+    max-height: 570px;
+    position: absolute;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0 0 0 0;
+    padding: 0 2px 0 0;
+    list-style: none;
+    border: 1px solid #CCCCCC;
+}
+
+.retroreview-list ul li {
+    cursor: pointer;
+    padding: 2px 1px 2px 10px;
+}
+
+.retroreview-list li:hover, .retroreview-list li div.active {
+    background: #E6E6E6;
+}
+
+.retroreview-list-employee-icon {
+    margin: 0;
+    padding: 0;
+}
+
+.retroreview-list-footer {
+    height: 100%;
+    width: 95%;
+    position: absolute;
+    top: 570px;
+    margin-top: 10px;
+}
+
+.retroreview-employee-footer {
+    margin-top: 10px;
+    margin-bottom: -5px;
+}

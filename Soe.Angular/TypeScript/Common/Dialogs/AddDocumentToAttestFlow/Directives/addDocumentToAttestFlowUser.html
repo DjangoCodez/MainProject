@@ -1,0 +1,62 @@
+﻿<div>
+    <div class="row">
+        <div class="col-sm-12">
+            <soe-panel label-value="ctrl.label" condensed="true" icon="fa-circle" icon-color="ctrl.iconColor">
+                <div class="info" data-ng-if="ctrl.singleUser">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-text model="ctrl.users[0].name" bold="true" text-class="margin-none-top" text-class-condition="true"></soe-text>
+                        </div>
+                    </div>
+                </div>
+                <div data-ng-if="!ctrl.singleUser">
+                    <div class="row margin-small-bottom">
+                        <div class="col-sm-12">
+                            <soe-select hidelabel="true" items="ctrl.attestWorkFlowTypes" options="item.id as item.name for item in items" model="ctrl.row.type"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-outer-bordered">
+                                <div class="table-scrollable-wrapper">
+                                    <div class="table-scrollable" style="max-height: 202px;">
+                                        <table class="table table-more-condensed table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" style="width: 20px;"><span class="fal link" data-ng-class="{'fa-check-square':ctrl.allItemsSelected, 'fa-square':!ctrl.allItemsSelected}" data-ng-click="ctrl.selectAllItems()"></span></th>
+                                                    <th scope="col" style="width: 50%;" class="column-sortable" data-ng-click="ctrl.userSort('name');"><i class="fas" data-ng-class="{'fa-caret-down':ctrl.userSortBy==='name' && !ctrl.userSortByReverse, 'fa-caret-up':ctrl.userSortBy==='name' && ctrl.userSortByReverse}" data-ng-if="!ctrl.singleUser && ctrl.userSortBy==='name'"></i><span data-ng-class="{'margin-large-left':ctrl.userSortBy==='name'}" data-l10n-bind="'common.name'"></span></th>
+                                                    <th scope="col" class="column-sortable" data-ng-click="ctrl.userSort('username');"><i class="fas" data-ng-class="{'fa-caret-down':ctrl.userSortBy==='username' && !ctrl.userSortByReverse, 'fa-caret-up':ctrl.userSortBy==='username' && ctrl.userSortByReverse}" data-ng-if="!ctrl.singleUser && ctrl.userSortBy==='username'"></i><span data-ng-class="{'margin-large-left':ctrl.userSortBy==='username'}" data-l10n-bind="'common.user'"></span></th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr data-ng-repeat="user in ctrl.users | orderBy:ctrl.userSortBy:ctrl.userSortByReverse" style="cursor: pointer;" data-ng-click="ctrl.selectItem(user);">
+                                                    <td><span class="fal link" data-ng-class="{'fa-check-square':user.isSelected, 'fa-square':!user.isSelected}"></span></td>
+                                                    <td><span data-ng-class="{'indiscreet': user.isSelected}">{{user.name}}</span></td>
+                                                    <td><span>{{user.loginName}}</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="condensed" data-ng-class="{'success': ctrl.nbrOfSelected>0, 'warning': ctrl.nbrOfSelected===0}">
+                                <span>
+                                    <span data-ng-if="ctrl.nbrOfSelected>0">{{ctrl.nbrOfSelected}} </span>
+                                    <span data-ng-if="ctrl.nbrOfSelected===1" data-l10n-bind="'core.selected.single'"></span>
+                                    <span data-ng-if="ctrl.nbrOfSelected>1" data-l10n-bind="'core.selected.multiple'"></span>
+                                    <span data-ng-if="ctrl.nbrOfSelected===0" data-l10n-bind="'common.signdoc.nouserselected'"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </soe-panel>
+            <span class="fal fa-arrow-right extraLargeFont" style="position: absolute; top: 5px; right: -8px;" data-ng-if="ctrl.showTransitionArrow"></span>
+        </div>
+    </div>
+</div>

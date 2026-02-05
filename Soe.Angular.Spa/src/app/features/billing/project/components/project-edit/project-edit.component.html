@@ -1,0 +1,419 @@
+@if (form?.getIdControl()?.value) {
+  <soe-toolbar
+    [recordConfig]="recordConfig"
+    [form]="form"
+    [itemGroups]="toolbarService.toolbarItemGroups"
+    (navigatorRecordChanged)="navigatorRecordChanged($event)">
+    <ng-content
+      toolbar-content-left
+      select="[toolbar-content-left]"></ng-content>
+  </soe-toolbar>
+}
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'billing.project.projectinfo'"
+      [open]="true">
+      <div class="row">
+        <div class="col-sm-7">
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'billing.project.projectnr'"
+                formControlName="number"
+                [required]="true"></soe-textbox>
+            </div>
+            <div class="col-sm-8">
+              <soe-textbox
+                [labelKey]="'common.name'"
+                formControlName="name"></soe-textbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-textbox
+                [labelKey]="'billing.projects.list.description'"
+                formControlName="description"></soe-textbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-autocomplete
+                [labelKey]="'common.customer.customer.customer'"
+                [items]="customers"
+                [limit]="20"
+                [optionIdField]="'id'"
+                [optionNameField]="'name'"
+                (valueChanged)="customerOnChange($event)"
+                formControlName="customerId">
+                <soe-icon-button
+                  [iconName]="'sync'"
+                  (action)="reloadCustomers()"
+                  [disabled]="!form.isNew && isLocked()"
+                  [tooltip]="'billing.projects.list.loadcustomers'">
+                </soe-icon-button>
+              </soe-autocomplete>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-select
+                [labelKey]="'billing.projects.list.mainproject'"
+                formControlName="parentProjectId"
+                [items]="projectsDict">
+                <soe-icon-button
+                  [iconName]="'search'"
+                  [tooltip]="'core.search'"
+                  (action)="showSelectProject()">
+                </soe-icon-button>
+                <soe-icon-button
+                  [iconName]="'sync'"
+                  (action)="reloadProjects()"
+                  [tooltip]="'billing.projects.list.loadprojects'">
+                </soe-icon-button>
+              </soe-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-select
+                [labelKey]="'billing.projects.list.allocationtype'"
+                formControlName="allocationType"
+                [items]="allocationTypes">
+              </soe-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <soe-datepicker
+                [labelKey]="'billing.projects.list.startdate'"
+                formControlName="startDate"></soe-datepicker>
+            </div>
+            <div class="col-sm-6">
+              <soe-datepicker
+                [labelKey]="'billing.projects.list.stopdate'"
+                formControlName="stopDate"></soe-datepicker>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <soe-textbox
+                [labelKey]="'billing.projects.list.worksitekey'"
+                formControlName="workSiteKey"></soe-textbox>
+            </div>
+            <div class="col-sm-6">
+              <soe-textbox
+                [labelKey]="'billing.projects.list.worksitenumber'"
+                formControlName="workSiteNumber"></soe-textbox>
+            </div>
+          </div>
+          @if (attestFlowPermission) {
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-select
+                  [labelKey]="'billing.projects.list.attestgroup'"
+                  formControlName="attestWorkFlowHeadId"
+                  [items]="attestGroups">
+                </soe-select>
+              </div>
+            </div>
+          }
+          <div class="row">
+            <soe-autocomplete
+              [labelKey]="'billing.order.ordertemplates'"
+              [items]="orderTemplates"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"
+              [limit]="4"
+              formControlName="selectedOrderTemplate">
+            </soe-autocomplete>
+          </div>
+          <div class="row">
+            <soe-account-dims
+              [hideStdDim]="true"
+              [form]="accountDimsForm"
+              (accountDimsChanged)="accountDimsChanged($event)"
+              [updateCodingSetting]="ProjectAutoUpdateAccountSettings$"
+              [addNotUsed]="true"></soe-account-dims>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <soe-categories
+            [categoryType]="7"
+            [form]="form"
+            [nbrOfRows]="5"
+            [categoryIds]="categoryIds"
+            (categoriesChange)="onCategoriesChanged($event)"
+            [readOnly]="!flowHandler.modifyPermission()"></soe-categories>
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel
+      [labelKey]="'billing.projects.list.persons'"
+      (isOpened)="openProjectUserExpander()">
+      <div class="information-container mb-3">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-label
+              [labelKey]="
+                'billing.projects.list.personexpanderinfo'
+              "></soe-label>
+          </div>
+        </div>
+      </div>
+      <soe-project-persons
+        [form]="form"
+        [persons]="projectUsers"
+        (personsChange)="onProjectPersonsChanged($event)">
+      </soe-project-persons>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel [labelKey]="'billing.projects.list.accounts'">
+      <div class="row">
+        <div class="col-sm-8">
+          <soe-accounting-settings
+            [hideAccordion]="false"
+            [settingTypes]="projectAccountSettingTypes"
+            [settings]="form.projectAccountingSettings.value"
+            [minRows]="3"
+            [readOnly]="!flowHandler.modifyPermission()"
+            [form]="form"
+            [baseAccounts]="projectBaseAccounts"
+            [reloadAccounts]="ProjectAutoUpdateAccountSettings$"
+            [updateInternalAccounts]="autoUpdateInternalAccounts$"
+            (settingsChange)="
+              projectAccountSettingsChanged($event)
+            "></soe-accounting-settings>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="row">
+            <soe-checkbox
+              [labelKey]="'billing.projects.list.useaccounting'"
+              formControlName="useAccounting"></soe-checkbox>
+          </div>
+          <div class="row my-2">
+            <soe-label
+              [labelKey]="'billing.projects.list.accountingprio'"></soe-label>
+          </div>
+          <div class="row mt-2 ms-2">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-5">
+              <soe-label
+                [labelKey]="
+                  'billing.projects.list.payrollproductposting'
+                "></soe-label>
+            </div>
+            <div class="col-sm-5">
+              <soe-label
+                [labelKey]="
+                  'billing.projects.list.productsposting'
+                "></soe-label>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-sm-2">
+              <soe-label [labelKey]="'billing.projects.list.first'"></soe-label>
+            </div>
+            <div class="col-sm-5">
+              <soe-select
+                [items]="payrollProductAccountingPrios"
+                formControlName="payrollPrio1"
+                [inline]="true">
+              </soe-select>
+            </div>
+            <div class="col-sm-5">
+              <soe-select
+                [items]="invoiceProductAccountingPrios"
+                formControlName="invoicePrio1"
+                [inline]="true">
+              </soe-select>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-sm-2">
+              <soe-label
+                [labelKey]="'billing.projects.list.second'"></soe-label>
+            </div>
+            <div class="col-sm-5">
+              <soe-select
+                [items]="payrollProductAccountingPrios"
+                formControlName="payrollPrio2"
+                [inline]="true">
+              </soe-select>
+            </div>
+            <div class="col-sm-5">
+              <soe-select
+                [items]="invoiceProductAccountingPrios"
+                formControlName="invoicePrio2"
+                [inline]="true">
+              </soe-select>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-sm-2">
+              <soe-label [labelKey]="'billing.projects.list.third'"></soe-label>
+            </div>
+            <div class="col-sm-5">
+              <soe-select
+                [items]="payrollProductAccountingPrios"
+                formControlName="payrollPrio3"
+                [inline]="true">
+              </soe-select>
+            </div>
+            <div class="col-sm-5">
+              <soe-select
+                [items]="invoiceProductAccountingPrios"
+                formControlName="invoicePrio3"
+                [inline]="true">
+              </soe-select>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-sm-2">
+              <soe-label
+                [labelKey]="'billing.projects.list.fourth'"></soe-label>
+            </div>
+            <div class="col-sm-5">
+              <soe-select
+                [items]="payrollProductAccountingPrios"
+                formControlName="payrollPrio4"
+                [inline]="true">
+              </soe-select>
+            </div>
+            <div class="col-sm-5">
+              <soe-select
+                [items]="invoiceProductAccountingPrios"
+                formControlName="invoicePrio4"
+                [inline]="true">
+              </soe-select>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-sm-2">
+              <soe-label [labelKey]="'billing.projects.list.fifth'"></soe-label>
+            </div>
+            <div class="col-sm-5">
+              <soe-select
+                [items]="payrollProductAccountingPrios"
+                formControlName="payrollPrio5"
+                [inline]="true">
+              </soe-select>
+            </div>
+            <div class="col-sm-5">
+              <soe-select
+                [items]="invoiceProductAccountingPrios"
+                formControlName="invoicePrio5"
+                [inline]="true">
+              </soe-select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel [labelKey]="'billing.projects.list.note'">
+      <div class="row">
+        <div class="col-sm-12">
+          @if (project) {
+            <soe-textarea [rows]="10" formControlName="note"></soe-textarea>
+          }
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel
+      [labelKey]="'billing.projects.list.pricelist'"
+      (isOpened)="openPricelistExpander()">
+      @if (pricelistExpanderIsOpen) {
+        <soe-project-pricelist
+          [form]="form"
+          [priceList]="projectPriceListGridRows"
+          [pricelistId]="form.value.priceListTypeId"
+          [projectPriceLists]="projectPriceLists"
+          [comparisonPriceLists]="comparisonPriceLists"
+          [comparisonPricelistId]="comparisonPricelistId"
+          (pricelistChanged)="onPricelistChanged($event)"
+          (comparisonPricelistChanged)="onComparisonPricelistChanged($event)"
+          (priceDateChanged)="onPriceDateChanged($event)"
+          (pricesChanged)="onPricesChanged($event)"
+          (loadAllProductsChanged)="onLoadAllProductsChanged($event)">
+        </soe-project-pricelist>
+      }
+    </soe-expansion-panel>
+
+    @if (budgetPermission) {
+      <soe-expansion-panel
+        [labelKey]="'billing.projects.list.budgetandforecast'">
+        @if (this.form.getIdControl()?.value) {
+          <soe-project-budgethead-grid
+            [projectId]="form.projectId.value"
+            [number]="form.controls.number.value"
+            [name]="form.controls.name.value"
+            [startDate]="form.controls.startDate.value"
+            [stopDate]="form.controls.stopDate.value"
+            (openEditInNewTab)="
+              openEditInNewTab($event)
+            "></soe-project-budgethead-grid>
+        } @else {
+          <div class="col-sm-12">
+            <soe-instruction
+              [type]="'info'"
+              [text]="'billing.projects.list.budget.newprojectwarning'">
+            </soe-instruction>
+          </div>
+        }
+      </soe-expansion-panel>
+    }
+
+    <soe-expansion-panel
+      [open]="false"
+      [labelKey]="'core.document'"
+      [secondaryLabelKey]="filesHelper.nbrOfFilesStr()"
+      [secondaryLabelParantheses]="true"
+      (isOpened)="filesHelper.loadFilesOnOpen($event)">
+      <soe-file-display
+        [gridHeight]="130"
+        [uploadPermission]="filesHelper.getUploadPermission()"
+        [helper]="filesHelper"
+        [allowReplace]="true"
+        [pageName]="pageLabel"
+        [showSendEmailButton]="true"
+        [emailGetter]="getCustomerEmailFunc"
+        (onReload)="filesHelper.loadFilesOnOpen(true)"></soe-file-display>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel
+      [labelKey]="'billing.projects.list.tracing'"
+      (isOpened)="traceRowsRendered = true">
+      @if (traceRowsRendered) {
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-trace-rows
+              [traceId]="form.getIdControl()?.value"
+              [pageName]="pageName">
+            </soe-trace-rows>
+          </div>
+        </div>
+      }
+    </soe-expansion-panel>
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="saveProject()"
+      (deleted)="triggerDelete()">
+      <div class="d-sm-inline">
+        <soe-select
+          [labelKey]="'common.status'"
+          [inline]="true"
+          [items]="projectStatuses"
+          formControlName="projectStatus" />
+      </div>
+    </soe-edit-footer>
+  </form>
+}

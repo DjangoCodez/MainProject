@@ -1,0 +1,86 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'manage.system.scheduler.editinterval'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-6 padding-small-right">
+                    <table class="table table-condensed table-hover table-outer-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="12"><span class="fal fa-clock margin-small-right link" data-ng-click="ctrl.invertHours();"></span><span data-l10n-bind-title="'core.time.hours'" data-l10n-bind="'core.time.hours'"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="row in ctrl.hours">
+                                <td data-ng-repeat="item in row" class="right-align-cell link" data-ng-class="{'cell-selected': item.selected}" data-ng-click="ctrl.hourSelected(item);"><span>{{item.name}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-condensed table-hover table-outer-bordered margin-large-top margin-large-bottom">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="10"><span class="fal fa-clock margin-small-right link" data-ng-click="ctrl.invertMinutes();"></span><span data-l10n-bind-title="'core.time.minutes'" data-l10n-bind="'core.time.minutes'"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="row in ctrl.minutes">
+                                <td data-ng-repeat="item in row" class="right-align-cell link" data-ng-class="{'cell-selected': item.selected}" data-ng-click="ctrl.minuteSelected(item);"><span>{{item.name}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <soe-textbox label-key="manage.system.scheduler.editintervallabel" model="ctrl.interval" data-ng-model-options="{updateOn: 'blur'}" on-change="ctrl.intervalChanged();"></soe-textbox>
+                    <div class="margin-small-top">
+                        <span>{{ctrl.intervalText}}</span>
+                    </div>
+                </div>
+                <div class="col-sm-6 padding-none-left">
+                    <table class="table table-condensed table-hover table-outer-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="7"><span class="fal fa-calendar-day margin-small-right link" data-ng-click="ctrl.invertDays();"></span><span data-l10n-bind-title="'core.time.days'" data-l10n-bind="'core.time.days'"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="row in ctrl.days">
+                                <td data-ng-repeat="item in row" class="right-align-cell link" data-ng-class="{'cell-selected': item.selected}" data-ng-click="ctrl.daySelected(item);"><span>{{item.name}}</span></td>
+                                <td data-ng-if="$last" colspan="4"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-condensed table-hover table-outer-bordered margin-large-top">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="7"><span class="fal fa-calendar-week margin-small-right link" data-ng-click="ctrl.invertWeekdays();"></span><span data-l10n-bind-title="'common.dailyrecurrencepattern.daysofweek'" data-l10n-bind="'common.dailyrecurrencepattern.daysofweek'"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="row in ctrl.weekdays">
+                                <td data-ng-repeat="item in row" class="link" data-ng-class="{'cell-selected': item.selected}" data-ng-click="ctrl.weekdaySelected(item);"><span>{{item.name}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-condensed table-hover table-outer-bordered margin-large-top">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="6"><span class="fal fa-calendar-alt margin-small-right link" data-ng-click="ctrl.invertMonths();"></span><span data-l10n-bind-title="'core.time.months'" data-l10n-bind="'core.time.months'"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="row in ctrl.months">
+                                <td data-ng-repeat="item in row" class="link" data-ng-class="{'cell-selected': item.selected}" data-ng-click="ctrl.monthSelected(item);"><span>{{item.name}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel();"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok();" data-ng-disabled="ctrl.isLocked"></button>
+    </div>
+</div>
+

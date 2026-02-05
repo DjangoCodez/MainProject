@@ -1,0 +1,178 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [static]="true"
+      [labelKey]="'economy.accounting.distributioncode.distributioncode'">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [maxLength]="100"
+            [autoFocus]="true"
+            formControlName="name">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'common.type'"
+            [selectedId]="form.value.typeId"
+            [items]="types"
+            (valueChanged)="ChangeType($event)"
+            formControlName="typeId">
+          </soe-select>
+        </div>
+        @if (showNumberOfPeriods()) {
+          <div class="col-sm-3">
+            <soe-numberbox
+              [labelKey]="'economy.accounting.distributioncode.numberofperiods'"
+              formControlName="noOfPeriods">
+            </soe-numberbox>
+          </div>
+        }
+        @if (!showNumberOfPeriods()) {
+          <div class="col-sm-3">
+            <soe-select
+              [labelKey]="'economy.accounting.distributioncode.subtype'"
+              [selectedId]="form.value.subType"
+              [items]="subTypes"
+              (valueChanged)="changePeriodType($event)"
+              formControlName="subType">
+            </soe-select>
+          </div>
+        }
+        <div class="col-sm-3">
+          <soe-datepicker
+            [labelKey]="'common.validfrom'"
+            formControlName="fromDate"></soe-datepicker>
+        </div>
+      </div>
+      <div class="row">
+        @if (
+          !showNumberOfPeriods() && !showOpeningHours() && !isAccountingBudge()
+        ) {
+          <div class="col-sm-3">
+            <soe-select
+              [labelKey]="'economy.accounting.salesbudget.subtyperowstandard'"
+              [items]="subLevelDict || []"
+              [optionIdField]="'distributionCodeHeadId'"
+              [optionNameField]="'name'"
+              formControlName="parentId">
+            </soe-select>
+          </div>
+        }
+        @if (!showNumberOfPeriods() && !isAccountingBudge()) {
+          <div class="col-sm-3">
+            <soe-select
+              [labelKey]="'common.accountdim'"
+              [selectedId]="form.value.accountDimId"
+              [items]="accountDimSmallOptions"
+              formControlName="accountDimId">
+            </soe-select>
+          </div>
+        }
+        @if (showOpeningHours() && !showNumberOfPeriods()) {
+          <div class="col-sm-3">
+            <soe-select
+              [labelKey]="'economy.accounting.distributioncode.openinghours'"
+              [selectedId]="form.value.openingHoursId"
+              [items]="openingHours || []"
+              formControlName="openingHoursId">
+            </soe-select>
+          </div>
+        }
+      </div>
+      <!-- Sub Grid here -->
+      @if (showPeriodButton()) {
+        <div class="row mt-3">
+          <div class="float-end">
+            <soe-button
+              class="pull-right"
+              [caption]="'common.newperiod'"
+              [iconName]="'plus'"
+              [behaviour]="'standard'"
+              (action)="addNewRow()">
+            </soe-button>
+          </div>
+        </div>
+      }
+      <div class="row mt-3">
+        <div class="col-sm-12">
+          @if (form) {
+            <soe-distribution-codes-edit-grid
+              (updateSummery)="updateSummery($event)"
+              [form]="form"
+              [hideSublevelColumn]="hideSublevel"
+              [hidePeriodInfoColumn]="hidePeriodInfo"
+              [sumPercent]="sumPercent"
+              [subLevelDict]="subLevelDict"
+              [rows]="periodData">
+            </soe-distribution-codes-edit-grid>
+          }
+        </div>
+      </div>
+      <div class="row my-3 info-padding">
+        <div class="information-container">
+          <div class="row">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelKey]="'economy.accounting.distributioncode.sumperiods'">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelKey]="'economy.accounting.distributioncode.sumpercent'">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelKey]="'economy.accounting.distributioncode.diff'">
+              </soe-label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="form.sumPeriods.value.toFixed(0)">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="form.sumPercent.value.toFixed(2)">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="form.diff.value.toFixed(2)">
+              </soe-label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-edit-footer
+      class="mt-0"
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

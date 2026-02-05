@@ -1,0 +1,409 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel [open]="true" [labelKey]="'common.general'">
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-checkbox
+            [labelKey]="'common.active'"
+            formControlName="active"></soe-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'billing.product.number'"
+                [autoFocus]="true"
+                formControlName="number"></soe-textbox>
+            </div>
+            <div class="col-sm-8">
+              <soe-textbox
+                [labelKey]="'billing.product.name'"
+                formControlName="name"></soe-textbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'billing.product.vattype'"
+                formControlName="vatType"
+                [items]="vatTypes"></soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'billing.product.productunit'"
+                formControlName="productUnitId"
+                [items]="productUnits"></soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'billing.product.vatcode'"
+                formControlName="vatCodeId"
+                [items]="vatCodes"></soe-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'billing.product.materialcode'"
+                formControlName="timeCodeId"
+                [items]="materialCodes"></soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-autocomplete
+                [labelKey]="'billing.product.productgroup'"
+                formControlName="productGroupId"
+                [items]="productGroups"
+                [optionIdField]="'productGroupId'"
+                [optionNameField]="'name'"
+                [limit]="10"></soe-autocomplete>
+            </div>
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'billing.product.ean'"
+                formControlName="ean"></soe-textbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'billing.products.taxdeductiontype'"
+                [items]="householdDeductionTypes"
+                formControlName="householdDeductionType"></soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="'billing.product.householddeductionpercent'"
+                [decimals]="4"
+                formControlName="householdDeductionPercentage"></soe-numberbox>
+            </div>
+            @if (showCalculatedCost()) {
+              <div class="col-sm-4">
+                <soe-checkbox
+                  [labelKey]="'billing.product.usecalculatedcost'"
+                  formControlName="useCalculatedCost"
+                  [inline]="true"></soe-checkbox>
+              </div>
+            }
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'billing.product.calculationtype'"
+                [items]="calculationTypes"
+                formControlName="calculationType"></soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="'billing.product.weight'"
+                [decimals]="4"
+                formControlName="weight"></soe-numberbox>
+            </div>
+            @if (showGuaranteePercentage()) {
+              <div class="col-sm-4">
+                <soe-numberbox
+                  [labelKey]="'billing.product.guaranteepercentage'"
+                  [decimals]="4"
+                  formControlName="guaranteePercentage"></soe-numberbox>
+              </div>
+            }
+          </div>
+          <div class="row">
+            <div
+              class="col-sm-4"
+              [title]="
+                hasCommodityCodesPermission() ? commodityCodeTooltip() : ''
+              ">
+              @if (hasCommodityCodesPermission()) {
+                <soe-autocomplete
+                  [labelKey]="'common.commoditycodes.code'"
+                  [items]="commodityCodes"
+                  formControlName="intrastatCodeId"
+                  [optionIdField]="'id'"
+                  [optionNameField]="'name'"
+                  [limit]="10"
+                  (valueChanged)="
+                    commodityCodeChanged($event)
+                  "></soe-autocomplete>
+              }
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.countryoforigin'"
+                [items]="countries"
+                formControlName="sysCountryId"></soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'billing.product.grossmargincalculationtype'"
+                [items]="grossMarginCalculationTypes"
+                formControlName="defaultGrossMarginCalculationType"></soe-select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-textarea
+                [labelKey]="'billing.product.description'"
+                formControlName="description"
+                [rows]="5"></soe-textarea>
+            </div>
+          </div>
+          <div class="row pt-2">
+            <div class="col-sm-12 px-3">
+              <soe-checkbox
+                [labelKey]="'billing.product.showdescriptionastextrow'"
+                class="margin-right:10"
+                formControlName="showDescriptionAsTextRow"></soe-checkbox>
+            </div>
+          </div>
+          <div class="row py-2">
+            <div class="col-sm-12 px-3">
+              <soe-checkbox
+                [labelKey]="'billing.product.showdescastextrowonpurchase'"
+                formControlName="showDescrAsTextRowOnPurchase"></soe-checkbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-categories
+                [categoryType]="1"
+                [form]="form"
+                [categoryIds]="form.categoryIds.value"
+                [readOnly]="
+                  !flowHandler.modifyPermission() || !modifyCategoryPermission()
+                "
+                (categoriesChange)="categoriesChanged($event)"
+                [nbrOfRows]="2"></soe-categories>
+            </div>
+          </div>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel [labelKey]="'billing.product.prices'">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-checkbox
+                [labelKey]="'billing.product.dontusediscountpercent'"
+                formControlName="dontUseDiscountPercent"></soe-checkbox>
+            </div>
+          </div>
+          @if (showPurchasePrice()) {
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-numberbox
+                  [labelKey]="'billing.product.purchaseprice'"
+                  [decimals]="2"
+                  formControlName="purchasePrice"></soe-numberbox>
+              </div>
+            </div>
+          }
+        </div>
+        <div class="col-sm-8">
+          @if (form.isExternal.value) {
+            <div class="row">
+              <div class="col-sm-6">
+                <soe-textbox
+                  [labelKey]="'billing.product.wholesellername'"
+                  formControlName="sysWholesellerName"></soe-textbox>
+              </div>
+            </div>
+          }
+          @if (form.isExternal.value && productPriceLists.length > 0) {
+            <div class="row mt-2">
+              <div class="col-sm-6">
+                <soe-numberbox
+                  [labelKey]="'billing.product.externalprice'"
+                  formControlName="externalPrice"
+                  [decimals]="2"></soe-numberbox>
+              </div>
+              <div class="col-sm-6">
+                <soe-textbox
+                  [labelKey]="'billing.product.externalpriceexplanation'"
+                  formControlName="priceListName"></soe-textbox>
+              </div>
+            </div>
+          }
+          @if (!form.isExternal.value) {
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-products-price-lists
+                  [form]="form"
+                  [(priceRows)]="productPriceLists"
+                  [readOnly]="
+                    !flowHandler.modifyPermission()
+                  "></soe-products-price-lists>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [labelKey]="'billing.product.accountsettings'"
+      (isOpened)="accountSettingPanelOpened($event)">
+      <div class="row">
+        <div class="col-sm-8">
+          <soe-accounting-settings
+            [settingTypes]="productAccountSettingTypes"
+            [settings]="form.accountingSettings.value"
+            [showBaseAccount]="true"
+            [minRows]="4"
+            [readOnly]="!flowHandler.modifyPermission()"
+            [form]="form"
+            [baseAccounts]="productBaseAccounts"
+            (settingsChange)="
+              accountSettingsChanged($event)
+            "></soe-accounting-settings>
+        </div>
+        <div class="col-sm-4">
+          <soe-accounting-priority
+            [(productAccountPriorityRows)]="productAccountPriorityRows"
+            [form]="form"
+            [readonly]="
+              !flowHandler.modifyPermission()
+            "></soe-accounting-priority>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [labelKey]="'billing.product.stock'"
+      [hidden]="hideStocks()"
+      (isOpened)="stockPanelOpened($event)">
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-checkbox
+            [labelKey]="'billing.products.product.isstockproduct'"
+            formControlName="isStockProduct"></soe-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-8">
+          @if (stockHandling()) {
+            <soe-product-stocks
+              [defaultStockId]="1"
+              [(stocksForProduct)]="stocksForProduct"
+              [form]="form"></soe-product-stocks>
+          }
+        </div>
+        @if (useProductUnitConvert()) {
+          <div class="col-sm-4">
+            <soe-product-unit-convert-grid
+              [form]="form"
+              [productId]="form.productId.value"
+              [(productUnitConverts)]="productUnitConverts"
+              [productUnitId]="0"></soe-product-unit-convert-grid>
+          </div>
+        }
+      </div>
+
+      @if (showStockAccordion) {
+        <soe-accounting-settings
+          [settingTypes]="stockAccountSettingTypes"
+          [settings]="form.stockAccountingSettings.value"
+          [showBaseAccount]="true"
+          [minRows]="4"
+          [readOnly]="!flowHandler.modifyPermission()"
+          [form]="form"
+          [baseAccounts]="stockBaseAccounts"
+          (settingsChange)="
+            stockAccountSettingsChanged($event)
+          "></soe-accounting-settings>
+      }
+    </soe-expansion-panel>
+    @if (hasPurchaseProductsPermission()) {
+      <soe-expansion-panel
+        [labelKey]="'billing.purchase.product.products'"
+        (isOpened)="supplierProductsExpanderOpened($event)">
+        @if (supplierProductExpanderRendered()) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-supplier-products
+                [productId]="form.productId.value"
+                [parentProductInfo]="{
+                  productId: form.productId.value,
+                  number: form.number.value,
+                  name: form.name.value,
+                  productUnitId: form.productUnitId.value
+                }"
+                [actionTakenSignal]="actionTakenSignal()"
+                (openEditInNewTab)="
+                  openEditInNewTab($event)
+                "></soe-supplier-products>
+            </div>
+          </div>
+        }
+      </soe-expansion-panel>
+    }
+
+    @if (showExtraFields()) {
+      <soe-expansion-panel
+        [labelKey]="'common.extrafields.extrafields'"
+        (isOpened)="extraFieldsPanelOpened($event)">
+        @if (extraFieldsExpanderRendered()) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-extra-fields-input
+                [recordId]="form.productId.value"
+                [entity]="entityType"
+                [readOnly]="!flowHandler.modifyPermission()"
+                (recordsChange)="
+                  extraFieldsChanged($event)
+                "></soe-extra-fields-input>
+            </div>
+          </div>
+        }
+      </soe-expansion-panel>
+    }
+
+    <soe-expansion-panel
+      [labelKey]="'billing.product.translations'"
+      (isOpened)="translationsExpanderOpened($event)">
+      @if (translationsExpanderRendered()) {
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-language-translations
+              [compTermRecordType]="compTermRecordType"
+              [recordId]="form.productId.value"
+              [(compTermRows)]="compTermRows"
+              [readOnly]="!flowHandler.modifyPermission()"
+              [textToTranslate]="form.name.value"
+              [form]="form"></soe-language-translations>
+          </div>
+        </div>
+      }
+    </soe-expansion-panel>
+
+    @if (!form.isNew) {
+      <soe-expansion-panel [labelKey]="'common.statistics'">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-product-invoice-statistics
+              [productId]="
+                form.productId.value
+              "></soe-product-invoice-statistics>
+          </div>
+        </div>
+      </soe-expansion-panel>
+    }
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="triggerProductSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

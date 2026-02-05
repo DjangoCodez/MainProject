@@ -1,0 +1,10 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    [toolbarGroups]="toolbarUtils.toolbarGroups">
+    <soe-product-statistics-grid-filter
+      toolbar-content-left
+      (searchClick)="doSearch($event)"></soe-product-statistics-grid-filter>
+  </soe-grid-wrapper>
+}

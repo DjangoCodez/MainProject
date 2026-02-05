@@ -1,0 +1,259 @@
+<div
+  class="employee-row-container"
+  [style.height.px]="height()"
+  [class.is-loading]="loadingEmployee()">
+  <div
+    class="employee-slot"
+    [class.is-selected]="employee().isSelected"
+    [matTooltip]="employee().toolTip"
+    [matTooltipDisabled]="isHoveringPinIcon()"
+    cdkDropList
+    (cdkDropListDropped)="onEmployeeDrop($event)"
+    [cdkContextMenuTriggerFor]="employee_context_menu"
+    (click)="onEmployeeClick()">
+    <div class="employee-name">
+      @if (employee().vacant) {
+        <span class="me-1"
+          ><fa-icon [icon]="['fal', 'newspaper']"></fa-icon
+        ></span>
+      }
+      <span
+        [class.font-bold]="employee().hidden"
+        [class.font-italic]="employee().hidden"
+        [class.is-undertime]="
+          filterService.isCommonDayView() &&
+          !employee().hidden &&
+          employee().isUnderTime
+        "
+        [class.is-overtime]="
+          filterService.isCommonDayView() &&
+          !employee().hidden &&
+          employee().isOverTime
+        "
+        >{{ employee().numberAndName }}</span
+      >
+      @if (canBePinned()) {
+        <fa-icon
+          class="pin-icon"
+          [class.is-pinned]="isPinned()"
+          [icon]="['far', isPinned() ? 'thumbtack' : 'thumbtack-angle']"
+          [matTooltip]="isPinned() ? 'Lossa' : 'Fäst'"
+          (mouseenter)="isHoveringPinIcon.set(true)"
+          (mouseleave)="isHoveringPinIcon.set(false)"
+          (click)="pinned.set(!pinned()); $event.stopPropagation()"></fa-icon>
+      }
+    </div>
+    @if (
+      filterService.isCommonScheduleView() &&
+      settingService.showEmployeeGroup() &&
+      !employee().hidden
+    ) {
+      <div class="employee-group">
+        {{ employee().employeeGroupName }}
+      </div>
+    }
+    @if (filterService.isCommonScheduleView()) {
+      <div
+        class="employee-time"
+        [class.is-undertime]="employee().isUnderTime && !employee().hidden"
+        [class.is-overtime]="employee().isOverTime && !employee().hidden">
+        <span>{{ totalNetTime() | minutesToTimeSpan }}</span>
+        @if (!employee().hidden) {
+          <span>/</span
+          ><span>{{ employee().workTimeMinutes | minutesToTimeSpan }}</span>
+        }
+      </div>
+    }
+    <ng-template #employee_context_menu>
+      <sp-employee-menu
+        [employee]="employee()"
+        (menuSelected)="onEmployeeMenuSelected($event)"></sp-employee-menu>
+    </ng-template>
+  </div>
+  <div class="time-slots">
+    @if (filterService.isCommonDayView()) {
+      <!-- Day view -->
+      @for (daySlot of employee().daySlots; track $index) {
+        <div
+          class="time-slot-hours-container"
+          cdkDropList
+          [cdkDropListData]="daySlot"
+          [cdkDropListAutoScrollStep]="50"
+          (cdkDropListEntered)="onDaySlotEnter(daySlot)"
+          (cdkDropListExited)="onDaySlotExit(daySlot)"
+          (cdkDropListDropped)="onDaySlotDrop($event, daySlot)"
+          [class.is-drag-hover]="hoveredDaySlotStart === daySlot.start"
+          [cdkContextMenuTriggerFor]="shift_context_menu">
+          <ng-template #shift_context_menu>
+            <sp-shift-menu
+              [date]="daySlot.start"
+              [employeeId]="employee().employeeId"
+              (menuSelected)="onSlotMenuSelected($event)"></sp-shift-menu>
+          </ng-template>
+          @if (settingService.isDayViewTickLengthHour()) {
+            @for (hourSlot of daySlot.hourSlots; track $index) {
+              <div
+                class="time-slot time-slot-hour"
+                [class.is-selected]="hourSlot.isSelected"
+                [class.is-fully-available]="hourSlot.isFullyAvailable"
+                [class.is-partially-available]="hourSlot.isPartiallyAvailable"
+                [class.is-fully-unavailable]="hourSlot.isFullyUnavailable"
+                [class.is-partially-unavailable]="
+                  hourSlot.isPartiallyUnavailable
+                "
+                [matTooltip]="hourSlot.tooltip"
+                (click)="onSlotClick(hourSlot)"
+                (dblclick)="onSlotDoubleClick(hourSlot.start)">
+                @if ($index === 0) {
+                  <div class="shift-container-day">
+                    @for (
+                      shift of daySlot.filteredShifts;
+                      track shift.timeScheduleTemplateBlockId
+                    ) {
+                      <div
+                        class="shift-item"
+                        [style.top.px]="shift.positionTop"
+                        [style.left.px]="shift.positionLeft"
+                        [style.width.px]="shift.positionWidth">
+                        <sp-shift
+                          [shift]="shift"
+                          [daySlot]="daySlot"></sp-shift>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          } @else if (settingService.isDayViewTickLengthHalfHour()) {
+            @for (halfHourSlot of daySlot.halfHourSlots; track $index) {
+              <div
+                class="time-slot time-slot-hour"
+                [class.is-end-of-hour]="halfHourSlot.isEndOfHour"
+                [class.is-selected]="halfHourSlot.isSelected"
+                [class.is-fully-available]="halfHourSlot.isFullyAvailable"
+                [class.is-partially-available]="
+                  halfHourSlot.isPartiallyAvailable
+                "
+                [class.is-fully-unavailable]="halfHourSlot.isFullyUnavailable"
+                [class.is-partially-unavailable]="
+                  halfHourSlot.isPartiallyUnavailable
+                "
+                [matTooltip]="halfHourSlot.tooltip"
+                (click)="onSlotClick(halfHourSlot)"
+                (dblclick)="onSlotDoubleClick(halfHourSlot.start)">
+                @if ($index === 0) {
+                  <div class="shift-container-day">
+                    @for (
+                      shift of daySlot.filteredShifts;
+                      track shift.timeScheduleTemplateBlockId
+                    ) {
+                      <div
+                        class="shift-item"
+                        [style.top.px]="shift.positionTop"
+                        [style.left.px]="shift.positionLeft"
+                        [style.width.px]="shift.positionWidth">
+                        <sp-shift
+                          [shift]="shift"
+                          [daySlot]="daySlot"></sp-shift>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          } @else if (settingService.isDayViewTickLengthQuarterHour()) {
+            @for (quarterHourSlot of daySlot.quarterHourSlots; track $index) {
+              <div
+                class="time-slot time-slot-hour"
+                [class.is-end-of-hour]="quarterHourSlot.isEndOfHour"
+                [class.is-selected]="quarterHourSlot.isSelected"
+                [class.is-fully-available]="quarterHourSlot.isFullyAvailable"
+                [class.is-partially-available]="
+                  quarterHourSlot.isPartiallyAvailable
+                "
+                [class.is-fully-unavailable]="
+                  quarterHourSlot.isFullyUnavailable
+                "
+                [class.is-partially-unavailable]="
+                  quarterHourSlot.isPartiallyUnavailable
+                "
+                [matTooltip]="quarterHourSlot.tooltip"
+                (click)="onSlotClick(quarterHourSlot)"
+                (dblclick)="onSlotDoubleClick(quarterHourSlot.start)">
+                @if ($index === 0) {
+                  <div class="shift-container-day">
+                    @for (
+                      shift of daySlot.filteredShifts;
+                      track shift.timeScheduleTemplateBlockId
+                    ) {
+                      <div
+                        class="shift-item"
+                        [style.top.px]="shift.positionTop"
+                        [style.left.px]="shift.positionLeft"
+                        [style.width.px]="shift.positionWidth">
+                        <sp-shift
+                          [shift]="shift"
+                          [daySlot]="daySlot"></sp-shift>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          }
+        </div>
+      }
+    } @else if (filterService.isCommonScheduleView()) {
+      <!-- Schedule view (week) -->
+      @for (daySlot of employee().daySlots; track $index) {
+        <div
+          class="time-slot time-slot-day"
+          [class.is-today]="daySlot.isToday"
+          [class.is-saturday]="daySlot.isSaturday"
+          [class.is-sunday]="daySlot.isSunday"
+          [class.is-selected]="daySlot.isSelected"
+          [class.is-fully-available]="daySlot.isFullyAvailable"
+          [class.is-partially-available]="daySlot.isPartiallyAvailable"
+          [class.is-fully-unavailable]="daySlot.isFullyUnavailable"
+          [class.is-partially-unavailable]="daySlot.isPartiallyUnavailable"
+          [matTooltip]="daySlot.tooltip"
+          [matTooltipDisabled]="isHoveringShift()"
+          cdkDropList
+          [cdkDropListData]="daySlot"
+          [cdkDropListAutoScrollStep]="50"
+          (cdkDropListEntered)="onDaySlotEnter(daySlot)"
+          (cdkDropListExited)="onDaySlotExit(daySlot)"
+          (cdkDropListDropped)="onDaySlotDrop($event, daySlot)"
+          [class.is-drag-hover]="hoveredDaySlotStart === daySlot.start"
+          [cdkContextMenuTriggerFor]="shift_context_menu"
+          (click)="onSlotClick(daySlot)"
+          (dblclick)="onSlotDoubleClick(daySlot.start)">
+          <ng-template #shift_context_menu>
+            <sp-shift-menu
+              [date]="daySlot.start"
+              [employeeId]="employee().employeeId"
+              (menuSelected)="onSlotMenuSelected($event)"></sp-shift-menu>
+          </ng-template>
+          <div class="shift-container-schedule">
+            @for (
+              shift of daySlot.filteredShifts;
+              track shift.timeScheduleTemplateBlockId
+            ) {
+              <div
+                class="shift-item"
+                [style.top.px]="shift.positionTop"
+                [style.left.px]="shift.positionLeft ? shift.positionLeft : null"
+                [style.width.px]="
+                  shift.positionWidth ? shift.positionWidth : null
+                "
+                (mouseenter)="isHoveringShift.set(true)"
+                (mouseleave)="isHoveringShift.set(false)">
+                <sp-shift [shift]="shift" [daySlot]="daySlot"></sp-shift>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>

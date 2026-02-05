@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp" xmlns:b="http://schemas.microsoft.com/BizTalk/2003" elementFormDefault="qualified" targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="Adress">
+    <xs:all minOccurs="0" maxOccurs="1">
+      <xs:element minOccurs="0" name="CareOf" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50" />
+            <xs:minLength value="0" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Ort" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Gatuadress" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50" />
+            <xs:minLength value="0" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Postnummer" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="6" />
+            <xs:minLength value="0" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+  <xs:element name="Adress" nillable="true" type="tns:Adress" />
+  <xs:simpleType name="AnstallningsformTyp">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ingen" />
+      <xs:enumeration value="Provanstallning" />
+      <xs:enumeration value="Tidsbegransad" />
+      <xs:enumeration value="Behovsanstalld" />
+      <xs:enumeration value="Tillsvidare" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AnstallningsformTyp" nillable="true" type="tns:AnstallningsformTyp" />
+  <xs:simpleType name="ArbetstidTyp">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ingen" />
+      <xs:enumeration value="Heltid" />
+      <xs:enumeration value="Deltid" />
+      <xs:enumeration value="VarierandeArbetstid" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ArbetstidTyp" nillable="true" type="tns:ArbetstidTyp" />
+  <xs:simpleType name="Orsak">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ingen" />
+      <xs:enumeration value="UppsagdArbetsbrist" />
+      <xs:enumeration value="TidsbegransadAnstallning" />
+      <xs:enumeration value="EgenBegaran" />
+      <xs:enumeration value="SlutProvanstallningAnstalldBeslut" />
+      <xs:enumeration value="SlutProvanstallningArbetsgivareBeslut" />
+      <xs:enumeration value="Konkurs" />
+      <xs:enumeration value="AnnanOrsak" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Orsak" nillable="true" type="tns:Orsak" />
+  <xs:simpleType name="LoneTyper">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Inget" />
+      <xs:enumeration value="Sjuklon" />
+      <xs:enumeration value="Overtidstillagg" />
+      <xs:enumeration value="Mertid" />
+      <xs:enumeration value="Jour" />
+      <xs:enumeration value="OB" />
+      <xs:enumeration value="AndraFormaner" />
+      <xs:enumeration value="Semesterersattning" />
+      <xs:enumeration value="Lonetillagg" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="LoneTyper" nillable="true" type="tns:LoneTyper" />
+  <xs:simpleType name="LoneTyp">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ingen" />
+      <xs:enumeration value="Manadslon" />
+      <xs:enumeration value="Veckolon" />
+      <xs:enumeration value="Daglon" />
+      <xs:enumeration value="Timlon" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="LoneTyp" nillable="true" type="tns:LoneTyp" />
+</xs:schema>

@@ -1,0 +1,43 @@
+﻿<div class="timeattest.payroll-import-transaction">
+    <table class="table table-more-condensed table-outer-bordered table-hover strikeable">
+        <thead>
+            <tr class="link" data-ng-click="ctrl.toggleExpanded();">
+                <th scope="col" style="width: 30px"><span style="margin-left: 2px;"><i class="fal fa-fw" data-ng-class="{'fa-chevron-down': ctrl.expanded, 'fa-chevron-right': !ctrl.expanded}"></i></span></th>
+                <th scope="col"><span data-l10n-bind="'time.time.attest.payrollimporttransactions'"></span></th>
+            </tr>
+        </thead>
+    </table>
+
+    <div data-ng-if="ctrl.expanded">
+        <table class="table table-condensed table-outer-bordered table-hover strikeable">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 20px"></th>
+                    <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('code');"><span><span data-l10n-bind="'common.code'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='code' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='code' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='code'"></i></span></th>
+                    <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('typeName');"><span><span data-l10n-bind="'common.type'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='typeName' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='typeName' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='typeName'"></i></span></th>
+                    <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('name');"><span><span data-l10n-bind="'common.name'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='name' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='name' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='name'"></i></span></th>
+                    <th scope="col" class="column-sortable right-align-cell" data-ng-click="ctrl.sort('quantityFormatted');"><span><span data-l10n-bind="'common.length'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='quantityFormatted' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='quantityFormatted' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='quantityFormatted'"></i></span></th>
+                    <th scope="col" class="column-sortable right-align-cell" data-ng-click="ctrl.sort('quantity');"><span><span data-l10n-bind="'common.quantity'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='quantity' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='quantity' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='quantity'"></i></span></th>
+                    <th scope="col" class="column-sortable right-align-cell" data-ng-click="ctrl.sort('amount');"><span><span data-l10n-bind="'common.amount'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='amount' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='amount' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='amount'"></i></span></th>
+                    <th scope="col" style="width: 28px"></th>
+                    <th scope="col" style="width: 28px"></th>
+                    <th scope="col" style="width: 28px" data-ng-if="!ctrl.model.isReadonly"></th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="trans in ctrl.model.payrollImportEmployeeTransactions | orderBy:ctrl.sortBy:ctrl.sortByReverse track by $index" data-ng-if="ctrl.expanded">
+                <tr data-ng-class="{'table-selected-row': ctrl.selectedTransaction === trans, 'strikeout': trans.isDeleted}" data-ng-click="ctrl.selectedTransaction = trans">
+                    <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedTransaction === trans"></i></td>
+                    <td data-ng-class="{'strikeout': trans.isDeleted}"><span>{{trans.code}}</span></td>
+                    <td data-ng-class="{'strikeout': trans.isDeleted}"><span>{{trans.typeName}}</span></td>
+                    <td data-ng-class="{'strikeout': trans.isDeleted}"><span>{{trans.name}}</span></td>
+                    <td class="timeattest-transaction right-align-cell" data-ng-class="{'strikeout': trans.isDeleted}"><span>{{trans.quantityFormatted}}</span></td>
+                    <td class="timeattest-transaction right-align-cell" data-ng-class="{'strikeout': trans.isDeleted}"><span>{{trans.quantity}}</span></td>
+                    <td class="timeattest-transaction right-align-cell" data-ng-class="{'strikeout': trans.isDeleted}"><span>{{trans.amount}}</span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'common.showcomment'"><i class="fal fa-comment-dots link" style="margin-left: 3px;" data-ng-if="trans.note" data-ng-click="ctrl.showComment(trans);"></i></span></td>
+                    <td><span class="fal" data-ng-class="trans.statusIcon" ng-attr-title="{{trans.statusName}}"></span></td>
+                    <td data-ng-click="ctrl.createTimeBlock(trans);" data-ng-if="!ctrl.model.isReadonly"><span class="fal fa-plus link" data-l10n-bind data-l10n-bind-title="'time.time.attest.timeblocks.createfromimport'" data-ng-if="trans.status==0"></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

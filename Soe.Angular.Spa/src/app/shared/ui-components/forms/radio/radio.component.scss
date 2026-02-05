@@ -1,0 +1,40 @@
+@use '../../../styles/core-styles/colors.scss';
+@use '../../../styles/core-styles/fonts.scss';
+@use '../../../styles/core-styles/variables.scss';
+
+.form-check.style-as-button {
+  display: flex;
+  align-items: center;
+  font-size: fonts.$soe-font-size-md;
+  //border-radius: variables.$button-border-radius;
+  padding: 0 1rem 0 0;
+  margin-bottom: 0.5rem !important;
+  user-select: none;
+
+  .form-check-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    // Remove default focus ring / shadow
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  fa-icon {
+    font-size: fonts.$soe-font-size-xl;
+    margin: 0 0.5rem 0 -0.5rem;
+  }
+
+  .form-check-label {
+    margin: 0;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}

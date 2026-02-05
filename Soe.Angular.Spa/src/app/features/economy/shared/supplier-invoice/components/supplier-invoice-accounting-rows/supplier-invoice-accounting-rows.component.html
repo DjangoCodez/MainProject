@@ -1,0 +1,28 @@
+<div>
+  <soe-accounting-rows
+    [isReadOnly]="isLocked()"
+    [container]="2"
+    [form]="form()"
+    [rowsIn]="accountingRows()"
+    [currencyService]="currencyService"
+    [showEnterpriseCurrency]="
+      useSimplifiedView() ? false : settingService.showEnterpriseCurrency
+    "
+    [showTransactionCurrency]="
+      useSimplifiedView() ? false : settingService.showTransactionCurrency
+    "
+    [showLedgerCurrency]="
+      useSimplifiedView() ? false : settingService.showLedgerCurrency
+    "
+    [showTextValue]="true"
+    [showBalance]="!useSimplifiedView()"
+    [showAmountSummary]="true"
+    [showRowNr]="!useSimplifiedView()"
+    [numberOfDecimals]="2"
+    [showRegenerateButton]="!useSimplifiedView()"
+    [showQuantity]="!useSimplifiedView()"
+    [hideFilter]="useSimplifiedView()"
+    [clearInternalAccounts]="false"
+    (accountingRowsChanged)="accountingRowsChanged($event)"
+    (accountingRowsReady)="accountingRowsReady($event)"></soe-accounting-rows>
+</div>

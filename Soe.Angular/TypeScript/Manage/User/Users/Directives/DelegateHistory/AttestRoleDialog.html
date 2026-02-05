@@ -1,0 +1,58 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-4">
+                <soe-select label-key="common.user.attestrole" model="ctrl.attestRole.attestRoleUserId" items="ctrl.attestRoles" options="item.attestRoleUserId as item.name for item in items | orderBy:['name', 'dateFrom']" required="true" on-changing="ctrl.attestRoleChanged();"></soe-select>
+            </div>
+            <div class="col-sm-4">
+                <soe-datepicker label-key="common.fromdate" model="ctrl.attestRole.dateFrom" required="true"></soe-datepicker>
+            </div>
+            <div class="col-sm-4">
+                <soe-datepicker label-key="common.todate" model="ctrl.attestRole.dateTo" required="true"></soe-datepicker>
+            </div>
+        </div>
+        <div class="info margin-large-top" data-ng-if="ctrl.sourceAttestRole && (ctrl.sourceAttestRole.dateFrom || ctrl.sourceAttestRole.dateTo || ctrl.sourceAttestRole.accountName)">
+            <div class="row">
+                <div class="col-sm-3">
+                    <soe-label label-key="core.source"></soe-label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <span>{{ctrl.sourceAttestRole.accountDimName}}</span>
+                </div>
+                <div class="col-sm-4">
+                    <span>{{ctrl.sourceAttestRole.accountName}}</span>
+                </div>
+                <div class="col-sm-3">
+                    <span>{{ctrl.sourceAttestRole.accountPermissionTypeName}}</span>
+                </div>
+                <div class="col-sm-3" data-ng-if="ctrl.sourceAttestRole.dateFrom || ctrl.sourceAttestRole.dateTo">
+                    <span><span>{{ctrl.sourceAttestRole.dateFrom | date:'shortDate'}}</span> - <span>{{ctrl.sourceAttestRole.dateTo | date:'shortDate'}}</span></span>
+                </div>
+            </div>
+            <div class="row" data-ng-repeat="child in ctrl.sourceAttestRole.children">
+                <div class="col-sm-2">
+                    <span class="italic">- {{child.accountDimName}}</span>
+                </div>
+                <div class="col-sm-4">
+                    <span class="italic">- {{child.accountName}}</span>
+                </div>
+                <div class="col-sm-3">
+                    <span class="italic">{{child.accountPermissionTypeName}}</span>
+                </div>
+                <div class="col-sm-3" data-ng-if="child.dateFrom || child.dateTo">
+                    <span class="italic"><span>{{child.dateFrom | date:'shortDate'}}</span> - <span>{{child.dateTo | date:'shortDate'}}</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-disabled="!ctrl.attestRole.attestRoleUserId || !ctrl.attestRole.dateFrom || !ctrl.attestRole.dateTo" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

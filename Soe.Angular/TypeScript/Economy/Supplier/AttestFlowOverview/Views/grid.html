@@ -1,0 +1,169 @@
+﻿<div data-ng-if="ctrl.isOverViewPage">
+    <div class="row">
+        <div class="" ng-class="ctrl.gridWidthClass">
+            <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+
+            <div class="row">
+                <div class="col-sm-12" style="margin-bottom: 5px">
+                    <soe-splitbutton class="pull-right margin-small-bottom" label-key="core.attestflowaccept" options="ctrl.buttonFunctions" main-button="false" drop-up="false" is-disabled="!ctrl.hasSelectedInvoices" option-selected="ctrl.initExecuteButtonFunction(option)"></soe-splitbutton>
+                    <soe-textarea label-key="common.comment" model="ctrl.attestcomment" rows="2"></soe-textarea>
+                </div>
+            </div>
+            <div data-ng-if="!ctrl.progressBusy">
+                <data-ng-include src="ctrl.gridHeaderComponentUrl" />
+            </div>
+            <div id="invoice-grid" ag-grid="ctrl.gridAg.options.gridOptions" class="ag-theme-balham" height-checker style="height: 800px; width: 100%;"></div>
+            <div id="totals-grid" class="ag-theme-balham margin-large-bottom" style="height: 25px; width: 100%;" prevent-enter></div>
+            <div data-ng-if="!ctrl.progress.progressBusy">
+                <data-ng-include src="ctrl.gridFooterComponentUrl" />
+            </div>
+            <uib-accordion close-others="false" data-ng-if="ctrl.imageOnlyPermission">
+                <soe-accordion is-open="ctrl.accountingRowsExpanderOpen" on-close="ctrl.closeTabAccordion()" on-open="ctrl.openTabAccordion()" label-key="common.accounting">
+                    <div class="row form-group form-group-sm">
+                        <div class="col-sm-12" data-ng-if="ctrl.selectedInvoice">
+                            <div style="margin-bottom:20px">
+                                <account-dims hide-std-dim="true" account1="ctrl.selectedInvoice.defaultDim1AccountId" account2="ctrl.accountDimHelper.defaultAccountDim2Id" account3="ctrl.accountDimHelper.defaultAccountDim3Id" account4="ctrl.accountDimHelper.defaultAccountDim4Id" account5="ctrl.accountDimHelper.defaultAccountDim5Id" account6="ctrl.accountDimHelper.defaultAccountDim6Id" is-readonly="ctrl.isLockedAccountingRows" parent-guid="ctrl.guid"></account-dims>
+                            </div>
+                            <div>
+                                <accounting-rows container="2"
+                                                 is-readonly="ctrl.isLockedAccountingRows"
+                                                 accounting-rows="ctrl.selectedInvoice.accountingRows"
+                                                 actor-id="ctrl.selectedInvoice.actorId"
+                                                 currency-id="ctrl.selectedInvoice.currencyId"
+                                                 base-currency-code="ctrl.baseCurrencyCode"
+                                                 ledger-currency-code="ctrl.ledgerCurrencyCode"
+                                                 transaction-currency-code="ctrl.currencyCode"
+                                                 currency-date="ctrl.currencyDate"
+                                                 currency-rate-date="ctrl.selectedInvoice.currencyDate"
+                                                 transaction-currency-rate="ctrl.currencyRate"
+                                                 is-base-currency="ctrl.isBaseCurrency"
+                                                 is-ledger-currency="ctrl.isLedgerCurrency"
+                                                 on-amount-converted="ctrl.amountConverted(item)"
+                                                 purchase-date="ctrl.selectedInvoice.invoiceDate"
+                                                 show-sort-buttons="true"
+                                                 show-regenerate-button="false"
+                                                 show-row-nr="true"
+                                                 show-text="true"
+                                                 show-transaction-currency="ctrl.showTransactionCurrency"
+                                                 show-enterprise-currency="ctrl.showEnterpriseCurrency"
+                                                 show-ledger-currency="ctrl.showLedgerCurrency"
+                                                 show-amount-summary="true"
+                                                 show-instructions="false"
+                                                 min-rows-to-show="20"
+                                                 parent-guid="ctrl.guid"
+                                                 parent-record-id="ctrl.invoiceId">
+                                </accounting-rows>
+                                <button type="button" style="margin-top:20px" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'core.save'" data-l10n-bind-title="'core.save'" data-ng-disabled="!ctrl.isDirty || ctrl.isLockedAccountingRows" data-ng-click="$event.stopPropagation();ctrl.saveAccountingRows()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <!--File upload-->
+                <soe-accordion data-ng-if="ctrl.fileUploadPermission" label-key="core.document" label-value="ctrl.filesHelper.nbrOfFiles" label-value-in-parentheses="true">
+                    <div class="row form-group form-group-sm" data-ng-if="!!ctrl.invoiceId">
+                        <div class="col-sm-12">
+                            <soe-progressbar is-busy="ctrl.loadingFiles"></soe-progressbar>
+                            <soe-file-display files="ctrl.filesHelper.files" read-only="true" nbr-of-files-changed="ctrl.filesHelper.nbrOfFilesChanged(nbrOfFiles)" file-name-changed="ctrl.filesHelper.fileNameChanged(file)"></soe-file-display>
+                            <soe-file-upload callback="ctrl.filesHelper.fileUploadedCallback(result, true, true)" entity="{{::ctrl.filesHelper.entity}}" image-type="{{::ctrl.filesHelper.type}}"></soe-file-upload>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <!--File upload-->
+                <soe-accordion label-key="economy.supplier.attestflowoverview.attesthistory" data-ng-if="ctrl.imageOnlyPermission" on-close="ctrl.closeTabAccordion()" on-open="ctrl.openTabAccordion()">
+                    <div class="row form-group form-group-sm">
+                        <div class="col-sm-12">
+                            <attest-history load-from-head="true" attest-workflow-head="ctrl.selectedAttestWorkFlowHead"></attest-history>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="core.info" data-ng-if="ctrl.imageOnlyPermission" on-close="ctrl.closeTabAccordion()" on-open="ctrl.openTabAccordion()">
+                    <div class="row form-group form-group-sm">
+                        <div class="col-sm-12" data-ng-if="ctrl.selectedInvoice">
+                            <div class="row">
+                                <div class="col-sm-4" data-ng-if="ctrl.ediEntryId != 0">
+                                    <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'economy.import.finvoice.showfinvoice'" data-l10n-bind-title="'economy.import.finvoice.showfinvoice'" data-ng-click="$event.stopPropagation();ctrl.showFinvoice()"></button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="economy.supplier.invoice.billingtype" model="ctrl.selectedInvoice.billingTypeName" input-class="borderless" input-class-condition="true" readonly="true"></soe-textbox>
+                                    <soe-textbox label-key="economy.supplier.invoice.total" model="ctrl.selectedInvoice.totalAmountCurrency" numeric="true" decimals="2" input-class="borderless text-left" input-class-condition="true" readonly="true"></soe-textbox>
+                                    <soe-textbox label-key="economy.supplier.invoice.vattype" model="ctrl.selectedInvoice.vatTypeName" input-class="borderless" input-class-condition="true" readonly="true"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="economy.supplier.invoice.invoicedate" model="ctrl.selectedInvoice.invoiceDate | date:'shortDate'" input-class="borderless" input-class-condition="true" readonly="true"></soe-textbox>
+                                    <soe-textbox label-key="economy.supplier.invoice.vat" model="ctrl.selectedInvoice.vatAmountCurrency" numeric="true" decimals="2" input-class="borderless text-left" input-class-condition="true" readonly="true"></soe-textbox>
+                                    <soe-textbox label-key="economy.supplier.invoice.vatcode" model="ctrl.selectedInvoice.vatCodeName" input-class="borderless" input-class-condition="true" readonly="true"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="economy.supplier.invoice.voucherdate" model="ctrl.selectedInvoice.voucherDate | date:'shortDate'" input-class="borderless" input-class-condition="true" readonly="true"></soe-textbox>
+                                    <soe-textbox label-key="common.customer.invoices.ordernr" model="ctrl.selectedInvoice.orderNr" input-class="borderless" input-class-condition="true" readonly="true"></soe-textbox>
+                                    <soe-textbox label-key="common.customer.invoices.projectnr" model="ctrl.selectedInvoice.projectNr" input-class="borderless" input-class-condition="true" readonly="true"></soe-textbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="economy.supplier.invoice.allocatecosts" data-ng-if="ctrl.projectPermission || ctrl.ordersPermission" is-open="ctrl.costAllocationExpanderOpen" on-open="ctrl.loadCostAllocationRows(null, null, true)" on-close="ctrl.closeTabAccordion()">
+                    <div class="row form-group form-group-sm">
+                        <div class="col-sm-12" data-ng-if="ctrl.selectedInvoice">
+                            <div class="row margin-large-bottom">
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="economy.supplier.invoice.ordernr" model="ctrl.selectedCustomerInvoiceName" readonly="true" button-icon="fa-search" button-tooltip-key="economy.supplier.invoice.ordernr" on-button-click="$event.stopPropagation(); ctrl.showOrderDialog()" button-disabled="ctrl.isLocked" tab-index="-1"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="economy.supplier.invoice.project" model="ctrl.selectedProjectName" readonly="true" button-icon="fa-search" button-tooltip-key="economy.supplier.invoice.project" on-button-click="$event.stopPropagation(); ctrl.showProjectDialog()" button-disabled="ctrl.isLocked" tab-index="-1"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-checkbox class="pull-right" inline="true" label-key="economy.supplier.invoice.chargecoststoproject" model="ctrl.chargeCostsToProject" on-changing="ctrl.chargeCostsToProjectChanged()"></soe-checkbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <allocate-costs invoice-is-loaded="ctrl.invoiceIsLoaded"
+                                                    invoice="ctrl.selectedInvoice"
+                                                    link-to-order-order-set="ctrl.linkToOrderOrderSet"
+                                                    link-to-project-project-set="ctrl.linkToProjectProjectSet"
+                                                    link-to-project-time-code-set="ctrl.linkToProjectTimeCodeSet"
+                                                    default-time-code-id="ctrl.defaultTimeCodeId"
+                                                    charge-costs-to-project="ctrl.chargeCostsToProject"
+                                                    parent-guid="ctrl.guid"
+                                                    transaction-currency-rate="ctrl.selectedInvoice.currencyRate">
+                                    </allocate-costs>
+                                    <button type="button" style="margin-top:20px" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'core.save'" data-l10n-bind-title="'core.save'" data-ng-disabled="!ctrl.isDirty" data-ng-click="$event.stopPropagation();ctrl.saveCostAllocationRows()"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+            </uib-accordion>
+        </div>
+        <button type="button" class="margin-large-left btn btn-default fal fa-arrow-to-right" ng-show="ctrl.gridIsHidden" data-ng-click="$event.stopPropagation();ctrl.setWidth()"></button>
+        <div ng-show="ctrl.invoiceId > 0" ng-class="ctrl.invoiceWidthClass" class="padding-none-left padding-none-right" fixed-content fixed-scroll-speed="1" fixed-activate="ctrl.imageOnlyPermission" height-checker use-window-height-minus="130" style="min-height: 10px;margin-top:-10px;">
+            <supplier-invoice ng-if="ctrl.imageOnlyPermission === false"></supplier-invoice>
+            <invoice-image-viewer ng-if="ctrl.imageOnlyPermission" guid="ctrl.guid" invoice-image="ctrl.invoiceImage" supplier-invoice-id="ctrl.invoiceId" invoice-nr="ctrl.selectedInvoice.invoiceNr" full-height="ctrl.fullHeight" is-readonly="true"></invoice-image-viewer>
+        </div>
+    </div>
+</div>
+
+<div data-ng-if="!ctrl.isOverViewPage">    
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div data-ng-if="!ctrl.progressBusy">
+                <data-ng-include src="ctrl.gridHeaderComponentUrl" />
+            </div>
+
+            <soe-toolbar buttons="ctrl.toolbar.buttonGroups">
+                <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+            </soe-toolbar>
+
+            <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+            <div ag-grid="ctrl.gridAg.options.gridOptions" ng-if="!ctrl.isModal" class="ag-theme-balham" height-checker style="height: 800px; width: 100%;"></div>
+            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+            <div data-ng-if="!ctrl.progress.progressBusy">
+                <data-ng-include src="ctrl.gridFooterComponentUrl" />
+            </div>
+        </div>        
+    </div>
+</div>

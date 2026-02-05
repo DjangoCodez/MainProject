@@ -1,0 +1,27 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.payroll.massregistration.rowfunctions.importrows'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-select label-key="time.payroll.massregistration.rowfunctions.importrows.type" model="ctrl.importType" items="ctrl.importTypes" options="item.id as item.name for item in items"></soe-select>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.importType==2 || ctrl.importType==3">
+            <div class="col-sm-12">
+                <soe-select label-key="time.time.timeperiod.paymentdate" model="ctrl.paymentDate" items="ctrl.paymentDates" options="item.date as item.label for item in items"></soe-select>
+            </div>
+        </div>
+        <div class="row margin-small-top">
+            <div class="col-sm-12">
+                <soe-checkbox label-key="time.payroll.massregistration.rowfunctions.importrows.clearrows" model="ctrl.clearRows"></soe-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.chooseFile'" data-ng-disabled="ctrl.importType==2 && !ctrl.paymentDate" data-ng-click="ctrl.selectFile()"></button>
+    </div>
+</div>

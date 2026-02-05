@@ -1,0 +1,19 @@
+﻿<div>
+    <div class="row">
+        <div class="col-sm-4">
+            <soe-select label-key="common.report.selection.voucherseries" model="$ctrl.voucherSeriesFrom" items="$ctrl.voucherSeriesList" options="item as item.name for item in items" on-changing="$ctrl.voucherSeriesChangedFrom(item)"></soe-select>
+        </div>
+        <div class="col-sm-4 margin-small-top">
+            <soe-select model="$ctrl.voucherSeriesTo" items="$ctrl.voucherSeriesList" options="item as item.name for item in items" on-changing="$ctrl.voucherSeriesChangedTo(item)"></soe-select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <text-selection label-key="common.report.selection.vouchernr" user-selection-input="$ctrl.voucherNumberFrom" on-selected="$ctrl.voucherNumberChangedFrom(selection)"></text-selection>
+        </div>
+        <div class="col-sm-4 margin-small-top">
+            <text-selection user-selection-input="$ctrl.voucherNumberTo" on-selected="$ctrl.voucherNumberChangedTo(selection)"></text-selection>
+        </div>
+    </div>
+</div>
+

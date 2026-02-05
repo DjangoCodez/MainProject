@@ -1,0 +1,209 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel [labelKey]="'common.general'" [open]="true">
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-numberbox
+            [labelKey]="'common.number'"
+            [noFormatting]="true"
+            [maxLength]="12"
+            formControlName="accountDimNr"
+            [autoFocus]="true"
+            (change)="validateAccountDimNr($event)"
+            ></soe-numberbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <soe-textbox
+            [labelKey]="'common.shortname'"
+            [maxLength]="10"
+            formControlName="shortName"></soe-textbox>
+        </div>
+        <div class="col-sm-8">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [maxLength]="100"
+            formControlName="name"></soe-textbox>
+        </div>
+      </div>
+      @if (form.getRawValue().accountDimNr === 1) {
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'economy.accounting.sysaccountstdtype'"
+              [selectedId]="form.value.sysAccountStdTypeParentId"
+              formControlName="sysAccountStdTypeParentId"
+              [items]="sysAccountStdTypes"></soe-select>
+          </div>
+        </div>
+      }
+    </soe-expansion-panel>
+    @if (form.getRawValue().accountDimNr !== 1) {
+      <soe-expansion-panel [labelKey]="'common.settings'">
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'economy.accounting.minlength'"
+              [selectedId]="form.value.minChar"
+              formControlName="minChar"
+              [items]="dimChars"></soe-select>
+          </div>
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'economy.accounting.maxlength'"
+              [selectedId]="form.value.maxChar"
+              formControlName="maxChar"
+              [items]="dimChars"></soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-numberbox
+              [labelKey]="'economy.accounting.siedim'"
+              [noFormatting]="true"
+              [maxLength]="12"
+              formControlName="sysSieDimNr"></soe-numberbox>
+          </div>
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="''"
+              [selectedId]="form.sysSieDimNrSelect.value"
+              formControlName="sysSieDimNrSelect"
+              [items]="sieDims"></soe-select>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-2">
+            <soe-checkbox
+              [labelKey]="'economy.accounting.linkedtoproject'"
+              formControlName="linkedToProject"></soe-checkbox>
+          </div>
+          <div class="col-sm-10">
+            <soe-instruction
+              [type]="'info'"
+              [text]="'economy.accounting.linkedtoprojectinfo'"
+              [fitToContent]="true"></soe-instruction>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-2">
+            <soe-checkbox
+              [labelKey]="'economy.accounting.linkedtoshifttype'"
+              formControlName="linkedToShiftType"></soe-checkbox>
+          </div>
+          <div class="col-sm-10">
+            <soe-instruction
+              [type]="'info'"
+              [text]="'economy.accounting.linkedtoshifttypeinfo'"
+              [fitToContent]="true"></soe-instruction>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-2">
+            <soe-checkbox
+              [labelKey]="'economy.accounting.onlyallowaccountswithparent'"
+              formControlName="onlyAllowAccountsWithParent"></soe-checkbox>
+          </div>
+          <div class="col-sm-10">
+            <soe-instruction
+              [type]="'info'"
+              [text]="'economy.accounting.onlyallowaccountswithparent.info'"
+              [fitToContent]="true"></soe-instruction>
+          </div>
+        </div>
+
+        <!-- TODO: Remove unused VAT deduction setting -->
+        @if (!vatDeductionExists() && false) {
+          <div class="row mt-2">
+            <div class="col-sm-12">
+              <soe-checkbox
+                [labelKey]="'economy.accounting.usevatdeduction'"
+                formControlName="useVatDeduction"></soe-checkbox>
+            </div>
+          </div>
+        }
+        <div class="row mt-3">
+          <soe-expansion-panel
+            [labelKey]="'economy.accounting.salessettings'"
+            [open]="true"
+            [static]="true">
+            <div class="row">
+              <div class="row">
+                <div class="col-sm-6">
+                  <soe-checkbox
+                    [labelKey]="'economy.accounting.mandatoryorder'"
+                    formControlName="mandatoryInOrder"></soe-checkbox>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <soe-checkbox
+                    [labelKey]="'economy.accounting.mandatoryinvoice'"
+                    formControlName="mandatoryInCustomerInvoice"></soe-checkbox>
+                </div>
+              </div>
+            </div>
+          </soe-expansion-panel>
+          <soe-expansion-panel
+            [labelKey]="'common.staffsettings'"
+            [open]="true"
+            [static]="true">
+            <div class="row">
+              <div class="row">
+                <div class="col-sm-6">
+                  <soe-checkbox
+                    [labelKey]="'economy.accounting.useinscheduleplanning'"
+                    formControlName="useInSchedulePlanning"></soe-checkbox>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <soe-checkbox
+                    [labelKey]="'economy.accounting.excludeinaccountingexport'"
+                    formControlName="excludeinAccountingExport"></soe-checkbox>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <soe-checkbox
+                    [labelKey]="'economy.accounting.excludeinsalaryreport'"
+                    formControlName="excludeinSalaryReport"></soe-checkbox>
+                </div>
+              </div>
+            </div>
+          </soe-expansion-panel>
+        </div>
+      </soe-expansion-panel>
+    }
+    <soe-expansion-panel
+      [labelKey]="'economy.accounting.account.parentaccount'">
+      <div class="row">
+        <div class="col-sm-4">
+          <soe-select
+            [labelKey]="'economy.accounting.account.childdim'"
+            [selectedId]="form.value.parentAccountDimId"
+            formControlName="parentAccountDimId"
+            [items]="accountDims"></soe-select>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="triggerSave()"
+      (deleted)="triggerDelete(deleteOptions)"
+      [showActive]="form.accountDimNr.value !== 1 && inactivatePermission"
+      (activeChanged)="activeChanged($event)"></soe-edit-footer>
+  </form>
+}

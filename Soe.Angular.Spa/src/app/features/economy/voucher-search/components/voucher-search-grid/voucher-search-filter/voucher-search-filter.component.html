@@ -1,0 +1,153 @@
+<div class="row pt-2" role="form" [formGroup]="form">
+  <div class="col-sm-12 px-3">
+    <soe-expansion-panel [labelKey]="'core.search'" [open]="true">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="row">
+            <div class="col-md-8 col-sm-12">
+              <soe-date-period
+                [labelKey]="'economy.accounting.vouchersearch.voucherperiod'"
+                [dateFromControl]="form.voucherDateFrom"
+                [dateToControl]="form.voucherDateTo"
+                [defaultPeriod]="6"></soe-date-period>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8 col-sm-12">
+              <soe-multi-select
+                [labelKey]="
+                  'economy.accounting.vouchersearch.selectvoucherseriesfrom'
+                "
+                [showSelectedItemsInline]="true"
+                [hideHasSelectedItems]="true"
+                formControlName="voucherSeriesTypeIds"
+                [items]="voucherSeriesTypes"
+                [showSelected]="true"></soe-multi-select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 col-md-offset-1 col-sm-12">
+          <div class="row">
+            <div class="col-sm-6">
+              <soe-autocomplete
+                [labelKey]="'economy.accounting.vouchersearch.accountfrom'"
+                [optionIdField]="'accountNr'"
+                [optionNameField]="'numberName'"
+                [items]="accountDim1Accounts"
+                formControlName="dim1AccountFr"
+                [limit]="10"></soe-autocomplete>
+            </div>
+            <div class="col-sm-6">
+              <soe-autocomplete
+                [labelKey]="'economy.accounting.vouchersearch.accountto'"
+                [optionIdField]="'accountNr'"
+                [optionNameField]="'numberName'"
+                [items]="accountDim1Accounts"
+                formControlName="dim1AccountTo"
+                [limit]="10"></soe-autocomplete>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-textbox
+                [labelKey]="'Text'"
+                formControlName="voucherText"></soe-textbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <soe-expansion-panel
+        [labelKey]="moreFilterLabel()"
+        [addTopMargin]="true"
+        [borderless]="true"
+        (isOpened)="moreFilterExpanded($event)">
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="row">
+              <div class="col-sm-4">
+                <soe-numberbox
+                  [labelKey]="'economy.accounting.vouchersearch.amountfrom'"
+                  formControlName="amountFrom"
+                  [decimals]="2"
+                  (valueChanged)="amountFromChanged($event)"></soe-numberbox>
+              </div>
+              <div class="col-sm-4">
+                <soe-numberbox
+                  [labelKey]="'economy.accounting.vouchersearch.amountto'"
+                  formControlName="amountTo"
+                  [decimals]="2"></soe-numberbox>
+              </div>
+              <div class="col-sm-4">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <soe-checkbox
+                      [labelKey]="'economy.accounting.vouchersearch.debetfrom'"
+                      [inline]="true"
+                      formControlName="isDebit"></soe-checkbox>
+                  </div>
+                  <div class="col-sm-6">
+                    <soe-checkbox
+                      [labelKey]="'economy.accounting.vouchersearch.creditfrom'"
+                      [inline]="true"
+                      formControlName="isCredit"></soe-checkbox>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <soe-datepicker
+                  [labelKey]="
+                    'economy.accounting.vouchersearch.fromcreateddate'
+                  "
+                  formControlName="createdFrom"></soe-datepicker>
+              </div>
+              <div class="col-sm-4">
+                <soe-datepicker
+                  [labelKey]="'economy.accounting.vouchersearch.tocreateddate'"
+                  formControlName="createdTo"></soe-datepicker>
+              </div>
+              <div class="col-sm-4">
+                <soe-select
+                  [labelKey]="'economy.accounting.vouchersearch.selectuser'"
+                  formControlName="userId"
+                  [optionIdField]="'id'"
+                  [optionNameField]="'userNameAndLogin'"
+                  [items]="users"></soe-select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <div class="row">
+              @for (item of accountDims(); track item.accountDimNr) {
+                @if (item.accountDimNr !== 1) {
+                  <div class="col-sm-6">
+                    <soe-autocomplete
+                      [labelKey]="item.name"
+                      [optionIdField]="'accountNr'"
+                      [optionNameField]="'numberName'"
+                      [items]="item.accounts"
+                      [formControlName]="
+                        getAccountFromControlName(item.accountDimNr)
+                      "
+                      [limit]="10"></soe-autocomplete>
+                  </div>
+                }
+              }
+            </div>
+          </div>
+        </div>
+      </soe-expansion-panel>
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-save-button
+            [caption]="'core.search'"
+            [title]="'core.search'"
+            [invalid]="form.invalid"
+            (action)="triggerSearch()"
+            class="pull-right"></soe-save-button>
+        </div>
+      </div>
+    </soe-expansion-panel>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+﻿<div>
+    <label class="control-label" data-l10n-bind="::$ctrl.labelKey" data-ng-if="::!$ctrl.hidelabel"></label>
+
+    <div class="row" data-ng-repeat="s in $ctrl.rowSelections track by s.key">
+        <div class="col-sm-12 margin-small-bottom">
+            <payroll-product-row-selection hide-label="true" hide-products="$ctrl.hideProducts" can-delete="s.canDelete" on-selected="$ctrl.onPayrollSelected(s.key, selection)" on-deleted="$ctrl.removeSelection(s.key)" user-selection-input="s.selection" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.newrow'" data-ng-if="::$ctrl.canAdd" data-ng-click="$ctrl.addSelection()" />
+        </div>
+    </div>
+</div>

@@ -1,0 +1,126 @@
+﻿<div>
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+    <div class="info" data-ng-if="ctrl.budgetInfoText">
+        <div class="row">
+            <div class="col-sm-8">
+                <soe-text model="ctrl.budgetInfoText"></soe-text>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-small-left margin-small-right" data-ng-if="ctrl.showBudget">
+        <soe-toolbar buttons="ctrl.buttonGroups"></soe-toolbar>
+    </div>
+    <div class="row margin-small-left margin-small-right" data-ng-if="ctrl.showBudget">
+        <div ag-grid="ctrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+    </div>
+    <div class="row margin-small-left margin-small-right margin-large-top" data-ng-if="ctrl.showBudget">
+        <div class="col-sm-8">
+        </div>
+        <div class="col-sm-4">
+            <label data-l10n-bind="'billing.project.central.budget'" class="control-label"></label>
+            <div class="info">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="margin-small-top">
+                            <span data-l10n-bind="'billing.projects.list.budgetincomepersonel'" class=""></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-text model="ctrl.incomePersonell | amount" text-class="text-right" text-class-condition="true"></soe-text>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="margin-small-top">
+                            <span data-l10n-bind="'billing.projects.list.budgetincomematerial'" class=""></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-text model="ctrl.incomeMaterial | amount" text-class="text-right" text-class-condition="true"></soe-text>
+                    </div>
+                </div>
+                <hr style="margin: 5px 0 0 0; border-color: #cccccc;" />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="margin-small-top">
+                            <soe-label label-key="billing.projects.list.budgetincometotal"></soe-label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-text model="ctrl.incomeTotal | amount" text-class="text-right indiscreet" text-class-condition="true"></soe-text>
+                    </div>
+                </div>
+                <hr style="margin: 5px 0 0 0; border-color: #000000;" />
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="margin-small-top">
+                            <span data-l10n-bind="'billing.projects.list.budgetcostpersonal'" class=""></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-text model="ctrl.totalHours + ' h'" text-class="text-right indiscreet" text-class-condition="true"></soe-text>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-text model="-1*ctrl.costPersonell | amount" text-class="text-right" text-class-condition="true"></soe-text>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="margin-small-top">
+                            <span data-l10n-bind="'billing.projects.list.budgetcostmaterial'" class=""></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-text model="-1*ctrl.costMaterial | amount" text-class="text-right" text-class-condition="true"></soe-text>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="margin-small-top">
+                            <span data-l10n-bind="'billing.projects.list.budgetcost'" class=""></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-text model="-1*ctrl.costExpense | amount" text-class="text-right" text-class-condition="true"></soe-text>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="margin-small-top">
+                            <span data-l10n-bind="'billing.projects.list.budgetoverhead'" class=""></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-text model="-1*ctrl.costOverhead | amount" text-class="text-right" text-class-condition="true"></soe-text>
+                    </div>
+                </div>
+                <hr style="margin: 5px 0 0 0; border-color: #cccccc;" />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="margin-small-top">
+                            <soe-label label-key="billing.projects.list.budgetcosttotal"></soe-label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-text model="-1*ctrl.costTotal | amount" text-class="text-right indiscreet" text-class-condition="true"></soe-text>
+                    </div>
+                </div>
+                <hr style="margin: 5px 0 0 0; border-color: #000000;" />
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="margin-small-top">
+                            <soe-label label-key="billing.productrows.marginalincome"></soe-label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-text model="ctrl.resultRatio" text-class="text-right indiscreet" text-class-condition="true"></soe-text>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-text model="ctrl.result | amount" text-class="text-right indiscreet" text-class-condition="true"></soe-text>
+                    </div>
+                </div>
+                <hr style="margin: 5px 0 0 0; border-color: #000000;" />
+            </div>
+        </div>
+    </div>
+</div>

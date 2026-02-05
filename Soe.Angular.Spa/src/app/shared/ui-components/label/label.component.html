@@ -1,0 +1,86 @@
+<div class="d-flex" [class.inline]="inline()">
+  @if (labelKey()) {
+    <label
+      [for]="forRef()"
+      [class.link]="forRef()"
+      class="form-label"
+      [class]="labelClass()"
+      [class.lowercase]="labelLowercase()"
+      [class.min-height]="applyMinHeight()"
+      [class.centered]="labelCentered()"
+      [class.me-1]="secondaryLabelKey()"
+      [innerText]="labelKey() | translate"
+      [title]="tooltipKey() | translate">
+    </label>
+  }
+  @if (labelValue()) {
+    <label
+      [for]="forRef()"
+      [class.link]="forRef()"
+      class="form-label"
+      [class.me-1]="secondaryLabelKey()"
+      [innerText]="labelValue()"
+      [class.font-normal]="!secondaryLabelBold()"
+      [class.min-height]="applyMinHeight()"
+      [title]="tooltipKey() | translate">
+    </label>
+  }
+
+  @if (secondaryLabelKey()) {
+    @if (secondaryLabelParantheses()) {
+      <label
+        [for]="forRef()"
+        [class.link]="forRef()"
+        class="form-label"
+        [class.font-normal]="!secondaryLabelBold()"
+        >(</label
+      >
+    }
+    @if (secondaryLabelPrefixKey()) {
+      <label
+        [for]="forRef()"
+        [class.link]="forRef()"
+        class="form-label"
+        [class.font-normal]="!secondaryLabelBold()"
+        [class.lowercase]="secondaryLabelLowercase()"
+        style="padding-right: 3px"
+        [innerText]="secondaryLabelPrefixKey() | translate"
+        [title]="tooltipKey() | translate"></label>
+    }
+    <label
+      [for]="forRef()"
+      [class.link]="forRef()"
+      class="form-label"
+      [class.font-normal]="!secondaryLabelBold()"
+      [class.lowercase]="secondaryLabelLowercase()"
+      [class.min-height]="applyMinHeight()"
+      [hidden]="!secondaryLabelKey()"
+      [innerText]="secondaryLabelKey() | translate"
+      [title]="tooltipKey() | translate"></label>
+    @if (secondaryLabelPostfixKey()) {
+      <label
+        [for]="forRef()"
+        [class.link]="forRef()"
+        class="form-label"
+        [class.font-normal]="!secondaryLabelBold()"
+        [class.lowercase]="secondaryLabelLowercase()"
+        style="padding-left: 3px"
+        [innerText]="secondaryLabelPostfixKey() | translate"
+        [title]="tooltipKey() | translate"></label>
+    }
+    @if (secondaryLabelParantheses()) {
+      <label
+        [for]="forRef()"
+        [class.link]="forRef()"
+        class="form-label"
+        [class.font-normal]="!secondaryLabelBold()"
+        >)</label
+      >
+    }
+  }
+  @if (isRequired() && labelKey()) {
+    <span>
+      <fa-icon class="icon-required" [icon]="faAsterisk"></fa-icon>
+    </span>
+  }
+</div>

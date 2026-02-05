@@ -1,0 +1,48 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="economy.customer.paymentmethod.paymentmethod">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.name" model="ctrl.paymentMethod.name" required="true" maxlength="100" auto-focus="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-select label-key="economy.common.paymentmethods.importtype" model="ctrl.paymentMethod.sysPaymentMethodId" items="ctrl.sysPaymentMethods" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-checkbox label-key="economy.common.paymentmethods.useincashsales" model="ctrl.paymentMethod.useInCashSales" inline="true"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="economy.common.paymentmethods.paymentnr" model="ctrl.paymentMethod.paymentInformationRowId" items="ctrl.paymentInformation" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-select label-key="economy.common.paymentmethods.accountnr" model="ctrl.paymentMethod.accountId" items="ctrl.accountStdsDict" required="true" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-checkbox label-key="economy.common.paymentmethods.useroundingincashsales" model="ctrl.paymentMethod.useRoundingInCashSales" inline="true"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-3" data-ng-if="ctrl.paymentMethod.sysPaymentMethodId == 13">
+                        <soe-textbox label-key="common.code" model="ctrl.paymentMethod.transactionCode" numeric="true" maxlength="2"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.paymentmethod"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

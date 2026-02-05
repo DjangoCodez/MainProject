@@ -1,0 +1,44 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-3">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          [autoFocus]="true"
+          formControlName="name">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-3">
+        <soe-select
+          [labelKey]="'common.export.export.exportdefinition'"
+          [selectedId]="form.value.exportDefinitionId"
+          [items]="exportDefinitions"
+          formControlName="exportDefinitionId"></soe-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <soe-textbox
+          [labelKey]="'common.export.export.specialfunctionality'"
+          [maxLength]="512"
+          formControlName="specialFunctionality">
+        </soe-textbox>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

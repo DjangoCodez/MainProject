@@ -1,0 +1,41 @@
+﻿<div>
+    <div id="messageMenu" class="right-menu" data-ng-show="ctrl.showMenu" data-ng-class="{'fullscreen': ctrl.fullscreen}">
+        <div>
+            <div class="panel panel-default" style="position: relative; height: 100%; margin-bottom: 0px;">
+                <div class="panel-heading">
+                    <span class="right-menu-toggle-fullscreen fal fa-angle-double-left" data-l10n-bind data-l10n-bind-title="'core.maximize'" data-ng-if="!ctrl.fullscreen" data-ng-click="ctrl.toggleFullscreen()"></span>
+                    <span class="right-menu-toggle-fullscreen fal fa-angle-double-right" data-l10n-bind data-l10n-bind-title="'core.restore'" data-ng-if="ctrl.fullscreen" data-ng-click="ctrl.toggleFullscreen()"></span>
+                    <span class="indiscreet" data-l10n-bind="'common.messages.messages'"></span>
+                    <button type="button" class="panel-heading-button" data-l10n-bind data-l10n-bind-title="'core.close'" data-ng-click="ctrl.toggleShowMenu()"><span class="fal fa-times"></span></button>
+                    <button type="button" class="panel-heading-button" data-l10n-bind data-l10n-bind-title="'core.reload_data'" data-ng-disabled="ctrl.loadingMessages" data-ng-click="ctrl.loadMessages()" aria-hidden="true"><span class="fal fa-sync" data-ng-class="{'disabledTextColor': ctrl.loadingMessages}"></span></button>
+                    <button type="button" class="panel-heading-button" data-l10n-bind data-l10n-bind-title="'common.messages.new'" data-ng-click="ctrl.edit(null);" data-ng-if="ctrl.messageModifyPermission && ctrl.messageSendPermission"><span class="fal fa-plus"></span></button>
+                </div>
+                <div class="panel-body" style="overflow-y: hidden;">
+                    <div class="row" style="height: 100%">
+                        <div class="col-sm-12" style="height: 100%">
+                            <div class="message-menu-types">
+                                <ul>
+                                    <li data-ng-repeat="type in ctrl.types" data-ng-class="{'selected': type.selected}" data-ng-click="ctrl.selectType(type);"><span>{{type.title}}</span></li>
+                                </ul>
+                            </div>
+                            <div class="message-menu-messages" style="height: calc(100% - 28px);">
+                                <div class="info margin-large-top margin-small-right margin-large-bottom margin-small-left" data-ng-if="ctrl.loadingMessages">
+                                    <span class="far fa-spinner fa-pulse fa-fw margin-small-right"></span><span data-l10n-bind="'core.loading'"></span>
+                                </div>
+                                <div id="message-grid" ag-grid="ctrl.gridHandler.gridAg.options.gridOptions" context-menu="ctrl.getContextMenuOptions()" class="ag-theme-balham" style="height: calc(100% - 25px); width: 100%;"></div>
+                                <div id="message-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="message-menu-toggle" class="right-menu-toggle" data-ng-class="{'right-menu-toggle-active': ctrl.showMenu}" data-ng-style="{'top': ctrl.topPosition }" data-ng-attr-title="{{ctrl.toggleTooltip}}" data-ng-click="ctrl.toggleShowMenu();">
+        <span class="fa-layers fa-fw">
+            <i class="fal fa-envelope"></i>
+            <span class="fa-layers-counter" data-ng-if="ctrl.nbrOfUnreadMessages > 99">99+</span>
+            <span class="fa-layers-counter" data-ng-if="ctrl.nbrOfUnreadMessages > 0 && ctrl.nbrOfUnreadMessages < 100">{{ctrl.nbrOfUnreadMessages}}</span>
+        </span>
+    </div>
+</div>

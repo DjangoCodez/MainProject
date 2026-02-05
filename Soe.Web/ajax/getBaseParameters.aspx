@@ -1,0 +1,2 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="getBaseParameters.aspx.cs" Inherits="SoftOne.Soe.Web.ajax.getBaseParameters" %>
+<%@ OutputCache Location="Client" Duration="65000" VaryByParam="*" %>

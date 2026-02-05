@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\MSTest.TestAdapter.4.0.1\build\net462\MSTest.TestAdapter.props" Condition="Exists('..\packages\MSTest.TestAdapter.4.0.1\build\net462\MSTest.TestAdapter.props')" />
+  <Import Project="..\packages\Microsoft.Testing.Extensions.Telemetry.2.0.1\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props" Condition="Exists('..\packages\Microsoft.Testing.Extensions.Telemetry.2.0.1\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props')" />
+  <Import Project="..\packages\Microsoft.Testing.Platform.MSBuild.2.0.1\build\Microsoft.Testing.Platform.MSBuild.props" Condition="Exists('..\packages\Microsoft.Testing.Platform.MSBuild.2.0.1\build\Microsoft.Testing.Platform.MSBuild.props')" />
+  <Import Project="..\packages\Microsoft.Testing.Platform.2.0.1\build\netstandard2.0\Microsoft.Testing.Platform.props" Condition="Exists('..\packages\Microsoft.Testing.Platform.2.0.1\build\netstandard2.0\Microsoft.Testing.Platform.props')" />
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6826069A-7522-491C-8A74-8592FEB4C5B6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Soe.Business.Tests</RootNamespace>
+    <AssemblyName>Soe.Business.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Azure.Core, Version=1.49.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Core.1.49.0\lib\net472\Azure.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Identity, Version=1.17.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Identity.1.17.0\lib\netstandard2.0\Azure.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\softoneid.common.2025.11.4.1\lib\Common.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=5.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.5.1.1\lib\net462\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq, Version=4.20.72.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.20.72\lib\net462\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.23.0.29, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.23.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.10\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.9.0.10\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.9.0.10\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client, Version=4.78.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.4.78.0\lib\net472\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client.Extensions.Msal, Version=4.78.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.Extensions.Msal.4.78.0\lib\netstandard2.0\Microsoft.Identity.Client.Extensions.Msal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.8.14.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Extensions.MSBuild, Version=2.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Testing.Platform.MSBuild.2.0.1\lib\netstandard2.0\Microsoft.Testing.Extensions.MSBuild.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Extensions.Telemetry, Version=2.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Testing.Extensions.Telemetry.2.0.1\lib\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Extensions.TrxReport.Abstractions, Version=2.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Testing.Extensions.TrxReport.Abstractions.2.0.1\lib\netstandard2.0\Microsoft.Testing.Extensions.TrxReport.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Extensions.VSTestBridge, Version=2.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.1\lib\netstandard2.0\Microsoft.Testing.Extensions.VSTestBridge.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Platform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Testing.Platform.2.0.1\lib\netstandard2.0\Microsoft.Testing.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.AdapterUtilities, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TestPlatform.AdapterUtilities.18.0.0\lib\net462\Microsoft.TestPlatform.AdapterUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.CoreUtilities, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TestPlatform.ObjectModel.18.0.0\lib\net462\Microsoft.TestPlatform.CoreUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.PlatformAbstractions, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TestPlatform.ObjectModel.18.0.0\lib\net462\Microsoft.TestPlatform.PlatformAbstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TestPlatform.ObjectModel.18.0.0\lib\net462\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="MSTest.TestFramework, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSTest.TestFramework.4.0.1\lib\net462\MSTest.TestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MSTest.TestFramework.Extensions, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSTest.TestFramework.4.0.1\lib\net462\MSTest.TestFramework.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ObjectDumping, Version=4.3.2.0, Culture=neutral, PublicKeyToken=fcc359471136d8b8, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectDumper.NET.4.3.2\lib\net48\ObjectDumping.dll</HintPath>
+    </Reference>
+    <Reference Include="Soe.Sys.Common, Version=2025.12.29.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\sys.common.2025.12.29.1\lib\Soe.Sys.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="SoftOne.Communicator.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\communicator.shared.2025.11.6.1\lib\SoftOne.Communicator.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ClientModel, Version=1.8.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ClientModel.1.8.0\lib\netstandard2.0\System.ClientModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=9.0.0.10, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.9.0.10\lib\net462\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.9.0.10\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.AccessControl.5.0.0\lib\net461\System.IO.FileSystem.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipelines, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.9.0.10\lib\net462\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory.Data, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.Data.9.0.10\lib\net462\System.Memory.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=9.0.0.10, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.9.0.10\lib\net462\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.1\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.ProtectedData, Version=9.0.0.10, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.ProtectedData.9.0.10\lib\net462\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.9.0.10\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.9.0.10\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise />
+  </Choose>
+  <ItemGroup>
+    <Compile Include="Business\API\Employee\ImportEmployeeChangesTestsInput.cs" />
+    <Compile Include="Business\API\Employee\ImportEmployeeChangesTests.cs" />
+    <Compile Include="Business\API\Employee\ImportEmployeeChangesScenario.cs" />
+    <Compile Include="Business\Core\AccountDistribution\AccrualUpdaterTests.cs" />
+    <Compile Include="Business\Core\AccountDistribution\Mocks\AccrualMockFactory.cs" />
+    <Compile Include="Business\Core\AccountDistribution\Stubs\StubCurrencySetter.cs" />
+    <Compile Include="Business\Core\AccountDistribution\Stubs\StubDbService.cs" />
+    <Compile Include="Business\Core\AccountDistribution\Stubs\StubQueryService.cs" />
+    <Compile Include="Business\Core\AccountDistribution\Stubs\StubStateUtility.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\AccountStructureTestResult.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\Enums\EAccountStructureAttestRoleType.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\AccountStructureTestConfiguration.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\Enums\EAccountStructureStartLevelOption.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\Mock\DataGenerationHelper.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\Mock\EmployeeAccountNode.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\Mock\MockFactory.cs" />
+    <Compile Include="Business\Mock\AccountDimMock.cs" />
+    <Compile Include="Business\Mock\AccountMock.cs" />
+    <Compile Include="Business\Mock\AttestRoleMock.cs" />
+    <Compile Include="Business\Mock\ContactAddressMock.cs" />
+    <Compile Include="Business\Mock\ContactEComMock.cs" />
+    <Compile Include="Business\Mock\EmailDomainMock.cs" />
+    <Compile Include="Business\Mock\EmployeeUserMock.cs" />
+    <Compile Include="Business\Mock\EmploymentEndReasonMock.cs" />
+    <Compile Include="Business\Mock\EmploymentTypeMock.cs" />
+    <Compile Include="Business\Mock\ExternalCodesMock.cs" />
+    <Compile Include="Business\Mock\PayrollGroupMock.cs" />
+    <Compile Include="Business\Mock\EmployeeGroupMock.cs" />
+    <Compile Include="Business\Mock\PayrollPriceFormulaMock.cs" />
+    <Compile Include="Business\Mock\PayrollLevelMock .cs" />
+    <Compile Include="Business\Mock\PositionsMock.cs" />
+    <Compile Include="Business\Mock\PayrollPriceTypeMock.cs" />
+    <Compile Include="Business\Mock\TimeDeviationCauseMock.cs" />
+    <Compile Include="Business\Mock\RoleMock.cs" />
+    <Compile Include="Business\Mock\SsnMock.cs" />
+    <Compile Include="Business\Mock\VacationGroupMock.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\Mock\AccountRepositoryContext.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\Mock\AccountingMockSettings.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\AccountStructureGeneralSettings.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\Mock\AccountStructureMockFactory.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\AccountStructureScenario.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\AccountStructureTests.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\Mock\AttestRoleMockSettings.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\Enums\EAccountStructureCustomerType.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\Mock\EmployeeMockSettings.cs" />
+    <Compile Include="Business\Core\OrganizationStructure\Enums\EAccountStructureSubLevelOption.cs" />
+    <Compile Include="Business\Util\IO\AxfoodExportItemTests.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\Mock\CompanyMock.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\Mock\EmployeePostMock.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\Mock\IncomingDeliveryHeadMock.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\Mock\OpeningHoursMock.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\Mock\ScheduleCycleMock.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\Mock\ShiftTypeMock.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\Mock\StaffingNeedMockScenario.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\Mock\StaffingNeedsHeadMock.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\Mock\TimeBreakTemplateMock.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\Mock\TimeCodeBreakGroupMock.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\Mock\TimeCodeBreakMock.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\Mock\TimeSchedulePlanningDayMock.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\Mock\TimeScheduleTaskMock.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\Mock\UserMock.cs" />
+    <Compile Include="Business\Core\CompanyManagerTests.cs" />
+    <Compile Include="Business\Core\SEPAV3ManagerTests.cs" />
+    <Compile Include="Business\Core\SEPAV3\SEPAV3TestExpected.cs" />
+    <Compile Include="Business\Core\SEPAV3\SEPAV3TestExpectedImport.cs" />
+    <Compile Include="Business\Core\SEPAV3\SEPAV3TestInput.cs" />
+    <Compile Include="Business\Core\SEPAV3\SEPAV3TestMockData.cs" />
+    <Compile Include="Business\Core\SEPAV3\SEPAV3TestPaymentRow.cs" />
+    <Compile Include="Business\Core\SEPAV3\SEPAV3TestSettings.cs" />
+    <Compile Include="Business\Core\ConditionRule\Models\ConditionRuleExtensionsTests.cs" />
+    <Compile Include="Business\Core\Reporting\Matrix\Models\FileExportMatrixTests.cs" />
+    <Compile Include="Business\Core\Reporting\Matrix\Models\ExcelMatrixTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestBase.cs" />
+    <Compile Include="Business\Util\QR\QRCodeTests.cs" />
+    <Compile Include="Business\Util\StaffingNeedsCalculation\StaffingNeedsCalculationStartEngineTests.cs" />
+    <Compile Include="Business\Util\TestUtilBase.cs" />
+    <Compile Include="Business\Util\InvoiceUtilityTests.cs" />
+    <Compile Include="Util\AnnualLeave\PreFlight\AnnualLeaveCalculationTests.cs" />
+    <Compile Include="Util\AssertExtensions.cs" />
+    <Compile Include="Util\CalendarUtilityTests.cs" />
+    <Compile Include="Util\FileUtilTests.cs" />
+    <Compile Include="Util\ConfigurationSetupUtilTests.cs" />
+    <Compile Include="Util\Leisure\PreFlight\Models\AutomaticAllocationEmployeeDayTests.cs" />
+    <Compile Include="Util\Leisure\PreFlight\Models\AutomaticAllocationEmployeeWeekTests.cs" />
+    <Compile Include="Util\Leisure\PreFlight\Models\AutomaticAllocationRunnnerTests.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\Models\SalaryExportScheduleGroupTests.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\Models\SalaryExportTrancationGroupTests.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\POL\Models\PolCompensationTransactionTests.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\POL\Models\PolScheduleTransactionTests.cs" />
+    <Compile Include="Util\StringUtilityTests.cs" />
+    <Compile Include="Util\DefenderUtilTests.cs" />
+    <Compile Include="Util\ImportSpecials\SoftOneLonClassicTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <Content Include="Util\ImportSpecials\ExampleFiles\SoftOneLonClassic\Example1.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Soe.Business\Soe.Business.csproj">
+      <Project>{FC32BADF-A856-4F04-AA75-E9C5B949DCD8}</Project>
+      <Name>Soe.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Soe.Common\Soe.Common.csproj">
+      <Project>{c82aaefc-9763-4b3a-9e05-d51086468194}</Project>
+      <Name>Soe.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Soe.Data\Soe.Data.csproj">
+      <Project>{aafbb9f1-a726-4d50-beee-ade46d1f98ce}</Project>
+      <Name>Soe.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Soe.Shared\Soe.Shared.csproj">
+      <Project>{2e13e0a9-c3c1-40fb-856b-655e06549d7e}</Project>
+      <Name>Soe.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Soe.Util\Soe.Util.csproj">
+      <Project>{c6a383fd-cd0c-4745-820c-9478cdf16c61}</Project>
+      <Name>Soe.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Business\API\Employee\Mock\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\MSTest.Analyzers.4.0.1\analyzers\dotnet\cs\MSTest.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\MSTest.Analyzers.4.0.1\analyzers\dotnet\cs\MSTest.Analyzers.dll" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Testing.Platform.2.0.1\build\netstandard2.0\Microsoft.Testing.Platform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Testing.Platform.2.0.1\build\netstandard2.0\Microsoft.Testing.Platform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Testing.Platform.2.0.1\build\netstandard2.0\Microsoft.Testing.Platform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Testing.Platform.2.0.1\build\netstandard2.0\Microsoft.Testing.Platform.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Testing.Platform.MSBuild.2.0.1\build\Microsoft.Testing.Platform.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Testing.Platform.MSBuild.2.0.1\build\Microsoft.Testing.Platform.MSBuild.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Testing.Platform.MSBuild.2.0.1\build\Microsoft.Testing.Platform.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Testing.Platform.MSBuild.2.0.1\build\Microsoft.Testing.Platform.MSBuild.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Testing.Extensions.Telemetry.2.0.1\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Testing.Extensions.Telemetry.2.0.1\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props'))" />
+    <Error Condition="!Exists('..\packages\MSTest.TestFramework.4.0.1\build\net462\MSTest.TestFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestFramework.4.0.1\build\net462\MSTest.TestFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.4.0.1\build\net462\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.4.0.1\build\net462\MSTest.TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.4.0.1\build\net462\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.4.0.1\build\net462\MSTest.TestAdapter.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+  <Import Project="..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />
+  <Import Project="..\packages\Microsoft.Testing.Platform.2.0.1\build\netstandard2.0\Microsoft.Testing.Platform.targets" Condition="Exists('..\packages\Microsoft.Testing.Platform.2.0.1\build\netstandard2.0\Microsoft.Testing.Platform.targets')" />
+  <Import Project="..\packages\Microsoft.Testing.Platform.MSBuild.2.0.1\build\Microsoft.Testing.Platform.MSBuild.targets" Condition="Exists('..\packages\Microsoft.Testing.Platform.MSBuild.2.0.1\build\Microsoft.Testing.Platform.MSBuild.targets')" />
+  <Import Project="..\packages\MSTest.TestFramework.4.0.1\build\net462\MSTest.TestFramework.targets" Condition="Exists('..\packages\MSTest.TestFramework.4.0.1\build\net462\MSTest.TestFramework.targets')" />
+  <Import Project="..\packages\MSTest.TestAdapter.4.0.1\build\net462\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.4.0.1\build\net462\MSTest.TestAdapter.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,12 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [height]="167"
+    [toolbarGroups]="toolbarUtils.toolbarGroups"
+    [toolbarNoBorder]="true"
+    [toolbarNoPadding]="true"
+    [noMargin]="true"
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (cellKeyDown)="onCellKeyDown($event)">
+  </soe-grid-wrapper>
+}

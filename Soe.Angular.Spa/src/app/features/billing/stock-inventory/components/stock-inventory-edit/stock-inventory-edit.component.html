@@ -1,0 +1,166 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-12">
+        <soe-expansion-panel
+          [static]="true"
+          [labelKey]="'billing.stock.stocks.stocktakingaccount'">
+          <div class="row">
+            <div class="col-sm-3">
+              <soe-textbox
+                #headerText
+                [labelKey]="'common.name'"
+                formControlName="headerText"></soe-textbox>
+            </div>
+            <div class="col-sm-3">
+              <soe-select
+                [labelKey]="'billing.stock.stocks.stock'"
+                [items]="warehouses || []"
+                [selectedId]="form.value.stockId"
+                (valueChanged)="onWareshouseChange($event)"
+                formControlName="stockId"></soe-select>
+            </div>
+          </div>
+          @if (!form.isNew) {
+            <div class="row">
+              <div class="col-sm-3">
+                <soe-textbox
+                  labelKey="billing.stock.stockinventory.inventorystart"
+                  formControlName="inventoryStartStr"></soe-textbox>
+              </div>
+              <div class="col-sm-3">
+                <soe-textbox
+                  labelKey="billing.stock.stockinventory.inventorystop"
+                  formControlName="inventoryStopStr"></soe-textbox>
+              </div>
+            </div>
+          }
+        </soe-expansion-panel>
+      </div>
+    </div>
+    @if (form.isNew) {
+      <div class="row">
+        <form
+          [formGroup]="formSelection"
+          class="soe-edit-form"
+          novalidate
+          autocomplete="off">
+          <soe-expansion-panel [static]="true" [labelKey]="'common.selection'">
+            <div class="row">
+              <div class="col-sm-3">
+                <soe-autocomplete
+                  [labelKey]="'billing.stock.stockinventory.productnr'"
+                  [secondaryLabelKey]="'common.from'"
+                  [items]="stockProducts() || []"
+                  [limit]="20"
+                  [optionIdField]="'productId'"
+                  [optionNameField]="'numberName'"
+                  (valueChanged)="stockFromProductChanged($event)"
+                  formControlName="productNrFromId">
+                </soe-autocomplete>
+              </div>
+              <div class="col-sm-3">
+                <soe-autocomplete
+                  [labelKey]="'billing.stock.stockinventory.productnr'"
+                  [secondaryLabelKey]="'common.to'"
+                  [items]="stockProducts() || []"
+                  [limit]="20"
+                  [optionIdField]="'productId'"
+                  [optionNameField]="'numberName'"
+                  (valueChanged)="stockToProductChanged($event)"
+                  formControlName="productNrToId">
+                </soe-autocomplete>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <soe-multi-select
+                  [placeholderKey]="''"
+                  [items]="filteredStockPlaces() || []"
+                  [showSelected]="true"
+                  [labelKey]="'billing.stock.stockplaces.stockplace'"
+                  formControlName="shelfIds"></soe-multi-select>
+              </div>
+              <div class="col-sm-3">
+                <soe-multi-select
+                  [placeholderKey]="''"
+                  [items]="productGroups() || []"
+                  [showSelected]="true"
+                  [labelKey]="'billing.invoices.productgroups.productgroup'"
+                  formControlName="productGroupIds"></soe-multi-select>
+              </div>
+              <div
+                class="col-sm-3 offset-sm-3 d-flex align-items-end flex-column">
+                <soe-button
+                  class="mt-auto"
+                  typeClass="btn btn-secondary"
+                  (action)="generateData()"
+                  [caption]="'billing.stock.stockinventory.generate'"
+                  [disabled]="
+                    !(
+                      formSelection.stockId.value &&
+                      formSelection.stockId.value > 0
+                    )
+                  "></soe-button>
+              </div>
+            </div>
+          </soe-expansion-panel>
+        </form>
+      </div>
+    }
+    <div class="row">
+      <soe-expansion-panel
+        [static]="true"
+        [labelKey]="'billing.products.products'">
+        @if (form) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-stock-inventory-edit-item-grid
+                [rows]="rowData"
+                [form]="form"
+                (enableItemUpdate)="
+                  enableItemUpdate($event)
+                "></soe-stock-inventory-edit-item-grid>
+            </div>
+          </div>
+        }
+      </soe-expansion-panel>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      [hideDelete]="true">
+      <ng-container pageButtons>
+        @if (isEditable) {
+          <soe-button
+            [caption]="'billing.stock.stockinventory.accept'"
+            [behaviour]="'standard'"
+            [disabled]="disableAcceptButton()"
+            (action)="acceptInventory()"></soe-button>
+        }
+        <soe-menu-button
+          class="ms-3"
+          [caption]="'core.functions'"
+          [list]="menuList"
+          [selectedItem]="menuList[0]"
+          [variant]="'split'"
+          [behaviour]="'primary'"
+          [disabled]="disableUpdateButton()"
+          [dropUp]="true"
+          (itemSelected)="peformUpdates($event)"
+          (selectedItem)="(menuList)">
+        </soe-menu-button>
+      </ng-container>
+    </soe-edit-footer>
+  </form>
+}

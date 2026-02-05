@@ -1,0 +1,30 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    (editRowClicked)="edit($event)"
+    [parentGuid]="guid()"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+    <soe-project-grid-header
+      toolbar-content-left
+      [projectStatuses]="projectStatuses"
+      [initialSelectedStatusIds]="projectStatusSelections"
+      (projectStatusesChanged)="setProjectStatusSelection($event)"
+      (showMineChanged)="
+        setShowMineSelection($event)
+      "></soe-project-grid-header>
+
+    <div class="row" footer>
+      <div class="col-sm-12 d-flex p-2 justify-content-end">
+        <soe-menu-button
+          class="mx-2"
+          [caption]="'billing.projects.list.changeprojectstatus'"
+          [variant]="'split'"
+          [list]="buttonFunctions"
+          [behaviour]="'primary'"
+          [dropUp]="true"
+          (itemSelected)="executeButtonFunction($event)">
+        </soe-menu-button>
+      </div>
+    </div>
+  </soe-grid-wrapper>
+}

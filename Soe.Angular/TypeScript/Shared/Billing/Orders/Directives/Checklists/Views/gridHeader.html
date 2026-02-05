@@ -1,0 +1,5 @@
+﻿<div class="row">
+    <div class="col-sm-4">
+        <soe-select model="directiveCtrl.selectedChecklistHeadId" use-ignore-dirty="true" hidelabel="true" items="directiveCtrl.checklistHeadsDict" options="item.id as item.name for item in items" button-disabled="!directiveCtrl.selectedChecklistHeadId" on-button-click="directiveCtrl.addSelectedChecklist()" button-tooltip-key="core.add" button-icon="'fa-plus'" button-class="border-radius-right" is-readonly="!directiveCtrl.hasAddChecklistsModifyPermission"></soe-select>
+    </div>
+</div>

@@ -1,0 +1,332 @@
+﻿@import (reference) "../variables.less";
+@import (reference) "timetree.less";
+
+// Sizes
+
+.timeattest-periodselector {
+    padding: 5px 0 0 0;
+}
+
+.timeattest-periodselector-selections {
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.timeattestuser {
+    width: 100%;
+    flex-basis: 100%;
+}
+
+.timeattest {
+    width: 80%;
+    flex-basis: 80%;
+    margin-left: -20px !important;
+    padding-right: 0px !important;
+    z-index: 2;
+}
+
+.timeattest-container {
+    border: 1px solid @soe-border-color;
+}
+
+.timeattest-header {
+    height: auto;
+    padding: 10px 10px 5px 10px;
+    margin: 0px 0px 5px 0px;
+    background: @soe-header-background-color;
+    border-bottom: 1px solid @soe-border-color;
+}
+
+.timeattest-header-info {
+    padding-bottom: 5px;
+}
+
+/* Fix for IE 10,11 */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .timeattest-header {
+        border-left: 1px solid @soe-border-color;
+        border-right: 1px solid @soe-border-color;
+    }
+}
+/* Fix for edge */
+@supports
+
+(-ms-accelerator:true) {
+    .timeattest-header {
+        border-left: 1px solid @soe-border-color;
+        border-right: 1px solid @soe-border-color;
+    }
+}
+
+.timeattest-header-warning {
+    height: auto;
+    padding: 5px 10px 5px 10px;
+    margin: -5px 0px 5px 0px;
+    text-align: center;
+    border: 1px solid @warningBorderColor;
+    background-color: @warningBackgroundColor;
+
+    .clickable {
+        cursor: pointer;
+    }
+
+    span {
+        font-weight: bold;
+        font-size: 12px;
+    }
+}
+
+.timeattest-header-charts {
+    margin: 10px 0 0 0;
+}
+
+.timeattest-header-toolbar {
+    margin: 10px 0 0 0;
+}
+
+.timeattest-header-sums {
+    background: @soe-background-color;
+    border: 1px solid @soe-border-color;
+}
+
+.timeattest-header-sums-preview {
+    padding: 4px 10px 4px 10px;
+    border-bottom: 1px solid @soe-border-color;
+}
+
+.timeattest-header-sums-preview:hover {
+    cursor: pointer;
+}
+
+.timeattest-header-sums-content {
+    padding: 10px;
+}
+
+.timeattest-header-sums-content-box {
+    min-height: 100px;
+    padding: 5px;
+    border: 1px solid @soe-border-color;
+    background: @soe-background-color;
+}
+
+.timeattest-progress-loading {
+    padding: 10px;
+}
+
+.timeattest-footer {
+    margin: 10px;
+}
+
+.timeattest-rowdetail-container {
+    background-color: @soe-background-color;
+    margin: 10px 10px 10px 60px;
+}
+
+.timeattest-schedule {
+    table {
+        width: 100% !important;
+
+        thead tr th:first-child,
+        tbody tr td:first-child {
+            width: 110px;
+            min-width: 110px;
+            max-width: 110px;
+        }
+    }
+}
+
+.timeattest-schedule-daterange {
+    text-align: center;
+    font-size: 12px;
+    padding: 2px;
+    width: 100%;
+
+    .day-event, .day-unscheduled-task {
+        margin-left: 10px;
+    }
+
+    .saturday {
+        color: @saturdayColor;
+    }
+
+    .sunday {
+        color: @sundayColor;
+    }
+}
+
+.timeattest-schedule-rowlabel {
+    background-color: @soe-header-background-color;
+    font-size: 12px;
+    padding: 2px 5px 2px 5px;
+    vertical-align: middle;
+
+    .fal {
+        margin-right: 5px;
+        cursor: pointer;
+    }
+
+    .rowlabel {
+        color: @soe-text-color;
+        font-size: @mediumFontSize;
+    }
+
+    .has-warnings {
+        color: @warningColor;
+    }
+
+    .has-errors {
+        color: @errorColor;
+    }
+}
+
+.timeattest-schedule-day-header {
+    background-color: @soe-header-background-color;
+    text-align: left;
+    font-size: 10px;
+    padding: 2px;
+    margin-top: -1px;
+}
+
+.timeattest-schedule-day {
+    text-align: center;
+    font-size: 10px;
+    padding: 0px;
+    margin-top: -1px;
+    margin-bottom: -1px;
+    vertical-align: top;
+    position: relative;
+}
+
+.timeattest-schedule-day-button-header {
+    background-color: @soe-header-background-color;
+    width: 20px;
+}
+
+.timeattest-schedule-day-button {
+    .fal {
+        margin: 1px 0 0 2px;
+        cursor: pointer;
+    }
+
+    .fal.disabledTextColor {
+        cursor: not-allowed;
+    }
+}
+
+.timeattest-schedule-shift, .timeattest-schedule-timestamp, .timeattest-schedule-timeblock, .timeattest-schedule-projecttimeblock {
+    height: 19px;
+    cursor: pointer;
+    position: absolute;
+    z-index: 100;
+
+    span {
+        display: block;
+        text-align: left;
+        font-size: 10px;
+        padding: 3px 4px;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .shift-time-start {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .shift-time-stop {
+        position: absolute;
+        top: 0;
+        right: 0;
+        text-align: right;
+    }
+
+    .shift-break {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        padding: 0;
+        background: white;
+        opacity: 0.5;
+    }
+}
+
+.shift-day {
+    .timeattest-shift-drop-zone {
+        height: 19px;
+    }
+}
+
+.timeattest-schedule-selected-shift {
+    border: 2px solid @accentColor;
+    background: @slotStripedBackground;
+}
+
+.timeattest-schedule-timestamp {
+    background-color: #18E718;
+}
+
+.timeattest-schedule-projecttimeblock {
+    background-color: #18E718;
+}
+
+.timeattest-schedule-timeblock.presence {
+    background-color: #A9D18E;
+}
+
+.timeattest-schedule-timeblock.absence {
+    background-color: #FC0516;
+
+    span {
+        color: white;
+    }
+}
+
+.timeattest-schedule-timeblock.break {
+    background-color: #F8FF8C;
+}
+
+.timeattest-schedule-timeblock.overtime {
+    background-color: #3333FF;
+}
+
+.timeattest-schedule-timeblock.outsideschedule {
+    background-color: @soe-border-color;
+}
+
+.timeattest-schedule-timeblock.modified-stamps {
+    opacity: 0.5;
+}
+
+.timeattest-schedule-timeblock.ui-state-disabled {
+    cursor: auto;
+}
+
+.timeattest-transaction.presence {
+    background-color: #A9D18E;
+}
+
+.timeattest-transaction.absence {
+    background-color: #FC0516;
+}
+
+.timeattest.payroll-import-transaction {
+}
+// Drag n drop
+
+.ui-resizable-handle {
+    position: absolute;
+    top: 2px;
+    width: 6px;
+    height: 15px;
+    font-size: 0.1px;
+    display: block;
+    -ms-touch-action: none;
+    touch-action: none;
+    border: 2px solid #808080;
+    border-radius: 2px;
+    background-color: white;
+}

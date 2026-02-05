@@ -1,0 +1,46 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="core.eventhistory">
+            <div class="form-group form-group-sm info">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <span class="indiscreet"><span>#{{ctrl.eventHistory.batchId}}</span>: <span>{{ctrl.eventHistory.typeName}}</span>, <span>{{ctrl.eventHistory.recordName}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" data-ng-if="ctrl.stringHasValue">
+                    <soe-textbox label-key="common.string" model="ctrl.eventHistory.stringValue"></soe-textbox>
+                </div>
+                <div class="col-sm-1" data-ng-if="ctrl.integerHasValue">
+                    <soe-textbox label-key="common.int" model="ctrl.eventHistory.integerValue" numeric="true" decimals="0"></soe-textbox>
+                </div>
+                <div class="col-sm-1" data-ng-if="ctrl.decimalHasValue">
+                    <soe-textbox label-key="common.decimal" model="ctrl.eventHistory.decimalValue" numeric="true" decimals="2"></soe-textbox>
+                </div>
+                <div class="col-sm-1" data-ng-if="ctrl.boolHasValue">
+                    <soe-label label-key="common.bool"></soe-label>
+                    <soe-checkbox hidelabel="true" model="ctrl.eventHistory.booleanValue"></soe-checkbox>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.dateHasValue">
+                    <soe-datepicker label-key="common.date" model="ctrl.eventHistory.dateValue"></soe-datepicker>
+                </div>
+            </div>
+        </soe-panel>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.eventHistory"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

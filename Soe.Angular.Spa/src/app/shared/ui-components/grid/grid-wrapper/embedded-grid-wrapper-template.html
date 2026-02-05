@@ -1,0 +1,18 @@
+@if (flowHandler.allowFetchGrid()) {
+<soe-grid-wrapper
+  [rows]="rowData"
+  [parentGuid]="guid()"
+  [height]="height()"
+  (editRowClicked)="edit($event)"
+  (selectionChanged)="selectionChanged($event)"
+  (selectedItemsChanged)="selectedItemsChanged($event)"
+  [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  [toolbarNoMargin]="toolbarNoMargin()"
+  [toolbarNoBorder]="toolbarNoBorder()"
+  [toolbarNoPadding]="toolbarNoPadding()"
+  [toolbarNoTopBottomPadding]="toolbarNoTopBottomPadding()"
+  [noMargin]="noMargin()">
+  ></soe-grid-wrapper
+>
+}

@@ -1,0 +1,239 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-textbox
+              #nameField
+              [labelKey]="'common.name'"
+              [maxLength]="100"
+              [autoFocus]="true"
+              formControlName="name">
+            </soe-textbox>
+          </div>
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'common.shifttype'"
+              [selectedId]="form.value.shiftTypeId"
+              [items]="shiftTypeService.performShiftTypes.data || []"
+              formControlName="shiftTypeId"></soe-select>
+          </div>
+          @if ((service.performTaskTypes.data || []).length > 0) {
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'time.schedule.timescheduletasktype.type'"
+                [selectedId]="form.value.timeScheduleTaskTypeId"
+                [items]="service.performTaskTypes.data || []"
+                formControlName="timeScheduleTaskTypeId"></soe-select>
+            </div>
+          }
+        </div>
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-timebox
+              [labelKey]="'common.from'"
+              (valueChanged)="timeChanged($event)"
+              formControlName="startTime"></soe-timebox>
+          </div>
+          <div class="col-sm-2">
+            <soe-timebox
+              [labelKey]="'common.to'"
+              (valueChanged)="timeChanged($event)"
+              formControlName="stopTime"></soe-timebox>
+          </div>
+          <div class="col-sm-4">
+            <soe-timebox
+              [labelKey]="'time.schedule.timescheduletask.length'"
+              [secondaryLabelKey]="form.value.length || 0"
+              [secondaryLabelPostfixKey]="'core.time.short.minute'"
+              [secondaryLabelLowercase]="true"
+              [isDuration]="true"
+              (valueChanged)="lengthChanged($event)"
+              formControlName="lengthFormatted"></soe-timebox>
+          </div>
+          @if (minLength() > 0) {
+            <div class="col-sm-4">
+              <soe-instruction
+                [text]="lengthInfoLabel"
+                [inline]="true"
+                [fitToContent]="true"></soe-instruction>
+            </div>
+          }
+        </div>
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-numberbox
+              [labelKey]="'time.schedule.timescheduletasktype.nbrofpersons'"
+              formControlName="nbrOfPersonsOne">
+            </soe-numberbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-numberbox
+              [labelKey]="'common.to'"
+              formControlName="nbrOfPersons">
+            </soe-numberbox>
+          </div>
+          <div class="col-sm-4">
+            <soe-timebox
+              [labelKey]="'time.schedule.timescheduletasktype.minsplitlength'"
+              [secondaryLabelKey]="form.value.minSplitLength || 0"
+              [secondaryLabelPostfixKey]="'core.time.short.minute'"
+              [secondaryLabelLowercase]="true"
+              [isDuration]="true"
+              (valueChanged)="minSplitLengthChanged($event)"
+              formControlName="minSplitLengthFormatted"></soe-timebox>
+          </div>
+          @if (minLength() > 0) {
+            <div class="col-sm-4">
+              <soe-instruction
+                [text]="lengthInfoLabel"
+                [inline]="true"
+                [fitToContent]="true"></soe-instruction>
+            </div>
+          }
+        </div>
+        @if (useAccountsHierarchy()) {
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.user.attestrole.accounthierarchy'"
+                [items]="accounts"
+                formControlName="accountId">
+              </soe-select>
+            </div>
+          </div>
+        }
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-checkbox
+              [labelKey]="'time.schedule.timescheduletasktype.onlyoneemployee'"
+              formControlName="onlyOneEmployee"></soe-checkbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-checkbox
+              [labelKey]="
+                'time.schedule.timescheduletasktype.dontassignbreakleftovers'
+              "
+              formControlName="dontAssignBreakLeftovers"></soe-checkbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-checkbox
+              [labelKey]="'time.schedule.timescheduletasktype.allowoverlapping'"
+              formControlName="allowOverlapping"></soe-checkbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-checkbox
+              [labelKey]="
+                'time.schedule.timescheduletasktype.isstaffingneedsfrequency'
+              "
+              formControlName="isStaffingNeedsFrequency"></soe-checkbox>
+          </div>
+        </div>
+        @if (
+          form.value.isStaffingNeedsFrequency && staffingNeedsReadPermission()
+        ) {
+          <div class="row mt-2">
+            <div class="col-sm-4">
+              <soe-button
+                [caption]="'time.schedule.timescheduletask.generatedneed.show'"
+                [tooltip]="'time.schedule.timescheduletask.showneed'"
+                [iconName]="'poll-people'"
+                (action)="openGeneratedNeedsDialog()"></soe-button>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textarea
+              [labelKey]="'common.description'"
+              [rows]="3"
+              [resizeable]="true"
+              formControlName="description">
+            </soe-textarea>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-12">
+            <soe-expansion-panel
+              [labelKey]="'common.dailyrecurrencepattern'"
+              [static]="true">
+              <div class="font-md">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="font-md">{{
+                      form.value.recurrencePatternDescription
+                    }}</span>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-sm-12">
+                    <span>{{ form.value.recurrenceStartsOnDescription }}</span>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-sm-12">
+                    <span>{{ form.value.recurrenceEndsOnDescription }}</span>
+                  </div>
+                </div>
+                @if (form.value.excludedDates.length > 0) {
+                  <div class="row mt-2">
+                    <div class="col-sm-12">
+                      <span class="me-1">
+                        {{
+                          'common.dailyrecurrencepattern.excludeddates'
+                            | translate
+                        }}:</span
+                      >
+                      <span>{{ form.value.excludedDatesDescription }}</span>
+                    </div>
+                  </div>
+                }
+              </div>
+              <div class="row mt-3">
+                <div class="col-sm-12">
+                  <soe-button
+                    [caption]="
+                      form.hasRecurrencePattern
+                        ? 'common.dailyrecurrencepattern.editpattern'
+                        : 'common.dailyrecurrencepattern.createpattern'
+                    "
+                    [iconName]="'repeat'"
+                    (action)="openRecurrencePatternDialog()"></soe-button>
+                </div>
+              </div>
+            </soe-expansion-panel>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      [showActive]="true"
+      [saveMenuList]="saveMenuList"
+      [saveMenuDefaultItem]="saveMenuList[0]"
+      [saveMenuDropLeft]="true"
+      [saveMenuDropUp]="true"
+      (saveMenuListItemSelected)="onSaveMenuListItemSelected($event)"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

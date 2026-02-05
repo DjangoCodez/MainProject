@@ -1,0 +1,52 @@
+<soe-dialog>
+  <div dialog-content>
+    @if(form){
+    <form [formGroup]="form"
+         class="soe-edit-form"
+         novalidate
+         autocomplete="off">
+      <div class="row">
+        <div class="col-sm-6">
+          <soe-textarea [labelKey]="'common.description'"
+                        [rows]="10"
+                        [maxLength]="255"
+                        [showLength]="true"
+                        [resizeable]="true"
+                        formControlName="description"></soe-textarea>
+        </div>
+        <div class="col-sm-6">
+          <soe-textarea [labelKey]="'common.note'"
+                        [rows]="10"
+                        [resizeable]="true"
+                        formControlName="notes"></soe-textarea>
+        </div>
+      </div>
+    </form>
+    }
+    <div dialog-footer class="soe-form-footer" style="margin: 0">
+      <div class="col-sm-12">
+        <div class="btn-group pull-left ng-scope">
+          <soe-icon-button [disabled]="isLeftButtonDisabled()"
+                           [iconName]="'chevron-left'"
+                           (action)="leftButtonClick()" />
+          <soe-icon-button [disabled]="isRightButtonDisabled()"
+                           [iconName]="'chevron-right'"
+                           (action)="rightButtonClick()" />
+        </div>
+        <div class="float-end noMargin">
+          <soe-button class="ms-3"
+                      [caption]="'core.cancel'"
+                      typeClass="btn btn-secondary"
+                      [behaviour]="'standard'"
+                      (action)="cancel()"></soe-button>
+          <soe-button [disabled]="false"
+                      class="ms-3"
+                      [caption]="'core.ok'"
+                      typeClass="btn btn-secondary"
+                      [behaviour]="'primary'"
+                      (action)="ok()"></soe-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</soe-dialog>

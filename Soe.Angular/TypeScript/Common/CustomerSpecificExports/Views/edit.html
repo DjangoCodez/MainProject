@@ -1,0 +1,58 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-panel label-key="core.selection">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="common.exports" model="ctrl.selectedExport" items="ctrl.exportTypes" options="item.id as item.name for item in items" on-changing="ctrl.exportTypeChanged(item)" use-ignore-dirty="true"></soe-select>
+                    </div>
+                </div>
+                <div class="row" ng-if="ctrl.showProductNrSelection">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.customerspecificexports.productnrfrom" model="ctrl.selectedProductNrFrom" use-ignore-dirty="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.customerspecificexports.productnrto" model="ctrl.selectedProductNrTo" inline="true" use-ignore-dirty="true"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row" ng-if="ctrl.showCustomerNrSelection">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.customerspecificexports.customernrfrom" model="ctrl.selectedCustomerNrFrom" use-ignore-dirty="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.customerspecificexports.customernrto" model="ctrl.selectedCustomerNrTo" inline="true" use-ignore-dirty="true"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row" ng-if="ctrl.showAccountYearSelection">
+                    <div class="col-sm-3">
+                        <soe-select label-key="common.reports.drilldown.accountyearfrom" model="ctrl.selectedAccountYearFrom" items="ctrl.accountYears" options="item as item.yearFromTo for item in items" on-changing="ctrl.accountYearFromChanged(item)" use-ignore-dirty="true"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-select label-key="common.reports.drilldown.accountyearto" model="ctrl.selectedAccountYearTo" items="ctrl.accountYears" options="item as item.yearFromTo for item in items" on-changing="ctrl.accountYearToChanged(item)" inline="true" use-ignore-dirty="true"></soe-select>
+                    </div>
+                </div>
+                <div class="row" ng-if="ctrl.showAccountYearSelection">
+                    <div class="col-sm-3">
+                        <soe-select label-key="economy.accounting.companygroup.periodfrom" model="ctrl.selectedAccountPeriodFrom" items="ctrl.selectedAccountYearFrom.periods" options="item as item.startValue for item in items" use-ignore-dirty="true"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-select label-key="economy.accounting.companygroup.periodto" model="ctrl.selectedAccountPeriodTo" items="ctrl.selectedAccountYearTo.periods" options="item as item.startValue for item in items" inline="true" use-ignore-dirty="true"></soe-select>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.export'" data-ng-disabled="!ctrl.selectedExport" ng-click="ctrl.createExportFile()"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

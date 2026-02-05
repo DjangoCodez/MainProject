@@ -1,0 +1,41 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div attest-work-flow-template-validation ng-model="ctrl.attestWorkFlowTemplateRows" data-ng-if="!ctrl.progress.progressBusy">
+        <soe-panel label-key="manage.attest.supplier.attestworkflowtemplate.attestworkflowtemplate">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.name" model="ctrl.attestWorkFlowTemplateHead.name" required="true" maxlength="100" auto-focus="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.description" model="ctrl.attestWorkFlowTemplateHead.description" auto-focus="true"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+
+            <uib-accordion close-others="false">
+                <soe-accordion label-key="manage.attest.supplier.attestworkflowtemplate.transition" is-open="true">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <attest-work-flow-template-rows entity="32" module="1" attest-template-id="ctrl.attestWorkFlowTemplateHeadId" attest-work-flow-template-rows="ctrl.attestWorkFlowTemplateRows" parent-guid="ctrl.guid"></>
+                        </div>
+                    </div>
+                </soe-accordion>
+            </uib-accordion>
+        </soe-panel>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.attestWorkFlowTemplateHead"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

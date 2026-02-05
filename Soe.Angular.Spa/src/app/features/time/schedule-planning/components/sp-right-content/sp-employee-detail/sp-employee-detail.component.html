@@ -1,0 +1,147 @@
+@if (employee()) {
+  <div class="detail-container">
+    <!-- Employee -->
+    <p>Markerad anställd</p>
+    <div>
+      <span class="me-1">({{ employee()?.employeeNr }})</span
+      ><span>{{ employee()?.name }}</span>
+      @if (isSupportAdmin) {
+        <span class="ms-1">[{{ employee()?.employeeId }}]</span>
+      }
+    </div>
+    <!-- Employments -->
+    <div class="group-container">
+      <p>Anställningar</p>
+      @for (employment of employee()?.employments; track $index) {
+        <div class="item-container">
+          <div>
+            <span>{{ employment.dateFrom | date: 'shortDate' }}</span>
+            <span class="mx-1">-</span>
+            <span>{{ employment.dateTo | date: 'shortDate' }}</span>
+          </div>
+          <div>
+            <span>{{ employment.employeeGroupName }}</span>
+          </div>
+          <div>
+            <span>{{
+              employment.workTimeWeekMinutes | minutesToTimeSpan
+            }}</span>
+            <span class="ms-1"
+              >({{ employment.percent | number: '1.2-2' }}%)</span
+            >
+          </div>
+        </div>
+      }
+    </div>
+    <!-- Skills -->
+    @if ((employee()?.employeeSkills || []).length > 0) {
+      <div class="group-container">
+        <p>{{ 'time.schedule.skill.skills' | translate }}</p>
+        @for (
+          skill of employee()?.employeeSkills;
+          track skill.employeeSkillId
+        ) {
+          <div class="item-container">
+            <div>
+              <span>{{ skill.skillTypeName }}</span>
+              <span class="mx-1">-</span>
+              <span>{{ skill.skillName }}</span>
+              <span>: {{ skill.skillLevel }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    }
+    <!-- Availability -->
+    @if (employee()?.hasAvailability || employee()?.hasUnavailability) {
+      <div class="group-container">
+        <p>{{ 'time.schedule.planning.availability' | translate }}</p>
+        @if (employee()?.hasAvailability) {
+          <p class="available">
+            {{ 'time.schedule.planning.available' | translate }}
+          </p>
+          @for (available of employee()?.available; track $index) {
+            <div class="item-container">
+              <div>
+                <span>{{ available.start | date: 'shortDate' }}</span>
+                @if (!available.isWholeDay) {
+                  <span class="ms-1">{{
+                    available.start | date: 'shortTime'
+                  }}</span>
+                }
+                @if (available.isMultipleDays) {
+                  <span class="mx-1">-</span>
+                  <span>{{ available.stop | date: 'shortDate' }}</span>
+                } @else if (!available.isWholeDay) {
+                  <span class="ms-1">{{
+                    available.stop | date: 'shortTime'
+                  }}</span>
+                }
+              </div>
+              <div>
+                <span>{{ available.comment }}</span>
+              </div>
+            </div>
+          }
+        }
+        @if (employee()?.hasUnavailability) {
+          <p class="unavailable">
+            {{ 'time.schedule.planning.unavailable' | translate }}
+          </p>
+          @for (unavailable of employee()?.unavailable; track $index) {
+            <div class="item-container">
+              <div>
+                <span>{{ unavailable.start | date: 'shortDate' }}</span>
+                @if (!unavailable.isWholeDay) {
+                  <span class="ms-1">{{
+                    unavailable.start | date: 'shortTime'
+                  }}</span>
+                }
+                @if (unavailable.isMultipleDays) {
+                  <span class="mx-1">-</span>
+                  <span>{{ unavailable.stop | date: 'shortDate' }}</span>
+                } @else if (!unavailable.isWholeDay) {
+                  <span class="ms-1">{{
+                    unavailable.stop | date: 'shortTime'
+                  }}</span>
+                }
+              </div>
+              <div>
+                <span>{{ unavailable.comment }}</span>
+              </div>
+            </div>
+          }
+        }
+      </div>
+    }
+
+    <!-- Template schedules -->
+    @if ((employee()?.templateSchedules || []).length > 0) {
+      <div class="group-container">
+        <p>{{ 'time.schedule.planning.templateschedules' | translate }}</p>
+        @for (template of employee()?.templateSchedules; track $index) {
+          <div class="item-container">
+            <div>
+              <span>{{ template.name }}</span>
+            </div>
+            <div>
+              <span>{{ template.startDate | date: 'shortDate' }}</span>
+              <span class="mx-1">-</span>
+              <span>{{ template.stopDate | date: 'shortDate' }}</span>
+            </div>
+            <div>
+              <span class="me-1">{{
+                template.noOfDays / 7 | number: '1.0-0'
+              }}</span>
+              @if (template.noOfDays > 7) {
+                <span>{{ 'core.time.weeks' | translate | lowercase }}</span>
+              } @else {
+                <span>{{ 'core.time.week' | translate | lowercase }}</span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}

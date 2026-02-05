@@ -1,0 +1,43 @@
+@use '../../../styles/core-styles/core-styles.component.scss';
+@use '../../../styles/core-styles/colors.scss';
+@use '../../../styles/core-styles/fonts.scss';
+
+soe-expansion-panel {
+  .show-all-container {
+    margin: 0 0 0.5rem 0.75rem;
+  }
+
+  // noPadding on the panel does not work when child of a borderless panel
+  &::ng-deep {
+    .mat-expansion-panel-content {
+      .mat-expansion-panel-body {
+        padding: 0 !important;
+      }
+    }
+  }
+
+  table {
+    border-top: 1px solid colors.$soe-border-color;
+    margin-bottom: 0px;
+    --bs-table-bg: transparent;
+
+    thead {
+      background-color: colors.$soe-header-background-color;
+    }
+
+    .missing,
+    .level-unreached,
+    .date-passed {
+      font-weight: fonts.$font-weight-bold;
+      color: colors.$soe-color-semantic-error;
+    }
+
+    .ok {
+      color: colors.$soe-color-semantic-success;
+    }
+
+    .not-ok {
+      color: colors.$soe-color-semantic-error;
+    }
+  }
+}

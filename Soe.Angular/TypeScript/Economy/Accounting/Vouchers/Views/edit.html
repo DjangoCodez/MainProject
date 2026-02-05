@@ -1,0 +1,137 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <div voucher-validation ng-model="ctrl.voucher" account-year-is-open="ctrl.accountYearIsOpen" account-period="ctrl.accountPeriod" default-voucher-series-id="ctrl.defaultVoucherSeriesId" data-ng-if="!ctrl.progressBusy">
+        <info-bar show-info="ctrl.showInfoMessage" info-message="ctrl.infoMessage" buttons="ctrl.infoButtons"></info-bar>
+        <div class="btn-toolbar">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="pull-left">
+                        <soe-toolbar buttons="ctrl.toolbar.navigationMenuButtons" hide-border="true" no-margin="true" data-ng-if="ctrl.showNavigationButtons"></soe-toolbar>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <soe-toolbar buttons="ctrl.toolbar.buttonGroups" hide-border="true" no-margin="true"></soe-toolbar>
+                </div>
+            </div>
+        </div>
+        <soe-panel label-key="economy.accounting.voucher.voucher">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-select label-key="economy.accounting.voucher.voucherseries" required="true" model="ctrl.selectedVoucherSeries" items="ctrl.voucherSeries" options="item as item.voucherSeriesTypeName for item in items" is-disabled="!ctrl.isNew || ctrl.isTemplates || ctrl.isLocked"></soe-select>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <soe-label label-key="common.number"></soe-label>
+                        <div class="input-group">
+                            <soe-textbox hidelabel="true" model="ctrl.voucher.voucherNr" input-type="number" readonly="true"></soe-textbox>
+                            <span class="input-group-btn" data-ng-if="ctrl.showEditVoucherNrButton">
+                                <button type="button" class="btn btn-sm btn-default fal fa-pencil iconEdit" data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-click="$event.stopPropagation();ctrl.askEditVoucherNr()"></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-5 col-sm-3">
+                        <soe-select label-key="economy.accounting.voucher.templates" model="ctrl.selectedTemplate" items="ctrl.templates" options="item.id as item.name for item in items" is-disabled="ctrl.isLocked"></soe-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-datepicker label-key="common.date" model="ctrl.selectedDate" is-disabled="ctrl.isDateLocked" enter-focus="ctrl_voucher_text"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-5">
+                        <soe-textbox label-key="common.text" model="ctrl.voucher.text" is-disabled="ctrl.isLocked" enter="ctrl.addVoucherRowIfEmptyAndFocusIt()"></soe-textbox>
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-3" data-ng-if="ctrl.voucher.sourceType===0">
+                        <soe-label></soe-label>
+                        <soe-checkbox label-key="economy.accounting.voucher.vatvoucher" model="ctrl.voucher.vatVoucher" is-disabled="ctrl.isLocked"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-3" data-ng-if="ctrl.voucher.sourceType>0">
+                        <soe-textbox label-key="economy.accounting.voucher.sourcetype" model="ctrl.voucher.sourceTypeName" is-disabled="true"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="common.accountingrows" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <accounting-rows 
+                                             is-readonly="ctrl.isLocked" 
+                                             register-control="ctrl.registerAccountingRows(control)" 
+                                             container="1" 
+                                             accounting-rows="ctrl.voucher.accountingRows" 
+                                             show-text="true" 
+                                             currency-date="ctrl._selectedDate" 
+                                             show-enterprise-currency="ctrl.showEnterpriseCurrency" 
+                                             show-balance="true" 
+                                             show-amount-summary="true" 
+                                             show-row-nr="true" 
+                                             allow-zero-amount="ctrl.saveAsTemplate" 
+                                             on-edit-completed-for-balanced-account="ctrl.onEditCompletedForBalancedAccount()" 
+                                             data-ng-if="ctrl.voucher" 
+                                             parent-guid="ctrl.guid" 
+                                             voucher-date="ctrl._selectedDate">
+                            </accounting-rows>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion data-ng-if="!ctrl.isTemplates" label-key="core.document" label-value="ctrl.filesHelper.nbrOfFiles" label-value-in-parentheses="true" is-open="ctrl.documentExpanderIsOpen" on-open="ctrl.filesHelper.loadFiles()">
+                <div class="col-sm-12" ng-if="ctrl.filesHelper.filesRendered">
+                    <soe-file-display files="ctrl.filesHelper.files" nbr-of-files-changed="ctrl.filesHelper.nbrOfFilesChanged(nbrOfFiles)" file-name-changed="ctrl.filesHelper.fileNameChanged(file)"></soe-file-display>
+                    <soe-file-upload callback="ctrl.filesHelper.fileUploadedCallback(result)" entity="{{::ctrl.filesHelper.entity}}" image-type="{{::ctrl.filesHelper.type}}"></soe-file-upload>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.tracing" data-ng-if="!ctrl.isNew">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <trace-rows trace-id="ctrl.voucherHeadId" page-name="'voucherEdit'"></trace-rows>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="economy.accounting.voucher.history" data-ng-if="!ctrl.isNew" is-open="ctrl.historyExpanderIsOpen" on-open="ctrl.loadVoucherHistory()">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-progressbar is-busy="ctrl.loadingHistory"></soe-progressbar>
+                            <div ag-grid="ctrl.historyGridHandler.gridAg.options.gridOptions" class="ag-theme-balham"></div>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.note">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-textarea ng-if="ctrl.voucher" hidelabel="true" model="ctrl.voucher.note" rows="5" is-disabled="ctrl.isLocked"></soe-textarea>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.voucher"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col margin-small-right">
+                        <soe-checkbox label-key="economy.accounting.voucher.keepvoucheraftersave" model="ctrl.keepNewVoucherAfterSave" is-disabled="ctrl.isLocked" on-changing="ctrl.saveKeepVoucherSetting()" use-ignore-dirty="true"></soe-checkbox>
+                    </div>
+
+                    <div class="col">
+                        <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.delete'" data-l10n-bind-title="'core.delete'" data-ng-if="ctrl.showDeleteButton()" data-ng-click="$event.stopPropagation();ctrl.initDelete()"></button>
+                    </div>
+                    <div class="col" data-ng-class="{'no-border-radius-on-specified-last-button' : ctrl.edit.$invalid}">
+                        <soe-splitbutton button-name="btnSave" label-key="core.save" options="ctrl.saveFunctions" main-button="true" drop-up="true" last-button-class="last-button" data-ng-if="ctrl.modifyPermission" is-disabled="ctrl.isDisabled()" option-selected="$event.stopPropagation();ctrl.executeSaveFunction(option)"></soe-splitbutton>
+                    </div>
+                    <button type="button" class="btn btn-sm ngSoeMainButtonInvalid no-left-border-radius" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.edit.$invalid" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

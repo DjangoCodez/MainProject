@@ -1,0 +1,70 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title">{{::ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <div class="info margin-large-top" data-ng-if="ctrl.info">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-text model="ctrl.info"></soe-text>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm" data-ng-if="!ctrl.hideProducts">
+            <div class="row margin-small-bottom">
+                <div class="col-sm-2 form-group form-group-sm" data-ng-if="ctrl.useExtendSearchInfo">
+                    <soe-select label-key="common.categories.category" model="ctrl.firstTierCategory" items="ctrl.firstTierCategories" options="item as item.name for item in items" on-changing="ctrl.firstTierCategoryChanging(ctrl.firstTierCategory)" auto-focus="ctrl.useExtendSearchInfo"></soe-select>
+                </div>
+                <div class="col-sm-2 form-group form-group-sm" data-ng-if="ctrl.useExtendSearchInfo">
+                    <soe-select label-key="common.categories.subcategory" model="ctrl.secondTierCategory" items="ctrl.secondTierCategoriesFiltered" options="item as item.name for item in items" is-disabled="ctrl.secondTierCategoriesFiltered.length === 0"></soe-select>
+                </div>
+                <div class="col-sm-6 form-group form-group-sm">
+                    <soe-textbox label-key="common.freetextsearch" model="ctrl.searchText" auto-focus="!ctrl.useExtendSearchInfo"></soe-textbox>
+                </div>
+                <div class="col-sm-2 form-group form-group-sm edit-padding">
+                    <button type="button" class="btn btn-default" style="margin-top: 13px; width: 104px;" data-l10n-bind="'core.search'" data-ng-click="ctrl.buttonSearchClick()" inline="true"></button>
+                </div>
+            </div>
+            <div class="row margin-small-bottom" data-ng-if="ctrl.searchingProducts || ctrl.searchingProductsErrorMessage">
+                <div class="col-sm-12">
+                    <soe-progressbar data-ng-if="ctrl.searchingProducts" is-busy="ctrl.searchingProducts" message="ctrl.searchingProductsMessage"></soe-progressbar>
+                    <label class="info control-label ngSoeInstructionLabel" style="color: #DB000C; width: 100%;" data-ng-if="ctrl.searchingProductsErrorMessage">{{ctrl.searchingProductsErrorMessage}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div ag-grid="ctrl.soeGridOptions.gridOptions" class="ag-theme-balham ag-vertical-center-text" style="height: 100px; width: 100%;"></div>
+                    <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                    <!--<div data-ng-if="!ctrl.searchingProducts" data-ui-grid="ctrl.soeGridOptions.gridOptions" ui-grid-auto-resize ui-grid-selection></div>-->
+                </div>
+            </div>
+        </div>
+        <div data-ng-if="ctrl.hideProducts">
+            <div class="row margin-small-bottom">
+                <div class="col-sm-3">
+                    <soe-textbox label-key="common.number" model="ctrl.number" readonly="true"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <soe-progressbar data-ng-if="ctrl.searchingProducts" is-busy="ctrl.searchingProducts" message="ctrl.searchingProductsMessage"></soe-progressbar>
+            </div>
+        </div>
+        <sys-wholeseller-prices data-ng-if="ctrl.products.length>0" price-list-type-id="ctrl.priceListTypeId" customer-id="ctrl.customerId" currency-id="ctrl.currencyId" sys-wholeseller-id="ctrl.sysWholesellerId" number="ctrl.selectedProduct.number" provider-type="ctrl.selectedProduct.type" selected-price="ctrl.selectedPrice"></sys-wholeseller-prices>
+        <div class="row" data-ng-if="ctrl.showPriceListSelect && ctrl.products.length>0">
+            <div class="col-sm-4">
+                <soe-select label-key="billing.product.pricelist.name" model="ctrl.priceListTypeId" items="ctrl.pricelists" options="item.priceListTypeId as item.name for item in items"></soe-select>
+            </div>
+        </div>
+        <div class="row" data-ng-if="!ctrl.showPriceListSelect">
+            <div class="col-sm-3">
+                <soe-textbox label-key="common.quantity" model="ctrl.quantity" numeric="true"></soe-textbox>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">        
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.add'" data-ng-click="ctrl.buttonOkClick()" data-ng-disabled="!ctrl.selectedPrice"></button>
+    </div>
+</div>
+

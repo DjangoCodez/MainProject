@@ -1,0 +1,25 @@
+﻿<div id="{{ctrl.widgetId}}" style="padding:10px; height: 600px; max-height: 600px">
+    <soe-progressbar is-busy="ctrl.widgetIsLoading" style="margin-bottom: 25px"></soe-progressbar>
+    <div data-ng-if="!ctrl.widgetSettingsMode">
+        <!-- Insights or Grid -->
+        <div class="report-menu-matrix-grid" style="height:100%" ng-if="!ctrl.showGraph">
+            <div id="{{'grid-' + ctrl.widgetId}}" ag-grid="ctrl.matrixGridHandler.matrixGridHandler.gridAg.options.gridOptions" class="ag-theme-balham" style="height:570px; min-height: 500px; margin: -11px -9px 0px -11px;"></div>
+            <div id="{{'totals-' + ctrl.widgetId}}" class="ag-theme-balham" style="height: 25px; margin: 0px -9px 0px -11px;"></div>
+        </div>
+        <div ng-if="ctrl.showGraph" id="report-menu-overview-container">
+            <insight container-id="ctrl.widgetId" hide-title="true" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.analysisJsonRows" style="height:100%"></insight>
+        </div>
+    </div>
+    <div data-ng-if="ctrl.widgetSettingsMode" class="widget-settings">
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-typeahead label-key="common.dashboard.insights.module" model="ctrl.insightSettings.module" items="ctrl.insightSettings.modules" options="item as item.name for item in items" is-required="true"></soe-typeahead>
+                <soe-typeahead label-key="common.dashboard.insights.reporttype" model="ctrl.insightSettings.report" items="ctrl.insightSettings.reports" options="item as item.name for item in items" is-required="true" is-disabled="!ctrl.insightSettings.enableReports"></soe-typeahead>
+                <soe-typeahead label-key="common.dashboard.insights.columnselection" model="ctrl.insightSettings.columnSelection" items="ctrl.insightSettings.columnSelections"  options="item as item.name for item in items" is-required="true" is-disabled="!ctrl.insightSettings.enableSelections"></soe-typeahead>
+                <soe-typeahead label-key="common.dashboard.insights.dataselection" model="ctrl.insightSettings.dataSelection" items="ctrl.insightSettings.dataSelections"  options="item as item.name for item in items" is-required="true" is-disabled="!ctrl.insightSettings.enableSelections"></soe-typeahead>
+                <soe-checkbox label-key="common.dashboard.insights.showasgraph" model="ctrl.showGraph"></soe-checkbox>
+                <soe-textbox label-key="common.name" model="ctrl.widgetTitle"></soe-textbox>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="time.payroll.payrollpricetype.payrollpricetype" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class=" row">
+                        <div class="col-sm-3">
+                            <soe-select label-key="common.type" model="ctrl.payrollPriceType.type" items="ctrl.types" options="item.id as item.name for item in items" required="true" auto-focus="true"></soe-select>
+                        </div>
+                        <div class="col-sm-3">
+                            <soe-textbox label-key="common.code" model="ctrl.payrollPriceType.code" required="true" maxlength="10"></soe-textbox>
+                        </div>
+                        <div class="col-sm-6">
+                            <soe-textbox label-key="common.name" model="ctrl.payrollPriceType.name" required="true" maxlength="100"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-textbox label-key="common.description" model="ctrl.payrollPriceType.description" maxlength="512"></soe-textbox>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                <div class="row margin-large-right">
+                    <div class="col-sm-6">
+                        <soe-toolbar buttons="ctrl.gridButtonGroups" hide-border="true"></soe-toolbar>
+                    </div>
+                </div>
+                <div class="row margin-large-bottom">
+                    <div class="col-sm-6">
+                        <div data-ui-grid="ctrl.periodGridOptions.gridOptions" enableCellEdit="true" ui-grid-auto-resize data-ui-grid-edit ui-grid-cellNav></div>
+                    </div>
+                </div>
+            </soe-accordion>
+
+            <soe-accordion label-key="time.payroll.payrollpricetype.demand">
+                <div class="col-sm-4">
+                    <soe-textbox label-key="time.payroll.payrollpricetype.age" model="ctrl.payrollPriceType.conditionAgeYears" input-type="number"></soe-textbox>
+                </div>
+                <div class="col-sm-4">
+                    <soe-textbox label-key="time.payroll.payrollpricetype.employeed" model="ctrl.payrollPriceType.conditionEmployeedMonths" input-type="number"></soe-textbox>
+                </div>
+                <div class="col-sm-4">
+                    <soe-textbox label-key="time.payroll.payrollpricetype.experience" model="ctrl.payrollPriceType.conditionExperienceMonths" input-type="number"></soe-textbox>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.payrollPriceType"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,79 @@
+﻿<div>
+    <div id="informationMenu" class="right-menu" data-ng-show="ctrl.showMenu" data-ng-class="{'fullscreen': ctrl.fullscreen}">
+        <div>
+            <div class="panel panel-default" style="position: relative; height: 100%; margin-bottom: 0px;">
+                <div class="panel-heading">
+                    <span class="right-menu-toggle-fullscreen fal fa-angle-double-right" data-l10n-bind data-l10n-bind-title="'core.restore'" data-ng-if="ctrl.fullscreen" data-ng-click="ctrl.toggleFullscreen()"></span>
+                    <span class="indiscreet" data-l10n-bind="'core.informationmenu.title'"></span>
+                    <button type="button" class="panel-heading-button" data-l10n-bind data-l10n-bind-title="'core.close'" data-ng-click="ctrl.toggleShowMenu()"><span class="fal fa-times"></span></button>
+                    <button type="button" class="panel-heading-button" data-l10n-bind data-l10n-bind-title="'core.reload_data'" data-ng-disabled="ctrl.loadingInformations" data-ng-click="ctrl.loadInformations()" aria-hidden="true"><span class="fal fa-sync" data-ng-class="{'disabledTextColor': ctrl.loadingInformations}"></span></button>
+                    <button type="button" class="panel-heading-button" data-l10n-bind data-l10n-bind-title="'core.informationmenu.companyinformation.new'" data-ng-if="ctrl.modifyPermission" data-ng-click="ctrl.edit(null);"><span class="fal fa-plus"></span></button>
+                </div>
+                <div class="panel-body" style="overflow-y: hidden;">
+                    <div class="row" style="height: 100%">
+                        <div class="col-sm-9" style="padding-right: 0px;" data-ng-if="ctrl.fullscreen">
+                            <div class="information-menu-information">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div data-ng-class="{'warning': ctrl.selectedInformation.isSeverityEmergency, 'info': ctrl.selectedInformation.isSeverityImportant, 'horizontal-line padding-large-bottom': ctrl.selectedInformation.isSeverityInformation}">
+                                            <span class="far margin-small-right" data-ng-class="{'fa-exclamation-triangle errorColor': ctrl.selectedInformation.isSeverityEmergency, 'fa-exclamation-circle warningColor': ctrl.selectedInformation.isSeverityImportant, 'fa-info-circle okColor': ctrl.selectedInformation.isSeverityInformation}" data-ng-attr-title="{{ctrl.selectedInformation.severityName}}"></span>
+                                            <span class="largeFont">{{ctrl.selectedInformation.subject}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row margin-large-top" data-ng-if="ctrl.selectedInformation.shortText">
+                                    <div class="col-sm-12">
+                                        <span>{{ctrl.selectedInformation.shortText}}</span>
+                                        <div class="horizontal-line margin-large-top"></div>
+                                    </div>
+                                </div>
+                                <textarea style="min-height: 500px; width: 100%;" ng-model="ctrl.selectedInformation.text" ui-tinymce="ctrl.tinyMceOptions"></textarea>
+                            </div>
+                        </div>
+                        <div data-ng-class="{'col-sm-12': !ctrl.fullscreen, 'col-sm-3': ctrl.fullscreen}" data-ng-style="{'padding-left': ctrl.fullscreen ? '0px': '15px'}" style="height: 100%">
+                            <div class="information-menu-types">
+                                <ul>
+                                    <li data-ng-repeat="type in ctrl.types" data-ng-class="{'selected': type.selected}" data-ng-click="ctrl.selectType(type);"><span>{{type.title}}</span></li>
+                                </ul>
+                            </div>
+                            <div class="information-menu-informations" style="height: calc(100% - 28px);">
+                                <div class="info margin-large-top margin-small-right margin-large-bottom margin-small-left" data-ng-if="ctrl.loadingInformations">
+                                    <span class="far fa-spinner fa-pulse fa-fw margin-small-right"></span><span data-l10n-bind="'core.loading'"></span>
+                                </div>
+                                <div class="info margin-large-top margin-small-right margin-large-bottom margin-small-left" data-ng-if="!ctrl.loadingInformations && ctrl.informations.length === 0">
+                                    <span data-l10n-bind="'core.informationmenu.noinformation'"></span>
+                                </div>
+
+                                <ul data-ng-if="!ctrl.loadingInformations && ctrl.informations.length > 0" style="overflow-y: auto; height: calc(100% - 72px); ">
+                                    <li data-ng-repeat="folder in ctrl.folders">
+                                        <span class="far link" data-ng-class="{'fa-chevron-right': !folder.expanded, 'fa-chevron-down': folder.expanded}" style="margin-right: 5px;" data-ng-click="ctrl.toggleFolder(folder);"></span>
+                                        <span class="italic indiscreet link" data-ng-click="ctrl.toggleFolder(folder);"><span>{{folder.name}}</span><span data-ng-if="folder.nbrOfUnread>0"> (<span>{{folder.nbrOfUnread}}</span>)</span></span>
+                                        <ul data-ng-if="folder.expanded">
+                                            <li data-ng-repeat="information in ctrl.informationsInFolder(folder.name) | orderBy:'-displayDate'" class="link" data-ng-class="{'warning': information.isSeverityEmergency, 'info': information.isSeverityImportant}" context-menu="ctrl.getContextMenuOptions(information);" data-ng-click="ctrl.initViewInformation(information);" data-ng-dblclick="ctrl.edit(information);">
+                                                <span class="fal fa-fw margin-small-right" data-ng-class="{'fa-exclamation-triangle errorColor': information.isSeverityEmergency, 'fa-exclamation-circle warningColor': information.isSeverityImportant, 'fa-info-circle infoColor': information.isSeverityInformation}" data-ng-attr-title="{{information.severityName}}"></span>
+                                                <span class="margin-small-right" data-ng-class="{'indiscreet': !information.readDate}"><span>{{information.displayDateString}}</span></span>
+                                                <span data-ng-class="{'indiscreet': !information.readDate}" data-ng-attr-title="{{ctrl.getInformationToolTip(information)}}">{{information.subject}}</span>
+                                                <span class="pull-right fal fa-pencil link margin-small-left" data-l10n-bind data-l10n-bind-title="'core.informationmenu.edit'" data-ng-click="ctrl.edit(information);" data-ng-if="ctrl.modifyPermission && information.isCompanyInformation"></span>
+                                                <span class="pull-right fal margin-small-left" data-ng-class="{'fa-file-check okColor': information.answerType == 1, 'fa-file-exclamation errorColor': information.answerType != 1}" data-ng-attr-title="{{ctrl.getConfirmedTooltip(information)}}" data-ng-if="information.needsConfirmation"></span>
+                                                <div data-ng-if="information.expanded">
+                                                    <span>{{information.shortText}}</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="information-menu-toggle" class="right-menu-toggle" data-ng-class="{'right-menu-toggle-active': ctrl.showMenu, 'right-menu-toggle-blink': ctrl.hasSevereUnreadInformation && !ctrl.showMenu}" data-ng-style="{'top': ctrl.topPosition }" data-ng-attr-title="{{ctrl.toggleTooltip}}" data-ng-click="ctrl.toggleShowMenu();">
+        <span class="fa-layers fa-fw">
+            <i class="fal fa-info" data-ng-class="{'right-menu-toggle-counter-blink': ctrl.hasSevereUnreadInformation && !ctrl.showMenu}"></i>
+            <span class="fa-layers-counter" data-ng-if="ctrl.nbrOfUnreadInformations > 99">99+</span>
+            <span class="fa-layers-counter" data-ng-if="ctrl.nbrOfUnreadInformations > 0 && ctrl.nbrOfUnreadInformations < 100">{{ctrl.nbrOfUnreadInformations}}</span>
+        </span>
+    </div>
+</div>

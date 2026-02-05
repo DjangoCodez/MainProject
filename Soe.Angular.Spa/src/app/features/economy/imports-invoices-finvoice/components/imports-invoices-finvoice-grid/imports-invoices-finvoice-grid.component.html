@@ -1,0 +1,25 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    (editRowClicked)="edit($event)"
+    [toolbarGroups]="toolbarUtils.toolbarGroups"
+    [parentGuid]="guid()">
+    <soe-finvoice-filter-grid
+      toolbar-content-left
+      (filter)="onGridFilterChange($event)"></soe-finvoice-filter-grid>
+    <div class="row" footer>
+      <div class="col-sm-12 my-2">
+        <soe-menu-button
+          class="pull-right mx-2"
+          [caption]="'core.functions'"
+          [list]="buttonFunction"
+          [disabled]="disableFunctionButton()"
+          [behaviour]="'secondary'"
+          [dropUp]="true"
+          (itemSelected)="executeButtonFunction($event)"
+          (selectedItem)="(buttonFunction)">
+        </soe-menu-button>
+      </div>
+    </div>
+  </soe-grid-wrapper>
+}

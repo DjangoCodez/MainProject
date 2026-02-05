@@ -1,0 +1,97 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [static]="true"
+      [labelKey]="'billing.stock.stocks.stock'">
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-textbox
+            [labelKey]="'common.code'"
+            [maxLength]="20"
+            [autoFocus]="true"
+            formControlName="code">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-2">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [maxLength]="100"
+            formControlName="name">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'billing.order.deliveryaddress'"
+            [selectedId]="form.value.deliveryAddressId"
+            [items]="performLoadAddresses.data || []"
+            [optionNameField]="'address'"
+            [optionIdField]="'contactAddressId'"
+            formControlName="deliveryAddressId"></soe-select>
+        </div>
+        <div class="col-sm-2">
+          <soe-checkbox
+            [labelKey]="'billing.stock.stocks.isexternal'"
+            [checked]="form.value.isExternal"
+            [inline]="true"
+            formControlName="isExternal"></soe-checkbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel [labelKey]="'billing.stock.stocks.accounts'">
+      <div class="row">
+        <div class="col-xs-12">
+          <soe-accounting-settings
+            [hideAccordion]="true"
+            [settingTypes]="stockAccountSettingTypes"
+            [settings]="form.accountingSettings.value"
+            [showBaseAccount]="true"
+            [minRows]="3"
+            [readOnly]="!flowHandler.modifyPermission()"
+            [form]="form"
+            [baseAccounts]="stockBaseAccounts"
+            (settingsChange)="
+              accountSettingsChanged($event)
+            "></soe-accounting-settings>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [labelKey]="'billing.stock.stockplaces.stockplace'"
+      [noTopPadding]="true">
+      <div class="row">
+        <div class="col-xs-12">
+          @if (form) {
+            <soe-stock-warehouse-edit-grid
+              [form]="form"></soe-stock-warehouse-edit-grid>
+          }
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    @if (form.getIdControl()?.value) {
+      <soe-expansion-panel
+        [labelKey]="'billing.products.products'"
+        (isOpened)="isWarehouseProductsExpanded = true">
+        @if (isWarehouseProductsExpanded) {
+          <soe-stock-warehouse-edit-products-grid
+            [form]="form"></soe-stock-warehouse-edit-products-grid>
+        }
+      </soe-expansion-panel>
+    }
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="applyChanges(); performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

@@ -1,0 +1,52 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title">{{::ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <div class="row" data-ng-if="!ctrl.noIcon || ctrl.text">
+            <div class="col-sm-1" data-ng-if="!ctrl.noIcon">
+                <span class="fal messagebox-icon fa-info-circle infoColor" data-ng-if="ctrl.showIconInfo" data-ng-dblclick="ctrl.iconDoubleClick()"></span>
+                <span class="fal messagebox-icon fa-exclamation-circle warningColor" data-ng-if="ctrl.showIconWarning" data-ng-dblclick="ctrl.iconDoubleClick()"></span>
+                <span class="fal messagebox-icon fa-exclamation-triangle errorColor" data-ng-if="ctrl.showIconError" data-ng-dblclick="ctrl.iconDoubleClick()"></span>
+                <span class="fal messagebox-icon fa-question-circle okColor" data-ng-if="ctrl.showIconQuestion" data-ng-dblclick="ctrl.iconDoubleClick()"></span>
+                <span class="fal messagebox-icon fa-ban errorColor" data-ng-if="ctrl.showIconForbidden" data-ng-dblclick="ctrl.iconDoubleClick()"></span>
+                <span class="fal messagebox-icon fa-check-circle okColor" data-ng-if="ctrl.showIconOk" data-ng-dblclick="ctrl.iconDoubleClick()"></span>
+                <span class="fal messagebox-icon" data-ng-class="ctrl.customIcon" data-ng-if="ctrl.showCustomIcon" data-ng-dblclick="ctrl.iconDoubleClick()"></span>
+            </div>
+            <div class="col-sm-11" data-ng-if="ctrl.text">
+                <span data-ng-bind-html="::ctrl.text" style="max-height:400px; display:block; overflow:auto"></span>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.showHiddenText">
+            <div class="col-sm-12">
+                <span data-ng-bind-html="::ctrl.hiddenText" style="max-height:400px; display:block; overflow:auto"></span>
+            </div>
+        </div>
+        <div class="row" data-ng-class="{'margin-large-top': !ctrl.noIcon || ctrl.text || ctrl.showHiddenText}" data-ng-if="ctrl.showCheckBox">
+            <div class="col-sm-12">
+                <soe-checkbox label="{{ctrl.checkBoxLabel}}" model="ctrl.isChecked"></soe-checkbox>
+            </div>
+        </div>
+        <div class="row" data-ng-class="{'margin-large-top': !ctrl.noIcon || ctrl.text || ctrl.showHiddenText || ctrl.showCheckBox}" data-ng-if="ctrl.showTextBox">
+            <div class="col-sm-12">
+                <soe-label model="ctrl.textBoxLabel" data-ng-if="ctrl.textBoxLabel"></soe-label>
+                <soe-textbox input-type="{{ctrl.textBoxType}}" hidelabel="true" model="ctrl.textBoxValue" set-focus="true" on-enter="ctrl.buttonOkClick()" data-ng-if="ctrl.textBoxRows<2"></soe-textbox>
+                <soe-textarea hidelabel="true" model="ctrl.textBoxValue" rows="ctrl.textBoxRows" set-focus="true" data-ng-if="ctrl.textBoxRows>1"></soe-textarea>
+            </div>
+        </div>
+        <div class="row" data-ng-class="{'margin-large-top': !ctrl.noIcon || ctrl.text || ctrl.showHiddenText || ctrl.showCheckBox || ctrl.showTextBox}" data-ng-if="ctrl.showDatePicker">
+            <div class="col-sm-12">
+                <soe-label model="ctrl.datePickerLabel" data-ng-if="ctrl.datePickerLabel"></soe-label>
+                <soe-datepicker hidelabel="true" model="ctrl.datePickerValue" set-focus="true"></soe-datepicker>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" data-ng-if="ctrl.showButtonCancelAll || ctrl.showButtonCancel || ctrl.showButtonNo || ctrl.showButtonYes || ctrl.showButtonOk">
+        <button type="button" class="btn btn-default" data-ng-if="ctrl.showButtonCancelAll" data-ng-click="ctrl.buttonCancelAllClick()" data-conditional-focus="ctrl.focusValue" data-conditional-focus-value="cancelAll">{{::ctrl.buttonCancelAllLabel}}</button>
+        <button type="button" class="btn btn-default" data-ng-if="ctrl.showButtonCancel" data-ng-click="ctrl.buttonCancelClick()" data-conditional-focus="ctrl.focusValue" data-conditional-focus-value="cancel">{{::ctrl.buttonCancelLabel}}</button>
+        <button type="button" class="btn btn-default" data-ng-if="ctrl.showButtonNo" data-ng-click="ctrl.buttonNoClick()" data-conditional-focus="ctrl.focusValue" data-conditional-focus-value="no">{{::ctrl.buttonNoLabel}}</button>
+        <button type="button" class="btn btn-primary" data-ng-if="ctrl.showButtonYes" data-ng-click="ctrl.buttonYesClick()" data-conditional-focus="ctrl.focusValue" data-conditional-focus-value="yes">{{::ctrl.buttonYesLabel}}</button>
+        <button type="button" class="btn btn-primary" data-ng-if="ctrl.showButtonOk" data-ng-click="ctrl.buttonOkClick()" data-conditional-focus="ctrl.focusValue" data-ng-disabled="ctrl.okDisabled" data-conditional-focus-value="ok">{{::ctrl.buttonOkLabel}}</button>
+    </div>
+</div>

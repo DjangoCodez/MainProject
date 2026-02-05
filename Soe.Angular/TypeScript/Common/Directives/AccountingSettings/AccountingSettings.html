@@ -1,0 +1,22 @@
+﻿<div>
+    <div data-ng-if="!ctrl.progressBusy">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-12 content-border-no-radius" style="margin-bottom: -1px;">
+                    <span class="pull-left" style="margin-left: -5px; margin-top: 3px; margin-bottom: 3px; font-weight: bold;" data-l10n-bind="'{{ctrl.labelKey}}'"></span>
+                    <soe-checkbox class="pull-left" style="margin-left: 15px; margin-top: 1px; margin-bottom: 2px;" label-key="common.accountingsettings.usefixed" model="ctrl.fixedAccounting" is-disabled="ctrl.fixedAccountingDisabled" data-ng-if="ctrl.useFixedAccounting" on-changing="ctrl.fixedAccountingChanged();"></soe-checkbox>
+                    <span class="content-border-button pull-right" data-ng-if="!ctrl.readOnly && ctrl.fixedAccounting && ctrl.settings.length < 8" data-ng-click="ctrl.addRow();"><i class="fal fa-plus"></i><label data-l10n-bind="'core.newrow'"></label></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div ag-grid="ctrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;" prevent-enter></div>
+                <div id="accounting-sum-footer-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter data-ng-if="ctrl.useFixedAccounting"></div>
+                <div class="warning margin-small-top" data-ng-if="!ctrl.isValid && ctrl.validationErrors">
+                    <span data-ng-bind-html="ctrl.validationErrors | formatHtml"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

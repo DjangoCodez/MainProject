@@ -1,0 +1,85 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        @if (form.isCodeTypeGeneric) {
+          <div class="row">
+            <div class="col-sm-12 mb-3">
+              <soe-instruction
+                text="billing.invoices.supplieragreement.discountinfo"></soe-instruction>
+            </div>
+          </div>
+        }
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'common.customer.customer.wholesellername'"
+              formControlName="sysWholesellerId"
+              [items]="data.wholesellersDict"></soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'billing.order.pricelisttype'"
+              formControlName="priceListTypeId"
+              [items]="data.priceLists"></soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'common.type'"
+              formControlName="codeType"
+              [items]="data.codeTypes"></soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="
+                'billing.invoices.supplieragreement.materialclassproductnr'
+              "
+              formControlName="code"></soe-textbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="'billing.productrows.dialogs.discountpercent'"
+              formControlName="discountPercent"></soe-textbox>
+          </div>
+        </div>
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    <soe-button
+      class="ms-3"
+      [caption]="'core.cancel'"
+      typeClass="btn btn-secondary"
+      [behaviour]="'standard'"
+      (action)="cancel()"></soe-button>
+    @if (form.isExisting) {
+      <soe-button
+        class="ms-3"
+        [caption]="'core.delete'"
+        typeClass="btn btn-secondary"
+        [behaviour]="'standard'"
+        (action)="delete()"></soe-button>
+    }
+    <soe-save-button
+      class="ms-3"
+      [caption]="'core.ok'"
+      typeClass="btn btn-secondary"
+      [invalid]="form.invalid"
+      (action)="ok()"
+      (validationErrorsAction)="
+        form.openFormValidationErrors()
+      "></soe-save-button>
+  </div>
+</soe-dialog>

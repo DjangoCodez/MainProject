@@ -1,0 +1,17 @@
+﻿<div>
+    <div class="row" data-ng-if="::!$ctrl.hideLabel">
+        <div class="col-sm-12">
+            <label class="control-label" data-l10n-bind="::$ctrl.labelKey"></label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <soe-select hidelabel="true" model="$ctrl.selectedTimeIntervalId" items="$ctrl.timeIntervals" options="item.id as item.name for item in items" on-changing="$ctrl.onTimeIntervalChanged(item)"></soe-select>
+        </div>
+    </div>
+    <div class="row margin-small-top" data-ng-if="$ctrl.selectedRangeFrom">
+        <div class="col-sm-12 margin-small-left">
+            <span>{{$ctrl.selectedRangeFrom | date:'shortDate'}}</span><span data-ng-if="!$ctrl.isBeginningOfDay"> ({{$ctrl.selectedRangeFrom | date:'shortTime'}})</span> - <span>{{$ctrl.selectedRangeTo | date:'shortDate'}}</span><span data-ng-if="!$ctrl.isEndOfDay"> ({{$ctrl.selectedRangeTo | date:'shortTime'}})</span>
+        </div>
+    </div>
+</div>

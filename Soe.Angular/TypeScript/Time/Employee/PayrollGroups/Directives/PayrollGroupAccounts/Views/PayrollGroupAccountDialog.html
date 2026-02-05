@@ -1,0 +1,43 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></h6>
+        <span class="modal-title" data-ng-if="!ctrl.isNew"><span data-l10n-bind="'core.edit'"></span> <span data-l10n-bind="'time.employee.payrollgroup.account.birthyear'"></span> <span>{{ctrl.accountRow.fromInterval}}&nbsp;-&nbsp;{{ctrl.accountRow.toInterval}}</span></span>
+    </div>
+    <div class="modal-body">
+        <soe-panel label-key="time.employee.tax.employmenttax">
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-textbox label-key="common.percent" model="ctrl.accountRow.employmentTaxPercent" numeric="true" decimals="2" readOnly="true"></soe-textbox>
+                </div>
+                <div class="col-sm-8">
+                    <soe-select label-key="common.accountingsettings.account" model="ctrl.accountRow.employmentTaxAccountId" items="ctrl.accountStds" options="item.accountId as item.numberAndName for item in items"></soe-select>
+                </div>
+            </div>
+        </soe-panel>
+        <soe-panel label-key="time.employee.payrollgroup.account.payrolltax" data-ng-if="ctrl.usePayrollTax">
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-textbox label-key="common.percent" model="ctrl.accountRow.payrollTaxPercent" numeric="true" decimals="2" readOnly="true"></soe-textbox>
+                </div>
+                <div class="col-sm-8">
+                    <soe-select label-key="common.accountingsettings.account" model="ctrl.accountRow.payrollTaxAccountId" items="ctrl.accountStds" options="item.accountId as item.numberAndName for item in items"></soe-select>
+                </div>
+            </div>
+        </soe-panel>
+        <soe-panel label-key="time.employee.payrollgroup.account.ownsupplementcharge">
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-textbox label-key="common.percent" model="ctrl.accountRow.ownSupplementChargePercent" numeric="true" decimals="2"></soe-textbox>
+                </div>
+                <div class="col-sm-8">
+                    <soe-select label-key="common.accountingsettings.account" model="ctrl.accountRow.ownSupplementChargeAccountId" items="ctrl.accountStds" options="item.accountId as item.numberAndName for item in items" is-required="ctrl.accountRow.ownSupplementChargePercent"></soe-select>
+                </div>
+            </div>
+        </soe-panel>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-disabled="ctrl.accountRow.ownSupplementChargePercent && !ctrl.accountRow.ownSupplementChargeAccountId" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

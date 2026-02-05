@@ -1,0 +1,30 @@
+﻿<script src="https://unpkg.com/ag-charts-community@1.2.0/dist/ag-charts-community.min.js" integrity="sha384-AeHDYHiEDG0vfqdRNdzvtJoUDx+o16+j6rfkJERJYRE7KEdezdIxPxvrUoA9PJQx" crossorigin="anonymous"></script>
+<div style="margin-top: 25px;">
+    <uib-accordion close-others="false">
+        <soe-accordion label-key="economy.accounting.liquidityplanning.graph" is-disabled-binding="!ctrl.enableGraph" on-open="ctrl.createCharts()">
+            <div class="row margin-large-top">
+                <div class="col-sm-12">
+                    <div id="liquidityLineGraph" style="display: inline-block; width: 100%;" class="content-border-no-radius margin-small-right margin-large-bottom"></div>
+                </div>
+            </div>
+        </soe-accordion>
+    </uib-accordion>
+    <div class="ngSoeFormFooter" style="height: 70px;">
+        <div class="row pull-right">
+            <div class="col-sm-12">
+                <div class="col">
+                    <soe-textbox class="pull-right margin-small-right" label-key="economy.accounting.liquidityplanning.totalinvalue" model="ctrl.totalIn" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                </div>
+                <div class="col">
+                    <soe-textbox class="pull-right margin-small-right" label-key="economy.accounting.liquidityplanning.totalin" model="ctrl.valueIn" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                </div>
+                <div class="col">
+                    <soe-textbox class="pull-right margin-small-right" label-key="economy.accounting.liquidityplanning.totalout" model="ctrl.valueOut" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                </div>
+                <div class="col">
+                    <soe-textbox class="pull-right margin-small-right" label-key="economy.accounting.liquidityplanning.totaloutvalue" model="ctrl.totalOut" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></h6>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'" data-ng-if="!ctrl.isNew"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-1">
+                <soe-textbox label-key="manage.registry.checklists.rownr" model="ctrl.checklistRow.rowNr" numeric="true" decimals="0"></soe-textbox>
+            </div>
+            <div class="col-sm-6">
+                <soe-textbox label-key="manage.registry.checklists.question" model="ctrl.checklistRow.text"></soe-textbox>
+            </div>
+            <div class="col-sm-3">
+                <soe-label label-key="manage.registry.checklists.answertype"></soe-label>
+                <div class="input-group">
+                    <soe-select model="ctrl.checklistRow.type" items="ctrl.checklistRowTypes" options="item.id as item.name for item in items" button-icon="'fa-pencil'" on-changing="ctrl.rowTypeChanged(item)"></soe-select>
+                    <span class="input-group-btn" data-ng-if="ctrl.checklistRow.type == 4">
+                        <button type="button" class="btn btn-sm btn-default fal fa-pencil iconEdit" data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-click="$event.stopPropagation();ctrl.openMultipleChoiceDialog()"></button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <soe-checkbox label-key="manage.registry.checklists.mandatory" model="ctrl.checklistRow.mandatory" inline="true"></soe-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

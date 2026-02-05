@@ -1,0 +1,22 @@
+﻿<div class="table-responsive">
+    <table class="table table-outer-bordered table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col" data-l10n-bind="'common.date'"></th>
+                <th scope="col" data-l10n-bind="'common.from'"></th>
+                <th scope="col" data-l10n-bind="'common.to'"></th>
+                <th scope="col" data-l10n-bind="'common.employee'"></th>
+                <th scope="col" data-l10n-bind="'billing.order.planning.shifttype'"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="shift in ctrl.shifts track by shift.timeScheduleTemplateBlockId">
+                <td><span>{{::shift.date | date:'shortDate'}}</span></td>
+                <td><span>{{::shift.from}}</span></td>
+                <td><span>{{::shift.to}}</span></td>
+                <td><span>{{::shift.employeeName}}</span></td>
+                <td><span>{{::shift.shiftTypeName}}</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

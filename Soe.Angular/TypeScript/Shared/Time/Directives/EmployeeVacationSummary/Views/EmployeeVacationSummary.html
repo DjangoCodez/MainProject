@@ -1,0 +1,115 @@
+﻿<div>
+    <soe-panel label-key="time.employeevacationsummary.title">
+        <div class="row">
+            <div class="col-sm-8">
+                <soe-label label-key="time.employeevacationsummary.remainingdays.paid" data-ng-if="!ctrl.showHours"></soe-label>
+                <soe-label label-key="time.employeevacationsummary.remaininghours.paid" data-ng-if="ctrl.showHours"></soe-label>
+            </div>
+            <div class="col-sm-4">
+                <soe-text model="ctrl.summary.remainingDaysPaid || 0" text-class="text-right" text-class-condition="true" data-ng-if="!ctrl.showHours"></soe-text>
+                <soe-text model="ctrl.summary.earnedDaysRemainingHoursPaid || 0| number: 2" text-class="text-right" text-class-condition="true" data-ng-if="ctrl.showHours"></soe-text>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <soe-label label-key="time.employeevacationsummary.remainingdays.unpaid" data-ng-if="!ctrl.showHours"></soe-label>
+                <soe-label label-key="time.employeevacationsummary.remaininghours.unpaid" data-ng-if="ctrl.showHours"></soe-label>
+            </div>
+            <div class="col-sm-4">
+                <soe-text model="ctrl.summary.remainingDaysUnpaid || 0" text-class="text-right" text-class-condition="true" data-ng-if="!ctrl.showHours"></soe-text>
+                <soe-text model="ctrl.summary.earnedDaysRemainingHoursUnpaid || 0 | number:2" text-class="text-right" text-class-condition="true" data-ng-if="ctrl.showHours"></soe-text>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <soe-label label-key="time.employeevacationsummary.remainingdays.advance"></soe-label>
+            </div>
+            <div class="col-sm-4">
+                <soe-text model="ctrl.summary.remainingDaysAdvance || 0" text-class="text-right" text-class-condition="true" data-ng-if="!ctrl.showHours"></soe-text>
+                <soe-text model="ctrl.summary.earnedDaysRemainingHoursAdvance || 0 |number:2" text-class="text-right" text-class-condition="true" data-ng-if="ctrl.showHours"></soe-text>
+            </div>
+        </div>
+        <div class="row horizontal-line margin-small-top"></div>
+        <div class="row">
+            <div class="col-sm-8">
+                <soe-label label-key="time.employeevacationsummary.remainingdays.year1" data-ng-if="ctrl.showYear2To5"></soe-label>
+                <soe-label label-key="time.employeevacationsummary.remainingdays.saved" data-ng-if="!ctrl.showYear2To5"></soe-label>
+            </div>
+            <div class="col-sm-4">
+                <soe-text model="ctrl.summary.remainingDaysYear1 || 0" text-class="text-right" text-class-condition="true" data-ng-if="!ctrl.showHours"></soe-text>
+                <soe-text model="ctrl.summary.earnedDaysRemainingHoursYear1 || 0 |number:2" text-class="text-right" text-class-condition="true" data-ng-if="ctrl.showHours"></soe-text>
+            </div>
+        </div>
+        <div data-ng-if="ctrl.showYear2To5">
+            <div class="row">
+                <div class="col-sm-8">
+                    <soe-label label-key="time.employeevacationsummary.remainingdays.year2"></soe-label>
+                </div>
+                <div class="col-sm-4">
+                    <soe-text model="ctrl.summary.remainingDaysYear2 || 0" text-class="text-right" text-class-condition="true" data-ng-if="!ctrl.showHours"></soe-text>
+                    <soe-text model="ctrl.summary.earnedDaysRemainingHoursYear2 || 0 |number:2" text-class="text-right" text-class-condition="true" data-ng-if="ctrl.showHours"></soe-text>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <soe-label label-key="time.employeevacationsummary.remainingdays.year3"></soe-label>
+                </div>
+                <div class="col-sm-4">
+                    <soe-text model="ctrl.summary.remainingDaysYear3 || 0" text-class="text-right" text-class-condition="true" data-ng-if="!ctrl.showHours"></soe-text>
+                    <soe-text model="ctrl.summary.earnedDaysRemainingHoursYear3 || 0 |number:2" text-class="text-right" text-class-condition="true" data-ng-if="ctrl.showHours"></soe-text>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <soe-label label-key="time.employeevacationsummary.remainingdays.year4"></soe-label>
+                </div>
+                <div class="col-sm-4">
+                    <soe-text model="ctrl.summary.remainingDaysYear4 || 0" text-class="text-right" text-class-condition="true" data-ng-if="!ctrl.showHours"></soe-text>
+                    <soe-text model="ctrl.summary.earnedDaysRemainingHoursYear4 || 0 | number:2" text-class="text-right" text-class-condition="true" data-ng-if="ctrl.showHours"></soe-text>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <soe-label label-key="time.employeevacationsummary.remainingdays.year5"></soe-label>
+                </div>
+                <div class="col-sm-4">
+                    <soe-text model="ctrl.summary.remainingDaysYear5 || 0" text-class="text-right" text-class-condition="true" data-ng-if="!ctrl.showHours"></soe-text>
+                    <soe-text model="ctrl.summary.earnedDaysRemainingHoursYear5 || 0 | number:2" text-class="text-right" text-class-condition="true" data-ng-if="ctrl.showHours"></soe-text>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <soe-label label-key="time.employeevacationsummary.remainingdays.overdue" data-ng-if="!ctrl.showHours"></soe-label>
+                <soe-label label-key="time.employeevacationsummary.remaininghours.overdue" data-ng-if="ctrl.showHours"></soe-label>
+            </div>
+            <div class="col-sm-4">
+                <soe-text model="ctrl.summary.remainingDaysOverdue || 0" text-class="text-right" text-class-condition="true" data-ng-if="!ctrl.showHours"></soe-text>
+                <soe-text model="ctrl.summary.earnedDaysRemainingHoursOverdue || 0 | number:2" text-class="text-right" text-class-condition="true" data-ng-if="ctrl.showHours"></soe-text>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-label label-key="time.employeevacationsummary.preliminarydayssum"></soe-label>
+            </div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-sm btn-default pull-right infoColor fal fa-info" title="{{ctrl.employeeVacationPrelUsedDays.details}}" data-ng-click="$event.stopPropagation();ctrl.showPreliminaryDetails()" data-ng-if="ctrl.hasPreliminaryDetails()"></button>
+            </div>
+            <div class="col-sm-2">
+                <soe-text model="ctrl.employeeVacationPrelUsedDays.sum" text-class="text-right" text-class-condition="true" data-ng-if="!ctrl.showHours"></soe-text>
+                <soe-text model="ctrl.preliminaryHoursSum || 0 | number:2" text-class="text-right" text-class-condition="true" data-ng-if="ctrl.showHours"></soe-text>
+            </div>
+        </div>
+        <div class="row horizontal-line margin-small-top"></div>
+        <div class="row">
+            <div class="col-sm-8">
+                <soe-label label-key="time.employeevacationsummary.remainingdays.sum" data-ng-class="{'errorColor': ctrl.remainingDaysSum && ctrl.remainingDaysSum < 0}" data-ng-if="!ctrl.showHours"></soe-label>
+                <soe-label label-key="time.employeevacationsummary.remainingdays.sum" data-ng-class="{'errorColor': ctrl.remainingHoursSum && ctrl.remainingHoursSum < 0}" data-ng-if="ctrl.showHours"></soe-label>
+            </div>
+            <div class="col-sm-4">
+                <soe-text model="ctrl.remainingDaysSum || 0" bold="true" text-class="text-right" text-class-condition="true" data-ng-class="{'errorColor': ctrl.remainingDaysSum && ctrl.remainingDaysSum < 0}" data-ng-if="!ctrl.showHours"></soe-text>
+                <soe-text model="ctrl.remainingHoursSum || 0 | number:2" bold="true" text-class="text-right" text-class-condition="true" data-ng-class="{'errorColor': ctrl.remainingHoursSum && ctrl.remainingHoursSum < 0}" data-ng-if="ctrl.showHours"></soe-text>
+            </div>
+        </div>
+    </soe-panel>
+</div>

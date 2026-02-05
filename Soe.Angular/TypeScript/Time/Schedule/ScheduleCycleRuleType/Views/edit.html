@@ -1,0 +1,51 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" ng-class="ctrl.isModal ? 'edit-padding': ''">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="time.schedule.schedulecycleruletype.schedulecycleruletype">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.name" model="ctrl.scheduleCycleRuleType.name" auto-focus="true" required="true" maxlength="100"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3" data-ng-if="ctrl.useAccountsHierarchy">
+                        <soe-select label-key="common.user.attestrole.accounthierarchy" model="ctrl.scheduleCycleRuleType.accountId" items="ctrl.accounts" options="item.accountId as item.name for item in items"></soe-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-multiselect label-key="time.schedule.schedulecycleruletype.weekday" button="false" search="false" options="ctrl.dayOfWeeks" model="ctrl.selectedDayOfWeeks" on-selection-complete="ctrl.selectionChanged()"></soe-multiselect>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-label></soe-label>
+                        <soe-label model="ctrl.selectedDaysString" discreet="true" class="margin-large-top"></soe-label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1">
+                        <soe-timepicker label-key="time.schedule.schedulecycleruletype.starttime" model="ctrl.scheduleCycleRuleType.startTime"></soe-timepicker>
+                    </div>
+                    <div class="col-sm-1">
+                        <soe-timepicker label-key="time.schedule.schedulecycleruletype.stoptime" model="ctrl.scheduleCycleRuleType.stopTime"></soe-timepicker>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.scheduleCycleRuleType"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

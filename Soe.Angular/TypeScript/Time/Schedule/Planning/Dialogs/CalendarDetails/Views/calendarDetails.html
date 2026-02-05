@@ -1,0 +1,207 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">
+            <span data-l10n-bind="'time.schedule.planning.showdetails.title'"></span>
+            <span>{{ctrl.date | date:'shortDate'}}</span>
+        </h6>
+    </div>
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+    <div class="modal-body" data-ng-if="!ctrl.progressBusy">
+        <h5 class="planning-calendar-day-description" style="margin-top: 0px;">{{ctrl.dayDescription}}</h5>
+        <uib-accordion close-others="false">
+            <!-- Open -->
+            <soe-accordion label-key="time.schedule.planning.shiftstatus.open" label-value="ctrl.nbrOfOpen" label-value-in-parentheses="true" more-condensed="true" title-class="shift-open-background" data-ng-if="ctrl.nbrOfOpen > 0">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-l10n-bind="'common.employee'"></th>
+                                <th scope="col" data-l10n-bind="'common.time'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.shifttype.shifttype'"></th>
+                                <th scope="col" data-l10n-bind="'common.absence'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.planning.editshift.preliminary'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.planning.queue'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="open in ctrl.detail.open">
+                                <td><span>{{::open.employeeName}}</span></td>
+                                <td><span>{{::open.shiftTimeRange}}</span></td>
+                                <td><span>{{::open.shiftTypeName}}</span></td>
+                                <td><span>{{::open.deviationCauseName}}</span></td>
+                                <td><span data-ng-class="{'fal fa-check': open.isPreliminary}"></span></td>
+                                <td><span>{{::open.queue}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </soe-accordion>
+            <!-- Assigned -->
+            <soe-accordion label-key="time.schedule.planning.shiftstatus.assigned" label-value="ctrl.nbrOfAssigned" label-value-in-parentheses="true" more-condensed="true" title-class="shift-assigned-background" data-ng-if="ctrl.nbrOfAssigned > 0">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-l10n-bind="'common.employee'"></th>
+                                <th scope="col" data-l10n-bind="'common.time'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.shifttype.shifttype'"></th>
+                                <th scope="col" data-l10n-bind="'common.absence'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.planning.editshift.preliminary'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.planning.queue'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="assigned in ctrl.detail.assigned">
+                                <td><span>{{::assigned.employeeName}}</span></td>
+                                <td><span>{{::assigned.shiftTimeRange}}</span></td>
+                                <td><span>{{::assigned.shiftTypeName}}</span></td>
+                                <td><span>{{::assigned.deviationCauseName}}</span></td>
+                                <td><span data-ng-class="{'fal fa-check': assigned.isPreliminary}"></span></td>
+                                <td><span>{{::assigned.queue}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </soe-accordion>
+            <!-- Wanted -->
+            <soe-accordion label-key="time.schedule.planning.shiftstatus.wanted" label-value="ctrl.nbrOfWanted" label-value-in-parentheses="true" more-condensed="true" title-class="shift-wanted-background" data-ng-if="ctrl.nbrOfWanted > 0">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-l10n-bind="'common.employee'"></th>
+                                <th scope="col" data-l10n-bind="'common.time'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.shifttype.shifttype'"></th>
+                                <th scope="col" data-l10n-bind="'common.absence'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.planning.editshift.preliminary'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.planning.queue'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="wanted in ctrl.detail.wanted">
+                                <td><span>{{::wanted.employeeName}}</span></td>
+                                <td><span>{{::wanted.shiftTimeRange}}</span></td>
+                                <td><span>{{::wanted.shiftTypeName}}</span></td>
+                                <td><span>{{::wanted.deviationCauseName}}</span></td>
+                                <td><span data-ng-class="{'fal fa-check': wanted.isPreliminary}"></span></td>
+                                <td><span>{{::wanted.queue}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </soe-accordion>
+            <!-- Unwanted -->
+            <soe-accordion label-key="time.schedule.planning.shiftstatus.unwanted" label-value="ctrl.nbrOfUnwanted" label-value-in-parentheses="true" more-condensed="true" title-class="shift-unwanted-background" data-ng-if="ctrl.nbrOfUnwanted > 0">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-l10n-bind="'common.employee'"></th>
+                                <th scope="col" data-l10n-bind="'common.time'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.shifttype.shifttype'"></th>
+                                <th scope="col" data-l10n-bind="'common.absence'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.planning.editshift.preliminary'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.planning.queue'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="unwanted in ctrl.detail.unwanted">
+                                <td><span>{{::unwanted.employeeName}}</span></td>
+                                <td><span>{{::unwanted.shiftTimeRange}}</span></td>
+                                <td><span>{{::unwanted.shiftTypeName}}</span></td>
+                                <td><span>{{::unwanted.deviationCauseName}}</span></td>
+                                <td><span data-ng-class="{'fal fa-check': unwanted.isPreliminary}"></span></td>
+                                <td><span>{{::unwanted.queue}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </soe-accordion>
+            <!-- AbsenceRequested -->
+            <soe-accordion label-key="time.schedule.planning.shiftstatus.absencerequested" label-value="ctrl.nbrOfAbsenceRequested" label-value-in-parentheses="true" more-condensed="true" title-class="shift-absence-requested-background" data-ng-if="ctrl.nbrOfAbsenceRequested > 0">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-l10n-bind="'common.employee'"></th>
+                                <th scope="col" data-l10n-bind="'common.time'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.shifttype.shifttype'"></th>
+                                <th scope="col" data-l10n-bind="'common.absence'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.planning.editshift.preliminary'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.planning.queue'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="absenceRequested in ctrl.detail.absenceRequested">
+                                <td><span>{{::absenceRequested.employeeName}}</span></td>
+                                <td><span>{{::absenceRequested.shiftTimeRange}}</span></td>
+                                <td><span>{{::absenceRequested.shiftTypeName}}</span></td>
+                                <td><span>{{::absenceRequested.deviationCauseName}}</span></td>
+                                <td><span data-ng-class="{'fal fa-check': absenceRequested.isPreliminary}"></span></td>
+                                <td><span>{{::absenceRequested.queue}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </soe-accordion>
+            <!-- AbsenceApproved -->
+            <soe-accordion label-key="time.schedule.planning.shiftstatus.absenceapproved" label-value="ctrl.nbrOfAbsenceApproved" label-value-in-parentheses="true" more-condensed="true" title-class="shift-absence-approved-background" data-ng-if="ctrl.nbrOfAbsenceApproved > 0">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-l10n-bind="'common.employee'"></th>
+                                <th scope="col" data-l10n-bind="'common.time'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.shifttype.shifttype'"></th>
+                                <th scope="col" data-l10n-bind="'common.absence'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.planning.editshift.preliminary'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.planning.queue'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="absenceApproved in ctrl.detail.absenceApproved">
+                                <td><span>{{::absenceApproved.employeeName}}</span></td>
+                                <td><span>{{::absenceApproved.shiftTimeRange}}</span></td>
+                                <td><span>{{::absenceApproved.shiftTypeName}}</span></td>
+                                <td><span>{{::absenceApproved.deviationCauseName}}</span></td>
+                                <td><span data-ng-class="{'fal fa-check': absenceApproved.isPreliminary}"></span></td>
+                                <td><span>{{::absenceApproved.queue}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </soe-accordion>
+            <!-- Preliminary -->
+            <soe-accordion label-key="time.schedule.planning.shiftstatus.preliminary" label-value="ctrl.nbrOfPreliminary" label-value-in-parentheses="true" more-condensed="true" title-class="shift-striped-background" data-ng-if="ctrl.nbrOfPreliminary > 0">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-l10n-bind="'common.employee'"></th>
+                                <th scope="col" data-l10n-bind="'common.time'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.shifttype.shifttype'"></th>
+                                <th scope="col" data-l10n-bind="'common.absence'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.planning.editshift.preliminary'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.planning.queue'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="preliminary in ctrl.detail.preliminary">
+                                <td><span>{{::preliminary.employeeName}}</span></td>
+                                <td><span>{{::preliminary.shiftTimeRange}}</span></td>
+                                <td><span>{{::preliminary.shiftTypeName}}</span></td>
+                                <td><span>{{::preliminary.deviationCauseName}}</span></td>
+                                <td><span data-ng-class="{'fal fa-check': preliminary.isPreliminary}"></span></td>
+                                <td><span>{{::preliminary.queue}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.cancel()"></button>
+    </div>
+</div>

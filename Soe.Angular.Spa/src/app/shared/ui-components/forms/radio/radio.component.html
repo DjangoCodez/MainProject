@@ -1,0 +1,26 @@
+<div
+  class="form-check"
+  [class.style-as-button]="styleAsButton()"
+  [class.btn]="styleAsButton()"
+  [class.btn-primary]="styleAsButton() && control.value === value()"
+  [class.btn-secondary]="styleAsButton() && control.value !== value()"
+  [ngClass]="{
+    'form-check-inline me-3': inline(),
+    'mt-2': !styleAsButton() && !noMargin() && !inline()
+  }"
+  [ngStyle]="inline() ? { 'margin-top': '2.2rem' } : {}">
+  <input
+    type="radio"
+    class="form-check-input"
+    [id]="inputId()"
+    [formControl]="control"
+    [name]="group()"
+    [value]="value()"
+    (change)="onValueChange($event)" />
+  @if (icon()) {
+    <fa-icon [ngClass]="iconClass()" [icon]="icon()!"></fa-icon>
+  }
+  <label class="form-check-label" [for]="inputId()">
+    {{ labelKey() | translate }}
+  </label>
+</div>

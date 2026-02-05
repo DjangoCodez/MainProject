@@ -1,0 +1,114 @@
+﻿<form name="ctrl.dialogform" class="ngSoeForm" novalidate autocomplete="off" ng-if="ctrl.isLoaded">
+    <div class="messagebox">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'common.batchupdate.title'"></h6>
+        </div>
+        <div class="modal-body">
+            <div class="info margin-large-top">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <span data-l10n-bind="'common.batchupdate.howto'"></span>
+                    </div>
+                </div>
+            </div>
+            <div data-ng-class="{'row':ctrl.doShowFilter(), 'row margin-large-bottom':!ctrl.doShowFilter()}">
+                <div class="col-sm-12">
+                    <soe-select label-key="common.batchupdate.field" model="ctrl.selectedField" button-icon="'fa-plus'" on-button-click="ctrl.addRow()" items="ctrl.notAddedBatchUpdates" options="item.field as item.label for item in items"></soe-select>
+                </div>
+            </div>
+            <div class="row margin-large-bottom" data-ng-if="ctrl.doShowFilter()">
+                <div class="col-sm-12">
+                    <soe-multiselect label-key="{{ctrl.filterTranslactionKey}}" model="ctrl.filterSelected" on-item-select="ctrl.checkSelected()" options="ctrl.filterOptions" display-prop="name" show-selected="true" required="true"></soe-multiselect>
+                </div>
+            </div>
+            <div ng-if="ctrl.addedBatchUpdates.length > 0" class="margin-large-top">
+                <soe-panel label-key="common.batchupdate.newvalues">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label data-l10n-bind="'common.batchupdate.field'"></label>
+                        </div>
+                        <div class="col-sm-1" data-ng-if="!ctrl.doShowDates()">
+                            &nbsp;
+                        </div>
+                        <div class="col-sm-6" data-ng-class="{'col-sm-3':ctrl.doShowDates()}">
+                            <label data-l10n-bind="'common.batchupdate.valueto'"></label>
+                        </div>
+                        <div data-ng-class="{'col-sm-2':ctrl.doShowDates()}" data-ng-if="ctrl.doShowStartDate()">
+                            <label data-l10n-bind="'common.startdate'"></label>
+                        </div>
+                        <div data-ng-class="{'col-sm-2':ctrl.doShowDates()}" data-ng-if="ctrl.doShowToDate()">
+                            <label data-l10n-bind="'common.stopdate'"></label>
+                        </div>
+                        <div class="col-sm-1 col">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div ng-repeat="batchUpdate in ctrl.addedBatchUpdates">
+                        <div class="row margin-small-top">
+                            <div class="col-sm-4" ">
+                                <soe-label model="batchUpdate.label" discreet="true"></soe-label>
+                            </div>
+                            <div class="col-sm-1" style="text-align:right" data-ng-if="!ctrl.doShowDates()">
+                                <i class="fa fa-equals margin-large-top"></i>
+                            </div>
+                            <div class="col-sm-6" data-ng-class="{'col-sm-3':ctrl.doShowDates()}">
+                                <soe-textbox ng-if="batchUpdate.dataType == 1" model="batchUpdate.stringValue" hidelabel="true"></soe-textbox>
+                                <soe-textbox ng-if="batchUpdate.dataType == 2" model="batchUpdate.intValue" numeric="true" decimals="0" hidelabel="true"></soe-textbox>
+                                <soe-checkbox ng-if="batchUpdate.dataType == 3" model="batchUpdate.boolValue" inline="true" hidelabel="true" style="margin-top: -10px;"></soe-checkbox>
+                                <soe-datepicker ng-if="batchUpdate.dataType == 4" model="batchUpdate.dateValue" inline="true" hidelabel="true"></soe-datepicker>
+                                <soe-textbox ng-if="batchUpdate.dataType == 5" model="batchUpdate.decimalValue" inline="true" hidelabel="true" numeric-not-zero="true" decimals="2"></soe-textbox>
+                                <soe-textbox ng-if="batchUpdate.dataType == 6" model="batchUpdate.timeValueFormatted" inline="true" hidelabel="true" update-on="blur" is-time="true"></soe-textbox>
+                                <soe-select ng-if="batchUpdate.dataType == 7" model="batchUpdate.intValue" items="batchUpdate.options" options="item.id as item.name for item in items" hidelabel="true"></soe-select>
+                                <soe-textbox ng-if="batchUpdate.dataType == 8" model="batchUpdate.decimalValue" inline="true" hidelabel="true" numeric="true" decimals="2"></soe-textbox>
+                            </div>
+                            <div data-ng-if="ctrl.doShowDates()" data-ng-class="{'col-sm-2':ctrl.doShowDates()}">
+                                <soe-datepicker model="batchUpdate.fromDate" data-ng-show="batchUpdate.doShowFromDate" inline="true" hidelabel="true" on-change="ctrl.selectedFromDateChanged(batchUpdate);"></soe-datepicker>
+                            </div>
+                            <div data-ng-if="ctrl.doShowDates()" data-ng-class="{'col-sm-2':ctrl.doShowDates()}">
+                                <soe-datepicker model="batchUpdate.toDate" data-ng-show="batchUpdate.doShowToDate" inline="true" hidelabel="true" on-change="ctrl.selectedToDateChanged(batchUpdate);"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-1 col" style="padding-left:0">
+                                <i class="btn btn-default fal fa-times iconDelete" data-ng-click="ctrl.removeRow(batchUpdate)"></i>
+                            </div>
+                        </div>
+                        <div class="row margin-small-top" data-ng-if="batchUpdate.children && batchUpdate.children.length > 0" ng-repeat="batchUpdateChild in batchUpdate.children">
+                            <div class="col-sm-5" data-ng-class="{'col-sm-4':ctrl.doShowDates()}">
+                                <soe-label model="batchUpdateChild.label" discreet="true"></soe-label>
+                            </div>
+                            <div class="col-sm-6" data-ng-class="{'col-sm-3':ctrl.doShowDates()}">
+                                <soe-textbox ng-if="batchUpdateChild.dataType == 1" model="batchUpdateChild.stringValue" hidelabel="true"></soe-textbox>
+                                <soe-textbox ng-if="batchUpdateChild.dataType == 2" model="batchUpdateChild.intValue" numeric="true" decimals="0" hidelabel="true"></soe-textbox>
+                                <soe-checkbox ng-if="batchUpdateChild.dataType == 3" model="batchUpdateChild.boolValue" inline="true" hidelabel="true" style="margin-top: -10px;"></soe-checkbox>
+                                <soe-datepicker ng-if="batchUpdateChild.dataType == 4" model="batchUpdateChild.dateValue" inline="true" hidelabel="true"></soe-datepicker>
+                                <soe-textbox ng-if="batchUpdateChild.dataType == 5" model="batchUpdateChild.decimalValue" inline="true" hidelabel="true" numeric="true" decimals="2"></soe-textbox>
+                                <soe-textbox ng-if="batchUpdateChild.dataType == 6" model="batchUpdateChild.timeValueFormatted" inline="true" hidelabel="true" update-on="blur" is-time="true"></soe-textbox>
+                                <soe-select ng-if="batchUpdateChild.dataType == 7" model="batchUpdateChild.intValue" items="batchUpdateChild.options" options="item.id as item.name for item in items" hidelabel="true"></soe-select>
+                                <soe-textbox ng-if="batchUpdateChild.dataType == 8" model="batchUpdateChild.decimalValue" inline="true" hidelabel="true" numeric="true" decimals="2"></soe-textbox>
+                            </div>
+                            <div class="col-sm-1" data-ng-class="{'col-sm-5':ctrl.doShowDates()}">
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+                <div class="info margin-large-top">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span>{{ctrl.terms["common.batchupdate.info"]}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <span class="pull-left">{{ctrl.terms["common.batchupdate.selectedrows"]}}</span>
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-disabled="ctrl.disableSave()" data-ng-show="!ctrl.dialogform.$invalid && !ctrl.readOnly" data-ng-click="ctrl.ok()"></button>
+            <div class="btn-group" role="group" data-ng-show="ctrl.dialogform.$invalid && !ctrl.readOnly">
+                <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.ok'" data-ng-disabled="ctrl.disableSave()" data-ng-click="ctrl.ok()"></button>
+                <button type="button" data-ng-show="ctrl.dialogform.$invalid" class="btn btn-sm ngSoeMainButtonInvalid" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+            </div>
+        </div>
+    </div>
+</form>

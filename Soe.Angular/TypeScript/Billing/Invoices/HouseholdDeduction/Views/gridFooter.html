@@ -1,0 +1,56 @@
+﻿<div class="info" style="margin-top: 16px; margin-bottom: 8px;">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <soe-label class="margin-small-left margin-large-top" label-key="billing.invoices.householddeduction.applytext" discreet="true" ng-if="ctrl.isApply"></soe-label>
+                <soe-label class="margin-small-left margin-large-top" label-key="billing.invoices.householddeduction.appliedtext" discreet="true" ng-if="ctrl.isApplied"></soe-label>
+                <soe-label class="margin-small-left margin-large-top" label-key="billing.invoices.householddeduction.withdrawone" discreet="true" ng-if="ctrl.isReceived"></soe-label>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="col-sm-2 pull-right">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.checkedrows"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.selectedTotal | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 margin-small-right pull-right">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.filteredrows"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredTotal | amount}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ngSoeFormFooter">
+    <div class="row margin-large-top">
+        <div class="col-sm-12">
+            <div class="pull-right margin-small-right">
+                <div class="col">
+                    <soe-splitbutton label-key="common.printreport" options="ctrl.printFunctions" drop-up="true" option-selected="ctrl.executePrintFunction(option)" ng-if="ctrl.isApplied" is-disabled="!ctrl.hasSelectedRows" selected-option="ctrl.selectedPrintOption"></soe-splitbutton>
+                </div>
+                <div class="col">
+                    <soe-label class="pull-right margin-small-left margin-small-right" label-key="billing.invoices.householddeduction.applieddenieddate" discreet="true" ng-if="ctrl.isApplied"></soe-label>
+                </div>
+                <div class="col">
+                    <soe-datepicker style="width:150px" hidelabel="true" label-key="" model="ctrl.bulkDate" ng-if="ctrl.isApplied"></soe-datepicker>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'billing.invoices.householddeduction.saveapplied'" data-l10n-bind-title="'billing.invoices.householddeduction.saveapplied'" data-ng-click="$event.stopPropagation();ctrl.initSaveApplied()" ng-if="ctrl.isApply" data-ng-disabled="!ctrl.hasSelectedRows"></button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'billing.invoices.householddeduction.withdraw'" data-l10n-bind-title="'billing.invoices.householddeduction.withdraw'" data-ng-click="$event.stopPropagation();ctrl.withdrawRecieved()" ng-if="ctrl.isReceived" data-ng-disabled="!ctrl.oneValidRowSelected"></button>
+                </div>
+                <div class="col" data-ng-class="{'no-border-radius-on-specified-last-button' : !ctrl.bulkDate}">
+                    <soe-splitbutton last-button-class="last-button" label-key="core.attestflowaccept" main-button="true" options="ctrl.saveFunctions" drop-up="true" option-selected="ctrl.executeSaveFunction(option)" ng-if="ctrl.isApplied" is-disabled="!ctrl.hasSelectedRows || !ctrl.bulkDate"></soe-splitbutton>
+                </div>
+                <button type="button" class="btn btn-sm ngSoeMainButtonInvalid no-left-border-radius" style="height: 30px;" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" ng-if="ctrl.isApplied" data-ng-show="!ctrl.bulkDate" data-ng-click="$event.stopPropagation();ctrl.showErrorMessage()">!</button>
+            </div>
+        </div>
+    </div>
+</div>

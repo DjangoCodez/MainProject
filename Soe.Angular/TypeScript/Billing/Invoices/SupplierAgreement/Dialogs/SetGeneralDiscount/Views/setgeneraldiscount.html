@@ -1,0 +1,48 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'billing.invoices.supplieragreement.adddiscount'"></h6>
+    </div>
+    <div class="modal-body">    
+        <div class="info margin-large-top" data-ng-if="ctrl.row.codeType === 2">
+            <div class="row">
+                <div class="col-sm-12">
+                    <span data-l10n-bind="'billing.invoices.supplieragreement.discountinfo'"></span>
+                </div>
+            </div>
+        </div>
+            
+        <div class="margin-large-top">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-select label-key="common.customer.customer.wholesellername" model="ctrl.row.sysWholesellerId" items="ctrl.wholesellers" options="item.id as item.name for item in items" required="true" is-readonly="!ctrl.isNew()" tab-with-enter></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-select label-key="billing.order.pricelisttype" model="ctrl.row.priceListTypeId" items="ctrl.pricelistTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.isNew()" tab-with-enter></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-select label-key="common.type" model="ctrl.row.codeType" items="ctrl.codeTypes" options="item.id as item.name for item in items" required="true" is-readonly="!ctrl.isNew() || !ctrl.allowChangeCodeType()" tab-with-enter></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="billing.invoices.supplieragreement.materialclassproductnr" model="ctrl.row.code" required="true" is-readonly="ctrl.row.codeType === 2 || !ctrl.isNew()"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="billing.productrows.dialogs.discountpercent" model="ctrl.row.discountPercent" numeric="true" decimals="2" required="true"> </soe-textbox>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.delete'" data-ng-click="ctrl.buttonDeleteClick()" ng-if="!ctrl.isNew()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.buttonOkClick()" data-ng-disabled="ctrl.isSaveDisabled()"></button>
+    </div>
+</div>

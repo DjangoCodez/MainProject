@@ -1,0 +1,204 @@
+.SoeGrid {
+    height: auto;
+    width: 100%;
+    background-color: var(--soe-background-color);
+    margin-left: 15px;
+}
+
+    .SoeGrid tbody a:hover, .SoeGrid tfoot a:hover, .SoeGrid .SoeGridFilter a:hover {
+        text-decoration: underline;
+    }
+
+    .SoeGrid .gridContent {
+        padding: 10px 15px 10px 15px;
+        border: 1px solid var(--soe-border-color);
+        background-color: var(--soe-background-color);
+    }
+
+    /* Table */
+    .SoeGrid table {
+        width: 100%;
+        border: 1px solid var(--soe-border-color);
+        border-collapse: collapse;
+    }
+
+        .SoeGrid table tr.odd {
+            background-color: var(--soe-color-neutral-ag-white);
+        }
+
+        .SoeGrid table tr.even {
+            background-color: var(--soe-background-color);
+        }
+
+        .SoeGrid table tr.virtual td {
+            font-style: italic;
+        }
+
+        .SoeGrid table tbody td {
+            padding: 3px 6px 2px 6px;
+            border-bottom: 1px solid var(--soe-border-color);
+        }
+
+        .SoeGrid table .num {
+            text-align: left;
+        }
+
+        .SoeGrid table td.action {
+            text-align: center;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+            .SoeGrid table td.action img {
+                position: relative;
+            }
+
+        .SoeGrid table .fal, .SoeGrid table .far, .SoeGrid table .fas {
+            color: var(--soe-text-color);
+            font-size: 14px;
+        }
+
+    /*SoeGrid header*/
+    .SoeGrid #GridHeader {
+        height: 20px;
+        margin: 2px;
+        text-align: right;
+        border: 0;
+    }
+
+        .SoeGrid #GridHeader a {
+            text-decoration: none;
+            font-size: 12px;
+            color: var(--soe-text-color);
+        }
+
+        .SoeGrid #GridHeader img {
+            padding: 0 3px 0 0;
+        }
+
+
+    /* THead */
+    .SoeGrid table thead tr {
+        height: 18px;
+        font-size: 12px;
+        font-weight: 200;
+    }
+
+    .SoeGrid table thead th {
+        width: auto;
+        padding: 5px 5px 5px 5px;
+        background-color: var(--soe-background-color);
+        background-position: 100% 50%;
+        background-repeat: no-repeat;
+        border-bottom: 1px solid var(--soe-border-color);
+        text-align: left;
+        font-weight: normal;
+    }
+
+        .SoeGrid table thead th img {
+            padding: 0 0 0 5px;
+        }
+
+        .SoeGrid table thead th.action {
+            width: 10px;
+            text-align: center;
+        }
+
+    .SoeGrid table th.forwardSort {
+        background-image: url(merge/SoeGrid/sort-up.png);
+    }
+
+    .SoeGrid table th.reverseSort {
+        background-image: url(merge/SoeGrid/sort-down.png);
+    }
+
+    .SoeGrid table thead th.num {
+        background-position: 0% 50%;
+    }
+
+    .SoeGrid table thead .num, table.pageable .right {
+        padding-right: 6px;
+        padding-left: 23px;
+    }
+
+    .SoeGrid table thead a {
+        display: block;
+        font-size: 12px;
+        color: var(--soe-text-color);
+        text-transform: uppercase;
+    }
+
+    /* SoeGridFilter */
+    .SoeGrid .SoeGridFilter {
+        height: 30px;
+    }
+
+        .SoeGrid .SoeGridFilter input {
+            height: 20px;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            border: 1px solid var(--soe-border-color);
+        }
+
+        .SoeGrid .SoeGridFilter th {
+            background-color: var(--soe-color-secondary-light-beige);
+        }
+
+        .SoeGrid .SoeGridFilter a, table.pageable a {
+            text-decoration: none;
+        }
+
+        .SoeGrid .SoeGridFilter form {
+            padding: 0;
+            margin: 0;
+        }
+
+        .SoeGrid .SoeGridFilter table thead th {
+            padding: 0;
+            background-color: var(--soe-background-color);
+            text-align: left;
+        }
+
+    /* Body */
+    .SoeGrid table tbody tr {
+        line-height: 20px;
+        font-size: 12px;
+    }
+
+    .SoeGrid table tbody.content th {
+        display: none;
+    }
+
+    .SoeGrid table tbody td.checkbox {
+        padding-right: 0em;
+    }
+
+    .SoeGrid tbody a {
+        display: block;
+    }
+
+        .SoeGrid tbody a:hover, .SoeGrid tfoot a:hover, .SoeGrid .SoeGridFilter a:hover {
+            text-decoration: underline;
+        }
+
+    /* TFoot */
+    .SoeGrid table tfoot {
+        line-height: 50px;
+    }
+
+        .SoeGrid table tfoot td {
+            text-align: right;
+            background-color: var(--soe-background-color);
+        }
+
+        .SoeGrid table tfoot span, .SoeGrid table tfoot a {
+            margin: 0 3px 0 3px;
+            color: Black;
+            font-size: 12px;
+        }
+
+        .SoeGrid table tfoot a {
+            text-decoration: underline;
+        }

@@ -1,0 +1,99 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+        <soe-panel label-key="common.timecode" is-open="true">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="common.code" model="ctrl.timeCode.code" required="true" maxlength="20" set-focus="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="common.name" model="ctrl.timeCode.name" required="true" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-textbox label-key="common.description" model="ctrl.timeCode.description" maxlength="512" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-textbox label-key="time.time.timecode.minutesbyconstantrules" model="ctrl.timeCode.minutesByConstantRules" numeric="true" decimals="0" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-select label-key="time.time.timecode.registrationtype" model="ctrl.timeCode.registrationType" items="ctrl.registrationTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-select label-key="time.time.timecode.roundingtype" model="ctrl.timeCode.roundingType" items="ctrl.roundingTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                </div>
+                <div class="col-sm-2">
+                    <soe-textbox label-key="common.value" label-value="ctrl.minutesLabel" label-value-in-parentheses="true" model="ctrl.timeCode.roundingValue" numeric="true" decimals="0" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.timeCode.roundingType === 1 || ctrl.timeCode.roundingType === 2">
+                    <soe-checkbox label-key="time.time.timecode.roundstarttime" model="ctrl.timeCode.roundStartTime" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.timeCode.roundingType === 3 || ctrl.timeCode.roundingType === 4">
+                    <soe-textbox label-key="time.time.timecode.roundinggroupkey" model="ctrl.timeCode.roundingGroupKey" maxlength="50" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.timeCode.roundingType === 4">
+                    <soe-select label-key="time.time.timecode.roundingtimecode" model="ctrl.timeCode.roundingTimeCodeId" items="ctrl.timeCodeAbsences" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-select label-key="time.time.timecode.adjustquantitybybreaktime" model="ctrl.timeCode.adjustQuantityByBreakTime" items="ctrl.adjustQuantityByBreakTimeTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.timeCode.adjustQuantityByBreakTime === 1">
+                    <soe-select label-key="time.time.timecode.adjustquantitytimecode" model="ctrl.timeCode.adjustQuantityTimeCodeId" items="ctrl.timeCodeAbsences" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.timeCode.adjustQuantityByBreakTime === 1">
+                    <soe-select label-key="time.time.timecode.adjustquantitytimescheduletype" model="ctrl.timeCode.adjustQuantityTimeScheduleTypeId" items="ctrl.adjustQuantityTimeScheduleTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-select label-key="time.time.timecode.timecoderule.type.quantity" model="ctrl.timeCode.timeCodeRuleType" items="ctrl.timeCodeRuleTypesQuantity" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                </div>
+                <div class="col-sm-1" data-ng-if="ctrl.timeCode.timeCodeRuleType === 11">
+                    <soe-timebox label-key="time.time.timecode.timecoderule.time" model="ctrl.timeCode.timeCodeRuleTime" is-time="true" is-readonly="!ctrl.modifyPermission"></soe-timebox>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.timeCode.timeCodeRuleType > 0">
+                    <soe-select label-key="time.time.timecode.timecoderule.value.timecodeid" model="ctrl.timeCode.timeCodeRuleValue" items="ctrl.timeCodeAbsences" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-checkbox label-key="time.time.timecode.payed" model="ctrl.timeCode.payed" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timecodeabsences.isabsence" model="ctrl.timeCode.isAbsence" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timecode.factorbasedonworkpercentage" model="ctrl.timeCode.factorBasedOnWorkPercentage" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                </div>
+            </div>
+        </soe-panel>
+
+        <div class="row margin-large-top margin-large-bottom">
+            <div class="col-sm-6">
+                <time-code-payroll-products time-code-products="ctrl.timeCode.payrollProducts" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></time-code-payroll-products>
+            </div>
+            <div class="col-sm-6">
+                <time-code-invoice-products time-code-products="ctrl.timeCode.invoiceProducts" time-code-type="ctrl.timeCode.type" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></time-code-invoice-products>
+            </div>
+        </div>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.timeCode"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.timeCode.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

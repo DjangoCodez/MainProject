@@ -1,0 +1,144 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div>
+          <soe-expansion-panel
+            [labelKey]="'billing.product.pricelist.newprice'"
+            [static]="true">
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-instruction
+                  text="billing.product.pricelist.updateexistinginfo"></soe-instruction>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <soe-checkbox
+                  [labelKey]="'billing.product.pricelist.updateexisting'"
+                  formControlName="updateExisting"></soe-checkbox>
+              </div>
+              <div class="col-sm-4">
+                <soe-datepicker
+                  [labelKey]="'billing.product.pricelist.priceisfrom'"
+                  formControlName="dateFrom"></soe-datepicker>
+              </div>
+              <div class="col-sm-4">
+                <soe-datepicker
+                  [labelKey]="'billing.product.pricelist.priceisto'"
+                  formControlName="dateTo"></soe-datepicker>
+              </div>
+            </div>
+            <div class="row" formGroupName="priceUpdate">
+              <div class="col-sm-4">
+                <soe-numberbox
+                  [labelKey]="'common.amount'"
+                  formControlName="amount"></soe-numberbox>
+              </div>
+              <div class="col-sm-4">
+                <soe-numberbox
+                  [labelKey]="'common.percentage'"
+                  [decimals]="4"
+                  formControlName="percentage"></soe-numberbox>
+              </div>
+              <div class="col-sm-4">
+                <soe-select
+                  [labelKey]="'common.rounding'"
+                  [selectedId]="form.value.rounding"
+                  [items]="performRoundingOptions.data || []"
+                  formControlName="rounding"></soe-select>
+              </div>
+            </div>
+            @if (form.value.priceUpdate.rounding === 0.1) {
+              <div class="row" formGroupName="priceUpdate">
+                <div class="col-sm-8"></div>
+                <div class="col-sm-4">
+                  <soe-numberbox
+                    [labelKey]="
+                      'core.reportmenu.selection.matrix.option.decimals'
+                    "
+                    [decimals]="0"
+                    formControlName="decimalCount"></soe-numberbox>
+                </div>
+              </div>
+            }
+          </soe-expansion-panel>
+          <soe-expansion-panel
+            [labelKey]="'billing.product.pricelist.productselection'"
+            [static]="true">
+            <div class="row">
+              <div class="col-sm-6">
+                <soe-textbox
+                  [labelKey]="'common.customerspecificexports.productnrfrom'"
+                  formControlName="productNrFrom"></soe-textbox>
+              </div>
+              <div class="col-sm-6">
+                <soe-textbox
+                  [labelKey]="'common.customerspecificexports.productnrto'"
+                  formControlName="productNrTo"></soe-textbox>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <soe-select
+                  [labelKey]="'billing.product.materialcode'"
+                  [selectedId]="form.value.materialCodeId"
+                  [items]="performMaterialCodes.data || []"
+                  formControlName="materialCodeId"></soe-select>
+              </div>
+              <div class="col-sm-4">
+                <soe-select
+                  [labelKey]="'common.type'"
+                  [selectedId]="form.value.vatType"
+                  [items]="performVatTypes.data || []"
+                  formControlName="vatType"></soe-select>
+              </div>
+              <div class="col-sm-4">
+                <soe-select
+                  [labelKey]="'billing.product.productgroup'"
+                  [selectedId]="form.value.productGroupId"
+                  [items]="performProductGroups.data || []"
+                  formControlName="productGroupId"></soe-select>
+              </div>
+            </div>
+          </soe-expansion-panel>
+          <soe-expansion-panel
+            [labelKey]="'billing.product.pricelist.priceselection'"
+            [static]="true">
+            <div class="row">
+              <div class="col-sm-14">
+                <soe-instruction
+                  text="billing.product.pricelist.comparisondateinfo"></soe-instruction>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <soe-datepicker
+                  [labelKey]="'billing.product.pricelist.comparisondate'"
+                  formControlName="priceComparisonDate"></soe-datepicker>
+              </div>
+            </div>
+          </soe-expansion-panel>
+          <div class="row">
+            <soe-instruction [text]="selectedPricelistsText"></soe-instruction>
+          </div>
+          <div class="soe-form-footer">
+            <div class="col-sm-12">
+              <div class="float-end">
+                <soe-save-button
+                  (action)="triggerPriceUpdate()"
+                  (validationErrorsAction)="openFormValidationErrors()"
+                  [invalid]="form.invalid"
+                  [dirty]="form.dirty"></soe-save-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    }
+  </ng-container>
+</soe-dialog>

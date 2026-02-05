@@ -1,0 +1,144 @@
+<?xml version="1.0" ?>
+   <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+         <!-- XML Schema Generated from XML Document on Thu Jan 23 2014 14:38:04 GMT+0100 (Västeuropa, normaltid) -->
+         <!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
+         <xs:element name="Message">
+           <xs:annotation>
+             <xs:documentation>
+               Main root.
+             </xs:documentation>
+           </xs:annotation>
+               <xs:complexType>
+                     <xs:sequence>
+                           <xs:element name="MessageInfo">
+                                 <xs:complexType>
+                                       <xs:sequence>
+                                             <xs:element type="xs:string" name="MessageSenderId"></xs:element>
+                                             <xs:element type="xs:string" name="MessageType"></xs:element>
+                                             <xs:element type="xs:date" nillable="true" name="MessageDate"></xs:element>
+                                             <xs:element type="xs:string" name="MessageImageFileName"></xs:element>
+                                       </xs:sequence>
+                                 </xs:complexType>
+                           </xs:element>
+                           <xs:element name="Seller">
+                                 <xs:complexType>
+                                       <xs:sequence>
+                                             <xs:element type="xs:string" name="SellerId"></xs:element>
+                                             <xs:element type="xs:string" name="SellerOrganisationNumber"></xs:element>
+                                             <xs:element type="xs:string" name="SellerVatNumber"></xs:element>
+                                             <xs:element type="xs:string" name="SellerName"></xs:element>
+                                             <xs:element type="xs:string" name="SellerAddress"></xs:element>
+                                             <xs:element type="xs:string" name="SellerPostalCode"></xs:element>
+                                             <xs:element type="xs:string" name="SellerPostalAddress"></xs:element>
+                                             <xs:element type="xs:string" name="SellerCountryCode"></xs:element>
+                                             <xs:element type="xs:string" name="SellerPhone"></xs:element>
+                                             <xs:element type="xs:string" name="SellerFax"></xs:element>
+                                             <xs:element type="xs:string" name="SellerReference"></xs:element>
+                                             <xs:element type="xs:string" name="SellerReferencePhone"></xs:element>
+                                       </xs:sequence>
+                                 </xs:complexType>
+                           </xs:element>
+                           <xs:element name="Buyer">
+                                 <xs:complexType>
+                                       <xs:sequence>
+                                             <xs:element type="xs:string"  name="BuyerId"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerOrganisationNumber"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerVatNumber"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerName"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerAddress"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerPostalCode"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerPostalAddress"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerCountryCode"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerReference"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerPhone"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerFax"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerEmailAddress"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerDeliveryName"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerDeliveryCoAddress"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerDeliveryAddress"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerDeliveryPostalCode"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerDeliveryPostalAddress"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerDeliveryCountryCode"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerDeliveryNoteText"></xs:element>
+                                             <xs:element type="xs:string"  name="BuyerDeliveryGoodsMarking"></xs:element>
+                                       </xs:sequence>
+                                 </xs:complexType>
+                           </xs:element>
+                           <xs:element name="Head">
+                                 <xs:complexType>
+                                       <xs:sequence>
+                                             <xs:element type="xs:string" name="HeadInvoiceNumber"></xs:element>
+                                             <xs:element type="xs:string" name="HeadInvoiceOcr"></xs:element>
+                                             <xs:element type="xs:string" name="HeadInvoiceType"></xs:element>
+                                             <xs:element type="xs:date" nillable="true" name="HeadInvoiceDate"></xs:element>
+                                             <xs:element type="xs:date" nillable="true" name="HeadInvoiceDueDate"></xs:element>
+                                             <xs:element type="xs:date" nillable="true" name="HeadDeliveryDate"></xs:element>
+                                             <xs:element type="xs:string" name="HeadBuyerOrderNumber"></xs:element>
+                                             <xs:element type="xs:string" name="HeadBuyerProjectNumber"></xs:element>
+                                             <xs:element type="xs:string" name="HeadBuyerInstallationNumber"></xs:element>
+                                             <xs:element type="xs:string" name="HeadSellerOrderNumber"></xs:element>
+                                             <xs:element type="xs:string" name="HeadPostalGiro"></xs:element>
+                                             <xs:element type="xs:string" name="HeadBankGiro"></xs:element>
+                                             <xs:element type="xs:string" name="HeadBank"></xs:element>
+                                             <xs:element type="xs:string" name="HeadBicAddress"></xs:element>
+                                             <xs:element type="xs:string" name="HeadIbanNumber"></xs:element>
+                                             <xs:element type="xs:string" name="HeadCurrencyCode"></xs:element>
+                                             <xs:element type="xs:string" name="HeadVatPercentage"></xs:element>
+                                             <xs:element type="xs:string" name="HeadPaymentConditionDays"></xs:element>
+                                             <xs:element type="xs:string" name="HeadPaymentConditionText"></xs:element>
+                                             <xs:element type="xs:string" name="HeadInterestPaymentPercent"></xs:element>
+                                             <xs:element type="xs:string" name="HeadInterestPaymentText"></xs:element>
+                                             <xs:element type="xs:string" name="HeadInvoiceGrossAmount"></xs:element>
+                                             <xs:element type="xs:string" name="HeadInvoiceNetAmount"></xs:element>
+                                             <xs:element type="xs:string" name="HeadVatBasisAmount"></xs:element>
+                                             <xs:element type="xs:decimal" name="HeadVatAmount"></xs:element>
+                                             <xs:element type="xs:string" name="HeadFreightFeeAmount"></xs:element>
+                                             <xs:element type="xs:string" name="HeadHandlingChargeFeeAmount"></xs:element>
+                                             <xs:element type="xs:string" name="HeadInsuranceFeeAmount"></xs:element>
+                                             <xs:element type="xs:string" name="HeadRemainingFeeAmount"></xs:element>
+                                             <xs:element type="xs:string" name="HeadDiscountAmount"></xs:element>
+                                             <xs:element type="xs:string" name="HeadRoundingAmount"></xs:element>
+                                             <xs:element type="xs:string" name="HeadInvoiceArrival"></xs:element>
+                                             <xs:element type="xs:string" name="HeadInvoiceAuthorized"></xs:element>
+                                             <xs:element type="xs:string" name="HeadInvoiceAuthorizedBy"></xs:element>
+                                             <xs:element type="xs:string" name="HeadBonusAmount"></xs:element>
+                                       </xs:sequence>
+                                 </xs:complexType>
+                           </xs:element>
+                           <xs:element name="Row" maxOccurs="unbounded">
+                                 <xs:complexType>
+                                       <xs:sequence>
+                                             <xs:element type="xs:string" name="RowSellerArticleNumber"></xs:element>
+                                             <xs:element type="xs:string" name="RowSellerArticleDescription1"></xs:element>
+                                             <xs:element type="xs:string" name="RowSellerArticleDescription2"></xs:element>
+                                             <xs:element type="xs:string" name="RowSellerRowNumber"></xs:element>
+                                             <xs:element type="xs:string" name="RowBuyerArticleNumber"></xs:element>
+                                             <xs:element type="xs:string" name="RowBuyerRowNumber"></xs:element>
+                                             <xs:element type="xs:date" nillable="true" name="RowDeliveryDate"></xs:element>
+                                             <xs:element type="xs:string" name="RowBuyerReference"></xs:element>
+                                             <xs:element type="xs:string" name="RowBuyerObjectId"></xs:element>
+                                             <xs:element type="xs:decimal" name="RowQuantity"></xs:element>
+                                             <xs:element type="xs:string" name="RowUnitCode"></xs:element>
+                                             <xs:element type="xs:string" name="RowUnitPrice"></xs:element>
+                                             <xs:element type="xs:string" name="RowDiscountPercent"></xs:element>
+                                             <xs:element type="xs:string" name="RowDiscountAmount"></xs:element>
+                                             <xs:element type="xs:string" name="RowDiscountPercent1"></xs:element>
+                                             <xs:element type="xs:string" name="RowDiscountAmount1"></xs:element>
+                                             <xs:element type="xs:string" name="RowDiscountPercent2"></xs:element>
+                                             <xs:element type="xs:string" name="RowDiscountAmount2"></xs:element>
+                                             <xs:element type="xs:string" name="RowNetAmount">
+                                               <xs:annotation>
+                                                 <xs:documentation>
+                                                   Total amount excluding VAT
+                                                 </xs:documentation>
+                                               </xs:annotation>
+                                             </xs:element>
+                                             <xs:element type="xs:string" name="RowVatAmount"></xs:element>
+                                             <xs:element type="xs:decimal" name="RowVatPercentage"></xs:element>
+                                       </xs:sequence>
+                                 </xs:complexType>
+                           </xs:element>
+                     </xs:sequence>
+               </xs:complexType>
+         </xs:element>
+   </xs:schema>

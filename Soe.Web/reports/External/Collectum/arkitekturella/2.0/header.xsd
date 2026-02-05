@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 rel. 3 sp2 (http://www.altova.com) by vincent wong (Collectum AB) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:arkitekturella="http://collectum.se/arkitekturella/2.0" xmlns:typer="http://collectum.se/typer/2.0" targetNamespace="http://collectum.se/arkitekturella/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://collectum.se/typer/2.0" schemaLocation="..\..\typer\2.0\centrala typer.xsd"/>
+	<xs:complexType name="Header">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Gemensam standard för generella uppgifter. Se Alecta, Collectum och PRI:s XML-principer och riktlinjer, samt Riktlinjer för datautbyte.</xs:documentation>
+			<xs:documentation>
+			2006-12-21: Revision 2.0.0.2 Vincent Wong, Collectum
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SkickatFran" type="xs:normalizedString"/>
+			<xs:element name="SkickatTill" type="xs:normalizedString"/>
+			<xs:element name="Timestamp" type="typer:Timestamp"/>
+			<xs:element name="Sekvensnummer">
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Produktion" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>
+					true = Produktion, anger att detta meddelande är ett skarpt produktionsmeddelande och skall hanteras därefter.
+					false = Test, anger att detta meddelande är ett testmeddelande och inte får hanteras i ett riktigt produktionssystem.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="version" default="2.0.0.2"/>
+	</xs:complexType>
+	<xs:complexType name="Status">
+		<xs:sequence>
+			<xs:element name="Timestamp" type="typer:Timestamp"/>
+			<xs:element name="Status" type="typer:Status"/>
+			<xs:element name="ReferensId" type="typer:ReferensId" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="version" default="1.0.0.0"/>
+	</xs:complexType>
+</xs:schema>

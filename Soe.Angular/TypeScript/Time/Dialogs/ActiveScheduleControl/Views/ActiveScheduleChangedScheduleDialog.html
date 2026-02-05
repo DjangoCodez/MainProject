@@ -1,0 +1,61 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.ok()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.activate.detailedview'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row margin-large-top style="margin-bottom: 15px;"">
+            <div class="col-sm-12">
+                <soe-label model="ctrl.headerInfo" ></soe-label>
+            </div>
+        </div>
+        <div class="margin-small-top margin-large-left margin-small-right repeater-semi-condensed" data-ng-repeat="row in ctrl.scheduleChanges.rows">
+            <div class="form-group form-group-sm">
+                <div data-ng-if="$first">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-label label-key="common.date"></soe-label>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-label label-key="time.schedule.activate.schedulestarts"></soe-label>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-label label-key="time.schedule.activate.schedulestops"></soe-label>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-label label-key="time.schedule.activate.shiftstarts"></soe-label>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-label label-key="time.schedule.activate.shiftstops"></soe-label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-left: -10px; ">
+                    <div class="col-sm-2">
+                        <soe-label model="row.date | date:'shortDate'" discreet="true"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label model="row.scheduleStart | date:'shortTime'" discreet="true"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label model="row.scheduleStop | date:'shortTime'" discreet="true"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label model="row.start | date:'shortTime'" discreet="true"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label model="row.stop | date:'shortTime' " discreet="true"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span data-l10n-bind data-l10n-bind-title="'time.schedule.activate.showhistory'" style="cursor: pointer"> <em class="fal fa-info-circle infoColor" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.viewHistory(row.timeScheduleTemplateBlockId, row.timeScheduleTemplateBlockType);"></em></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+    </div>
+
+</form>

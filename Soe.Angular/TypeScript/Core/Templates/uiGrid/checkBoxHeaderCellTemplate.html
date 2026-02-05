@@ -1,0 +1,20 @@
+﻿<div data-ng-class="{ 'sortable': sortable }">
+    <div class="ui-grid-cell-contents" col-index="renderIndex">
+        <span>{{ col.displayName CUSTOM_FILTERS }}</span>
+
+        <span ui-grid-visible="col.sort.direction" data-ng-class="{ 'ui-grid-icon-up-dir': col.sort.direction == asc, 'ui-grid-icon-down-dir': col.sort.direction == desc, 'ui-grid-icon-blank': !col.sort.direction }">
+            &nbsp;
+        </span>
+    </div>
+
+    <div class="ui-grid-column-menu-button" data-ng-if="grid.options.enableColumnMenus && !col.isRowHeader  && col.colDef.enableColumnMenu !== false" data-ng-click="toggleMenu($event)" data-ng-class="{'ui-grid-column-menu-button-last-col': isLastCol}">
+        <i class="ui-grid-icon-angle-down">&nbsp;</i>
+    </div>
+
+    <div data-ng-if="filterable" class="ui-grid-filter-container" ng-repeat="colFilter in col.filters">
+        <input type="checkbox" ui-indeterminate="colFilter.term==null" class="ui-grid-filter-input" style="margin-top: 0px;" data-ng-model="colFilter.termIndeterminate" data-ng-click="$event.stopPropagation();colFilter.toggle(colFilter)" ng-attr-placeholder="{{colFilter.placeholder || '' }}">
+        <div class="ui-grid-filter-button" style="margin-top: -8px; margin-right: -5px;" data-ng-click="colFilter.term=null">
+            <i class="ui-grid-icon-cancel" data-ng-show="colFilter.term!==null">&nbsp;</i>
+        </div>
+    </div>
+</div>

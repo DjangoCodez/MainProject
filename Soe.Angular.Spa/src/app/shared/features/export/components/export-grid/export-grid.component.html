@@ -1,0 +1,8 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (editRowClicked)="edit($event)"
+    [toolbarGroups]="toolbarUtils.toolbarGroups">
+  </soe-grid-wrapper>
+}

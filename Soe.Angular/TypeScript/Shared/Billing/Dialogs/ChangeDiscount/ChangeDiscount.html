@@ -1,0 +1,42 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'billing.productrows.dialogs.changediscount'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="info margin-large-top" data-ng-if="ctrl.info">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-text model="ctrl.info"></soe-text>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="row margin-small-bottom">
+                <div class="col-sm-3">
+                    <soe-textbox label-key="billing.productrows.dialogs.discountpercent" model="ctrl.discountPercentage" numeric="true" allow-empty="true" set-focus="true"></soe-textbox>
+                </div>
+                <div class="col-sm-3" ng-if="ctrl.useAdditionalDiscount">
+                    <soe-textbox label-key="billing.productrows.dialogs.discount2percent" model="ctrl.discount2Percentage" numeric="true" allow-empty="true"></soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-textbox label-key="billing.productrows.dialogs.supplementpercent" model="ctrl.supplementChargePercentage" numeric="true" allow-empty="true"></soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-textbox label-key="billing.productrows.marginalincomeratio.short" model="ctrl.marginalIncomeRatio" numeric="true" allow-empty="true" decimals="2"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div ag-grid="ctrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+                    <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.select'" data-ng-click="ctrl.buttonOkClick()"></button>
+    </div>
+</div>
+

@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <div [ngClass]="showDateControls() ? 'col-md-4' : 'col-md-12'">
+        <soe-select
+          [labelKey]="labelKey()"
+          [secondaryLabelKey]="selectedDates()"
+          [secondaryLabelParantheses]="selectedDates().length > 0"
+          [items]="datePeriodSelectionOptions"
+          [formControl]="datePeriodControl"></soe-select>
+      </div>
+      @if (this.showDateControls()) {
+        <div class="col-md-4 col-sm-12">
+          <soe-datepicker
+            [labelKey]="'common.datefrom'"
+            [formControl]="dateFromControl()"
+            [manualDisabled]="manualDisabled()"></soe-datepicker>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <soe-datepicker
+            [labelKey]="'common.dateto'"
+            [formControl]="dateToControl()"
+            [manualDisabled]="manualDisabled()"></soe-datepicker>
+        </div>
+      }
+    </div>
+  </div>
+</div>

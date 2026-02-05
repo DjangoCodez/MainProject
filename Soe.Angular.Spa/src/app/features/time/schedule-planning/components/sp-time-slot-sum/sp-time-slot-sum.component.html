@@ -1,0 +1,206 @@
+<div class="time-slot-sum-container">
+  @if (filterService.isCommonDayView()) {
+    <!-- Day view -->
+    <div class="time-slots-row">
+      <!-- Top left corner -->
+      <div
+        class="employee-slot"
+        [cdkContextMenuTriggerFor]="employee_context_menu"
+        [matTooltip]="totalTooltip()">
+        <div class="total-row">
+          <span class="total-label"
+            >{{ 'time.schedule.planning.nettime' | translate }}:</span
+          ><span class="total-value">
+            <span>{{ totalNetTime() | minutesToTimeSpan }}</span>
+            @if (
+              settingService.showScheduleTypeFactorTime() &&
+              totalFactorTime() !== 0
+            ) {
+              <span
+                ><span class="mx-05">|</span
+                >{{
+                  totalNetTime() - totalFactorTime() | minutesToTimeSpan
+                }}</span
+              >
+            }
+          </span>
+        </div>
+        @if (settingService.showGrossTime()) {
+          <div class="total-row">
+            <span class="total-label"
+              >{{ 'time.schedule.planning.grosstime' | translate }}:</span
+            ><span class="total-value">{{
+              totalGrossTime() | minutesToTimeSpan
+            }}</span>
+          </div>
+        }
+        @if (settingService.showTotalCost()) {
+          <div class="total-row">
+            <span class="total-label"
+              >{{ 'time.schedule.planning.cost' | translate }}:</span
+            ><span class="total-value">{{
+              settingService.showTotalCostIncEmpTaxAndSuppCharge()
+                ? (totalCostIncEmpTaxAndSuppCharge() | number: '1.0-0')
+                : (totalCost() | number: '1.0-0')
+            }}</span>
+          </div>
+        }
+        <ng-template #employee_context_menu>
+          <sp-employee-menu
+            (menuSelected)="onEmployeeMenuSelected($event)"></sp-employee-menu>
+        </ng-template>
+      </div>
+      <!-- Hours -->
+      <div class="time-slots">
+        @for (daySlot of slotService.sumDaySlots(); track $index) {
+          @if (settingService.isDayViewTickLengthHour()) {
+            @for (hourSlot of daySlot.hourSlots; track $index) {
+              <div
+                class="time-slot time-slot-hour"
+                [matTooltip]="hourSlot.tooltip">
+                {{ hourSlot.nbrOfShifts }}
+              </div>
+            }
+          } @else if (settingService.isDayViewTickLengthHalfHour()) {
+            @for (halfHourSlot of daySlot.halfHourSlots; track $index) {
+              <div
+                class="time-slot time-slot-half-hour"
+                [class.is-end-of-hour]="halfHourSlot.isEndOfHour"
+                [matTooltip]="halfHourSlot.tooltip">
+                {{ halfHourSlot.nbrOfShifts }}
+              </div>
+            }
+          } @else if (settingService.isDayViewTickLengthQuarterHour()) {
+            @for (quarterHourSlot of daySlot.quarterHourSlots; track $index) {
+              <div
+                class="time-slot time-slot-quarter-hour"
+                [class.is-end-of-hour]="quarterHourSlot.isEndOfHour"
+                [matTooltip]="quarterHourSlot.tooltip">
+                {{ quarterHourSlot.nbrOfShifts }}
+              </div>
+            }
+          }
+        }
+      </div>
+      @if (hasScrollbar()) {
+        <div class="scrollbar-placeholder"></div>
+      }
+    </div>
+  } @else if (filterService.isCommonScheduleView()) {
+    <!-- Schedule view (week) -->
+    <div class="time-slots-row">
+      <!-- Top left corner -->
+      <div
+        class="employee-slot"
+        [cdkContextMenuTriggerFor]="employee_context_menu"
+        [matTooltip]="totalTooltip()">
+        @if (settingService.showFollowUpOnNeed()) {
+          <div class="total-row">
+            <span class="total-label"
+              >{{
+                'time.schedule.staffingneeds.planning.need' | translate
+              }}:</span
+            >
+            <span class="total-value">{{
+              totalNeedTime() | minutesToTimeSpan
+            }}</span>
+          </div>
+        }
+        <div class="total-row">
+          <span class="total-label"
+            >{{ 'time.schedule.planning.nettime' | translate }}:</span
+          ><span class="total-value">
+            <span>{{ totalNetTime() | minutesToTimeSpan }}</span>
+            @if (
+              settingService.showScheduleTypeFactorTime() &&
+              totalFactorTime() !== 0
+            ) {
+              <span
+                ><span class="mx-05">|</span
+                >{{
+                  totalNetTime() - totalFactorTime() | minutesToTimeSpan
+                }}</span
+              >
+            }
+            <span
+              ><span class="mx-05">|</span
+              >{{ totalWorkTime() | minutesToTimeSpan }}</span
+            >
+          </span>
+        </div>
+        @if (settingService.showGrossTime()) {
+          <div class="total-row">
+            <span class="total-label"
+              >{{ 'time.schedule.planning.grosstime' | translate }}:</span
+            ><span class="total-value">{{
+              totalGrossTime() | minutesToTimeSpan
+            }}</span>
+          </div>
+        }
+        @if (settingService.showTotalCost()) {
+          <div class="total-row">
+            <span class="total-label"
+              >{{ 'time.schedule.planning.cost' | translate }}:</span
+            ><span class="total-value">{{
+              settingService.showTotalCostIncEmpTaxAndSuppCharge()
+                ? (totalCostIncEmpTaxAndSuppCharge() | number: '1.0-0')
+                : (totalCost() | number: '1.0-0')
+            }}</span>
+          </div>
+        }
+        <ng-template #employee_context_menu>
+          <sp-employee-menu
+            (menuSelected)="onEmployeeMenuSelected($event)"></sp-employee-menu>
+        </ng-template>
+      </div>
+      <!-- Days -->
+      <div class="time-slots">
+        @for (daySlot of slotService.sumDaySlots(); track $index) {
+          <div
+            class="time-slot time-slot-week-day"
+            [class.is-today]="daySlot.isToday"
+            [class.is-saturday]="daySlot.isSaturday"
+            [class.is-sunday]="daySlot.isSunday"
+            [matTooltip]="daySlot.tooltip">
+            @if (settingService.showFollowUpOnNeed()) {
+              <div class="total-need-time">
+                <span>{{ daySlot.needTime | minutesToTimeSpan }}</span>
+              </div>
+            }
+            <div class="total-net-time">
+              <span>{{ daySlot.netTime | minutesToTimeSpan }}</span>
+              @if (
+                settingService.showScheduleTypeFactorTime() &&
+                daySlot.factorTime !== 0
+              ) {
+                <span
+                  ><span class="mx-05">|</span
+                  >{{
+                    daySlot.netTime - daySlot.factorTime | minutesToTimeSpan
+                  }}</span
+                >
+              }
+            </div>
+            @if (settingService.showGrossTime()) {
+              <div class="total-gross-time">
+                <span>{{ daySlot.grossTime | minutesToTimeSpan }}</span>
+              </div>
+            }
+            @if (settingService.showTotalCost()) {
+              <div class="total-cost">
+                <span>{{
+                  settingService.showTotalCostIncEmpTaxAndSuppCharge()
+                    ? (daySlot.costIncEmpTaxAndSuppCharge | number: '1.0-0')
+                    : (daySlot.cost | number: '1.0-0')
+                }}</span>
+              </div>
+            }
+          </div>
+        }
+      </div>
+      @if (hasScrollbar()) {
+        <div class="scrollbar-placeholder"></div>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,49 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'economy.accounting.companygroup.companyadministration'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-select label-key="economy.accounting.companygroup.company" required="true"
+                                model="ctrl.companyGroupAdministration.childActorCompanyId"
+                                items="ctrl.childCompanies"
+                                options="item.id as item.name for item in items"></soe-select>
+                </div>
+                <div class="col-sm-6">
+                    <soe-textbox label-key="economy.accounting.companygroup.conversionfactor" model="ctrl.companyGroupAdministration.conversionfactor" numeric="true" decimals="4" required="true"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-select label-key="economy.accounting.companygroup.mapping" required="true"
+                                model="ctrl.companyGroupAdministration.companyGroupMappingHeadId"
+                                items="ctrl.companyGroupMappings"
+                                options="item.id as item.name for item in items"></soe-select>
+                </div>
+                <div class="col-sm-6">
+                    <soe-textbox label-key="common.note" model="ctrl.companyGroupAdministration.note"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-checkbox label-key="economy.accounting.companygroup.matchonnr" model="ctrl.companyGroupAdministration.matchInternalAccountOnNr"></soe-checkbox>
+                </div>
+                <div class="col-sm-6">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-right">
+                <div class="col">
+                    <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.close()"></button>
+                    <button type="button" class="btn btn-default" data-l10n-bind="'core.delete'" data-ng-click="ctrl.delete()" ng-if="ctrl.companyAdministrationId"></button>
+                    <button type="button" class="btn btn-primary" data-l10n-bind="'core.save'" data-ng-click="ctrl.save()" data-ng-disabled="!ctrl.validToSave"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

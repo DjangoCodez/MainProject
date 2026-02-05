@@ -1,0 +1,373 @@
+@use '../core-styles/colors.scss';
+@use '../core-styles/fonts.scss';
+@use '../core-styles/variables.scss';
+@import '../../../../../node_modules/ag-grid-community/styles/ag-grid.css';
+@import '../../../../../node_modules/ag-grid-community/styles/ag-theme-balham.css';
+
+// https://www.ag-grid.com/angular-data-grid/global-style-customisation-variables/
+
+.ag-theme-balham {
+  font-family: 'Roboto Condensed', Verdana, Arial, Helvetica, Sans-serif !important;
+  font-size: 12px !important;
+  color: colors.$soe-text-color;
+  --ag-balham-active-color: colors.$soe-color-secondary-blue;
+  --ag-header-foreground-color: colors.$soe-text-color;
+  --ag-header-background-color: colors.$soe-header-background-color;
+  --ag-control-panel-background-color: colors.$soe-header-background-color;
+  --ag-foreground-color: colors.$soe-text-color;
+  --ag-data-color: colors.$soe-text-color;
+  --ag-odd-row-background-color: colors.$soe-color-neutral-ag-white;
+  --ag-selected-row-background-color: rgba(
+    156,
+    195,
+    248,
+    0.28
+  ); //colors.$soe-color-secondary-blue-70
+  --ag-row-hover-color: #bad5f9; //colors.$soe-color-secondary-medium-blue;
+  --ag-chip-background-color: colors.$soe-color-neutral-light-grey;
+  --ag-header-column-separator-display: none;
+  --ag-range-selection-background-color: rgba(
+    156,
+    195,
+    248,
+    0.28
+  ); //colors.$soe-color-secondary-blue-70
+  --ag-range-selection-border-color: #72a9f5; //$soe-color-secondary-blue;
+
+  .ag-header-cell-resize {
+    margin: 8px 0px;
+    height: 16px;
+    width: 5px;
+    border-right: 1px solid colors.$soe-color-neutral-grey;
+  }
+
+  .ag-header-group-cell-with-group {
+    .ag-header-cell-resize {
+      width: 1px;
+    }
+  }
+
+  .ag-ltr .ag-header-cell-resize {
+    right: 0px;
+  }
+
+  &.hide-header {
+    .ag-header {
+      margin-top: -1px;
+    }
+  }
+
+  &.hide-filters {
+    .ag-header {
+      height: 0px !important;
+      min-height: 0px !important;
+      border-bottom: 0px;
+    }
+  }
+
+  &.hide-gridmenu {
+    .ag-pinned-right-cols-container {
+      width: 0px !important;
+      min-width: 0px !important;
+      max-width: 0px !important;
+    }
+  }
+
+  &.hide-vertical-scroll {
+    .ag-body-vertical-scroll {
+      display: none;
+    }
+  }
+
+  .ag-root-wrapper {
+    border-color: colors.$soe-border-color;
+  }
+  // Header
+
+  .ag-header {
+    background-color: colors.$soe-header-background-color;
+    border-bottom-color: colors.$soe-border-color;
+  }
+
+  .ag-header-icon {
+    color: colors.$soe-text-color;
+  }
+
+  .ag-header-row:not(:first-child) .ag-header-cell,
+  .ag-theme-balham
+    .ag-header-row:not(:first-child)
+    .ag-header-group-cell.ag-header-group-cell-with-group {
+    border-top-color: colors.$soe-border-color;
+  }
+
+  .ag-header-cell {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  .ag-header-cell.row-selection-column {
+    padding-left: 2px !important;
+  }
+
+  .ag-header-cell.column-separator {
+    border-right: 1px solid colors.$soe-border-color;
+  }
+
+  .ag-header-cell-menu-button {
+    cursor: pointer;
+  }
+
+  .ag-column-drop-cell {
+    background-color: colors.$soe-color-neutral-light-grey !important;
+  }
+  // Filter
+
+  .ag-header-row.ag-header-row-column-filter {
+    .ag-header-cell {
+      padding-left: 4px !important;
+      padding-right: 4px !important;
+    }
+  }
+
+  .ag-floating-filter-input {
+    font-weight: fonts.$font-weight-normal;
+  }
+
+  .ag-floating-filter-button {
+    margin-left: 4px !important;
+
+    button:hover {
+      background-color: colors.$soe-color-neutral-light-grey;
+    }
+  }
+
+  .ag-floating-filter.column-separator {
+    border-right: 1px solid colors.$soe-border-color;
+  }
+
+  .ag-picker-field-wrapper {
+    border-radius: 0px;
+    margin: -1px;
+    padding-left: 8px;
+
+    .ag-picker-field-icon {
+      margin-right: 4px;
+
+      .ag-icon-small-down {
+        font-size: fonts.$soe-font-size-xxl;
+      }
+    }
+  }
+  // Row
+
+  .ag-row-odd {
+    background-color: colors.$soe-color-neutral-ag-white;
+  }
+
+  .ag-row-hover {
+    background-color: colors.$soe-color-secondary-light-blue;
+  }
+  // Cell
+
+  .ag-cell.ag-cell-not-inline-editing {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .ag-pinned-left-cols-container {
+    // Selection checkbox
+    .ag-cell.ag-cell-not-inline-editing {
+      // Apply padding only when the selection checkbox is present
+      &:has(.ag-selection-checkbox) {
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+      }
+
+      .ag-selection-checkbox {
+        margin-top: -1px;
+      }
+    }
+  }
+
+  .ag-cell.text-center,
+  .ag-cell.shape-column {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  .ag-cell.row-selection-column {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    display: flex !important;
+  }
+
+  .ag-cell.column-separator {
+    border-right: 1px solid colors.$soe-border-color;
+  }
+
+  .ag-cell-edit-input {
+    width: 100%;
+  }
+
+  .ag-number-field-input {
+    padding-right: 8px !important;
+  }
+
+  .ag-text-field-input {
+    padding-left: 8px !important;
+  }
+  // Group
+
+  .ag-group-contracted {
+    margin-left: 5px;
+    margin-right: 16.5px;
+  }
+
+  .ag-group-expanded {
+    margin-left: 5px;
+    margin-right: 12px;
+  }
+  // Total row
+
+  .ag-sticky-bottom,
+  .ag-row-footer {
+    // Hide selection checkbox in grouped footer rows
+    .ag-selection-checkbox {
+      display: none;
+    }
+  }
+  // Master/detail
+
+  .ag-details-row {
+    padding: 0.25rem;
+
+    &.ag-details-row-auto-height {
+      .ag-layout-auto-height .ag-center-cols-viewport,
+      .ag-layout-auto-height .ag-center-cols-container,
+      .ag-layout-print .ag-center-cols-viewport,
+      .ag-layout-print .ag-center-cols-container {
+        // Overide default 50px
+        min-height: unset;
+      }
+    }
+  }
+  // Menu
+
+  .ag-popup-child:not(.ag-tooltip-custom) {
+    z-index: 1080;
+    box-shadow: 0 0.5rem 1rem rgba(102, 102, 102, 0.15);
+  }
+
+  .ag-menu {
+    border-color: colors.$soe-border-color;
+    border-radius: variables.$border-radius;
+  }
+
+  .ag-menu-separator {
+    color: colors.$soe-border-color;
+  }
+
+  .ag-tabs-header {
+    color: colors.$soe-text-color;
+    border-bottom-color: colors.$soe-border-color;
+  }
+
+  .ag-column-select-header {
+    border-bottom-color: colors.$soe-border-color;
+  }
+
+  .ag-tab-selected {
+    border-color: colors.$soe-border-color;
+    border-bottom: 0px;
+  }
+  // Popup
+
+  .ag-popup-editor {
+    z-index: 1080;
+  }
+
+  .ag-menu-option:hover {
+    cursor: pointer;
+    background-color: colors.$soe-button-hover-background-color;
+  }
+
+  .ag-menu-option-icon {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: fonts.$soe-font-size-xl;
+  }
+
+  .ag-menu-option-text {
+    padding-left: 0px;
+    padding-right: 8px;
+  }
+  // Misc
+
+  .ag-tooltip {
+    background-color: colors.$soe-background-color !important;
+    z-index: 5000;
+  }
+
+  .grid-text-right {
+    flex-direction: row-reverse;
+  }
+
+  .grid-text-center {
+    text-align: center !important;
+  }
+
+  .ag-popup > div {
+    z-index: 5000 !important;
+  }
+
+  .product-image-tooltip {
+    padding: 5px;
+    color: var(--ag-foreground-color);
+    background-color: #ffffff;
+    border: 1px solid colors.$soe-border-color;
+    position: fixed;
+    z-index: 10000;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  }
+  //Added this because the ag-row class background overrides the error background color
+  .ag-row.error-background-color {
+    background-color: colors.$soe-color-semantic-error-20;
+  }
+
+  .ag-row.ok-background-color {
+    background-color: colors.$soe-color-semantic-success-20;
+  }
+
+  .ag-row.disabled-grid-row-background-color {
+    background-color: colors.$soe-disabled-grid-row-background-color;
+  }
+
+  .ag-row.disabled-grid-cell-background-color {
+    background-color: colors.$soe-disabled-grid-row-background-color;
+  }
+
+  .ag-cell.disabled-grid-cell-background-color-default {
+    font-weight: 500;
+  }
+
+  .ag-cell.disabled-grid-cell-background-color-nondefault {
+    padding-left: 20px !important;
+  }
+
+  .ag-row.strike-through {
+    text-decoration: line-through;
+  }
+
+  .ag-row.strike-through .ag-cell {
+    text-decoration: inherit;
+  }
+
+  .ag-row .ag-cell {
+    display: flex;
+    align-items: center;
+  }
+
+  .ag-row.error-color {
+    color: colors.$soe-color-semantic-error;
+  }
+}

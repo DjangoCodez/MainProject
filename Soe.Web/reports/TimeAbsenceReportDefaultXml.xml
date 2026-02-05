@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SOE_TimeAbsenceReport>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="SOE_TimeAbsenceReport">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="TimeAbsenceReport">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ReportHeaderLabels">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element type="xs:string" name="LoginNameLabel"/>
+                        <xs:element type="xs:string" name="PageLabel"/>
+                        <xs:element type="xs:string" name="DateLabel"/>
+                        <xs:element type="xs:string" name="TimeLabel"/>
+                        <xs:element type="xs:string" name="TimePeriodLabel"/>
+                        <xs:element type="xs:string" name="DateIntervalLabel"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="ReportHeader">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element type="xs:string" name="ReportTitle"/>
+                        <xs:element type="xs:string" name="ReportDescription"/>
+                        <xs:element type="xs:string" name="ReportNr"/>
+                        <xs:element type="xs:string" name="Company"/>
+                        <xs:element type="xs:string" name="Orgnr"/>
+                        <xs:element type="xs:string" name="LoginName"/>
+                        <xs:element type="xs:string" name="TimePeriod"/>
+                        <xs:element type="xs:string" name="SortByLevel1"/>
+                        <xs:element type="xs:string" name="SortByLevel2"/>
+                        <xs:element type="xs:string" name="SortByLevel3"/>
+                        <xs:element type="xs:string" name="SortByLevel4"/>
+                        <xs:element type="xs:string" name="IsSortAscending"/>
+                        <xs:element type="xs:string" name="GroupByLevel1"/>
+                        <xs:element type="xs:string" name="GroupByLevel2"/>
+                        <xs:element type="xs:string" name="GroupByLevel3"/>
+                        <xs:element type="xs:string" name="GroupByLevel4"/>
+                        <xs:element type="xs:string" name="Special"/>
+                        <xs:element type="xs:string" name="DateInterval"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="EmployeeNrLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="EmployeeNameLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="EmployeeGroupNameLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="EmployeeCategoryCodeLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="EmployeeCategoryCodeShortLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="EmployeeCategoryNameLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="EmployeeCategoryNameShortLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="PayrollTransactionQuantityLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="PayrollTransactionTimeUnitLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="PayrollTransactionCalendarDayFactorLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="PayrollTransactionAmountLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="PayrollTransactionDateLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="PayrollTransactionExportedLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="PayrollTransactionCommentLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="AttestStateNameLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="PayrollProductNumberLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="PayrollProductNumberShortLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="PayrollProductNameLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="PayrollProductNameShortLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="PayrollProductDescriptionLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="PayrollProductDescriptionShortLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="IsPreliminaryLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="IsPreliminaryShortLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="VatLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="TimCodeCodeLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="TimCodeNameLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="FormulaLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="AttestStateLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="NoteLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="CreatedByLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="ModifiedByLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="CreatedLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="ModifiedLabel" type="xs:string" minOccurs="0" />
+						<xs:element name="GrossSalaryLabel" type="xs:string" minOccurs="0" />
+						<xs:element name="BenefitLabel" type="xs:string" minOccurs="0" />
+						<xs:element name="TaxLabel" type="xs:string" minOccurs="0" />
+						<xs:element name="CompensationLabel" type="xs:string" minOccurs="0" />
+						<xs:element name="DeductionLabel" type="xs:string" minOccurs="0" />
+						<xs:element name="NetSalaryLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="AbsenceLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="SchemaLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="SchemaTimeLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="PeriodLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="TotalperiodLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="TotalAbsenceLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="SickAbsence" type="xs:string" minOccurs="0" />	
+						<xs:element name="ForLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="NoQualifyingDaysLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="ShortLabel" type="xs:string" minOccurs="0" />			
+						<xs:element name="LongLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="VacationLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="ParentelLeaveLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="TempParentelLeaveLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="LeaveLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="OtherAbsenceLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="ScheduleWeekDayMondayLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="ScheduleWeekDayTuesdayLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="ScheduleWeekDayWednesdayLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="ScheduleWeekDayThursdayLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="ScheduleWeekDayFridayLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="ScheduleWeekDaySaturdayLabel" type="xs:string" minOccurs="0" />	
+						<xs:element name="ScheduleWeekDaySundayLabel" type="xs:string" minOccurs="0" />												
+                        <xs:element name="DimensionStandardNameLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionStandardShortNameLabel" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternalName1Label" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternalShortName1Label" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternal1SieType" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternalName2Label" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternalShortName2Label" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternal2SieType" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternalName3Label" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternalShortName3Label" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternal3SieType" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternalName4Label" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternalShortName4Label" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternal4SieType" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternalName5Label" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternalShortName5Label" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternal5SieType" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternalName6Label" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternalShortName6Label" type="xs:string" minOccurs="0" />
+                        <xs:element name="DimensionInternal6SieType" type="xs:string" minOccurs="0" />
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="Employee" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element type="xs:string" name="EmployeeNr"/>
+                        <xs:element type="xs:string" name="EmployeeName"/>
+                        <xs:element type="xs:string" name="EmployeeSocialSec"/>
+                        <xs:element name="UnattachedDay" maxOccurs="unbounded" minOccurs="0">
+                          <xs:complexType>
+                            <xs:sequence>
+                              <xs:element type="xs:dateTime" name="Date"/>
+                              <xs:element type="xs:string" name="TimeDeviationCause"/>
+                            </xs:sequence>
+                            <xs:attribute type="xs:int" name="id" use="optional"/>
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                      <xs:attribute type="xs:int" name="id" use="optional"/>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+      <TimeAbsenceReport>
+        <ReportHeaderLabels>
+          <LoginNameLabel>Användare:</LoginNameLabel>
+          <PageLabel>Sida:</PageLabel>
+          <DateLabel>Datum:</DateLabel>
+          <TimeLabel>Tid:</TimeLabel>
+          <TimePeriodLabel>Period:</TimePeriodLabel>
+          <DateIntervalLabel>Datumintervall:</DateIntervalLabel>
+        </ReportHeaderLabels>
+        <ReportHeader>
+          <ReportTitle></ReportTitle>
+          <ReportDescription></ReportDescription>
+          <ReportNr></ReportNr>
+          <Company></Company>
+          <Orgnr></Orgnr>
+          <LoginName>sys</LoginName>
+          <TimePeriod></TimePeriod>
+          <SortByLevel1>Unknown</SortByLevel1>
+          <SortByLevel2>Unknown</SortByLevel2>
+          <SortByLevel3>Unknown</SortByLevel3>
+          <SortByLevel4>Unknown</SortByLevel4>
+          <IsSortAscending>false</IsSortAscending>
+          <GroupByLevel1>Unknown</GroupByLevel1>
+          <GroupByLevel2>Unknown</GroupByLevel2>
+          <GroupByLevel3>Unknown</GroupByLevel3>
+          <GroupByLevel4>Unknown</GroupByLevel4>
+          <Special />
+          <DateInterval></DateInterval>
+        </ReportHeader>
+        <PageHeaderLabels>
+          <EmployeeNrLabel>Anst.nr:</EmployeeNrLabel>
+          <EmployeeNameLabel>Namn:</EmployeeNameLabel>
+          <EmployeeSocialSecLabel>Pers.nr:</EmployeeSocialSecLabel>
+          <EmployeeSexLabel>Kön:</EmployeeSexLabel>
+          <EmployeeGroupNameLabel>Tidavtal:</EmployeeGroupNameLabel>
+          <TimeStampLabel>Stämpling</TimeStampLabel>
+          <WithoutCardLabel>Utan kort</WithoutCardLabel>
+          <TimeLabel>Tid</TimeLabel>
+          <OriginalTimeLabel>Original tid</OriginalTimeLabel>
+          <StatusLabel>Status</StatusLabel>
+          <NoteLabel>Notering</NoteLabel>
+          <TimeBlockLabel>Tidblock</TimeBlockLabel>
+          <StartTimeLabel>Starttid</StartTimeLabel>
+          <StopTimeLabel>Stopptid</StopTimeLabel>
+          <IsBreakLabel>Rast</IsBreakLabel>
+          <ManuallyAdjustedLabel>Manuellt ändrad</ManuallyAdjustedLabel>
+          <CreatedLabel>Skapad</CreatedLabel>
+          <CreatedByLabel>Skapad av</CreatedByLabel>
+		  <ModifiedByLabel>Modfierad av</ModifiedByLabel>
+		  <CreatedLabel>Skapad</CreatedLabel>
+          <GrossSalaryLabel>Bruttolön</GrossSalaryLabel>
+	      <BenefitLabel>Förmån</BenefitLabel>
+	      <TaxLabel>Skatt</TaxLabel>
+	      <CompensationLabel>Ersättning</CompensationLabel>
+	      <DeductionLabel>Avdrag</DeductionLabel>
+	      <NetSalaryLabel>Nettolön</NetSalaryLabel>
+		  <AbsenceLabel>Frånvaro</AbsenceLabel>
+		  <SchemaLabel>Schema</SchemaLabel>
+		  <SchemaTimeLabel>Schematid</SchemaTimeLabel>
+		  <PeriodLabel>period</PeriodLabel>
+		  <TotalperiodLabel>Totalt period</TotalperiodLabel>
+		  <TotalAbsenceLabel>Total frånvaro</TotalAbsenceLabel>
+		  <SickAbsence>sjukfrånvaro</SickAbsence>
+		  <ForLabel>för</ForLabel>
+		  <NoQualifyingDaysLabel>Antal karensdagar</NoQualifyingDaysLabel>
+		  <ShortLabel>Kort</ShortLabel>
+		  <LongLabel>Lång</LongLabel>
+		  <VacationLabel>Semester</VacationLabel>
+		  <ParentelLeaveLabel>Föräldraledig</ParentelLeaveLabel>
+		  <TempParentelLeaveLabel>Tillfällig föräldraledighet</TempParentelLeaveLabel>
+		  <LeaveLabel>Permission</LeaveLabel>
+		  <OtherAbsenceLabel>Övrig frånvaro</OtherAbsenceLabel>
+		  <ScheduleWeekDayMondayLabel>Måndag</ScheduleWeekDayMondayLabel>
+		  <ScheduleWeekDayTuesdayLabel>Tisdag</ScheduleWeekDayTuesdayLabel>
+		  <ScheduleWeekDayWednesdayLabel>Onsdag</ScheduleWeekDayWednesdayLabel>
+		  <ScheduleWeekDayThursdayLabel>Torsdag</ScheduleWeekDayThursdayLabel>
+		  <ScheduleWeekDayFridayLabel>Fredag</ScheduleWeekDayFridayLabel>
+		  <ScheduleWeekDaySaturdayLabel>Lördag</ScheduleWeekDaySaturdayLabel>
+		  <ScheduleWeekDaySundayLabel>Söndag</ScheduleWeekDaySundayLabel>
+        </PageHeaderLabels>
+        <Employee id="0">
+          <EmployeeNr></EmployeeNr>
+          <EmployeeName></EmployeeName>
+          <EmployeeSocialSec></EmployeeSocialSec>
+          <UnattachedDay id="0">
+            <Date>1900-01-01T00:00:00</Date>
+            <TimeDeviationCause>Sjuk</TimeDeviationCause>
+          </UnattachedDay>
+        </Employee>
+      </TimeAbsenceReport>
+    </SOE_TimeAbsenceReport>

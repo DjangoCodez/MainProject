@@ -1,0 +1,53 @@
+<div
+  [class.mt-2]="!inline()"
+  [ngStyle]="width() && !inline() ? { 'width.px': width() } : {}"
+  [class.d-flex]="inline()"
+  [class.flex-nowrap]="inline()"
+  [class.form-label-inline-top-alignment]="alignInline()">
+  @if (hasLabel()) {
+    <div
+      class="form-label-container d-flex align-items-center"
+      [class.me-2]="inline()">
+      <soe-label
+        [labelKey]="labelKey()"
+        [secondaryLabelKey]="secondaryLabelKey()"
+        [secondaryLabelBold]="secondaryLabelBold()"
+        [secondaryLabelParantheses]="secondaryLabelParantheses()"
+        [secondaryLabelPostfixKey]="secondaryLabelPostfixKey()"
+        [secondaryLabelPrefixKey]="secondaryLabelPrefixKey()"
+        [isRequired]="isRequired()"></soe-label>
+    </div>
+  }
+  @if (isReadOnly()) {
+    <soe-label
+      class="always-occupy-height"
+      [labelValue]="this.valueLabel()"
+      [applyMinHeight]="true">
+    </soe-label>
+  } @else {
+    <div
+      class="d-flex input-group"
+      [ngStyle]="width() && inline() ? { 'width.px': width() } : {}">
+      <select
+        #input
+        class="form-control form-select"
+        id="selection_{{ labelKey() }}"
+        name="selection_{{ labelKey() }}"
+        [autofocus]="autoFocus()"
+        [class.no-border-right-radius]="hasContent()"
+        [class.no-border-left-radius]="noBorderLeftRadius()"
+        [attr.tabindex]="tabindex()"
+        (change)="onValueChange($event)"
+        [formControl]="control">
+        @for (item of items(); track $index) {
+          <option [value]="item[optionIdField()]">
+            {{ item[optionNameField()] }}
+          </option>
+        }
+      </select>
+      <div #content class="d-flex align-center soe-button-group">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,29 @@
+﻿
+<div>
+    <div class="row">
+        <div class="col-sm-4">
+            <id-selection label-key="Inventory surface" on-selected="$ctrl.onStockInventorySelectionChanged(selection)" items="$ctrl.selectableStockInventoryList" user-selection-input="$ctrl.selectedStockInventoryItem" />
+        </div>
+    </div>
+
+    <div class="row">
+        <text-selection label-key="Article number" class="col-sm-4" on-selected="$ctrl.articleNumberChangedFrom(selection)" user-selection-input="$ctrl.articleNumberFrom"></text-selection>
+        <text-selection class="col-sm-4 margin-small-top" on-selected="$ctrl.articleNumberChangedTo(selection)" user-selection-input="$ctrl.articleNumberTo"></text-selection>
+    </div>
+
+    <div class="row">
+        <id-selection label-key="Inventory balance" class="col-sm-4" on-selected="$ctrl.inventoryBalanceChangedFrom(selection)" items="$ctrl.selectableInventoryBalanceList" user-selection-input="$ctrl.inventoryBalanceFrom" />
+        <id-selection class="col-sm-4" on-selected="$ctrl.inventoryBalanceChangedTo(selection)" items="$ctrl.selectableInventoryBalanceList" user-selection-input="$ctrl.inventoryBalanceTo" />
+    </div>
+
+    <div class="row">
+        <id-selection label-key="Code" class="col-sm-4" on-selected="$ctrl.codeSeriesChangedFrom(selection)" items="$ctrl.selectableCodeList" user-selection-input="$ctrl.codeSeriesFrom" />
+        <id-selection class="col-sm-4" on-selected="$ctrl.codeSeriesChangedTo(selection)" items="$ctrl.selectableCodeList" user-selection-input="$ctrl.codeSeriesTo" />
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <id-selection label-key="common.report.selection.sorting" on-selected="$ctrl.onSortOrderSelectionChanged(selection)" items="$ctrl.selectableSorting" user-selection-input="$ctrl.selectedSortItem" />
+        </div>
+    </div>
+</div>

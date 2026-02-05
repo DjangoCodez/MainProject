@@ -1,0 +1,371 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-ng-init="ctrl = tab.controller" data-form-state="ctrl.isDirty" confirm-on-exit>
+    <div class="form-group form-group-sm" style="margin-bottom: 0px;">
+        <div class="row" style="margin-right: -20px;">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="width:20%;flex-basis:20%" data-ng-if="!ctrl.isMyTime">
+                <data-ng-include src="ctrl.treeUrl" />
+            </div>
+            <div class="{{ctrl.isMyTime ? 'timeattestuser col-xs-12 col-sm-12 col-md-12 col-lg-12' : 'timeattest col-xs-9 col-sm-9 col-md-9 col-lg-9'}}">
+                <div class="timeattest-container" data-ng-if="ctrl.hasSelectedTreeItem()">
+                    <div class="timeattest-header" data-ng-if="ctrl.currentTreeViewModeIsGroup">
+                        <div class="timeattest-header-info">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div>
+                                        <span data-ng-show="ctrl.currentGroup.code">{{ctrl.currentGroup.code}}&nbsp;</span><span>{{ctrl.currentGroup.name}}</span><br />
+                                        <span data-ng-dblclick="ctrl.doubleClick()">{{ctrl.currentTimePeriodName}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div data-ng-if="!ctrl.progressBusy && ctrl.currentTreeViewModeIsGroup && ctrl.isContentGroupValid()">
+                                        <span data-l10n-bind="'time.time.attest.nrofemployees'" class="indiscreet"></span><br />
+                                        <span>{{ctrl.currentGroup.timeEmployeePeriods.length}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeattest-header-charts">
+                            <uib-accordion>
+                                <soe-accordion label-key="core.chart" on-open="ctrl.createGroupCharts();" is-open="ctrl.groupChartsVisible" button-icon="fa-sync" button-tooltip-key="common.dashboard.reload" button-hidden="!ctrl.groupChartsVisible" on-button-click="ctrl.reloadGroupCharts();">
+                                    <div class="row" data-ng-if="ctrl.groupChartsVisible">
+                                        <div class="col-sm-12">
+                                            <attest-group-charts content-group="ctrl.currentGroup.filteredTimeEmployeePeriods" total-count="ctrl.currentGroup.totalCount" charts-created="ctrl.groupChartsCreated"></attest-group-charts>
+                                        </div>
+                                    </div>
+                                </soe-accordion>
+                            </uib-accordion>
+                        </div>
+                        <div class="timeattest-header-toolbar">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="pull-right">
+                                        <div class="col" style="margin-top: 15px; margin-right: 15px;">
+                                            <soe-toolbar buttons="ctrl.gridButtonGroups" hide-border="true"></soe-toolbar>
+                                        </div>
+                                        <div class="col" data-ng-if="ctrl.toolbarShowAttestGroup()">
+                                            <soe-menubutton label-key="time.atteststate.state" options="ctrl.currentAttestStateOptions" option-selected="ctrl.saveAttest(option)" is-disabled="ctrl.isAttestDisabled()" drop-up="false"></soe-menubutton>
+                                        </div>
+                                        <div class="col" data-ng-if="ctrl.toolbarShowFunctionsGroup()">
+                                            <soe-menubutton label-key="core.functions" options="ctrl.calculationFunctions" option-selected="ctrl.executeCalculationFunction(option)" drop-up="false" main-button="true" is-disabled="ctrl.isCalculationFunctionsGroupDisabled()" ng-hide="ctrl.progressBusy"></soe-menubutton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeattest-header" data-ng-if="ctrl.currentTreeViewModeIsEmployee">
+                        <div class="timeattest-header-info">
+                            <div class="row" data-ng-if="ctrl.isMyTime">
+                                <div class="col-sm-10" style="margin-bottom:5px">
+                                    <data-ng-include data-ng-if="ctrl.isMyTime" src="ctrl.periodSelectorUrl" />
+                                </div>
+                            </div>
+                            <div class="row" data-ng-if="!ctrl.isMyTime">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-default fal fa-chevron-left" data-l10n-bind data-l10n-bind-title="'common.prevemployee'" ng-class="{ disabled: !ctrl.prevEmployeeValid() }" data-ng-click="$event.stopPropagation();ctrl.prevEmployeeValid() && ctrl.prevEmployeeGoTo()"></button>
+                                                    <button type="button" class="btn btn-sm btn-default fal fa-chevron-right border-radius-right" data-l10n-bind data-l10n-bind-title="'common.nextemployee'" ng-class="{ disabled: !ctrl.nextEmployeeValid() }" data-ng-click="$event.stopPropagation();ctrl.nextEmployeeValid() && ctrl.nextEmployeeGoTo()"></button>
+                                                    <em ng-attr-title="{{::ctrl.currentEmployee.hibernatingText}}" data-ng-if="ctrl.currentEmployee.hibernatingText && ctrl.currentEmployee.hibernatingText.length > 0" class="fa fa-solid fa-clone" style="margin:3px 0 0 5px"></em>
+                                                </div>
+                                                <span class="employee" data-ng-if="!ctrl.editEmployeePermission">{{ctrl.currentEmployee.employeeNr}}&nbsp;{{ctrl.currentEmployee.employeeName}}</span>
+                                                <span class="employee" data-ng-if="ctrl.editEmployeePermission" data-ng-click="ctrl.editEmployee();">{{ctrl.currentEmployee.employeeNr}}&nbsp;{{ctrl.currentEmployee.employeeName}}</span>
+                                                <br />
+                                                <span data-ng-if="ctrl.socialSecPermission">{{ctrl.currentEmployee.socialSec}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div>
+                                                <span data-l10n-bind="'time.employee.employee.employmenttype'" class="indiscreet"></span><br />
+                                                <span data-ng-show="ctrl.currentEmployeeLoading" data-l10n-bind="'core.loading'"></span>
+                                                <span data-ng-show="!ctrl.currentEmployeeLoading">{{ctrl.currentEmployee.currentEmploymentTypeString}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div>
+                                                <span data-l10n-bind="'common.startdate'" class="indiscreet"></span><br />
+                                                <span data-ng-show="ctrl.currentEmployeeLoading" data-l10n-bind="'core.loading'"></span>
+                                                <span data-ng-show="!ctrl.currentEmployeeLoading">{{ctrl.currentEmployee.currentEmploymentDateFromString}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div>
+                                                <span data-l10n-bind="'time.employee.employeegroup.employeegroup'" class="indiscreet"></span><br />
+                                                <span data-ng-show="ctrl.currentEmployeeLoading" data-l10n-bind="'core.loading'"></span>
+                                                <span data-ng-show="!ctrl.currentEmployeeLoading">{{ctrl.currentEmployee.employeeGroupName}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div>
+                                                <span data-l10n-bind="'time.employee.vacationgroup.vacationgroup'" class="indiscreet"></span><br />
+                                                <span data-ng-show="ctrl.currentEmployeeLoading" data-l10n-bind="'core.loading'"></span>
+                                                <span ng-show="ctrl.currentEmployee.vacationGroupId > 0">{{ctrl.currentEmployee.vacationGroupName}}</span>
+                                                <span style="color:red" ng-show="ctrl.currentEmployee.vacationGroupId === 0" data-l10n-bind="'common.missing'"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <span>{{ctrl.currentTimePeriodName}}</span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div>
+                                                <span data-l10n-bind="'time.employee.employment.percent'" class="indiscreet"></span><br />
+                                                <span data-ng-show="ctrl.currentEmployeeLoading" data-l10n-bind="'core.loading'"></span>
+                                                <span data-ng-show="!ctrl.currentEmployeeLoading">{{ctrl.currentEmployee.employmentPercent | amount}}%</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div>
+                                                <span data-l10n-bind="'common.stopdate'" class="indiscreet"></span><br />
+                                                <span data-ng-show="ctrl.currentEmployeeLoading" data-l10n-bind="'core.loading'"></span>
+                                                <span data-ng-show="!ctrl.currentEmployeeLoading">{{ctrl.currentEmployee.currentEmploymentDateToString}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div>
+                                                <span data-l10n-bind="'time.employee.payrollgroup.payrollgroup'" class="indiscreet"></span><br />
+                                                <span data-ng-show="ctrl.currentEmployeeLoading" data-l10n-bind="'core.loading'"></span>
+                                                <span data-ng-show="!ctrl.currentEmployeeLoading">{{ctrl.currentEmployee.payrollGroupName}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeattest-header-sums">
+                            <div class="timeattest-header-sums-preview" data-ng-click="ctrl.currentSumsExpandedChanged()">
+                                <div class="row" data-ng-if="ctrl.showAccumulatorsPermission">
+                                    <div class="col-sm-2" data-ng-if="!ctrl.timeAccumulators">
+                                        <i class="fal" data-ng-class="{'fa-chevron-right': !ctrl.currentSumsExpanded, 'fa-chevron-down': ctrl.currentSumsExpanded}"></i>
+                                        <span data-l10n-bind="'time.time.timeaccumulators.loadingaccumulators'"></span>
+                                    </div>
+                                    <div class="col-sm-2" data-ng-if="ctrl.timeAccumulators.length == 0" )>
+                                        <i class="fal" data-ng-class="{'fa-chevron-right': !ctrl.currentSumsExpanded, 'fa-chevron-down': ctrl.currentSumsExpanded}"></i>
+                                        <span data-l10n-bind="'time.time.timeaccumulators.none'"></span>
+                                    </div>
+                                    <div data-ng-repeat="timeAccumulator in ctrl.timeAccumulators" class="col-sm-3" data-ng-if="ctrl.timeAccumulators && ctrl.timeAccumulators.length > 0">
+                                        <i class="fal" data-ng-class="{'fa-chevron-right': !ctrl.currentSumsExpanded, 'fa-chevron-down': ctrl.currentSumsExpanded}" data-ng-if="$first"></i>
+                                        <span>{{timeAccumulator.name}}&nbsp;</span>
+                                        <span data-ng-if="timeAccumulator.hasPlanningPeriod" data-ng-class="{'errorColor': timeAccumulator.rulePlanningPeriod.showError, 'warningColor': timeAccumulator.rulePlanningPeriod.showWarning}">{{timeAccumulator.sumPlanningPeriod | minutesToTimeSpan}} /</span>
+                                        <span data-ng-if="!timeAccumulator.hasPlanningPeriod">NA /</span>
+                                        <span data-ng-if="timeAccumulator.hasTimePeriod" data-ng-class="{'errorColor': timeAccumulator.rulePeriod.showError, 'warningColor': timeAccumulator.rulePeriod.showWarning}">{{timeAccumulator.sumPeriod | minutesToTimeSpan}} /</span>
+                                        <span data-ng-if="!timeAccumulator.hasTimePeriod">NA /</span>
+                                        <span data-ng-class="{'errorColor': timeAccumulator.ruleYear.showError, 'warningColor': timeAccumulator.ruleYear.showWarning}">{{timeAccumulator.sumYear | minutesToTimeSpan}} /</span>
+                                        <span data-ng-if="timeAccumulator.hasPlanningPeriod" data-ng-class="{'errorColor': timeAccumulator.rulePlanningPeriodAccToday.showError, 'warningColor': timeAccumulator.rulePlanningPeriodAccToday.showWarning}">{{timeAccumulator.sumAccToday | minutesToTimeSpan}}</span>
+                                        <span data-ng-if="!timeAccumulator.hasPlanningPeriod" data-ng-class="{'errorColor': timeAccumulator.ruleAccToday.showError, 'warningColor': timeAccumulator.ruleAccToday.showWarning}">{{timeAccumulator.sumAccToday | minutesToTimeSpan}}</span>
+                                    </div>
+                                </div>
+                                <div class="row" data-ng-if="!ctrl.showAccumulatorsPermission">
+                                    <div class="col-sm-12" data-ng-if="ctrl.timeAccumulators.length == 0" )>
+                                        <i class="fal" data-ng-class="{'fa-chevron-right': !ctrl.currentSumsExpanded, 'fa-chevron-down': ctrl.currentSumsExpanded}"></i>
+                                        <span data-l10n-bind="'time.time.tree.vacationbalance'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeattest-header-sums-content" data-ng-show="ctrl.currentSumsExpanded">
+                                <div class="row">
+                                    <div class="col-sm-7" data-ng-if="ctrl.showAccumulatorsPermission">
+                                        <div class="timeattest-header-sums-content-box">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div data-ng-if="!ctrl.timeAccumulators">
+                                                        <span data-l10n-bind="'time.time.timeaccumulators.loadingaccumulators'"></span>
+                                                    </div>
+                                                    <div data-ng-repeat="timeAccumulator in ctrl.timeAccumulators" data-ng-if="ctrl.timeAccumulators && ctrl.timeAccumulators.length > 0">
+                                                        <div data-ng-if="$first">
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <span data-l10n-bind="'time.time.timeaccumulators.timeaccumulator'" class="indiscreet" style="margin-left:2px"></span>
+                                                                    (<span data-l10n-bind="'time.time.timeaccumulators.employeegrouprule'" class="indiscreet"></span>)
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <span class="pull-right indiscreet" data-l10n-bind="'time.time.timeaccumulators.planningperiod'"></span>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <span class="pull-right indiscreet" data-l10n-bind="'time.time.timeaccumulators.period'"></span>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <span class="pull-right indiscreet" data-l10n-bind="'time.time.timeaccumulators.year'"></span>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <span class="pull-right indiscreet" data-l10n-bind="'time.time.timeaccumulators.acctoday'"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-4">
+                                                                <span>{{::timeAccumulator.name}}</span><br />
+                                                                <span data-ng-if="timeAccumulator.employeeGroupRuleBoundaries.length > 0" class="italic">({{::timeAccumulator.employeeGroupRuleBoundaries}})</span>
+                                                            </div>
+                                                            <div class="col-sm-2" title="{{::timeAccumulator.planningPeriodDatesText}}">
+                                                                <span class="pull-right" data-ng-if="timeAccumulator.hasPlanningPeriod && timeAccumulator.rulePlanningPeriod.comparison != 0">&nbsp;({{timeAccumulator.rulePlanningPeriod.diff}})</span>
+                                                                <span class="pull-right" data-ng-if="timeAccumulator.hasPlanningPeriod" data-ng-class="{'errorColor': timeAccumulator.rulePlanningPeriod.showError, 'warningColor': timeAccumulator.rulePlanningPeriod.showWarning}">{{::timeAccumulator.sumPlanningPeriod | minutesToTimeSpan}}</span>
+                                                                <span class="pull-right" data-ng-if="!timeAccumulator.hasPlanningPeriod">N/A</span>
+                                                            </div>
+                                                            <div class="col-sm-2" title="{{::timeAccumulator.timePeriodDatesText}}">
+                                                                <span class="pull-right" data-ng-if="timeAccumulator.hasTimePeriod && timeAccumulator.rulePeriod.comparison != 0">&nbsp;({{timeAccumulator.rulePeriod.diff}})</span>
+                                                                <span class="pull-right" data-ng-if="timeAccumulator.hasTimePeriod" data-ng-class="{'errorColor': timeAccumulator.rulePeriod.showError, 'warningColor': timeAccumulator.rulePeriod.showWarning}">{{::timeAccumulator.sumPeriod | minutesToTimeSpan}}</span>
+                                                                <span class="pull-right" data-ng-if="!timeAccumulator.hasTimePeriod">N/A</span>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <span class="pull-right" data-ng-if="timeAccumulator.ruleYear.comparison != 0">&nbsp;({{timeAccumulator.ruleYear.diff}})</span>
+                                                                <span class="pull-right" data-ng-class="{'errorColor': timeAccumulator.ruleYear.showError, 'warningColor': timeAccumulator.ruleYear.showWarning}">{{::timeAccumulator.sumYear | minutesToTimeSpan}}</span>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <div data-ng-if="timeAccumulator.hasPlanningPeriod">
+                                                                    <span class="pull-right" data-ng-if="timeAccumulator.rulePlanningPeriodAccToday.comparison != 0">&nbsp;({{timeAccumulator.rulePlanningPeriodAccToday.diff}})</span>
+                                                                    <span class="pull-right" data-ng-class="{'errorColor': timeAccumulator.rulePlanningPeriodAccToday.showError, 'warningColor': timeAccumulator.rulePlanningPeriodAccToday.showWarning}">{{::timeAccumulator.sumAccToday | minutesToTimeSpan}}</span>
+                                                                </div>
+                                                                <div data-ng-if="!timeAccumulator.hasPlanningPeriod">
+                                                                    <span class="pull-right" data-ng-if="timeAccumulator.ruleAccToday.comparison != 0">&nbsp;({{timeAccumulator.ruleAccToday.diff}})</span>
+                                                                    <span class="pull-right" data-ng-class="{'errorColor': timeAccumulator.ruleAccToday.showError, 'warningColor': timeAccumulator.ruleAccToday.showWarning}">{{::timeAccumulator.sumAccToday | minutesToTimeSpan}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div data-ng-if="ctrl.timeAccumulators && ctrl.timeAccumulators.length === 0">
+                                                        <span data-l10n-bind="'time.time.timeaccumulators.none'"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="timeattest-header-sums-content-box">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <span data-l10n-bind="'time.time.tree.vacationbalance'" class="indiscreet"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <span data-l10n-bind="'time.time.tree.vacationpayed'"></span>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <span class="pull-right" data-ng-if="ctrl.currentEmployeeVacationPeriod">{{ctrl.currentEmployeeVacationPeriod.daysPaid}}</span>
+                                                    <span class="pull-right" data-ng-if="!ctrl.currentEmployeeVacationPeriod">0</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <span data-l10n-bind="'time.time.tree.vacationunpayed'"></span>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <span class="pull-right" data-ng-if="ctrl.currentEmployeeVacationPeriod">{{ctrl.currentEmployeeVacationPeriod.daysUnpaid}}</span>
+                                                    <span class="pull-right" data-ng-if="!ctrl.currentEmployeeVacationPeriod">0</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <span data-l10n-bind="'time.time.tree.vacationunsaved'"></span>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <span class="pull-right" data-ng-if="ctrl.currentEmployeeVacationPeriod">{{ctrl.currentEmployeeVacationPeriod.daysSaved}}</span>
+                                                    <span class="pull-right" data-ng-if="!ctrl.currentEmployeeVacationPeriod">0</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <span data-l10n-bind="'time.time.tree.vacationadvance'"></span>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <span class="pull-right" data-ng-if="ctrl.currentEmployeeVacationPeriod">{{ctrl.currentEmployeeVacationPeriod.daysAdvance}}</span>
+                                                    <span class="pull-right" data-ng-if="!ctrl.currentEmployeeVacationPeriod">0</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeattest-header-charts">
+                            <uib-accordion>
+                                <soe-accordion label-key="core.chart" on-open="ctrl.createCharts();" is-open="ctrl.chartsVisible" button-icon="fa-sync" button-tooltip-key="common.dashboard.reload" button-hidden="!ctrl.chartsVisible" on-button-click="ctrl.reloadCharts();">
+                                    <div class="row" data-ng-if="ctrl.chartsVisible">
+                                        <div class="col-sm-12">
+                                            <attest-employee-charts content-employee="ctrl.contentEmployee" charts-created="ctrl.chartsCreated"></attest-employee-charts>
+                                        </div>
+                                    </div>
+                                </soe-accordion>
+                            </uib-accordion>
+                        </div>
+                        <div class="timeattest-header-toolbar">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-splitbutton label-key="time.time.attest.attestemployee" options="ctrl.contentViewModeFunctions" option-selected="ctrl.executeContentViewModeFunction(option)" class="pull-left"></soe-splitbutton>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="pull-right">
+                                        <div class="col" style="margin-top: 15px; margin-right: 15px;">
+                                            <soe-toolbar buttons="ctrl.gridButtonGroups" hide-border="true"></soe-toolbar>
+                                        </div>
+                                        <div class="col margin-small-left" data-ng-if="ctrl.toolbarShowAttestEmployee() || ctrl.toolbarShowAttestAdditionDeduction()">
+                                            <soe-splitbutton label-key="time.atteststate.state" options="ctrl.currentAttestStateOptions" selected-option="ctrl.selectedAttestStateOption" option-selected="ctrl.saveAttest(option)" is-disabled="ctrl.isAttestDisabled()" drop-up="false"></soe-splitbutton>
+                                        </div>
+                                        <div class="col" data-ng-if="ctrl.toolbarShowFunctionsEmployee()">
+                                            <soe-menubutton label-key="core.functions" options="ctrl.calculationFunctions" option-selected="ctrl.executeCalculationFunction(option)" drop-up="false" main-button="true" is-disabled="ctrl.isCalculationFunctionsEmployeeDisabled()" ng-hide="ctrl.progressBusy"></soe-menubutton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeattest-header-warning clickable" data-ng-if="ctrl.doShowHeaderWarningForUnhandledShifts()" data-ng-click="$event.stopPropagation();ctrl.recalculateUnhandledShiftChanges()">
+                        <span data-l10n-bind="'time.time.attest.hasunhandledshiftchanges.warning'"></span>
+                    </div>
+                    <div class="timeattest-header-warning clickable" data-ng-if="ctrl.doShowHeaderWarningForUnhandledExtraShifts()" data-ng-click="$event.stopPropagation();ctrl.recalculateUnhandledExtraShiftChanges()">
+                        <span data-l10n-bind="'time.time.attest.hasunhandledextrashiftchanges.warning'"></span>
+                    </div>
+                    <div class="timeattest-header-warning clickable" data-ng-if="ctrl.doShowHeaderWarningForGroupNotLoaded()" data-ng-click="$event.stopPropagation();ctrl.loadGroupContent(false, true)">
+                        <span data-l10n-bind="'time.time.attest.hasnotloadedgroup'"></span>
+                    </div>
+                    <div class="timeattest-header-warning" data-ng-if="ctrl.doShowHeaderWarningForDays()">
+                        <span data-l10n-bind="'time.time.attest.haswarningsforday'"></span>
+                    </div>
+                    <div class="timeattest-progress-loading" data-ng-if="ctrl.progressBusy">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeattest-grid" data-ng-if="ctrl.currentTreeViewModeIsGroup && ctrl.isContentGroupValid()">
+                        <attest-group is-readonly="true" attest-employee-periods="ctrl.currentGroup.timeEmployeePeriods" attest-mode="ctrl.attestMode" view-employee="ctrl.viewEmployee(row)" preview="ctrl.currentGroup && ctrl.currentGroup.preview"></attest-group>
+                    </div>
+                    <div class="timeattest-grid" data-ng-if="ctrl.currentTreeViewModeIsEmployee && ctrl.isContentEmployeeValid()">
+                        <div data-ng-if="ctrl.currentContentViewModeIsAttestEmployee">
+                            <attest-employee is-readonly="true" attest-employee-days="ctrl.contentEmployee" hide-details="!ctrl.editDayPermission" hide-days-without-schedule="ctrl.hideDaysWithoutSchedule" data-ng-if="ctrl.doShowEmployeeContent()"></attest-employee>
+                            <div class="noresult" data-ng-if="ctrl.doShowNoEmployeeContent()">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <span data-l10n-bind="'common.noresult'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="ctrl.currentContentViewModeIsAdditionAndDeduction">
+                            <div class="col-sm-12">
+                                <div style="margin: -5px -1px -1px -1px;">
+                                    <addition-deductions rows="ctrl.contentAdditionDeduction" is-erp="ctrl.isERP" employee-id="ctrl.currentEmployee.employeeId" stands-on-date="ctrl.currentStopDate" is-my-self=ctrl.isMySelf></addition-deductions>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="ctrl.currentContentViewModeIsAbsenceDetails">
+                            <div class="col-sm-12">
+                                <div style="margin: -5px -1px -1px -1px;">
+                                    <absence-details absence-details="ctrl.contentAbsenceDetails" employee-id="ctrl.currentEmployee.employeeId"></absence-details>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

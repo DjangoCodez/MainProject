@@ -1,0 +1,82 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-hide="ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.name" model="ctrl.stockInventoryHead.headerText" maxlength="100" required="true" is-readonly="!ctrl.isNew"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-select label-key="billing.stock.stocks.stock" model="ctrl.stockInventoryHead.stockId" required="true" items="ctrl.stocksDict" options="item.stockId as item.name for item in items" is-readonly="!ctrl.isNew" on-changing="ctrl.stockChanged(item)"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-default btn-sm" data-l10n-bind="'billing.stock.stockinventory.importinventoryfile'" ng-hide="ctrl.isNew || ctrl.isClosed()" ng-click="ctrl.importInventoryFile()"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="billing.stock.stockinventory.inventorystart" model="ctrl.stockInventoryHead.inventoryStart" is-readonly="true" ng-hide="ctrl.isNew"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="billing.stock.stockinventory.inventorystop" model="ctrl.stockInventoryHead.inventoryStop" is-readonly="true" ng-hide="ctrl.isNew"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <soe-panel label-key="common.selection" ng-hide="!ctrl.isNew">
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <soe-textbox label-key="billing.stock.stockinventory.productnr" model="ctrl.productNrFrom"></soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-textbox label-key="common.to" model="ctrl.productNrTo"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <soe-select label-key="billing.stock.stockplaces.stockplace" label-value-in-paranthesis="''common.from''" model="ctrl.shelfIdFrom" items="ctrl.stockPlacesForStock" options="item.stockShelfId as item.name for item in items" on-changing="ctrl.stockPlaceChanged(item)"  on-clicking="ctrl.stockPlaceClicked(item)"></soe-select>
+                </div>
+                <div class="col-sm-3">
+                    <soe-select label-key="common.to" model="ctrl.shelfIdTo" items="ctrl.stockPlacesForStock" options="item.stockShelfId as item.name for item in items" on-changing="ctrl.stockPlaceChanged(item)" on-clicking="ctrl.stockPlaceClicked(item)"></soe-select>
+                </div>
+                <div class="col-sm-12">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-default btn-sm" data-l10n-bind="'billing.stock.stockinventory.generate'" ng-click="ctrl.generateNewInventory()"></button>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+
+        <soe-panel>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div id="transactions-grid" ag-grid="ctrl.stockinventoryGrid.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                    <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.stockInventoryHead"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col">
+                        <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'billing.stock.stockinventory.accept'" data-l10n-bind-title="'billing.stock.stockinventory.accept'" ng-disabled="ctrl.isNew || ctrl.isClosed()" data-ng-click="$event.stopPropagation();ctrl.acceptInventory()()"></button>
+                    </div>
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

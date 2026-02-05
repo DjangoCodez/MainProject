@@ -1,0 +1,147 @@
+﻿@import (reference) "../../../../node_modules/bootstrap/less/bootstrap";
+
+// Widths and Heights
+@containerMinHeight: 700px;
+@gridMinHeight: 520px;
+@gridHeight: 80vh;
+@formFooterHeight: 50px;
+
+// Fonts
+@font: 'Roboto Condensed', Verdana, Arial, Helvetica, Sans-serif;
+
+// Sizes
+@tinyFontSize: 7px;
+@smallFontSize: 10px;
+@mediumFontSize: 12px;
+@largeFontSize: 14px;
+@extraLargeFontSize: 20px;
+@formFontSize: 12px;
+@formFontSizeSmall: 11px;
+@progressBarFontSize: 18px;
+@buttonFontSize: 12px;
+@buttonRemoveFontSize: 8px;
+
+@border-radius: 4px;
+@button-border-radius: 15px;
+
+// Colors
+
+// Colors from Figma design system
+
+// Primary
+@soe-color-primary: #ec3641;
+// Secondary
+@soe-color-secondary-blue: #72a9f5;
+@soe-color-secondary-beige: #ddc9a5;
+// Accent
+@soe-color-accent-warm-black: #2c0009;
+// Primary tints
+@soe-color-primary-dark-red: #63080d;
+@soe-color-primary-tone-85: #ef545e;
+@soe-color-primary-tone-75: #f16870;
+@soe-color-primary-tone-60: #f4868d;
+@soe-color-primary-tone-35: #f8b9bc;
+@soe-color-primary-medium-red: #f7d8d1;
+// Secondary tints
+@soe-color-secondary-blue-70: #9cc3f8;
+@soe-color-secondary-medium-blue: #bad5f9;
+@soe-color-secondary-light-blue: #dfebfb;
+@soe-color-secondary-medium-beige: #efeae3;
+@soe-color-secondary-light-beige: #f7f4f0;
+// Neutral
+@soe-color-neutral-black: #1e1e1e;
+@soe-color-neutral-dark-grey: #666666;
+@soe-color-neutral-grey: #b6b6b6;
+@soe-color-neutral-light-grey: #dfdfdf;
+@soe-color-neutral-white: #ffffff;
+@soe-color-neutral-ag-white: #fefdfd;
+// Semantic
+@soe-color-semantic-error: #da1e28;
+@soe-color-semantic-warning: #ff832b;
+@soe-color-semantic-success: #24a148;
+@soe-color-semantic-information: #0565c9;
+@soe-color-semantic-yellow: #fbbd0e;
+// Semantic tints
+@soe-color-semantic-error-20: #f8d4d4;
+@soe-color-semantic-error-5: #fdf4f4;
+@soe-color-semantic-warning-20: #ffe6d5;
+@soe-color-semantic-warning-5: #fff9f4;
+@soe-color-semantic-success-20: #d3ecda;
+@soe-color-semantic-success-5: #f4faf6;
+@soe-color-semantic-information-20: #cde0f4;
+@soe-color-semantic-information-5: #f2f7fc;
+
+// Standard color variables
+@soe-border-color: @soe-color-neutral-light-grey;
+@soe-background-color: @soe-color-neutral-white;
+@soe-text-color: @soe-color-neutral-black;
+
+@soe-disabled-border-color: @soe-color-neutral-light-grey;
+@soe-disabled-background-color: @soe-color-secondary-light-beige;
+@soe-disabled-text-color: @soe-color-neutral-grey;
+
+@soe-header-background-color: @soe-color-secondary-light-beige;
+@soe-button-hover-background-color: @soe-color-secondary-light-beige;
+// Common
+@accentColor: @soe-color-secondary-blue;
+@accentColorFaded: @soe-color-secondary-blue-70;
+@accentColorLight: @soe-color-secondary-medium-blue;
+@accentColorLightFaded: @soe-color-secondary-light-blue;
+
+@errorColor: @soe-color-semantic-error;
+@errorBorderColor: @soe-color-semantic-error;
+@errorBackgroundColor: @soe-color-semantic-error-20;
+@errorBackgroundColorFaded: @soe-color-semantic-error-5;
+@warningColor: @soe-color-semantic-warning;
+@warningBorderColor: @soe-color-semantic-warning;
+@warningBackgroundColor: @soe-color-semantic-warning-20;
+@warningBackgroundColorFaded: @soe-color-semantic-warning-5;
+@successColor: @soe-color-semantic-success;
+@successBorderColor: @soe-color-semantic-success;
+@successBackgroundColor: @soe-color-semantic-success-20;
+@successBackgroundColorFaded: @soe-color-semantic-success-5;
+@informationColor: @soe-color-semantic-information;
+@informationBorderColor: @soe-color-semantic-information;
+@informationBackgroundColor: @soe-color-semantic-information-20;
+@informationBackgroundColorFaded: @soe-color-semantic-information-5;
+
+@lightGrayColor: @soe-color-neutral-light-grey;
+@mediumGrayColor: @soe-color-neutral-grey;
+
+@todayBackgroundColor: @soe-color-secondary-medium-beige;
+@passedDayBackgroundColor: fade(@soe-color-neutral-light-grey, 10%);
+
+@saturdayColor: @soe-color-semantic-information;
+@saturdayBackgroundColor: @soe-color-semantic-information-20;
+@saturdayPassedBackgroundColor: fade(@soe-color-semantic-information, 10%);
+
+@sundayColor: @soe-color-semantic-error;
+@sundayBackgroundColor: @soe-color-semantic-error-20;
+@sundayPassedBackgroundColor: fade(@soe-color-semantic-error, 10%);
+
+@availableBackgroundColor: fade(@soe-color-semantic-success, 30%);
+@unavailableBackgroundColor: fade(@soe-color-semantic-error, 30%);
+@partlyAvailableBackground: repeating-linear-gradient( -45deg, transparent, transparent 3px, @availableBackgroundColor 3px, @availableBackgroundColor 6px );
+@partlyUnavailableBackground: repeating-linear-gradient( -45deg, transparent, transparent 3px, @unavailableBackgroundColor 3px, @unavailableBackgroundColor 6px );
+@mixedAvailableBackground: repeating-linear-gradient( -45deg, @availableBackgroundColor, @availableBackgroundColor 3px, @unavailableBackgroundColor 3px, @unavailableBackgroundColor 6px );
+
+@shiftAbsenceBackgroundColor: @soe-color-primary-tone-85;
+@shiftAbsenceRequestedBackground: repeating-linear-gradient( -45deg, @soe-color-neutral-white, @soe-color-neutral-white 1px, @shiftAbsenceBackgroundColor 2px, @shiftAbsenceBackgroundColor 4px );
+@shiftAssignedBackgroundColor: @availableBackgroundColor;
+@shiftHighlightedBackground: repeating-linear-gradient( to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 2px, rgba(205, 205, 205, 0.5) 2px, rgba(205, 205, 205, 0.5) 4px );
+@shiftOpenBackgroundColor: #7EC4EC;
+@shiftPreliminaryBackground: repeating-linear-gradient( -45deg, @soe-color-neutral-white, @soe-color-neutral-white 2px, @soe-border-color 2px, @soe-border-color 4px );
+@shiftStripedBackground: repeating-linear-gradient( -45deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 2px, rgba(205, 205, 205, 0.5) 2px, rgba(205, 205, 205, 0.5) 4px );
+@shiftStandby: @soe-color-semantic-yellow;
+@shiftStandbyBackground: repeating-linear-gradient( 90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 6px, @soe-color-semantic-yellow 6px, @soe-color-semantic-yellow 12px );
+@shiftOnDuty: @soe-color-semantic-information-20;
+@shiftOnDutyBackground: repeating-linear-gradient( 90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 6px, @soe-color-semantic-information-20 6px, @soe-color-semantic-information-20 12px );
+@shiftSwapRequestBackgroundColor: @soe-color-primary-dark-red;
+@shiftUnwantedBackgroundColor: @soe-color-semantic-warning;
+@shiftWantedBackgroundColor: @soe-color-semantic-success;
+@slotStripedBackground: repeating-linear-gradient( -45deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 2px, rgba(114, 169, 245, 0.5) 2px, rgba(114, 169, 245, 0.5) 4px );
+
+@maleColor: @soe-color-secondary-medium-blue;
+@femaleColor: @soe-color-primary-tone-75;
+
+

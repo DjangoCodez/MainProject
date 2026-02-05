@@ -1,0 +1,275 @@
+@use './colors.scss';
+@use './fonts.scss';
+@use './variables.scss';
+
+body {
+  font-family: fonts.$font !important;
+  font-size: 1rem !important;
+}
+
+// TYPGRAPHY
+
+// Font size
+
+.font-xs {
+  font-size: fonts.$soe-font-size-xs;
+  font-weight: fonts.$font-weight-normal;
+}
+
+.font-xs-bold {
+  font-size: fonts.$soe-font-size-xs;
+  font-weight: fonts.$font-weight-bold;
+}
+
+.font-sm {
+  font-size: fonts.$soe-font-size-sm;
+  font-weight: fonts.$font-weight-normal;
+}
+
+.font-sm-bold {
+  font-size: fonts.$soe-font-size-sm;
+  font-weight: fonts.$font-weight-bold;
+}
+
+.font-md {
+  font-size: fonts.$soe-font-size-md;
+  font-weight: fonts.$font-weight-normal;
+}
+
+.font-md-bold {
+  font-size: fonts.$soe-font-size-md;
+  font-weight: fonts.$font-weight-bold;
+}
+
+.font-lg {
+  font-size: fonts.$soe-font-size-lg;
+  font-weight: fonts.$font-weight-normal;
+}
+
+.font-lg-bold {
+  font-size: fonts.$soe-font-size-lg;
+  font-weight: fonts.$font-weight-bold;
+}
+
+.font-xl {
+  font-size: fonts.$soe-font-size-xl;
+  font-weight: fonts.$font-weight-normal;
+}
+
+.font-xl-bold {
+  font-size: fonts.$soe-font-size-xl;
+  font-weight: fonts.$font-weight-bold;
+}
+
+.font-xxl {
+  font-size: fonts.$soe-font-size-xxl;
+  font-weight: fonts.$font-weight-normal;
+}
+
+.font-xxl-bold {
+  font-size: fonts.$soe-font-size-xxl;
+  font-weight: fonts.$font-weight-bold;
+}
+
+.font-xxxl {
+  font-size: fonts.$soe-font-size-xxxl;
+  font-weight: fonts.$font-weight-normal;
+}
+
+.font-xxxl-bold {
+  font-size: fonts.$soe-font-size-xxxl;
+  font-weight: fonts.$font-weight-bold;
+}
+
+// Font weight
+
+.font-normal {
+  font-weight: fonts.$font-weight-normal;
+}
+
+.font-bold {
+  font-weight: fonts.$font-weight-bold;
+}
+
+// Font style
+
+.font-italic {
+  font-style: italic;
+}
+
+// Alignment
+
+.text-right {
+  text-align: right;
+  padding-right: variables.$padding-y;
+}
+
+.text-left {
+  text-align: left;
+}
+
+// Margins and padding
+
+// Half the size of mx-1
+.mx-05 {
+  margin-left: 0.125rem !important;
+  margin-right: 0.125rem !important;
+}
+
+// Casing
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+// Decoration
+
+.strike-through {
+  text-decoration: line-through;
+}
+
+// COLORS
+
+.color-text {
+  color: colors.$soe-text-color;
+}
+.color-error {
+  color: colors.$soe-color-semantic-error;
+}
+.color-warning {
+  color: colors.$soe-color-semantic-warning;
+}
+.color-success {
+  color: colors.$soe-color-semantic-success;
+}
+.color-information {
+  color: colors.$soe-color-semantic-information;
+}
+
+.information-container {
+  border: solid 1px colors.$soe-color-semantic-information;
+  border-radius: variables.$border-radius;
+  background-color: colors.$soe-color-semantic-information-5;
+  color: colors.$soe-text-color;
+  margin: 0.5rem;
+  padding: 0.5rem;
+
+  &.no-margin {
+    margin: 0px;
+  }
+
+  &.no-top-margin {
+    margin-top: 0px;
+  }
+
+  &.top-margin {
+    margin: 0.5rem 0px 0px 0px;
+  }
+}
+
+.success-container {
+  border: solid 1px colors.$soe-color-semantic-success;
+  border-radius: variables.$border-radius;
+  background-color: colors.$soe-color-semantic-success-5;
+  color: colors.$soe-text-color;
+  margin: 0.5rem;
+  padding: 0.5rem;
+
+  &.no-margin {
+    margin: 0px;
+  }
+
+  &.no-top-margin {
+    margin-top: 0px;
+  }
+
+  &.top-margin {
+    margin: 0.5rem 0px 0px 0px;
+  }
+}
+
+// MISC
+
+.link {
+  cursor: pointer;
+}
+
+.nolink {
+  cursor: default;
+}
+
+.soe-button-group {
+  soe-button > .btn {
+    min-width: unset;
+  }
+
+  .icon-button.btn,
+  soe-button > .btn {
+    margin-left: -1px;
+  }
+
+  soe-icon-button:first-child:last-child,
+  soe-button:first-child:last-child {
+    button {
+      border-radius: 0 variables.$border-radius variables.$border-radius 0 !important;
+    }
+  }
+  soe-icon-button:first-child:not(:last-child),
+  soe-button:first-child:not(:last-child) {
+    button {
+      border-radius: 0 !important;
+    }
+  }
+  soe-icon-button:last-child:not(:first-child),
+  soe-button:last-child:not(:first-child) {
+    button {
+      border-radius: 0 variables.$border-radius variables.$border-radius 0 !important;
+    }
+  }
+}
+
+.d-sm-inline {
+  width: unset !important;
+}
+
+.no-border-right-radius {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+.no-border-top-right-radius {
+  border-top-right-radius: 0px !important;
+}
+
+.no-border-left-radius {
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
+
+.content-border {
+  border: solid 1px colors.$soe-border-color;
+}
+
+.border-bottom {
+  border-bottom: solid 1px colors.$soe-border-color;
+}
+
+.border-top {
+  border-top: solid 1px colors.$soe-border-color;
+}
+
+.border-left {
+  border-left: solid 1px colors.$soe-border-color;
+}
+
+.border-right {
+  border-right: solid 1px colors.$soe-border-color;
+}

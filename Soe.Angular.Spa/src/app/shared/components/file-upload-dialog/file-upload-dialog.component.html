@@ -1,0 +1,32 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (formFUDialog) {
+      <form
+        [formGroup]="formFUDialog"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-file-upload
+              formControlName="fileContent"
+              [labelKey]="'core.fileupload.choosefiletoimport'"
+              [showCancelButton]="true"
+              [showClearButton]="true"
+              [showStatus]="true"
+              [fileUploader]="data.fileUploader"
+              [asBinary]="data.asBinary"
+              [multipleFiles]="data.multipleFiles"
+              [isFileReplace]="!!data.replaceFile"
+              [acceptedFileExtensions]="data.acceptedFileExtensions ?? []"
+              (cancelled)="closeDialog()"
+              (afterFilesUploaded)="afterFilesUploaded($event)"
+              (afterFilesAttached)="
+                afterFilesAttached($event)
+              "></soe-file-upload>
+          </div>
+        </div>
+      </form>
+    }
+  </div>
+</soe-dialog>

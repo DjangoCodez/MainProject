@@ -1,0 +1,145 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+    <div template-groups-validation ng-model="ctrl.templateGroup" rows="ctrl.templateGroup.rows" employees="ctrl.templateGroup.employees">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-panel label-key="time.schedule.templategroup.templategroup">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.name" model="ctrl.templateGroup.name" required="true" maxlength="100"></soe-textbox>
+                            </div>
+                            <div class="col-sm-8">
+                                <soe-textbox label-key="common.description" model="ctrl.templateGroup.description" maxlength="512"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <uib-accordion close-others="false">
+                    <soe-accordion label-key="time.schedule.template.templates" label-value="ctrl.templateGroup.rows.length" label-value-in-parentheses="true" is-open="true">
+                        <div data-ng-repeat="row in ctrl.templateGroup.rows track by $index" data-ng-click="ctrl.selectedRow = row">
+                            <div class="form-group form-group-sm">
+                                <div data-ng-if="$first">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <soe-label label-key="time.schedule.template.template" required="true"></soe-label>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <soe-label label-key="common.startdate" required="true"></soe-label>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <soe-label label-key="common.stopdate"></soe-label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-label label-key="time.schedule.templategrouprow.recurrencepattern"></soe-label>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <soe-label label-key="time.schedule.templategrouprow.nextstartdate"></soe-label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" data-ng-class="{'repeater-selected-row': ctrl.selectedRow === row}">
+                                    <div class="col-sm-2">
+                                        <span class="fas fa-caret-right" data-ng-if="ctrl.selectedRow === row"></span>
+                                        <soe-select hidelabel="true" model="row.timeScheduleTemplateHeadId" items="ctrl.templateHeads" options="item.timeScheduleTemplateHeadId as item.name for item in items" edit-icon="fa-file-search" edit-button-class="textColor" edit-tooltip-key="core.show" edit-disabled="!row.timeScheduleTemplateHeadId" on-edit-click="ctrl.openEditTemplateDialog(row);" on-focus="ctrl.selectedRow = row" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.rowTemplateChanged(row);"></soe-select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-datepicker hidelabel="true" model="row.startDate" second-model="row.stopDate" validate-date-range="true" is-start-in-range="true" on-focus="ctrl.selectedRow = row" is-readonly="!ctrl.modifyPermission" on-change="ctrl.rowDateChanged(row);"></soe-datepicker>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-datepicker hidelabel="true" model="row.stopDate" second-model="row.startDate" validate-date-range="true" on-focus="ctrl.selectedRow = row" is-readonly="!ctrl.modifyPermission" on-change="ctrl.rowDateChanged(row);"></soe-datepicker>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-textbox hidelabel="true" model="row.patternDescription" button-icon="fa-repeat" button-class="textColor" button-tooltip-key="core.edit" on-focus="ctrl.selectedRow = row" is-readonly="true" on-button-click="ctrl.openRecurrencePatternDialog(row);"></soe-textbox>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="col-sm-11 padding-none-left padding-none-right">
+                                            <soe-datepicker hidelabel="true" model="row.nextStartDate" on-focus="ctrl.selectedRow = row" is-readonly="true"></soe-datepicker>
+                                        </div>
+                                        <div class="col-sm-1 padding-none-left padding-none-right">
+                                            <button type="button" class="btn btn-sm btn-link fal fa-times iconDelete" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-if="ctrl.modifyPermission" on-focus="ctrl.selectedRow = row" data-ng-click="$event.stopPropagation();ctrl.deleteRow(row);"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-small-top margin-small-bottom" data-ng-if="ctrl.modifyPermission">
+                            <div class="col-sm-6">
+                                <button type="button" class="btn btn-sm btn-default" data-ng-click="$event.stopPropagation();ctrl.simulate();" data-ng-if="ctrl.timeScheduleTemplateGroupId"><span class="fal fa-fast-forward margin-small-right"></span><span data-l10n-bind="'time.schedule.templategroup.simulate'"></span></button>
+                            </div>
+                            <div class="col-sm-6">
+                                <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind="'time.schedule.templategroup.newrow'" data-ng-click="$event.stopPropagation();ctrl.addRow();"></button>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="ctrl.simulatedHeads.length > 0">
+                            <div class="col-sm-4">
+                                <div class="table-scrollable-wrapper" style="margin-top: -15px;">
+                                    <div class="table-scrollable" style="max-height: 302px;">
+                                        <table class="table table-outer-bordered table-more-condensed table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" data-l10n-bind="'time.schedule.template.template'"></th>
+                                                    <th scope="col" style="width: 80px;" data-l10n-bind="'common.startdate'"></th>
+                                                    <th scope="col" style="width: 80px;" data-l10n-bind="'common.stopdate'"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-ng-repeat="head in ctrl.simulatedHeads">
+                                                    <td><span>{{head.templateName}}</span></td>
+                                                    <td><span>{{head.startDate | date:'shortDate'}}</span></td>
+                                                    <td><span>{{head.stopDate | date:'shortDate'}}</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                    <soe-accordion label-key="common.employees" label-value="ctrl.templateGroup.employees.length" label-value-in-parentheses="true" is-open="false">
+                        <div class="row margin-large-bottom" data-ng-if="ctrl.modifyPermission">
+                            <div class="col-sm-1">
+                                <soe-label label-key="common.suggestion" inline="true"></soe-label>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-datepicker hidelabel="true" model="ctrl.employeeDefaultFromDate" second-model="employee.toDate"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-datepicker hidelabel="true" model="ctrl.employeeDefaultToDate" second-model="employee.fromDate"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-7">
+                                <button type="button" class="btn btn-sm btn-default pull-right" data-ng-disabled="ctrl.selectedEmployeeIds.length === 0" data-ng-click="$event.stopPropagation();ctrl.setStopDate();"><span class="fal fa-arrow-to-right margin-small-right"></span><span data-l10n-bind="'time.schedule.templategroup.setstopdate'"></span></button>
+                                <button type="button" class="btn btn-sm btn-default pull-right margin-small-right" data-ng-disabled="ctrl.selectedEmployeeIds.length === 0" data-ng-click="$event.stopPropagation();ctrl.getOngoingTemplates();"><span class="fal fa-arrow-from-left margin-small-right"></span><span data-l10n-bind="'time.schedule.templategroup.getongoingtemplates'"></span></button>
+                                <button type="button" class="btn btn-sm btn-default pull-right margin-small-right" data-ng-click="$event.stopPropagation();ctrl.addEmployees();"><span class="fal fa-users margin-small-right"></span><span data-l10n-bind="'time.schedule.templategroup.newemployees'"></span></button>
+                                <button type="button" class="btn btn-sm btn-default pull-right margin-small-right" data-ng-click="$event.stopPropagation();ctrl.addEmployee(null, true);"><span class="fal fa-user margin-small-right"></span><span data-l10n-bind="'time.schedule.templategroup.newemployee'"></span></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div id="employees-grid" ag-grid="ctrl.gridHandler.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                                <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </uib-accordion>
+            </div>
+        </div>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.templateGroup"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.templateGroup.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

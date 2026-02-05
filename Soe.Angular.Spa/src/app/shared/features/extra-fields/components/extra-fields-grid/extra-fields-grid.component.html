@@ -1,0 +1,12 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+    @if (showEntityTypeDropDown) {
+      <soe-extra-fields-grid-filter
+        toolbar-content-left
+        (searchClick)="doFilter($event)"></soe-extra-fields-grid-filter>
+    }
+  </soe-grid-wrapper>
+}

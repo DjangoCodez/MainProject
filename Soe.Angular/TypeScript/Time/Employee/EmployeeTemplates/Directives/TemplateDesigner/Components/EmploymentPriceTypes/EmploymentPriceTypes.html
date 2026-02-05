@@ -1,0 +1,36 @@
+﻿<div>
+    <div class="row">
+        <div class="col-sm-3">
+            <soe-label label-key="common.payrollpricetype"></soe-label>
+        </div>
+        <div class="col-sm-2">
+            <soe-label label-key="common.fromdate"></soe-label>
+        </div>
+        <div class="col-sm-2" data-ng-if="ctrl.payrollLevels.length > 1">
+            <soe-label label-key="time.employee.payrolllevel.payrolllevel"></soe-label>
+        </div>
+        <div class="col-sm-2">
+            <soe-label label-key="common.amount"></soe-label>
+        </div>
+        <div class="col-sm-2">
+            <soe-label label-key="time.employee.employmentpricetype.payrollgroupamount"></soe-label>
+        </div>
+    </div>
+    <div class="row margin-small-bottom" data-ng-repeat="priceType in ctrl.priceTypes">
+        <div class="col-sm-3">
+            <soe-text hidelabel="true" model="priceType.payrollPriceTypeName"></soe-text>
+        </div>
+        <div class="col-sm-2">
+            <soe-datepicker hidelabel="true" model="priceType.fromDate" on-change="ctrl.fromDateChanged(priceType);"></soe-datepicker>
+        </div>
+        <div class="col-sm-2" data-ng-if="ctrl.payrollLevels.length > 1">
+            <soe-select hidelabel="true" model="priceType.payrollLevelId" items="priceType.levels" options="item.payrollLevelId as item.nameAndDesc for item in items" on-changing="ctrl.payrollLevelChanged(priceType);" data-ng-if="priceType.hasPayrollLevels"></soe-select>
+        </div>
+        <div class="col-sm-2">
+            <soe-textbox hidelabel="true" model="priceType.amount" numeric="true" decimals="2" update-on="blur" on-change="ctrl.setDirty();"></soe-textbox>
+        </div>
+        <div class="col-sm-2">
+            <soe-textbox hidelabel="true" model="priceType.payrollGroupAmount" numeric="true" decimals="2" readonly="true"></soe-textbox>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form
+    [formGroup]="form"
+    name=""
+    class="soe-edit-form"
+    novalidate
+    autocomplete="off">
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="'common.name'"
+              [maxLength]="100"
+              [autoFocus]="true"
+              formControlName="name">
+            </soe-textbox>
+          </div>
+        </div>
+        @if (useAccountsHierarchy()) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-select
+                [labelKey]="'common.user.attestrole.accounthierarchy'"
+                [items]="accounts"
+                formControlName="accountId">
+              </soe-select>
+            </div>
+          </div>
+        }
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'common.group'"
+              [items]="locationGroups"
+              formControlName="staffingNeedsLocationGroupId">
+            </soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'common.unit'"
+              [items]="units"
+              formControlName="unit">
+            </soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="'time.schedule.staffingneedsrule.maxquantity'"
+              [maxLength]="10"
+              formControlName="maxQuantity">
+            </soe-textbox>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <soe-staffing-needs-rules-edit-grid
+          [form]="form"></soe-staffing-needs-rules-edit-grid>
+        <div class="row mt-3">
+          <div class="col-sm-12">
+            <soe-instruction
+              text="time.schedule.staffingneedsrule.rowsgridinstruction"></soe-instruction>
+          </div>
+        </div>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

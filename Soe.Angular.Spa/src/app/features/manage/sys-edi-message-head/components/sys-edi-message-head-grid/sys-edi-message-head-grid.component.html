@@ -1,0 +1,14 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (editRowClicked)="edit($event)"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+    <soe-sys-edi-message-head-grid-header
+      toolbar-content-left
+      (openMessagesChanged)="openMessagesChanged($event)"
+      (closedMessagesChanged)="closedMessagesChanged($event)"
+      (rawMessagesChanged)="rawMessagesChanged($event)">
+    </soe-sys-edi-message-head-grid-header>
+  </soe-grid-wrapper>
+}

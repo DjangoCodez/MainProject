@@ -1,0 +1,25 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+        <h6 class="modal-title">{{::ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ui-gmap-google-map center="ctrl.map.center" zoom="ctrl.map.zoom" options="ctrl.options" gestureHandling="cooperative" data-ng-if="ctrl.locationFound">
+                        <!--<ui-gmap-search-box template="ctrl.searchbox.template" events="ctrl.searchbox.events" position="BOTTOM_RIGHT"></ui-gmap-search-box>
+                        <ui-gmap-marker coords="ctrl.marker.coords" options="ctrl.marker.options" events="ctrl.marker.events" idkey="ctrl.marker.id">-->
+                        <ui-gmap-marker coords="ctrl.marker.coords" options="ctrl.marker.options" events="ctrl.marker.events" idkey="1"></ui-gmap-marker>
+                    </ui-gmap-google-map>
+                    <div data-ng-if="!ctrl.locationFound">
+                        <span data-l10n-bind="'core.googlemaps.addressnotfound'" style="font-size: 18px"></span>
+                        <br />
+                        {{ctrl.search}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

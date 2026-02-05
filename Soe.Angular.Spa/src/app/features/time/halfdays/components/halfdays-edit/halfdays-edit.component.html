@@ -1,0 +1,107 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="'common.name'"
+              [maxLength]="255"
+              [autoFocus]="true"
+              [required]="true"
+              formControlName="name">
+            </soe-textbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="'common.description'"
+              [maxLength]="512"
+              formControlName="description">
+            </soe-textbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'time.schedule.halfday.daytype'"
+              [selectedId]="form.value.dayTypeId"
+              [items]="companyDayTypes"
+              [required]="true"
+              formControlName="dayTypeId">
+            </soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'time.schedule.halfday.type'"
+              [selectedId]="form.value.type"
+              [items]="halfDayTypes"
+              [required]="true"
+              formControlName="type">
+            </soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            @if (form.isTypePercent) {
+              <soe-numberbox
+                [labelKey]="'time.schedule.halfday.value.percent'"
+                [decimals]="2"
+                [required]="true"
+                formControlName="value">
+              </soe-numberbox>
+            } @else if (form.isTypeMinutes) {
+              <soe-numberbox
+                [labelKey]="'time.schedule.halfday.value.minutes'"
+                [required]="true"
+                formControlName="value">
+              </soe-numberbox>
+            } @else if (form.isTypeClockMinutes) {
+              <soe-numberbox
+                [labelKey]="'time.schedule.halfday.value.clockminutes'"
+                [required]="true"
+                formControlName="value">
+              </soe-numberbox>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="row mt-4">
+          <div class="col-sm-12">
+            <soe-expansion-panel
+              [labelKey]="'time.schedule.halfday.breakaccordian'"
+              [static]="true"
+              [noPadding]="true">
+              <soe-multi-select-grid
+                [rows]="breaks"
+                [selectedIds]="form.value.timeCodeBreakIds"
+                [height]="232"
+                (selectedItemsChanged)="
+                  breaksChanged($event)
+                "></soe-multi-select-grid>
+            </soe-expansion-panel>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

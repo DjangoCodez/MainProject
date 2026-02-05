@@ -1,0 +1,86 @@
+﻿<div>
+    <table class="table table-condensed table-hover table-outer-bordered">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 20px"></th>
+                <th scope="col"><span class="fal link" style="margin-left:0" data-ng-class="{'fa-square': !ctrl.allRowsSelected, 'fa-check-square': ctrl.allRowsSelected}" data-ng-click="ctrl.selectAllRows();" data-ng-if="ctrl.rows && ctrl.rows.length > 0"></span></th>
+                <th scope="col" style="width: 28px"></th>
+                <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('timeCodeName');"><span><span data-l10n-bind="'common.expensetype'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy[0]==='timeCodeName' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy[0]==='timeCodeName' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy[0]==='timeCodeName'"></i></span></th>
+                <th scope="col" class="column-sortable" data-ng-if="ctrl.isErp" data-ng-click="ctrl.sort('invoiceNumber');"><span><span data-l10n-bind="'billing.order.ordernr'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy[0]==='invoiceNumber' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy[0]==='invoiceNumber' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy[0]==='invoiceNumber'"></i></span></th>
+                <th scope="col" class="column-sortable" data-ng-if="ctrl.isErp" data-ng-click="ctrl.sort('projectNumber');"><span><span data-l10n-bind="'billing.project.projectnr'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy[0]==='projectNumber' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy[0]==='projectNumber' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy[0]==='projectNumber'"></i></span></th>
+                <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('start');"><span><span data-l10n-bind="'common.fromdate'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy[0]==='start' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy[0]==='start' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy[0]==='start'"></i></span></th>
+                <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('stop');"><span><span data-l10n-bind="'common.todate'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy[0]==='stop' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy[0]==='stop' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy[0]==='stop'"></i></span></th>
+                <th scope="col" class="column-sortable right-align-cell" data-ng-click="ctrl.sort('quantityText');"><span><span data-l10n-bind="'common.quantity'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy[0]==='quantityText' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy[0]==='quantityText' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy[0]==='quantityText'"></i></span></th>
+                <th scope="col" class="column-sortable right-align-cell" data-ng-click="ctrl.sort('unitPrice');"><span><span data-l10n-bind="'common.price'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy[0]==='unitPrice' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy[0]==='unitPrice' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy[0]==='unitPrice'"></i></span></th>
+                <th scope="col" class="column-sortable right-align-cell" data-ng-click="ctrl.sort('amount');"><span><span data-l10n-bind="'common.amount'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy[0]==='amount' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy[0]==='amount' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy[0]==='amount'"></i></span></th>
+                <th scope="col" class="column-sortable right-align-cell" data-ng-click="ctrl.sort('vatAmount');"><span><span data-l10n-bind="'common.vat'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy[0]==='vatAmount' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy[0]==='vatAmount' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy[0]==='vatAmount'"></i></span></th>
+                <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('accounting');"><span><span data-l10n-bind="'common.accounting'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy[0]==='accounting' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy[0]==='accounting' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy[0]==='accounting'"></i></span></th>
+                <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('attestStateName');"><span><span data-l10n-bind="'common.status'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy[0]==='attestStateName' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy[0]==='attestStateName' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy[0]==='attestStateName'"></i></span></th>
+                <th scope="col" style="width: 28px"></th>
+                <th scope="col" style="width: 28px"></th>
+                <th scope="col" style="width: 56px" colspan="2" class="table-header-button" data-l10n-bind data-l10n-bind-title="'core.newrow'" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editRow(null);">
+                    <span><i class="fal fa-plus"></i></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody data-ng-repeat="row in ctrl.rows | orderBy:ctrl.sortBy:ctrl.sortByReverse track by $index">
+            <tr data-ng-class="{'table-selected-row': ctrl.selectedRow === row}" data-ng-click="ctrl.selectedRow = row">
+                <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedRow === row"></i></td>
+                <td><i class="fal link" data-ng-class="{'fa-square': !row.selected, 'fa-check-square': row.selected, 'disabledTextColor': row.readOnly}" data-ng-click="ctrl.rowSelected(row);"></i></td>
+                <td><i class="far link" data-ng-class="{'fa-chevron-right': !row.expanded, 'fa-chevron-down': row.expanded}" data-ng-if="row.transactions.length>0" data-ng-click="ctrl.rowExpanded(row);"></i></td>
+                <td><span>{{row.timeCodeName}}</span></td>
+                <td data-ng-if="ctrl.isErp"><span>{{row.invoiceNumber}}</span></td>
+                <td data-ng-if="ctrl.isErp"><span>{{row.projectNumber}}</span></td>
+                <td><span>{{row.start | date:'shortDate'}}</span><span class="margin-small-left" data-ng-if="ctrl.showTimeStart(row)">{{row.start | date:'shortTime'}}</span></td>
+                <td><span>{{row.stop | date:'shortDate'}}</span><span class="margin-small-left" data-ng-if="ctrl.showTimeStop(row)">{{row.stop | date:'shortTime'}}</span></td>
+                <td class="right-align-cell"><span>{{row.quantityText}}</span></td>
+                <td class="right-align-cell"><span>{{row.unitPrice | amount:2:true}}</span></td>
+                <td class="right-align-cell"><span>{{row.amount | amount:2:true}}</span></td>
+                <td class="right-align-cell"><span>{{row.vatAmount| amount:2:true}}</span></td>
+                <td><span>{{row.accounting}}</span></td>
+                <td data-ng-attr-title="{{row.attestStateName}}"><svg height="16px" width="16px" style="margin-bottom: -2px;"><circle class="shape" cx="8" cy="8" r="8" data-ng-style="{'fill': row.attestStateColor}" data-ng-if="row.attestStateColor"></circle></svg></td>
+                <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'common.showcomment'"><i class="fal fa-comment-dots link" style="margin-left: 3px;" data-ng-if="row.comment" data-ng-click="ctrl.showComment(row);"></i></span></td>
+                <td style="width: 28px"><i class="fal fa-paperclip" style="margin-left: 3px;" data-ng-if="row.hasFiles"></i></td>
+                <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><em class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.isReadOnly(row)" data-ng-click="ctrl.editRow(row);"></em></span></td>
+                <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.showinfo'"><em class="fal fa-eye iconEdit link" data-ng-if="ctrl.isReadOnly(row)" data-ng-click="ctrl.editRow(row);"></em></span></td>
+                <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.delete'"><em class="fal fa-times iconDelete link" data-ng-if="!ctrl.isReadOnly(row)" data-ng-click="ctrl.deleteRow(row);"></em></span></td>
+            </tr>
+            <tr data-ng-if="row.transactions.length>0 && row.expanded">
+                <td colspan="2"></td>
+                <td colspan="10">
+                    <div class="table-outer-bordered">
+                        <table class="table table-condensed table-striped table-hover" style="margin-bottom: 0;">
+                            <thead>
+                                <tr>
+                                    <th scope="col" data-l10n-bind="'common.additiondeductions.payrollproduct'"></th>
+                                    <th scope="col" data-l10n-bind="'common.fromdate'"></th>
+                                    <th scope="col" data-l10n-bind="'common.todate'"></th>
+                                    <th scope="col" class="right-align-cell" data-l10n-bind="'common.quantity'"></th>
+                                    <th scope="col" class="right-align-cell" data-l10n-bind="'common.price'"></th>
+                                    <th scope="col" class="right-align-cell" data-l10n-bind="'common.amount'"></th>
+                                    <th scope="col" class="right-align-cell" data-l10n-bind="'common.vat'"></th>
+                                    <th scope="col" data-l10n-bind="'common.accounting'"></th>
+                                    <th scope="col" data-l10n-bind="'common.status'"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="trans in row.transactions track by $index">
+                                    <td><span>{{trans.productName}}</span></td>
+                                    <td><span>{{row.start | date:'shortDate'}}</span><span class="margin-small-left" data-ng-if="ctrl.showTime(row)">{{row.start | date:'shortTime'}}</span></td>
+                                    <td><span>{{row.stop | date:'shortDate'}}</span><span class="margin-small-left" data-ng-if="ctrl.showTime(row)">{{row.stop | date:'shortTime'}}</span></td>
+                                    <td class="right-align-cell"><span>{{trans.quantityText}}</span></td>
+                                    <td class="right-align-cell"><span>{{trans.unitPrice | amount:2:true}}</span></td>
+                                    <td class="right-align-cell"><span>{{trans.amount | amount:2:true}}</span></td>
+                                    <td class="right-align-cell"><span>{{trans.vatAmount | amount:2:true}}</span></td>
+                                    <td><span>{{trans.accountingString}}</span></td>
+                                    <td data-ng-attr-title="{{trans.attestStateName}}"><svg height="16px" width="16px" style="margin-bottom: -2px;"><circle class="shape" cx="8" cy="8" r="8" data-ng-style="{'fill': trans.attestStateColor}" data-ng-if="trans.attestStateColor"></circle></svg></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+                <td colspan="2"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

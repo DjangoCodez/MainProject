@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-sm-12">
+    <soe-support-logs-grid-header
+      [(searchDto)]="searchDto"
+      [isSearch]="isSearch()"
+      (searchTextChanged)="filterChange($event)"></soe-support-logs-grid-header>
+
+    <div class="row">
+      <div class="col-sm-12 vh-85">
+        @if (flowHandler.allowFetchGrid()) {
+          <soe-grid-wrapper
+            [rows]="rowData"
+            [parentGuid]="guid()"
+            (editRowClicked)="edit($event)"
+            [toolbarGroups]="toolbarUtils.toolbarGroups"
+            [height]="gridHeight()">
+          </soe-grid-wrapper>
+        }
+      </div>
+    </div>
+  </div>
+</div>

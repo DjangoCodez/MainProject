@@ -1,0 +1,17 @@
+﻿<br />
+<div class="ngSoeFormFooter">
+    <div class="row pull-right margin-large-right">
+        <div>
+            <div class="col">
+                <soe-datepicker style="width: 150px" class="pull-right" hidelabel="true" label-key="" model="ctrl.consentDate"></soe-datepicker>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-sm ngSoeMainButton pull-right margin-small-right" data-l10n-bind="'manage.gdpr.registry.giveconsent'" data-l10n-bind-title="'manage.gdpr.registry.giveconsent'" data-ng-disabled="!ctrl.isOkToGiveConsent" data-ng-click="$event.stopPropagation();ctrl.giveConsent()"></button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-sm ngSoeMainButtonInvalid pull-right" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-show="ctrl.showInvalidButton" data-ng-click="$event.stopPropagation();ctrl.showError()">!</button>
+                <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind="'core.delete'" data-l10n-bind-title="'core.delete'" data-ng-disabled="!ctrl.isOkToDelete" data-ng-click="$event.stopPropagation();ctrl.delete()"></button>
+            </div>
+        </div>
+    </div>
+</div>

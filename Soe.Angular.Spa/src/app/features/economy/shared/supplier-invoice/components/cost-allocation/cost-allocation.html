@@ -1,0 +1,118 @@
+<div>
+  <soe-toolbar [itemGroups]="_toolbarService.toolbarItemGroups"></soe-toolbar>
+</div>
+@if(canShowReBilledGrid()) {
+<div class="mt-2 sub-header-text">
+  <soe-label [labelKey]="'economy.supplier.invoice.rebilled'"></soe-label>
+</div>
+
+<div class="row mt-2">
+  <soe-re-billed
+    [supplierInvoiceId]="supplierInvoiceId()"
+    [customerInvoices]="projectOrderLoaderService.customerInvoices()"
+    [projects]="projectOrderLoaderService.projectTinyDtos()"
+    [products]="loaderService.products()"
+    [rowsData]="reBilledRow()"
+    [invoiceTotalAmount]="invoiceTotalAmount()"
+    [totalAccolationAmount]="totalAccolationAmount()"
+    (reBilledChanged)="onReBilledChanged($event)"
+    (orderProjectChanged)="onOrderProjectChanged($event)"></soe-re-billed>
+</div>
+} @if (canShowConnectToProjectGrid()) {
+<div class="sub-header-text mt-2">
+  <soe-label [labelKey]="'economy.supplier.invoice.linktoproject'"></soe-label>
+</div>
+
+<div class="row mt-2">
+  <soe-charged-to-project
+    [supplierInvoiceId]="supplierInvoiceId()"
+    [customerInvoices]="projectOrderLoaderService.customerInvoices()"
+    [projects]="projectOrderLoaderService.projectTinyDtos()"
+    [employees]="loaderService.employees()"
+    [timeCodes]="loaderService.timeCodes()"
+    [invoiceTotalAmount]="invoiceTotalAmount()"
+    [totalAccolationAmount]="totalAccolationAmount()"
+    [rowsData]="chargedToProjectRow()"
+    (chargedToProjectChanged)="onChargedToProjectChanged($event)"
+    (orderProjectChanged)="onOrderProjectChanged($event)"></soe-charged-to-project>
+</div>
+}
+<div class="row" footer>
+  <div class="col-sm-12">
+    <div
+      [class]="leftToAllocationAmount() === 0.0 ? 'success-container' : 'information-container'">
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-left"
+            [labelKey]="'economy.supplierInvoice.costAllocation.invoice.total'">
+          </soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-left"
+            [labelKey]="'economy.supplier.invoice.chargedtoproject'">
+          </soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-left"
+            [labelKey]="'economy.supplier.invoice.rebilled'">
+          </soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-left"
+            [labelKey]="'economy.supplierInvoice.costAllocation.remainingAmount.message'">
+          </soe-label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-left"
+            [labelValue]="
+                  invoiceTotalAmount().toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+          </soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-left"
+            [labelValue]="
+                  chargedToProjectTotalAmount().toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+          </soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-left"
+            [labelValue]="
+                  reBilledTotalAmount().toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+          </soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-left"
+            [labelValue]="
+                  leftToAllocationAmount().toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+          </soe-label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

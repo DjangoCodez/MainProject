@@ -1,0 +1,33 @@
+﻿<div class="content-container">
+    <div class="content">
+        <div class="spinner" data-ng-if="ctrl.progressBusy">
+            <i class="far fa-spinner fa-spin"></i>
+        </div>
+        <div class="module-container" data-ng-if="!ctrl.progressBusy">
+            <div class="module-header" data-ng-if="ctrl.settingsLoaded">
+                <span data-l10n-bind="'common.start.welcometext'"></span> <span>{{ctrl.brandName}}</span>
+            </div>
+
+            <div data-ng-repeat="mod in ctrl.modules | orderBy:'sort'" class="module" data-ng-class="{'module-selected': mod.selected}" data-ng-click="$event.stopPropagation();ctrl.onModuleSelect(mod)">
+                <span class="module-icon fa-fw fal" data-ng-class="{'{{::mod.icon}}': true}"></span>
+                <span class="module-label">{{::mod.label}}</span>
+                <span class="module-arrow fal fa-chevron-right"></span>
+            </div>
+            <div class="state-analysis-module-header" data-ng-if="ctrl.stateAnalysisModule">
+                <span data-l10n-bind="'common.start.module.stateanalysis.title'"></span>
+            </div>
+            <div class="module state-analysis-module" data-ng-if="ctrl.stateAnalysisModule" data-ng-click="$event.stopPropagation();ctrl.showStateAnalysis()">
+                <span class="module-icon fal fa-chart-pie"></span>
+                <span class="module-label">{{ctrl.stateAnalysisModule.label}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer-container" data-ng-if="ctrl.settingsLoaded">
+    <div class="footer">
+        <div data-ng-if="ctrl.brandingCompany !== 0">
+            <span class="extraLargeFont">Powered by</span>
+        </div>
+        <img class="company-logo" data-ng-src="{{::ctrl.baseUrl + 'Images/logo_softone_black_red.svg'}}" data-ng-attr-title="{{ctrl.assemblyDate}}" data-ng-click="$event.stopPropagation();ctrl.onLogoSelect()" />
+    </div>
+</div>

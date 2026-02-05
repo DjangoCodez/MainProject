@@ -1,0 +1,58 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'billing.invoices.emailtemplate'"
+      [static]="true">
+      <div class="raw">
+        <div class="col-sm-6">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [maxLength]="100"
+            formControlName="name">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'common.type'"
+            formControlName="type"
+            [items]="emailTemplateTypes"></soe-select>
+        </div>
+      </div>
+      <div class="raw">
+        <div class="col-sm-6">
+          <soe-textbox
+            [labelKey]="'billing.invoices.emailtemplate.subject'"
+            [maxLength]="100"
+            formControlName="subject"></soe-textbox>
+        </div>
+      </div>
+      <div class="raw">
+        <div class="col-sm-12">
+          <soe-checkbox
+            [labelKey]="'billing.invoices.emailtemplate.htmlformat'"
+            formControlName="bodyIsHTML"></soe-checkbox>
+        </div>
+      </div>
+      <div class="raw">
+        <div class="col-sm-12">
+          <soe-texteditor formControlName="body"></soe-texteditor>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

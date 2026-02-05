@@ -1,0 +1,23 @@
+<button
+  type="button"
+  (click)="!disabled() ? performAction($event) : null"
+  class="btn btn-sm btn-default icon-button"
+  [class.no-border]="noBorder()"
+  [class.no-margins]="noMargins()"
+  [class.transparent]="transparent()"
+  [class.outside-group]="outsideGroup()"
+  [class.inside-group]="insideGroup()"
+  [class.first-in-group]="firstInGroup()"
+  [class.last-in-group]="lastInGroup()"
+  [class.narrow]="narrow()"
+  [class.textarea-btn]="attachedToTextarea()"
+  [class.textbox-btn]="attachedToTextbox()"
+  [class.is-disabled]="disabled()"
+  [title]="tooltip() | translate">
+  @if (iconName()) {
+    <fa-icon
+      [icon]="[iconPrefix(), iconName()]"
+      [ngClass]="iconClass()"
+      [animation]="animation()"></fa-icon>
+  }
+</button>

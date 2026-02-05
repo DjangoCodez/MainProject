@@ -1,0 +1,76 @@
+@use '@angular/material' as mat;
+@use '../../../styles/core-styles/colors.scss';
+@use '../../../styles/core-styles/fonts.scss';
+@use '../../../styles/core-styles/variables.scss';
+
+:root {
+  @include mat.autocomplete-overrides(
+    (
+      background-color: colors.$soe-background-color,
+    )
+  );
+}
+
+// Materials override
+
+::ng-deep {
+  .cdk-overlay-pane {
+    .mat-mdc-autocomplete-panel {
+      border: 1px solid colors.$soe-border-color;
+      border-radius: variables.$border-radius;
+      background-color: colors.$soe-background-color;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+      padding: 0;
+      opacity: 1 !important;
+      transform: none !important;
+
+      &.mat-mdc-autocomplete-hidden {
+        visibility: visible !important;
+      }
+    }
+  }
+  .mat-pseudo-checkbox {
+    display: none !important;
+  }
+}
+
+.autocomplete-list-panel {
+  .autocomplete-list-group {
+    display: flex;
+    flex-direction: column;
+
+    .autocomplete-list-info {
+      font-size: fonts.$soe-font-size-md;
+      background-color: colors.$soe-color-semantic-information-20;
+      padding: 0 0.25rem;
+
+      span {
+        padding: 0.25rem;
+      }
+    }
+  }
+}
+
+.mat-mdc-option {
+  font-size: fonts.$soe-font-size-md !important;
+  font-family: fonts.$font !important;
+  padding: 0.25rem 0.5rem !important;
+  line-height: 1rem !important;
+  min-height: 10px !important;
+}
+
+.mat-mdc-option-active {
+  background-color: colors.$soe-color-secondary-light-beige !important;
+}
+
+.mdc-list-item.active {
+  z-index: 2;
+  background-color: colors.$soe-color-secondary-light-beige !important;
+}
+
+.autocomplete__clear-button {
+  all: unset;
+  position: absolute !important;
+  right: 0.5rem;
+  padding: 0px !important;
+}

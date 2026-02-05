@@ -1,0 +1,81 @@
+<div class="context-menu" cdkMenu>
+  <button
+    class="context-menu-item"
+    cdkMenuItem
+    (cdkMenuItemTriggered)="onMenuSelected(ShiftMenuOption.NewShift)">
+    <fa-icon [icon]="['fal', 'plus']" [fixedWidth]="true"></fa-icon>
+    <span>{{ 'time.schedule.planning.contextmenu.newshift' | translate }}</span>
+  </button>
+  @if (shift()) {
+    <button
+      class="context-menu-item"
+      cdkMenuItem
+      (cdkMenuItemTriggered)="onMenuSelected(ShiftMenuOption.EditShift)">
+      <fa-icon [icon]="['fal', 'pencil']" [fixedWidth]="true"></fa-icon>
+      <span>{{
+        'time.schedule.planning.contextmenu.editshift' | translate
+      }}</span>
+    </button>
+    <button
+      class="context-menu-item"
+      cdkMenuItem
+      (cdkMenuItemTriggered)="onMenuSelected(ShiftMenuOption.DeleteShift)">
+      <fa-icon
+        [icon]="['fal', 'xmark']"
+        [fixedWidth]="true"
+        class="warning-color"></fa-icon>
+      <span>{{
+        'time.schedule.planning.contextmenu.deleteshift' | translate
+      }}</span>
+    </button>
+  }
+  @if (showShiftSplitOption()) {
+    <div class="border-bottom"></div>
+    <button
+      class="context-menu-item"
+      cdkMenuItem
+      (cdkMenuItemTriggered)="onMenuSelected(ShiftMenuOption.SplitShift)">
+      <fa-icon [icon]="['fal', 'scissors']" [fixedWidth]="true"></fa-icon>
+      <span>{{ splitShiftLabel }}</span>
+    </button>
+  }
+  @if (showShiftRequestOption()) {
+    <div class="border-bottom"></div>
+    <button
+      class="context-menu-item"
+      cdkMenuItem
+      [disabled]="disableShiftRequestOption()"
+      (cdkMenuItemTriggered)="onMenuSelected(ShiftMenuOption.ShiftRequest)">
+      <fa-icon [icon]="['fal', 'envelope']" [fixedWidth]="true"></fa-icon>
+      <span>{{
+        'time.schedule.planning.contextmenu.sendshiftrequest' | translate
+      }}</span>
+    </button>
+  }
+  @if (showShiftAbsenceOption()) {
+    <div class="border-bottom"></div>
+    <button
+      class="context-menu-item"
+      cdkMenuItem
+      [disabled]="disableShiftAbsenceOption()"
+      (cdkMenuItemTriggered)="onMenuSelected(ShiftMenuOption.ShiftAbsence)">
+      <fa-icon
+        [icon]="['fal', 'medkit']"
+        [fixedWidth]="true"
+        class="error-color"></fa-icon>
+      <span>{{
+        'time.schedule.planning.contextmenu.absence' | translate
+      }}</span>
+    </button>
+  }
+  @if (SoeConfigUtil.isSupportAdmin) {
+    <div class="border-bottom"></div>
+    <button
+      class="context-menu-item"
+      cdkMenuItem
+      (cdkMenuItemTriggered)="onMenuSelected(ShiftMenuOption.Debug)">
+      <fa-icon [icon]="['fal', 'ban-bug']" [fixedWidth]="true"></fa-icon>
+      <span>{{ 'Debug (console.log)' }}</span>
+    </button>
+  }
+</div>

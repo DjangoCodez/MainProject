@@ -1,0 +1,19 @@
+﻿<div class="form-group form-group-sm">
+    <div class="row">
+        <div class="col-sm-4">
+            <bool-selection on-selected="$ctrl.onBoolSelectionIncludeInactiveUpdated(selection)" label-key="common.includeinactive" user-selection-input="$ctrl.userSelectionInputIncludeInactive" />
+        </div>
+    </div>
+    <div class="row">
+        <date-selection set-first-and-last-date="true" hide-today-button="true" option="{'minMode': 'month'}" label-key="common.report.selection.date" class="col-sm-8" use-min-max-if-empty="true" show-range="true" as-range="true" on-selected="$ctrl.onDateRangeSelected(selection)" user-selection-input="$ctrl.userSelectedDateRange"></date-selection>
+    </div>
+</div>
+<div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-12">
+                <matrix-column-selection on-selected="$ctrl.onMatrixColumnSelectionUpdated(selection)" module="$ctrl.module" sys-report-template-type-id="$ctrl.sysReportTemplateTypeId" report-id="$ctrl.reportId" user-selection-input="$ctrl.userSelectionInputColumns" selections="$ctrl.selections" show-insights="true" />
+            </div>
+        </div>
+    </div>
+</div>

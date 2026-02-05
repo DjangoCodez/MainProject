@@ -1,0 +1,23 @@
+<soe-dialog>
+  <div class="m-3" dialog-content>
+    <soe-instruction
+      class="d-block mb-3"
+    text="common.supplier.searchdialog.howto"></soe-instruction>
+
+    @if (flowHandler.allowFetchGrid()) {
+      <soe-grid
+        (editRowClicked)="selectRow()"
+        [height]="400"
+        (filterModified)="filterModified($event)"
+      [rows]="rows"></soe-grid>
+    }
+  </div>
+
+  <div dialog-footer>
+    <soe-button
+      (action)="closeDialog()"
+      [caption]="'core.cancel'"
+    [behaviour]="'standard'"></soe-button>
+    <soe-button [caption]="'core.ok'" [behaviour]="'primary'" (action)="selectRow()"></soe-button>
+  </div>
+</soe-dialog>

@@ -1,0 +1,97 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal(false);" aria-hidden="true">&times;</button>
+    </div>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" ng-class="ctrl.isModal ? 'edit-padding': ''" user-validation ng-model="ctrl.user" is-login-name-valid="ctrl.isLoginNameValid" is-contact-addresses-valid="ctrl.isContactAddressesValid" user-roles="ctrl.userRoles">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups">
+            <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+        </soe-toolbar>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="manage.user.user.personaldata" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.firstname" model="ctrl.user.firstName" required="true" maxlength="100" is-readonly="!ctrl.modifyPermission" update-on="blur" on-change="ctrl.user.saveUser = true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.lastname" model="ctrl.user.lastName" required="true" maxlength="100" is-readonly="!ctrl.modifyPermission" update-on="blur" on-change="ctrl.user.saveUser = true"></soe-textbox>
+                        </div>
+                    </div>
+                </div>
+                <uib-accordion close-others="false">
+                    <soe-accordion label-key="manage.user.user.contactinfo" data-ng-if="ctrl.contactReadPermission" on-open="ctrl.selectContactAddress();">
+                        <div class="form-group form-group-sm">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <contact-addresses contact-type="2" address-rows="ctrl.contactAddressItems" read-only="!ctrl.contactModifyPermission" allow-show-secret="ctrl.contactModifyPermission" is-valid="ctrl.isContactAddressesValid" validation-errors="ctrl.contactAddressesValidationErrors" data-ng-if="ctrl.user" on-initialized="ctrl.addDefaultContactAddresRow();" on-change="ctrl.contactAddressesChanged();"></contact-addresses>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <soe-checkbox label-key="manage.user.user.emailcopy" model="ctrl.user.emailCopy" is-disabled="!ctrl.userIsMySelf" on-changing="ctrl.emailCopyChanged();"></soe-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                    <soe-accordion label-key="manage.user.user.userinfo" data-ng-if="ctrl.readOnlyPermission && (ctrl.userMappingReadPermission || ctrl.userReplacementReadPermission || ctrl.attestRoleMappingReadPermission)" is-open="true">
+                        <div class="col-sm-4">
+                            <div class="row" data-ng-if="ctrl.readOnlyPermission">
+                                <user current-user-id="ctrl.user.userId" login-name="ctrl.user.loginName" lang-id="ctrl.user.langId" blocked-from-date="ctrl.user.blockedFromDate" show-sso="ctrl.showSso" show-lifetime="ctrl.showLifetime" lifetime-seconds="ctrl.user.lifetimeSeconds" lifetime-seconds-modified="ctrl.user.lifetimeSecondsModified" external-auth-id="ctrl.user.externalAuthId" external-auth-id-modified="ctrl.user.externalAuthIdModified" user-link-connection-key="ctrl.user.userLinkConnectionKey" is-required="true" read-only="!ctrl.modifyPermission" hide-connect-user="true" hide-disconnect-user="true" hide-disconnect-employee="!ctrl.user.employeeId" user-has-changes="ctrl.userHasChanges" on-change="ctrl.userInfoChanged({result: result});"></user>
+                            </div>
+                        </div>
+                        <div class="col-sm-8" data-ng-if="ctrl.userMappingReadPermission || ctrl.attestRoleMappingReadPermission">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <user-roles user-id="ctrl.user.userId" user-roles="ctrl.userRoles" user-roles-read-permission="ctrl.userMappingReadPermission" user-roles-modify-permission="ctrl.userMappingModifyPermission" attest-roles-read-permission="ctrl.attestRoleMappingReadPermission" attest-roles-modify-permission="ctrl.attestRoleMappingModifyPermission" user-roles-has-changes="ctrl.userRolesHasChanges" user-attest-roles-has-changes="ctrl.userAttestRolesHasChanges" on-change="ctrl.userRolesChanged();" data-ng-if="ctrl.user.userId"></user-roles>
+                                    <div data-ng-if="!ctrl.user.userId">
+                                        <soe-instruction label-key="manage.user.user.savetoaddroles" inline="true"></soe-instruction>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </uib-accordion>
+            </soe-accordion>
+            <soe-accordion label-key="manage.user.user.delegatehistory" data-ng-if="ctrl.userReplacementReadPermission || (ctrl.userIsMySelf && ctrl.delegateMySelfPermission) || (!ctrl.userIsMySelf && ctrl.delegateOtherUsersPermission)" is-open="ctrl.delegateHistoryExpanderOpen">
+                <uib-accordion close-others="false">
+                    <soe-accordion label-key="manage.user.user.supplierinvoiceattest" data-ng-if="ctrl.userReplacementReadPermission">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <soe-select label-key="manage.user.user.supplierinvoiceattest.replacementuser" model="ctrl.replacementUser.replacementUserId" items="ctrl.replacementUsers" options="item.id as item.name for item in items" is-disabled="!ctrl.userReplacementModifyPermission" on-changing="ctrl.replacementUserValuesChanged()"></soe-select>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-datepicker label-key="common.fromdate" model="ctrl.replacementUser.startDate" is-disabled="!ctrl.userReplacementModifyPermission" on-change="ctrl.replacementUserValuesChanged()"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-datepicker label-key="common.todate" model="ctrl.replacementUser.stopDate" is-disabled="!ctrl.userReplacementModifyPermission" on-change="ctrl.replacementUserValuesChanged()"></soe-datepicker>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                    <soe-accordion label-key="manage.user.user.delegatehistory.title" data-ng-if="ctrl.useAccountHierarchy && ((ctrl.userIsMySelf && ctrl.delegateMySelfPermission) || (!ctrl.userIsMySelf && ctrl.delegateOtherUsersPermission))">
+                        <delegate-history user-id="ctrl.userId" is-visible="ctrl.delegateHistoryExpanderOpen" read-only="!ctrl.delegateModifyPermission"></delegate-history>
+                    </soe-accordion>
+            </soe-accordion>
+            <soe-accordion label-key="manage.user.user.log" data-ng-if="(ctrl.gdprLogsReadPermission || ctrl.userIsMySelf) && ctrl.userId">
+                <entity-log-viewer entity="12" record-id="ctrl.user.userId" only-change-log="true"></entity-log-viewer>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.user"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.user.active" is-disabled="ctrl.user.active" data-ng-if="ctrl.modifyPermission" data-ng-click="ctrl.userActiveChanged();"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

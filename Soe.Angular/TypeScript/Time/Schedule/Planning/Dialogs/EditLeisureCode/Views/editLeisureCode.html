@@ -1,0 +1,18 @@
+﻿<div>
+    <div class="modal-header scheduleview-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.planning.contextmenu.newleisurecode'" data-ng-if="!ctrl.shift || !ctrl.shift.timeScheduleEmployeePeriodDetailId"></h6>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.planning.contextmenu.editleisurecode'" data-ng-if="ctrl.shift && ctrl.shift.timeScheduleEmployeePeriodDetailId"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-select label-key="time.schedule.leisurecode.leisurecodetype" model="ctrl.shift.timeLeisureCodeId" items="ctrl.leisureCodes" options="item.timeLeisureCodeId as item.name for item in items" is-readonly="ctrl.isReadonly"></soe-select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'core.save'" data-ng-disabled="ctrl.executing" data-ng-if="!ctrl.isReadonly" data-ng-click="ctrl.save()"></button>
+        <button type="button" class="btn btn-sm btn-default pull-right margin-small-right margin-large-left" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+    </div>
+</div>

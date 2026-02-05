@@ -1,0 +1,5 @@
+﻿<%@ Page Language="C#" Trace="false" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="SoftOne.Soe.Web.soe.manage.preferences.registry._default" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="soeMainContent" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="soeLeftContent" runat="server">
+</asp:Content>

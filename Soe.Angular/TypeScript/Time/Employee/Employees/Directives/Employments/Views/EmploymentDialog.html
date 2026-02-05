@@ -1,0 +1,118 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-3">
+                    <soe-select label-key="time.employee.employee.employmenttype" model="ctrl.selectedEmploymentType" items="ctrl.employmentTypes" options="item as item.name for item in items" is-disabled="!ctrl.employment.isEditing"></soe-select>
+                </div>
+                <div class="col-sm-6" data-ng-show="ctrl.employment.dateTo">
+                    <soe-select label-key="time.employee.endreason.endreason" model="ctrl.selectedEndReason" items="ctrl.employmentEndReasons" options="item as item.name for item in items" is-disabled="!ctrl.employment.isEditing"></soe-select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-3">
+                    <soe-select label-key="time.employee.payrollgroup.payrollgroup" model="ctrl.selectedPayrollGroup" items="ctrl.payrollGroups" options="item as item.name for item in items" is-disabled="!ctrl.employment.isEditing" is-required="ctrl.payrollGroupMandatory"></soe-select>
+                </div>
+                <div class="col-sm-3">
+                    <soe-select label-key="time.employee.employeegroup.employeegroup" model="ctrl.selectedEmployeeGroup" items="ctrl.employeeGroups" options="item as item.name for item in items" is-disabled="!ctrl.employment.isEditing" on-changing="ctrl.employeeGroupChanged(item)"></soe-select>
+                </div>
+                <div class="col-sm-3">
+                    <soe-select label-key="time.payroll.vacationgroup.vacationgroup" model="ctrl.vacationGroupId" items="ctrl.vacationGroups" options="item.vacationGroupId as item.name for item in items" is-disabled="true"></soe-select>
+                </div>
+                <div class="col-sm-3" data-ng-if="ctrl.useAnnualLeave">
+                    <soe-select label-key="time.employee.annualleavegroup" model="ctrl.employment.annualLeaveGroupId" items="ctrl.annualLeaveGroups" options="item.id as item.name for item in items"></soe-select>
+                </div>
+            </div>
+            <div class="row margin-small-top">
+                <div class="col-sm-offset-9 col-sm-3">
+                    <soe-checkbox label-key="time.employee.deviantweeklyfulltime" model="ctrl.deviantFullTimeWorkTime" on-changing="ctrl.handleFullTimeWorkTime()"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <soe-textbox label-key="time.schedule.planning.worktimeweek" model="ctrl.employment.workTimeWeekFormatted" update-on="blur" on-change="ctrl.workTimeWeekChanged()" is-time="true" is-disabled="!ctrl.employment.isEditing" label-prefix-value="ctrl.selectedEmployeeGroupLabel" label-value="ctrl.selectedRuleWorkTimeWeek | minutesToTimeSpan" label-value-in-parentheses="true"></soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-textbox label-key="time.employee.employee.percent" label-value="ctrl.percentLabel" label-value-in-parentheses="true" model="ctrl.employment.percent" numeric="true" decimals="2" is-disabled="!ctrl.employment.isEditing"></soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-textbox label-key="time.employee.employment.baseworktimeweek" model="ctrl.employment.baseWorkTimeWeekFormatted" update-on="blur" is-time="true" is-disabled="!ctrl.employment.isEditing"></soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-textbox label-key="time.schedule.planning.fulltimeworktimeweek" model="ctrl.employment.fullTimeWorkTimeWeekFormatted" update-on="blur" on-change="ctrl.workTimeWeekChanged()" is-time="true" is-disabled="!ctrl.deviantFullTimeWorkTime || !ctrl.employment.isEditing" label-prefix-value="ctrl.employeeGroupLabel" label-value="ctrl.selectedEmployeeGroup.ruleWorkTimeWeek | minutesToTimeSpan" label-value-in-parentheses="true"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.employment.isSecondaryEmployment">
+                <div class="col-sm-3">
+                    <soe-select label-key="time.employee.employment.excludefromworktimeweekcalculation" model="ctrl.excludeFromWorkTimeWeekCalculationOnSecondaryEmployment" items="ctrl.excludeFromWorkTimeWeekCalculationItems" options="item.id as item.name for item in items"></soe-select>
+                </div>
+            </div>
+        </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3" data-ng-if="ctrl.useEmploymentExperienceAsStartValue">
+                        <soe-textbox label-key="time.employee.employment.experience.startvaluemonths" model="ctrl.employment.experienceMonths" numeric="true" decimals="0" is-disabled="!ctrl.employment.isEditing" button-icon="fa-sync" button-tooltip-key="time.employee.employment.updateexperiencemonths" on-button-click="$event.stopPropagation();ctrl.getTotalExperienceMonthFromPreviousEmployment();"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3" data-ng-if="ctrl.useEmploymentExperienceAsStartValue">
+                        <soe-textbox label-key="time.employee.employment.experience.totalmonths" model="ctrl.totalExperienceMonths" is-readonly="true" numeric="true" decimals="0" is-disabled="!ctrl.employment.isEditing"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3" data-ng-if="!ctrl.useEmploymentExperienceAsStartValue">
+                        <soe-textbox label-key="time.employee.employment.experience.months" model="ctrl.employment.experienceMonths" numeric="true" decimals="0" is-disabled="!ctrl.employment.isEditing"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-select label-key="time.employee.employment.experience" model="ctrl.employment.experienceAgreedOrEstablished" items="ctrl.experiences" options="item.id as item.name for item in items" is-disabled="!ctrl.employment.isEditing"></soe-select>
+                    </div>
+                </div>
+                <div class="row" data-ng-if="ctrl.useEmploymentExperienceAsStartValue">
+                    <div class="col-sm-3">
+                        <soe-checkbox label-key="time.employee.employment.updateExperienceMonthsReminder" model="ctrl.employment.updateExperienceMonthsReminder" is-disabled="!ctrl.employment.isEditing"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-9 margin-small-top" data-ng-if="ctrl.showStartvaluemonthsinstruction()">
+                        <soe-instruction label-key="time.employee.employment.experience.startvaluemonthsinstruction"></soe-instruction>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="time.employee.employment.workplace" model="ctrl.employment.workPlace" maxlength="100" is-disabled="!ctrl.employment.isEditing"></soe-textbox>
+                    </div>
+                    <div class="col-sm-9">
+                        <soe-textarea label-key="time.employee.employment.worktasks" model="ctrl.employment.workTasks" rows="ctrl.employment.workTasks ? 3 : 1" is-disabled="!ctrl.employment.isEditing"></soe-textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-textarea label-key="time.employee.employment.specialconditions" model="ctrl.employment.specialConditions" rows="ctrl.employment.specialConditions ? 3 : 1" is-disabled="!ctrl.employment.isEditing"></soe-textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="time.employee.employment.substitutefor" model="ctrl.employment.substituteFor" is-disabled="!ctrl.employment.isEditing"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="time.employee.employment.substitutefordueto" model="ctrl.employment.substituteForDueTo" is-disabled="!ctrl.employment.isEditing"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm" data-ng-if="ctrl.showExternalCode">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.externalcode" model="ctrl.employment.externalCode" is-disabled="!ctrl.employment.isEditing"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="modal-footer">
+        <span class="margin-large-right errorColor" data-ng-if="ctrl.payrollGroupMandatory && (!ctrl.selectedPayrollGroup || !ctrl.selectedPayrollGroup.payrollGroupId)"><span data-l10n-bind="'core.missingmandatoryfield'"></span> <span class="lowercase" data-l10n-bind="'time.employee.payrollgroup.payrollgroup'"></span></span>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-disabled="ctrl.payrollGroupMandatory && (!ctrl.selectedPayrollGroup || !ctrl.selectedPayrollGroup.payrollGroupId)" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'common.code'"
+          [maxLength]="50"
+          formControlName="code">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-4">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          [autoFocus]="true"
+          [required]="true"
+          formControlName="name">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-6">
+        <soe-textbox
+          [labelKey]="'common.description'"
+          [maxLength]="512"
+          formControlName="description">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'common.externalcode'"
+          [maxLength]="50"
+          formControlName="externalCode">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row"></div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'time.employee.employeegroup.employeegroup'"
+          [selectedId]="form.value.employeeGroupId"
+          [items]="employeeGroups || []"
+          [required]="true"
+          formControlName="employeeGroupId">
+        </soe-select>
+      </div>
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'time.employee.payrollgroup.payrollgroup'"
+          [selectedId]="form.value.payrollGroupId"
+          [items]="payrollGroups || []"
+          [required]="true"
+          formControlName="payrollGroupId">
+        </soe-select>
+      </div>
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'time.employee.vacationgroup.vacationgroup'"
+          [selectedId]="form.value.vacationGroupId"
+          [items]="vacationGroups || []"
+          [required]="true"
+          formControlName="vacationGroupId">
+        </soe-select>
+      </div>
+      @if (useAnnualLeave()) {
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'time.employee.annualleavegroup'"
+            [selectedId]="form.value.annualLeaveGroupId"
+            [items]="annualLeaveGroups || []"
+            [required]="true"
+            formControlName="annualLeaveGroupId">
+          </soe-select>
+        </div>
+      }
+    </div>
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      [showActive]="true"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

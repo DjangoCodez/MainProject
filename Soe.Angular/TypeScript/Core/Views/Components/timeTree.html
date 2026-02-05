@@ -1,0 +1,29 @@
+﻿<script type="text/ng-template" id="timeEmployeeTreeGroup">
+    <div class="treeGroup" data-ng-if="ctrl.doShowGroup(groupNode)" data-ng-class="{active: ctrl.isGroupNodeActive(groupNode)}">
+        <i href="#employeenodes-{{::groupNode.guid}}" data-toggle="collapse" ng-class="{'fal fa-chevron-right': !groupNode.expanded, 'fal fa-chevron-down': groupNode.expanded}" data-ng-click="$event.stopPropagation();ctrl.groupExpanded(groupNode)"></i>
+        <div ng-attr-title="{{groupNode.currentAttestStateName}}" class="circle hidden-sm hidden-sm" data-ng-style="{'background-color': groupNode.currentAttestStateColor, 'border-width': groupNode.currentAttestStateColor === '#FFFFFF' ? '1px' : '0px'}"></div>
+        <div data-l10n-bind data-l10n-bind-title="'time.time.tree.warningsnotloaded'" class="circle hidden-sm hidden-sm warningsnotloaded" data-ng-class="{'fa-spin': ctrl.loadingTreeWarnings}" data-ng-if="!ctrl.loadedTreeWarnings"><span class="fas fa-exclamation"></span></div>
+        <div ng-attr-title="{{groupNode.currentWarningMessageTime}}" class="far fa-exclamation-circle warningColor" data-ng-if="ctrl.loadedTreeWarnings && groupNode.currentHasWarningsTime"></div>
+        <div ng-attr-title="{{groupNode.currentWarningMessagePayroll}}" class="far fa-exclamation-square warningColor" data-ng-if="ctrl.loadedTreeWarnings && groupNode.currentHasWarningsPayroll"></div>
+        <div ng-attr-title="{{groupNode.currentWarningMessagePayrollStopping}}" class="far fa-exclamation-triangle errorColor" data-ng-if="ctrl.loadedTreeWarnings && groupNode.currentHasWarningsPayrollStopping"></div>
+        <span>[{{groupNode.getVisibleEmployeeIds(true).length}}]</span>&nbsp;<span><b>{{::groupNode.code}}</b></span>&nbsp;<span>{{::groupNode.name}}</span>
+    </div>
+    <div id="employeenodes-{{groupNode.guid}}" ng-class="{'collapse': !groupNode.expanded, 'collapse in': groupNode.expanded}">
+        <ul>
+            <li ng-repeat="employeeNode in groupNode.getVisibleEmployeeNodes(false)">
+                <div class="treeNode" data-ng-click="$event.stopPropagation();ctrl.employeeNodeClick(employeeNode)" data-ng-class="{active: ctrl.isEmployeeNodeActive(employeeNode)}">
+                    <div ng-attr-title="{{::employeeNode.attestStateName}}" class="circle hidden-sm hidden-sm" data-ng-style="{'background-color': employeeNode.attestStateColor, 'border-width': employeeNode.attestStateColor === '#FFFFFF' ? '1px' : '0px'}"></div>
+                    <div data-l10n-bind data-l10n-bind-title="'time.time.tree.warningsnotloaded'" class="circle hidden-sm hidden-sm warningsnotloaded" data-ng-class="{'fa-spin': ctrl.loadingTreeWarnings}" data-ng-if="!ctrl.loadedTreeWarnings"><span class="fas fa-exclamation"></span></div>
+                    <div ng-attr-title="{{::employeeNode.warningMessageTime}}" class="far fa-exclamation-circle warningColor hidden-sm hidden-sm" data-ng-if="ctrl.loadedTreeWarnings && employeeNode.warningMessageTime"></div>
+                    <div ng-attr-title="{{::employeeNode.warningMessagePayroll}}" class="far fa-exclamation-square warningColor hidden-sm hidden-sm" data-ng-if="ctrl.loadedTreeWarnings && employeeNode.warningMessagePayroll"></div>
+                    <div ng-attr-title="{{::employeeNode.warningMessagePayrollStopping}}" class="far fa-exclamation-triangle errorColor hidden-sm hidden-sm" data-ng-if="ctrl.loadedTreeWarnings && employeeNode.warningMessagePayrollStopping"></div>
+                    <i ng-attr-title="{{::employeeNode.hibernatingText}}" data-ng-if="employeeNode.hibernatingText && employeeNode.hibernatingText.length > 0" class="fa fa-solid fa-clone"></i>
+                    <span>{{::employeeNode.employeeNr}}</span>&nbsp;<span data-ng-class="{'timetree-applyfinalsalary':employeeNode.finalSalaryStatus === 1, 'timetree-appliedfinalsalary':employeeNode.finalSalaryStatus === 2 || employeeNode.finalSalaryStatus === 3}" title="{{::employeeNode.tooltip}}">{{::employeeNode.employeeName}}</span>
+                </div>
+            </li>
+        </ul>
+        <ul data-ng-if="groupNode.childGroupNodes.length > 0">
+            <li ng-repeat="groupNode in groupNode.childGroupNodes" ng-include="'timeEmployeeTreeGroup'" data-ng-click="$event.stopPropagation();ctrl.groupNodeClick(groupNode)"></li>
+        </ul>
+    </div>
+</script>

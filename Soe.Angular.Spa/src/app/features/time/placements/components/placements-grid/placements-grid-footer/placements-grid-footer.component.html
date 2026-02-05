@@ -1,0 +1,86 @@
+@if (form) {
+  <form [formGroup]="form" class="" novalidate autocomplete="off">
+    <div class="row">
+      <div class="row mb-4">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-8">
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'core.function'"
+              [items]="functions || []"
+              [selectedId]="form.controls.functionId.value"
+              [autoFocus]="true"
+              [inline]="false"
+              formControlName="functionId">
+            </soe-select>
+          </div>
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'time.schedule.activate.templatename'"
+              [items]="templateHeads || []"
+              [selectedId]="form.controls.templateHeadId.value"
+              [autoFocus]="false"
+              [inline]="false"
+              (valueChanged)="templateHeadChanged($event)"
+              formControlName="templateHeadId">
+            </soe-select>
+          </div>
+          <div class="col-sm-1">
+            <soe-select
+              [labelKey]="'time.schedule.activate.startday'"
+              [items]="templatePeriods || []"
+              [selectedId]="form.controls.templatePeriodId.value"
+              [autoFocus]="false"
+              [inline]="false"
+              formControlName="templatePeriodId">
+            </soe-select>
+          </div>
+          <div class="col-sm-2">
+            <soe-datepicker
+              [labelKey]="'common.startdate'"
+              [inline]="false"
+              [showArrows]="false"
+              formControlName="startDate">
+            </soe-datepicker>
+          </div>
+          <div class="col-sm-2">
+            <soe-datepicker
+              [labelKey]="'common.stopdate'"
+              [inline]="false"
+              [required]="true"
+              [showArrows]="false"
+              formControlName="stopDate">
+            </soe-datepicker>
+          </div>
+          @if (showPreliminary()) {
+            <div class="col-sm-1">
+              <soe-checkbox
+                [labelKey]="
+                  'time.schedule.planning.templateschedule.activate.preliminary'
+                "
+                [checked]="form.value.isPreliminary"
+                [inline]="true"
+                formControlName="isPreliminary">
+              </soe-checkbox>
+            </div>
+          }
+          <div class="col-sm-1"></div>
+          <div class="col-sm-1 d-flex justify-content-end mt-4">
+            <soe-save-button
+              class="save-button"
+              [inline]="false"
+              [caption]="'time.schedule.planning.contextmenu.activate'"
+              [tooltip]="'time.schedule.planning.contextmenu.activate'"
+              [disabled]="saveIsDisabled"
+              [invalid]="form.invalid"
+              [dirty]="form.dirty"
+              [inProgress]="activationInProgress()"
+              (action)="onActivate()"
+              (validationErrorsAction)="form.openFormValidationErrors()">
+            </soe-save-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+}

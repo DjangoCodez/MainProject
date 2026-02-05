@@ -1,0 +1,39 @@
+@use '../../styles/core-styles/colors.scss';
+
+.pdf-viewer__container {
+  position: relative;
+  height: 100%;
+
+  .pdf-viewer__toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.2); 
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none; // disables interaction when hidden
+    z-index: 10;
+  }
+
+  &:hover .pdf-viewer__toolbar {
+    opacity: 1;
+    pointer-events: auto; // re-enables interaction on hover
+  }
+}
+
+::ng-deep {
+  .pdf-viewer__pdf {
+    background-color: #e6e6e6;
+    height: 100%;
+
+    .ng2-pdf-viewer-container {
+      scrollbar-width: thin;
+    }
+
+    .page {
+      margin-top: 5px !important;
+      margin-bottom: 5px !important;
+    }
+  }
+}

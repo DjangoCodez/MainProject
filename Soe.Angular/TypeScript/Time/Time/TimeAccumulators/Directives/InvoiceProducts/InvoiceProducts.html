@@ -1,0 +1,24 @@
+﻿<div>
+    <soe-panel label-key="time.time.timecode.invoiceproducts" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.editProduct();">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 20px"></th>
+                    <th scope="col" data-l10n-bind="'time.time.timecode.invoiceproduct'"></th>
+                    <th scope="col" style="width: 200px" data-l10n-bind="'time.time.timecode.factor'"></th>
+                    <th scope="col" style="width: 28px"></th>
+                    <th scope="col" style="width: 28px"></th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="invoiceProduct in ctrl.invoiceProducts">
+                <tr data-ng-class="{'table-selected-row': ctrl.selectedInvoiceProduct === invoiceProduct}" data-ng-click="ctrl.selectedInvoiceProduct = invoiceProduct">
+                    <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedInvoiceProduct === invoiceProduct"></i></td>
+                    <td><span>{{invoiceProduct.productName}}</span></td>
+                    <td><span>{{invoiceProduct.factor}}</span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editProduct(invoiceProduct);"></i></span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteProduct(invoiceProduct);"></i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </soe-panel>
+</div>

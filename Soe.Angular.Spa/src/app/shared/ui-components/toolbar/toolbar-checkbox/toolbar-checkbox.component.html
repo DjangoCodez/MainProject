@@ -1,0 +1,24 @@
+<div
+  class="form-check"
+  [class.form-switch]="behaviour() === 'switch'"
+  [class.is-hidden]="hidden()">
+  <input
+    #input
+    type="checkbox"
+    [attr.role]="behaviour() === 'switch' ? 'switch' : null"
+    class="form-check-input"
+    [class.is-disabled]="disabled()"
+    [attr.data-testid]="key()"
+    [attr.disabled]="disabled() ? true : null"
+    [checked]="checked()"
+    (change)="!disabled() ? valueChanged(input.checked) : null" />
+  <soe-label
+    [labelKey]="labelKey()"
+    [forRef]="inputId()"
+    [labelClass]="'form-check-label'"
+    [secondaryLabelKey]="secondaryLabelKey()"
+    [secondaryLabelBold]="secondaryLabelBold()"
+    [secondaryLabelParantheses]="secondaryLabelParantheses()"
+    [secondaryLabelPostfixKey]="secondaryLabelPostfixKey()"
+    [secondaryLabelPrefixKey]="secondaryLabelPrefixKey()"></soe-label>
+</div>

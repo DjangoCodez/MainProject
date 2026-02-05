@@ -1,0 +1,18 @@
+﻿<div>
+    <label class="control-label" data-l10n-bind="::$ctrl.labelKey" data-ng-if="::$ctrl.hidelabel"></label>
+
+    <div class="row form-inline margin-none-left">
+        <div class="form-group form-group-sm margin-small-right" data-ng-repeat="collection in $ctrl.selectablePayrollTypes track by collection.id">
+            <soe-select hidelabel="true" model="collection.selected.id" items="collection.available" options="item.id as item.name for item in items" on-changing="$ctrl.selectPayrollTypeAtLevel($index, item)"></soe-select>
+        </div>
+        <div class="form-group form-group-sm margin-small-right" data-ng-if="!$ctrl.hideProducts">
+            <soe-multiselect hidelabel="true" model="$ctrl.selectedPayrollProducts" options="$ctrl.currentlySelectablePayrollProducts" on-selection-opened="$ctrl.populateSelectablePayrollProducts()" on-item-select="$ctrl.propagateSelection()" on-item-deselect="$ctrl.propagateSelection()"></soe-multiselect>
+        </div>
+        <div class="form-group form-group-sm">
+            <span class="fal fa-filter-slash link" data-l10n-bind data-l10n-bind-title="'core.clearselection'" data-ng-click="$ctrl.clearSelection()"></span>
+        </div>
+        <div class="form-group form-group-sm">
+            <button type="button" class="btn btn-sm btn-link fal fa-times iconDelete" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-if="$ctrl.canDelete" data-ng-click="$ctrl.removeSelection()"></button>
+        </div>
+    </div>
+</div>

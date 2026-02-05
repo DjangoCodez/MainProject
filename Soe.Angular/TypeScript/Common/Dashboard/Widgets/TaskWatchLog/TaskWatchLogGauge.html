@@ -1,0 +1,74 @@
+﻿<div>
+    <div data-ng-if="!ctrl.widgetSettingsMode">
+        <div class="row">
+            <div class="col-sm-12 form-inline margin-large-bottom">
+                <div class="info" style="border-top: 0px; border-right: 0px; border-left: 0px;">
+                    <div class="margin-small-top margin-small-bottom">
+                        <div class="form-group form-group-sm margin-large-left">
+                            <soe-datepicker hidelabel="true" model="ctrl.dateFrom"></soe-datepicker>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <soe-datepicker hidelabel="true" model="ctrl.dateTo"></soe-datepicker>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            <span class="indiscreet">ActorCompanyId</span>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <soe-textbox hidelabel="true" model="ctrl.selectedCompany" numeric="true" decimals="0"></soe-textbox>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            <span class="indiscreet">UserId</span>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <soe-textbox hidelabel="true" model="ctrl.selectedUser" numeric="true" decimals="0"></soe-textbox>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'common.dashboard.taskwatchlog.loadtasks'" data-l10n-bind-title="'common.dashboard.taskwatchlog.loadtasks'" data-ng-disabled="!ctrl.canLoadTasks" data-ng-click="$event.stopPropagation();ctrl.loadTasks()"></button>
+                        </div>
+
+                        <div class="form-group form-group-sm margin-large-left">
+                            <soe-label label-key="common.dashboard.taskwatchlog.tasks"></soe-label>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <soe-select hidelabel="true" model="ctrl.selectedTask" items="ctrl.tasks" options="item as item.displayName for item in items"></soe-select>
+                        </div>
+
+                        <div class="form-group form-group-sm margin-large-left">
+                            <soe-label label-key="common.dashboard.taskwatchlog.calculationtype"></soe-label>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <soe-select hidelabel="true" model="ctrl.calculationType" items="ctrl.calculationTypes" options="item.id as item.name for item in items"></soe-select>
+                        </div>
+
+                        <div class="form-group form-group-sm margin-large-left">
+                            <soe-label label-key="common.interval"></soe-label>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <soe-select hidelabel="true" model="ctrl.interval" items="ctrl.intervals" options="item.id as item.name for item in items"></soe-select>
+                        </div>
+
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'common.dashboard.taskwatchlog.loaddata'" data-l10n-bind-title="'common.dashboard.taskwatchlog.loaddata'" data-ng-disabled="!ctrl.canLoad" data-ng-click="$event.stopPropagation();ctrl.load()"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.taskResultChartData.length>0">
+            <div class="col-sm-12">
+                <span class="margin-small-left" data-l10n-bind="'core.time.milliseconds'"></span>
+                <nvd3 options="ctrl.taskResultChartOptions" data="ctrl.taskResultChartData"></nvd3>
+            </div>
+        </div>
+
+    </div>
+    <div data-ng-if="ctrl.widgetSettingsMode" class="widget-settings">
+        <div class="row">
+            <div class="col-sm-6">
+            </div>
+        </div>
+    </div>
+</div>

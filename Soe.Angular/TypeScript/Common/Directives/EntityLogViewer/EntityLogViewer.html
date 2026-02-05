@@ -1,0 +1,189 @@
+﻿<div>
+    <uib-accordion close-others="false">
+        <!-- Search person -->
+        <soe-accordion label-key="common.entitylogviewer.selection.searchperson" condensed="true" is-open="true" data-ng-if="!ctrl.entity">
+            <div class="row margin-large-bottom">
+                <div class="col-sm-12">
+                    <div class="col-sm-2">
+                        <soe-label label-key="common.entitylogviewer.selection.registrys"></soe-label>
+                        <soe-checkbox label-key="common.entitylogviewer.selection.registrys.employee" data-l10n-bind data-l10n-bind-title="common.entitylogviewer.selection.registrys.employee" model="ctrl.searchInEmployeeAndUser" use-ignore-dirty="true"></soe-checkbox>
+                        <soe-checkbox label-key="common.entitylogviewer.selection.registrys.customer" data-l10n-bind data-l10n-bind-title="common.entitylogviewer.selection.registrys.customer" model="ctrl.searchInCustomer" use-ignore-dirty="true"></soe-checkbox>
+                        <soe-checkbox label-key="common.entitylogviewer.selection.registrys.supplier" data-l10n-bind data-l10n-bind-title="common.entitylogviewer.selection.registrys.supplier" model="ctrl.searchInSupplier" use-ignore-dirty="true"></soe-checkbox>
+                        <soe-checkbox label-key="common.entitylogviewer.selection.registrys.contactperson" data-l10n-bind data-l10n-bind-title="common.entitylogviewer.selection.registrys.contactperson" model="ctrl.searchInContactPerson" use-ignore-dirty="true"></soe-checkbox>
+                        <soe-checkbox label-key="common.entitylogviewer.selection.registrys.rot" data-l10n-bind data-l10n-bind-title="common.entitylogviewer.selection.registrys.rot" model="ctrl.searchInRot" use-ignore-dirty="true"></soe-checkbox>
+                        <soe-textbox label-key="common.entitylogviewer.selection.searchperson" model="ctrl.searchString" use-ignore-dirty="true" button-icon="fa-search" button-tooltip-key="common.entitylogviewer.selection.searchperson" button-disabled="ctrl.disableSearchPerson()" on-button-click="ctrl.searchPerson();"></soe-textbox>
+                        <div data-ng-show="ctrl.hasSelectedSearchRegistry()" style="padding:5px">
+                            <soe-instruction label-key="common.name" class="col" style="padding:2px"></soe-instruction>
+                            <soe-instruction label-key="common.phone" class="col" style="padding:2px"></soe-instruction>
+                            <soe-instruction label-key="common.email" class="col" style="padding:2px"></soe-instruction>
+                            <soe-instruction label-key="common.gln" class="col" style="padding:2px"></soe-instruction>
+                            <soe-instruction label-key="common.customer.customer.rot.socialsecnr" class="col" style="padding:2px" data-ng-if="ctrl.showSearchOnSocialSec()"></soe-instruction>
+                            <soe-instruction label-key="common.report.selection.employeenr" class="col" style="padding:2px" data-ng-if="ctrl.showSearchOnEmployeeNr()"></soe-instruction>
+                            <soe-instruction label-key="common.licenseplate" class="col" style="padding:2px" data-ng-if="ctrl.showSearchOnLicensePlate()"></soe-instruction>
+                        </div>
+                    </div>
+                    <div class="col-sm-10">
+                        <table class="table table-outer-bordered table-more-condensed table-hover margin-large-top">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width: 20px"></th>
+                                    <th scope="col"><span data-l10n-bind="'common.name'"></span></th>
+                                    <th scope="col"><span data-l10n-bind="'common.number'"></span></th>
+                                    <th scope="col"><span data-l10n-bind="'common.customer.customer.rot.socialsecnr'"></span></th>
+                                    <th scope="col"><span data-l10n-bind="'common.consent'"></span></th>
+                                    <th scope="col"><span data-l10n-bind="'common.consentdate'"></span></th>
+                                    <th scope="col"><span data-l10n-bind="'common.type'"></span></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr data-ng-if="ctrl.noPersonsFound">
+                                    <td colspan="8"><soe-label label-key="common.entitylogviewer.nopersons"></soe-label></td>
+                                </tr>
+                                <tr data-ng-repeat="person in ctrl.persons" class="link" data-ng-class="{'table-selected-row': ctrl.selectedPerson === person}" data-ng-click="ctrl.selectedPerson = person" data-ng-if="ctrl.persons.length > 0">
+                                    <td>
+                                        <i class="fas fa-caret-right" data-ng-if="ctrl.selectedPerson === person"></i>
+                                    </td>
+                                    <td><span>{{person.name}}</span></td>
+                                    <td><span>{{person.number}}</span></td>
+                                    <td><span>{{person.orgNr}}</span></td>
+                                    <td><span>{{person.hasConsentString}}</span></td>
+                                    <td><span>{{person.consentDate.toLocaleDateString()}}</span></td>
+                                    <td><span>{{person.entityTypeName}}</span></td>
+
+                                    <td style="width: 28px">
+                                        <span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-click="ctrl.openTab(person);"></i></span>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </soe-accordion>
+
+        <!-- Search logs -->
+        <div class="form-inline margin-small-bottom" data-ng-if="!ctrl.hideLogs && (ctrl.selectedPerson || ctrl.recordId)">
+            <div class="form-group form-group-sm">
+                <soe-datepicker style="width: 130px;" hidelabel="true" model="ctrl.dateFrom" use-ignore-dirty="true" is-disabled="ctrl.entity && !ctrl.recordId"></soe-datepicker>
+            </div>
+            <span>-</span>
+            <div class="form-group form-group-sm">
+                <soe-datepicker style="width: 130px;" hidelabel="true" model="ctrl.dateTo" use-ignore-dirty="true" is-disabled="ctrl.entity && !ctrl.recordId"></soe-datepicker>
+            </div>
+            <div class="form-group form-group-sm margin-large-left" data-ng-if="ctrl.entity && !ctrl.onlyChangeLog">
+                <soe-checkbox label-key="common.entitylogviewer.changelog" model="ctrl.loadChangeLog" use-ignore-dirty="true" is-disabled="ctrl.entity && !ctrl.recordId"></soe-checkbox>
+            </div>
+            <div class="form-group form-group-sm margin-large-left" data-ng-show="ctrl.entity && !ctrl.onlyChangeLog">
+                <soe-checkbox label-key="common.entitylogviewer.datalog" model="ctrl.loadDataLog" use-ignore-dirty="true" is-disabled="ctrl.entity && !ctrl.recordId"></soe-checkbox>
+            </div>
+            <div class="form-group form-group-sm margin-large-left" data-ng-if="ctrl.loadDataLog">
+                <soe-select hidelabel="true" model="ctrl.actionType" items="ctrl.actionTypes" options="item.id as item.name for item in items" use-ignore-dirty="true"></soe-select>
+            </div>
+            <div class="form-group form-group-sm margin-large-left" data-ng-if="!ctrl.entity && ctrl.loadDataLog">
+                <soe-label label-key="common.entitylogviewer.selection.searchfor"></soe-label>
+            </div>
+            <div class="form-group form-group-sm margin-large-left" data-ng-if="!ctrl.entity && ctrl.loadDataLog">
+                <soe-radiobutton label-key="common.entitylogviewer.selection.searchfor.actiononuser" model="ctrl.searchLogsCausedByUser" group="searchLogsCausedByUser" value="false" use-ignore-dirty="true"></soe-radiobutton>
+                <soe-radiobutton label-key="common.entitylogviewer.selection.searchfor.useraction" model="ctrl.searchLogsCausedByUser" group="searchLogsCausedByUser" value="true" use-ignore-dirty="true"></soe-radiobutton>
+            </div>
+
+            <div class="form-group form-group-sm margin-large-left">
+                <button type="button" class="btn btn-sm btn-primary" data-l10n-bind data-l10n-bind-title="'core.search'" data-ng-disabled="ctrl.disableSearch()" data-ng-click="ctrl.search();">
+                    <span><span data-l10n-bind="'core.search'"></span><i class="fal fa-sync link margin-small-left" data-ng-class="{'fa-spin': ctrl.searching}"></i></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Change log -->
+        <soe-accordion label-key="common.entitylogviewer.changelog" condensed="true" is-open="ctrl.isChangeLogOpen" data-ng-if="ctrl.loadChangeLog && (ctrl.selectedPerson || ctrl.recordId)">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-scrollable-wrapper">
+                        <div class="table-scrollable" style="height: 203px;">
+                            <table class="table table-more-condensed table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 50px;" colspan="2"><span data-l10n-bind="'common.entitylogviewer.changelog.batchnbr'" style="margin-left: 5px; margin-right: 10px;"></span></th>
+                                        <th scope="col" style="min-width: 50px;"><span data-l10n-bind="'common.entitylogviewer.changelog.actionmethod'"></span></th>
+                                        <th scope="col" style="min-width: 50px;"><span data-l10n-bind="'common.entitylogviewer.changelog.entity'"></span></th>
+                                        <th scope="col" style="min-width: 50px;"><span data-l10n-bind="'common.name'"></span></th>
+                                        <th scope="col" style="min-width: 50px;"><span data-l10n-bind="'common.entitylogviewer.changelog.columnname'"></span></th>
+                                        <th scope="col" style="width: 100px;"><span data-l10n-bind="'common.entitylogviewer.changelog.action'"></span></th>
+                                        <th scope="col" style="min-width: 50px;"><span data-l10n-bind="'common.from'"></span></th>
+                                        <th scope="col" style="min-width: 50px;"><span data-l10n-bind="'common.to'"></span></th>
+                                        <th scope="col" style="min-width: 50px;"><span data-l10n-bind="'common.modified'"></span></th>
+                                        <th scope="col" style="min-width: 50px;"><span data-l10n-bind="'common.modifiedby'"></span></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr data-ng-if="ctrl.changes.length === 0">
+                                        <td colspan="10">
+                                            <soe-label class="margin-small-left" label-key="common.entitylogviewer.nologs" data-ng-if="!ctrl.searching"></soe-label>
+                                            <soe-label class="margin-small-left" label-key="core.searching" data-ng-if="ctrl.searching"></soe-label>
+                                        </td>
+                                    </tr>
+                                    <tr data-ng-repeat="change in ctrl.changes" class="link" data-ng-class="{'table-selected-row': ctrl.selectedChange === change}" data-ng-click="ctrl.selectedChange = change" data-ng-if="ctrl.changes.length > 0">
+                                        <td><i style="margin-left: 5px;" class="fas fa-caret-right" data-ng-if="ctrl.selectedChange === change"></i></td>
+                                        <td class="right-align-cell"><span style="margin-right: 10px;">{{change.batchNbr}}</span></td>
+                                        <td><span>{{change.actionMethodText}}</span></td>
+                                        <td><span>{{change.entityText}}</span></td>
+                                        <td><span>{{change.recordName}}</span></td>
+                                        <td><span>{{change.columnText}}</span></td>
+                                        <td><span>{{change.actionText}}</span></td>
+                                        <td><span>{{change.fromValueText}}</span></td>
+                                        <td><span>{{change.toValueText}}</span></td>
+                                        <td><span>{{change.created | date:'shortDate'}} {{change.created | date:'shortTime'}}</span></td>
+                                        <td><span>{{change.createdBy}}</span><span data-ng-if="change.role"> ({{change.role}})</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </soe-accordion>
+
+        <!-- Personal data log -->
+        <soe-accordion label-key="common.entitylogviewer.datalog" condensed="true" is-open="ctrl.isDataLogOpen" data-ng-if="ctrl.loadDataLog && (ctrl.selectedPerson || ctrl.entity==11 || ctrl.entity==12)">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-scrollable-wrapper">
+                        <div class="table-scrollable" style="height: 203px;">
+                            <table class="table table-more-condensed table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 50px;" colspan="2"><span data-l10n-bind="'common.entitylogviewer.datalog.batchnbr'" style="margin-left: 5px; margin-right: 10px;"></span></th>
+                                        <th scope="col" style="min-width: 50px;"><span data-l10n-bind="'common.entitylogviewer.datalog.event'"></span></th>
+                                        <th scope="col" style="width: 100px;"><span data-l10n-bind="'common.entitylogviewer.datalog.informationtype'"></span></th>
+                                        <th scope="col" style="width: 150px;"><span data-l10n-bind="'common.entitylogviewer.datalog.actiontype'"></span></th>
+                                        <th scope="col" style="width: 100px;"><span data-l10n-bind="'common.user'"></span></th>
+                                        <th scope="col" style="min-width: 50px;"><span data-l10n-bind="'common.date'"></span></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr data-ng-if="ctrl.personalDataLogs.length === 0">
+                                        <td colspan="6"><soe-label class="margin-small-left" label-key="common.entitylogviewer.nologs"></soe-label></td>
+                                    </tr>
+                                    <tr data-ng-repeat="personalDataLog in ctrl.personalDataLogs" data-ng-if="ctrl.personalDataLogs.length > 0">
+                                        <td><i style="margin-left: 5px;" class="fas fa-caret-right" data-ng-if="ctrl.selectedPersonalDataLog === personalDataLog"></i></td>
+                                        <td class="right-align-cell"><span style="margin-right: 10px;">{{personalDataLog.batchNbr}}</span></td>
+                                        <td><span>{{personalDataLog.message}}</span></td>
+                                        <td><span>{{personalDataLog.informationTypeText}}</span></td>
+                                        <td><span>{{personalDataLog.actionTypeText}}</span></td>
+                                        <td><span>{{personalDataLog.userName}}</span></td>
+                                        <td><span>{{personalDataLog.timeStamp | date:'shortDate'}} {{personalDataLog.timeStamp | date:'shortTime'}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </soe-accordion>
+    </uib-accordion>
+</div>

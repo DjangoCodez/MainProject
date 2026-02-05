@@ -1,0 +1,29 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        @if (flowHandler.allowFetchGrid()) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-grid [rows]="subData" [height]="400"> </soe-grid>
+            </div>
+          </div>
+        }
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    <soe-dialog-footer
+      [form]="form"
+      [cancelLabelKey]="'core.close'"
+      [hideOk]="!flowHandler.modifyPermission()"
+      [okLabelKey]="'time.schedule.timescheduletask.generatedneed.deleterows'"
+      [okDisabled]="!deleteEnabled()"
+      (cancelled)="cancel()"
+      (committed)="initDelete()"></soe-dialog-footer>
+  </div>
+</soe-dialog>

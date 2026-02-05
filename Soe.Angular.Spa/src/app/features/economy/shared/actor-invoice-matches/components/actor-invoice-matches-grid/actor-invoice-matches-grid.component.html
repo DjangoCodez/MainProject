@@ -1,0 +1,25 @@
+<soe-actor-invoice-matches-filter
+    [actors]="actors()"
+    [types]="types()"
+    [actorLabelKey]="actorLabelKey()"
+    (searchClicked)="triggerSearch($event)"
+>
+</soe-actor-invoice-matches-filter>
+
+<div class="row">
+    <div class="col-sm-12 px-3">
+        <soe-expansion-panel
+            [labelKey]="gridLabelKey()"
+            [static]="true"
+            [noPadding]="true"
+        >
+            <soe-grid-wrapper
+                [rows]="rowData()"
+                [parentGuid]="guid()"
+                [toolbarItemGroups]="toolbarService().toolbarItemGroups"
+            >
+
+            </soe-grid-wrapper>
+        </soe-expansion-panel>
+    </div>
+</div>

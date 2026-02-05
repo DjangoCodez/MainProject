@@ -1,0 +1,56 @@
+﻿<form class="form-inline">
+    <div>
+        <div class="form-group form-group-sm">
+            <soe-label label-key="common.order"></soe-label>
+        </div>
+        <div class="form-group form-group-sm margin-large-right">
+            <soe-select options="ctrl.orders" model="ctrl.selectedOrders" hidelabel="true" limit-to="20" style="width:150px;" on-selection-complete="ctrl.orderSelectionComplete()"></soe-select>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-label label-key="billing.project.project"></soe-label>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-textbox label-key="billing.product.number" model="ctrl.productNr"></soe-textbox>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-label label-key="common.customer"></soe-label>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-textbox label-key="billing.product.number" model="ctrl.productNr"></soe-textbox>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-label label-key="common.customer.invoices.ordertype"></soe-label>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-textbox label-key="billing.product.number" model="ctrl.productNr"></soe-textbox>
+        </div>
+        <div class="form-group form-group-sm margin-large-right">
+            <soe-checkbox label-key="common.customer.invoices.showmine" model="ctrl.loadOnlyMine" is-readonly="ctrl.onlyMineLocked"></soe-checkbox>
+        </div>
+        <div class="form-group form-group-sm margin-large-right">
+            <soe-checkbox label-key="common.customer.invoices.showmine" model="ctrl.loadOnlyMine" is-readonly="ctrl.onlyMineLocked"></soe-checkbox>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-label label-key="common.order"></soe-label>
+        </div>
+        <div class="form-group form-group-sm margin-large-right">
+            <soe-select options="ctrl.orders" model="ctrl.selectedOrders" hidelabel="true" limit-to="20" style="width:150px;" on-selection-complete="ctrl.orderSelectionComplete()"></soe-select>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-label label-key="common.customer.invoices.ordertype"></soe-label>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-textbox label-key="billing.product.number" model="ctrl.productNr"></soe-textbox>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-label label-key="common.customer.invoices.ordertype"></soe-label>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-textbox label-key="billing.product.number" model="ctrl.productNr"></soe-textbox>
+        </div>
+        <div class="form-group form-group-sm">
+            <button type="button" class="pull-left btn btn-sm btn-default ngSoeMainButton rounded-left rounded-right" style="height:30px" data-l10n-bind="'core.search'" data-ng-click="$event.stopPropagation();ctrl.searchCustomerInvoiceRows()" data-ng-disabled="!ctrl.selectedDateFrom || !ctrl.selectedDateTo"></button>
+        </div>
+    </div>
+</form>
+

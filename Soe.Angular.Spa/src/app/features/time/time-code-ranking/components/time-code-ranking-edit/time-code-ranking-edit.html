@@ -1,0 +1,148 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+@if (form) {
+<form
+  [formGroup]="form"
+  name=""
+  class="soe-edit-form"
+  novalidate
+  autocomplete="off">
+  <div class="row">
+    <div class="col-sm-9">
+      <soe-instruction text="time.time.timecoderanking.info"></soe-instruction>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2">
+      <soe-datepicker
+        [labelKey]="'common.datefrom'"
+        formControlName="startDate">
+      </soe-datepicker>
+    </div>
+    <div class="col-sm-2">
+      <soe-datepicker [labelKey]="'common.dateto'" formControlName="stopDate">
+      </soe-datepicker>
+    </div>
+    <div class="col-sm-5">
+      <soe-textbox
+        [labelKey]="'common.description'"
+        [maxLength]="512"
+        formControlName="description">
+      </soe-textbox>
+    </div>
+  </div>
+  @if (this.rightTimeCodesNotInUse.length > 0) {
+  <div class="row" style="margin-top: 15px">
+    <soe-expansion-panel
+      [labelKey]="'time.time.timecode.timecoderanking.missingtimecodes'"
+      [open]="true">
+      @for (missing of this.rightTimeCodesNotInUse; track $index) {
+      <soe-button
+        class="ms-2"
+        [caption]="missing.name"
+        [behaviour]="'danger'"
+        (action)="addMissing($index)"></soe-button>
+      }
+      <div class="row" style="margin-top: 15px">
+        <div class="col-sm-9">
+          <soe-instruction
+            [type]="'warning'"
+            text="time.time.timecode.timecoderanking.missingtimecodes.info"></soe-instruction>
+        </div>
+      </div>
+    </soe-expansion-panel>
+  </div>
+  }
+  <div class="row" style="margin-top: 15px">
+    <soe-expansion-panel
+      [labelKey]="'time.time.planningperiod.planningperiods.distribution.rule.rules'"
+      [static]="true">
+      @if (form.timeCodeRankings) { @for (row of form.timeCodeRankings.controls;
+      track idx; let idx = $index) {
+      <div [formGroup]="row" class="row align-items-center">
+        <div class="row align-items-center">
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'time.time.timecode.timecoderanking.unsocialhourscode'"
+              [items]="filteredLeftTimeCodes[idx] || getLeftTimeCodes(idx)"
+              formControlName="leftTimeCodeId"
+              (selectionChange)="updateLeftTimeCodes()"></soe-select>
+          </div>
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'time.time.timecoderanking.operatortype'"
+              [items]="operatorTypesFiltered"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"
+              formControlName="operatorType">
+            </soe-select>
+          </div>
+          <div class="col-sm-5">
+            <soe-multi-select
+              [labelKey]="'time.time.timecode.timecodes'"
+              [items]="rightTimeCodes || []"
+              [optionNameField]="'name'"
+              [dropdownWidth]="650"
+              [showSelectedItemsInline]="true"
+              formControlName="rightTimeCodeIds"
+              (onSelectionComplete)="onRightTimeCodesChanged()"></soe-multi-select>
+          </div>
+          <div
+            class="col-sm-1 pt-4 d-flex justify-content-center align-items-center">
+            <soe-icon-button
+              [iconName]="'times'"
+              [iconClass]="'icon-delete'"
+              (action)="onDeleteTimeCode(idx)"
+              [noBorder]="true"></soe-icon-button>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-2">
+            <soe-textbox formControlName="operatorTypeInv"> </soe-textbox>
+          </div>
+          <div class="col-sm-5">
+            <soe-textbox formControlName="rightTimeCodeIdsInv"> </soe-textbox>
+          </div>
+          <div></div>
+        </div>
+      </div>
+
+      } }
+      <div class="row">
+        <div class="col-sm-1">
+          <soe-button
+            [title]="'core.add'"
+            [caption]="'core.add'"
+            [inline]="true"
+            [iconName]="'plus'"
+            [disabled]="disableAddButton()"
+            (action)="onAddTimeCode()">
+          </soe-button>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    @if (form && !disableAddButton()) {
+    <div class="col-sm-9" style="margin-top: 10px">
+      <soe-instruction
+        [type]="'warning'"
+        text="time.time.timecoderanking.missingtimecodes"></soe-instruction>
+    </div>
+    }
+  </div>
+  <soe-edit-footer
+    [form]="form"
+    [modifyPermission]="flowHandler.modifyPermission()"
+    [inProgress]="performAction.inProgress()"
+    [idFieldName]="idFieldName"
+    (saved)="validate(false)"
+    (deleted)="validate(true)">
+  </soe-edit-footer>
+</form>
+
+}

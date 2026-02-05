@@ -1,0 +1,18 @@
+﻿<div class="widget-container" data-ng-class="{'expression': ctrl.widget.isExpression, 'operator': ctrl.widget.isOperator}" id="{{ctrl.widget.internalId}}" data-ng-style="{'width': ctrl.widget.actualWidth}">
+    <div class="widget panel panel-default" data-ng-class="ctrl.widget.widgetClass">
+        <div class="panel-heading">
+            <div class="panel-title mediumFont">
+                <span class="widget-title-icon pull-left">
+                    <i class="{{ctrl.widget.titleIcon}}"></i>
+                </span>
+                <span class="indiscreet">{{ctrl.widget.title}}</span>
+                <span class="widget-toolbar pull-right" data-ng-if="ctrl.isFormula && !ctrl.isReadonly">
+                    <i class="fal fa-times" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="ctrl.remove()"></i>
+                </span>
+            </div>
+        </div>
+        <div class="panel-body" data-ng-show="ctrl.isFormula && ctrl.widget.hasSettings">
+            <!-- Widget will be placed here -->
+        </div>
+    </div>
+</div>

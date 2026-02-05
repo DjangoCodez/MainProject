@@ -1,0 +1,1065 @@
+<soe-core-styles>
+  @if (form) {
+    <form
+      [formGroup]="form"
+      class="soe-edit-form"
+      novalidate
+      autocomplete="off">
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-expansion-panel
+            [labelKey]="'Angular UI components test page'"
+            [static]="true">
+            <div class="row mb-4">
+              <div class="col-sm-12">
+                <soe-toolbar
+                  [itemGroups]="toolbarService.toolbarItemGroups"
+                  [noPadding]="true"></soe-toolbar>
+              </div>
+            </div>
+            <soe-expansion-panel [labelKey]="'Expansion panels'">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <soe-expansion-panel
+                        [labelKey]="'Expansion panel'"
+                        [secondaryLabelKey]="'Secondary label'"
+                        [description]="'Short description, separate from label'"
+                        [open]="true">
+                        <span
+                          >This expansion panel is initially opened by setting
+                          the [open] input property to true.</span
+                        >
+                      </soe-expansion-panel>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <soe-expansion-panel
+                        [labelKey]="'Expansion panel'"
+                        [description]="'Static'"
+                        [static]="true">
+                        <span
+                          >This expansion panel is set to static and can't be
+                          collapsed.</span
+                        >
+                      </soe-expansion-panel>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <soe-button
+                        [caption]="enableExpansionPanelButtonCaption()"
+                        [behaviour]="'standard'"
+                        (action)="enableExpansionPanel()"></soe-button>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-sm-12">
+                      <soe-expansion-panel
+                        [labelKey]="'Expansion panel'"
+                        [description]="expansionPanelDescription()"
+                        [open]="true"
+                        [disabled]="!expansionPanelEnabled()">
+                        <span
+                          >This expansion panel is disabled and closed until
+                          enabled.</span
+                        >
+                      </soe-expansion-panel>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <soe-expansion-panel
+                        [labelKey]="expansionPanelBorderlessLabel()"
+                        [borderless]="true"
+                        (isOpened)="expansionPanelBorderlessOpened($event)">
+                        <span
+                          >This is a borderless expansion panel that can be used
+                          to hide secondary information until you open it.</span
+                        >
+                      </soe-expansion-panel>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <mat-accordion [multi]="false">
+                    <soe-expansion-panel
+                      [labelKey]="'Expansion panel 1'"
+                      [description]="
+                        '[multi]=false means only one opened at a time'
+                      ">
+                      <span>This is the first expansion panel in a group.</span>
+                    </soe-expansion-panel>
+                    <soe-expansion-panel [labelKey]="'Expansion panel 2'">
+                      <span
+                        >This is the second expansion panel in a group.</span
+                      >
+                    </soe-expansion-panel>
+                    <soe-expansion-panel [labelKey]="'Expansion panel 3'">
+                      <span>This is the third expansion panel in a group.</span>
+                    </soe-expansion-panel>
+                  </mat-accordion>
+                </div>
+              </div>
+            </soe-expansion-panel>
+            <soe-expansion-panel [labelKey]="'Buttons'">
+              <div class="row">
+                <div class="col-sm-6">
+                  <soe-button
+                    [caption]="'Primary button'"
+                    [behaviour]="'primary'"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Standard button'"
+                    [behaviour]="'standard'"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Warning button'"
+                    [behaviour]="'danger'"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Button with icon'"
+                    [iconName]="'starfighter-twin-ion-engine-advanced'"
+                    [behaviour]="'standard'"></soe-button>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-6">
+                  <soe-menu-button
+                    [caption]="'Primary menu button'"
+                    [behaviour]="'primary'"
+                    [list]="menuButtonList"
+                    (itemSelected)="menuButtonSelected($event)"
+                    (selectedItem)="(menuButtonList)">
+                  </soe-menu-button>
+                  <soe-menu-button
+                    class="ms-2"
+                    [iconName]="'arrow-down-short-wide'"
+                    [tooltip]="'Menu button with only icon'"
+                    [behaviour]="'secondary'"
+                    [list]="menuButtonList2"
+                    [hideDropdownArrow]="true"
+                    [showSelectedItemIcon]="true"
+                    (itemSelected)="menuButton2Selected($event)"
+                    (selectedItem)="(menuButtonList2)">
+                  </soe-menu-button>
+                  <soe-menu-button
+                    class="ms-2"
+                    [caption]="'Secondary split button'"
+                    [variant]="'split'"
+                    [behaviour]="'secondary'"
+                    [list]="splitButtonList"
+                    [showSelectedItemIcon]="true"
+                    (itemSelected)="splitButtonSelected($event)"
+                    (selectedItem)="(splitButtonList)">
+                  </soe-menu-button>
+                </div>
+              </div>
+            </soe-expansion-panel>
+            <soe-expansion-panel [labelKey]="'Checkboxes and radio buttons'">
+              <div class="row">
+                <div class="col-sm-2">
+                  <soe-checkbox
+                    [labelKey]="'Checkbox'"
+                    [checked]="form.value.check"
+                    (valueChanged)="checkboxChanged($event)"
+                    formControlName="check"></soe-checkbox>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-2">
+                  <soe-checkbox
+                    [behaviour]="'switch'"
+                    [labelKey]="'Checkbox displayed as Switch'"
+                    [checked]="form.value.swtch"
+                    (valueChanged)="switchChanged($event)"
+                    formControlName="swtch"></soe-checkbox>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-6">
+                  <soe-radio
+                    [labelKey]="'Radio vertical 1'"
+                    [group]="'radio'"
+                    [value]="'1'"
+                    (valueChanged)="radioChanged($event)"
+                    formControlName="radio"></soe-radio>
+                  <soe-radio
+                    [labelKey]="'Radio vertical 2'"
+                    [group]="'radio'"
+                    [value]="'2'"
+                    (valueChanged)="radioChanged($event)"
+                    formControlName="radio"></soe-radio>
+                  <soe-radio
+                    [labelKey]="'Radio vertical 3'"
+                    [group]="'radio'"
+                    [value]="'3'"
+                    (valueChanged)="radioChanged($event)"
+                    formControlName="radio"></soe-radio>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <soe-radio
+                    [labelKey]="'Radio horizontal 1'"
+                    [inline]="true"
+                    [group]="'radio2'"
+                    [value]="'1'"
+                    formControlName="radio2"></soe-radio>
+                  <soe-radio
+                    [labelKey]="'Radio horizontal 2'"
+                    [inline]="true"
+                    [group]="'radio2'"
+                    [value]="'2'"
+                    formControlName="radio2"></soe-radio>
+                  <soe-radio
+                    [labelKey]="'Radio horizontal 3'"
+                    [inline]="true"
+                    [group]="'radio2'"
+                    [value]="'3'"
+                    formControlName="radio2"></soe-radio>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-1">
+                  <soe-radio
+                    [labelKey]="'Radio button 1'"
+                    [styleAsButton]="true"
+                    [group]="'radio3'"
+                    [value]="'1'"
+                    (valueChanged)="radioChanged($event)"
+                    formControlName="radio3"></soe-radio>
+                  <soe-radio
+                    [labelKey]="'Radio button 2'"
+                    [styleAsButton]="true"
+                    [group]="'radio3'"
+                    [value]="'2'"
+                    (valueChanged)="radioChanged($event)"
+                    formControlName="radio3"></soe-radio>
+                  <soe-radio
+                    [labelKey]="'Radio button 3'"
+                    [styleAsButton]="true"
+                    [group]="'radio3'"
+                    [value]="'3'"
+                    (valueChanged)="radioChanged($event)"
+                    formControlName="radio3"></soe-radio>
+                </div>
+                <div class="col-sm-1">
+                  <soe-radio
+                    [labelKey]="'Radio with icon 1'"
+                    [styleAsButton]="true"
+                    [iconName]="'starfighter-twin-ion-engine-advanced'"
+                    [group]="'radio4'"
+                    [value]="'1'"
+                    (valueChanged)="radioChanged($event)"
+                    formControlName="radio4"></soe-radio>
+                  <soe-radio
+                    [labelKey]="'Radio with icon 2'"
+                    [styleAsButton]="true"
+                    [iconName]="'starfighter'"
+                    [group]="'radio4'"
+                    [value]="'2'"
+                    (valueChanged)="radioChanged($event)"
+                    formControlName="radio4"></soe-radio>
+                  <soe-radio
+                    [labelKey]="'Radio with icon 3'"
+                    [styleAsButton]="true"
+                    [iconName]="'starfighter-twin-ion-engine'"
+                    [group]="'radio4'"
+                    [value]="'3'"
+                    (valueChanged)="radioChanged($event)"
+                    formControlName="radio4"></soe-radio>
+                </div>
+              </div>
+            </soe-expansion-panel>
+            <soe-expansion-panel [labelKey]="'Date and time'">
+              <div class="row">
+                <div class="col-sm-2">
+                  <soe-datepicker
+                    [labelKey]="'DatePicker'"
+                    [showArrows]="true"
+                    [minDate]="minDate"
+                    [maxDate]="maxDate"
+                    [lastInPeriod]="false"
+                    formControlName="date"
+                    (valueChanged)="dateChanged($event)">
+                  </soe-datepicker>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-2">
+                  <soe-datespicker
+                    [labelKey]="'DatesPicker'"
+                    [(dates)]="dates"
+                    [sortByDesc]="true"></soe-datespicker>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-3">
+                  <soe-expansion-panel
+                    [labelKey]="'DateRangePicker'"
+                    [static]="true">
+                    <soe-daterangepicker
+                      [view]="'day'"
+                      [inline]="false"
+                      [showArrows]="true"
+                      [separatorDash]="true"
+                      [autoAdjustRange]="false"
+                      [suppressInitValues]="false"
+                      (valueChanged)="daterangeChanged($event)"
+                      (validityChanged)="daterangeValidityChanged($event)"
+                      formControlName="daterange">
+                    </soe-daterangepicker>
+
+                    @if (form.daterange.invalid) {
+                      <div [style.margin-top]="'0.5rem'">
+                        <soe-button
+                          [caption]="'( ! ) Show validation errors'"
+                          [behaviour]="'danger'"
+                          (action)="openValidationErrors()"></soe-button>
+                      </div>
+                    }
+                  </soe-expansion-panel>
+                </div>
+                <div class="col-sm-3">
+                  <soe-expansion-panel
+                    [labelKey]="'DateRangePicker - Auto adjust range'"
+                    [static]="true">
+                    <soe-daterangepicker
+                      [view]="'day'"
+                      [inline]="false"
+                      [separatorDash]="true"
+                      [autoAdjustRange]="true"
+                      formControlName="daterange2">
+                    </soe-daterangepicker>
+                  </soe-expansion-panel>
+                </div>
+                <div class="col-sm-3">
+                  <soe-expansion-panel
+                    [labelKey]="
+                      'DateRangePicker - Auto adjust range with 7 days'
+                    "
+                    [static]="true">
+                    <soe-daterangepicker
+                      [view]="'day'"
+                      [inline]="false"
+                      [separatorDash]="true"
+                      [autoAdjustRange]="true"
+                      [deltaDays]="7"
+                      formControlName="daterange4">
+                    </soe-daterangepicker>
+                  </soe-expansion-panel>
+                </div>
+                <div class="col-sm-3">
+                  <soe-expansion-panel
+                    [labelKey]="'DateRangePicker - Monthly view'"
+                    [static]="true">
+                    <soe-daterangepicker
+                      [labelKeyFrom]="'common.from'"
+                      [labelKeyTo]="'common.to'"
+                      [view]="'month'"
+                      [inline]="false"
+                      [separatorDash]="true"
+                      [autoAdjustRange]="true"
+                      (valueChanged)="monthrangeChanged($event)"
+                      formControlName="daterange3">
+                    </soe-daterangepicker>
+                    <div class="row">
+                      <div class="col-sm-6" [style.padding-top]="'0.5rem'">
+                        @if (monthRangeFrom != '') {
+                          <soe-instruction
+                            [type]="'info'"
+                            [showIcon]="true"
+                            [fitToContent]="true"
+                            [text]="monthRangeFrom"></soe-instruction>
+                        }
+                      </div>
+                      <div class="col-sm-6" [style.padding-top]="'0.5rem'">
+                        @if (monthRangeTo != '') {
+                          <soe-instruction
+                            [type]="'info'"
+                            [showIcon]="true"
+                            [fitToContent]="true"
+                            [text]="monthRangeTo"></soe-instruction>
+                        }
+                      </div>
+                    </div>
+                  </soe-expansion-panel>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-1">
+                  <soe-timebox
+                    [labelKey]="'TimeBox as time'"
+                    formControlName="time"
+                    (valueChanged)="timeChanged($event)">
+                  </soe-timebox>
+                </div>
+                <div class="col-sm-1">
+                  <soe-timebox
+                    [labelKey]="'TimeBox as duration'"
+                    [isDuration]="true"
+                    [allowNegative]="false"
+                    formControlName="duration"
+                    (valueChanged)="durationChanged($event)">
+                  </soe-timebox>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-2">
+                  <soe-expansion-panel
+                    [labelKey]="'Time range (duration)'"
+                    [static]="true">
+                    <soe-checkbox
+                      [labelKey]="'Auto adjust invalid range'"
+                      (valueChanged)="
+                        autoadjustTimeRangeChanged($event)
+                      "></soe-checkbox>
+                    <soe-timerange
+                      [labelKeyFrom]="'Time from'"
+                      [labelKeyTo]="'Time to'"
+                      [isDuration]="true"
+                      [showArrows]="true"
+                      [autoAdjustRange]="autoadjustTimerange()"
+                      formControlName="timerange"
+                      (valueChanged)="timeRangeChanged($event)">
+                    </soe-timerange>
+                    @if (form.timerange.invalid) {
+                      <div [style.margin-top]="'0.5rem'">
+                        <soe-button
+                          [caption]="'( ! ) Invalid range'"
+                          [behaviour]="'danger'"
+                          (action)="(false)"></soe-button>
+                      </div>
+                    }
+                  </soe-expansion-panel>
+                </div>
+                <div class="col-sm-2">
+                  <soe-expansion-panel
+                    [labelKey]="'Time range'"
+                    [static]="true">
+                    <soe-checkbox
+                      #autoadjustTimeRange2
+                      [labelKey]="'Auto adjust invalid range'"
+                      [disabled]="true"
+                      (valueChanged)="
+                        autoadjustTimeRange2Changed($event)
+                      "></soe-checkbox>
+                    <soe-timerange
+                      [labelKeyFrom]="'Time from'"
+                      [labelKeyTo]="'Time to'"
+                      [autoAdjustRange]="autoadjustTimerange2()"
+                      formControlName="timerange2"
+                      (valueChanged)="timeRangeChanged($event)">
+                    </soe-timerange>
+                    @if (form.timerange2.invalid) {
+                      <div [style.margin-top]="'0.5rem'">
+                        <soe-button
+                          [caption]="'( ! ) Invalid range'"
+                          [behaviour]="'danger'"
+                          (action)="(false)"></soe-button>
+                      </div>
+                    }
+                  </soe-expansion-panel>
+                </div>
+              </div>
+            </soe-expansion-panel>
+            <soe-expansion-panel [labelKey]="'Text and number'">
+              <div class="row">
+                <div class="col-sm-2">
+                  <soe-textbox
+                    [labelKey]="'TextBox'"
+                    [secondaryLabelKey]="'regular'"
+                    [secondaryLabelParantheses]="true"
+                    [maxLength]="100"
+                    [required]="false"
+                    formControlName="text">
+                  </soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                  <soe-textbox
+                    [inline]="true"
+                    [alignInline]="true"
+                    [labelKey]="'TextBox'"
+                    [secondaryLabelKey]="'inline'"
+                    [secondaryLabelParantheses]="true"
+                    [maxLength]="100"
+                    formControlName="text">
+                  </soe-textbox>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-2">
+                  <soe-textbox
+                    [labelKey]="'TextBox with button'"
+                    [maxLength]="100"
+                    formControlName="text2">
+                    <soe-icon-button
+                      [iconName]="
+                        'starfighter-twin-ion-engine-advanced'
+                      "></soe-icon-button>
+                    <soe-icon-button
+                      [iconName]="'starfighter'"></soe-icon-button>
+                  </soe-textbox>
+                </div>
+                <div class="col-sm-2">
+                  <soe-textbox
+                    [labelKey]="'TextBox with password'"
+                    [maxLength]="100"
+                    [isPassword]="true"
+                    formControlName="text3">
+                  </soe-textbox>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-4">
+                  <soe-textarea
+                    [labelKey]="'TextArea'"
+                    [rows]="3"
+                    [maxLength]="1000"
+                    [showLength]="true"
+                    [resizeable]="true"
+                    formControlName="textarea">
+                    <soe-icon-button
+                      [iconName]="
+                        'starfighter-twin-ion-engine-advanced'
+                      "></soe-icon-button>
+                  </soe-textarea>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-6">
+                  <soe-texteditor
+                    [labelKey]="'TextEditor'"
+                    formControlName="textedit">
+                  </soe-texteditor>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-2">
+                  <soe-numberbox
+                    [labelKey]="'NumberBox with decimals'"
+                    [decimals]="2"
+                    [showArrows]="true"
+                    [step]="0.25"
+                    (valueChanged)="numberboxChanged($event)"
+                    formControlName="num">
+                  </soe-numberbox>
+                </div>
+                <div class="col-sm-2">
+                  <soe-numberbox
+                    [labelKey]="'NumberBox with no decimals and no formatting'"
+                    [decimals]="0"
+                    [noFormatting]="true"
+                    (valueChanged)="numberboxChanged($event)"
+                    formControlName="num2">
+                  </soe-numberbox>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-2">
+                  <soe-expansion-panel
+                    [labelKey]="'Number range'"
+                    [static]="true">
+                    <soe-checkbox
+                      [labelKey]="'Auto adjust invalid range'"
+                      (valueChanged)="
+                        autoadjustNumberRangeChanged($event)
+                      "></soe-checkbox>
+                    <soe-numberrange
+                      [labelKeyFrom]="'common.from'"
+                      [labelKeyTo]="'common.to'"
+                      [decimals]="0"
+                      [step]="1"
+                      [arrows]="'range'"
+                      [separatorDash]="true"
+                      [autoAdjustRange]="autoadjustNumberrange()"
+                      (valueChanged)="numberrangeChanged($event)"
+                      formControlName="numberrange">
+                    </soe-numberrange>
+                    @if (form.numberrange.invalid) {
+                      <div [style.margin-top]="'0.5rem'">
+                        <soe-button
+                          [caption]="'( ! ) Invalid range'"
+                          [behaviour]="'danger'"
+                          (action)="(false)"></soe-button>
+                      </div>
+                    }
+                  </soe-expansion-panel>
+                </div>
+              </div>
+            </soe-expansion-panel>
+            <soe-expansion-panel [labelKey]="'Selects'">
+              <div class="row">
+                <div class="col-sm-2">
+                  <soe-select
+                    [labelKey]="'Select'"
+                    [selectedId]="form.value.selectId"
+                    [items]="selectItems || []"
+                    (valueChanged)="selectChanged($event)"
+                    formControlName="selectId">
+                  </soe-select>
+                </div>
+              </div>
+              <br />
+              <div class="row mt-4">
+                <div class="col-sm-2">
+                  <soe-autocomplete
+                    [labelKey]="
+                      'Autocomplete limited to show four items (of six)'
+                    "
+                    [items]="autocompleteItems"
+                    [optionIdField]="'id'"
+                    [optionNameField]="'name'"
+                    [limit]="4"
+                    (valueChanged)="autocompleteChanged($event)"
+                    formControlName="autocompleteId">
+                  </soe-autocomplete>
+                </div>
+              </div>
+              <br />
+              <div class="row mt-4">
+                <div class="col-sm-2">
+                  <soe-multi-select
+                    [labelKey]="'MultiSelect'"
+                    [items]="multiSelectItems || []"
+                    [filterButtonCaption]="'core.select'"
+                    (onSelectionComplete)="multiSelectChanged($event)"
+                    formControlName="multiSelectIds">
+                  </soe-multi-select>
+                </div>
+                <div class="col-sm-2">
+                  <soe-multi-select
+                    [labelKey]="'MultiSelect (showSelected)'"
+                    [items]="multiSelectItems || []"
+                    [showSelected]="true"
+                    [hideHasSelectedItems]="true"
+                    [filterButtonCaption]="'core.select'"
+                    (onSelectionComplete)="multiSelectChanged($event)"
+                    formControlName="multiSelectIds2">
+                  </soe-multi-select>
+                </div>
+                <div class="col-sm-2">
+                  <soe-multi-select
+                    [labelKey]="'MultiSelect (showSelectedItems)'"
+                    [items]="multiSelectItems || []"
+                    [showSelectedItems]="true"
+                    [filterButtonCaption]="'core.select'"
+                    (onSelectionComplete)="multiSelectChanged($event)"
+                    formControlName="multiSelectIds3">
+                  </soe-multi-select>
+                </div>
+                <div class="col-sm-2">
+                  <soe-multi-select
+                    [labelKey]="'MultiSelect (showSelectedItemsInline)'"
+                    [items]="multiSelectItems || []"
+                    [showSelectedItemsInline]="true"
+                    [hideHasSelectedItems]="true"
+                    [filterButtonCaption]="'core.select'"
+                    (onSelectionComplete)="multiSelectChanged($event)"
+                    formControlName="multiSelectIds4">
+                  </soe-multi-select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2">
+                  <soe-multi-select
+                    [labelKey]="'MultiSelect (Unsorted)'"
+                    [items]="multiSelectItems2 || []"
+                    [filterButtonCaption]="'core.select'"
+                    (onSelectionComplete)="multiSelectChanged($event)"
+                    formControlName="multiSelectIds5">
+                  </soe-multi-select>
+                </div>
+                <div class="col-sm-2">
+                  <soe-multi-select
+                    [labelKey]="'MultiSelect (Sorted by id)'"
+                    [items]="multiSelectItems2 || []"
+                    [filterButtonCaption]="'core.select'"
+                    [sortById]="true"
+                    (onSelectionComplete)="multiSelectChanged($event)"
+                    formControlName="multiSelectIds6">
+                  </soe-multi-select>
+                </div>
+                <div class="col-sm-2">
+                  <soe-multi-select
+                    [labelKey]="'MultiSelect (Sorted by name)'"
+                    [items]="multiSelectItems2 || []"
+                    [filterButtonCaption]="'core.select'"
+                    [sortByName]="true"
+                    (onSelectionComplete)="multiSelectChanged($event)"
+                    formControlName="multiSelectIds7">
+                  </soe-multi-select>
+                </div>
+              </div>
+            </soe-expansion-panel>
+            <soe-expansion-panel [labelKey]="'Instructions'">
+              <div class="row">
+                <div class="col-sm-2">
+                  <soe-instruction
+                    [type]="'info'"
+                    [text]="'Instruction of type \'info\''"></soe-instruction>
+                </div>
+                <div class="col-sm-2">
+                  <soe-instruction
+                    [type]="'warning'"
+                    [text]="
+                      'Instruction of type \'warning\''
+                    "></soe-instruction>
+                </div>
+                <div class="col-sm-2">
+                  <soe-instruction
+                    [type]="'error'"
+                    [text]="'Instruction of type \'error\' with close button'"
+                    [showClose]="true"></soe-instruction>
+                </div>
+                <div class="col-sm-2">
+                  <soe-instruction
+                    [type]="'success'"
+                    [text]="'Instruction of type \'success\' with icon'"
+                    [showIcon]="true"
+                    [iconName]="'check'"></soe-instruction>
+                </div>
+                <div class="col-sm-2">
+                  <soe-instruction
+                    [type]="'plain'"
+                    [text]="'Instruction of type \'plain\' and fitToContent'"
+                    [fitToContent]="true"></soe-instruction>
+                </div>
+              </div>
+            </soe-expansion-panel>
+            <soe-expansion-panel [labelKey]="'Message boxes'">
+              <div class="row mt-1">
+                <div class="col-sm-12">
+                  <soe-button
+                    [caption]="'Information'"
+                    [behaviour]="'standard'"
+                    (action)="openMessagebox('information')"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Warning'"
+                    [behaviour]="'standard'"
+                    (action)="openMessagebox('warning')"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Error'"
+                    [behaviour]="'standard'"
+                    (action)="openMessagebox('error')"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Success'"
+                    [behaviour]="'standard'"
+                    (action)="openMessagebox('success')"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Question'"
+                    [behaviour]="'standard'"
+                    (action)="openMessagebox('question')"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Question with abort'"
+                    [behaviour]="'standard'"
+                    (action)="openMessagebox('questionAbort')"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Forbidden'"
+                    [behaviour]="'standard'"
+                    (action)="openMessagebox('forbidden')"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Progress'"
+                    [behaviour]="'standard'"
+                    (action)="openMessagebox('progress')"></soe-button>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-12">
+                  <soe-button
+                    [caption]="'Custom'"
+                    [behaviour]="'standard'"
+                    (action)="openMessagebox('custom')"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Hidden text'"
+                    [behaviour]="'standard'"
+                    (action)="openMessageboxHiddenText()"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Text input'"
+                    [behaviour]="'standard'"
+                    (action)="openMessageboxTextInput(1)"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Text area input'"
+                    [behaviour]="'standard'"
+                    (action)="openMessageboxTextInput(3)"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Number input'"
+                    [behaviour]="'standard'"
+                    (action)="openMessageboxNumberInput()"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Checkbox input'"
+                    [behaviour]="'standard'"
+                    (action)="openMessageboxCheckboxInput()"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Date input'"
+                    [behaviour]="'standard'"
+                    (action)="openMessageboxDateInput()"></soe-button>
+                </div>
+              </div>
+            </soe-expansion-panel>
+            <soe-expansion-panel [labelKey]="'Toasters'">
+              <div class="row">
+                <div class="col-sm-6">
+                  <soe-button
+                    [caption]="'Info toaster'"
+                    [behaviour]="'standard'"
+                    (action)="openInfoToaster()"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Warning toaster'"
+                    [behaviour]="'standard'"
+                    (action)="openWarningToaster()"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Error toaster'"
+                    [behaviour]="'standard'"
+                    (action)="openErrorToaster()"></soe-button>
+                  <soe-button
+                    class="ms-2"
+                    [caption]="'Success toaster'"
+                    [behaviour]="'standard'"
+                    (action)="openSuccessToaster()"></soe-button>
+                </div>
+              </div>
+            </soe-expansion-panel>
+            <soe-expansion-panel [labelKey]="'Grids'">
+              <div class="row">
+                <div class="col-sm-12">
+                  <soe-master-detail-grid-test
+                    [height]="500"></soe-master-detail-grid-test>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-12">
+                  <soe-grouped-headers-grid-test
+                    [height]="300"></soe-grouped-headers-grid-test>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-12">
+                  <soe-editable-grid-test
+                    [form]="form"
+                    [height]="300"></soe-editable-grid-test>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-12">
+                  <soe-label [labelKey]="'File display (grid)'"></soe-label>
+                  <soe-file-display
+                    [gridHeight]="130"
+                    [files]="filesHelper.files"
+                    [uploadPermission]="filesHelper.getUploadPermission()"
+                    (onReload)="filesHelper.loadFiles(true)"></soe-file-display>
+                </div>
+              </div>
+            </soe-expansion-panel>
+            <soe-expansion-panel [labelKey]="'Split and resize'">
+              <soe-label [labelKey]="'Split and resize container'"></soe-label>
+              <div class="row">
+                <soe-split-container [ratio]="0.3" [handlePosition]="'center'">
+                  <div left>
+                    <soe-resize-container [handlePosition]="'left'">
+                      <div
+                        style="
+                          background-color: #eee;
+                          height: 100%;
+                          padding: 16px;
+                        ">
+                        This will be resized when dragging the handle below..
+                      </div>
+                    </soe-resize-container>
+                    <mat-accordion>
+                      <soe-expansion-panel
+                        [labelKey]="'Split Container'"
+                        [static]="true">
+                        <span
+                          >This component requires two content projection
+                          elements, one tagged with <strong>left</strong> and
+                          one <strong>right</strong>. It will divide the two
+                          elements into each side with a handle in the middle.
+                          Dragging the handle horizontally changes ratio between
+                          the left and right pane.<br /><br />
+                          - To start from another ratio than 50/50, provide a
+                          value to the [ratio] input.<br />
+                          - To set the minimum and maximum ratios allowed,
+                          provide a value to the [minRatio] and [maxRatio]
+                          inputs<br />
+                          - To subscribe to changes, listen to the
+                          (ratioChanged) output.<br />
+                          - You can also change size and position of the handle
+                          with some input properties for that.<br
+                        /></span>
+                      </soe-expansion-panel>
+                    </mat-accordion>
+                    <mat-accordion>
+                      <soe-expansion-panel
+                        [labelKey]="'Resize Container'"
+                        [static]="true">
+                        <span
+                          >This component requires one content projection
+                          element. Dragging the handle vertically changes the
+                          height of the element. Remember to use style "height:
+                          100%" for the content to adjust to the container.<br /><br />
+                          - To start from another height than 300px, provide a
+                          value to the [height] input.<br />
+                          - To set the minimum and maximum heights allowed,
+                          provide a value to the [minHeight] and [maxHeight]
+                          inputs<br />
+                          - To subscribe to changes, listen to the
+                          (heightChanged) output.<br />
+                          - You can also change size and position of the handle
+                          with some input properties for that.<br />
+                        </span>
+                      </soe-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                  <div right>
+                    This is the right pane. Put anything you want in here!
+                  </div>
+                </soe-split-container>
+              </div>
+            </soe-expansion-panel>
+            <soe-expansion-panel [labelKey]="'Misc'">
+              <div class="row">
+                <div class="col-sm-2">
+                  <soe-label [labelKey]="'Just a plain label'"></soe-label>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-2">
+                  <soe-colorpicker
+                    [labelKey]="'ColorPicker'"
+                    (valueChanged)="colorChanged($event)"
+                    formControlName="color">
+                  </soe-colorpicker>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-2">
+                  <soe-label [labelKey]="'Record navigator'"></soe-label>
+                  <soe-record-navigator
+                    [records]="navigatorItems"
+                    [isDate]="true"
+                    [showRecordName]="true">
+                  </soe-record-navigator>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-3">
+                  <soe-expansion-panel
+                    [labelKey]="'File upload'"
+                    [static]="true">
+                    <soe-checkbox
+                      [labelKey]="'Only .csv & .txt files'"
+                      formControlName="onlyCsvFiles"></soe-checkbox>
+                    <soe-file-upload
+                      [labelKey]="'FileUpload'"
+                      formControlName="filename"
+                      [acceptedFileExtensions]="
+                        form.controls.onlyCsvFiles.value ? ['.csv', '.txt'] : []
+                      "></soe-file-upload>
+                  </soe-expansion-panel>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <soe-expansion-panel [labelKey]="'Slider'" [static]="true">
+                    <soe-checkbox
+                      [labelKey]="'Show active track'"
+                      [checked]="form.value.sliderShowActiveTrack"
+                      formControlName="sliderShowActiveTrack"></soe-checkbox>
+                    <soe-checkbox
+                      [labelKey]="'Show ticks'"
+                      [checked]="form.value.sliderShowTicks"
+                      formControlName="sliderShowTicks"></soe-checkbox>
+                    <soe-checkbox
+                      [labelKey]="'Show thumb label'"
+                      [checked]="form.value.sliderShowThumbLabel"
+                      formControlName="sliderShowThumbLabel"></soe-checkbox>
+                    <soe-checkbox
+                      [labelKey]="'Show min/max'"
+                      [checked]="form.value.sliderShowMinMax"
+                      formControlName="sliderShowMinMax"></soe-checkbox>
+                    <soe-checkbox
+                      [labelKey]="'Disabled'"
+                      [checked]="form.value.sliderDisabled"
+                      formControlName="sliderDisabled"></soe-checkbox>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <soe-slider
+                          [min]="0"
+                          [max]="100"
+                          [step]="1"
+                          [showActiveTrack]="form.value.sliderShowActiveTrack"
+                          [showTicks]="form.value.sliderShowTicks"
+                          [showThumbLabel]="form.value.sliderShowThumbLabel"
+                          [showMin]="form.value.sliderShowMinMax"
+                          [showMax]="form.value.sliderShowMinMax"
+                          [value]="sliderValue()"
+                          [disabled]="form.value.sliderDisabled"
+                          (valueChanged)="onSliderChanged($event)">
+                        </soe-slider>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <span>Value: {{ sliderValue() }}</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <soe-slider
+                          [min]="0"
+                          [max]="100"
+                          [step]="1"
+                          [showActiveTrack]="form.value.sliderShowActiveTrack"
+                          [showTicks]="form.value.sliderShowTicks"
+                          [showThumbLabel]="form.value.sliderShowThumbLabel"
+                          [showMin]="form.value.sliderShowMinMax"
+                          [showMax]="form.value.sliderShowMinMax"
+                          [useRange]="true"
+                          [valueStart]="sliderValueStart()"
+                          [valueEnd]="sliderValueEnd()"
+                          [disabled]="form.value.sliderDisabled"
+                          (rangeValueChanged)="onSliderRangeChanged($event)">
+                        </soe-slider>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <span
+                          >Value: {{ sliderValueStart() }} -
+                          {{ sliderValueEnd() }}</span
+                        >
+                      </div>
+                    </div>
+                  </soe-expansion-panel>
+                </div>
+              </div>
+            </soe-expansion-panel>
+          </soe-expansion-panel>
+        </div>
+      </div>
+      <soe-edit-footer
+        [form]="form"
+        [hideDelete]="true"
+        [hideSave]="true"></soe-edit-footer>
+    </form>
+  }
+</soe-core-styles>

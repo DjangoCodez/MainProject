@@ -1,0 +1,94 @@
+<div [formGroup]="form()">
+  <div class="row">
+    <div class="row">
+      <div class="col-sm-8">
+        <soe-radio
+          class="mx-2"
+          formControlName="priceStrategy"
+          [labelKey]="
+            'billing.purchase.priceoptimization.wholesalerpricestrategy'
+          "
+          [group]="'priceStrategy'"
+          [value]="2"
+          [inline]="true"
+          (valueChanged)="onPriceStrategyChange($event)">
+        </soe-radio>
+        <soe-radio
+          class="mx-2"
+          formControlName="priceStrategy"
+          [labelKey]="'billing.purchase.priceoptimization.lowestpricestrategy'"
+          [inline]="true"
+          [group]="'priceStrategy'"
+          [value]="3"
+          (valueChanged)="onPriceStrategyChange($event)">
+        </soe-radio>
+        <soe-radio
+          class="mx-2"
+          formControlName="priceStrategy"
+          [labelKey]="'billing.purchase.priceoptimization.manualpricestrategy'"
+          class="mx-2"
+          [inline]="true"
+          [value]="4"
+          [group]="'priceStrategy'"
+          (valueChanged)="onPriceStrategyChange($event)">
+        </soe-radio>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-8">
+        <soe-instruction [text]="infoText" [inline]="true"> </soe-instruction>
+      </div>
+
+      <div class="col-sm-4 p-0">
+        <soe-button
+          class="pull-right m-0"
+          [caption]="'billing.purchase.priceoptimization.addproducts'"
+          [behaviour]="'standard'"
+          [iconName]="'plus'"
+          [disabled]="this.isNotOpen()"
+          [inline]="true"
+          (action)="addProducts()">
+        </soe-button>
+        <soe-multi-select
+          class="pull-right me-2"
+          [placeholderKey]="
+            'billing.purchase.priceoptimization.selectwholesalers'
+          "
+          [labelKey]="' '"
+          [items]="wholesalerList.value || []"
+          [width]="150"
+          [dropdownWidth]="300"
+          [inline]="true"
+          formControlName="selectedWholesellerIds"></soe-multi-select>
+        <soe-checkbox
+          class="pull-right m-0"
+          [labelKey]="'billing.purchase.priceoptimization.showallrows'"
+          [inline]="true"
+          [inToolbar]="true"
+          (valueChanged)="showAllRowsValueChanged($event)">
+        </soe-checkbox>
+        <!-- Dont remove: might be needed later 
+        <div class="float-end me-2">
+          <soe-button
+            [caption]="'billing.purchase.priceoptimization.updateprices'"
+            [behaviour]="'standard'"
+            [disabled]="form().isNew || rowData.value.length === 0"
+            [iconName]="'refresh'"
+            [inline]="true"
+            (action)="loadPrices()">
+          </soe-button>
+        </div> -->
+      </div>
+    </div>
+    @if (flowHandler.allowFetchGrid()) {
+      <soe-grid-wrapper
+        [rows]="rowData"
+        [height]="323"
+        [parentGuid]="guid()"
+        [toolbarItemGroups]="[]"
+        (selectionChanged)="selectionChanged($event)">
+      </soe-grid-wrapper>
+    }
+  </div>
+</div>

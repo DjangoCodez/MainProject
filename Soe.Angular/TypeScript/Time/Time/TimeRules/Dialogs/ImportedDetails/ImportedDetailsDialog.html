@@ -1,0 +1,39 @@
+﻿<form name="ctrl.edit" class="messagebox" novalidate autocomplete="off">
+    <div>
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+            <h6 class="modal-title">
+                <span data-l10n-bind="'time.time.timerule.imported'"></span>
+                <span> {{ctrl.details.imported | date:'shortDate'}} {{ctrl.details.imported | date:'shortTime'}} </span>
+                <span data-l10n-bind="'common.by'"></span>
+                <span> {{ctrl.details.importedBy}} </span>
+                <span data-l10n-bind="'common.from'" class="lowercase"></span>
+                <span> {{ctrl.details.companyName}}</span>
+            </h6>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="info margin-small-bottom" style="height: 41px;">
+                        <span class="largeFont" data-l10n-bind="'time.time.timerule.imported.json'" data-ng-if="!ctrl.showOriginalJson"></span>
+                        <span class="largeFont" data-l10n-bind="'time.time.timerule.imported.originaljson'" data-ng-if="ctrl.showOriginalJson"></span>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'time.time.timerule.imported.showexportedfile'" data-l10n-bind-title="'time.time.timerule.imported.showexportedfile'" data-ng-if="!ctrl.showOriginalJson" data-ng-click="$event.stopPropagation();ctrl.showExportedFile(true)"></button>
+                            <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'time.time.timerule.imported.showtimerulejson'" data-l10n-bind-title="'time.time.timerule.imported.showtimerulejson'" data-ng-if="ctrl.showOriginalJson" data-ng-click="$event.stopPropagation();ctrl.showExportedFile(false)"></button>
+                            <button type="button" class="btn btn-sm btn-default margin-small-left" data-l10n-bind data-l10n-bind-title="'time.time.timerule.imported.copytoclipboard'" style="min-width: unset;" data-ng-click="$event.stopPropagation();ctrl.copyToClipboard()"><span class="fal fa-clipboard"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <pre id="json" style="max-height: 600px;" data-ng-if="!ctrl.showOriginalJson">{{ctrl.details.json | json}}</pre>
+                <pre id="originalJson" style="max-height: 600px;" data-ng-if="ctrl.showOriginalJson">{{ctrl.details.originalJson | json}}</pre>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-right">
+                <button type="button" class="btn btn-sm btn-primary" data-l10n-bind="'core.close'" data-l10n-bind-title="'core.close'" data-ng-click="$event.stopPropagation();ctrl.close()"></button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,69 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" employee-templates-validation ng-model="ctrl.employeeTemplate" has-invalid-position="ctrl.hasInvalidPosition" has-remaining-system-required-fields="ctrl.hasRemainingSystemRequiredFields">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="time.employee.employeetemplate.employeetemplate" is-open="ctrl.headInitiallyOpen">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-select label-key="time.employee.employeecollectiveagreement.employeecollectiveagreement" model="ctrl.employeeTemplate.employeeCollectiveAgreementId" required="true" items="ctrl.collectiveAgreements" options="item.id as item.name for item in items" on-changing="ctrl.collectiveAgreementChanged();"></soe-select>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="time.employee.employeegroup.employeegroup" model="ctrl.collectiveAgreement.employeeGroupName" is-readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="time.employee.payrollgroup.payrollgroup" model="ctrl.collectiveAgreement.payrollGroupName" is-readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="time.employee.vacationgroup.vacationgroup" model="ctrl.collectiveAgreement.vacationGroupName" is-readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2" data-ng-if="ctrl.useAnnualLeave">
+                            <soe-textbox label-key="time.employee.annualleavegroup" model="ctrl.collectiveAgreement.annualLeaveGroupName" is-readonly="true"></soe-textbox>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.name" model="ctrl.employeeTemplate.name" required="true" maxlength="100" is-disabled="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.title" label-value="ctrl.titleInfo" label-value-in-parentheses="true" model="ctrl.employeeTemplate.title" maxlength="128" is-disabled="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.description" model="ctrl.employeeTemplate.description" maxlength="512" is-disabled="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.code" model="ctrl.employeeTemplate.code" maxlength="50" is-disabled="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.externalcode" model="ctrl.employeeTemplate.externalCode" maxlength="50" is-disabled="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <soe-panel label-key="time.employee.employeetemplate.design">
+            <soe-instruction label-key="time.employee.employeetemplate.savetoenabledesigner" is-warning="true" data-ng-if="!ctrl.employeeTemplateId"></soe-instruction>
+            <soe-instruction label-key="time.employee.employeetemplate.savetoenabledesigner.oncopy" data-ng-if="!ctrl.employeeTemplateId && ctrl.isCopy"></soe-instruction>
+            <template-designer employee-template="ctrl.employeeTemplate" is-edit-mode="true" read-only="!ctrl.modifyPermission" has-invalid-position="ctrl.hasInvalidPosition" has-remaining-system-required-fields="ctrl.hasRemainingSystemRequiredFields" on-change="ctrl.designerChanged();" data-ng-if="ctrl.employeeTemplateId"></template-designer>
+        </soe-panel>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.employeeTemplate"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.employeeTemplate.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

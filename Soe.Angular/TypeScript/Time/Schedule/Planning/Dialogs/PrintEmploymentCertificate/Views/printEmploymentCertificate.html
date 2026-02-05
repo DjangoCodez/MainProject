@@ -1,0 +1,87 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <span class="modal-title">{{ctrl.title}}</span>
+        <span class="modal-title" data-ng-if="ctrl.reportName && !ctrl.hasEmployeeTemplates"> ({{ctrl.reportName}})</span>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-3">
+                <soe-radiobutton label-key="time.schedule.planning.printemploymentcertificate.dateinterval" model="ctrl.selectedSelectionType" group="selectionType" value="0"></soe-radiobutton>
+            </div>
+            <div class="col-sm-9 margin-small-top" ng-if="ctrl.selectedSelectionType == 0">
+                <soe-text model="ctrl.dateIntervalText"></soe-text>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <soe-radiobutton label-key="time.schedule.planning.printemploymentcertificate.dates" model="ctrl.selectedSelectionType" group="selectionType" value="1"></soe-radiobutton>
+            </div>
+            <div class="col-sm-4" data-ng-if="ctrl.selectedSelectionType == 1">
+                <soe-multiselect hidelabel="true" button="false" search="false" options="ctrl.selectableDates" model="ctrl.selectedDates"></soe-multiselect>
+            </div>
+        </div>
+        <div class="row margin-small-top">
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-sm btn-default" data-ng-click="$event.stopPropagation();ctrl.getEmployeesWithSubstituteShifts();" data-l10n-bind="'time.schedule.planning.printemploymentcertificate.getemployees'"></button>
+            </div>
+        </div>
+        <div class="row margin-large-top margin-small-bottom">
+            <div class="col-sm-12">
+                <soe-textbox hidelabel="true" placeholder-key="core.filter" model="ctrl.searchString"></soe-textbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-outer-bordered">
+                    <div class="table-scrollable-wrapper">
+                        <div class="table-scrollable" style="height: 203px;">
+                            <table class="table table-more-condensed table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 20px;"><span class="fal link" data-ng-class="{'fa-check-square':ctrl.allItemsSelected, 'fa-square':!ctrl.allItemsSelected}" data-ng-click="ctrl.selectAllItems()"></span></th>
+                                        <th scope="col"><span data-l10n-bind="'common.name'"></span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-if="ctrl.filteringEmployees">
+                                        <td colspan="3">
+                                            <span><i class="far fa-spinner fa-pulse fa-fw"></i> <span data-l10n-bind="'time.schedule.planning.filteringemployees'"></span></span>
+                                        </td>
+                                    </tr>
+
+                                    <tr data-ng-if="!ctrl.filteringEmployees" data-ng-repeat="employee in ctrl.filteredEmployeesWithSubstituteShifts" style="cursor: pointer;" data-ng-click="employee.isSelected = !employee.isSelected">
+                                        <td><span class="fal link" data-ng-class="{'fa-check-square':employee.isSelected, 'fa-square':!employee.isSelected}"></span></td>
+                                        <td><span>{{employee.numberAndName}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-top" data-ng-if="ctrl.hasEmployeeTemplates">
+            <div class="col-sm-12">
+                <soe-select label-key="common.selecttemplate" model="ctrl.selectedEmployeeTemplateId" items="ctrl.employeeTemplates" options="item.id as item.name for item in items" data-ng-if="!ctrl.reportId"></soe-select>
+                <soe-select label-key="time.schedule.planning.printemploymentcertificate.employeetemplates" model="ctrl.selectedEmployeeTemplateId" items="ctrl.employeeTemplates" options="item.id as item.name for item in items" data-ng-if="ctrl.reportId"></soe-select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col margin-large-right"><soe-checkbox label-key="common.saveindatastorage" model="ctrl.savePrintout"></soe-checkbox></div>
+                <div class="col margin-large-right" data-ng-if="ctrl.selectedEmployeeTemplateId > 0"><soe-checkbox label-key="common.signdoc.init" model="ctrl.initSigning" is-disabled="!ctrl.savePrintout"></soe-checkbox></div>
+                <div class="col margin-large-right" data-ng-if="!ctrl.isSendMode"><soe-checkbox label-key="time.schedule.planning.printemploymentcertificate.onereportperemployee" model="ctrl.oneReportPerEmployee" is-disabled="ctrl.oneReportPerEmployeeDisabled"></soe-checkbox></div>
+            </div>
+        </div>
+        <div class="row margin-small-top">
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+                <button type="button" data-ng-if="!ctrl.isSendMode" data-ng-disabled="ctrl.getSelectedEmployeeIds().length === 0 || ctrl.executing" class="btn btn-primary" data-l10n-bind="'core.print'" data-ng-click="ctrl.initPrint()"></button>
+                <button type="button" data-ng-if="ctrl.isSendMode" data-ng-disabled="ctrl.getSelectedEmployeeIds().length === 0 || ctrl.executing" class="btn btn-primary" data-l10n-bind="'core.send'" data-ng-click="ctrl.send()"></button>
+            </div>
+        </div>
+    </div>
+</form>

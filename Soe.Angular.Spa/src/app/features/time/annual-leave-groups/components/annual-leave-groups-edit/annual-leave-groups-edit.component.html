@@ -1,0 +1,117 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'common.type'"
+          [selectedId]="form.value.type"
+          [items]="performTypes.data || []"
+          formControlName="type">
+          <soe-button
+            [caption]="'time.employee.annualleavegroups.type.details'"
+            [inline]="false"
+            [disabled]="!typeChosen()"
+            (action)="openTypeDetailsDialog()"></soe-button>
+        </soe-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          [autoFocus]="true"
+          formControlName="name">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'time.time.timedeviationcause.timedeviationcause'"
+          [selectedId]="form.value.timeDeviationCauseId"
+          [items]="performCauses.data || []"
+          formControlName="timeDeviationCauseId">
+        </soe-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <soe-textbox
+          [labelKey]="'common.description'"
+          [maxLength]="512"
+          formControlName="description">
+        </soe-textbox>
+      </div>
+    </div>
+    <!--<div class="row">
+      <div class="col-sm-1">
+        <soe-numberbox
+          [labelKey]="'time.employee.annualleavegroups.qualifyingdays'"
+          formControlName="qualifyingDays"></soe-numberbox>
+      </div>
+      <div class="col-sm-3">
+        <soe-instruction
+          [type]="'info'"
+          [inline]="true"
+          [text]="'time.employee.annualleavegroups.qualifyingdays.info'"
+          [fitToContent]="false"></soe-instruction>
+      </div>
+    </div>-->
+    <div class="row">
+      <div class="col-sm-1">
+        <soe-numberbox
+          [labelKey]="'time.employee.annualleavegroups.qualifyingmonths'"
+          formControlName="qualifyingMonths"></soe-numberbox>
+      </div>
+      <div class="col-sm-3">
+        <soe-instruction
+          [type]="'info'"
+          [inline]="true"
+          [text]="'time.employee.annualleavegroups.qualifyingmonths.info'"
+          [fitToContent]="false"></soe-instruction>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1">
+        <soe-numberbox
+          [labelKey]="'time.employee.annualleavegroups.gapdays'"
+          formControlName="gapDays"></soe-numberbox>
+      </div>
+      <div class="col-sm-3">
+        <soe-instruction
+          [type]="'info'"
+          [inline]="true"
+          [text]="'time.employee.annualleavegroups.gapdays.info'"
+          [fitToContent]="false"></soe-instruction>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1">
+        <soe-timebox
+          [isDuration]="true"
+          [labelKey]="'time.employee.annualleavegroups.minresttime'"
+          formControlName="ruleRestTimeMinimum"></soe-timebox>
+      </div>
+      <div class="col-sm-3">
+        <soe-instruction
+          [type]="'info'"
+          [inline]="true"
+          [text]="'time.employee.annualleavegroups.minresttime.info'"
+          [fitToContent]="false"></soe-instruction>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

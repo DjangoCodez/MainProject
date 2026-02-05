@@ -1,0 +1,235 @@
+@if (showInfoMessage()) {
+  <div class="col-sm-12">
+    <div class="info">
+      <soe-toolbar
+        [itemGroups]="additionalToolbarItemGroups"
+        [noPadding]="true"
+        [noBorder]="true"
+        [noMargin]="true">
+        <div class="row" toolbar-content-left>
+          <label class="info-message">{{ infoMessage() }}</label>
+        </div>
+      </soe-toolbar>
+    </div>
+  </div>
+}
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'economy.accounting.voucher.voucher'"
+      [static]="true">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'economy.accounting.voucher.voucherseries'"
+            [items]="voucherSeries || []"
+            [optionIdField]="'voucherSeriesId'"
+            [optionNameField]="'voucherSeriesTypeNumberName'"
+            formControlName="voucherSeriesId"
+            (valueChanged)="voucherSeriesChanged($event)">
+          </soe-select>
+        </div>
+        <div class="col-sm-2">
+          <soe-textbox [labelKey]="'common.number'" formControlName="voucherNr">
+            @if (showEditVoucherNrButton()) {
+              <soe-icon-button
+                [iconName]="'edit'"
+                [tooltip]="'core.edit'"
+                (action)="askEditVoucherNr()">
+              </soe-icon-button>
+            }
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-4">
+          <soe-select
+            [labelKey]="'economy.accounting.voucher.templates'"
+            [items]="templates || []"
+            [optionIdField]="'id'"
+            [optionNameField]="'name'"
+            (valueChanged)="templatesOnChange($event)"
+            formControlName="templateId">
+          </soe-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-datepicker
+            #selectedDate
+            [labelKey]="'common.date'"
+            formControlName="date"
+            (valueChanged)="voucherDateOnChange($event)"></soe-datepicker>
+        </div>
+        <div class="col-sm-5">
+          <soe-textbox [labelKey]="'common.text'" formControlName="text">
+          </soe-textbox>
+        </div>
+        @if (!urlService.isTemplate()) {
+          <div class="col-sm-2"></div>
+        }
+        @if (form.sourceType.value === 0) {
+          <div class="col-sm-3">
+            <soe-checkbox
+              [labelKey]="'economy.accounting.voucher.vatvoucher'"
+              [inline]="true"
+              formControlName="vatVoucher"></soe-checkbox>
+          </div>
+        }
+        @if (form.sourceType.value > 0) {
+          <div class="col-sm-3">
+            <soe-textbox
+              [labelKey]="'economy.accounting.voucher.sourcetype'"
+              formControlName="sourceTypeName">
+            </soe-textbox>
+          </div>
+        }
+      </div>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel [labelKey]="'common.accountingrows'" [open]="true">
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-accounting-rows
+            [isReadOnly]="isLocked()"
+            [container]="1"
+            [form]="form"
+            [rowsIn]="accountingRows()"
+            [addRowWithSetAccountDimFocus]="addRowWithSetAccountDimFocus"
+            [showTextValue]="true"
+            [currencyService]="currencyService"
+            [showEnterpriseCurrency]="showEnterpriseCurrency()"
+            [showBalance]="true"
+            [showAmountSummary]="true"
+            [showRowNr]="true"
+            [showAccrualColumns]="true"
+            (hasDebitCreditBalanceError)="hasDebitCreditBalanceError($event)"
+            (editCompletedForBalancedAccount)="
+              onEditCompletedForBalancedAccount()
+            "
+            [showRegenerateButton]="false"
+            [showQuantity]="true"
+            [clearInternalAccounts]="false"
+            (accountingRowsChanged)="accountingRowsChanged($event)"
+            (openVoucher)="openVoucher($event)"
+            (accountingRowsReady)="
+              accountingRowsReady($event)
+            "></soe-accounting-rows>
+          <!-- [allowZeroAmount]="saveAsTemplate" -->
+        </div>
+      </div>
+    </soe-expansion-panel>
+    @if (!form.isNew) {
+      @if (!urlService.isTemplate()) {
+        <soe-expansion-panel
+          [open]="false"
+          [labelKey]="'core.document'"
+          [secondaryLabelKey]="filesHelper.nbrOfFilesStr()"
+          [secondaryLabelParantheses]="true"
+          (isOpened)="loadFileList($event)">
+          <soe-file-display
+            [gridHeight]="150"
+            [helper]="filesHelper"></soe-file-display>
+        </soe-expansion-panel>
+      }
+      <soe-expansion-panel
+        [labelKey]="'common.tracing'"
+        (isOpened)="isVoucherTracingOpened($event)">
+        @if (traceRowsRendered()) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-trace-rows
+                [traceId]="form.value.voucherHeadId"
+                [pageName]="pageName"></soe-trace-rows>
+            </div>
+          </div>
+        }
+      </soe-expansion-panel>
+
+      <soe-expansion-panel
+        [labelKey]="'economy.accounting.voucher.history'"
+        (isOpened)="isVoucherHistoryOpened($event)">
+        <div class="row">
+          <soe-voucher-edit-history-grid
+            [rows]="historyGridRows"></soe-voucher-edit-history-grid>
+        </div>
+      </soe-expansion-panel>
+    }
+    <soe-expansion-panel [labelKey]="'common.note'">
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-textarea
+            [labelKey]="' '"
+            [rows]="5"
+            [resizeable]="true"
+            formControlName="note">
+          </soe-textarea>
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <div class="soe-form-footer">
+      <div class="col-sm-6 d-flex flex-row align-items-start">
+        <created-modified [model]="form.value" class="ps-2"></created-modified>
+      </div>
+      <div class="col-sm-6 d-flex flex-row-reverse align-items-end">
+        @if (flowHandler.modifyPermission()) {
+          @if (urlService.isTemplate()) {
+            <soe-save-button
+              #saveButton
+              class="me-2 ps-2"
+              [caption]="'core.save'"
+              [behaviour]="'primary'"
+              [disabled]="
+                !flowHandler.modifyPermission() || form.invalid || !form.dirty
+              "
+              [invalid]="form.invalid"
+              (validationErrorsAction)="form.openFormValidationErrors()"
+              (action)="save()">
+            </soe-save-button>
+          }
+          @if (!urlService.isTemplate()) {
+            <soe-menu-button
+              #saveButton
+              class="me-2 ps-2"
+              [caption]="'core.save'"
+              [list]="saveFunctions"
+              [disabled]="
+                !flowHandler.modifyPermission() || form.invalid || !form.dirty
+              "
+              [behaviour]="'primary'"
+              [variant]="'split'"
+              [dropUp]="true"
+              [selectedItem]="saveFunctions[0]"
+              (itemSelected)="executeSaveFunction($event)"
+              [invalid]="form.invalid"
+              (validationErrorsAction)="form.openFormValidationErrors()">
+            </soe-menu-button>
+          }
+          @if (showDeleteButton()) {
+            <soe-delete-button
+              class="ps-2"
+              (action)="triggerDelete()"></soe-delete-button>
+          }
+        }
+        <form
+          [formGroup]="formKeepVoucherOpenAfterSave"
+          novalidate
+          autocomplete="off">
+          <soe-checkbox
+            [labelKey]="'economy.accounting.voucher.keepvoucheraftersave'"
+            [inline]="true"
+            [inToolbar]="true"
+            formControlName="keepVoucherOpenAfterSave"
+            (valueChanged)="saveKeepVoucherSetting($event)"></soe-checkbox>
+        </form>
+      </div>
+    </div>
+  </form>
+}

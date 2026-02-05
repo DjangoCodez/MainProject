@@ -1,0 +1,18 @@
+﻿<div>
+    <soe-panel label-key="common.report.report.reports" condensed="true">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 28px" data-l10n-bind="'common.categories.selected'"></th>
+                    <th scope="col" data-l10n-bind="'common.name'"></th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="report in ctrl.allReports | orderBy:'sort'">
+                <tr>
+                    <td><i class="fal margin-small-left" data-ng-class="{'fa-square': !report.selected, 'fa-check-square': report.selected, 'link': !ctrl.readOnly, 'disabledTextColor': ctrl.readOnly}" data-ng-click="ctrl.reportSelected(report);"></i></td>
+                    <td><span>{{report.reportName}}</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </soe-panel>
+</div>

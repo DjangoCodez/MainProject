@@ -1,0 +1,85 @@
+<form [formGroup]="form" novalidate autocomplete="off">
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [parentGuid]="guid()"
+      (editRowClicked)="edit($event)"
+      [toolbarGroups]="toolbarUtils.toolbarGroups"
+      (selectionChanged)="selectionChanged($event)">
+      <div class="row" toolbar-content-left>
+        <soe-select
+          [items]="deductionTypes"
+          [inline]="true"
+          formControlName="deductionType"
+          (valueChanged)="taxDeductionTypeChanged($event)">
+        </soe-select>
+      </div>
+    </soe-grid-wrapper>
+
+    <div class="row" footer>
+      <div class="col-sm-12">
+        <div class="information-container no-top-margin">
+          <div class="row mt-3">
+            <div class="col-sm-8">
+              <soe-label class="pull-right"> </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelKey]="'common.customer.invoices.checkedrows'">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelKey]="'common.customer.invoices.filteredrows'">
+              </soe-label>
+            </div>
+          </div>
+
+          <div class="row mb-1">
+            <div class="col-sm-8">
+              <soe-label
+                class="discreet"
+                [labelKey]="'billing.invoices.householddeduction.applytext'">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right discreet"
+                [labelValue]="
+                  selectedAmount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right discreet"
+                [labelValue]="
+                  filteredAmount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12">
+        <div class="col-sm-12 p-2 d-flex flex-row-reverse align-items-end">
+          <soe-button
+            [caption]="'billing.invoices.householddeduction.saveapplied'"
+            [behaviour]="'primary'"
+            (action)="saveApplied()"
+            [disabled]="applyButtonDisabled()">
+          </soe-button>
+        </div>
+      </div>
+    </div>
+  }
+</form>

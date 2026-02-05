@@ -1,0 +1,60 @@
+<form [formGroup]="form()" novalidate autocomplete="off">
+  <div
+    class="shift"
+    [style.background-color]="form().controls.shiftTypeColor.value"
+    [style.color]="form().controls.textColor.value"
+    [class.is-booking]="form().isBooking"
+    [class.is-standby]="form().isStandby"
+    [class.is-onduty]="form().isOnDuty"
+    [class.is-selected]="isSelected()">
+    <div class="shift-main">
+      <div class="first-row">
+        <div class="shift-time">
+          <!-- Show whole day text or time -->
+          @if (form().isWholeDay) {
+            <span>{{
+              'time.schedule.planning.wholedaylabel' | translate
+            }}</span>
+          } @else {
+            <span
+              >{{ actualStartTime() | date: 'shortTime' }}-{{
+                actualStopTime() | date: 'shortTime'
+              }}</span
+            >
+            <span
+              >, {{ shiftLengthExcludingBreaks() | minutesToTimeSpan }}</span
+            >
+            @if (shiftBreaksLength() > 0) {
+              <span class="ms-1"
+                >({{ shiftBreaksLength() | minutesToTimeSpan }})</span
+              >
+            }
+          }
+        </div>
+      </div>
+      <div class="second-row">
+        <div class="shift-types">
+          <span class="shift-type">{{
+            form().controls.shiftTypeName.value
+          }}</span>
+          @if (form().controls.description.value) {
+            <span class="mx-1">-</span>
+            <span class="description">{{
+              form().controls.description.value
+            }}</span>
+          }
+        </div>
+      </div>
+    </div>
+    @if (isSelected()) {
+      <div class="select-shift-icon">
+        <fa-icon [icon]="['fal', 'chevron-right']"></fa-icon>
+      </div>
+    }
+    @if (form().dirty) {
+      <div class="modified-icon">
+        <fa-icon [icon]="['fal', 'asterisk']"></fa-icon>
+      </div>
+    }
+  </div>
+</form>

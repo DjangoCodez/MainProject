@@ -1,0 +1,9 @@
+<div class="filter" (keydown.enter)="onEnterPressed()">
+  <soe-datepicker
+    #datepicker
+    [labelKey]="'DatePicker'"
+    [gridMode]="true"
+    [formControl]="localControl"
+    (valueChanged)="onDateChanged($event)"
+    (closed)="onCalendarClosed()"></soe-datepicker>
+</div>

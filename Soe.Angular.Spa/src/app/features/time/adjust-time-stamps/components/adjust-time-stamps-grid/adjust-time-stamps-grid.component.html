@@ -1,0 +1,67 @@
+@if (form) {
+  <form [formGroup]="form">
+    <div class="row header" style="padding: 10px; align-items: center">
+      <div class="row">
+        <soe-instruction
+          text="time.time.adjusttimestamps.headerinfo"></soe-instruction>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-multi-select
+            [labelKey]="'time.schedule.planning.employees'"
+            [placeholderKey]="'time.schedule.planning.employees'"
+            [items]="employees"
+            formControlName="selectedEmployees">
+          </soe-multi-select>
+        </div>
+
+        <div class="col-sm-2">
+          <soe-datepicker
+            formControlName="selectedDateFrom"
+            labelKey="common.fromdate">
+          </soe-datepicker>
+        </div>
+
+        <div class="col-sm-2">
+          <soe-datepicker
+            formControlName="selectedDateTo"
+            labelKey="common.todate">
+          </soe-datepicker>
+        </div>
+
+        <div class="col-sm-2 d-flex align-items-end">
+          <soe-button
+            [behaviour]="'primary'"
+            [caption]="'core.search'"
+            [title]="'core.search'"
+            (action)="search()"
+            [disabled]="!checkSelectedEmployees() || !checkSelectedDates()">
+          </soe-button>
+        </div>
+      </div>
+    </div>
+    @if (this.showGrid) {
+      <div class="row">
+        <div class="form-group form-group-sm">
+          <soe-grid-wrapper
+            [rows]="rowData"
+            [parentGuid]="guid()"
+            (selectedItemsChanged)="selectedItemsChanged($event)"
+            [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+            [toolbarGroups]="toolbarUtils.toolbarGroups"
+            [height]="600">
+          </soe-grid-wrapper>
+        </div>
+      </div>
+      <div class="p-2 d-flex justify-content-end gap-2">
+        <soe-save-button
+          [behaviour]="'save'"
+          [caption]="'time.time.adjusttimestamps.saveandrecalculate'"
+          (action)="save()"
+          [invalid]="form.invalid"
+          [disabled]="!checkModifiedRows()">
+        </soe-save-button>
+      </div>
+    }
+  </form>
+}

@@ -1,0 +1,118 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="time.export.salary.searchselection" is-open="ctrl.searchSelectionAccordionOpen">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <date-time-interval-selection label-key="common.periodtype" selected-interval="time-period" on-time-period-changed="ctrl.onTimePeriodChanged(item)" on-selected="ctrl.onTimeIntervalSelected(selection)"></date-time-interval-selection>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-select label-key="core.groupon" model="ctrl.accountDimId" items="ctrl.accountDims" options="item.accountDimId as item.name for item in items"></soe-select>
+                        </div>
+                        <div class="col-sm-1" style="margin-top: 22px;">
+                            <button type="button" class="btn btn-sm ngSoeMainButton" style="margin-left: 0px;" data-l10n-bind="'core.search'" data-l10n-bind-title="'core.search'" data-ng-disabled="!ctrl.dateFrom || !ctrl.dateTo || ctrl.searching" data-ng-click="$event.stopPropagation();ctrl.loadSelection()"></button>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="(ctrl.dateFrom || ctrl.dateTo) && ctrl.timePeriodItem !== 'date'">
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="col-sm-8 col-sm-offset-4 margin-small-top">
+                                    {{ctrl.dateFrom | date:'shortDate'}} - {{ctrl.dateTo | date:'shortDate'}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="time.export.salary.exportselection" is-open="ctrl.exportSelectionAccordionOpen">
+                <div>
+                    <div class="row" data-ng-if="!ctrl.groups || ctrl.groups.length===0">
+                        <div class="col-sm-12">
+                            <div class="info">
+                                <span data-l10n-bind="'time.export.salary.noresult'"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.groups.length>0">
+                        <div class="col-sm-3">
+                            <soe-textbox hidelabel="true" placeholder-key="core.aggrid.filterOoo" model="ctrl.tmpFilterText" button-icon="fa-times" button-class="textColor" button-tooltip-key="core.uigrid.gridmenu.clear_all_filters" button-disabled="!ctrl.tmpFilterText" on-button-click="ctrl.clearFilter();" on-change="ctrl.filterEmployees();"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-checkbox label-key="time.export.salary.lockperiod" model="ctrl.lockPeriod" data-ng-if="ctrl.showLockPeriod" is-disabled="ctrl.createAsPreliminary"></soe-checkbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-checkbox label-key="time.export.salary.createpreliminary" model="ctrl.createAsPreliminary" data-ng-if="ctrl.showCreateAsPreliminary"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row margin-large-top">
+                        <div class="col-sm-12">
+                            <table class="table table-condensed table-hover table-outer-bordered" data-ng-if="ctrl.groups.length>0">
+                                <thead>
+                                    <tr style="height: 35px;">
+                                        <th scope="col" style="width: 25px; vertical-align: middle;"><i class="far link" data-ng-class="{'fa-chevron-right': !ctrl.allGroupsExpanded, 'fa-chevron-down': ctrl.allGroupsExpanded}" data-ng-click="ctrl.expandAllGroups();"></i></th>
+                                        <th scope="col" style="width: 25px; vertical-align: middle;"><i class="fal link" data-ng-class="{'fa-square': !ctrl.allGroupsSelected, 'fa-check-square': ctrl.allGroupsSelected}" data-ng-click="ctrl.selectAllGroups();"></i></th>
+                                        <th scope="col" style="width: 25px; vertical-align: middle;"><i class="fal fa-exclamation-circle warningColor" data-ng-if="!ctrl.head.entirePeriodValidForExport"></i></th>
+                                        <th scope="col" class="fit-to-content"><span title="{{ctrl.head.attestStateName}}"><svg height="16px" width="16px"><circle class="shape" cx="8" cy="8" r="8" data-ng-style="{'fill': ctrl.head.attestStateColor}" data-ng-if="ctrl.head.attestStateColor"></circle></svg></span></th>
+                                        <th scope="col" style="vertical-align: middle;"><span class="discreet"><span class="info" data-l10n-bind="'time.export.salary.selectemployees'"></span><span class="margin-large-left"><span data-l10n-bind="'time.export.salary.totalselected'"></span><span>: {{ctrl.getTotalSelected()}}</span></span></span></th>
+                                        <th scope="col" style="width: 25px; vertical-align: middle;"><i class="fal link" data-ng-class="{'fal fa-envelope': true}" data-ng-click="ctrl.openAttestReminderDialog();" data-l10n-bind data-l10n-bind-title="'time.time.attest.sendattestreminder'"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody data-ng-repeat="group in ctrl.groups">
+                                    <tr>
+                                        <td style="width: 25px;"><i class="far link" data-ng-class="{'fa-chevron-right': !group.expanded, 'fa-chevron-down': group.expanded}" data-ng-if="group.timeSalaryExportSelectionEmployees.length>0" data-ng-click="ctrl.groupExpanded(group);"></i></td>
+                                        <td style="width: 25px;"><i class="fal link" data-ng-class="{'fa-square': !group.selected, 'fa-check-square': group.selected}" data-ng-click="ctrl.groupSelected(group);"></i></td>
+                                        <td style="width: 25px; vertical-align: middle;"><i class="fal fa-exclamation-circle warningColor" data-ng-if="!group.entirePeriodValidForExport"></i></td>
+                                        <td class="fit-to-content"><span title="{{group.attestStateName}}"><svg height="16px" width="16px" style="margin-bottom: -2px;"><circle class="shape" cx="8" cy="8" r="8" data-ng-style="{'fill': group.attestStateColor}" data-ng-if="group.attestStateColor"></circle></svg></span></td>
+                                        <td><span class="indiscreet">{{group.name}}</span><span class="margin-large-left">{{(group.timeSalaryExportSelectionEmployees | filter:{selected:'true'}).length}} ({{group.timeSalaryExportSelectionEmployees.length}})</span></td>
+                                        <td style="width: 25px;"><i class="fal link" data-ng-class="{'fal fa-envelope': true}" data-ng-click="ctrl.openAttestReminderDialog(group);" data-l10n-bind data-l10n-bind-title="'time.time.attest.sendattestreminder'"></i></td>
+                                    </tr>
+                                    <!-- Employees -->
+                                    <tr data-ng-if="group.timeSalaryExportSelectionEmployees.length>0 && group.expanded">
+                                        <td colspan="5">
+                                            <div class="table-outer-bordered" style="margin-left:18px;">
+                                                <table class="table table-condensed table-striped table-hover" style="margin-bottom: 0;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" style="width: 25px;"></th>
+                                                            <th scope="col" style="width: 25px;"></th>
+                                                            <th scope="col" class="column-sortable" data-ng-click="group.sort('attestStateName');"><span><span data-l10n-bind="'time.time.attest.atteststate'"></span><i class="fas" data-ng-class="{'fa-caret-down':group.sortBy==='attestStateName' && !group.sortByReverse, 'fa-caret-up':group.sortBy==='attestStateName' && group.sortByReverse}" data-ng-if="group.sortBy==='attestStateName'"></i></span></th>
+                                                            <th scope="col" class="column-sortable right-align-cell" data-ng-click="group.sort('employeeNrSort');"><span><span data-l10n-bind="'common.number'"></span><i class="fas" data-ng-class="{'fa-caret-down':group.sortBy==='employeeNrSort' && !group.sortByReverse, 'fa-caret-up':group.sortBy==='employeeNrSort' && group.sortByReverse}" data-ng-if="group.sortBy==='employeeNrSort'"></i></span></th>
+                                                            <th scope="col" class="column-sortable" data-ng-click="group.sort('name');"><span><span data-l10n-bind="'common.name'"></span><i class="fas" data-ng-class="{'fa-caret-down':group.sortBy==='name' && !group.sortByReverse, 'fa-caret-up':group.sortBy==='name' && group.sortByReverse}" data-ng-if="group.sortBy==='name'"></i></span></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr data-ng-repeat="employee in group.timeSalaryExportSelectionEmployees | filter: {visible:'true'} | orderBy:group.sortBy:group.sortByReverse track by $index">
+                                                            <td style="width: 25px;"><i class="fal link" data-ng-class="{'fa-square': !employee.selected, 'fa-check-square': employee.selected}" data-ng-click="ctrl.employeeSelected(employee);"></i></td>
+                                                            <td style="width: 25px; vertical-align: middle;"><i class="fal fa-exclamation-circle warningColor" data-ng-if="!employee.entirePeriodValidForExport"></i></td>
+                                                            <td class="fit-to-content"><span><span><svg height="16px" width="16px" style="margin-bottom: -2px;"><circle class="shape" cx="8" cy="8" r="8" data-ng-style="{'fill': employee.attestStateColor}" data-ng-if="employee.attestStateColor"></circle></svg></span><span class="shape-text">{{employee.attestStateName}}</span></span></td>
+                                                            <td class="fit-to-content right-align-cell"><span>{{employee.employeeNr}}</span></td>
+                                                            <td><span>{{employee.name}}</span></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.export'" data-l10n-bind-title="'core.export'" data-ng-disabled="ctrl.exporting || !ctrl.dateFrom || !ctrl.dateTo || ctrl.getTotalSelected() === 0" data-ng-click="$event.stopPropagation();ctrl.initExport()"></button>
+                </div>
+                <div class="pull-right margin-large-right margin-small-top">
+                    <span><span data-l10n-bind="'time.export.salary.totalselected'"></span><span>: {{ctrl.getTotalSelected()}}</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

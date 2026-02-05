@@ -1,0 +1,54 @@
+@use '../../../../../../node_modules/quill/dist/quill.snow.css';
+@use '../../../styles/core-styles/colors.scss';
+@use '../../../styles/core-styles/fonts.scss';
+@use '../../../styles/core-styles/variables.scss';
+
+quill-editor {
+  width: 100%;
+}
+
+.ql-toolbar.ql-snow {
+  border-color: colors.$soe-border-color;
+  border-top-left-radius: variables.$border-radius;
+  border-top-right-radius: variables.$border-radius;
+
+  .ql-formats {
+    margin-right: 8px;
+    padding-right: 8px;
+    border-right: 1px solid colors.$soe-border-color;
+  }
+}
+
+.ql-container.ql-snow {
+  border-color: colors.$soe-border-color;
+  border-bottom-left-radius: variables.$border-radius;
+  border-bottom-right-radius: variables.$border-radius;
+}
+
+.ql-editor {
+  min-height: 100px;
+  max-height: 500px;
+}
+
+.ql-snow .ql-stroke {
+  stroke: colors.$soe-text-color;
+}
+
+.ql-snow .ql-tooltip {
+  margin-left: 150px;
+  box-shadow: 0 0.5rem 1rem rgba(102, 102, 102, 0.15);
+  border: 1px solid colors.$soe-border-color;
+  border-radius: variables.$border-radius;
+  padding: 0.5rem 1rem;
+  color: colors.$soe-text-color;
+
+  input[type='text'] {
+    border: 1px solid colors.$soe-border-color;
+    border-radius: variables.$border-radius;
+    font-size: fonts.$soe-font-size-md;
+    height: 2rem;
+    margin: 0px;
+    padding: 0.25rem 0.5rem;
+    width: 200px;
+  }
+}

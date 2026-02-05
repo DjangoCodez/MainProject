@@ -1,0 +1,15 @@
+
+@if(flowHandler.allowFetchGrid()) {
+    <soe-actor-invoice-matches-grid
+        [actors]="actors"
+        [types]="types"
+        [actorLabelKey]="actorLabelKey"
+        [gridLabelKey]="gridLabelKey"
+        [rowData]="rowData"
+        [guid]="guid()"
+        [toolbarService]="toolbarService"
+        (searchClicked)="searchInvoiceMatches($event)"
+    >   
+    </soe-actor-invoice-matches-grid>
+}
+

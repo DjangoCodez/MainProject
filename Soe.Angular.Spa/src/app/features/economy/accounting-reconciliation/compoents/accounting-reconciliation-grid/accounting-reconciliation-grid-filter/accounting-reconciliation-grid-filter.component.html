@@ -1,0 +1,42 @@
+<div [formGroup]="form" role="form">
+  <div class="row m-1">
+    <div class="col-sm-10">
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-datepicker
+            [labelKey]="'economy.accounting.reconciliation.fromdate'"
+            formControlName="fromDate"></soe-datepicker>
+        </div>
+        <div class="col-sm-2">
+          <soe-datepicker
+            [labelKey]="'economy.accounting.reconciliation.todate'"
+            formControlName="toDate"></soe-datepicker>
+        </div>
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'economy.accounting.reconciliation.fromaccount'"
+            formControlName="fromAccount"
+            [items]="accounts"
+            [optionIdField]="'number'"
+            [optionNameField]="'description'"></soe-select>
+        </div>
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'economy.accounting.reconciliation.toaccount'"
+            formControlName="toAccount"
+            [items]="accounts"
+            [optionIdField]="'number'"
+            [optionNameField]="'description'"></soe-select>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2 mt-4">
+      <soe-button
+        class="pull-right"
+        [caption]="'economy.accounting.reconciliation.buttonsearch'"
+        typeClass="btn btn-primary"
+        [behaviour]="'primary'"
+        (action)="search()"></soe-button>
+    </div>
+  </div>
+</div>

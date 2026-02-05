@@ -1,0 +1,219 @@
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="no-scroll-container">
+      <div class="row mt-2">
+        <soe-expansion-panel [labelKey]="'core.document'" [static]="true">
+          <div class="row">
+            <div class="col-sm-6">
+              <soe-textbox
+                [labelKey]="'common.filename'"
+                formControlName="fileName">
+                <soe-icon-button
+                  [disabled]="!flowHandler.modifyPermission()"
+                  [iconName]="'upload'"
+                  [tooltip]="'core.document.choosefile'"
+                  (action)="openUploadFileDialog()">
+                </soe-icon-button>
+              </soe-textbox>
+            </div>
+            <div class="col-sm-3">
+              <soe-textbox
+                [labelKey]="'core.document.extension'"
+                formControlName="extension">
+              </soe-textbox>
+            </div>
+            @if (form.controls.dataStorageId.value) {
+              <div class="col-sm-3">
+                <soe-button
+                  class="float-end"
+                  [caption]="'core.document.downloadfile'"
+                  [behaviour]="'standard'"
+                  [iconName]="'download'"
+                  [inline]="true"
+                  (action)="downloadFile()">
+                </soe-button>
+              </div>
+            }
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <soe-textbox
+                #nameField
+                [labelKey]="'common.name'"
+                [maxLength]="255"
+                [autoFocus]="true"
+                formControlName="name">
+              </soe-textbox>
+            </div>
+            <div class="col-sm-6">
+              <soe-textbox
+                [labelKey]="'common.description'"
+                [maxLength]="255"
+                formControlName="description">
+              </soe-textbox>
+            </div>
+          </div>
+          <div class="row">
+            <soe-select
+              [labelKey]="'core.document.selectfolder'"
+              [items]="folders || []"
+              (valueChanged)="selectedFolderChanged($event)"
+              formControlName="selectedFolder"></soe-select>
+          </div>
+          <div class="row">
+            <soe-textbox
+              [labelKey]="'core.document.folder'"
+              [maxLength]="255"
+              formControlName="folder">
+            </soe-textbox>
+          </div>
+        </soe-expansion-panel>
+        <soe-expansion-panel
+          [labelKey]="'core.document.publication'"
+          [static]="true">
+          <div class="row">
+            <div class="col-sm-6">
+              <soe-datepicker
+                [labelKey]="'core.document.validfrom'"
+                formControlName="validFrom"></soe-datepicker>
+            </div>
+            <div class="col-sm-6">
+              <soe-datepicker
+                [labelKey]="'core.document.validto'"
+                formControlName="validTo"></soe-datepicker>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <soe-multi-select
+                [placeholderKey]="'core.select'"
+                [items]="performMessageGroups.data || []"
+                [dropUp]="true"
+                [showSelectedItems]="true"
+                [labelKey]="'core.document.messagegroups'"
+                [filterButtonCaption]="'core.ok'"
+                formControlName="messageGroupIds"></soe-multi-select>
+            </div>
+            <div class="col-sm-6">
+              <soe-checkbox
+                [labelKey]="'common.messages.needsconfirmation'"
+                [inline]="true"
+                (valueChanged)="needsConfirmationChanged()"
+                formControlName="needsConfirmation"></soe-checkbox>
+            </div>
+          </div>
+          @if (form.controls.dataStorageId.value) {
+            <soe-expansion-panel
+              [labelKey]="'core.document.showread'"
+              [noMargin]="true"
+              [noPadding]="true"
+              [addTopMargin]="true"
+              (isOpened)="showRecipients()">
+              @if (!performDocumentRecipientInfo.inProgress()) {
+                <div class="row">
+                  <div class="col-sm-offset-6 col-sm-6 py-2 pe-4">
+                    <soe-select
+                      [labelKey]="'core.filter'"
+                      [inline]="true"
+                      [items]="recipientFilters || []"
+                      [selectedId]="form.value.selectedRecipientFilter"
+                      (valueChanged)="filteredRecipientsChanged($event)"
+                      formControlName="selectedRecipientFilter"></soe-select>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="table-scrollable-wrapper">
+                      <div class="table-scrollable" style="height: 218px">
+                        <table
+                          class="table table-more-condensed table-striped table-hover">
+                          <thead>
+                            <tr>
+                              <th
+                                scope="col"
+                                style="table-layout: fixed; min-width: 50px">
+                                <label class="form-label">{{
+                                  'common.name' | translate
+                                }}</label>
+                              </th>
+                              <th
+                                scope="col"
+                                style="table-layout: fixed; min-width: 50px">
+                                <label class="form-label">{{
+                                  'core.document.readdate' | translate
+                                }}</label>
+                              </th>
+                              @if (needsConfirmation) {
+                                <th
+                                  scope="col"
+                                  style="table-layout: fixed; min-width: 50px">
+                                  <label class="form-label">{{
+                                    'core.document.confirmeddate' | translate
+                                  }}</label>
+                                </th>
+                              }
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @for (
+                              recipient of filteredRecipients();
+                              track recipient
+                            ) {
+                              <tr>
+                                <td>
+                                  @if (recipient.employeeNrAndName) {
+                                    <span>{{
+                                      recipient.employeeNrAndName
+                                    }}</span>
+                                  }
+                                  @if (!recipient.employeeNrAndName) {
+                                    <span>{{ recipient.userName }}</span>
+                                  }
+                                </td>
+                                <td>
+                                  <span
+                                    >{{
+                                      recipient.readDate | date: 'shortDate'
+                                    }}
+                                    {{
+                                      recipient.readDate | date: 'shortTime'
+                                    }}</span
+                                  >
+                                </td>
+                                @if (needsConfirmation) {
+                                  <td>
+                                    <span
+                                      >{{
+                                        recipient.confirmedDate
+                                          | date: 'shortDate'
+                                      }}
+                                      {{
+                                        recipient.confirmedDate
+                                          | date: 'shortTime'
+                                      }}</span
+                                    >
+                                  </td>
+                                }
+                              </tr>
+                            }
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </soe-expansion-panel>
+          }
+        </soe-expansion-panel>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission() && form.isValid"
+      [inProgress]="performAction.inProgress()"
+      [showCancel]="true"
+      (cancelled)="triggerCloseDialog(undefined)"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

@@ -1,0 +1,393 @@
+﻿<div>
+    <div class="modal-header" data-ng-class="{'scheduleview-header':!ctrl.isTemplateView && !ctrl.isEmployeePostView && !ctrl.isScenarioView && !ctrl.isStandbyView, 'templateview-header': ctrl.isTemplateView, 'employeepostview-header': ctrl.isEmployeePostView, 'scenarioview-header': ctrl.isScenarioView, 'standbyview-header': ctrl.isStandbyView}">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.planning.editshift.addnew'" data-ng-if="!ctrl.hasShifts && (!ctrl.shift || !ctrl.shift.timeScheduleTemplateBlockId)"></h6>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.planning.editshift.edit'" data-ng-if="ctrl.hasShifts || (ctrl.shift && ctrl.shift.timeScheduleTemplateBlockId)"></h6>
+    </div>
+    <div class="modal-body">
+        <!-- Header -->
+        <div class="row margin-small-bottom" data-ng-if="ctrl.skipWorkRules">
+            <div class="col-sm-12">
+                <soe-label class="errorColor" label-key="time.schedule.planning.workrulesskipped"></soe-label>
+            </div>
+        </div>
+        <div class="margin-small-bottom" data-ng-if="ctrl.dayIsAttested">
+            <div class="warning">
+                <div>
+                    <span data-l10n-bind="'time.schedule.planning.editshift.dayisattested'"></span>
+                </div>
+                <div data-ng-if="ctrl.attestPermission">
+                    <span data-l10n-bind="'time.schedule.planning.editshift.dayisattested.haspermission'"></span>
+                    <button type="button" class="btn btn-sm btn-default" style="float: right; position: relative; top: -15px" data-l10n-bind="'time.time.attest.timestamps.unlockday'" data-l10n-bind-title="'time.time.attest.timestamps.unlockday.tooltip'" data-ng-click="$event.stopPropagation();ctrl.unlockDay();"></button>
+                </div>
+            </div>
+        </div>
+        <div class="margin-small-bottom" data-ng-if="ctrl.hasSwapRequest">
+            <div class="warning">
+                <span data-l10n-bind="'common.swapshift.approveinmobileinfo'"></span>
+            </div>
+        </div>
+        <div class="margin-small-bottom">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="input-group" data-ng-class="{'no-border-radius-on-last-button': !ctrl.isHidden}">
+                        <div class="input-group-btn" style="vertical-align: bottom;" data-ng-if="!ctrl.isHidden">
+                            <button type="button" class="btn btn-sm btn-default fal fa-chevron-left" data-l10n-bind data-l10n-bind-title="'core.previous'" data-ng-disabled="!ctrl.canDecreaseDate" data-ng-click="ctrl.decreaseDate()"></button>
+                        </div>
+                        <soe-datepicker label-key="common.date" model="ctrl.selectedDate" options="ctrl.dateOptions" show-week-day="true" is-readonly="ctrl.isTemplateView || ctrl.isEmployeePostView || ctrl.isReadonly || !ctrl.isNew" on-change="ctrl.selectedDateChanged();"></soe-datepicker>
+                        <div class="input-group-btn" style="vertical-align: bottom;" data-ng-if="!ctrl.isHidden">
+                            <button type="button" class="btn btn-sm btn-default fal fa-chevron-right border-radius-right" data-l10n-bind data-l10n-bind-title="'core.next'" data-ng-disabled="!ctrl.canIncreaseDate" data-ng-click="ctrl.increaseDate()"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <soe-typeahead label-key="common.employee" model="ctrl.selectedEmployee" items="ctrl.employees" options="item as item.numberAndName for item in items" filter-property="numberAndName" limit="50" is-readonly="ctrl.isTemplateView || ctrl.isReadonly || !ctrl.isAdmin || !ctrl.isNew" data-ng-if="!ctrl.isEmployeePostView" on-selection-changed="ctrl.selectedEmployeeChanged();"></soe-typeahead>
+                    <soe-textbox label-key="time.schedule.employeepost.employeepost" model="ctrl.selectedEmployee.name" is-readonly="true" data-ng-if="ctrl.isEmployeePostView"></soe-textbox>
+                </div>
+                <div class="col-sm-4" data-ng-if="ctrl.useAccountHierarchy">
+                    <soe-select label-value="ctrl.accountDim.name" label-value-indiscreet="true" model="ctrl.selectedAccountId" items="ctrl.validAccountsForEmployee" options="item.accountId as item.name for item in items | orderBy:'name'" required="true" button-icon="'fa-sitemap'" button-class="textColor border-radius-right" button-tooltip-key="time.schedule.planning.editshift.showaccountpershift" data-ng-if="ctrl.showAccountSelector" on-changing="ctrl.defaultAccountChangedFromGui();" on-button-click="ctrl.toggleAccounts();"></soe-select>
+                    <soe-textbox label-value="ctrl.accountDim.name" label-value-indiscreet="true" model="ctrl.selectedAccountName" is-readonly="true" data-ng-if="!ctrl.showAccountSelector"></soe-textbox>
+                    <soe-label model="ctrl.accountDim.name" data-ng-if="!ctrl.validAccountsForEmployee.length && ctrl.showAccountSelector"></soe-label>
+                    <div class="warning margin-small-top" data-ng-if="!ctrl.validAccountsForEmployee.length">
+                        <span>{{::ctrl.noValidAccountLabel}}</span>
+                    </div>
+                </div>
+                <div class="col-sm-3" data-ng-class="{'col-sm-7':!ctrl.useAccountHierarchy}" data-ng-if="ctrl.isTemplateView && ctrl.template">
+                    <soe-label label-key="time.schedule.planning.templateschedule"></soe-label>
+                    <div class="info">
+                        <span>{{ctrl.template.description}}</span>
+                    </div>
+                </div>
+                <div class="col-sm-3" data-ng-class="{'col-sm-7':!ctrl.useAccountHierarchy}" data-ng-if="!ctrl.isTemplateView && (ctrl.isFullyUnavailable || ctrl.isPartlyUnavailable)">
+                    <soe-label label-key="time.schedule.planning.availability" class="errorColor"></soe-label>
+                    <div class="warning">
+                        <span>{{ctrl.selectedEmployee.name}}</span> <span data-ng-if="ctrl.isFullyUnavailable" data-l10n-bind="'time.schedule.planning.editshift.fullyunavailable'"></span><span data-ng-if="ctrl.isPartlyUnavailable" data-l10n-bind="'time.schedule.planning.editshift.partlyunavailable'"></span>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="row" style="margin-top: 2px;" data-ng-if="ctrl.breakDayMinutesAfterMidnight !== 0">
+                <div class="col-sm-2">
+                    <span class="indiscreet" data-l10n-bind="'time.schedule.planning.editshift.breakdayminutesaftermidnight'"></span> <span>{{ctrl.breakDayTime}}</span>
+                </div>
+            </div>-->
+        </div>
+        <!-- Shifts -->
+        <soe-panel label-key="time.schedule.planning.shifts" label-value="ctrl.shiftDateLabel" label-value-class="{'warningColor':true}" condensed="true">
+            <div data-ng-if="!ctrl.hasShifts && ctrl.loadingShifts">
+                <soe-instruction class="margin-large-left margin-large-top" label-key="core.loading"></soe-instruction>
+            </div>
+            <div data-ng-if="!ctrl.hasShifts && !ctrl.loadingShifts">
+                <soe-instruction class="margin-large-left margin-large-top" label-key="time.schedule.planning.editshift.noshifts"></soe-instruction>
+            </div>
+            <div class="margin-large-left margin-small-right repeater-semi-condensed" data-ng-repeat="shift in ctrl.shifts | filter:{isBreak:'!true'} track by $index" data-ng-click="ctrl.selectedShift = shift">
+                <div data-ng-class="{'edit-shift-standby': shift.isStandby, 'edit-shift-standby-first-row': shift.isStandby && $first, 'edit-shift-onduty': shift.isOnDuty, 'edit-shift-onduty-first-row': shift.isOnDuty && $first}"></div>
+                <div class="form-group form-group-sm">
+                    <div data-ng-if="$first">
+                        <div class="row" style="margin-left: -20px; margin-bottom: 2px;">
+                            <div class="col-sm-2 padding-none-left padding-none-right">
+                                <div class="col-sm-10">
+                                    <div class="col-sm-4">
+                                        <soe-label label-key="common.from"></soe-label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-label label-key="common.to"></soe-label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-label label-key="time.schedule.planning.editshift.duration"></soe-label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 padding-none-left padding-none-right mediumFontSize" style="margin-top: 5px;">
+                                    <span class="fal fa-sun"></span>&nbsp;<span class="fal fa-moon"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-5 padding-none-left padding-none-right">
+                                <div class="col-sm-6" data-ng-class="{'col-sm-4':ctrl.showScheduleTypes}" data-ng-if="ctrl.showAccounts">
+                                    <soe-label model="ctrl.accountDim.name"></soe-label>
+                                </div>
+                                <div class="col-sm-12" data-ng-class="{'col-sm-4':ctrl.showAccounts && ctrl.showScheduleTypes, 'col-sm-6':ctrl.showAccounts || ctrl.showScheduleTypes}">
+                                    <soe-label label-key="common.shifttype"></soe-label>
+                                </div>
+                                <div class="col-sm-6" data-ng-class="{'col-sm-4':ctrl.showAccounts}" data-ng-if="ctrl.showScheduleTypes">
+                                    <soe-label label-key="time.schedule.scheduletype.scheduletypes"></soe-label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 padding-none-left padding-none-right">
+                                <div data-ng-class="{'col-sm-6':ctrl.hasAbsence && !ctrl.isStandbyView, 'col-sm-12':!ctrl.hasAbsence || ctrl.isStandbyView}">
+                                    <soe-label label-key="time.schedule.planning.editshift.description"></soe-label>
+                                </div>
+                                <div class="col-sm-6" data-ng-if="ctrl.hasAbsence && !ctrl.isStandbyView">
+                                    <soe-label label-key="common.time.timedeviationcause"></soe-label>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="col-sm-10 padding-none-left padding-none-right">
+                                    <div data-ng-class="{'col-sm-3':ctrl.useAccountHierarchy, 'col-sm-4':!ctrl.useAccountHierarchy}" class="padding-none-left" data-ng-if="!ctrl.isTemplateView && !ctrl.isEmployeePostView">
+                                        <soe-label label-key="time.schedule.planning.editshift.preliminary.short" tooltip-key="time.schedule.planning.editshift.preliminary"></soe-label>
+                                    </div>
+                                    <div data-ng-class="{'col-sm-3':ctrl.useAccountHierarchy, 'col-sm-4':!ctrl.useAccountHierarchy}" class="padding-none-left" data-ng-if="ctrl.showExtraShift && !ctrl.isTemplateView && !ctrl.isEmployeePostView">
+                                        <soe-label label-key="time.schedule.planning.editshift.extrashift.short" tooltip-key="time.schedule.planning.editshift.extrashift"></soe-label>
+                                    </div>
+                                    <div data-ng-class="{'col-sm-3':ctrl.useAccountHierarchy, 'col-sm-4':!ctrl.useAccountHierarchy}" class="padding-none-left" data-ng-if="ctrl.showSubstitute && !ctrl.isTemplateView && !ctrl.isEmployeePostView && !ctrl.isHiddenOrVacant">
+                                        <soe-label label-key="time.schedule.planning.editshift.substitute.short" tooltip-key="time.schedule.planning.editshift.substitute"></soe-label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-class="{'repeater-selected-row': ctrl.selectedShift === shift}" style="margin-left: -20px;">
+                        <div class="col-sm-2 padding-none-left padding-none-right">
+                            <div class="col-sm-12" data-ng-if="shift.isWholeDayAbsence">
+                                <i class="fas fa-caret-right" data-ng-if="ctrl.selectedShift === shift"></i>
+                                <soe-label label-key="time.schedule.planning.wholedaylabel"></soe-label>
+                            </div>
+                            <div class="col-sm-10 padding-none-left padding-none-right" data-ng-if="!shift.isWholeDayAbsence">
+                                <div class="edit-shift-overlapping" data-ng-if="shift.isOverlapping && !shift.isWholeDayAbsence"></div>
+                                <i class="fas fa-caret-right" data-ng-if="ctrl.selectedShift === shift"></i>
+                                <div data-ng-class="{'edit-shift-wanted': shift.isWanted, 'edit-shift-unwanted': shift.isUnwanted}" data-ng-if="shift.isWanted || shift.isUnwanted">
+                                    <span data-ng-if="shift.isWanted" style="position: relative; text-align: center; z-index: 5; background-color: inherit; padding-right:1px">{{shift.nbrOfWantedInQueue}}</span>
+                                </div>
+                                <div class="col-sm-4" data-ng-if="!shift.isWholeDayAbsence">
+                                    <soe-timebox hidelabel="true" model="shift.actualStartTime" show-date-as-tooltip="true" is-time="true" input-class="warningBackgroundColor" input-class-condition="!shift.isSameStartDate(ctrl.selectedDate)" set-focus="$last" on-focus="ctrl.selectedShift = shift" is-readonly="ctrl.isReadonly || shift.isReadOnly || shift.isAbsence || shift.isAbsenceRequest" on-change="ctrl.startChanged(shift)"></soe-timebox>
+                                </div>
+                                <div class="col-sm-4" data-ng-if="!shift.isWholeDayAbsence">
+                                    <soe-timebox hidelabel="true" model="shift.actualStopTime" show-date-as-tooltip="true" is-time="true" input-class="warningBackgroundColor" input-class-condition="!shift.isSameStopDate(ctrl.selectedDate)" is-readonly="ctrl.isReadonly || shift.isReadOnly || shift.isAbsence || shift.isAbsenceRequest" on-change="ctrl.stopChanged(shift)"></soe-timebox>
+                                </div>
+                                <div class="col-sm-4" data-ng-if="!shift.isWholeDayAbsence">
+                                    <soe-textbox hidelabel="true" model="shift.duration | minutesToTimeSpan" input-class="text-right" input-class-condition="true" readonly="true" tabindex="-1" data-ng-if="shift.duration !== 1440"></soe-textbox>
+                                    <soe-label model="ctrl.oneDayLabel" style="margin-top: 2px; margin-left: 5px;" data-ng-if="shift.duration === 1440"></soe-label>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 padding-none-left padding-none-right" data-ng-if="!shift.isWholeDayAbsence">
+                                <button type="button" class="btn btn-sm btn-link fal textColor" data-ng-class="{'fa-arrow-alt-to-right warningColor': shift.belongsToNextDay, 'fa-arrow-alt-to-bottom transparent-quarter': !shift.belongsToPreviousDay && !shift.belongsToNextDay, 'fa-arrow-alt-from-left warningColor': shift.belongsToPreviousDay}" style="font-size: 22px; padding: 2px 0px 0px 6px;" data-ng-attr-title="{{shift.belongsToTitle}}" data-ng-focus="ctrl.selectedShift = shift" data-ng-disabled="ctrl.isReadonly || shift.isReadOnly || shift.isAbsence || shift.isAbsenceRequest" tabindex="-1" data-ng-click="$event.stopPropagation();ctrl.toggleBelongsToPreviousDayFromGui(shift)"></button>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 padding-none-left padding-none-right">
+                            <div class="col-sm-6" data-ng-class="{'col-sm-4':ctrl.showScheduleTypes}" data-ng-if="ctrl.showAccounts">
+                                <div class="col-sm-12 padding-none-left padding-none-right" data-ng-class="{'col-sm-6':shift.showAccountName}">
+                                    <soe-select hidelabel="true" model="shift.accountId" data-ng-attr-title="{{shift.accountName}}" items="ctrl.validAccountsForEmployee" options="item.accountId as item.name for item in items | orderBy:'name'" data-ng-if="!ctrl.isReadonly && !shift.isReadOnly && !shift.isAbsence && !shift.isAbsenceRequest" on-changing="ctrl.accountChanged(shift);"></soe-select>
+                                    <soe-textbox hidelabel="true" model="shift.accountName" data-ng-attr-title="{{shift.accountName}}" is-readonly="true" data-ng-if="ctrl.isReadonly || shift.isReadOnly || shift.isAbsence || shift.isAbsenceRequest"></soe-textbox>
+                                </div>
+                                <div class="col-sm-6 padding-none-right" data-ng-if="shift.showAccountName">
+                                    <soe-textbox hidelabel="true" model="shift.accountName" data-ng-attr-title="{{shift.accountName}}" is-readonly="true"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="col-sm-12" data-ng-class="{'col-sm-4':ctrl.showAccounts && ctrl.showScheduleTypes, 'col-sm-6':ctrl.showAccounts || ctrl.showScheduleTypes}">
+                                <div class="col-sm-12 padding-none-left padding-none-right" data-ng-class="{'col-sm-6':shift.showShiftTypeName}">
+                                    <soe-select hidelabel="true" model="shift.shiftTypeId" data-ng-attr-title="{{shift.shiftTypeName}}" items="shift.shiftTypes" options="item.shiftTypeId as item.name for item in items" data-ng-if="!shift.isStandby && !ctrl.isReadonly && !shift.isReadOnly && !shift.isAbsence && !shift.isAbsenceRequest" on-changing="ctrl.shiftTypeChangedFromGui(shift)"></soe-select>
+                                    <soe-select hidelabel="true" model="shift.shiftTypeId" data-ng-attr-title="{{shift.shiftTypeName}}" items="ctrl.standbyShiftTypes" options="item.shiftTypeId as item.name for item in items" data-ng-if="shift.isStandby && !ctrl.isReadonly && !shift.isReadOnly && !shift.isAbsence && !shift.isAbsenceRequest" on-changing="ctrl.shiftTypeChangedFromGui(shift)"></soe-select>
+                                    <soe-textbox hidelabel="true" model="shift.shiftTypeName" data-ng-attr-title="{{shift.shiftTypeName}}" is-readonly="true" data-ng-if="ctrl.isReadonly || shift.isReadOnly || shift.isAbsence || shift.isAbsenceRequest"></soe-textbox>
+                                </div>
+                                <div class="col-sm-6 padding-none-right" data-ng-if="shift.showShiftTypeName">
+                                    <soe-textbox hidelabel="true" model="shift.shiftTypeName" data-ng-attr-title="{{shift.shiftTypeName}}" is-readonly="true"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 padding-none-left padding-none-right" data-ng-class="{'col-sm-4':ctrl.showAccounts}" data-ng-if="ctrl.showScheduleTypes">
+                                <div class="col-sm-6" data-ng-if="shift.hasMultipleScheduleTypes">
+                                    <soe-textbox hidelabel="true" model="shift.shiftTypeTimeScheduleTypeName" is-readonly="true" input-class="strike-through" input-class-condition="!ctrl.useMultipleScheduleTypes"></soe-textbox>
+                                </div>
+                                <div data-ng-class="{'col-sm-6':shift.hasMultipleScheduleTypes, 'col-sm-12':!shift.hasMultipleScheduleTypes}">
+                                    <soe-select hidelabel="true" model="shift.timeScheduleTypeId" items="ctrl.timeScheduleTypes" options="item.timeScheduleTypeId as item.name for item in items" is-readonly="ctrl.isReadonly || shift.isReadOnly || shift.isAbsence || shift.isAbsenceRequest" on-changing="ctrl.timeScheduleTypeChanged(shift)"></soe-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 padding-none-left padding-none-right">
+                            <div data-ng-class="{'col-sm-6':ctrl.hasAbsence && !ctrl.isStandbyView, 'col-sm-12':!ctrl.hasAbsence || ctrl.isStandbyView}">
+                                <soe-textbox hidelabel="true" model="shift.description" is-readonly="ctrl.isReadonly || shift.isReadOnly || shift.isAbsence || shift.isAbsenceRequest" on-change="ctrl.setModified(shift)"></soe-textbox>
+                            </div>
+                            <div class="col-sm-6" data-ng-if="ctrl.hasAbsence && !ctrl.isStandbyView">
+                                <soe-textbox hidelabel="true" model="shift.timeDeviationCauseName" is-readonly="true"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 padding-none-left padding-none-right">
+                            <div class="col-sm-10 padding-none-left padding-none-right">
+                                <div data-ng-class="{'col-sm-3':ctrl.useAccountHierarchy, 'col-sm-4':!ctrl.useAccountHierarchy}" data-ng-if="!ctrl.isTemplateView && !ctrl.isEmployeePostView">
+                                    <soe-checkbox hidelabel="true" model="shift.isPreliminary" tooltip-key="time.schedule.planning.editshift.preliminary" is-readonly="ctrl.isReadonly || shift.isReadOnly || shift.isAbsence || shift.isAbsenceRequest" data-ng-click="ctrl.setModified(shift)"></soe-checkbox>
+                                </div>
+                                <div data-ng-class="{'col-sm-3':ctrl.useAccountHierarchy, 'col-sm-4':!ctrl.useAccountHierarchy}" data-ng-if="ctrl.showExtraShift && !ctrl.isTemplateView && !ctrl.isEmployeePostView">
+                                    <soe-checkbox hidelabel="true" model="shift.extraShift" tooltip-key="time.schedule.planning.editshift.extrashift" is-readonly="ctrl.isReadonly || shift.isReadOnly || shift.isAbsence || shift.isAbsenceRequest" data-ng-click="ctrl.setModified(shift)"></soe-checkbox>
+                                </div>
+                                <div data-ng-class="{'col-sm-3':ctrl.useAccountHierarchy, 'col-sm-4':!ctrl.useAccountHierarchy}" data-ng-if="ctrl.showSubstitute && !ctrl.isTemplateView && !ctrl.isEmployeePostView && !ctrl.isHiddenOrVacant">
+                                    <soe-checkbox hidelabel="true" model="shift.substituteShift" tooltip-key="time.schedule.planning.editshift.substitute" is-readonly="ctrl.isReadonly || shift.isReadOnly || shift.isAbsence || shift.isAbsenceRequest" data-ng-click="ctrl.setModified(shift)"></soe-checkbox>
+                                </div>
+                                <div class="col-sm-3" data-ng-if="ctrl.useAccountHierarchy">
+                                    <i class="fas" data-ng-class="{'fa-map-marker-exclamation': shift.isLended, 'fa-map-marker-question': shift.isOtherAccount}" style="color: #990000; margin-top: 8px;" data-ng-if="shift.isLended || shift.isOtherAccount"></i>
+                                </div>
+                            </div>
+                            <div class="col-sm-2" data-ng-if="!ctrl.isReadonly && !shift.isReadOnly && !shift.isAbsence && !shift.isAbsenceRequest">
+                                <button type="button" class="btn btn-sm btn-link fal fa-times iconDelete pull-right" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-focus="ctrl.selectedShift = shift" data-ng-click="$event.stopPropagation();ctrl.deleteShift(shift)"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-large-top margin-small-bottom" data-ng-if="!ctrl.isReadonly">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-sm btn-default margin-small-left fal fa-sort-numeric-down" data-l10n-bind data-l10n-bind-title="'core.sorting'" data-ng-if="ctrl.hasUnsortedShifts" data-ng-click="$event.stopPropagation();ctrl.reSortShifts();"></button>
+                    <button type="button" class="btn btn-sm btn-default margin-small-left" data-ng-if="!ctrl.isStandbyView && ctrl.hasOverlappingShifts && ctrl.selectedShift && ctrl.selectedShift.isOverlapping" data-ng-click="$event.stopPropagation();ctrl.insertShift(ctrl.selectedShift);">
+                        <span><span data-l10n-bind="'time.schedule.planning.editshift.insertshift'"></span><span class="margin-small-left">{{ctrl.selectedShift.actualStartTime | date:'shortTime'}}-{{ctrl.selectedShift.actualStopTime | date:'shortTime'}}</span></span>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default pull-right margin-small-right" data-l10n-bind="'time.schedule.planning.editshift.new'" data-ng-if="!ctrl.isStandbyView" data-ng-click="$event.stopPropagation();ctrl.addShift(ctrl.selectedShift, false, false);"></button>
+                    <button type="button" class="btn btn-sm btn-default pull-right margin-small-right edit-shift-onduty-button" data-l10n-bind="'time.schedule.planning.contextmenu.newondutyshift'" data-ng-if="ctrl.onDutyModifyPermission && ctrl.isAdmin" data-ng-click="$event.stopPropagation();ctrl.addShift(ctrl.selectedShift, false, true);"></button>
+                    <button type="button" class="btn btn-sm btn-default pull-right margin-small-right edit-shift-standby-button" data-l10n-bind="'time.schedule.planning.contextmenu.newstandbyshift'" data-ng-if="ctrl.standbyModifyPermission && ctrl.isAdmin" data-ng-click="$event.stopPropagation();ctrl.addShift(ctrl.selectedShift, true, false);"></button>
+                </div>
+            </div>
+        </soe-panel>
+        <!-- Breaks -->
+        <soe-panel label-key="time.schedule.planning.breaks" label-value="ctrl.shiftDateLabel" label-value-class="{'warningColor':true}" condensed="true" data-ng-if="ctrl.hasShifts && ((ctrl.shifts | filter:{isBreak:true}).length > 0 || !ctrl.isReadonly)">
+            <div class="margin-large-left margin-small-right repeater-semi-condensed" data-ng-repeat="brk in ctrl.shifts | filter:{isBreak:true} track by $index">
+                <div class="form-group form-group-sm">
+                    <div data-ng-if="$first">
+                        <div class="row" style="margin-left: -20px;">
+                            <div class="col-sm-2" style="padding-left: 0; padding-right: 0;">
+                                <div class="col-sm-10">
+                                    <div class="col-sm-4">
+                                        <soe-label label-key="common.from"></soe-label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-label label-key="common.to"></soe-label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-label label-key="time.schedule.planning.editshift.duration"></soe-label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 padding-none-left padding-none-right mediumFontSize" style="margin-top: 5px;">
+                                    <span class="fal fa-sun"></span>&nbsp;<span class="fal fa-moon"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="time.schedule.planning.editshift.breaktimecode"></soe-label>
+                            </div>
+                            <div class="col-sm-2 col-sm-offset-6 padding-none-left padding-none-right">
+                                <div class="col-sm-10 padding-none-left padding-none-right">
+                                    <div data-ng-class="{'col-sm-3':ctrl.useAccountHierarchy, 'col-sm-4':!ctrl.useAccountHierarchy}" data-ng-if="!ctrl.isTemplateView && !ctrl.isEmployeePostView">
+                                        <soe-label label-key="time.schedule.planning.editshift.preliminary.short" tooltip-key="time.schedule.planning.editshift.preliminary"></soe-label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-left: -20px;">
+                        <div class="col-sm-2" style="padding-left: 0; padding-right: 0;">
+                            <div class="col-sm-10 padding-none-left padding-none-right" data-ng-if="!shift.isWholeDayAbsence">
+                                <div class="col-sm-4">
+                                    <soe-timebox hidelabel="true" model="brk.actualStartTime" show-date-as-tooltip="true" is-time="true" input-class="warningBackgroundColor" input-class-condition="!brk.isSameStartDate(ctrl.selectedDate)" is-readonly="ctrl.isReadonly || brk.isReadOnly || brk.isAbsence || brk.isAbsenceRequest" on-change="ctrl.startChanged(brk)"></soe-timebox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-timebox hidelabel="true" model="brk.actualStopTime" show-date-as-tooltip="true" is-time="true" input-class="warningBackgroundColor" input-class-condition="!brk.isSameStopDate(ctrl.selectedDate)" is-readonly="ctrl.isReadonly || brk.isReadOnly || brk.isAbsence || brk.isAbsenceRequest" on-change="ctrl.stopChanged(brk)"></soe-timebox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-textbox hidelabel="true" model="brk.duration | minutesToTimeSpan" input-class="text-right" input-class-condition="true" readonly="true"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 padding-none-left padding-none-right">
+                                <button type="button" class="btn btn-sm btn-link fal textColor" data-ng-class="{'fa-arrow-alt-to-right warningColor': brk.belongsToNextDay, 'fa-arrow-alt-to-bottom transparent-quarter': !brk.belongsToPreviousDay && !brk.belongsToNextDay, 'fa-arrow-alt-from-left warningColor': brk.belongsToPreviousDay}" style="font-size: 22px; padding: 2px 0px 0px 6px;" data-ng-attr-title="{{brk.belongsToTitle}}" data-ng-disabled="ctrl.isReadonly || brk.isReadOnly || brk.isAbsence || brk.isAbsenceRequest" tabindex="-1" data-ng-click="$event.stopPropagation();ctrl.toggleBelongsToPreviousDayFromGui(brk)"></button>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-select hidelabel="true" model="brk.break1TimeCodeId" items="ctrl.breakTimeCodes" options="item.timeCodeId as item.name for item in items" is-readonly="ctrl.isReadonly || brk.isReadOnly || brk.isAbsence || brk.isAbsenceRequest" on-changing="ctrl.breakTimeCodeChanged(brk)"></soe-select>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="warning" data-ng-if="brk.missingTimeCode">
+                                <span>{{brk.missingTimeCodeText}}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 padding-none-left padding-none-right">
+                            <div class="col-sm-10 padding-none-left padding-none-right">
+                                <div data-ng-class="{'col-sm-3':ctrl.useAccountHierarchy, 'col-sm-4':!ctrl.useAccountHierarchy}" data-ng-if="!ctrl.isTemplateView && !ctrl.isEmployeePostView">
+                                    <soe-checkbox hidelabel="true" model="brk.isPreliminary" is-readonly="true" data-ng-if="brk.tempTimeScheduleTemplateBlockId"></soe-checkbox>
+                                </div>
+                                <div data-ng-class="{'col-sm-3':ctrl.useAccountHierarchy, 'col-sm-4':!ctrl.useAccountHierarchy}" data-ng-if="ctrl.showExtraShift && !ctrl.isTemplateView && !ctrl.isEmployeePostView">
+                                </div>
+                                <div data-ng-class="{'col-sm-3':ctrl.useAccountHierarchy, 'col-sm-4':!ctrl.useAccountHierarchy}" data-ng-if="ctrl.showSubstitute && !ctrl.isTemplateView && !ctrl.isEmployeePostView && !ctrl.isHiddenOrVacant">
+                                </div>
+                                <div class="col-sm-3" data-ng-if="ctrl.useAccountHierarchy">
+                                    <i class="fas" data-ng-class="{'fa-map-marker-exclamation': brk.isLended, 'fa-map-marker-question': brk.isOtherAccount}" style="color: #990000; margin-top: 8px;" data-ng-if="brk.isLended || brk.isOtherAccount"></i>
+                                </div>
+                            </div>
+                            <div class="col-sm-2" data-ng-if="!ctrl.isReadonly && !brk.isReadOnly && !brk.isAbsence && !brk.isAbsenceRequest">
+                                <button type="button" class="btn btn-sm btn-link fal fa-times iconDelete pull-right" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.deleteShift(brk)"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-small-top margin-small-bottom" data-ng-if="!ctrl.isReadonly && !ctrl.isStandbyView">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-sm btn-default pull-right margin-small-right" data-l10n-bind="'time.schedule.planning.editshift.newbreak'" data-ng-if="!ctrl.maxNbrOfBreaksReached" data-ng-click="$event.stopPropagation();ctrl.addBreak()"></button>
+                    <button type="button" class="btn btn-sm btn-default pull-right margin-small-right" data-l10n-bind="'time.schedule.planning.editshift.functions.createbreaksfromtemplates'" data-ng-if="ctrl.hasTimeBreakTemplates && ctrl.modifyPermission && ctrl.hasShifts && !ctrl.isEmployeePostView" data-ng-click="$event.stopPropagation();ctrl.initCreateBreaksFromTemplates()"></button>
+                </div>
+                <div class="col-sm-12" data-ng-if="ctrl.maxNbrOfBreaksReached">
+                    <soe-label class="pull-right margin-small-right" label-key="time.schedule.planning.editshift.maxnbrofbreaksreached"></soe-label>
+                </div>
+            </div>
+            <div class="row margin-large-top margin-large-bottom">
+                <div class="col-sm-12">
+                    <div class="warning margin-small-left margin-small-right" data-ng-if="ctrl.isTemplateView && ctrl.hasMissingTimeCodes">
+                        <div data-ng-bind-html="::ctrl.missingTimeCodeLabel"></div>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <!-- Tasks -->
+        <div class="row margin-small-top" data-ng-if="ctrl.allTasks.length > 0">
+            <div class="col-sm-12">
+                <uib-accordion close-others="false">
+                    <soe-accordion label-key="time.schedule.planning.editshift.task">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <shift-tasks task-exists="true" tasks="ctrl.allTasks" show-desc="true" is-readonly="false"></shift-tasks>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </uib-accordion>
+            </div>
+        </div>
+        <!-- Summary -->
+        <div class="row" data-ng-if="ctrl.hasShifts">
+            <div class="col-sm-12">
+                <div class="info">
+                    <soe-text model="ctrl.summaryRow1"></soe-text>
+                    <soe-text model="ctrl.summaryRow2"></soe-text>
+                </div>
+            </div>
+        </div>
+        <!-- Queue -->
+        <div class="row margin-small-top" data-ng-if="!ctrl.isTemplateView && !ctrl.isEmployeePostView && ctrl.selectedShift.nbrOfWantedInQueue > 0">
+            <div class="col-sm-12">
+                <uib-accordion close-others="false">
+                    <soe-accordion label-model="ctrl.queueTitle" label-value="ctrl.nbrOfQueues" label-value-in-parentheses="true" more-condensed="true" is-open="true">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <shift-queue shift-id="ctrl.selectedShift.timeScheduleTemplateBlockId" nbr-of-queues="ctrl.nbrOfQueues" selected-queue="ctrl.selectedQueue"></shift-queue>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </uib-accordion>
+            </div>
+        </div>
+        <!-- Skills -->
+        <div class="row margin-small-top" data-ng-if="ctrl.hasShifts && ctrl.showSkills && (ctrl.employeeIdForSkills !== ctrl.hiddenEmployeeId || ctrl.selectedShift.nbrOfWantedInQueue > 0)">
+            <div class="col-sm-12">
+                <uib-accordion close-others="false">
+                    <soe-accordion label-key="time.schedule.planning.editshift.skills" label-class="{'errorColor':ctrl.invalidSkills}" label-value="ctrl.nbrOfSkills" label-value-in-parentheses="true" more-condensed="true" is-open="ctrl.skillsOpen">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <skill-matcher invalid="ctrl.invalidSkills" date="ctrl.selectedDate" shift-type-ids="ctrl.shiftTypeIds" employee-id="ctrl.employeeIdForSkills" employee-post-id="ctrl.selectedShift.employeePostId" ignore-employee-ids="ctrl.ignoreSkillEmployeeIds" nbr-of-skills="ctrl.nbrOfSkills" on-open="ctrl.skillsOpened()"></skill-matcher>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </uib-accordion>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'core.save'" data-ng-disabled="ctrl.executing" data-ng-if="(ctrl.hadShifts || ctrl.hasShifts) && !ctrl.isReadonly && !(ctrl.isTemplateView && ctrl.placementPermission)" data-ng-click="ctrl.save()"></button>
+        <soe-splitbutton label-key="core.save" options="ctrl.saveFunctions" main-button="true" last-button-class="last-button" data-ng-if="(ctrl.hadShifts || ctrl.hasShifts) && !ctrl.isReadonly && ctrl.isTemplateView && ctrl.placementPermission" is-disabled="ctrl.executing" drop-up="true" option-selected="ctrl.executeSaveFunction(option)"></soe-splitbutton>
+        <button type="button" class="btn btn-sm btn-default pull-right margin-large-left" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <soe-menubutton label-key="core.functions" options="ctrl.functions" drop-up="true" option-selected="ctrl.executeFunction(option)" data-ng-if="ctrl.isAdmin && ctrl.hasShifts"></soe-menubutton>
+        <div class="warning pull-right margin-small-right" data-ng-if="ctrl.placement">
+            <span class="indiscreet" data-l10n-bind="'time.schedule.planning.scheduleactivated.title'"></span><span class="indiscreet"> {{ctrl.placement.stop | date: 'shortDate'}}</span>
+        </div>
+        <debug class="pull-left" on-debug="ctrl.debug()"></debug>
+    </div>
+</div>

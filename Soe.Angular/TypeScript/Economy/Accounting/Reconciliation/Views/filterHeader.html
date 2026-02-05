@@ -1,0 +1,17 @@
+﻿<form name="searchFilter" class="ngSoeForm" novalidate form-group form-group-sm>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div class="form-group row">
+        <div class="col-sm-12" style="padding-right: 8px;">
+            <soe-datepicker form="searchFilter" class="col-sm-2" label-key="economy.accounting.reconciliation.fromdate" required="true" model="ctrl.selectedFromDate"></soe-datepicker>
+            <soe-datepicker form="searchFilter" class="col-sm-2" label-key="economy.accounting.reconciliation.todate" required="true" model="ctrl.selectedToDate"></soe-datepicker>
+            <soe-select class="col-sm-3" label-key="economy.accounting.reconciliation.fromaccount" model="ctrl.searchFilterFromAccount" items="ctrl.fromAccountFilterOptions" options="item.id as item.name for item in items"></soe-select>
+            <soe-select class="col-sm-3" label-key="economy.accounting.reconciliation.toaccount" model="ctrl.searchFilterToAccount" items="ctrl.toAccountFilterOptions" options="item.id as item.name for item in items"></soe-select>
+            <div class="col-sm-2" style="margin-top: 20px; margin-right: -10px; padding-right: 0px;">
+                <div class="pull-right">
+                    <button type="button" ng-disabled="searchFilter.$invalid" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'economy.accounting.reconciliation.buttonsearch'" data-l10n-bind-title="'economy.accounting.reconciliation.buttonsearch'" data-ng-click="$event.stopPropagation();ctrl.searchReconciliations()"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

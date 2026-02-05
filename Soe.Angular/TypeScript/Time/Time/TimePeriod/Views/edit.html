@@ -1,0 +1,50 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" time-period-validation ng-model="ctrl.timePeriodRows" payroll-start-date="ctrl.payrollStartDate" use-payroll="ctrl.usePayroll">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+        <soe-panel label-key="time.time.timeperiod.timeperiod">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="time.time.timeperiod.type" model="ctrl.timePeriod.timePeriodType" items="ctrl.types" options="item.id as item.name for item in items" auto-focus="true"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.name" model="ctrl.timePeriod.name" required="true" maxlength="50"></soe-textbox>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-textbox label-key="common.description" model="ctrl.timePeriod.description" maxlength="100"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <div class="row margin-small-top">
+            <div class="col-sm-12">
+                <uib-accordion close-others="false">
+                    <soe-accordion label-key="time.time.timeperiod.periods" is-open="true">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <time-periods rows="ctrl.timePeriod.timePeriods" time-period-head-id="ctrl.timePeriod.timePeriodHeadId" read-only="!ctrl.modifyPermission"></time-periods>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </uib-accordion>
+            </div>
+        </div>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.timePeriod"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

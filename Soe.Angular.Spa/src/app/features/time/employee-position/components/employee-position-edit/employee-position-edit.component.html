@@ -1,0 +1,78 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'common.code'"
+          [maxLength]="50"
+          [autoFocus]="true"
+          formControlName="code">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-3">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          formControlName="name">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-7">
+        <soe-textbox
+          [labelKey]="'common.description'"
+          [maxLength]="512"
+          formControlName="description"></soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5">
+        <soe-select
+          [labelKey]="'time.employee.position.sysposition'"
+          [selectedId]="form.value.sysPositionId"
+          [items]="performSysposition.data || []"
+          formControlName="sysPositionId">
+        </soe-select>
+      </div>
+      <div class="col-sm-3">
+        <soe-checkbox
+          [labelKey]="'time.employee.position.linksys'"
+          [inline]="true"
+          (valueChanged)="isLinkedChange($event)"
+          formControlName="isLinked">
+        </soe-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <soe-expansion-panel
+        [labelKey]="'time.employee.position.skills'"
+        [open]="false"
+        [noBottomMargin]="true"
+        [addTopMargin]="true">
+        <div class="row">
+          <div class="col-sm-6">
+            <skills
+              [hideDate]="true"
+              [selectedSkills]="selectedSkills"
+              (rowSelectionChanged)="rowSelectionChanged($event)"
+              [form]="form">
+            </skills>
+          </div>
+        </div>
+      </soe-expansion-panel>
+    </div>
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

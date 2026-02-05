@@ -1,0 +1,59 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="row">
+          <soe-textbox
+            [labelKey]="'core.function'"
+            [autoFocus]="false"
+            formControlName="formName">
+          </soe-textbox>
+        </div>
+        <div class="row">
+          <soe-textbox
+            [labelKey]="'common.field'"
+            [autoFocus]="false"
+            formControlName="fieldName">
+          </soe-textbox>
+        </div>
+        <div class="row" style="padding-top: 15px">
+          <soe-expansion-panel
+            [labelKey]="'manage.preferences.fieldsettings.settingsforcompany'"
+            [static]="true">
+            <soe-select
+              [labelKey]="'manage.preferences.fieldsettings.shown'"
+              [items]="yesNoValues || []"
+              [selectedId]="form.value.companySettingVisibleId"
+              (valueChanged)="companySettingVisibleIdChanged()"
+              formControlName="companySettingVisibleId">
+            </soe-select>
+          </soe-expansion-panel>
+        </div>
+      </div>
+      <div class="col-sm-6 margin-large-top">
+        @if (yesNoValues.length > 0) {
+          <soe-field-settings-edit-grid
+            [form]="form"
+            [yesNoValues]="yesNoValues">
+          </soe-field-settings-edit-grid>
+        }
+      </div>
+    </div>
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [showActive]="false"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      [hideDelete]="true"
+      (saved)="performSave()"></soe-edit-footer>
+  </form>
+}

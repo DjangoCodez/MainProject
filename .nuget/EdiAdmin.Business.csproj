@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4137A7CD-0BCB-4A7A-A5B8-0161EA91DCCA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SoftOne.EdiAdmin.Business</RootNamespace>
+    <AssemblyName>SoftOne.EdiAdmin.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+	<LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+	<LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+	<LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+  <LangVersion>latest</LangVersion>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\EdiCompManager.cs" />
+    <Compile Include="Core\EdiSysManager.cs" />
+    <Compile Include="Core\ManagerBase.cs" />
+    <Compile Include="EdiAdminManager.cs" />
+    <Compile Include="EdiAdminManagerBase.cs" />
+    <Compile Include="FileDefinitions\ComfortEntre.cs">
+      <DependentUpon>ComfortEntre.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FileDefinitions\Comfort_SFTI-BasicInvoice-1.0.cs">
+      <DependentUpon>Comfort_SFTI-BasicInvoice-1.0.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FileDefinitions\Message.cs">
+      <DependentUpon>Message.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IEdiAdminManager.cs" />
+    <Compile Include="Interfaces\IEdiAdminManagerSingelton.cs" />
+    <Compile Include="Interfaces\IEdiAdminParseManager.cs" />
+    <Compile Include="Interfaces\IEdiSender.cs" />
+    <Compile Include="Interfaces\IEdiSenderOld.cs" />
+    <Compile Include="Interfaces\IMessageParser.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Senders\EdiComfort.cs" />
+    <Compile Include="Senders\EdiElektroskandia.cs" />
+    <Compile Include="Senders\EdiElgrossn.cs" />
+    <Compile Include="Senders\EdiFactGenerell.cs" />
+    <Compile Include="Senders\EdiLundagrossisten.cs" />
+    <Compile Include="Senders\EdiLvisNet.cs" />
+    <Compile Include="Senders\EdiMoel.cs" />
+    <Compile Include="Senders\EdiNelfo40.cs" />
+    <Compile Include="Senders\EdiNelfo5.cs" />
+    <Compile Include="Senders\EdiSelga.cs" />
+    <Compile Include="Senders\EdiSenderBase.cs" />
+    <Compile Include="Senders\EdiSenderOldBase.cs" />
+    <Compile Include="Senders\EdiSenderXML.cs" />
+    <Compile Include="EdiAdminFactory.cs" />
+    <Compile Include="Util\EdiAdminStreamWriter.cs" />
+    <Compile Include="Util\EdiAdminStreamWriterEventArgs.cs" />
+    <Compile Include="Util\EdiDatabasMetoder.cs" />
+    <Compile Include="Util\EdiDiverse.cs" />
+    <Compile Include="EdiManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EdiAdminFolderWatcherManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Util\Fetchers\EdiFetcherFile.cs" />
+    <Compile Include="Util\Fetchers\EdiFetcherFTP.cs" />
+    <Compile Include="Util\EdiFtpSupport.cs" />
+    <Compile Include="Util\EdiSenderInputParams.cs" />
+    <Compile Include="Util\ExtensionMethods.cs" />
+    <Compile Include="Interfaces\IEdiFetcher.cs" />
+    <Compile Include="Util\MessageParsers\MessageParser.cs" />
+    <Compile Include="Util\SerializeUtil.cs" />
+    <Compile Include="Util\SharedProperties.cs" />
+    <Compile Include="Util\TextFileEncodingDetector.cs" />
+    <Compile Include="Util\WindowsLog.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="FileDefinitions\ComfortEntre.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FileDefinitions\Comfort_SFTI-BasicInvoice-1.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FileDefinitions\Message.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FileDefinitions\StandardEdiFact.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQL_EdiAdmin_Sprint_49.sql">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="FileDefinitions\ReadMe.txt" />
+    <Content Include="FileDefinitions\StandardMall.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQL_EdiAdmin_Sprint_45.sql">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ChangeLog.txt" />
+    <Content Include="SQL_EdiAdmin_Sprint_44.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Soe.Business\Soe.Business.csproj">
+      <Project>{fc32badf-a856-4f04-aa75-e9c5b949dcd8}</Project>
+      <Name>Soe.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Soe.Common\Soe.Common.csproj">
+      <Project>{3aa7cd44-00e5-4bab-bdbb-52251acefcce}</Project>
+      <Name>Soe.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Soe.Data\Soe.Data.csproj">
+      <Project>{aafbb9f1-a726-4d50-beee-ade46d1f98ce}</Project>
+      <Name>Soe.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Soe.Util\Soe.Util.csproj">
+      <Project>{c6a383fd-cd0c-4745-820c-9478cdf16c61}</Project>
+      <Name>Soe.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

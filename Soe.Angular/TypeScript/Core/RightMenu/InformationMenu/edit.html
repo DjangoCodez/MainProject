@@ -1,0 +1,202 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal(false);" aria-hidden="true">&times;</button>
+        <h6 class="modal-title" data-ng-if="ctrl.isNew"><span data-l10n-bind="'core.informationmenu.companyinformation.new'"></span></h6>
+        <h6 class="modal-title" data-ng-if="!ctrl.isNew">{{ctrl.information.subject}}</h6>
+    </div>
+
+    <div ng-class="ctrl.isModal ? 'edit-padding': ''">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups">
+            <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+        </soe-toolbar>
+
+        <div class="row" data-ng-if="ctrl.modifyPermission && ctrl.hasConfirmations">
+            <div class="col-sm-12">
+                <div class="warning">
+                    <span data-l10n-bind="'core.informationmenu.companyinformation.hasconfirmations'"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-textbox label-key="common.subject" model="ctrl.information.subject" is-readonly="!ctrl.modifyPermission || ctrl.hasConfirmations" required="true" maxlength="100"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-textarea label-key="core.informationmenu.companyinformation.shorttext" label-value="ctrl.shortTextInfo" label-value-in-parentheses="true" model="ctrl.information.shortText" is-readonly="!ctrl.modifyPermission || ctrl.hasConfirmations" rows="3" maxlength="255"></soe-textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-select label-key="core.language" model="ctrl.information.sysLanguageId" items="ctrl.languages" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                    </div>
+                    <div class="col-sm-8">
+                        <soe-select label-key="core.document.selectfolder" model="ctrl.selectedFolder" items="ctrl.folders" options="item as item for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-select label-key="core.informationmenu.companyinformation.severity" model="ctrl.information.severity" items="ctrl.severities" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.severityChanged();"></soe-select>
+                    </div>
+                    <div class="col-sm-8">
+                        <soe-textbox label-key="core.document.folder" model="ctrl.information.folder" maxlength="255" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row margin-small-top" data-ng-if="ctrl.information.isSeverityEmergency">
+                    <div class="col-sm-4">
+                        <div class="warning">
+                            <span data-l10n-bind="'core.informationmenu.companyinformation.emergencymustbeconfirmed'"></span>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="row" data-ng-if="ctrl.information.isSeverityEmergency">
+                    <div class="col-sm-4">
+                        <soe-select label-key="core.informationmenu.companyinformation.stickytype" model="ctrl.information.stickyType" items="ctrl.stickyTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+
+        <div class="row margin-large-top">
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <textarea ng-model="ctrl.information.text" data-ng-if="ctrl.tinyMceOptions" ui-tinymce="ctrl.tinyMceOptions" style="height: 300px;"></textarea>
+                        <div class="content-border-no-radius disabledBackgroundColor" style="padding: 5px;" data-ng-bind-html="::ctrl.information.text" data-ng-if="!ctrl.modifyPermission || ctrl.hasConfirmations"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-panel label-key="core.document.publication">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <soe-datepicker label-key="core.document.validfrom" model="ctrl.information.validFrom" second-model="ctrl.information.validTo" validate-date-range="true" is-start-in-range="true" is-readonly="!ctrl.modifyPermission"></soe-datepicker>
+                                        </div>
+                                        <div class="col-sm-4 padding-none-left">
+                                            <soe-timebox label-key="common.clock" model="ctrl.information.validFrom" is-time="true" is-readonly="!ctrl.modifyPermission"></soe-timebox>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-large-top">
+                                        <div class="col-sm-12">
+                                            <soe-checkbox class="margin-large-bottom" label-key="common.messages.needsconfirmation" model="ctrl.information.needsConfirmation" is-readonly="!ctrl.modifyPermission || ctrl.hasConfirmations || ctrl.information.isSeverityEmergency" on-changing="ctrl.needsConfirmationChanged();"></soe-checkbox>
+                                            <soe-checkbox class="margin-small-bottom" label-key="core.informationmenu.companyinformation.showinweb" model="ctrl.information.showInWeb" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                                            <soe-checkbox class="margin-small-bottom" label-key="core.informationmenu.companyinformation.showinterminal" model="ctrl.information.showInTerminal" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                                            <soe-checkbox class="margin-small-bottom" label-key="core.informationmenu.companyinformation.showinmobile" model="ctrl.information.showInMobile" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.showInMobileChanged();"></soe-checkbox>
+                                            <soe-checkbox class="margin-small-bottom margin-large-left" label-key="core.informationmenu.companyinformation.notify" model="ctrl.information.notify" is-readonly="!ctrl.modifyPermission || !ctrl.information.showInMobile"></soe-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-small-top" data-ng-if="ctrl.information.notify">
+                                        <div class="col-sm-12">
+                                            <div class="info">
+                                                <span data-ng-if="ctrl.information.allNotificationsSent"><span data-l10n-bind="'core.informationmenu.companyinformation.notificationsent'"></span> <span>{{ctrl.information.notificationSent|date:'shortDate'}} {{ctrl.information.notificationSent|date:'shortTime'}}</span></span>
+                                                <span data-ng-if="ctrl.information.noNotificationsSent" data-l10n-bind="'core.informationmenu.companyinformation.notificationnotsent'"></span>
+                                                <span data-ng-if="ctrl.information.someNotificationsSent" data-l10n-bind="'core.informationmenu.companyinformation.notificationpartlysent'"></span>
+                                                <span data-ng-if="!ctrl.information.noNotificationsSent" class="fal fa-times iconDelete link pull-right" data-l10n-bind data-l10n-bind-title="'core.informationmenu.companyinformation.notificationsent.delete'" data-ng-click="ctrl.deleteNotificationSent();"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-small-top" data-ng-if="ctrl.information.notify">
+                                        <div class="col-sm-12">
+                                            <div class="warning">
+                                                <span data-l10n-bind="'core.informationmenu.companyinformation.notify.warning'"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <soe-datepicker label-key="core.document.validto" model="ctrl.information.validTo" second-model="ctrl.information.validFrom" validate-date-range="true" is-readonly="!ctrl.modifyPermission"></soe-datepicker>
+                                        </div>
+                                        <div class="col-sm-4 padding-none-left">
+                                            <soe-timebox label-key="common.clock" model="ctrl.information.validTo" is-time="true" is-readonly="!ctrl.modifyPermission"></soe-timebox>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-large-top">
+                                        <div class="col-sm-12">
+                                            <soe-multiselect label-key="core.document.messagegroups" options="ctrl.selectableMessageGroups" display-prop="name" model="ctrl.selectedMessageGroups" show-selected-items="true" is-readonly="!ctrl.modifyPermission" on-selection-complete="ctrl.setDirty();"></soe-multiselect>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-small-top" data-ng-if="ctrl.selectedMessageGroups.length===0">
+                                        <div class="col-sm-12">
+                                            <div class="info">
+                                                <span ng-show="!ctrl.useAccountHierarchy" data-l10n-bind="'core.informationmenu.companyinformation.messagegroup.info'"></span>
+                                                <span ng-show="ctrl.useAccountHierarchy" data-l10n-bind="'core.informationmenu.companyinformation.messagegroup.info2'"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row margin-large-top">
+                                <div class="col-sm-12">
+                                    <uib-accordion close-others="false" is-open="false" data-ng-if="ctrl.informationId">
+                                        <soe-accordion label-key="core.document.showread" class="soe-accordion-more-condensed" on-open="ctrl.showRecipients();">
+                                            <div class="info" data-ng-if="ctrl.loadingRecipients">
+                                                <span class="far fa-spinner fa-pulse fa-fw margin-small-right"></span><span data-l10n-bind="'core.loading'"></span>
+                                            </div>
+                                            <div class="row margin-small-top margin-small-right" data-ng-if="!ctrl.loadingRecipients">
+                                                <div class="col-sm-offset-5 col-sm-1">
+                                                    <soe-label label-key="core.filter"></soe-label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <soe-select hidelabel="true" model="ctrl.recipientFilter" items="ctrl.recipientFilters" options="item.id as item.name for item in items" use-ignore-dirty="true"></soe-select>
+                                                </div>
+                                            </div>
+                                            <div class="row" data-ng-if="!ctrl.loadingRecipients">
+                                                <div class="col-sm-12">
+                                                    <div class="table-scrollable-wrapper">
+                                                        <div class="table-scrollable" style="height: 203px; background-color: transparent; margin-top: 28px;">
+                                                            <table class="table table-more-condensed table-striped table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col" style="table-layout: fixed; min-width: 50px;"><span data-l10n-bind="'common.name'"></span></th>
+                                                                        <th scope="col" style="table-layout: fixed; min-width: 50px;"><span data-l10n-bind="'core.document.readdate'"></span></th>
+                                                                        <th scope="col" style="table-layout: fixed; min-width: 50px;" data-ng-if="ctrl.information.needsConfirmation"><span data-l10n-bind="'core.document.confirmeddate'"></span></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr data-ng-repeat="recipient in ctrl.filteredRecipients">
+                                                                        <td><span data-ng-if="recipient.employeeNrAndName">{{recipient.employeeNrAndName}}</span><span data-ng-if="!recipient.employeeNrAndName">{{recipient.userName}}</span></td>
+                                                                        <td><span>{{recipient.readDate | date: 'shortDate'}} {{recipient.readDate | date: 'shortTime'}}</span></td>
+                                                                        <td data-ng-if="ctrl.information.needsConfirmation"><span>{{recipient.confirmedDate | date: 'shortDate'}} {{recipient.confirmedDate | date: 'shortTime'}}</span></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </soe-accordion>
+                                    </uib-accordion>
+                                </div>
+                            </div>
+                        </soe-panel>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ngSoeFormFooter margin-large-top">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.information"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,48 @@
+@if (form) {
+  <soe-dialog>
+    <ng-container dialog-content>
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'manage.system.import.price.list.supplier'"
+              [items]="data.providers || []"
+              formControlName="providerId"></soe-select>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-sm-12">
+            <soe-file-upload
+              [labelKey]="'core.fileupload.choosefiletoimport'"
+              [multipleFiles]="false"
+              [asBinary]="true"
+              [hideDetails]="true"
+              [showStatus]="true"
+              [allowExtraLargeFiles]="true"
+              [showUploadButton]="false"
+              (afterFilesAttached)="afterFilesAttached($event)"
+              formControlName="fileName"></soe-file-upload>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+    <div dialog-footer>
+      <soe-button
+        class="ms-3"
+        [behaviour]="'standard'"
+        [caption]="'core.cancel'"
+        (action)="cancel()"></soe-button>
+      <soe-save-button
+        class="ms-3"
+        [caption]="'manage.system.import.price.list.import'"
+        (action)="upload()"
+        (validationErrorsAction)="openFormValidationErrors()"
+        [invalid]="form.invalid"
+        [dirty]="form.dirty"></soe-save-button>
+    </div>
+  </soe-dialog>
+}

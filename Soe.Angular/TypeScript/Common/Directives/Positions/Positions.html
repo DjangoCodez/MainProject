@@ -1,0 +1,13 @@
+﻿<div>
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progressBusy">
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-label label-key="time.employee.position.positions" data-ng-if="!ctrl.hideHeader"></soe-label>
+                <soe-checkbox label-key="core.selectall" model="ctrl.selectAllPositions" is-readonly="ctrl.readOnly || ctrl.disableSelect" on-changing="ctrl.selectAll();"></soe-checkbox>
+                <div data-ui-grid="ctrl.soeGridOptions.gridOptions" ui-grid-auto-resize data-ui-grid-edit ui-grid-cellNav></div>
+            </div>
+        </div>
+    </div>
+</div>

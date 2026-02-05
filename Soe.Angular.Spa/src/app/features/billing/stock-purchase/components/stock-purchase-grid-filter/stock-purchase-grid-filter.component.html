@@ -1,0 +1,113 @@
+<div>
+  <form
+    [formGroup]="formSearch"
+    class="soe-edit-form py-0"
+    novalidate
+    autocomplete="off">
+    <div>
+      <soe-expansion-panel
+        [labelKey]="'common.selection'"
+        [static]="false"
+        [open]="true">
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'billing.stock.purchase.suggestionbase'"
+              [items]="performLoadSuggestionBase.data || []"
+              formControlName="purchaseGenerationType"></soe-select>
+          </div>
+
+          <div class="col-sm-4">
+            <soe-numberbox
+              [labelKey]="'billing.stock.purchase.triggerquantitypercentage'"
+              [secondaryLabelKey]="'%'"
+              [autoFocus]="true"
+              formControlName="triggerQuantityPercent">
+            </soe-numberbox>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-multi-select
+              [limit]="20"
+              [labelKey]="'billing.stock.stocks.stocks'"
+              [items]="performLoadWarehouse.data || []"
+              formControlName="stockPlaceIds"
+              [dropdownWidth]="300"></soe-multi-select>
+          </div>
+          <div class="col-sm-4">
+            <soe-textbox
+              [labelKey]="'billing.stock.purchase.productnrfrom'"
+              [autoFocus]="true"
+              formControlName="productNrFrom">
+            </soe-textbox>
+          </div>
+          <div class="col-sm-4">
+            <soe-textbox
+              [labelKey]="'billing.stock.purchase.productnrto'"
+              [autoFocus]="true"
+              formControlName="productNrTo">
+            </soe-textbox>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-textbox
+              [labelKey]="'billing.stock.purchase.purchaser'"
+              [autoFocus]="true"
+              formControlName="purchaser">
+            </soe-textbox>
+          </div>
+
+          <div class="col-sm-4">
+            <soe-checkbox
+              [labelKey]="
+                'billing.stock.purchase.excludewithouttriggerquantity'
+              "
+              formControlName="excludeMissingTriggerQuantity"
+              [inline]="true">
+            </soe-checkbox>
+          </div>
+          <div class="col-sm-4">
+            <soe-checkbox
+              [labelKey]="
+                'billing.stock.purchase.excluderowswithnopurchasequantity'
+              "
+              formControlName="excludeMissingPurchaseQuantity"
+              [inline]="true">
+            </soe-checkbox>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-textarea
+              [labelKey]="'billing.order.deliveryaddress'"
+              [rows]="2"
+              [placeholderKey]="formSearch.value.defaultDeliveryAddress"
+              [resizeable]="true"
+              formControlName="defaultDeliveryAddress"
+              [readOnly]="true">
+              <soe-icon-button
+                [iconName]="'pencil'"
+                [iconClass]="'icon-edit'"
+                [tooltip]="'core.edit'"
+                [noBorder]="false"
+                (action)="openEditAddress()"></soe-icon-button>
+            </soe-textarea>
+          </div>
+          <div class="d-sm-inline">
+            <soe-button
+              [caption]="'billing.stock.purchase.generatesuggestion'"
+              [behaviour]="'primary'"
+              [inline]="true"
+              [disabled]="formSearch.invalid"
+              (action)="generateSuggestion()" />
+          </div>
+        </div>
+      </soe-expansion-panel>
+    </div>
+  </form>
+</div>

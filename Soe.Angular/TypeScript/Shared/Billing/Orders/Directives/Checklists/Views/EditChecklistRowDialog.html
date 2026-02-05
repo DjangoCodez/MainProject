@@ -1,0 +1,56 @@
+﻿<form name="ctrl.edit" class="messagebox modal-wide" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">{{ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <div class="row btn-toolbar">
+            <div class="col-sm-6">
+                <div class="pull-left">
+                    <soe-toolbar buttons="ctrl.navigationMenuButtons" hide-border="true" style="margin-bottom:0px;"></soe-toolbar>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-textarea label-key="core.question" model="ctrl.row.text" is-readonly="ctrl.disabled"></soe-textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" ng-if="ctrl.row.type === 5">
+                    <!--<soe-file-item-display file="ctrl.row.imageData" read-only="ctrl.readOnly"></soe-file-item-display>-->
+                    <soe-file-upload class="margin-large-bottom margin-large-top" callback="ctrl.filesHelper.fileUploadedCallback(result)" entity="{{::ctrl.filesHelper.entity}}" image-type="{{::ctrl.filesHelper.type}}"></soe-file-upload>
+                    <soe-file-display files="ctrl.filesHelper.files" nbr-of-files-changed="ctrl.filesHelper.nbrOfFilesChanged(nbrOfFiles)" file-name-changed="ctrl.filesHelper.fileNameChanged(file)" use-grid="true" skip-signing="true" read-only="ctrl.readOnly"></soe-file-display>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" ng-if="ctrl.row.type === 2">
+                    <soe-select label-key="core.answer" model="ctrl.row.intData" items="ctrl.yesNoDict" options="item.id as item.name for item in items" is-readonly="ctrl.readOnly"></soe-select>
+                </div>
+                <div class="col-sm-3" ng-if="ctrl.row.type === 3">
+                    <soe-label label-key="core.answer"></soe-label>
+                    <soe-checkbox label-key="core.yes" model="ctrl.row.boolData" is-readonly="ctrl.readOnly"></soe-checkbox>
+                </div>
+                <div class="col-sm-3" ng-if="ctrl.row.type === 4">
+                    <soe-select label-key="core.answer" model="ctrl.row.intData" items="ctrl.row.selectOption" options="item.id as item.name for item in items" is-readonly="ctrl.readOnly"></soe-select>
+                </div>
+                <div class="col-sm-3">
+                    <soe-datepicker label-key="common.date" model="ctrl.row.date" is-readonly="ctrl.readOnly"></soe-datepicker>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-textarea label-key="common.note" model="ctrl.row.comment" is-readonly="ctrl.readOnly"></soe-textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="col-sm-6">
+            <created-modified model="ctrl.row"></created-modified>
+        </div>
+        <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.close'" set-focus="ctrl.isReadonly" data-ng-click="ctrl.close()"></button>
+    </div>
+</form>
+

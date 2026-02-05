@@ -1,0 +1,22 @@
+﻿<parameters>
+	<parameter name="FilesDirectory" description="Description for FilesDirectory" defaultvalue="__FILESDIRECTORY__" tags="">
+		<parameterValidation kind="AllowEmpty" />
+		<parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='FilesDirectory']/@value" />
+	</parameter>
+	<parameter name="SysCompDbId" description="Description for SysCompDbId" defaultvalue="__SYSCOMPDBID__" tags="">
+		<parameterValidation kind="AllowEmpty" />
+		<parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='SysCompDbId']/@value" />
+	</parameter>
+	<parameter name="SiteType" description="Description for SiteType" defaultvalue="__SITETYPE__" tags="">
+		<parameterValidation kind="AllowEmpty" />
+		<parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='SiteType']/@value" />
+	</parameter>
+	<parameter name="Auth.OidcClient.RedirectUri" description="Description for Auth.OidcClient.RedirectUri" defaultvalue="__AUTHOIDCCLIENTREDIRECTURI__" tags="">
+		<parameterValidation kind="AllowEmpty" />
+		<parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='Auth.OidcClient.RedirectUri']/@value" />
+	</parameter>
+	<parameter name="KeyVaultSettings" description="Description for KeyVaultSettings" defaultvalue="__KEYVAULTSETTINGS__" tags="">
+		<parameterValidation kind="AllowEmpty" />
+		<parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='KeyVaultSettings']/@value" />
+	</parameter>
+</parameters>

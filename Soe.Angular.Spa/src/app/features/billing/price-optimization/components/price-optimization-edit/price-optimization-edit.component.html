@@ -1,0 +1,95 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'billing.purchase.priceoptimization.priceoptimization'"
+      [static]="true">
+      <div class="row">
+        <div class="col-sm-4">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [maxLength]="100"
+            formControlName="name">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-4">
+          <soe-textbox
+            [labelKey]="'billing.purchase.priceoptimization.sequencenumber'"
+            [maxLength]="20"
+            [disabled]="true"
+            formControlName="seqNr">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-4">
+          <soe-textbox
+            [labelKey]="'common.status'"
+            formControlName="statusName" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-textbox
+            [labelKey]="'billing.purchase.priceoptimization.internalnote'"
+            formControlName="description">
+          </soe-textbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel
+      [labelKey]="'billing.purchase.priceoptimization.productpricerows'"
+      [static]="true">
+      <soe-price-optimization-edit-item-grid
+        [purchaseRows]="purchaseRows"
+        [wholesalerList]="wholesalers"
+        [isNotOpen]="isNotOpen"
+        (getPrices)="updatePrices($event)"
+        [purchaseCartId]="form.purchaseCartId.value"
+        [form]="form">
+      </soe-price-optimization-edit-item-grid>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel [labelKey]="'common.tracing'">
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-trace-rows
+            [traceId]="form.purchaseCartId.value"
+            [pageName]="pageName"></soe-trace-rows>
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      [hideDelete]="true">
+      <ng-container pageButtons>
+        <soe-delete-button
+          class="ms-3"
+          (action)="triggerDelete()"
+          [disabled]="!flowHandler.modifyPermission()"></soe-delete-button>
+
+        <soe-menu-button
+          class="ms-3"
+          [caption]="'core.functions'"
+          [list]="menuButtonList"
+          [variant]="'split'"
+          [behaviour]="'secondary'"
+          [disabled]="form.isNew"
+          [dropUp]="true"
+          (itemSelected)="performMenuButtonAction($event)"
+          (selectedItem)="(menuButtonList)">
+        </soe-menu-button>
+      </ng-container>
+    </soe-edit-footer>
+  </form>
+}

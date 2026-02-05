@@ -1,0 +1,98 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <div>
+            <soe-panel label-key="time.employee.vacationdebt.vacationdebt">
+                <div class="form-group form-group-sm">
+                    <div class="row col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <soe-textbox label-key="time.employee.employee.employeenr" model="ctrl.employeeNr" is-disabled="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="common.name" model="ctrl.employeeName" is-disabled="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="common.dateto" model="ctrl.dateStr" is-disabled="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="pull-right">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'common.report.report.print'" data-l10n-bind-title="'common.report.report.print'" data-ng-click="$event.stopPropagation();ctrl.print()"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </soe-panel>
+            <soe-panel label-key="time.employee.vacationdebt.calculations" condensed="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+
+                    </div>
+                </div>
+                <div class="margin-large-left margin-small-right repeater-semi-condensed" data-ng-repeat="result in ctrl.results" data-ng-click="ctrl.selectedResult = result">
+                    <div class="form-group form-group-sm">
+                        <div data-ng-if="$first">
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <soe-label label-key="common.name"></soe-label>
+                                </div>
+                                <div class="col-sm-1">
+                                    <soe-label label-key="common.value"></soe-label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-label label-key="common.formulabuilder.formula"></soe-label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-label label-key="time.employee.vacationdebt.formulaextracted"></soe-label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-label label-key="time.employee.vacationdebt.formulanames"></soe-label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-label label-key="time.employee.vacationdebt.formulaorigin"></soe-label>
+                                </div>                               
+                            </div>
+                        </div>
+                        <div class="row" data-ng-class="{'repeater-selected-row': ctrl.selectedResult === result}" style="margin-left: -20px;">
+                            <div class="col-sm-1">
+                                <i class="fas fa-caret-right" data-ng-if="ctrl.selectedResult === result"></i>
+                                <soe-textbox hidelabel="true" model="result.name" input-class-condition="true" readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-1">
+                                <soe-textbox hidelabel="true" model="result.value" input-class-condition="true" numeric="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="result.formulaPlain" input-class-condition="true" readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="result.formulaExtracted" input-class-condition="true" readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox hidelabel="true" model="result.formulaNames" input-class-condition="true" readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="result.formulaOrigin" input-class-condition="true" readonly="true"></soe-textbox>
+                            </div>                           
+                        </div>
+                    </div>
+                </div>
+            </soe-panel>
+
+            <div class="ngSoeFormFooter">
+                <div class="col-sm-12">
+                    <div class="pull-right">
+                        <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                        <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

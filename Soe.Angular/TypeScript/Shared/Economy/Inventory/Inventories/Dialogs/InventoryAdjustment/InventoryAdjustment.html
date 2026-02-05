@@ -1,0 +1,45 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'economy.inventory.inventories.createadjustment'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="info margin-large-top">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-label model="ctrl.dialogLabel"></soe-label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-3">
+                    <soe-textbox label-key="common.amount" model="ctrl.amount" numeric="true" decimals="2" required="true"></soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-datepicker label-key="economy.inventory.inventories.adjustmentdate" model="ctrl.adjustmentDate" required="true"></soe-datepicker>
+                </div>
+                <div class="col-sm-6">
+                    <soe-textbox label-key="common.note" model="ctrl.note"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.isDispose">
+                <div class="col-sm-3">
+                    <soe-select label-key="economy.inventory.inventorywriteofftemplate.voucherserie" model="ctrl.voucherSeriesTypeId" items="ctrl.voucherSeries" options="item.voucherSeriesTypeId as item.name for item in items" required="true"></soe-select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <accounting-rows accounting-rows="ctrl.accountingRows" container="1" show-regenerate-button="true" show-text="true" show-balance="false" show-amount-summary="true" currency-date="ctrl.adjustmentDate" is-readonly="false"></accounting-rows>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.save'" data-ng-click="ctrl.buttonOkClick()"></button>
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+    </div>
+</div>
+

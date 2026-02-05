@@ -1,0 +1,92 @@
+@if (flowHandler.allowFetchGrid() && form) {
+  <form [formGroup]="form">
+    @if (this.holidayCount === 0) {
+      <div class="row header" style="padding: 10px; align-items: center">
+        <soe-instruction
+          [type]="'info'"
+          [text]="'time.time.timeearnedholiday.noholidays'"></soe-instruction>
+      </div>
+    }
+    @if (this.holidayCount !== 0) {
+      <div
+        class="row header"
+        style="padding-left: 10px; display: flex; align-items: center">
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'common.year'"
+            [items]="years"
+            [selectedId]="this.yearId"
+            formControlName="yearId"
+            (valueChanged)="yearChanged($event)"></soe-select>
+        </div>
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'time.time.timeearnedholiday.holiday'"
+            [items]="selectedYear"
+            [selectedId]="this.holidayId"
+            formControlName="holidayId"></soe-select>
+        </div>
+        <div class="col-sm-1" style="display: flex; align-items: center">
+          <soe-checkbox
+            [labelKey]="'time.time.timeearnedholiday.loadsuggestions'"
+            formControlName="loadsuggestions"></soe-checkbox>
+        </div>
+        <div
+          class="col-sm-2"
+          style="
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            padding-right: 20px;
+            justify-content: flex-end;
+          ">
+          <soe-button
+            [disabled]="loadDisabled()"
+            [iconName]="'refresh'"
+            [caption]="'time.employee.loademployees'"
+            (action)="loadGridData()"></soe-button>
+        </div>
+      </div>
+      <soe-grid-wrapper
+        [rows]="rowData"
+        [parentGuid]="guid()"
+        (selectedItemsChanged)="selectedItemsChanged($event)"
+        [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+        [toolbarGroups]="toolbarUtils.toolbarGroups"
+        [height]="600">
+      </soe-grid-wrapper>
+      <div
+        class="row"
+        style="
+          display: flex;
+          align-items: center;
+          margin-left: auto;
+          padding-right: 20px;
+          padding-bottom: 10px;
+          justify-content: flex-end;
+        ">
+        <div class="col-sm-2" style="display: flex; align-items: center">
+          <div
+            style="margin-left: auto; display: flex; justify-content: flex-end">
+            <soe-delete-button
+              [disabled]="deleteDisabled()"
+              [caption]="'time.time.timeearnedholiday.deletetransactions'"
+              (action)="initDeleteTransaction()"></soe-delete-button>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: flex-end;
+              padding-left: 10px;
+            ">
+            <soe-button
+              [behaviour]="'primary'"
+              [disabled]="saveDisabled()"
+              [caption]="'time.time.timeearnedholiday.savetransactions'"
+              (action)="initSaveTransactions()"></soe-button>
+          </div>
+        </div>
+      </div>
+    }
+  </form>
+}

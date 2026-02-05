@@ -1,0 +1,20 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="priceListRows"
+    [height]="250"
+    [parentGuid]="guid()"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+    <soe-project-pricelist-header
+      toolbar-content-left
+      [projectPriceLists]="projectPriceLists"
+      [priceListTypeId]="form.value.priceListTypeId"
+      [comparisonPricelistId]="comparisonPricelistId"
+      [comparisonPriceLists]="comparisonPriceLists"
+      [allPriceLists]="allPriceLists"
+      (pricelistChanged)="pricelistChanged.emit($event)"
+      (comparisonPricelistChanged)="comparisonPricelistChanged.emit($event)"
+      (priceDateChanged)="priceDateChanged.emit($event)"
+      (loadAllProductsChanged)="loadAllProductsChanged.emit($event)">
+    </soe-project-pricelist-header>
+  </soe-grid-wrapper>
+}

@@ -1,0 +1,50 @@
+<form [formGroup]="form">
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [parentGuid]="guid()"
+      [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+      (selectionChanged)="selectionChanged($event)">
+      <soe-project-week-report-grid-header
+        toolbar-content-left
+        [modifyOtherEmployeesPermission]="modifyOtherEmployeesPermission"
+        [useExtendedTimeRegistration]="useExtendedTimeRegistration"
+        [timeProjectFrom]="timeProjectFrom"
+        [employeesDict]="employeesDict"
+        [isDeleteDisable]="isDeleteDisable"
+        [isCopyDisable]="isCopyDisable"
+        (employeeChange)="employeeChange($event)"
+        (addNewRow)="addRow()"
+        (deleteRow)="deleteRow()"
+        (onSearchClick)="doSearch($event)"
+        [showWeekend]="showWeekend()"
+        (onWeekendClick)="
+          onWeekendClick($event)
+        "></soe-project-week-report-grid-header>
+
+      <div class="row" footer>
+        <div class="col-sm-12 p-2 d-flex flex-row-reverse align-items-end">
+          <soe-save-button
+            class="me-2"
+            [behaviour]="'primary'"
+            [caption]="saveLabel"
+            (action)="save()"
+            [dirty]="form.dirty">
+          </soe-save-button>
+
+          <soe-textbox
+            class="me-2"
+            [labelKey]="'billing.project.timesheet.workedtime'"
+            formControlName="workedTime">
+          </soe-textbox>
+
+          <soe-textbox
+            class="me-2"
+            [labelKey]="'billing.project.timesheet.invoicedtime'"
+            formControlName="invoicedTime">
+          </soe-textbox>
+        </div>
+      </div>
+    </soe-grid-wrapper>
+  }
+</form>

@@ -1,0 +1,71 @@
+<soe-dialog>
+  <div dialog-content>
+    <div class="row">
+      <div class="col-sm-4">
+        <soe-select
+          [labelKey]="'common.commoditycodes.code'"
+          [items]="performLoadCode.data || []"
+          formControlName="code"></soe-select>
+      </div>
+      <div class="col-sm-4">
+        <soe-select
+          [labelKey]="'economy.accounting.liquidityplanning.transactiontype'"
+          [items]="performLoadTransactionType.data || []"
+          formControlName="transactionType"></soe-select>
+      </div>
+      <div class="col-sm-4">
+        <soe-select
+          [labelKey]="'common.countryoforigin'"
+          [items]="performLoadCountry.data || []"
+          formControlName="country"></soe-select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <soe-change-intrastat-code-grid
+          [rows]="rows"></soe-change-intrastat-code-grid>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="col-sm-3 pull-right">
+          <div class="row">
+            <soe-label
+              class="pull-right"
+              label-key="common.customer.invoices.payableamount"></soe-label>
+          </div>
+          <div class="row">
+            <label class="pull-right discreet">{{ restAmount }}</label>
+          </div>
+        </div>
+        <div class="col-sm-3 margin-small-right pull-right">
+          <div class="row">
+            <soe-label
+              class="pull-right"
+              label-key="common.customer.invoices.invoiceamount"></soe-label>
+          </div>
+          <div class="row">
+            <label class="pull-right discreet">{{ totalAmount }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div dialog-footer>
+    <label ng-if="ctrl.workingMessage">{{ workingMessage }}</label>
+    <soe-button
+      type="button"
+      [behaviour]="'standard'"
+      [caption]="'core.cancel'"
+      (action)="closeDialog()"></soe-button>
+    <soe-button
+      type="button"
+      [behaviour]="'primary'"
+      [caption]="'core.save'"
+      (action)="buttonOkClick()"
+      [disabled]="!buttonEnabled()"></soe-button>
+  </div>
+</soe-dialog>

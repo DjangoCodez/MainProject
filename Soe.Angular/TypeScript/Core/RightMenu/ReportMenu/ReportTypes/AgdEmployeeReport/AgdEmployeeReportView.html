@@ -1,0 +1,31 @@
+﻿<div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-4">
+                <payroll-month-year-selection on-selected="$ctrl.onPayrollMonthYearSelectionUpdated(selections)" label-key="common.month" use-months="true" user-selection-input="$ctrl.userSelectionInputPayrollMonthYear" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-12">
+                <employees-selection on-selected="$ctrl.onEmployeeSelectionUpdated(employeeSelection)" report-template-type="87" label-key="common.employees" enable-filters="true" show-inactive="true" show-only-inactive="true" show-vacant="true" show-hidden="true" time-period-Ids="$ctrl.timePeriodIds" user-selection-input="$ctrl.userSelectionInputEmployee" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-12">
+                <bool-selection on-selected="$ctrl.onBoolSelectionIncludeAbsence(selection)" label-key="common.includeabsence" user-selection-input="$ctrl.userSelectionInputIncludeAbsence" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-12">
+                <bool-selection on-selected="$ctrl.onBoolSelectionRemovePrevSubmittedDataUpdated(selection)" label-key="common.removeprevsubmitteddata" user-selection-input="$ctrl.userSelectionInputRemovePrevSubmittedData" />
+            </div>
+        </div>
+    </div>
+
+</div>

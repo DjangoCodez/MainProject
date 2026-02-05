@@ -1,0 +1,35 @@
+<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'common.importdynamic.fieldsettings'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="">
+            <soe-select label-key="common.importdynamic.defaultvalue" ng-if="ctrl.field.enableValueMapping" items="ctrl.field.availableValues" model="ctrl.field.defaultGenericTypeValue" options="item as item.name for item in items"></soe-select>
+            <soe-textbox label-key="common.importdynamic.defaultvalue" ng-if="ctrl.field.dataType == 1 && !ctrl.field.enableValueMapping" model="ctrl.field.defaultStringValue" ></soe-textbox>
+            <soe-textbox label-key="common.importdynamic.defaultvalue" ng-if="ctrl.field.dataType == 2 && !ctrl.field.enableValueMapping" model="ctrl.field.defaultIntValue" numeric="true" decimals="0" ></soe-textbox>
+            <soe-checkbox label-key="common.importdynamic.defaultvalue" ng-if="ctrl.field.dataType == 3 && !ctrl.field.enableValueMapping" model="ctrl.field.defaultBoolValue" inline="true" ></soe-checkbox>
+            <soe-datepicker label-key="common.importdynamic.defaultvalue" ng-if="ctrl.field.dataType == 4 && !ctrl.field.enableValueMapping"   model="ctrl.field.defaultDateTimeValue"></soe-datepicker>
+            <soe-textbox label-key="common.importdynamic.defaultvalue" ng-if="ctrl.field.dataType == 5 && !ctrl.field.enableValueMapping" model="ctrl.field.defaultDecimalValue" inline="true"  numeric-not-zero="true" decimals="2"></soe-textbox>
+        </div>
+        <div class="margin-large-top" ng-if="ctrl.field.enableValueMapping && ctrl.uniqueValues.length > 0">
+            <soe-label label-key="common.importdynamic.mapvalues"></soe-label>
+        </div>
+        <div class="row margin-small-top" ng-if="ctrl.field.enableValueMapping" ng-repeat="value in ctrl.uniqueValues">
+            <div class="col-sm-6 margin-small-top">
+                <soe-textbox model="value" readonly="true" hidelabel="true" />
+            </div>
+            <div class="col-sm-6 margin-small-top">
+                <soe-select model="ctrl.field.valueMapping[value]" items="ctrl.field.availableValues" options="item as item.name for item in items" hidelabel="true" />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="pull-right">
+            <div class="col">
+                <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.close()"></button>
+                <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.save()"></button>
+            </div>
+        </div>
+    </div>
+</div>

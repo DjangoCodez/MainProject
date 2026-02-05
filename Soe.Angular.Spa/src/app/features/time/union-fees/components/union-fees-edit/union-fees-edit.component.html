@@ -1,0 +1,85 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'time.payroll.unionfee.unionfee'"
+      [static]="true">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [maxLength]="100"
+            [autoFocus]="true"
+            formControlName="name">
+          </soe-textbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'common.payrollproduct'"
+            [optionIdField]="'productId'"
+            [selectedId]="form.value.payrollProductId"
+            [items]="unionFeePayrollProducts || []"
+            formControlName="payrollProductId">
+          </soe-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'time.payroll.unionfee.percent'"
+            [selectedId]="form.value.payrollPriceTypeIdPercent"
+            [items]="payrollPriceTypes || []"
+            (valueChanged)="payrollPriceTypeIdPercentChanged($event)"
+            formControlName="payrollPriceTypeIdPercent">
+          </soe-select>
+        </div>
+        @if (form.isPercentChosen) {
+          <div class="col-sm-3">
+            <soe-select
+              [labelKey]="'time.payroll.unionfee.percentceiling'"
+              [selectedId]="form.value.payrollPriceTypeIdPercentCeiling"
+              [items]="payrollPriceTypes || []"
+              formControlName="payrollPriceTypeIdPercentCeiling">
+            </soe-select>
+          </div>
+        }
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'time.payroll.unionfee.fixedamount'"
+            [selectedId]="form.value.payrollPriceTypeIdFixedAmount"
+            [items]="payrollPriceTypes || []"
+            formControlName="payrollPriceTypeIdFixedAmount">
+          </soe-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'time.payroll.unionfee.union'"
+            [selectedId]="form.value.association"
+            [items]="associations || []"
+            formControlName="association">
+          </soe-select>
+        </div>
+      </div>
+      <soe-edit-footer
+        [form]="form"
+        [idFieldName]="idFieldName"
+        [showActive]="false"
+        [modifyPermission]="flowHandler.modifyPermission()"
+        [inProgress]="performAction.inProgress()"
+        (saved)="performSave()"
+        (deleted)="triggerDelete()"></soe-edit-footer>
+    </soe-expansion-panel>
+  </form>
+}

@@ -1,0 +1,328 @@
+﻿<form name="ctrl.edit" data-ng-init="ctrl">
+
+    <div class="messagebox">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'common.stateanalysis.title'"></h6>
+        </div>
+
+        <div class="modal-body">
+            <uib-accordion close-others="false">
+                <soe-accordion label-key="common.stateanalysis.general" data-ng-if="ctrl.generalPermission">
+                    <soe-progressbar is-busy="ctrl.generalBusy" message="ctrl.generalBusyMessage"></soe-progressbar>
+
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label class="control-label" data-l10n-bind="'common.stateanalysis.roles'" />
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="control-label" data-l10n-bind="'common.stateanalysis.users'" />
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="control-label" data-l10n-bind="'common.stateanalysis.employees'" />
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="control-label" data-l10n-bind="'common.stateanalysis.customers'" />
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="control-label" data-l10n-bind="'common.stateanalysis.suppliers'" />
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="control-label" data-l10n-bind="'common.stateanalysis.invoiceproducts'" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.roles" numeric="true" readonly="true" button-icon="fa-pencil" button-tooltip-key="core.edit" button-disabled="!ctrl.editRolesPermission" on-button-click="$event.stopPropagation(); ctrl.editRoles();" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.users" numeric="true" readonly="true" button-icon="fa-pencil" button-tooltip-key="core.edit" button-disabled="!ctrl.editUsersPermission" on-button-click="$event.stopPropagation(); ctrl.editUsers();" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.employees" numeric="true" readonly="true" button-icon="fa-pencil" button-tooltip-key="core.edit" button-disabled="!ctrl.editEmployeesPermission" on-button-click="$event.stopPropagation(); ctrl.editEmployees();" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.customers" numeric="true" readonly="true" button-icon="fa-pencil" button-tooltip-key="core.edit" button-disabled="!ctrl.editCustomersPermission" on-button-click="$event.stopPropagation(); ctrl.editCustomers();" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.suppliers" numeric="true" readonly="true" button-icon="fa-pencil" button-tooltip-key="core.edit" button-disabled="!ctrl.editSuppliersPermission" on-button-click="$event.stopPropagation(); ctrl.editSuppliers();" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.invoiceproducts" numeric="true" readonly="true" button-icon="fa-pencil" button-tooltip-key="core.edit" button-disabled="!ctrl.editInvoiceProductsPermission" on-button-click="$event.stopPropagation(); ctrl.editInvoiceProducts();" />
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+
+                <soe-accordion label-key="common.stateanalysis.billing" data-ng-if="ctrl.billingPermission">
+                    <soe-progressbar is-busy="ctrl.billingBusy" message="ctrl.generalBusyMessage"></soe-progressbar>
+
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-3">
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="common.stateanalysis.nbrof" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="common.stateanalysis.sumexclvat" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="common.stateanalysis.average" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="common.stateanalysis.customers" />
+                            </div>
+                        </div>
+                        <div class="row margin-small-bottom" data-ng-if="ctrl.offerPermission">
+                            <div class="col-sm-3">
+                                <soe-label label-key="common.stateanalysis.offers" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.offersNbrOf" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.offersSumExclVat" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.offersAverage" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.offersCustomers" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-sm btn-default iconEdit fal fa-pencil" data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-click="$event.stopPropagation();ctrl.editOffers()"></button>
+                            </div>
+                        </div>
+                        <div class="row margin-small-bottom" data-ng-if="ctrl.contractPermission">
+                            <div class="col-sm-3">
+                                <soe-label label-key="common.stateanalysis.contracts" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.contractsNbrOf" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.contractsSumExclVat" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.contractsAverage" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.contractsCustomers" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-sm btn-default iconEdit fal fa-pencil" data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-click="$event.stopPropagation();ctrl.editContracts()"></button>
+                            </div>
+                        </div>
+                        <div class="row margin-small-bottom" data-ng-if="ctrl.orderPermission">
+                            <div class="col-sm-3">
+                                <soe-label label-key="common.stateanalysis.orders" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.ordersNbrOf" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.ordersSumExclVat" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.ordersAverage" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.ordersCustomers" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-sm btn-default iconEdit fal fa-pencil" data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-click="$event.stopPropagation();ctrl.editOrders()"></button>
+                            </div>
+                        </div>
+                        <div class="row margin-small-bottom" data-ng-if="ctrl.invoicePermission">
+                            <div class="col-sm-3">
+                                <soe-label label-key="common.stateanalysis.invoices" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.invoicesNbrOf" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.invoicesSumExclVat" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.invoicesAverage" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.invoicesCustomers" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-sm btn-default iconEdit fal fa-pencil" data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-click="$event.stopPropagation();ctrl.editInvoices()"></button>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="ctrl.remainingAmountPermission">
+                            <div class="col-sm-3">
+                                <soe-label label-key="common.stateanalysis.remainingamount" />
+                            </div>
+                            <div class="col-sm-2 col-sm-offset-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.remainingAmountSumExclVat" numeric="true" readonly="true" />
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+
+                <soe-accordion label-key="common.stateanalysis.household" data-ng-if="ctrl.householdPermission">
+                    <soe-progressbar is-busy="ctrl.householdBusy" message="ctrl.generalBusyMessage"></soe-progressbar>
+
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-2 col-sm-offset-3">
+                                <soe-label label-key="common.stateanalysis.household.apply" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="common.stateanalysis.household.applied" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="common.stateanalysis.household.received" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="common.stateanalysis.household.denied" />
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-sm-offset-3">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.householdApply" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.householdApplied" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.householdReceived" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.householdDenied" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-sm btn-default iconEdit fal fa-pencil" data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-click="$event.stopPropagation();ctrl.editHouseholds()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+
+                <soe-accordion label-key="common.stateanalysis.customerledger" data-ng-if="ctrl.customerledgerPermission">
+                    <soe-progressbar is-busy="ctrl.customerledgerBusy" message="ctrl.generalBusyMessage"></soe-progressbar>
+
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-3">
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="common.stateanalysis.nbrof" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="common.stateanalysis.sum" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="common.stateanalysis.sumexclvat" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="common.stateanalysis.sumtopay" />
+                            </div>
+                        </div>
+                        <div class="row margin-small-bottom">
+                            <div class="col-sm-3">
+                                <soe-label label-key="common.stateanalysis.unpaid" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.customerledgerUnpaidNbrOf" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.customerledgerUnpaidSum" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.customerledgerUnpaidSumExclVat" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.customerledgerUnpaidSumToPay" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-sm btn-default iconEdit fal fa-pencil" data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-click="$event.stopPropagation();ctrl.editUnpaidCustomerLedgers()"></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <soe-label label-key="common.stateanalysis.overdue" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.customerledgerOverdueNbrOf" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.customerledgerOverdueSum" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.customerledgerOverdueSumExclVat" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.customerledgerOverdueSumToPay" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-sm btn-default iconEdit fal fa-pencil" data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-click="$event.stopPropagation();ctrl.editOverdueCustomerLedgers()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+
+                <soe-accordion label-key="common.stateanalysis.supplierledger" data-ng-if="ctrl.supplierledgerPermission">
+                    <soe-progressbar is-busy="ctrl.supplierledgerBusy" message="ctrl.generalBusyMessage"></soe-progressbar>
+
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-3">
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="common.stateanalysis.nbrof" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="common.stateanalysis.sum" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label label-key="common.stateanalysis.sumexclvat" />
+                            </div>
+                        </div>
+                        <div class="row margin-small-bottom">
+                            <div class="col-sm-3">
+                                <soe-label label-key="common.stateanalysis.unpaid" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.supplierledgerUnpaidNbrOf" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.supplierledgerUnpaidSum" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.supplierledgerUnpaidSumExclVat" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-1 col-sm-offset-2">
+                                <button type="button" class="btn btn-sm btn-default iconEdit fal fa-pencil" data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-click="$event.stopPropagation();ctrl.editUnpaidSupplierLedgers()"></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <soe-label label-key="common.stateanalysis.overdue" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.supplierledgerOverdueNbrOf" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.supplierledgerOverdueSum" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox hidelabel="true" model="ctrl.stateAnalysis.supplierledgerOverdueSumExclVat" numeric="true" readonly="true" />
+                            </div>
+                            <div class="col-sm-1 col-sm-offset-2">
+                                <button type="button" class="btn btn-sm btn-default iconEdit fal fa-pencil" data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-click="$event.stopPropagation();ctrl.editOverdueSupplierLedgers()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+            </uib-accordion>
+        </div>
+    </div>
+</form>

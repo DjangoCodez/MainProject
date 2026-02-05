@@ -1,0 +1,17 @@
+﻿<div class="margin-small-top">
+    <span class="indiscreet" data-l10n-bind="ctrl.labelKey"></span>
+    <soe-datepicker hidelabel="true" model="ctrl.selectedDate" on-change="ctrl.selectedDateChanged()"></soe-datepicker>
+    
+    <table class="table table-condensed table-hover table-outer-bordered margin-small-top" role="presentation">
+        <tbody>
+            <tr data-ng-repeat="date in ctrl.dates | orderBy:date:ctrl.orderByDesc">
+                <td>
+                    <span>{{::date | date:'shortDate'}}</span>
+                </td>
+                <td>
+                    <i class="fal fa-times iconDelete link pull-right" data-ng-click="ctrl.removeDate(date);"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

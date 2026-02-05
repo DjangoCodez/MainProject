@@ -1,0 +1,105 @@
+@if (shiftsFormArray()) {
+  <div class="row shift-header-row-container">
+    <!-- <div style="width: 20px"></div> -->
+    <div class="col-sm-8">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <!-- <div class="col-sm-4">
+          <soe-label [labelKey]="'common.date'"></soe-label>
+        </div> -->
+        <div class="col-sm-2">
+          <soe-label [labelKey]="'common.start'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label [labelKey]="'common.stop'"></soe-label>
+        </div>
+        <div class="col-sm-8">
+          <soe-label [labelKey]="'time.schedule.absencerequests.shifttype'">
+          </soe-label>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="col-sm-4">
+      @if (showApprovalTypeAndReplaceWithEmployee()) {
+        <div class="col-sm-5">
+          <soe-label [labelKey]="'time.schedule.absencerequests.approve'">
+          </soe-label>
+        </div>
+        <div class="col-sm-7">
+          <soe-label [labelKey]="'time.schedule.absencerequests.replacewith'">
+          </soe-label>
+        </div>
+      }
+    </div>
+  </div>
+  @for (
+    shiftForm of this.shiftsFormArray().controls;
+    track shiftForm;
+    let i = $index
+  ) {
+    <div
+      class="row shift-row-container"
+      [formGroup]="shiftForm"
+      novalidate
+      autocomplete="off">
+      <div class="col-sm-8">
+        <div class="col-sm-1">
+          <div
+            class="shift-color-box"
+            [style.background-color]="shiftForm.shiftTypeColor.value"
+            [title]="shiftForm.shiftTypeName.value"></div>
+        </div>
+        <div class="col-sm-10">
+          <!-- <div class="col-sm-4">
+            {{ shiftForm.startTime.value | date: 'yy-MM-dd' }}
+          </div> -->
+          <div class="col-sm-2">
+            {{ shiftForm.startTime.value | date: 'HH:mm' }}
+          </div>
+          <div class="col-sm-2">
+            {{ shiftForm.stopTime.value | date: 'HH:mm' }}
+          </div>
+          <div class="col-sm-8">
+            {{ shiftForm.shiftTypeName.value }}
+          </div>
+        </div>
+        <div class="col-sm-1">
+          @if (shiftForm.onDutyIcon) {
+            <fa-icon
+              [icon]="shiftForm.onDutyIcon"
+              [title]="onDutyLabel()"></fa-icon>
+          }
+        </div>
+      </div>
+      <div class="col-sm-4">
+        @if (showApprovalTypeAndReplaceWithEmployee()) {
+          <div class="col-sm-5">
+            <soe-select
+              [selectedId]="shiftForm.approvalTypeId.value"
+              formControlName="approvalTypeId"
+              [items]="approvalTypes() || []"
+              [inline]="true">
+            </soe-select>
+          </div>
+          <div class="col-sm-7">
+            <soe-autocomplete
+              formControlName="replaceWithEmployeeId"
+              [inline]="true"
+              [items]="
+                employeesPerShiftMap().get(
+                  shiftForm.timeScheduleTemplateBlockId.value
+                ) || []
+              "
+              [limit]="50"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'">
+            </soe-autocomplete>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- {{ shiftsFormArray().value | json }} -->
+}

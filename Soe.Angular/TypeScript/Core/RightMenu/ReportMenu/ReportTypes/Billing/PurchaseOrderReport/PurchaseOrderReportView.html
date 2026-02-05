@@ -1,0 +1,18 @@
+﻿<div>
+    <div class="row">
+        <text-selection label-key="common.report.selection.suppliernr" class="col-sm-4" user-selection-input="$ctrl.supplierNrFrom" on-selected="$ctrl.onActorNumberFromChanged(selection)"></text-selection>
+        <text-selection class="col-sm-4 margin-small-top" user-selection-input="$ctrl.supplierNrTo" on-selected="$ctrl.onActorNumberToChanged(selection)"></text-selection>
+    </div>
+    <div class="row">
+        <text-selection label-key="common.report.selection.purchasenr" class="col-sm-4" user-selection-input="$ctrl.purchaseNrFrom" on-selected="$ctrl.onPurchaseNumberFromChanged(selection)"></text-selection>
+        <text-selection class="col-sm-4 margin-small-top" user-selection-input="$ctrl.purchaseNrTo" on-selected="$ctrl.onPurchaseNumberToChanged(selection)"></text-selection>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <date-selection label-key="common.report.selection.date" show-range="true" as-range="true" on-selected="$ctrl.onDateRangeSelected(selection)" user-selection-input="$ctrl.selectedDateRange" use-min-max-if-empty="true"></date-selection>
+        </div>
+    </div>
+    <div class="row">
+        <id-selection label-key="common.report.selection.sorting" class="col-sm-4" items="$ctrl.selectableSortOrder" user-selection-input="$ctrl.userSelectionInputSortOrder" on-selected="$ctrl.onSortOrderChanged(selection)" />
+    </div>
+</div>

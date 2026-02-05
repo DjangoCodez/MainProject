@@ -1,0 +1,17 @@
+<span class="text-button-container">
+  @if (params.data && show) {
+    <button
+      (click)="params.onClick(params.data)"
+      class="text-button"
+      [ngClass]="{ 'no-border': true }"
+      [title]="tooltip | translate">
+      <fa-icon
+        [icon]="params.icon"
+        [class]="iconClass"
+      [fixedWidth]="true"></fa-icon>
+    </button>
+  }
+  <span>
+    {{ params.value }}
+  </span>
+</span>

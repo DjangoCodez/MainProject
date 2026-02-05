@@ -1,0 +1,102 @@
+﻿<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'time.payroll.worktimeaccount.worktimeaccount'"
+      [open]="settingsExpanderIsOpen">
+      <div ng-show="settingsExpanderIsOpen">
+        <div class="row align-items-center">
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-textbox
+                [labelKey]="'common.name'"
+                [maxLength]="100"
+                [autoFocus]="true"
+                formControlName="name">
+              </soe-textbox>
+            </div>
+            <div class="col-sm-2">
+              <soe-textbox
+                [labelKey]="'common.code'"
+                [maxLength]="100"
+                [autoFocus]="true"
+                formControlName="code">
+              </soe-textbox>
+            </div>
+          </div>
+          <div class="row">
+            <soe-checkbox
+              [labelKey]="'time.payroll.worktimeaccount.usepensiondeposit'"
+              [checked]="form.value.usePensionDeposit"
+              (valueChanged)="updateSelectableWithdrawalMethods(false)"
+              formControlName="usePensionDeposit"></soe-checkbox>
+            <soe-checkbox
+              [labelKey]="'time.payroll.worktimeaccount.usepaidleave'"
+              [checked]="form.value.usePaidLeave"
+              (valueChanged)="updateSelectableWithdrawalMethods(false)"
+              formControlName="usePaidLeave"></soe-checkbox>
+            <soe-checkbox
+              [labelKey]="'time.payroll.worktimeaccount.usedirectpayment'"
+              [checked]="form.value.useDirectPayment"
+              (valueChanged)="updateSelectableWithdrawalMethods(false)"
+              formControlName="useDirectPayment"></soe-checkbox>
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-select
+                [labelKey]="
+                  'time.payroll.worktimeaccount.defaultwithdrawalmethod'
+                "
+                [selectedId]="form.value.defaultWithdrawalMethod"
+                [items]="defaultWithdrawalMethods"
+                (valueChanged)="
+                  timeWorkAccount.defaultWithdrawalMethod = $event
+                "
+                formControlName="defaultWithdrawalMethod">
+              </soe-select>
+            </div>
+            <div class="col-sm-2">
+              <soe-select
+                [labelKey]="
+                  'time.payroll.worktimeaccount.defaultpaidleavenotused'
+                "
+                [selectedId]="form.value.defaultPaidLeaveNotUsed"
+                [items]="defaultPaidLeaveNotUsedMethods"
+                (valueChanged)="
+                  timeWorkAccount.defaultPaidLeaveNotUsed = $event
+                "
+                formControlName="defaultPaidLeaveNotUsed">
+              </soe-select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [labelKey]="'time.payroll.worktimeaccount.annualruns'"
+      [static]="true"
+      [noPadding]="true">
+      <soe-time-work-account-year-grid
+        [rows]="timeWorkAccountYears"
+        [usePension]="form.value.usePensionDeposit"
+        [usePaidLeave]="form.value.usePaidLeave"
+        [useDirectPayment]="form.value.useDirectPayment"
+        [defaultPaidLeaveNotUsed]="form.value.defaultPaidLeaveNotUsed"
+        [timeWorkAccountId]="
+          timeWorkAccountId()
+        "></soe-time-work-account-year-grid>
+    </soe-expansion-panel>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

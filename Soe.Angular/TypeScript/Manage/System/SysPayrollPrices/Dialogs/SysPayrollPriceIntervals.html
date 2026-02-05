@@ -1,0 +1,29 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <span><span class="modal-title">{{ctrl.sysPayrollPrice.name}}</span> - <span class="modal-title" data-l10n-bind="'manage.system.syspayrollprices.syspayrollprice.intervals'"></span></span>
+    </div>
+    <div class="modal-body">
+        <table class="table table-outer-bordered table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" class="right-align-cell" data-l10n-bind="'common.fromdate'"></th>
+                    <th scope="col" class="right-align-cell" data-l10n-bind="'common.todate'"></th>
+                    <th scope="col" class="right-align-cell" data-l10n-bind="'common.value'"></th>
+                    <th scope="col" data-l10n-bind="'manage.system.syspayrollprices.amounttype'"></th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="interval in ctrl.sysPayrollPrice.intervals | orderBy:['-!fromInterval', 'fromInterval']">
+                <tr>
+                    <td class="right-align-cell"><span>{{interval.fromInterval}}</span></td>
+                    <td class="right-align-cell"><span>{{interval.toInterval}}</span></td>
+                    <td class="right-align-cell"><span>{{interval.amount | amount}}</span></td>
+                    <td><span>{{interval.amountTypeName}}</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.cancel()"></button>
+    </div>
+</div>

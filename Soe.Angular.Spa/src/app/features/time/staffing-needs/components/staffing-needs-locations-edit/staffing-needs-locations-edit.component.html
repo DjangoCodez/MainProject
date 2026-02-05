@@ -1,0 +1,55 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          [autoFocus]="true"
+          formControlName="name">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-4">
+        <soe-textbox
+          [labelKey]="'common.description'"
+          [maxLength]="512"
+          formControlName="description">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'common.group'"
+          [selectedId]="form.value.staffingNeedsLocationGroupId"
+          [items]="locationGroups"
+          formControlName="staffingNeedsLocationGroupId">
+        </soe-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'common.externalcode'"
+          [maxLength]="50"
+          formControlName="externalCode">
+        </soe-textbox>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

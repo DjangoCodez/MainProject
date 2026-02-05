@@ -1,0 +1,29 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></h6>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'" data-ng-if="!ctrl.isNew"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-4">
+                <soe-select label-key="common.type" model="ctrl.setting.dataType" items="ctrl.settingTypes" options="item.id as item.name for item in items"></soe-select>
+            </div>
+            <div class="col-sm-4">
+                <soe-textbox label-key="common.name" model="ctrl.setting.name" required="true" maxlength="50"></soe-textbox>
+            </div>
+            <div class="col-sm-4">
+                <soe-textbox label-key="common.value" model="ctrl.setting.strData" data-ng-if="ctrl.setting.dataType === 1"></soe-textbox>
+                <soe-textbox label-key="common.value" model="ctrl.setting.intData" numeric="true" decimals="0" data-ng-if="ctrl.setting.dataType === 2"></soe-textbox>
+                <soe-checkbox label-key="common.value" model="ctrl.setting.boolData" inline="true" data-ng-if="ctrl.setting.dataType === 3"></soe-checkbox>
+                <soe-datepicker label-key="common.value" model="ctrl.setting.dateData" data-ng-if="ctrl.setting.dataType === 4"></soe-datepicker>
+                <soe-textbox label-key="common.value" model="ctrl.setting.decimalData" numeric="true" decimals="2" data-ng-if="ctrl.setting.dataType === 5"></soe-textbox>
+                <soe-timebox label-key="common.value" model="ctrl.setting.timeData" is-time="true" data-ng-if="ctrl.setting.dataType === 6"></soe-timebox>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()" ng-disabled="!ctrl.setting.name"></button>
+    </div>
+</div>

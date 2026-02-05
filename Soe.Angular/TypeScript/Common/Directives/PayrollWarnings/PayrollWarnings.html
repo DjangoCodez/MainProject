@@ -1,0 +1,23 @@
+﻿<div class="">
+    <soe-progressbar is-busy="directiveCtrl.progressBusy" message="directiveCtrl.progressMessage"></soe-progressbar>
+    <div>
+        <div>
+            <span class="btn-group pull-right" style="margin-bottom: 5px;">
+                <soe-menubutton label-key="core.functions"  options="directiveCtrl.options" option-selected="directiveCtrl.run(option)" drop-up="true" ng-hide="ctrl.progressBusy"></soe-menubutton>
+            </span>
+        </div>
+        <div>
+            <span class="btn-group pull-left">
+                <soe-checkbox label-key="time.payroll.payrollcalculation.warnings.history" model="ctrl.showHistory" on-changing="directiveCtrl.changeChecker()" />
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 pull-right">
+            <div ag-grid="directiveCtrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+        </div>
+
+    </div>
+</div>
+   

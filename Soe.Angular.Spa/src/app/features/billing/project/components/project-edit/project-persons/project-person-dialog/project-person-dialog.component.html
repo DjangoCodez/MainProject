@@ -1,0 +1,65 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'billing.projects.list.usertype'"
+              formControlName="type"
+              [items]="data.userTypes"></soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'billing.projects.list.user'"
+              formControlName="userId"
+              [items]="data.users"></soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'billing.projects.list.timecode'"
+              formControlName="timeCodeId"
+              [items]="data.timeCodes"></soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-datepicker
+              [labelKey]="'common.from'"
+              formControlName="dateFrom"></soe-datepicker>
+          </div>
+          <div class="col-sm-6">
+            <soe-datepicker
+              [labelKey]="'common.to'"
+              formControlName="dateTo"></soe-datepicker>
+          </div>
+        </div>
+        @if (this.data.calculatedCostPermission) {
+          <soe-textbox
+            [labelKey]="'billing.project.calculatedcost'"
+            formControlName="employeeCalculatedCost"></soe-textbox>
+        }
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    <soe-button
+      [behaviour]="'standard'"
+      [caption]="'core.cancel'"
+      (action)="closeDialog()"></soe-button>
+    <soe-save-button
+      [behaviour]="'standard'"
+      [caption]="'core.ok'"
+      (action)="ok()"
+      [invalid]="form.invalid">
+    </soe-save-button>
+  </div>
+</soe-dialog>

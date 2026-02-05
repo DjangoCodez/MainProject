@@ -1,0 +1,66 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header" data-ng-class="{'scheduleview-header':!ctrl.isTemplateView && !ctrl.isEmployeePostView && !ctrl.isScenarioView && !ctrl.isStandbyView, 'templateview-header': ctrl.isTemplateView, 'employeepostview-header': ctrl.isEmployeePostView, 'scenarioview-header': ctrl.isScenarioView, 'standbyview-header': ctrl.isStandbyView}">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">{{ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <div class="row margin-small-bottom">
+            <div class="col-sm-12">
+                <span class="indiscreet largeFont"><span>{{ctrl.shiftEmployee}}</span><span class="margin-small-left">{{ctrl.shiftDate}}</span></span>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.hasAbsence">
+            <div class="col-sm-12">
+                <soe-instruction label-key="time.schedule.planning.deleteshift.cantdeleteabsence" is-warning="true"></soe-instruction>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.shifts.length === 0 && !ctrl.hasAbsence">
+            <div class="col-sm-12">
+                <soe-instruction model="ctrl.noShiftsInfo" is-warning="true"></soe-instruction>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.shifts.length > 0 && !ctrl.hasAbsence">
+            <div class="col-sm-12">
+                <soe-instruction label-key="time.schedule.planning.deleteshift.warning" is-warning="true"></soe-instruction>
+                <soe-instruction label-key="time.schedule.planning.deleteshift.deleteshifttask.warning" is-warning="true" data-ng-if="!ctrl.isOrder && !ctrl.isBooking"></soe-instruction>
+            </div>
+        </div>
+
+        <div class="row margin-large-top" data-ng-if="ctrl.shifts.length > 1">
+            <div class="col-sm-12">
+                <span>{{ctrl.selectInfo}}</span>
+            </div>
+        </div>
+
+        <div class="row margin-large-top" data-ng-if="ctrl.shifts.length > 0">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover table-borderless" role="presentation">
+                        <tbody>
+                            <tr data-ng-repeat="shift in ctrl.shifts" data-ng-class="{'edit-shift-onduty-button': shift.isOnDuty}">
+                                <td style="width: 25px; text-align: right;" data-ng-if="ctrl.shifts.length > 1"><soe-checkbox hidelabel="true" model="shift.selected" style="margin-top: -4px;"></soe-checkbox></td>
+                                <td style="width: 1px; white-space: nowrap;" data-ng-if="ctrl.multipleDates"><span data-ng-class="{indiscreet: shift.selected}">{{::shift.actualStartDate | date:'shortDate'}}</span></td>
+                                <td style="width: 1px; white-space: nowrap;"><span data-ng-class="{indiscreet: shift.selected}">{{::shift.actualStartTime | date:'shortTime'}}-{{::shift.actualStopTime | date:'shortTime'}}</span></td>
+                                <td><span data-ng-class="{indiscreet: shift.selected}">{{::shift.shiftTypeName}}</span><span data-ng-if="shift.isOnDuty">{{ctrl.onDutyLabel}}</span></td>
+                            </tr>
+                            <tr data-ng-repeat="onDutyShift in ctrl.onDutyShifts" class="edit-shift-onduty-button" data-ng-if="ctrl.includeOnDutyShifts">
+                                <td style="width: 25px; text-align: right;" data-ng-if="ctrl.shifts.length > 1"><soe-checkbox hidelabel="true" model="true" is-readonly="true" style="margin-top: -4px;"></soe-checkbox></td>
+                                <td style="width: 1px; white-space: nowrap;" data-ng-if="ctrl.multipleDates"><span class="indiscreet">{{::onDutyShift.actualStartDate | date:'shortDate'}}</span></td>
+                                <td style="width: 1px; white-space: nowrap;"><span class="indiscreet">{{::onDutyShift.actualStartTime | date:'shortTime'}}-{{::onDutyShift.actualStopTime | date:'shortTime'}}</span></td>
+                                <td><span class="indiscreet">{{::onDutyShift.shiftTypeName}}</span><span>{{ctrl.onDutyLabel}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'core.ok'" data-ng-if="ctrl.shifts.length>0 && !ctrl.hasAbsence" data-ng-disabled="ctrl.nbrOfSelectedShifts===0 || ctrl.executing" data-ng-click="ctrl.ok()"></button>
+        <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <soe-checkbox class="pull-right" label-key="time.schedule.planning.deleteshift.includeondutyshifts" model="ctrl.includeOnDutyShifts" data-ng-if="ctrl.onDutyShiftsModifyPermission && ctrl.isScheduleView && ctrl.onDutyShifts.length > 0"></soe-checkbox>
+        <div class="warning pull-right margin-small-right" data-ng-if="ctrl.placement">
+            <span class="indiscreet" data-l10n-bind="'time.schedule.planning.scheduleactivated.title'"></span><span class="indiscreet"> {{ctrl.placement.employeeScheduleStopDate | date: 'shortDate'}}</span>
+        </div>
+    </div>
+</form>

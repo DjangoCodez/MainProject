@@ -1,0 +1,346 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" terminal-validation ng-model="ctrl.terminal">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="time.time.timeterminal.timeterminal" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-select label-key="common.type" model="ctrl.terminal.type" items="ctrl.types" options="item.id as item.name for item in items" required="true" is-disabled="!ctrl.modifyPermission" on-changing="ctrl.typeChanged();"></soe-select>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.name" model="ctrl.terminal.name" required="true" maxlength="50" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="time.time.timeterminal.companyid" model="ctrl.terminal.actorCompanyId" numeric="true" is-readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="time.time.timeterminal.terminalid" model="ctrl.terminal.timeTerminalId" numeric="true" is-readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-checkbox label-key="time.time.timeterminal.registered" model="ctrl.terminal.registered" inline="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isTimeSpotType || ctrl.terminal.isTimeStampType"></soe-checkbox>
+                            <soe-textbox label-key="time.time.timeterminal.url" model="ctrl.goTimeStampUrl" is-readonly="true" button-icon="fa-clipboard" button-class="textColor" button-tooltip-key="core.copy" on-button-click="ctrl.copyUrl();" second-button-icon="fa-browser" second-button-class="textColor" second-button-tooltip-key="core.open" on-second-button-click="ctrl.openUrl();" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="!ctrl.terminal.isTimeSpotType">
+                        <div class="col-sm-2">
+                            <soe-label label-key="time.time.timeterminal.lastsync" data-ng-if="ctrl.terminal.isTimeStampType || ctrl.terminal.isGoTimeStampType"></soe-label>
+                            <div class="margin-small-top" data-ng-if="ctrl.terminal.isTimeStampType || ctrl.terminal.isGoTimeStampType">
+                                <span>{{ctrl.terminal.lastSync | date:'shortDate'}} {{ctrl.terminal.lastSync | date:'shortTime'}}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-2 col-sm-4 margin-large-top">
+                            <soe-instruction label-key="time.time.timeterminal.terminalids" data-ng-if="ctrl.timeTerminalId"></soe-instruction>
+                            <soe-instruction label-key="time.time.timeterminal.terminalidsnotsaved" is-warning="true" data-ng-if="!ctrl.timeTerminalId"></soe-instruction>
+                        </div>
+                        <div class="col-sm-4" data-ng-if="ctrl.isSupportAdmin">
+                            <soe-textbox label-key="GUID" model="ctrl.terminal.timeTerminalGuid" is-readonly="true" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.terminal.isTimeSpotType">
+                        <div class="col-sm-4">
+                            <soe-textbox label-key="time.time.timeterminal.macaddress" model="ctrl.terminal.macaAddress" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-textbox label-key="time.time.timeterminal.macname" model="ctrl.terminal.macName" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-textbox label-key="time.time.timeterminal.macnumber" model="ctrl.terminal.macNumber" numeric="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.settings" is-open="true">
+                <div class="margin-large-top margin-large-right">
+                    <soe-toolbar buttons="ctrl.settingsToolbar.buttonGroups" hide-border="true"></soe-toolbar>
+                </div>
+                <div class="row margin-large-top">
+                    <div class="col-sm-6">
+                        <uib-accordion close-others="false">
+                            <soe-accordion label-key="time.time.timeterminal.startpage" is-open="ctrl.expanderStartPageOpen" data-ng-if="ctrl.terminal.isGoTimeStampType">
+                                <soe-textbox label-key="time.time.timeterminal.startpage.subject" model="ctrl.startpageSubject" maxlength="255" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                                <soe-textarea label-key="time.time.timeterminal.startpage.shorttext" model="ctrl.startpageShortText" rows="2" maxlength="255" is-readonly="!ctrl.modifyPermission"></soe-textarea>
+                                <soe-textarea label-key="time.time.timeterminal.startpage.text" model="ctrl.startpageText" rows="3" maxlength="255" is-readonly="!ctrl.modifyPermission"></soe-textarea>
+                                <soe-select class="margin-large-top" label-key="time.time.timeterminal.identifytype" model="ctrl.identifyType" items="ctrl.identifyTypes" options="item.id as item.name for item in items" is-disabled="!ctrl.modifyPermission"></soe-select>
+                            </soe-accordion>
+                            <soe-accordion label-key="common.accounting" is-open="ctrl.expanderAccountingOpen">
+                                <!--<div class="row" data-ng-if="ctrl.terminal.isGoTimeStampType && ctrl.accountDim.accountDimId">
+                                    <div class="col-sm-offset-6 col-sm-6">
+                                        <soe-checkbox label-key="time.time.timeterminal.accountdimsinhierarchy" model="ctrl.accountDimsInHierarchy" is-disabled="!ctrl.modifyPermission" on-changing="ctrl.accountDimsInHierarchyChanged();"></soe-checkbox>
+                                    </div>
+                                </div>-->
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <soe-select label-key="time.time.timeterminal.accountdim" label-value="1" label-value-indiscreet="true" model="ctrl.accountDim" items="ctrl.accountDims" options="item as item.name for item in items" is-disabled="!ctrl.modifyPermission" on-changing="ctrl.accountDimChanged();"></soe-select>
+                                    </div>
+                                    <div class="col-sm-6" data-ng-if="ctrl.terminal.isGoTimeStampType">
+                                        <soe-select label-key="time.time.timeterminal.accountdim" label-value="2" label-value-indiscreet="true" model="ctrl.accountDim2" items="ctrl.accountDims" options="item as item.name for item in items" is-disabled="!ctrl.modifyPermission || ctrl.accountDimsInHierarchy" on-changing="ctrl.accountDim2Changed();"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <soe-checkbox label-key="time.time.timeterminal.limitselectableaccounts" model="ctrl.limitSelectableAccounts" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType && ctrl.accountDim.accountDimId"></soe-checkbox>
+                                    </div>
+                                    <div class="col-sm-6" data-ng-if="ctrl.terminal.isGoTimeStampType && ctrl.accountDim2.accountDimId">
+                                        <soe-checkbox label-key="time.time.timeterminal.limitselectableaccounts" model="ctrl.limitSelectableAccounts2" is-disabled="!ctrl.modifyPermission"></soe-checkbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <accounts-for-dim parent-guid="ctrl.guid" account-dim-id="ctrl.accountDim.accountDimId" selected-account-ids="ctrl.selectedAccountIds" nbr-of-rows="10" hide-header="true" show-toolbar="true" use-filters="true" read-only="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType && ctrl.accountDim.accountDimId && ctrl.limitSelectableAccounts"></accounts-for-dim>
+                                    </div>
+                                    <div class="col-sm-6" data-ng-if="ctrl.terminal.isGoTimeStampType && ctrl.accountDim2.accountDimId && ctrl.limitSelectableAccounts2">
+                                        <accounts-for-dim parent-guid="ctrl.guid" account-dim-id="ctrl.accountDim2.accountDimId" selected-account-ids="ctrl.selectedAccountIds2" nbr-of-rows="10" hide-header="true" show-toolbar="true" use-filters="true" read-only="!ctrl.modifyPermission"></accounts-for-dim>
+                                    </div>
+                                </div>
+
+                                <div class="row margin-large-top" data-ng-if="ctrl.terminal.isGoTimeStampType && ctrl.accountDim.accountDimId">
+                                    <div class="col-sm-12">
+                                        <soe-checkbox label-key="time.time.timeterminal.selectaccountswithoutimmediatestamp" model="ctrl.selectAccountsWithoutImmediateStamp" is-disabled="!ctrl.modifyPermission" on-changing="ctrl.selectAccountsWithoutImmediateStampChanged();"></soe-checkbox>
+                                    </div>
+                                </div>
+                                <div class="row" data-ng-if="ctrl.terminal.isGoTimeStampType && ctrl.accountDim.accountDimId">
+                                    <div class="col-sm-12">
+                                        <div class="info">
+                                            <span data-ng-bind-html="ctrl.selectAccountsWithoutImmediateStampInfoLabel | formatHtml"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row margin-large-top" data-ng-if="ctrl.terminal.isGoTimeStampType && ctrl.accountDim.accountDimId">
+                                    <div class="col-sm-12">
+                                        <soe-checkbox label-key="time.time.timeterminal.rememberaccountsafterbreak" model="ctrl.rememberAccountsAfterBreak" is-disabled="!ctrl.modifyPermission || !ctrl.selectAccountsWithoutImmediateStamp"></soe-checkbox>
+                                    </div>
+                                </div>
+                                <div class="row" data-ng-if="ctrl.terminal.isGoTimeStampType && ctrl.accountDim.accountDimId">
+                                    <div class="col-sm-12">
+                                        <soe-instruction label-key="time.time.timeterminal.rememberaccountsafterbreak.info"></soe-instruction>
+                                    </div>
+                                </div>
+
+                                <div class="row margin-large-top">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.time.timeterminal.internalaccount" model="ctrl.internalAccount" items="ctrl.internalAccounts" options="item as item.name for item in items" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.accountDim"></soe-select>
+                                    </div>
+                                </div>
+                            </soe-accordion>
+                            <soe-accordion label-key="time.time.attest.timestamps.additions" is-open="ctrl.expanderAdditionsOpen" data-ng-if="ctrl.terminal.isGoTimeStampType && ctrl.possibilityToRegisterAdditionsInTerminal">
+                                <soe-checkbox label-key="time.time.timeterminal.limitselectableadditions" model="ctrl.limitSelectableAdditions" is-disabled="!ctrl.modifyPermission"></soe-checkbox>
+                                <time-stamp-additions parent-guid="ctrl.guid" selected-additions="ctrl.selectedAdditions" read-only="!ctrl.modifyPermission" data-ng-if="ctrl.limitSelectableAdditions"></time-stamp-additions>
+                            </soe-accordion>
+                            <soe-accordion label-key="time.time.timeterminal.stamping" is-open="ctrl.expanderStampingOpen" data-ng-if="ctrl.terminal.isTimeStampType || ctrl.terminal.isWebTimeStampType || ctrl.terminal.isGoTimeStampType">
+                                <soe-panel label-key="time.schedule.planning.breaks" data-ng-if="ctrl.terminal.isGoTimeStampType">
+                                    <soe-checkbox label-key="time.time.timeterminal.showactionbreak" model="ctrl.showActionBreak" text-class="margin-small-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" on-changing="ctrl.showActionBreakChanged();"></soe-checkbox>
+                                    <div class="row" data-ng-if="ctrl.showActionBreak">
+                                        <div class="col-sm-12">
+                                            <div class="margin-large-left">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <soe-textbox label-key="time.time.timeterminal.distanceworkbuttonname" model="ctrl.breakButtonName" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <soe-menubutton style="margin-top: 23px;" label-key="time.time.timeterminal.distanceworkbuttonicon" options="ctrl.breakButtonIcons" option-selected="ctrl.breakButtonIconSelected(option)" drop-up="true"></soe-menubutton>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <span class="far {{ctrl.breakButtonIcon}}" style="margin-top: 26px; font-size: 24px;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <soe-checkbox label-key="time.time.timeterminal.breakispaid" model="ctrl.breakIsPaid" is-disabled="!ctrl.modifyPermission"></soe-checkbox>
+                                                    </div>
+                                                </div>
+                                                <div class="row" data-ng-if="ctrl.breakIsPaid">
+                                                    <div class="col-sm-6 margin-large-left">
+                                                        <soe-select label-key="time.time.timeterminal.breaktimedeviationcause" model="ctrl.breakTimeDeviationCauseId" items="ctrl.breakTimeDeviationCauses" options="item.id as item.name for item in items" is-disabled="!ctrl.modifyPermission" on-changing="ctrl.breakTimeDeviationCauseChanged();"></soe-select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <soe-checkbox label-key="time.time.timeterminal.showactionbreakalt" model="ctrl.showActionBreakAlt" text-class="margin-large-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" on-changing="ctrl.showActionBreakAltChanged();" data-ng-if="ctrl.showActionBreak"></soe-checkbox>
+                                    <div class="row" data-ng-if="ctrl.showActionBreak && ctrl.showActionBreakAlt">
+                                        <div class="col-sm-12">
+                                            <div class="margin-large-left">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <soe-textbox label-key="time.time.timeterminal.distanceworkbuttonname" model="ctrl.breakAltButtonName" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <soe-menubutton style="margin-top: 23px;" label-key="time.time.timeterminal.distanceworkbuttonicon" options="ctrl.breakButtonIcons" option-selected="ctrl.breakAltButtonIconSelected(option)" drop-up="true"></soe-menubutton>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <span class="far {{ctrl.breakAltButtonIcon}}" style="margin-top: 26px; font-size: 24px;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <soe-checkbox label-key="time.time.timeterminal.breakispaid" model="ctrl.breakAltIsPaid" is-disabled="!ctrl.modifyPermission"></soe-checkbox>
+                                                    </div>
+                                                </div>
+                                                <div class="row" data-ng-if="ctrl.breakAltIsPaid">
+                                                    <div class="col-sm-6 margin-large-left">
+                                                        <soe-select label-key="time.time.timeterminal.breaktimedeviationcause" model="ctrl.breakAltTimeDeviationCauseId" items="ctrl.breakTimeDeviationCauses" options="item.id as item.name for item in items" is-disabled="!ctrl.modifyPermission" on-changing="ctrl.breakAltTimeDeviationCauseChanged();"></soe-select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </soe-panel>
+
+                                <soe-checkbox label-key="time.time.timeterminal.onlystampwithtag" model="ctrl.onlyStampWithTag" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isTimeStampType"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.onlydigitsincardnumber" model="ctrl.onlyDigitsInCardNumber" text-class="margin-small-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isTimeStampType"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.forcecorrecttypetimelineorder" model="ctrl.forceCorrectTypeTimelineOrder" text-class="margin-small-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isTimeStampType || ctrl.terminal.isGoTimeStampType"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.shownotificationwhenstamping" model="ctrl.showNotificationWhenStamping" text-class="margin-small-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-checkbox>
+
+                                <soe-checkbox label-key="time.time.timeterminal.forcecause" model="ctrl.forceCause" text-class="margin-large-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isTimeStampType || ctrl.terminal.isGoTimeStampType"></soe-checkbox>
+                                <div class="margin-large-left" data-ng-if="ctrl.forceCause">
+                                    <soe-textbox label-key="time.time.timeterminal.forcecause.gracetime" label-value="ctrl.minutesLabel" label-value-in-parentheses="true" model="ctrl.forceCauseGraceTime" numeric="true" is-readonly="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isTimeStampType"></soe-textbox>
+                                    <soe-textbox label-key="time.time.timeterminal.forcecause.gracetimeoutside" label-value="ctrl.minutesLabel" label-value-in-parentheses="true" model="ctrl.forceCauseGraceTimeOutside" numeric="true" is-readonly="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-textbox>
+                                    <soe-textbox label-key="time.time.timeterminal.forcecause.gracetimeinside" label-value="ctrl.minutesLabel" label-value-in-parentheses="true" model="ctrl.forceCauseGraceTimeInside" numeric="true" is-readonly="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-textbox>
+                                    <soe-checkbox label-key="time.time.timeterminal.ignoreforcecauseonbreak" model="ctrl.ignoreForceCauseOnBreak" text-class="margin-small-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-checkbox>
+                                </div>
+                                <soe-checkbox label-key="time.time.timeterminal.validatenoschedule" model="ctrl.validateNoSchedule" text-class="margin-small-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.validateabsence" model="ctrl.validateAbsence" text-class="margin-small-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.useautostampout" model="ctrl.useAutoStampOut" text-class="margin-large-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission"></soe-checkbox>
+                                <div class="col-sm-4">
+                                    <soe-timebox label-key="time.time.timeterminal.useautostampout.time" model="ctrl.useAutoStampOutTime" is-time="true" is-readonly="!ctrl.modifyPermission" data-ng-if="ctrl.useAutoStampOut"></soe-timebox>
+                                </div>
+                                <div class="row" data-ng-if="ctrl.terminal.isGoTimeStampType && (ctrl.terminal.timeTerminalId === 16 || ctrl.terminal.timeTerminalId === 19 || ctrl.terminal.timeTerminalId === 53)">
+                                    <div class="col-sm-12">
+                                        <soe-checkbox label-key="time.time.timeterminal.usedistancework" model="ctrl.useDistanceWork" text-class="margin-large-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" on-changing="ctrl.useDistanceWorkChanged();"></soe-checkbox>
+                                        <div class="margin-large-left" data-ng-if="ctrl.useDistanceWork">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <soe-textbox label-key="time.time.timeterminal.distanceworkbuttonname" model="ctrl.distanceWorkButtonName" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <soe-menubutton style="margin-top: 23px;" label-key="time.time.timeterminal.distanceworkbuttonicon" options="ctrl.distanceWorkButtonIcons" option-selected="ctrl.distanceWorkButtonIconSelected(option)" drop-up="true"></soe-menubutton>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <span class="far {{ctrl.distanceWorkButtonIcon}}" style="margin-top: 26px; font-size: 24px;"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </soe-accordion>
+                        </uib-accordion>
+                    </div>
+                    <div class="col-sm-3">
+                        <uib-accordion close-others="false">
+                            <soe-accordion label-key="time.time.timeterminal.globalization" is-open="ctrl.expanderGlobalizationOpen" data-ng-if="!ctrl.terminal.isTimeSpotType">
+                                <soe-select label-key="core.language" model="ctrl.countryId" items="ctrl.countries" options="item.id as item.name for item in items" is-disabled="!ctrl.modifyPermission" data-ng-if="!ctrl.terminal.isGoTimeStampType"></soe-select>
+
+                                <table data-ng-if="ctrl.terminal.isGoTimeStampType">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" colspan="2" data-l10n-bind="'core.language'"></th>
+                                            <th scope="col" data-l10n-bind="'common.standard'"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-ng-repeat="language in ctrl.languages track by language.id">
+                                            <td><span class="link fal margin-small-right" data-ng-class="{'fa-check-square': language.selected, 'fa-square': !language.selected}" data-ng-click="ctrl.selectLanguage(language);"></span></td>
+                                            <td><span class="margin-large-right">{{language.name}}</span></td>
+                                            <td><span class="link far" data-ng-class="{'fa-dot-circle': language.default, 'fa-circle': !language.default}" data-ng-click="ctrl.selectDefaultLanguage(language);"></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="row" data-ng-if="ctrl.terminal.isGoTimeStampType">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="core.timezone" model="ctrl.timeZone" items="ctrl.timeZones" options="item.key as item.value for item in items" is-disabled="!ctrl.modifyPermission"></soe-select>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <soe-textbox hidelabel="true" model="ctrl.timeZone" is-readonly="true" input-class="borderless" input-class-condition="true"></soe-textbox>
+                                    </div>
+                                </div>
+                                <soe-textbox label-key="time.time.timeterminal.adjusttime" label-value="ctrl.hoursLabel" label-value-in-parentheses="true" model="ctrl.adjustTime" numeric="true" is-readonly="!ctrl.modifyPermission" data-ng-if="!ctrl.terminal.isGoTimeStampType"></soe-textbox>
+                            </soe-accordion>
+                            <soe-accordion label-key="time.time.timeterminal.limits" is-open="ctrl.expanderLimitsOpen">
+                                <soe-checkbox label-key="time.time.timeterminal.limittoaccount" model="ctrl.limitToAccount" is-disabled="true" data-ng-if="ctrl.useAccountHierarchy"></soe-checkbox>
+                                <div class="row" data-ng-if="ctrl.useAccountHierarchy && ctrl.limitToAccount">
+                                    <div class="col-sm-12" data-ng-if="ctrl.terminal.isGoTimeStampType">
+                                        <soe-select label-key="time.time.timeterminal.accountdim" model="ctrl.limitToAccountDimId" items="ctrl.accountDims" options="item.accountDimId as item.name for item in items" is-disabled="!ctrl.modifyPermission" on-changing="ctrl.limitToAccountDimChanged();"></soe-select>
+                                        <employee-accounts class="margin-large-top" parent-guid="ctrl.guid" account-dim-id="ctrl.limitToAccountDimId" selected-accounts="ctrl.limitAccountIds" nbr-of-rows="10" show-account-dims="false" read-only="!ctrl.modifyPermission"></employee-accounts>
+                                    </div>
+                                </div>
+
+                                <soe-checkbox label-key="time.time.timeterminal.limittocategories" model="ctrl.limitToCategories" is-disabled="!ctrl.modifyPermission" data-ng-if="!ctrl.useAccountHierarchy"></soe-checkbox>
+                                <categories category-type="6" category-record-entity="12" parent-guid="ctrl.guid" selected-categories="ctrl.categoryIds" nbr-of-rows="10" hide-header="true" read-only="!ctrl.modifyPermission" data-ng-if="!ctrl.useAccountHierarchy && ctrl.limitToCategories"></categories>
+
+                                <soe-textbox class="margin-large-top" label-key="time.time.timeterminal.ipfilter" model="ctrl.ipFilter" is-readonly="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isWebTimeStampType || ctrl.terminal.isGoTimeStampType"></soe-textbox>
+                                <div class="info margin-small-top" data-ng-if="ctrl.terminal.isWebTimeStampType || ctrl.terminal.isGoTimeStampType">
+                                    <span data-ng-bind-html="ctrl.ipFilterInfoLabel | formatHtml"></span>
+                                </div>
+                            </soe-accordion>
+                        </uib-accordion>
+                    </div>
+                    <div class="col-sm-3" data-ng-if="!ctrl.terminal.isTimeSpotType">
+                        <uib-accordion close-others="false">
+                            <soe-accordion label-key="time.time.timeterminal.attendanceview" is-open="ctrl.expanderAttendanceViewOpen">
+                                <soe-checkbox label-key="time.time.timeterminal.attendanceview.hide" model="ctrl.attendanceViewHide" is-disabled="!ctrl.modifyPermission"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.attendanceview.showtime" model="ctrl.attendanceViewShowTime" text-class="margin-small-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="!ctrl.attendanceViewHide"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.attendanceview.showpictures" model="ctrl.attendanceViewShowPictures" text-class="margin-small-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isWebTimeStampType && !ctrl.attendanceViewHide"></soe-checkbox>
+                                <div class="row margin-large-top" data-ng-if="ctrl.terminal.isGoTimeStampType && !ctrl.attendanceViewHide">
+                                    <div class="col-sm-6">
+                                        <soe-select label-key="core.sortingon" model="ctrl.attendanceViewSortOrder" items="ctrl.attendanceViewSortOrders" options="item.id as item.name for item in items" is-disabled="!ctrl.modifyPermission"></soe-select>
+                                    </div>
+                                </div>
+                            </soe-accordion>
+                            <soe-accordion label-key="time.time.timeterminal.grouping" is-open="ctrl.expanderGroupingOpen" data-ng-if="ctrl.terminal.isGoTimeStampType">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.time.timeterminal.groupname" model="ctrl.selectedGroupName" items="ctrl.terminalGroupNames" options="item as item for item in items" is-disabled="!ctrl.modifyPermission"></soe-select>
+                                        <soe-textbox label-key="common.group" model="ctrl.terminalGroupName" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                                        <div class="info margin-small-top">
+                                            <span data-ng-bind-html="ctrl.terminalGroupNameInfoLabel | formatHtml"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </soe-accordion>
+                            <soe-accordion label-key="time.time.timeterminal.information" is-open="ctrl.expanderInformationOpen" data-ng-if="ctrl.terminal.isTimeStampType || ctrl.terminal.isGoTimeStampType">
+                                <soe-checkbox label-key="time.time.timeterminal.information.hide" model="ctrl.hideInformation" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isTimeStampType"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.showonlybreakaccumulator" model="ctrl.showOnlyBreakAccumulator" text-class="margin-small-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isTimeStampType"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.schedule.showcurrent" model="ctrl.showCurrentSchedule" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.schedule.shownext" model="ctrl.showNextSchedule" text-class="margin-small-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.accumulator.showbreak" model="ctrl.showBreakAccumulator" text-class="margin-small-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.accumulator.showother" model="ctrl.showOtherAccumulators" text-class="margin-large-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.showtimestamphistory" model="ctrl.showTimeStampHistory" text-class="margin-small-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.information.showunread" model="ctrl.showUnreadInformation" text-class="margin-large-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-checkbox>
+                            </soe-accordion>
+                            <soe-accordion label-key="time.time.timeterminal.newemployee" is-open="ctrl.expanderNewEmployeeOpen" data-ng-if="ctrl.terminal.isTimeStampType">
+                                <soe-checkbox label-key="time.time.timeterminal.newemployee.usenewemployee" model="ctrl.useNewEmployee" is-disabled="!ctrl.modifyPermission"></soe-checkbox>
+                                <soe-checkbox label-key="time.time.timeterminal.newemployee.forcesocialsecnbr" model="ctrl.forceSocialSecNbr" text-class="margin-small-top" text-class-condition="true" is-disabled="!ctrl.modifyPermission"></soe-checkbox>
+                            </soe-accordion>
+                            <soe-accordion label-key="time.time.timeterminal.miscsettings" is-open="ctrl.expanderMiscSettingsOpen" data-ng-if="ctrl.terminal.isTimeStampType || ctrl.terminal.isGoTimeStampType">
+                                <soe-textbox label-key="time.time.timeterminal.syncinterval" label-value="ctrl.secondsLabel" label-value-in-parentheses="true" model="ctrl.syncInterval" numeric="true" is-readonly="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isTimeStampType"></soe-textbox>
+                                <soe-textbox label-key="time.time.timeterminal.inactivitydelay" label-value="ctrl.secondsLabel" label-value-in-parentheses="true" model="ctrl.inactivityDelay" numeric="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                                <soe-checkbox label-key="time.time.timeterminal.maximizewindow" model="ctrl.maximizeWindow" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isTimeStampType"></soe-checkbox>
+                                <soe-select label-key="time.time.timeterminal.loglevel" label-value="ctrl.logLevelInfoLabel" label-value-in-parentheses="true" model="ctrl.logLevel" items="ctrl.logLevels" options="item.id as item.name for item in items" is-disabled="!ctrl.modifyPermission" data-ng-if="ctrl.terminal.isGoTimeStampType"></soe-select>
+                            </soe-accordion>
+                        </uib-accordion>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.terminal"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.terminal.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

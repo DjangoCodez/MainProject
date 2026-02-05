@@ -1,0 +1,132 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <div class="soe-edit-form" [formGroup]="form">
+        <div class="row dialog-row-top-padding">
+          @if (showLangSelection) {
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.language'"
+                [items]="languages"
+                formControlName="languageId">
+              </soe-select>
+            </div>
+          }
+          @if (showCopy) {
+            <div class="col-sm-2">
+              <soe-checkbox
+                [labelKey]="'core.copy2'"
+                formControlName="isReportCopy">
+              </soe-checkbox>
+            </div>
+          }
+          @if (showReminder) {
+            <div class="col-sm-2">
+              <soe-checkbox
+                [labelKey]="'common.customer.invoices.reminder'"
+                formControlName="isReminder">
+              </soe-checkbox>
+            </div>
+          }
+          @if (showSavePrintout) {
+            <div class="col-sm-2">
+              <soe-checkbox
+                [labelKey]="'common.saveindatastorage'"
+                formControlName="savePrintout">
+              </soe-checkbox>
+            </div>
+          }
+        </div>
+        <div class="row dialog-row-top-padding">
+          <div class="col-sm-12">
+            <div class="table-responsive table-outer-bordered">
+              <table class="table table-condensed table-hover">
+                <thead>
+                  <tr>
+                    <th>
+                      <label class="form-label">{{
+                        'common.report.report.report' | translate
+                      }}</label>
+                    </th>
+                    <th>
+                      <label class="form-label">{{
+                        'common.name' | translate
+                      }}</label>
+                    </th>
+                    <th>
+                      <label class="form-label">{{
+                        'common.description' | translate
+                      }}</label>
+                    </th>
+                    <th></th>
+                    @if (showEmail) {
+                      <th></th>
+                    }
+                  </tr>
+                </thead>
+                <tbody>
+                  @if (reports.length === 0 || !progressService.inProgress) {
+                    <tr>
+                      <td colspan="5">
+                        <div class="info">
+                          <label class="form-label">{{
+                            'common.nodata' | translate
+                          }}</label>
+                        </div>
+                      </td>
+                    </tr>
+                  }
+                  @for (report of reports; track report) {
+                    <tr>
+                      <td>
+                        <span [ngClass]="{ indiscreet: report.default }">{{
+                          report.reportNr
+                        }}</span>
+                      </td>
+                      <td>
+                        <span [ngClass]="{ indiscreet: report.default }">{{
+                          report.reportName
+                        }}</span>
+                      </td>
+                      <td>
+                        <span [ngClass]="{ indiscreet: report.default }">{{
+                          report.reportDescription
+                        }}</span>
+                      </td>
+                      <td>
+                        <span
+                          class="link"
+                          [ngClass]="{ 'fal fa-print': report.reportId }"
+                          (click)="printClick(report)"></span>
+                      </td>
+                      @if (showEmail) {
+                        <td>
+                          <span
+                            class="link"
+                            [ngClass]="{ 'fal fa-envelope': report.reportId }"
+                            (click)="emailClick(report)"></span>
+                        </td>
+                      }
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </ng-container>
+  <ng-container dialog-footer>
+    <div class="col-sm-12">
+      <div class="float-end">
+        <soe-button
+          class="ms-3"
+          [caption]="'core.cancel'"
+          typeClass="btn btn-secondary"
+          [behaviour]="'standard'"
+          (action)="cancel()"></soe-button>
+      </div>
+    </div>
+  </ng-container>
+</soe-dialog>

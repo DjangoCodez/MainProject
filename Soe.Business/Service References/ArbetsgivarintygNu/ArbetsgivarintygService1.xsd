@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://INT036_Lonesystem.Schemas.ArbetsgivarintygService" xmlns:b="http://schemas.microsoft.com/BizTalk/2003" elementFormDefault="qualified" targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://arbetsgivarintygtest.sverigesakassor.se/HR_SystemService/ArbetsgivarintygService.svc?xsd=xsd5" namespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygService_API" />
+  <xs:annotation>
+    <xs:appinfo>
+      <b:references xmlns:b="http://schemas.microsoft.com/BizTalk/2003">
+        <b:reference targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygService_API" />
+        <b:reference targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_Bas" />
+        <b:reference targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp" />
+        <b:reference targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_API" />
+      </b:references>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ArbetsgivarintygServiceRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://INT036_Lonesystem.Schemas.ArbetsgivarintygService_API" minOccurs="1" maxOccurs="1" name="Request" nillable="true" type="q1:ImportRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ArbetsgivarintygServiceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://INT036_Lonesystem.Schemas.ArbetsgivarintygService_API" minOccurs="0" name="Response" nillable="true" type="q2:ImportResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,23 @@
+@use '../../../../../shared/styles/core-styles/colors.scss';
+
+:host {
+  border-right: 1px solid colors.$soe-border-color;
+}
+
+.content-container {
+  &.has-scrollbar {
+    /* Place a border towards the scrollbar to avoid a gap between the scrollbar and the content */
+    border-right: 1px solid colors.$soe-border-color;
+  }
+
+  sp-employee-row.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    ::ng-deep .employee-row-container {
+      background-color: colors.$soe-background-color;
+      border-bottom: 2px solid colors.$soe-border-color;
+    }
+  }
+}

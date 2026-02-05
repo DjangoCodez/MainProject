@@ -1,0 +1,67 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.ok()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.info'"></h6>
+    </div>
+    <div class="modal-body">
+
+        <div class="row" ng-if="ctrl.header != ''">
+            <div class="col-sm-3" >
+                <soe-label model="ctrl.header" discreet="true"></soe-label>
+            </div>
+
+        </div>
+        <div class="row margin-large-top" style=" margin-bottom: 15px;">
+
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <soe-label label-key="common.employee"></soe-label>
+            </div>
+            <div class="col-sm-2" ng-if="ctrl.showVacationGroup">
+                <soe-label label-key="time.payroll.vacationgroup.vacationgroup"></soe-label>
+            </div>
+            <div class="col-sm-1">
+                <soe-label label-key="common.status"></soe-label>
+            </div>
+            <div class="col-sm-6">
+                <soe-label label-key="common.message"></soe-label>
+            </div>
+        </div>
+        <div class="table-scrollable-wrapper" style="margin-top: -15px;">
+            <div class="table-scrollable" style="max-height: 302px;">
+
+                <div class="margin-small-top margin-large-left margin-small-right repeater-semi-condensed" data-ng-repeat="row in ctrl.results">
+                    <div class="form-group form-group-sm">
+                        <div data-ng-if="$first">
+
+                        </div>
+                        <div class="row" style="margin-left: -10px; ">
+                            <div class="col-sm-3">
+                                <soe-label model="row.employeeNrAndName" discreet="true"></soe-label>
+                            </div>
+                            <div class="col-sm-2" ng-if="ctrl.showVacationGroup">
+                                <soe-label model="row.vacationGroupName" discreet="true"></soe-label>
+                            </div>
+                            <div class="col-sm-1">
+                                <soe-label model="row.statusName" discreet="true"></soe-label>
+                            </div>
+                            <div class="col-sm-6">
+                                <soe-label model="row.message" discreet="true"></soe-label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="col-sm-6 pull-left">
+            <soe-label class="pull-left" model="ctrl.nr" discreet="true"></soe-label>
+        </div>
+        <button type="button" class="btn " data-l10n-bind="'core.exportexcel'" data-ng-click="ctrl.exportToEcxcel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+    </div>
+
+</form>

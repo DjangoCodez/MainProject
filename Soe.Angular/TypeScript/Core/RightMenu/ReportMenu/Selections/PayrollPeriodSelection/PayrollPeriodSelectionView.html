@@ -1,0 +1,12 @@
+﻿<div class="row">
+    <div class="col-sm-6" data-ng-if="::$ctrl.showTimePeriodHeadSelector">
+        <soe-select hidelabel="::$ctrl.hideLabel" label-key="{{::$ctrl.labelKey}}" model="$ctrl.selectedTimePeriodHead" items="$ctrl.timePeriodHeads" options="item as item.name for item in items" on-changing="$ctrl.onTimePeriodHeadChanged()"></soe-select>
+    </div>
+    <div class="col-sm-6" data-ng-if="::$ctrl.showTimePeriodHeadSelector">
+        <soe-select hidelabel="::$ctrl.hideAdditionalLabel" label-key="{{::$ctrl.additionalLabelKey}}" model="$ctrl.selectedTimePeriodId" items="$ctrl.selectedTimePeriodHead.timePeriods" options="item.timePeriodId as item.nameAndPaymentDate for item in items" on-changing="$ctrl.onTimePeriodSelected()"></soe-select>
+    </div>
+
+    <div class="col-sm-12" data-ng-if="::!$ctrl.showTimePeriodHeadSelector">
+        <soe-multiselect hidelabel="::$ctrl.hideLabel" label-key="{{::$ctrl.labelKey}}" model="$ctrl.selectedTimePeriods" options="$ctrl.availableTimePeriods" on-selection-complete="$ctrl.onTimePeriodsSelected()"></soe-multiselect>
+    </div>
+</div>

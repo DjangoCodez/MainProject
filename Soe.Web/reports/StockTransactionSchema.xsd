@@ -1,0 +1,118 @@
+﻿<xs:schema id="SOE_StockTransaction" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SOE_StockTransaction" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="StockTransactions">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="TimeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="SortOrderLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="StockIntervalLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="StockShelfIntervalLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="StockProductIntervalLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateIntervalLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="ProductGroupIntervalLabel" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="Company" type="xs:string" minOccurs="0" />
+                    <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                    <xs:element name="AccountYear" type="xs:string" minOccurs="0" />
+                    <xs:element name="AccountPeriod" type="xs:string" minOccurs="0" />
+                    <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                    <xs:element name="SortOrder" type="xs:int" minOccurs="0" />
+                    <xs:element name="SortOrderName" type="xs:string" minOccurs="0" />
+                    <xs:element name="StockInterval" type="xs:string" minOccurs="0" />
+                    <xs:element name="StockShelfInterval" type="xs:string" minOccurs="0" />
+                    <xs:element name="StockProductInterval" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateInterval" type="xs:string" minOccurs="0" />
+					<xs:element name="ProductGroupInterval" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="StockNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="StockCodeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CodeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="StateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="StockProductIdLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceProductIdLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceProductNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceProductNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceProductUnitLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ActionTypeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ActionTypeNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="QuantityLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PriceLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="NoteLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="StockShelfIdLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="StockShelfNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="VoucherIdLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="VoucherNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CreatedLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CreatedByLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="AmountLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="SumLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="TotalLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="ProductGroupLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="SourceLabel" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="StockProduct" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="StockId" type="xs:int" minOccurs="0" />
+                    <xs:element name="Code" type="xs:string" minOccurs="0" />
+                    <xs:element name="Name" type="xs:string" minOccurs="0" />
+                    <xs:element name="State" type="xs:int" minOccurs="0" />
+                    <xs:element name="StockTransaction" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="InvoiceProductId" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                          <xs:element name="InvoiceProductNr" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                          <xs:element name="InvoiceProductName" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                          <xs:element name="InvoiceProductUnitName" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                          <xs:element name="ActionType" type="xs:int" minOccurs="0" msdata:Ordinal="5" />
+                          <xs:element name="ActionTypeName" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+                          <xs:element name="Quantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="7" />
+                          <xs:element name="Price" type="xs:decimal" minOccurs="0" msdata:Ordinal="8" />
+                          <xs:element name="Note" type="xs:string" minOccurs="0" msdata:Ordinal="9" />
+                          <xs:element name="StockShelfId" type="xs:int" minOccurs="0" msdata:Ordinal="10" />
+                          <xs:element name="StockShelfName" type="xs:string" minOccurs="0" msdata:Ordinal="11" />
+                          <xs:element name="VoucherId" type="xs:int" minOccurs="0" msdata:Ordinal="12" />
+                          <xs:element name="VoucherNr" type="xs:int" minOccurs="0" msdata:Ordinal="13" />
+                          <xs:element name="Created" type="xs:string" minOccurs="0" msdata:Ordinal="14" />
+                          <xs:element name="CreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="15" />
+						  <xs:element name="ProductGroupCode" type="xs:string" minOccurs="0" msdata:Ordinal="15" />
+						  <xs:element name="ProductGroupName" type="xs:string" minOccurs="0" msdata:Ordinal="16" />
+						  <xs:element name="SourceLabel" type="xs:string" minOccurs="0" msdata:Ordinal="17" />
+						  <xs:element name="SourceNr" type="xs:string" minOccurs="0" msdata:Ordinal="18" />
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

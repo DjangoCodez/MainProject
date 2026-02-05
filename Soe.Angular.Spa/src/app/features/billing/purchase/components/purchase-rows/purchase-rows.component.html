@@ -1,0 +1,83 @@
+@if (form) {
+  <form [formGroup]="form" novalidate autocomplete="off">
+    @if (flowHandler.allowFetchGrid()) {
+      <soe-grid-wrapper
+        [rows]="rows"
+        [noMargin]="true"
+        [parentGuid]="guid()"
+        (editRowClicked)="edit($event)"
+        [height]="200"
+        [toolbarGroups]="toolbarUtils.toolbarGroups"
+        [toolbarNoPadding]="true"
+        (selectionChanged)="selectionChanged($event)">
+        <div class="row" toolbar-content-right>
+          <div class="align-items-end">
+            <soe-checkbox
+              [labelKey]="'billing.productrows.showallrows'"
+              [inline]="true"
+              [inToolbar]="true"
+              (valueChanged)="showAllRowsValueChanged($event)">
+            </soe-checkbox>
+            <soe-menu-button
+              class="me-2"
+              [caption]="'common.newrow'"
+              [list]="addNewMenuList"
+              [variant]="'split'"
+              [selectedItem]="addNewMenuList[0]"
+              [disabled]="!flowHandler.modifyPermission()"
+              [behaviour]="'secondary'"
+              [dropUp]="false"
+              (itemSelected)="peformActionAddRow($event)">
+            </soe-menu-button>
+            <soe-menu-button
+              [caption]="'core.functions'"
+              [list]="featureMenuList"
+              [selectedItem]="featureMenuList[0]"
+              [disabled]="!flowHandler.modifyPermission()"
+              [behaviour]="'secondary'"
+              [dropUp]="false"
+              (itemSelected)="peformAction($event)">
+            </soe-menu-button>
+          </div>
+        </div>
+      </soe-grid-wrapper>
+    }
+    <div class="row" footer>
+      <div class="col-sm-12">
+        <div class="information-container top-margin">
+          <div class="row">
+            @if (useCentRounding) {
+              <div class="col-sm-2">
+                <soe-numberbox
+                  [labelKey]="'billing.productrows.centrounding'"
+                  [autoFocus]="true"
+                  formControlName="centRounding"
+                  [decimals]="2">
+                </soe-numberbox>
+              </div>
+            }
+            <div class="col-sm-2">
+              <soe-numberbox
+                [labelKey]="'billing.purchaserow.totalexvat'"
+                [autoFocus]="true"
+                formControlName="totalAmountExVatCurrency"
+                [decimals]="2">
+              </soe-numberbox>
+            </div>
+            @if (!currencyService.isBaseCurrency()) {
+              <div class="col-sm-2">
+                <soe-numberbox
+                  [labelKey]="'billing.purchaserow.totalexvat'"
+                  [autoFocus]="true"
+                  formControlName="baseCurrencyCode"
+                  [decimals]="2"
+                  [secondaryLabelKey]="currencyService.baseCurrencyCode">
+                </soe-numberbox>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+}

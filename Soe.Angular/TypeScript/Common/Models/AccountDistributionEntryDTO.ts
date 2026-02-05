@@ -1,0 +1,53 @@
+﻿import { IAccountDistributionEntryRowDTO, IAccountDistributionEntryDTO } from "../../Scripts/TypeLite.Net4";
+import { TermGroup_AccountDistributionPeriodType, TermGroup_AccountDistributionTriggerType, TermGroup_AccountDistributionRegistrationType } from "../../Util/CommonEnumerations";
+
+export class AccountDistributionEntryDTO implements IAccountDistributionEntryDTO {
+    private static internalIdCounter = 1;
+
+    accountDistributionEntryId: number;
+    accountDistributionEntryRowDTO: IAccountDistributionEntryRowDTO[];
+    accountDistributionHeadId: number;
+    accountDistributionHeadName: string;
+    accountYearId: number;
+    actorCompanyId: number;
+    amount: number;
+    categories: string;
+    created: Date;
+    createdBy: string;
+    currentAmount: number;
+    date: Date;
+    detailVisible: boolean;
+    inventoryId: number;
+    inventoryName: string;
+    inventoryNr: string;
+    inventoryDescription: string;
+    inventoryNotes: string;
+    isSelected: boolean;
+    isSelectEnable: boolean;
+    modified: Date;
+    modifiedBy: string;
+    periodError: boolean;
+    periodType: TermGroup_AccountDistributionPeriodType;
+    rowId: number;
+    state: number;
+    status: string;
+    sourceVoucherNr: number;
+    supplierInvoiceId: number;
+    triggerType: TermGroup_AccountDistributionTriggerType;
+    typeName: string;
+    voucherHeadId: number;
+    voucherNr: number;
+    voucherSeriesTypeId: number;
+    writeOffAmount: number;
+    writeOffTotal: number;
+    writeOffYear: number;
+    registrationType: TermGroup_AccountDistributionRegistrationType;
+    sourceCustomerInvoiceId: number;
+    sourceSupplierInvoiceId: number;
+    sourceVoucherHeadId: number;
+    sourceCustomerInvoiceSeqNr: number;
+    sourceSupplierInvoiceSeqNr: number;
+    sourceVoucherHeadNr: number;
+    sourceRowId: number;
+    invoiceNr: string;
+}

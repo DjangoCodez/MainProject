@@ -1,0 +1,24 @@
+﻿<div>
+    <soe-panel label-key="time.employee.payrollgroup.vacationgroup" condensed="true">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" data-l10n-bind="'common.name'"></th>
+                    <th scope="col" data-l10n-bind="'common.standard'"></th>                    
+                    <th scope="col" class="table-header-button" style="width: 160px;" colspan="3" data-ng-if="!ctrl.readOnly">
+                        <span data-l10n-bind data-l10n-bind-title="'time.employee.payrollgroup.vacationgroup.new'" data-ng-click="ctrl.editVacationGroup(null);"><i class="fal fa-plus"></i><span data-l10n-bind="'time.employee.payrollgroup.vacationgroup.new'"></span></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="vacationGroup in ctrl.vacationGroups | orderBy:'vacationGroupName'">
+                <tr>
+                    <td><span>{{vacationGroup.name}}</span></td>                    
+                    <td><i class="fal fa-check-square" data-ng-if="vacationGroup.isDefault"></i></td>                    
+                    <td style="width: 104px">
+                    <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editVacationGroup(vacationGroup);"></i></span></td>
+                    <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteVacationGroup(vacationGroup);"></i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </soe-panel>
+</div>

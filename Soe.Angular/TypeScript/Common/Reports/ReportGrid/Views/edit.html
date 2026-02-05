@@ -1,0 +1,140 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" data-ng-click="ctrl.closeModal(false);" aria-hidden="true">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'"></h6>
+    </div>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+    <div ng-class="ctrl.isModal ? 'edit-padding': ''">
+        <soe-panel label-key="common.report.userreporttemplate.reporttemplate">
+            <div class="row" data-ng-if="!ctrl.isAnalysis">
+                <div class="col-sm-12">
+                    <soe-typeahead label-key="common.report.report.ownTemplates" model="ctrl.selectedUserReportTemplate" items="ctrl.userReportTemplates" limit="500" options="item as item.combinedDisplayName for item in items" filter-property="name" on-selection-changed="ctrl.onUserReportTemplateChanged(item)" on-edit="ctrl.downloadUserTemplate()" edit-icon="fa-download" edit-tooltip-key="common.report.reporttemplate.downloadtemplate" edit-disabled="!ctrl.userTemplatePermission || ctrl.selectedUserReportTemplate === undefined"></soe-typeahead>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-typeahead label-key="common.report.report.systemTemplates" model="ctrl.selectedSysReportTemplate" items="ctrl.sysReportTemplates" limit="500" options="item as item.groupAndNameAndNr for item in items | orderBy:item.groupAndNameAndNr" filter-property="groupAndNameAndNr" on-selection-changed="ctrl.onSysReportTemplateChanged(item)" on-edit="ctrl.downloadSysTemplate()" edit-icon="fa-download" edit-tooltip-key="common.report.reporttemplate.downloadtemplate" edit-disabled="!ctrl.sysTemplatePermission || ctrl.selectedSysReportTemplate === undefined"></soe-typeahead>
+                </div>
+            </div>
+        </soe-panel>
+
+        <soe-panel label-key="common.report.reporttemplate.importreportcontent" data-ng-if="ctrl.isGroupMapping">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-select label-key="common.company" model="ctrl.selectedImportCompanyId" items="ctrl.reportCompanies" options="item.id as item.name for item in items" on-changing="ctrl.onCompanyChanged(item)" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-select label-key="common.report.report.report" model="ctrl.selectedImportReportId" items="ctrl.sysCompanyReports" options="item.id as item.name for item in items" on-changing="ctrl.onSysCompanyReportIdChanged(item)" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-checkbox label-key="common.report.reporttemplate.newGroupsAndHeaders" model="ctrl.newGroupsHeadings"></soe-checkbox>
+                </div>
+            </div>
+        </soe-panel>
+
+        <soe-panel label-key="common.report.report.report">
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-textbox label-key="common.report.report.reportNumber" model="ctrl.report.reportNr" required="true" set-focus="true"></soe-textbox>
+                </div>
+                <div class="col-sm-8">
+                    <soe-textbox label-key="common.name" model="ctrl.report.name" required="true" maxlength="100"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.description" model="ctrl.report.description" maxlength="255"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-multiselect label-key="common.report.report.roles" options="ctrl.selectableRoles" display-prop="name" model="ctrl.selectedRoles" show-selected="true" on-selection-complete="ctrl.onRolesSelected()" required="true"></soe-multiselect>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-select label-key="common.report.selection.exporttype" model="ctrl.report.exportType" items="ctrl.exportTypes" options="item.id as item.name for item in items" on-changing="ctrl.evaluateExportFileType(item)" />
+                </div>
+                <div class="col-sm-6">
+                    <soe-select label-key="common.report.selection.exportfiletype" model="ctrl.report.exportFileType" data-ng-show="ctrl.visibleOptionalFields['exportFileType']" items="ctrl.exportFileTypes" options="item.id as item.name for item in items" />
+                </div>
+            </div>
+            <soe-report-meta-fields is-sys-report-template="false" report="ctrl.report"></soe-report-meta-fields>
+        </soe-panel>
+        <soe-panel label-key="common.setting" data-ng-if="ctrl.showSettings">
+            <div class="row" data-ng-if="ctrl.visibleOptionalFields['projectOverviewExtendedInfo']">
+                <div class="col-sm-12">
+                    <soe-checkbox label="{{::ctrl.getsettingName(3)}}" model="ctrl.settingValues[3]"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.visibleOptionalFields['stockInventoryExcludeZeroQuantity']">
+                <div class="col-sm-12">
+                    <soe-checkbox label="{{::ctrl.getsettingName(4)}}" model="ctrl.settingValues[4]"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.visibleOptionalFields['excludeItemsWithZeroQuantityForSpecificDate']">
+                <div class="col-sm-12">
+                    <soe-checkbox label="{{::ctrl.getsettingName(5)}}" model="ctrl.settingValues[5]"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.visibleOptionalFields['hidePriceAndRowSum']">
+                <div class="col-sm-12">
+                    <soe-checkbox label="{{::ctrl.getsettingName(6)}}" model="ctrl.settingValues[6]"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.visibleOptionalFields['groupedInvoiceByTaxDeduction']">
+                <div class="col-sm-12">
+                    <soe-checkbox label="{{::ctrl.getsettingName(7)}}" model="ctrl.settingValues[7]"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.visibleOptionalFields['groupedOfferByTaxDeduction']">
+                <div class="col-sm-12">
+                    <soe-checkbox label="{{::ctrl.getsettingName(8)}}" model="ctrl.settingValues[8]"></soe-checkbox>
+                </div>
+            </div>
+        </soe-panel>
+        <soe-panel label-key="common.report.report.sorting" data-ng-if="::ctrl.enableGroupingSorting()">
+            <div>
+                <soe-label label-key="common.report.reporttemplate.groupon" />
+                <div class="row">
+                    <soe-select class="col-sm-3" hidelabel="true" model="ctrl.report.groupByLevel1" items="ctrl.groups" options="item.id as item.name for item in items" />
+                    <soe-select class="col-sm-3" hidelabel="true" model="ctrl.report.groupByLevel2" items="ctrl.groups" options="item.id as item.name for item in items" />
+                    <soe-select class="col-sm-3" hidelabel="true" model="ctrl.report.groupByLevel3" items="ctrl.groups" options="item.id as item.name for item in items" />
+                    <soe-select class="col-sm-3" hidelabel="true" model="ctrl.report.groupByLevel4" items="ctrl.groups" options="item.id as item.name for item in items" />
+                </div>
+            </div>
+            <div>
+                <soe-label label-key="common.report.reporttemplate.sorton" />
+                <div class="row">
+                    <soe-select class="col-sm-3" hidelabel="true" model="ctrl.report.sortByLevel1" items="ctrl.groups" options="item.id as item.name for item in items" />
+                    <soe-select class="col-sm-3" hidelabel="true" model="ctrl.report.sortByLevel2" items="ctrl.groups" options="item.id as item.name for item in items" />
+                    <soe-select class="col-sm-3" hidelabel="true" model="ctrl.report.sortByLevel3" items="ctrl.groups" options="item.id as item.name for item in items" />
+                    <soe-select class="col-sm-3" hidelabel="true" model="ctrl.report.sortByLevel4" items="ctrl.groups" options="item.id as item.name for item in items" />
+                </div>
+            </div>
+            <div class="row">
+                <soe-textbox class="col-sm-3" label-key="common.report.reporttemplate.special" model="ctrl.report.special" maxlength="100"></soe-textbox>
+            </div>
+            <div class="row">
+                <soe-checkbox class="col-sm-6" label-key="common.report.reporttemplate.sortasc" model="ctrl.report.isSortAscending"></soe-checkbox>
+            </div>
+        </soe-panel>
+
+        <div class="ngSoeFormFooter modal-margin">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-default rounded-left rounded-right" data-l10n-bind="'common.report.reporttemplate.connecttoreportgroups'" data-dismiss="modal" data-ng-click="ctrl.openReportGroup();" data-ng-if="(ctrl.isModal && ctrl.visibleOptionalFields['showInAccountingReports'] || ctrl.visibleOptionalFields['connectReportGroups']) && !ctrl.selectedSysReportTemplate.isSystemReport"></button>
+                        <button type="button" style="margin-left: 15px;font-size:12px;" class="btn btn-sm btn-default rounded-left rounded-right" data-l10n-bind="'core.cancel'" data-dismiss="modal" data-ng-click="ctrl.closeModal(false);" data-ng-if="ctrl.isModal"></button>
+                        <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                        <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>

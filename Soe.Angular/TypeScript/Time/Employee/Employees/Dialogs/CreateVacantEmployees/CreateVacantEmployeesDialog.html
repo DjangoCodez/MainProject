@@ -1,0 +1,105 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="messagebox">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel();">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'time.employee.employee.createvacantemployees'"></h6>
+        </div>
+        <div class="modal-body">
+            <uib-accordion close-others="false">
+                <soe-accordion label-key="time.employee.employee.createvacantemployees.basis" is-open="ctrl.basisOpen">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <soe-textbox label-key="common.name" label-value="ctrl.firstNameLabelValue" label-value-in-parentheses="true" model="ctrl.firstName" required="true" update-on="blur" on-change="ctrl.clearPreview();"></soe-textbox>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-textbox label-key="time.employee.employee.createvacantemployees.counterstart" label-value="ctrl.counterStartLabelValue" label-value-in-parentheses="true" model="ctrl.counterStart" numeric="true" decimals="0" required="true" update-on="blur" on-change="ctrl.clearPreview();"></soe-textbox>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-textbox label-key="common.quantity" model="ctrl.quantity" numeric-not-zero="true" decimals="0" required="true" update-on="blur" on-change="ctrl.clearPreview();"></soe-textbox>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-textbox label-key="time.employee.employee.createvacantemployees.employeenrstart" model="ctrl.employeeNrStart" numeric-not-zero="true" decimals="0" required="true" update-on="blur" on-change="ctrl.clearPreview();"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <soe-datepicker label-key="common.startdate" model="ctrl.dateFrom" required="true" on-change="ctrl.clearPreview();"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-select label-key="time.employee.employeegroup.employeegroup" model="ctrl.employeeGroup" items="ctrl.employeeGroups" options="item as item.name for item in items" required="true" on-changing="ctrl.employeeGroupChanged();"></soe-select>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-textbox label-key="time.schedule.planning.worktimeweek" label-prefix-value="ctrl.employeeGroupLabel" label-value="ctrl.employeeGroup.ruleWorkTimeWeek | minutesToTimeSpan" label-value-in-parentheses="true" model="ctrl.workTimeWeekFormatted" update-on="blur" is-time="true" on-change="ctrl.workTimeWeekChanged();"></soe-textbox>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-textbox label-key="time.employee.employee.percent" label-value="'%'" label-value-in-parentheses="true" model="ctrl.percent" numeric="true" decimals="2" update-on="blur" on-change="ctrl.clearPreview();"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class=" col-sm-12" data-ng-if="ctrl.useAccountsHierarchy">
+                                <soe-label label-key="time.employee.employee.accounthierarchy"></soe-label>
+                                <employee-accounts employee-accounts="ctrl.accountRecords" default-employee-account-dim-id="ctrl.defaultEmployeeAccountDimId" on-change="ctrl.clearPreview();"></employee-accounts>
+                            </div>
+                            <div class=" col-sm-12" data-ng-if="!ctrl.useAccountsHierarchy">
+                                <categories category-type="6" category-record-entity="6" show-default="true" show-date-from="true" show-date-to="true" nbr-of-rows="5" use-comp-categories="true" comp-categories="ctrl.categoryRecords" on-change="ctrl.clearPreview();"></categories>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind="'time.employee.employee.createvacantemployees.dopreview'" data-ng-disabled="ctrl.edit.$invalid || (ctrl.accountRecords.length === 0 && ctrl.categoryRecords.length === 0)" data-ng-click="ctrl.preview();"></button>
+                </soe-accordion>
+
+                <soe-accordion label-key="time.employee.employee.createvacantemployees.preview" more-condensed="true" is-open="ctrl.previewOpen" data-ng-if="ctrl.employees.length>0">
+                    <div class="table-scrollable-wrapper">
+                        <div class="table-scrollable" style="height: 233px;">
+                            <table class="table table-more-condensed table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"><span data-l10n-bind="'time.employee.employee.employeenrshort'"></span></th>
+                                        <th scope="col"><span data-l10n-bind="'common.name'"></span></th>
+                                        <th scope="col"><span data-l10n-bind="'common.startdate'"></span></th>
+                                        <th scope="col"><span data-l10n-bind="'time.employee.employeegroup.employeegroup'"></span></th>
+                                        <th scope="col" style="min-width: 60px;"><span data-l10n-bind="'time.schedule.planning.worktimeweek'"></span></th>
+                                        <th scope="col"><span data-l10n-bind="'time.employee.employment.percent'"></span></th>
+                                        <th scope="col" style="min-width: 100px;">
+                                            <span data-l10n-bind="'common.categories'" data-ng-if="!ctrl.useAccountsHierarchy"></span>
+                                            <span data-l10n-bind="'time.employee.employee.accounts'" data-ng-if="ctrl.useAccountsHierarchy"></span>
+                                        </th>
+                                        <th scope="col" style="width: 56px;" colspan="2" class="table-header-button table-header-button-scrollable" data-l10n-bind data-l10n-bind-title="'core.newrow'" data-ng-click="ctrl.editRow(null);">
+                                            <span><i class="fal fa-plus"></i></span>
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr data-ng-repeat="employee in ctrl.employees">
+                                        <td><span>{{employee.employeeNr}}</span></td>
+                                        <td><span>{{employee.name}}</span></td>
+                                        <td><span>{{employee.employmentDateFrom | date:'shortDate'}}</span></td>
+                                        <td><span>{{employee.employeeGroupName}}</span></td>
+                                        <td><span>{{employee.workTimeWeek | minutesToTimeSpan}}</span></td>
+                                        <td><span>{{employee.percent | number:2}}%</span></td>
+                                        <td>
+                                            <span data-ng-if="ctrl.useAccountsHierarchy">{{employee.accountNames}}</span>
+                                            <span data-ng-if="!ctrl.useAccountsHierarchy">{{employee.categoryNames}}</span>
+                                        </td>
+                                        <td style="width: 28px;"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-click="ctrl.editRow(employee);"></i></span></td>
+                                        <td style="width: 28px;"><span data-l10n-bind data-l10n-bind-title="'core.deleterow'"><i class="fal fa-times iconDelete link" data-ng-click="ctrl.deleteRow(employee);"></i></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </soe-accordion>
+            </uib-accordion>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel();"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.create'" data-ng-disabled="ctrl.edit.$invalid || ctrl.employees.length===0" data-ng-click="ctrl.ok();"></button>
+        </div>
+    </div>
+</form>

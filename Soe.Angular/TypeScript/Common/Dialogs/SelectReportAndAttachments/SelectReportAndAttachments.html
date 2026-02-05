@@ -1,0 +1,117 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title">{{ctrl.caption}}</h6>
+    </div>
+    <div class="modal-body">
+        <div class="info margin-large-top" data-ng-if="ctrl.info">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-text model="ctrl.info"></soe-text>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="row margin-small-bottom">
+                <div class="col-sm-4" data-ng-if="ctrl.showLangSelection">
+                    <soe-select label-key="common.language" model="ctrl.languageId" items="ctrl.languages" options="item.id as item.name for item in items"></soe-select>
+                </div>
+                <div class="col-sm-1" data-ng-if="ctrl.showCopy">
+                    <soe-checkbox label-key="core.copy2" model="ctrl.isCopy" inline="ctrl.showLangSelection"></soe-checkbox>
+                </div>
+                <div class="col-sm-1" data-ng-if="ctrl.showReminder">
+                    <soe-checkbox label-key="common.customer.invoices.reminder" model="ctrl.isReminder" inline="ctrl.showLangSelection"></soe-checkbox>
+                </div>
+                <div class="col-sm-3" data-ng-if="ctrl.showSavePrintout">
+                    <soe-checkbox label-key="common.saveindatastorage" model="ctrl.savePrintout" inline="ctrl.showLangSelection"></soe-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive table-outer-bordered" data-ng-if="ctrl.showReportSelection">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col" data-l10n-bind="'common.report.report.report'"></th>
+                        <th scope="col" data-l10n-bind="'common.name'"></th>
+                        <th scope="col" data-l10n-bind="'common.description'"></th>
+                        <th scope="col"></th>
+                        <th scope="col" data-ng-if="ctrl.showEmail"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-if="ctrl.loadingReports">
+                        <td colspan="5">
+                            <div class="info">
+                                <span class="far fa-spinner fa-pulse fa-fw margin-small-right"></span><span data-l10n-bind="'core.reportmenu.loadingreports'"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="!ctrl.loadingReports && ctrl.reports.length === 0">
+                        <td colspan="5">
+                            <div class="info">
+                                <span data-l10n-bind="'common.nodata'"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr data-ng-repeat="report in ctrl.reports | orderBy:['default','reportName']" data-ng-if="!ctrl.loadingReports && ctrl.reports.length > 0">
+                        <td><span data-ng-class="{'indiscreet':report.default}">{{::report.reportNr}}</span></td>
+                        <td><span data-ng-class="{'indiscreet':report.default}">{{::report.reportName}}</span></td>
+                        <td><span data-ng-class="{'indiscreet':report.default}">{{::report.reportDescription}}</span></td>
+                        <td>
+                            <span class="link" data-ng-class="{'fal fa-print': report.reportId}" data-ng-click="ctrl.printClick(report)"></span>
+                        </td>
+                        <td data-ng-if="ctrl.showEmail">
+                            <span class="link" data-ng-class="{'fal fa-envelope': report.reportId}" data-ng-click="ctrl.emailClick(report)"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-responsive margin-small-top" data-ng-if="ctrl.attachments && ctrl.attachments.length > 0">
+            <table class="table table-bordered table-more-condensed table-hover" style="overflow-y: clip;">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="2" class="indiscreet" data-l10n-bind="'core.attachments'"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="attachment in ctrl.attachments" class="horizontal-list-item">
+                        <td style="vertical-align: middle">
+                            <span>{{::attachment.description}}</span>
+                        </td>
+                        <td style="width: 32px;">
+                            <soe-checkbox hidelabel="true" model="attachment.isSelected"></soe-checkbox>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-responsive margin-small-top" data-ng-if="ctrl.checklists && ctrl.checklists.length > 0 && !ctrl.grid">
+            <table class="table table-bordered table-more-condensed table-hover" style="overflow-y: clip;">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="2" class="indiscreet" data-l10n-bind="'common.checklists'"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="checklist in ctrl.checklists" class="horizontal-list-item">
+                        <td style="vertical-align: middle">
+                            <span>{{::checklist.checklistHeadName}} ( {{::checklist.created | date : 'shortDate'}} )</span>
+                        </td>
+                        <td style="width: 32px;">
+                            <soe-checkbox hidelabel="true" model="checklist.isSelected"></soe-checkbox>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.buttonOkClick()" data-ng-if="!ctrl.showReportSelection"></button>
+    </div>
+</div>
+

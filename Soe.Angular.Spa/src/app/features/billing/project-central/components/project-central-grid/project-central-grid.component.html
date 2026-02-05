@@ -1,0 +1,172 @@
+<soe-expansion-panel
+  [labelKey]="'billing.project.central.selection'"
+  [static]="true">
+  <form [formGroup]="selectionForm" novalidate autocomplete="off">
+    <soe-toolbar
+      [itemGroups]="toolbarService.toolbarItemGroups"
+      [noBorder]="true"
+      [noMargin]="true"
+      [noPadding]="true"></soe-toolbar>
+  </form>
+</soe-expansion-panel>
+<div class="row">
+  <div class="col-sm-12">
+    @if (flowHandler.allowFetchGrid()) {
+      <soe-grid-wrapper
+        [height]="350"
+        [rows]="rowData"
+        [parentGuid]="guid()"
+        [noMargin]="true"
+        [toolbarNoPadding]="true"
+        [toolbarNoMargin]="true">
+      </soe-grid-wrapper>
+    }
+  </div>
+</div>
+<div class="row my-2">
+  <div class="col-sm-12">
+    <div class="information-container no-margin">
+      <div class="row mt-2">
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelKey]="'billing.project.central.incomeinvoiced'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelKey]="'billing.project.central.costs'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelKey]="'billing.project.central.result'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelKey]="'billing.project.central.resultbudget'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelKey]="
+              'billing.project.central.marginalincomeratio'
+            "></soe-label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelValue]="
+              (incomeinvoiced || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+            "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelValue]="
+              (costs || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+            "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelValue]="
+              (result || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+            "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelValue]="
+              (resultbudget || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+            "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelValue]="
+              (marginalincomeratio || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+            "></soe-label>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelKey]="'billing.project.central.days'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelKey]="'billing.project.central.workedhours'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelKey]="'billing.project.central.notbilledhours'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelKey]="'billing.project.central.fixedprice'"></soe-label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right discreet"
+            [labelValue]="(days || 'N/A').toString()"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right discreet"
+            [labelValue]="
+              (workedhours || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+            "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right discreet"
+            [labelValue]="
+              (notbilledhours || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+            "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right discreet"
+            [labelValue]="
+              (fixedprice || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+            "></soe-label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

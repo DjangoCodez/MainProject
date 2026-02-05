@@ -1,0 +1,284 @@
+﻿<div>
+    <div class="modal-header scheduleview-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.planning.editassignment.addnew'" data-ng-if="!ctrl.shift || !ctrl.shift.timeScheduleTemplateBlockId"></h6>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.planning.editassignment.edit'" data-ng-if="ctrl.shift && ctrl.shift.timeScheduleTemplateBlockId"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <soe-typeahead label-key="common.employee" model="ctrl.selectedEmployee" items="ctrl.employees" options="item as item.numberAndName for item in items" filter-property="numberAndName" limit="50" required="true" is-readonly="ctrl.isReadonly"></soe-typeahead>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-select label-key="common.ordershifttype" model="ctrl.shift.shiftTypeId" items="ctrl.shiftTypes" options="item.id as item.label for item in items" is-readonly="ctrl.isReadonly" on-changing="ctrl.shiftTypeChanged();"></soe-select>
+                    </div>
+                </div>
+                <!-- Assignment -->
+                <div class="row margin-large-top">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <soe-datepicker label-key="common.start" model="ctrl.start" required="true" is-readonly="ctrl.isReadonly"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-timepicker label-key="common.datetime.short" model="ctrl.start" required="true" is-readonly="ctrl.isReadonly" minutes-changed="ctrl.timeChanged();"></soe-timepicker>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="ctrl.timeAdjustmentType != 1">
+                            <div class="col-sm-8">
+                                <soe-datepicker label-key="common.end" model="ctrl.stop" required="true" is-readonly="ctrl.isReadonly"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-timepicker label-key="common.datetime.short" model="ctrl.stop" required="true" is-readonly="ctrl.isReadonly" minutes-changed="ctrl.timeChanged();"></soe-timepicker>
+                            </div>
+                        </div>
+                        <div class="row margin-small-top">
+                            <div class="col-sm-8">
+                                <soe-label label-key="time.schedule.planning.editassignment.plannedtime" data-ng-class="{'errorColor': ctrl.plannedTime <= 0}"></soe-label>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-timepicker hide-label="true" model="ctrl.plannedTimeDate" is-readonly="ctrl.isReadonly" minutes-changed="ctrl.plannedTimeChanged();" ng-if="ctrl.shift.isOrder && ctrl.ignoreScheduledBreaksOnAssignment && ctrl.timeAdjustmentType == 0"></soe-timepicker>
+                                <span class="indiscreet" data-ng-class="{'errorColor': ctrl.plannedTime <= 0}" ng-if="!ctrl.shift.isOrder || !ctrl.ignoreScheduledBreaksOnAssignment || ctrl.timeAdjustmentType != 0">{{ctrl.plannedTime | minutesToTimeSpan}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- Schedule (day) -->
+                        <div class="row margin-small-top" data-ng-if="ctrl.timeAdjustmentType == 0">
+                            <div class="col-sm-12">
+                                <span class="indiscreet" data-l10n-bind="'time.schedule.planning.todaysschedule'"></span> <span>({{ctrl.start | date:'shortDate'}})</span>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="ctrl.timeAdjustmentType == 0">
+                            <div class="col-sm-12">
+                                <span data-ng-if="ctrl.scheduleShifts.length===0" data-l10n-bind="'time.schedule.planning.editassignment.noschedule'" class="errorColor"></span>
+                                <div class="table-responsive" data-ng-if="ctrl.scheduleShifts.length>0">
+                                    <table class="table table-outer-bordered table-condensed table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" data-l10n-bind="'common.ordershifttype'"></th>
+                                                <th scope="col" data-l10n-bind="'common.start'"></th>
+                                                <th scope="col" data-l10n-bind="'common.end'"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-ng-repeat="shift in ctrl.scheduleShifts" data-ng-class="{'errorColor': ctrl.outsideSchedule}">
+                                                <td><span>{{::shift.shiftTypeName}}</span></td>
+                                                <td><span>{{::shift.actualStartTime | date:'shortTime'}}</span></td>
+                                                <td><span>{{::shift.actualStopTime | date:'shortTime'}}</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Available time (multiple days) -->
+                        <div class="row margin-small-top" data-ng-if="ctrl.timeAdjustmentType == 2">
+                            <div class="col-sm-12">
+                                <span class="indiscreet" data-l10n-bind="'time.schedule.planning.editassignment.schedule'"></span> <span>({{ctrl.start | date:'shortDate'}} - {{ctrl.stop | date:'shortDate'}})</span>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="ctrl.timeAdjustmentType == 2">
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table class="table table-outer-bordered table-condensed table-striped table-hover" role="presentation">
+                                        <tbody>
+                                            <tr>
+                                                <td><span data-l10n-bind="'time.schedule.planning.editassignment.schedule.scheduletime'"></span></td>
+                                                <td class="right-align-cell"><span>{{ctrl.availableTimeItem.scheduledMinutes | minutesToTimeSpan}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span data-l10n-bind="'time.schedule.planning.editassignment.schedule.plannedtime'"></span></td>
+                                                <td class="right-align-cell"><span style="padding:0;" data-ng-if="ctrl.availableTimeItem.plannedMinutes>0">-</span><span>{{ctrl.availableTimeItem.plannedMinutes | minutesToTimeSpan}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span data-l10n-bind="'time.schedule.planning.editassignment.schedule.bookedtime'"></span></td>
+                                                <td class="right-align-cell"><span style="padding:0;" data-ng-if="ctrl.availableTimeItem.bookedMinutes>0">-</span><span>{{ctrl.availableTimeItem.bookedMinutes | minutesToTimeSpan}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="indiscreet" data-l10n-bind="'time.schedule.planning.editassignment.schedule.availabletime'"></span></td>
+                                                <td class="right-align-cell"><span class="indiscreet">{{ctrl.availableTimeItem.availableMinutes | minutesToTimeSpan}}</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-large-top" data-ng-if="ctrl.originalLength === 0">
+                    <div class="col-sm-12">
+                        <soe-select label-key="time.schedule.planning.editassignment.timeadjustmenttype" model="ctrl.timeAdjustmentType" items="ctrl.timeAdjustmentTypes" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-12">
+                        <soe-instruction label-key="time.schedule.planning.editassignment.timeadjustmenttype.info.oneday" data-ng-if="ctrl.timeAdjustmentType == 0"></soe-instruction>
+                        <soe-instruction label-key="time.schedule.planning.editassignment.timeadjustmenttype.info.filltozeroremaining" data-ng-if="ctrl.timeAdjustmentType == 1"></soe-instruction>
+                        <soe-instruction label-key="time.schedule.planning.editassignment.timeadjustmenttype.info.filltoenddate" data-ng-if="ctrl.timeAdjustmentType == 2"></soe-instruction>
+                    </div>
+                </div>
+            </div>
+            <!-- Order -->
+            <div class="col-sm-6">
+                <div class="info margin-small-bottom">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="time.schedule.planning.editassignment.keepasplanned" model="ctrl.shift.order.keepAsPlanned" on-changing="ctrl.keepAsPlannedChanged();"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.shift.order.priority">
+                        <div class="col-sm-4">
+                            <soe-label label-key="common.priority"></soe-label>
+                        </div>
+                        <div class="col-sm-8">
+                            <soe-text model="ctrl.shift.order.priority"></soe-text>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-label label-key="time.schedule.planning.ordernumber"></soe-label>
+                        </div>
+                        <div class="col-sm-8">
+                            <soe-text model="ctrl.shift.order.orderNr"></soe-text>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-label label-key="common.customer"></soe-label>
+                        </div>
+                        <div class="col-sm-8">
+                            <soe-text model="ctrl.customerInfo"></soe-text>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-label label-key="common.customer.customer.orderproject"></soe-label>
+                        </div>
+                        <div class="col-sm-8">
+                            <soe-text model="ctrl.projectInfo"></soe-text>
+                        </div>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <soe-label label-key="time.schedule.planning.editassignment.interval"></soe-label>
+                        </div>
+                        <div class="col-sm-6">
+                            <soe-text model="ctrl.plannedInterval" text-class="text-right" text-class-condition="true"></soe-text>
+                        </div>
+                    </div>
+                    <hr style="margin: 5px 0 0 0; border-color: #000000;" />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="margin-small-top">
+                                <span data-l10n-bind="'time.schedule.planning.orderlist.estimatedtime'" class="indiscreet"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="margin-small-top">
+                                <span data-l10n-bind="'time.schedule.planning.editassignment.estimatedtimeinfo'"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-text model="ctrl.shift.order.estimatedTime | minutesToTimeSpan" text-class="text-right" text-class-condition="true"></soe-text>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="margin-small-top">
+                                <span data-l10n-bind="'time.schedule.planning.orderlist.remainingtime'" class="indiscreet"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="margin-small-top">
+                                <span data-l10n-bind="'time.schedule.planning.editassignment.remainingtimeinfo'"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-text model="ctrl.shift.order.remainingTime | minutesToTimeSpan" text-class="text-right" text-class-condition="true"></soe-text>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="margin-small-top">
+                                <span data-l10n-bind="'time.schedule.planning.editassignment.plannedtime'" class="indiscreet"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="margin-small-top">
+                                <span data-l10n-bind="'time.schedule.planning.editassignment.plannedtimeinfo'"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-text model="-ctrl.plannedTime | minutesToTimeSpan" text-class="text-right" text-class-condition="true"></soe-text>
+                        </div>
+                    </div>
+                    <hr style="margin: 5px 0 0 0; border-color: #000000;" />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="margin-small-top">
+                                <span data-l10n-bind="'time.schedule.planning.editassignment.remainingtimeafterthis'" class="indiscreet"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="margin-small-top">
+                                <span data-l10n-bind="'time.schedule.planning.editassignment.remainingtimeafterthisinfo'"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" data-ng-class="{'errorColor':ctrl.remainingTimeToBe<0}">
+                            <soe-text model="ctrl.remainingTimeToBe | minutesToTimeSpan" text-class="text-right indiscreet" text-class-condition="true"></soe-text>
+                        </div>
+                    </div>
+                </div>
+                <div class="info margin-small-top" data-ng-if="ctrl.shift.order.workingDescription">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-label label-key="common.description"></soe-label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-text model="ctrl.shift.order.workingDescription"></soe-text>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Queue -->
+        <div class="row margin-large-top" data-ng-if="ctrl.shift.nbrOfWantedInQueue > 0">
+            <div class="col-sm-12">
+                <uib-accordion close-others="false">
+                    <soe-accordion label-model="ctrl.queueTitle" label-value="ctrl.nbrOfQueues" label-value-in-parentheses="true" condensed="true" is-open="true">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <shift-queue shift-id="ctrl.shift.timeScheduleTemplateBlockId" nbr-of-queues="ctrl.nbrOfQueues" selected-queue="ctrl.selectedQueue" is-order-planning="true"></shift-queue>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </uib-accordion>
+            </div>
+        </div>
+        <!-- Skills -->
+        <div class="row margin-large-top" data-ng-if="ctrl.showSkills && (ctrl.employeeIdForSkills !== ctrl.hiddenEmployeeId || ctrl.shift.nbrOfWantedInQueue > 0)">
+            <div class="col-sm-12">
+                <uib-accordion close-others="false">
+                    <soe-accordion label-key="time.schedule.planning.editshift.skills" label-class="{'errorColor':ctrl.invalidSkills}" label-value="ctrl.nbrOfSkills" label-value-in-parentheses="true" condensed="true" is-open="ctrl.skillsOpen">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <skill-matcher invalid="ctrl.invalidSkills" date="ctrl.start" shift-type-ids="ctrl.shiftTypeIds" employee-id="ctrl.employeeIdForSkills" ignore-employee-ids="ctrl.ignoreSkillEmployeeIds" nbr-of-skills="ctrl.nbrOfSkills" on-open="ctrl.skillsOpened()"></skill-matcher>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </uib-accordion>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'core.save'" data-ng-disabled="ctrl.executing || ctrl.plannedTime==0" data-ng-if="!ctrl.isReadonly" data-ng-click="ctrl.save()"></button>
+        <button type="button" class="btn btn-sm btn-default pull-right margin-small-right margin-large-left" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <soe-menubutton class="margin-large-right" label-key="core.functions" options="ctrl.functions" drop-up="true" option-selected="ctrl.executeFunction(option)"></soe-menubutton>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div>
+  <form [formGroup]="form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="d-sm-inline">
+        <soe-datepicker
+          [labelKey]="'common.fromdate'"
+          [inline]="true"
+          formControlName="fromDate" />
+      </div>
+      <div class="d-sm-inline">
+        <soe-datepicker
+          [labelKey]="'common.todate'"
+          [inline]="true"
+          formControlName="toDate" />
+      </div>
+      <div class="d-sm-inline">
+        <soe-checkbox
+          [labelKey]="'core.error'"
+          formControlName="onlyError"></soe-checkbox>
+      </div>
+      <div class="d-sm-inline">
+        <soe-checkbox
+          [labelKey]="
+            'manage.system.bankintegration.downloadrequest.downloaded'
+          "
+          formControlName="downloaded"></soe-checkbox>
+      </div>
+      <div class="d-sm-inline">
+        <soe-button
+          [caption]="'core.search'"
+          [behaviour]="'primary'"
+          (action)="search()" />
+      </div>
+    </div>
+  </form>
+</div>

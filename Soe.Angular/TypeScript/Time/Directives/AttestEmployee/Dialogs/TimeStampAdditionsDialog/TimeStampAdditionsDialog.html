@@ -1,0 +1,40 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">
+            <span data-l10n-bind="'time.time.attest.timestamps.additions'"></span>
+        </h6>
+    </div>
+    <div class="modal-body">
+        <div data-ng-repeat="extended in ctrl.rows track by $index">
+            <div class="form-group form-group-sm">
+                <div data-ng-if="$first">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <soe-label label-key="common.type"></soe-label>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-label label-key="common.quantity"></soe-label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <soe-select hidelabel="true" model="extended.addition" items="ctrl.additions" options="item as item.name for item in items" on-changing="ctrl.additionChanged(extended, item);"></soe-select>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-textbox hidelabel="true" model="extended.quantity" numeric="true" decimals="2" no-decimals-if-integer="true" clear-zero="true" is-readonly="!extended.enableQuantity"></soe-textbox>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-sm btn-link fal fa-times iconDelete pull-right" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.deleteRow(extended)"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'time.time.attest.timestamps.additions.new'" data-ng-click="ctrl.addRow();"></button>
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-disabled="ctrl.disableOk" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

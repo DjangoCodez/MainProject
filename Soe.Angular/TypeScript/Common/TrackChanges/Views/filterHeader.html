@@ -1,0 +1,38 @@
+﻿<form class="form-inline">
+    <div>
+        <div class="form-group form-group-sm">
+            <div class="form-group form-group-sm">
+                <soe-label label-key="common.fromdate"></soe-label>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-sm btn-default fal fa-chevron-left" data-l10n-bind data-l10n-bind-title="'common.from'" data-ng-click="ctrl.decreaseDate()"></button>
+                    </span>
+                    <soe-datepicker hidelabel="true" model="ctrl.fromDate"></soe-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="form-group form-group-sm">
+                <soe-label label-key="common.todate"></soe-label>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="input-group">
+                    <soe-datepicker hidelabel="true" model="ctrl.toDate" button-class="no-border-radius"></soe-datepicker>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-sm btn-default fal fa-chevron-right border-radius-right" data-l10n-bind data-l10n-bind-title="'common.to'" data-ng-click="ctrl.increaseDate()"></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="form-group form-group-sm">
+                <soe-multiselect label-key="common.users" options="ctrl.users" model="ctrl.selectedUsers" hidelabel="true" limit-to="20" on-selection-complete="ctrl.saveSelection()"></soe-multiselect>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.search'" data-l10n-bind-title="'core.search'" data-ng-click="ctrl.search()" data-ng-disabled="ctrl.searchDisabled"></button>
+        </div>
+    </div>
+</form>

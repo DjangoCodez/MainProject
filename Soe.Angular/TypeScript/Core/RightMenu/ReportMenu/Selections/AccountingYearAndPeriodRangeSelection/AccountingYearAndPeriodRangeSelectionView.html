@@ -1,0 +1,18 @@
+﻿<div>
+    <div class="row">
+        <div class="col-sm-4">
+            <soe-select label-key="common.connect.accountyear" model="$ctrl.selectedFromYear" items="$ctrl.accountYears" options="item as item.name for item in items" on-changing="$ctrl.accountYearFromChanged(item)"></soe-select>
+        </div>
+        <div class="col-sm-4 margin-small-top">
+            <soe-select model="$ctrl.selectedToYear" items="$ctrl.accountYears" options="item as item.name for item in items" on-changing="$ctrl.accountYearToChanged(item)"></soe-select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <soe-select label-key="common.period" model="$ctrl.selectedFromInterval" is-disabled="$ctrl.selectedFromYear.id == 0" items="$ctrl.selectableFromIntervals" options="item as item.name for item in items" on-changing="$ctrl.intervalFromChanged(item)"></soe-select>
+        </div>
+        <div class="col-sm-4 margin-small-top">
+            <soe-select model="$ctrl.selectedToInterval" items="$ctrl.selectableToIntervals" is-disabled="$ctrl.selectedToYear.id == 0" options="item as item.name for item in items" on-changing="$ctrl.intervalToChanged(item)"></soe-select>
+        </div>
+    </div>
+</div>

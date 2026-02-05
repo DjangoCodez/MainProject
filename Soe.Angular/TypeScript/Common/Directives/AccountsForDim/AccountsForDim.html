@@ -1,0 +1,19 @@
+﻿<div class="col-sm-12">
+    <div class="row" data-ng-if="!ctrl.hideHeader">
+        <div class="col-sm-12 content-border-no-radius" style="margin-bottom: -1px;">
+            <div style="margin-left: -5px; margin-top: 3px; margin-bottom: 3px; font-weight: bold;">
+                <span data-l10n-bind="'common.accounts'"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row" data-ng-if="ctrl.showToolbar">
+        <div class="col-sm-12 content-border-no-radius" style="margin-bottom: -1px;">
+            <div style="margin-left: -5px; margin-top: 3px; margin-bottom: 3px;">
+                <soe-checkbox label-key="core.selectall" model="ctrl.allSelected" data-ng-click="ctrl.selectAllClicked();" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="accounts-grid" ag-grid="ctrl.soeGridOptions.gridOptions" class="ag-theme-balham" prevent-enter></div>
+    </div>
+</div>

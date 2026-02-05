@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SOE_ChecklistsReport>
+  <xs:schema id="SOE_ChecklistsReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="SOE_ChecklistsReport" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="ChecklistsReport">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="TimeLabel" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="Company" type="xs:string" minOccurs="0" />
+                      <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                      <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+					  <xs:element name="CompanyLogo" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ChecklistLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OrderLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProjectLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="SupervisorLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ChiefLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="WorkerLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="CalculatorLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReferenceLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="FixedLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="SignLabel" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="Checklists" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Checklist" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="Name" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                            <xs:element name="Description" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                            <xs:element name="OrderNr" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                            <xs:element name="OrderDate" type="xs:dateTime" minOccurs="0" msdata:Ordinal="3" />
+                            <xs:element name="ProjectNr" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                            <xs:element name="ProjectName" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                            <xs:element name="CustomerNr" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+                            <xs:element name="CustomerName" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+                            <xs:element name="ReferenceYour" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+                            <xs:element name="ReferenceOur" type="xs:string" minOccurs="0" msdata:Ordinal="9" />
+                            <xs:element name="CompanyName" type="xs:string" minOccurs="0" msdata:Ordinal="10" />
+                            <xs:element name="CompanyDeliveryAddress" type="xs:string" minOccurs="0" msdata:Ordinal="11" />
+                            <xs:element name="CompanyDeliveryAddressPostalNrCity" type="xs:string" minOccurs="0" msdata:Ordinal="12" />
+                            <xs:element name="CustomerBillingAddress" type="xs:string" minOccurs="0" msdata:Ordinal="13" />
+                            <xs:element name="CustomerBillingAddressPostNrCity" type="xs:string" minOccurs="0" msdata:Ordinal="14" />
+                            <xs:element name="DeliveryAddress" type="xs:string" minOccurs="0" msdata:Ordinal="15" />
+                            <xs:element name="DeliveryAddressPostNrCity" type="xs:string" minOccurs="0" msdata:Ordinal="16" />
+    					    <xs:element name="ImagePath" type="xs:string" minOccurs="0" msdata:Ordinal="17" />
+						    <xs:element name="ImageDescription" type="xs:string" minOccurs="0" msdata:Ordinal="18" />
+                            <xs:element name="ChecklistRow" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="RowNr" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                                  <xs:element name="Mandatory" type="xs:int" minOccurs="0" msdata:Ordinal="1" />
+                                  <xs:element name="QuestionType" type="xs:int" minOccurs="0" msdata:Ordinal="2" />
+                                  <xs:element name="QuestionText" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                                  <xs:element name="AnswerDataType" type="xs:int" minOccurs="0" msdata:Ordinal="4" />
+                                  <xs:element name="AnswerValue" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                                  <xs:element name="Comment" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+                                  <xs:element name="Date" type="xs:dateTime" minOccurs="0" msdata:Ordinal="7" />
+                                  <xs:element name="Created" type="xs:dateTime" minOccurs="0" msdata:Ordinal="8" />
+                                  <xs:element name="CreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="9" />
+                                  <xs:element name="Modified" type="xs:dateTime" minOccurs="0" msdata:Ordinal="10" />
+                                  <xs:element name="ModifiedBy" type="xs:string" minOccurs="0" msdata:Ordinal="11" />
+								  <xs:element name="ChecklistRowImages" minOccurs="0" maxOccurs="unbounded">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="ChecklistRowImage" minOccurs="0" maxOccurs="unbounded">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="ImagePath" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+														<xs:element name="Description" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+													</xs:sequence>
+													<xs:attribute name="id" type="xs:string" />
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								   </xs:element>	
+                                </xs:sequence>
+                                <xs:attribute name="id" type="xs:string" />
+                              </xs:complexType>
+                            </xs:element>
+                            <xs:element name="ChecklistImage" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="ImagePath" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                                  <xs:element name="Type" type="xs:int" minOccurs="0" msdata:Ordinal="1" />
+                                  <xs:element name="Description" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                                  </xs:sequence>
+                                <xs:attribute name="id" type="xs:string" />
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                          <xs:attribute name="id" type="xs:string" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <ChecklistsReport>
+    <ReportHeaderLabels>
+      <LoginNameLabel>Användare:</LoginNameLabel>
+      <PageLabel>Sida:</PageLabel>
+      <DateLabel>Datum:</DateLabel>
+      <TimeLabel>Tid:</TimeLabel>
+    </ReportHeaderLabels>
+    <ReportHeader>
+      <ReportTitle />
+      <ReportDescription />
+      <ReportNr />
+      <Company />
+      <Orgnr />
+      <LoginName />
+    </ReportHeader>
+    <PageHeaderLabels>
+      <ChecklistLabel>Checklista</ChecklistLabel>
+      <OrderLabel>Order</OrderLabel>
+      <ProjectLabel>Projekt</ProjectLabel>
+      <SupervisorLabel>Arbetsledare</SupervisorLabel>
+      <ChiefLabel>Chef</ChiefLabel>
+      <WorkerLabel>Montör</WorkerLabel>
+      <CalculatorLabel>Kalkylator</CalculatorLabel>
+      <ReferenceLabel>Referens</ReferenceLabel>
+      <FixedLabel>Åtgärdat</FixedLabel>
+      <DateLabel>Datum</DateLabel>
+      <SignLabel>Signatur</SignLabel>
+    </PageHeaderLabels>
+    <Checklists>
+      <Checklist id="1">
+        <Name></Name>
+        <Description></Description>
+        <OrderNr></OrderNr>
+        <OrderDate>1900-01-01T00:00:00+00:00</OrderDate>
+        <ProjectNr></ProjectNr>
+        <ProjectName></ProjectName>
+        <CustomerNr />
+        <CustomerName />
+        <ReferenceYour />
+        <ReferenceOur />
+        <CompanyName />
+        <CompanyDeliveryAddress />
+        <CompanyDeliveryAddressPostalNrCity />
+        <CustomerBillingAddress />
+        <CustomerBillingAddressPostNrCity />
+        <DeliveryAddress />
+        <DeliveryAddressPostNrCity />
+		<ImagePath/>
+		<ImageDesciption />
+        <ChecklistRow id="1">
+          <RowNr></RowNr>
+          <Mandatory>0</Mandatory>
+          <QuestionType>0</QuestionType>
+          <QuestionText />
+          <AnswerDataType>0</AnswerDataType>
+          <AnswerValue />
+          <Comment />
+          <Date>1900-01-01T00:00:00+00:00</Date>
+          <Created>1900-01-01T00:00:00+00:00</Created>
+          <CreatedBy />
+          <Modified>1900-01-01T00:00:00+00:00</Modified>
+          <ModifiedBy />
+        </ChecklistRow>
+        <ChecklistImage id="1">
+          <ImagePath />
+          <Type>1</Type>
+          <Description />          
+        </ChecklistImage>
+      </Checklist>
+    </Checklists>
+  </ChecklistsReport>
+</SOE_ChecklistsReport>

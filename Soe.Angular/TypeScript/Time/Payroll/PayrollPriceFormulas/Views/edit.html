@@ -1,0 +1,114 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+   
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="time.payroll.payrollpriceformula.payrollpriceformula" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-textbox label-key="common.code" model="ctrl.code" required="true" alpha-numeric="true" maxlength="10" auto-focus="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="info">
+                                <soe-label label-key="time.payroll.payrollpriceformula.codeinforow1" medium-font="true" discreet="true"></soe-label>
+                                <soe-label label-key="time.payroll.payrollpriceformula.codeinforow2" medium-font="true" discreet="true"></soe-label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-textbox label-key="common.name" model="ctrl.payrollPriceFormula.name" required="true" maxlength="100"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-textbox label-key="common.description" model="ctrl.payrollPriceFormula.description" maxlength="512"></soe-textbox>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+
+            <soe-accordion label-key="time.payroll.payrollpriceformula.formula">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <soe-textbox inputid='formula' label-key="time.payroll.payrollpriceformula.formula" model="ctrl.formula" required="true" on-focus="ctrl.formulaFocused('formula')" on-blur="ctrl.formulaBlurred('formula')"></soe-textbox>
+                        </div>
+                        <div class="col-sm-3">
+                            <soe-textbox label-key="time.payroll.payrollpriceformula.result" model="ctrl.result" readonly="true"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <soe-label></soe-label>
+                                    <div class="btn-group">
+                                        <button type="button" style="font-weight:bold;" class="btn btn-default" data-ng-click="$event.stopPropagation();ctrl.operandSelected($event)">+</button>
+                                        <button type="button" style="font-weight:bold;" class="btn btn-default" data-ng-click="$event.stopPropagation();ctrl.operandSelected($event)">-</button>
+                                        <button type="button" style="font-weight:bold;" class="btn btn-default" data-ng-click="$event.stopPropagation();ctrl.operandSelected($event)">*</button>
+                                        <button type="button" style="font-weight:bold;" class="btn btn-default" data-ng-click="$event.stopPropagation();ctrl.operandSelected($event)">/</button>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="button" style="font-weight:bold;" class="btn btn-default" data-ng-click="$event.stopPropagation();ctrl.operandSelected($event)">(</button>
+                                        <button type="button" style="font-weight:bold;" class="btn btn-default" data-ng-click="$event.stopPropagation();ctrl.operandSelected($event)">)</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <soe-select label-key="time.payroll.payrollpriceformula.payrollpricetypes" model="ctrl.selectedPayrollPriceType" items="ctrl.payrollPriceTypes" options="item.code as item.name for item in items" on-changing="ctrl.payrollPriceTypeSelected(item)"></soe-select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-select label-key="time.payroll.payrollpriceformula.fixedvalues" model="ctrl.selectedFixedValue" items="ctrl.fixedValues" options="item.code as item.name for item in items" on-changing="ctrl.fixedValueSelected(item)"></soe-select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-select label-key="time.payroll.payrollpriceformula.payrollpriceformulas" model="ctrl.selectedPayrollPriceFormula" items="ctrl.payrollPriceFormulas" options="item.code as item.name for item in items" on-changing="ctrl.payrollPriceFormulaSelected(item)"></soe-select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="info" style="margin-top: 10px;">
+                                <label class="control-label discreet errorColor" style="margin: 0">{{ctrl.errorMessage}}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <soe-textarea label-key="time.payroll.payrollpriceformula.parameters" model="ctrl.identifiersList" rows="4"></soe-textarea>
+                        </div>
+                    </div>
+                    <div data-ng-if="!ctrl.showInfo" style="margin-top: 10px;">
+                        <button type="button" class="btn btn-default fal fa-question" data-l10n-bind data-l10n-bind-title="'core.showinfo'" data-ng-click="$event.stopPropagation();ctrl.toggleInfo()"></button>
+                    </div>
+                    <div class="info" data-ng-if="ctrl.showInfo" style="margin-top: 10px;">
+                        <soe-label label-key="time.payroll.payrollpriceformula.inforow1" small-font="true" discreet="true"></soe-label>
+                        <soe-label label-key="time.payroll.payrollpriceformula.inforow2" small-font="true" discreet="true"></soe-label>
+                        <soe-label label-key="time.payroll.payrollpriceformula.inforow3" small-font="true" discreet="true"></soe-label>
+                        <soe-label label-key="time.payroll.payrollpriceformula.inforow4" small-font="true" discreet="true"></soe-label>
+                        <soe-label label-key="time.payroll.payrollpriceformula.inforow5" small-font="true"></soe-label>
+                        <soe-label label-key="time.payroll.payrollpriceformula.inforow6" small-font="true" discreet="true"></soe-label>
+                        <soe-label label-key="time.payroll.payrollpriceformula.inforow7" small-font="true"></soe-label>
+                        <soe-label label-key="time.payroll.payrollpriceformula.inforow8" small-font="true"></soe-label>
+                        <soe-label label-key="time.payroll.payrollpriceformula.inforow9" small-font="true" discreet="true"></soe-label>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.payrollPriceFormula"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.payrollPriceFormula.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

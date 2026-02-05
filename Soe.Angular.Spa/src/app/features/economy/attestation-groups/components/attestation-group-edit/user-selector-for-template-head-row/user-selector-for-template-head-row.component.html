@@ -1,0 +1,29 @@
+@if (flowHandler.allowFetchGrid()) {
+  <div class="row mt-3">
+    <div class="col-sm-3">
+      <soe-select
+        [labelKey]="'economy.supplier.attestgroup.type'"
+        [formControl]="selectedType"
+        [items]="attestWorkFlowTypes">
+      </soe-select>
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-sm-12">
+      <soe-instruction
+        [type]="'info'"
+        [text]="row.attestTransitionName"></soe-instruction>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <soe-grid-wrapper
+        [height]="300"
+        [noMargin]="true"
+        [rows]="gridRows"
+        [parentGuid]="guid()"
+        [toolbarGroups]="[]">
+      </soe-grid-wrapper>
+    </div>
+  </div>
+}

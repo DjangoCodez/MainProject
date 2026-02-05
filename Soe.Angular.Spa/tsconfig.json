@@ -1,0 +1,59 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./.angular/cache/.tsbuildinfo",
+    "target": "ES2022",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "ES2022",
+      "ES2021.String",
+      "dom"
+    ],
+    "types": ["node", "vitest/globals"],
+    "useDefineForClassFields": false,
+    "paths": {
+      "@ui/*": [
+        "src/app/shared/ui-components/*"
+      ],
+      "@core/*": [
+        "src/app/core/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ],
+      "@billing/shared/*": [
+        "src/app/features/billing/shared/*"
+      ],
+      "@features/*": [
+        "src/app/features/*"
+      ],
+      "@src/*": [
+        "src/*"
+      ],
+      "@src": [
+        "src"
+      ]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

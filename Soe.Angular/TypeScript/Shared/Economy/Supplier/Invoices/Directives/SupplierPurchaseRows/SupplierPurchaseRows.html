@@ -1,0 +1,38 @@
+﻿<div>
+    <soe-progressbar is-busy="directiveCtrl.progressBusy" message="directiveCtrl.progressMessage"></soe-progressbar>
+    <div class="row">
+        <div class="form-inline" role="toolbar">
+            <div class="col-sm-12 margin-small-bottom">
+                <div class="btn-toolbar">
+                    <soe-progressbar is-busy="ctrl.isLoading" />
+                    <div class="form-group form-group-sm">
+                        <soe-multiselect is-disabled="!directiveCtrl.modifyPermission" label-key="economy.supplier.invoice.purchase" options="directiveCtrl.filteredPurchaseDict" model="directiveCtrl.selectedPurchaseDict" hidelabel="true" limit-to="20" on-selection-opened="directiveCtrl.populatePurchases()" use-ignore-dirty="true"></soe-multiselect>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <soe-checkbox label-key="economy.supplier.invoice.showonlydelivered" model="directiveCtrl.getOnlyDelivered" is-readonly="ctrl.readonly" use-ignore-dirty="true"></soe-checkbox>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <soe-checkbox label-key="economy.supplier.invoice.showconnected" model="directiveCtrl.getAlreadyConnected" is-readonly="ctrl.readonly" use-ignore-dirty="true"></soe-checkbox>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm ngSoeMainButton"
+                                    data-l10n-bind="'core.search'" data-l10n-bind-title="'core.search'" data-ng-click="$event.stopPropagation();directiveCtrl.loadPurchaseRows()"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="directiveCtrl.supplierHasNoPurchases" class="">
+        <div class="col-sm-12 warning">
+            <span data-l10n-bind="'common.supplierpurchaserows.nopurchases'"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div ag-grid="directiveCtrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 300px; width: 100%;"></div>
+            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+        </div>
+    </div>    
+</div>

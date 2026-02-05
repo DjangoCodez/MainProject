@@ -1,0 +1,65 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <soe-expansion-panel
+        [labelKey]="'economy.accounting.companygroup.companyadministration'"
+        [static]="true">
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'economy.accounting.companygroup.company'"
+              formControlName="childActorCompanyId"
+              [items]="childCompanies || []">
+            </soe-select>
+          </div>
+          <div class="col-sm-4">
+            <soe-numberbox
+              [labelKey]="'economy.accounting.companygroup.conversionfactor'"
+              formControlName="conversionfactor"
+              [decimals]="4">
+            </soe-numberbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'economy.accounting.companygroup.mapping'"
+              formControlName="companyGroupMappingHeadId"
+              [items]="companyGroupMappings || []">
+            </soe-select>
+          </div>
+          <div class="col-sm-4">
+            <soe-textbox
+              [labelKey]="'common.note'"
+              [maxLength]="500"
+              formControlName="note">
+            </soe-textbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-checkbox
+              [labelKey]="'economy.accounting.companygroup.matchonnr'"
+              formControlName="matchInternalAccountOnNr">
+            </soe-checkbox>
+          </div>
+        </div>
+      </soe-expansion-panel>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

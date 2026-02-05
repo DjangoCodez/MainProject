@@ -1,0 +1,116 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+        <h6 class="modal-title">
+            <span data-l10n-bind="'time.schedule.planning.employee.contextmenu.preanalyseemployeepost'"></span>
+        </h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-12 info largeFont">
+                    {{ctrl.info.employeePost.name}}
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-large-top">
+            <div class="col-sm-2">
+                <soe-label label-key="Arbetstid per dag"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label label-key="Min arbetstid per dag"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label label-key="Max arbetstid per dag"></soe-label>
+            </div>
+            <div class="col-sm-3">
+                <soe-label label-key="Max arbetstid med matchande kompetenser"></soe-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <soe-textbox hidelabel="true" model="ctrl.info.workTimePerDay | minutesToTimeSpan" is-time="true" is-readonly="true" input-class="warningColor" input-class-condition="ctrl.info.workTimePerDayLessThanRuleWorkTimeDayMinimum || ctrl.info.workTimePerDayMoreThanRuleWorkTimeDayMaximumWorkDay"></soe-textbox>
+            </div>
+            <div class="col-sm-2">
+                <soe-textbox hidelabel="true" model="ctrl.info.ruleWorkTimeDayMinimum | minutesToTimeSpan" is-time="true" is-readonly="true"></soe-textbox>
+            </div>
+            <div class="col-sm-2">
+                <soe-textbox hidelabel="true" model="ctrl.info.ruleWorkTimeDayMaximumWorkDay | minutesToTimeSpan" is-time="true" is-readonly="true"></soe-textbox>
+            </div>
+            <div class="col-sm-2">
+                <soe-textbox hidelabel="true" model="ctrl.info.totalAllSkillPercent|percent" input-class="text-right" input-class-condition="true" is-readonly="true"></soe-textbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <soe-label label-key="Arbetstid per vecka"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label label-key="Min arbetstid per vecka"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label label-key="Max arbetstid per vecka"></soe-label>
+            </div>
+            <div class="col-sm-3">
+                <soe-label label-key="Max arbetstid med återstående kompetenser"></soe-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <soe-textbox hidelabel="true" model="ctrl.info.employeePost.workTimeWeek | minutesToTimeSpan" is-time="true" is-readonly="true"></soe-textbox>
+            </div>
+            <div class="col-sm-2">
+                <soe-textbox hidelabel="true" model="ctrl.info.workTimeWeekMin | minutesToTimeSpan" is-time="true" is-readonly="true"></soe-textbox>
+            </div>
+            <div class="col-sm-2">
+                <soe-textbox hidelabel="true" model="ctrl.info.workTimeWeekMax | minutesToTimeSpan" is-time="true" is-readonly="true"></soe-textbox>
+            </div>
+            <div class="col-sm-2">
+                <soe-textbox hidelabel="true" model="ctrl.info.totalRemainingSkillPercent|percent" input-class="text-right" input-class-condition="true" is-readonly="true"></soe-textbox>
+            </div>
+        </div>
+
+        <div class="row margin-large-top">
+            <div class="col-sm-6">
+                <div class="table-outer-bordered">
+                    <table class="table table-more-condensed table-hover" style="margin-bottom: 0;">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-l10n-bind="'common.date'"></th>
+                                <th scope="col" class="right-align-cell" data-l10n-bind="'Antal pass'"></th>
+                                <th scope="col" class="right-align-cell" data-l10n-bind="'Max arbetstid med matchande kompetenser'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="day in ctrl.info.preAnalysisInformationDays">
+                                <td><span>{{day.date | date:'shortDate'}}</span></td>
+                                <td class="right-align-cell"><span>{{day.items.length}}</span></td>
+                                <td class="right-align-cell"><span>{{day.totalDaySkillPercent|percent}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="table-outer-bordered">
+                    <table class="table table-more-condensed table-hover" style="margin-bottom: 0;">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-l10n-bind="'time.schedule.skill.skill'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="skill in ctrl.info.employeePost.employeePostSkillDTOs">
+                                <td><span>{{skill.skillName}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.close()"></button>
+    </div>
+</div>

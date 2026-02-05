@@ -1,0 +1,25 @@
+﻿<div>
+    <table class="table table-condensed table-hover table-outer-bordered">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 20px"></th>
+                <th scope="col" data-l10n-bind="'common.name'"></th>
+                <th scope="col" data-l10n-bind="'common.fromdate'"></th>
+                <th scope="col" data-l10n-bind="'common.todate'"></th>
+                <th scope="col" style="width: 56px" colspan="2" class="table-header-button" data-l10n-bind data-l10n-bind-title="'core.newrow'" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editPeriod(null);">
+                    <span><i class="fal fa-plus"></i></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody data-ng-repeat="timePeriod in ctrl.periods">
+            <tr data-ng-class="{'table-selected-row': ctrl.selectedTimePeriod === timePeriod}" data-ng-click="ctrl.selectedTimePeriod = timePeriod">
+                <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedTimePeriod === timePeriod"></i></td>
+                <td><span>{{timePeriod.name}}</span></td>
+                <td><span>{{timePeriod.startDate | date:'shortDate'}}</span></td>
+                <td><span>{{timePeriod.stopDate | date:'shortDate'}}</span></td>
+                <td style="width: 28px" data-ng-if="!ctrl.readOnly"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-click="ctrl.editPeriod(timePeriod);"></i></span></td>
+                <td style="width: 28px" data-ng-if="!ctrl.readOnly"><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-click="ctrl.deletePeriod(timePeriod);"></i></span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

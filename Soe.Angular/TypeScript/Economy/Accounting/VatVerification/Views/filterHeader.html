@@ -1,0 +1,16 @@
+﻿<div class="ngSoeForm form-group form-group-sm">
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div class="form-group row">
+        <soe-select class="col-sm-2" label-key="economy.accounting.vatverification.selectaccountyear" model="ctrl.searchFilterAccountYear" setselectedindex="ctrl.setselectedyearindex" items="ctrl.accountYearFilterOptions" on-changing="ctrl.accountYearOnChanging(item)" options="item.id as item.name for item in items"></soe-select>
+        <soe-select class="col-sm-2" label-key="economy.accounting.vatverification.selectfromperiod" model="ctrl.selectedFromDate" setselectedindex="ctrl.setselectedfromperiodindex" items="ctrl.fromPeriodFilterOptions" options="item.id as item.name for item in items"></soe-select>
+        <soe-select class="col-sm-2" label-key="economy.accounting.vatverification.selecttoperiod" model="ctrl.selectedToDate" setselectedindex="ctrl.setselectedtoperiodindex" items="ctrl.toPeriodFilterOptions" options="item.id as item.name for item in items"></soe-select>
+        <soe-textbox class="col-sm-2" label-key="economy.accounting.vatverification.diffbiggerthan" model="ctrl.searchFilterExcludeDiffAmountLimit"></soe-textbox>
+        <div class="col-sm-4">
+            <div class="pull-right">
+                <soe-label></soe-label>
+                <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'economy.accounting.vatverification.getvoucherbutton'" data-l10n-bind-title="'economy.accounting.vatverification.getvoucherbutton'" data-ng-click="$event.stopPropagation();ctrl.startVatVerification()"></button>
+            </div>
+        </div>
+    </div>
+</div>

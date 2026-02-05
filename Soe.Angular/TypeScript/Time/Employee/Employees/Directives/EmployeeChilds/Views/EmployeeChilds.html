@@ -1,0 +1,90 @@
+﻿<div>
+    <div class="row">
+        <div class="col-sm-12">
+            <soe-panel label-key="time.employee.employeechild.title" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.editChild();">
+                <table class="table table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 20px"></th>
+                            <th scope="col" data-l10n-bind="'common.firstname'"></th>
+                            <th scope="col" data-l10n-bind="'common.lastname'"></th>
+                            <th scope="col" data-l10n-bind="'time.employee.employeechild.birthdate'"></th>
+                            <th scope="col" data-l10n-bind="'time.employee.employeechild.singlecustody'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'time.employee.employeechild.nbrofdays'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'time.employee.employeechild.openingbalanceuseddays'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'time.employee.employeechild.useddays'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'time.employee.employeechild.daysleft'"></th>
+                            <th scope="col" style="width: 28px"></th>
+                            <th scope="col" style="width: 28px"></th>
+                        </tr>
+                    </thead>
+                    <tbody data-ng-repeat="child in ctrl.employeeChilds | filter:{state:0} track by $index">
+                        <tr data-ng-class="{'table-selected-row': ctrl.selectedChild === child}" data-ng-click="ctrl.selectedChild = child">
+                            <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedChild === child"></i></td>
+                            <td><span>{{child.firstName}}</span></td>
+                            <td><span>{{child.lastName}}</span></td>
+                            <td><span>{{child.birthDate | date:'shortDate'}}</span></td>
+                            <td>
+                                <span data-l10n-bind="'core.yes'" data-ng-if="child.singleCustody"></span>
+                                <span data-l10n-bind="'core.no'" data-ng-if="!child.singleCustody"></span>
+                            </td>
+                            <td class="right-align-cell"><span>{{child.nbrOfDays}}</span></td>
+                            <td class="right-align-cell"><span>{{child.openingBalanceUsedDays || 0}}</span></td>
+                            <td class="right-align-cell"><span>({{child.usedDaysPayroll || 0}}) {{child.usedDays || 0}}</span></td>
+                            <td class="right-align-cell"><span>{{child.daysLeft || 0}}</span></td>
+                            <td style="width: 28px" data-ng-if="!ctrl.readOnly">
+                                <span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-click="ctrl.editChild(child);"></i></span>
+                            </td>
+                            <td style="width: 28px" data-ng-if="!ctrl.readOnly">
+                                <span data-l10n-bind data-l10n-bind-title="'core.deleterow'"><i class="fal fa-times iconDelete link" data-ng-click="ctrl.deleteChild(child);"></i></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </soe-panel>
+        </div>
+    </div>
+
+    <div class="row margin-large-top">
+        <div class="col-sm-6">
+            <soe-panel label-key="time.employee.employeechild.childcare.title" condensed="true">
+                <table class="table table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" data-l10n-bind="'common.datefrom'"></th>
+                            <th scope="col" data-l10n-bind="'common.dateto'"></th>
+                            <th scope="col" data-l10n-bind="'common.name'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'time.employee.employeechild.nbrofdays'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'time.employee.employeechild.childcare.openingbalancedays'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'time.employee.employeechild.useddays'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'time.employee.employeechild.daysleft'"></th>
+                        </tr>
+                    </thead>
+                    <tbody data-ng-repeat="care in ctrl.childCares | orderBy:'-year' track by $index">
+                        <tr>
+                            <td>
+                                <span>{{care.dateFrom | date:'shortDate'}}</span>
+                            </td>
+                            <td>
+                                <span>{{care.dateTo | date:'shortDate'}}</span>
+                            </td>
+                            <td><span>{{care.name}}</span></td>
+                            <td class="right-align-cell">
+                                <span>{{care.nbrOfDays}}</span>
+                            </td>
+                            <td class="right-align-cell">
+                                <span>{{care.openingBalanceUsedDays}}</span>
+                            </td>
+                            <td class="right-align-cell">
+                                <span>({{care.usedDaysPayroll}}) {{care.usedDays}}</span>
+                            </td>
+                            <td class="right-align-cell">
+                                <span>{{care.daysLeft}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </soe-panel>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+﻿<br />
+<div class="ngSoeFormFooter">
+    <div class="row">
+        <div class="pull-right">
+            <div class="col-sm-12">
+                <soe-splitbutton class="pull-right margin-large-right" label-key="core.functions" options="ctrl.buttonFunctions" main-button="true" drop-up="true" is-disabled="ctrl.gridAg.options.getSelectedCount() === 0" option-selected="ctrl.initChangeEdiState(option)"></soe-splitbutton>
+                <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'core.save'" data-l10n-bind-title="'core.save'" data-ng-click="$event.stopPropagation();ctrl.save()" ng-if="ctrl.showSave" ng-disabled="!ctrl.isOkToSave"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'billing.import.edi.transferorderrows'" data-l10n-bind-title="'billing.import.edi.transferorderrows'" data-ng-click="$event.stopPropagation();ctrl.initTransferToOrder()" ng-if="ctrl.showTransferOrderRows" ng-disabled="!ctrl.isOkToTransferToOrder"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'billing.import.edi.createinvoice'" data-l10n-bind-title="'billing.import.edi.createinvoice'" data-ng-click="$event.stopPropagation();ctrl.initCreateInvoice()" ng-if="ctrl.showCreateInvoice" ng-disabled="!ctrl.isOkToTransferToSupplierInvoice"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'billing.import.edi.createpdf'" data-l10n-bind-title="'billing.import.edi.createpdf'" data-ng-click="$event.stopPropagation();ctrl.createPdf()" ng-if="ctrl.showCreatePdf" ng-disabled="!ctrl.isOkToGeneratePdf"></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<soe-dialog>
+  <div dialog-content>
+    <table class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th scope="col" style="width: auto" id="header_weektimefrom">
+            {{ 'time.employee.annualleavegroups.workedhours' | translate }}
+          </th>
+          <th scope="col" style="width: auto" id="header_weektimeto">
+            {{ 'time.employee.annualleavegroups.nrofdays' | translate }}
+          </th>
+          <th scope="col" style="width: auto" id="header_weektimefrom">
+            {{ 'time.employee.annualleavegroups.nrofhours' | translate }}
+          </th>
+        </tr>
+      </thead>
+      @for (item of performTypes.data; track i; let i = $index) {
+        <tbody>
+          <tr>
+            <td style="width: auto">
+              <span> {{ parseMinutesToDecimal(item.workedMinutes) }}</span>
+            </td>
+            <td style="width: auto">
+              <span> {{ item.nbrOfDaysAnnualLeave }}</span>
+            </td>
+            <td style="width: auto">
+              <span>
+                {{ parseTimeDuration(item.nbrOfMinutesAnnualLeave) }}</span
+              >
+            </td>
+          </tr>
+        </tbody>
+      }
+    </table>
+  </div>
+</soe-dialog>

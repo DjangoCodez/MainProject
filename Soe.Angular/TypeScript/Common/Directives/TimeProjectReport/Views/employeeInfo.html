@@ -1,0 +1,61 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">{{ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <soe-panel label-key="common.schedule" data-ng-if="ctrl.infoItem.scheduleBlocks.length > 0">
+            <div class="table-responsive">
+                <table class="table table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" data-l10n-bind="'common.from'"></th>
+                            <th scope="col" data-l10n-bind="'common.to'"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="block in ctrl.infoItem.scheduleBlocks">
+                            <td><span>{{::block.startTime | date:'shortTime'}}</span></td>
+                            <td><span>{{::block.stopTime | date:'shortTime'}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </soe-panel>
+        <div ng-if="ctrl.infoItem.scheduleBlocks.length === 0">
+            <soe-label label-key="billing.project.timesheet.edittime.noschedule" discreet="true" text-class="warningColor" text-class-condition="true"></soe-label>
+        </div>
+        <soe-panel label-key="common.reportedtime" data-ng-if="ctrl.infoItem.timeBlocks.length > 0">
+            <div class="table-responsive">
+                <table class="table table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" data-l10n-bind="'common.from'"></th>
+                            <th scope="col" data-l10n-bind="'common.to'"></th>
+                            <th scope="col" data-l10n-bind="'common.time.timedeviationcause'"></th>
+                            <th scope="col" data-l10n-bind="'common.report.selection.projectnr'"></th>
+                            <th scope="col" data-l10n-bind="'common.report.selection.ordernr'"></th>
+                            <th scope="col" data-l10n-bind="'billing.project.timesheet.note.external'"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="block in ctrl.infoItem.timeBlocks">
+                            <td><span>{{::block.startTime | date:'shortTime'}}</span></td>
+                            <td><span>{{::block.stopTime | date:'shortTime'}}</span></td>
+                            <td><span>{{::block.timeDeviationCauseName}}</span></td>
+                            <td><span>{{::block.projectNr}}</span></td>
+                            <td><span>{{::block.invoiceNr}}</span></td>
+                            <td><span>{{::block.externalNote}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </soe-panel>
+        <div ng-if="ctrl.infoItem.timeBlocks.length === 0">
+            <soe-label label-key="billing.project.timesheet.edittime.notransaction" discreet="true" text-class="warningColor" text-class-condition="true"></soe-label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-right margin-small-right" data-l10n-bind="'core.ok'" data-ng-click="ctrl.close()"></button>
+    </div>
+</div>

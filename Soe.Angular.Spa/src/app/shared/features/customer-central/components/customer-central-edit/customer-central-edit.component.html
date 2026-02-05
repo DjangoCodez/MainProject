@@ -1,0 +1,349 @@
+<soe-toolbar [recordConfig]="recordConfig" [form]="form" [itemGroups]="toolbarService.toolbarItemGroups">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+<form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+  <div class="row">
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-label [labelKey]="'common.customer'"></soe-label>
+      </div>
+      <div class="col-sm-2">
+        <soe-label [labelKey]="
+              'common.contactaddresses.addressmenu.billing'
+            "></soe-label>
+      </div>
+      <div class="col-sm-2">
+        <soe-label [labelKey]="
+              'common.contactaddresses.addressmenu.delivery'
+            "></soe-label>
+      </div>
+      <div class="col-sm-2">
+        <soe-label [labelKey]="'common.telephonenumber'"></soe-label>
+      </div>
+      <div class="col-sm-2">
+        <soe-label [labelKey]="'common.orgnr'"></soe-label>
+      </div>
+      <div class="col-sm-2">
+        <soe-label [labelKey]="'common.customer.customer.blockorder'"></soe-label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-2">
+        <!-- <soe-label [labelValue]="form.customer.value"></soe-label> -->
+        <!-- <span (click)="openCustomer()" [textContent]="form.customer.value"></span> -->
+        <a href="#" style="font-size: 0.8rem; text-decoration: none" (click)="openCustomer()">{{ form.customer.value
+          }}</a>
+      </div>
+      <div class="col-sm-2">
+        <!-- <soe-label [labelValue]="form.billingAddress.value"></soe-label> -->
+        <a style="font-size: 0.8rem; text-decoration: none" href="{{
+              'https://maps.google.com/?q=' + form.billingAddress.value
+            }}" target="_blank">{{ form.billingAddress.value }}</a>
+      </div>
+      <div class="col-sm-2">
+        <!-- <soe-label [labelValue]="form.deliveryAddress.value"></soe-label> -->
+        <a style="font-size: 0.8rem; text-decoration: none" href="{{
+              'https://maps.google.com/?q=' + form.deliveryAddress.value
+            }}" target="_blank">{{ form.deliveryAddress.value }}</a>
+      </div>
+      <div class="col-sm-2">
+        <soe-label [labelValue]="form.phoneNumber.value"> </soe-label>
+      </div>
+      <div class="col-sm-2">
+        <soe-label [labelValue]="form.orgNr.value"></soe-label>
+      </div>
+      <div class="col-sm-2">
+        <soe-label [labelValue]="form.blockOrderString.value"></soe-label>
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <div class="col-sm-2">
+        <soe-label [labelKey]="'common.categories'"></soe-label>
+      </div>
+      <div class="col-sm-2">
+        <soe-label [labelKey]="
+              'common.customer.customer.invoicedeliverytype'
+            "></soe-label>
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <div class="col-sm-2">
+        <soe-label [labelValue]="form.categoryString.value"></soe-label>
+      </div>
+      <div class="col-sm-2">
+        <soe-label [labelValue]="form.invoiceDeliveryTypeString.value"></soe-label>
+      </div>
+    </div>
+  </div>
+
+  @if (customer && customer.note) {
+  <div class="row my-2">
+    <soe-instruction [text]="customer.note"></soe-instruction>
+  </div>
+  }
+
+  <soe-expansion-panel [labelKey]="'economy.supplier.suppliercentral.totals'" [disabled]="!customer">
+    <div class="information-container no-margin">
+      <div class="row mt-2">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelKey]="'common.contract'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelKey]="'common.offer'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelKey]="'common.order'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelKey]="'economy.supplier.payment.totalamount'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelKey]="
+                'economy.customer.customercentral.opensum'
+              "></soe-label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-label [labelKey]="
+                'economy.customer.customercentral.incvat'
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (contractsIncVat || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (offersIncVat || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (ordersIncVat || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (invoicesIncVat || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (unpaid || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-label [labelKey]="'economy.customer.customercentral.exvat'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (contractsExVat || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (offersExVat || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (ordersExVat || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (invoicesExVat || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelKey]="
+                'economy.customer.customercentral.offercurrency'
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelKey]="
+                'economy.customer.customercentral.ordercurrency'
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelKey]="
+                'economy.customer.customercentral.invoicetotalcurrency'
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelKey]="
+                'economy.customer.customercentral.opensumcurrency'
+              "></soe-label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-label [labelKey]="
+                'economy.customer.customercentral.incvat'
+              "></soe-label>
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (offersCurrencyIncVat || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (ordersCurrencyIncVat || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (invoicesCurrencyIncVat || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (unpaidCurrency || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-label [labelKey]="'economy.customer.customercentral.exvat'"></soe-label>
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (offersCurrencyExVat || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (ordersCurrencyExVat || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label class="pull-right" [labelValue]="
+                (invoicesCurrencyExVat || 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              "></soe-label>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+    </div>
+  </soe-expansion-panel>
+
+  @if (contractPermission || contractUserPermission) {
+  <soe-expansion-panel [labelKey]="'common.contract'" [disabled]="!customer" (isOpened)="contractExpanderOpened()">
+    @if (contractsExpanderOpen()) {
+    <soe-customer-central-contract-grid (reloadGridData)="loadContracts()"
+      [productSalesPricePermission]="productSalesPricePermission" [rows]="contractRows"
+      (showOnlyOpen)="onShowOnlyOpenContracts($event)">
+    </soe-customer-central-contract-grid>
+    }
+  </soe-expansion-panel>
+  }
+
+  @if (offerPermission || offerUserPermission) {
+  <soe-expansion-panel [labelKey]="'common.offer'" [disabled]="!customer" (isOpened)="offerExpanderOpened()">
+    @if (offersExpanderOpen()) {
+    <soe-customer-central-offer-grid (reloadGridData)="loadOffers()" [currencyPermission]="currencyPermission"
+      [productSalesPricePermission]="productSalesPricePermission" [rows]="offerRows"
+      (showOnlyOpen)="onShowOnlyOpenOffers($event)">
+    </soe-customer-central-offer-grid>
+    }
+  </soe-expansion-panel>
+  }
+
+  @if (orderPermission || orderUserPermission) {
+  <soe-expansion-panel [labelKey]="'common.order'" [disabled]="!customer" (isOpened)="orderExpanderOpened()">
+    @if (ordersExpanderOpen()) {
+    <soe-customer-central-order-grid (reloadGridData)="loadOrders()" [rows]="orderRows"
+      [currencyPermission]="currencyPermission" [productSalesPricePermission]="productSalesPricePermission"
+      [planningPermission]="planningPermission" (showOnlyOpen)="
+              onShowOnlyOpenOrders($event)
+            "></soe-customer-central-order-grid>
+    }
+  </soe-expansion-panel>
+  }
+
+  @if (invoicePermission || invoiceUserPermission) {
+  <soe-expansion-panel [labelKey]="'common.customerinvoice'" [disabled]="!customer"
+    (isOpened)="invoiceExpanderOpened()">
+    @if (invoiceExpanderOpen()) {
+    <soe-customer-central-invoice-grid (reloadGridData)="loadInvoices()" [rows]="invoiceRows"
+      [currencyPermission]="currencyPermission" [exportPermission]="exportPermission"
+      [productSalesPricePermission]="productSalesPricePermission" (showOnlyOpen)="onShowOnlyOpenInvoices($event)">
+    </soe-customer-central-invoice-grid>
+    }
+  </soe-expansion-panel>
+  }
+
+  @if (documentsPermission) {
+  <soe-expansion-panel [open]="false" [labelKey]="'core.document'" (isOpened)="loadFileList($event)">
+    <soe-file-display [gridHeight]="320" [uploadPermission]="undefined" (onReload)="loadFileList(true)"
+      [helper]="filesHelper"></soe-file-display>
+  </soe-expansion-panel>
+  }
+</form>
+}

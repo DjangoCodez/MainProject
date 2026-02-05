@@ -1,0 +1,20 @@
+<div>
+  <div class="row">
+    <soe-expansion-panel
+      [secondaryLabelKey]="'common.categories.categories'"
+      [secondaryLabelBold]="true"
+      [secondaryLabelParantheses]="false"
+      [static]="true"
+      [noMargin]="true"
+      [noPadding]="true">
+      @if (flowHandler.allowFetchGrid()) {
+        <soe-grid-wrapper
+          [toolbarGroups]="[]"
+          [rows]="rowData"
+          [noMargin]="true"
+          [height]="65"
+          [parentGuid]="guid()"></soe-grid-wrapper>
+      }
+    </soe-expansion-panel>
+  </div>
+</div>

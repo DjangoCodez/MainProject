@@ -1,0 +1,21 @@
+<form [formGroup]="form" novalidate autocomplete="off">
+  <div class="row">
+    <div class="d-sm-inline">
+      <soe-select
+        [labelKey]="'common.customer.customer.wholesellername'"
+        [inline]="true"
+        [items]="wholesellersDict"
+        formControlName="selectedWholesellerId"
+        (valueChanged)="filterChanged.emit($event)" />
+    </div>
+    <div class="d-sm-inline">
+      <soe-menu-button
+        [caption]="' '"
+        [list]="buttonFunctions"
+        [behaviour]="'secondary'"
+        [variant]="'split'"
+        [selectedItem]="firstAction"
+        (itemSelected)="actionSelected($event)"></soe-menu-button>
+    </div>
+  </div>
+</form>

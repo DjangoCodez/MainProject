@@ -1,0 +1,8 @@
+﻿<div class="row">
+        <div class="col-sm-4">
+            <soe-multiselect label-key="{{$ctrl.labelKey}}" hidelabel="$ctrl.hideLabel" model="$ctrl.selectedPayrollPriceTypes" options="$ctrl.payrollPriceTypeList" display-prop="name" is-disabled="!$ctrl.payrollPriceTypeList" on-item-select="$ctrl.propagateSelection()" on-item-deselect="$ctrl.propagateSelection()"></soe-multiselect>
+        </div>
+        <div class="col-sm-4">
+            <soe-multiselect label-key="{{$ctrl.labelKey2}}" hidelabel="$ctrl.hideLabel" model="$ctrl.selectedPayrollPriceTypeCodes" options="$ctrl.payrollPriceTypeCodes" display-prop="name" is-disabled="!$ctrl.payrollPriceTypes" on-selection-complete="$ctrl.propagateSelection()"></soe-multiselect>
+        </div>
+</div>

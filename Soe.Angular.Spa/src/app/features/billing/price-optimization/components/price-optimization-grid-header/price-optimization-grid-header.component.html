@@ -1,0 +1,24 @@
+<form [formGroup]="formFilter" novalidate autocomplete="off">
+  <div class="row">
+    <div class="d-sm-inline">
+      <soe-multi-select
+        [items]="cartStatus"
+        [width]="200"
+        [inline]="true"
+        [placeholderKey]="'core.select'"
+        [dropdownWidth]="300"
+        (onSelectionComplete)="statusSelectionComplete($event)"
+        formControlName="selectedCartStatusIds">
+      </soe-multi-select>
+    </div>
+    <div class="d-sm-inline p-0">
+      <soe-select
+        [inline]="true"
+        [width]="200"
+        [items]="allItemsSelectionDict"
+        (valueChanged)="allItemsSelectionChanged($event)"
+        formControlName="allItemsSelectionId">
+      </soe-select>
+    </div>
+  </div>
+</form>

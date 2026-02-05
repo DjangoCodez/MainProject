@@ -1,0 +1,47 @@
+﻿<div>
+    <soe-progressbar is-busy="directiveCtrl.progressBusy" message="directiveCtrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-show="!directiveCtrl.progressBusy">
+        <div class="row btn-toolbar">
+            <div class="col">
+                <div class="pull-left">
+                    <soe-toolbar buttons="directiveCtrl.sortMenuButtons" hide-border="true" no-margin="true"></soe-toolbar>
+                </div>
+            </div>
+         
+            <div class="col pull-right">
+                <div class="col">
+                    <soe-checkbox style="margin: 2px 5px 0 0;" label-key="billing.productrows.showallrows" model="directiveCtrl.showAllRows" use-ignore-dirty="true"></soe-checkbox>
+                </div>
+                <div class="coll pull-right">
+                    <soe-checkbox label-key="billing.productrows.hidetransferred" model="directiveCtrl.hideTransferred" data-ng-if="directiveCtrl.useAttestState" use-ignore-dirty="true"></soe-checkbox>
+                </div>
+                <div class="col pull-right">
+                    <soe-menubutton label-key="core.functions" options="directiveCtrl.rowFeatureFunctions" option-selected="directiveCtrl.executeFeatureRowFunction(option)" is-disabled="directiveCtrl.readOnly"></soe-menubutton>
+                </div>
+                <div class="col pull-right">
+                    <soe-splitbutton class="margin-large-left" label-key="common.newrow" options="directiveCtrl.rowFunctions" option-selected="directiveCtrl.executeRowFunction(option)" is-disabled="directiveCtrl.readOnly"></soe-splitbutton>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <div ag-grid="directiveCtrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+            <div id="purchase-sum-footer-grid" class="ag-theme-balham" style="height: 30px; width: 100%;" prevent-enter></div>
+            <div id="purchase-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+        </div>
+        <div class="info margin-large-top">
+            <div class="row">
+                <div class="col-sm-1" data-ng-if="directiveCtrl.useCentRounding">
+                    <soe-textbox label-key="billing.productrows.centrounding" model="directiveCtrl.centRounding" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-textbox label-key="billing.purchaserow.totalexvat" model="directiveCtrl.totalAmountExVatCurrency" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                </div>
+                <div class="col-sm-2" data-ng-if="!directiveCtrl.isBaseCurrency">
+                    <soe-textbox label-key="billing.purchaserow.totalexvat" label-value="directiveCtrl.baseCurrencyCode" label-value-in-parentheses="true" model="directiveCtrl.totalAmountExVat" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    <div class="soe-edit-form">
+      <div class="row dialog-row-top-padding">
+        @if (form) {
+          <soe-select-project
+            [form]="form"
+            [customerId]="customerId"
+            [useDelete]="useDelete"
+            [currentProjectNr]="currentProjectNr"
+            [currentProjectId]="currentProjectId"
+            [showAllProjects]="showAllProjects"
+            [excludeProjectId]="excludeProjectId || 0"
+            (ProjectSelected)="onProjectSelected($event)"
+            (rowDoubleClicked)="onRowDoublClicked($event)"></soe-select-project>
+        }
+      </div>
+      <div class="soe-form-footer">
+        <div class="col-sm-12">
+          <div class="d-flex justify-content-between">
+            @if (form) {
+              <div class="pull-left" [formGroup]="form">
+                @if (hideProjectsWithoutCustomer()) {
+                  <div class="col-sm-2 text-center" style="width: fit-content">
+                    <soe-checkbox
+                      [labelKey]="
+                        'billing.projects.list.showprojectswithoutcustomer'
+                      "
+                      [inline]="false"
+                      formControlName="showWithoutCustomer"></soe-checkbox>
+                  </div>
+                }
+                @if (hideShowFindHidden()) {
+                  <div class="col-sm-2 text-center" style="width: fit-content">
+                    <soe-checkbox
+                      [labelKey]="'billing.projects.list.showhiddenprojects'"
+                      [inline]="false"
+                      formControlName="showFindHidden"></soe-checkbox>
+                  </div>
+                }
+                <div class="col-sm-2 text-center" style="width: fit-content">
+                  <soe-checkbox
+                    [labelKey]="'common.customer.invoices.showmine'"
+                    [inline]="false"
+                    formControlName="showMine"></soe-checkbox>
+                </div>
+              </div>
+            }
+            <div class="pull-right">
+              <soe-button
+                class="ms-3"
+                [caption]="'core.cancel'"
+                typeClass="btn btn-secondary"
+                [behaviour]="'standard'"
+                (action)="cancel()"></soe-button>
+
+              <soe-button
+                class="ms-3"
+                [caption]="'core.ok'"
+                typeClass="btn btn-primary"
+                [behaviour]="'primary'"
+                (action)="selectProject()"></soe-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</soe-dialog>

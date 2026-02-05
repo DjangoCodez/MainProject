@@ -1,0 +1,86 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal()" aria-hidden="true">&times;</button>
+        <h6 class="modal-title">{{ctrl.modalTitle}}</h6>
+    </div>
+
+    <div purchase-validation ng-class="ctrl.isModal ? 'edit-padding': ''" ng-model="ctrl.supplierProject" edit-permission="ctrl.modifyPermission" data-ng-if="!ctrl.progressBusy">
+        <div class="row btn-toolbar">
+            <div class="col-sm-6">
+                <div class="pull-left">
+                    <soe-toolbar buttons="ctrl.toolbar.navigationMenuButtons" hide-border="true" no-margin="true" ng-if="ctrl.showNavigationButtons" />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <soe-toolbar buttons="ctrl.toolbar.buttonGroups" hide-border="true" no-margin="true" />
+            </div>
+        </div>
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="common.general" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <soe-typeahead is-disabled="!ctrl.isNew"
+                                           label-key="billing.purchase.supplier"
+                                           model="ctrl.supplierHelper.selectedSupplier"
+                                           items="ctrl.supplierHelper.suppliers"
+                                           options="item as item.name for item in items"
+                                           on-edit="ctrl.supplierHelper.openSupplier()"
+                                           edit-tooltip-key="core.edit"
+                                           edit-disabled="!ctrl.supplierHelper.editSupplierPermission || !ctrl.supplierHelper.selectedSupplier"
+                                           use-only-edit-disabled="true"
+                                           required="true" />
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-datepicker label-key="billing.purchase.pricelists.activefrom"
+                                            model="ctrl.pricelist.startDate"
+                                            allow-invalid="false"
+                                            required="true"
+                                            is-readonly="!ctrl.priceRowsRendered && !ctrl.isNew" />
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-datepicker label-key="billing.purchase.pricelists.activeto"
+                                            model="ctrl.pricelist.endDate"
+                                            allow-invalid="false"
+                                            on-change="ctrl.endDateChanged(newDate)"
+                                            required="true" />
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-select label-key="common.currency"
+                                        model="ctrl.pricelist.currencyId"
+                                        items="ctrl.amountHelper.currencies"
+                                        options="item.currencyId as item.name for item in items"
+                                        on-changing="ctrl.currencyChanged(item)"
+                                        is-disabled="ctrl.isReadonly()" />
+                        </div>
+                    </div>
+
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="billing.purchase.product.purchaseprices" is-open="true">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <supplier-pricelist-prices parent-guid="ctrl.guid"
+                                                   pricelist-id="ctrl.pricelistId"
+                                                   start-date="ctrl.pricelist.startDate"
+                                                   end-date="ctrl.pricelist.endDate"
+                                                   supplier-id="ctrl.pricelist.supplierId"
+                                                   currency-id="ctrl.pricelist.currencyId"
+                                                   rows="ctrl.priceRows" />
+                    </div>
+                </div>
+        </uib-accordion>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.pricelist"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

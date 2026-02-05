@@ -1,0 +1,42 @@
+@use '../../../../../shared/styles/core-styles/fonts.scss';
+
+form {
+  font-size: fonts.$soe-font-size-md;
+  padding-bottom: 0px;
+
+  .shift-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 48px;
+    margin-top: 1rem;
+
+    sp-shift-simple {
+      width: 100%;
+      max-width: 250px;
+    }
+  }
+
+  // Dashed vertical line through the shift
+  .shift-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 2px dashed rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .split-icon-container {
+    text-align: center;
+    margin-top: -1rem;
+
+    fa-icon {
+      font-size: 2rem;
+    }
+  }
+}

@@ -1,0 +1,145 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'billing.stock.stocks.importfromfile'"></h6>
+    </div>
+    <div class="tutorial-tab">
+        <button class=""
+                ng-class="ctrl.currentTab == 1 ? ('active') : ('previous')"
+                data-ng-click="ctrl.setTab(1)"
+                ng-disabled="ctrl.currentTab != 1"
+                data-l10n-bind="'common.importdynamic.tabchoosefile'">1. Välj fil</button>
+        <button class=""
+                ng-class="ctrl.currentTab == 2 ? ('active') : ctrl.currentTab > 2 ? ('previous') : ('')"
+                data-ng-click="ctrl.setTab(2)"
+                ng-disabled="ctrl.currentTab != 2"
+                data-l10n-bind="'common.importdynamic.tablinkfields'">2. Koppla fält</button>
+        <button class=""
+                ng-class="ctrl.currentTab == 3 ? ('active') : ctrl.currentTab > 3 ? ('previous') : ('')"
+                data-ng-click="ctrl.setTab(3)"
+                ng-disabled="ctrl.currentTab != 3"
+                data-l10n-bind="'common.importdynamic.tabpreview'">3. Förhandsgranska</button>
+        <button class=""
+                ng-class="ctrl.currentTab == 4 ? ('active') : ctrl.currentTab > 4 ? ('previous') : ('')"
+                data-ng-click="ctrl.setTab(4)"
+                ng-disabled="ctrl.currentTab != 4"
+                data-l10n-bind="'common.importdynamic.tabseeoutcome'">4. Se utfall</button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm row">
+            <div ng-if="ctrl.currentTab === 1">
+                <div class="">
+                    <div class="col-sm-4">
+                        <soe-select label-key="common.report.selection.exportfiletype"
+                                    model="ctrl.fileType"
+                                    items="ctrl.fileTypes"
+                                    is-required="true"
+                                    on-changing="ctrl.fileTypeChanged()"
+                                    options="item.id as item.name for item in items" />
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="core.filename"
+                                    model="ctrl.importFileName"
+                                    button-icon="fa-file-upload"
+                                    on-button-click="ctrl.addFile()"
+                                    button-disabled="!ctrl.fileType"
+                                    input-class="errorColor"
+                                    input-class-condition="ctrl.showPeekError"
+                                    is-required="true"
+                                    readonly="true">
+                    </div>
+                    <!-- <div class="col-sm-4">
+                        <soe-checkbox label-key="common.importdynamic.skipfirstrow" model="ctrl.options.skipFirstRow" />
+                    </div> -->
+                </div>
+                <div class="col-sm-12 margin-large-top" ng-if="ctrl.showPeekError">
+                    <soe-instruction label-key="common.importdynamic.invalidupload" />
+                </div>
+                <div class="col-sm-12 margin-large-top" ng-if="ctrl.showPeek">
+                    <soe-label label-key="common.importdynamic.previewrows" label-value="ctrl.rows.length" label-value-in-parentheses="true" />
+                    <div ag-grid="ctrl.gridHandlerPeek.gridAg.options.gridOptions" class="ag-theme-balham hide-ag-grid-col-header margin-large-top" height-checker style="height: 180px; width: 100%;"></div>
+                </div>
+            </div>
+            <div ng-if="ctrl.currentTab === 2">
+                <div class="col-sm-12">
+                    <div class="row margin-large-top">
+                        <div class="col-sm-4">
+                            <soe-panel label-key="common.importdynamic.filevalues">
+                                <div class="row center-text">
+                                    <div class="btn-group">
+                                        <i class="btn btn-default fal fa-angle-left far" data-ng-click="ctrl.previousRow()" />
+                                        <i class="btn btn-default fal far" style="font-family: 'Roboto Condensed';">{{ctrl.rowPointer + 1}} / {{ctrl.rows.length}}</i>
+                                        <i class="btn btn-default fal fa-angle-right far" data-ng-click="ctrl.nextRow()" />
+                                    </div>
+                                </div>
+                                <div class="padding-small margin-small-top margin-small-bottom content-border-button"
+                                            style="z-index: 100; word-break: break-all;"
+                                            id="{{$index}}"
+                                            ng-class="ctrl.columnIndexIsLinkedToField($index) ? ('success') : ('warning draggable')"
+                                            ng-repeat="n in ctrl.referenceRow track by $index"
+                                >
+                                    {{ctrl.getReferenceValue($index)}}
+                                </div>
+                            </soe-panel>
+                        </div>
+                        <div class="col-sm-8 dnd-zone" id="drop-zone">
+                            <soe-panel label-key="common.field">
+                                <div class="col-sm-6 drop-zone" id="{{field.field}}" ng-repeat="field in ctrl.fields">
+                                    <soe-textbox label-value="field.label"
+                                    class="drop-zone margin-large-right margin-large-left"
+                                    model="ctrl.getReferenceValue(field.index)"
+                                    is-required="field.isRequired"
+                                    label-value-indiscreet="false"
+                                    button-icon="fa-unlink"
+                                    button-disabled="field.index == -1"
+                                    on-button-click="ctrl.clearField(field)"
+                                    second-button-icon="fa-cog"
+                                    second-button-class="{{field.isConfigured ? ('success') : ('')}}"
+                                    on-second-button-click="ctrl.openFieldSettings(field)"
+                                    readonly="true">
+                                </div>
+                            </soe-panel>
+                            <div class="row margin-large-left">
+                                <soe-checkbox label-key="common.importdynamic.skipfirstrow" model="ctrl.options.skipFirstRow" />
+                                <soe-checkbox label-key="common.importdynamic.importnew" model="ctrl.options.importNew" />
+                                <soe-checkbox label-key="common.importdynamic.importexisting" model="ctrl.options.updateExisting" />
+                            </div>
+                            <div class="row col-sm-12" style="white-space: pre-line;">
+                                <soe-instruction label-key="common.importdynamic.linkfieldshelp" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="ctrl.currentTab === 3">
+                <!--Grid preview here-->
+                <div class="col-sm-12">
+                    <div ag-grid="ctrl.gridHandlerPreview.gridAg.options.gridOptions" class="ag-theme-balham" height-checker style="height: 800px; width: 100%;"></div>
+                </div>
+            </div>
+            <div ng-if="ctrl.currentTab === 4">
+                <!--Log here-->
+                <div class="col-sm-4">
+                    <soe-textbox model="ctrl.result.newCount" label-key="common.importdynamic.newrows" readonly="true" />
+                </div>
+                <div class="col-sm-4">
+                    <soe-textbox model="ctrl.result.updateCount" label-key="common.importdynamic.updatedrows" readonly="true" />
+                </div>
+                <div class="col-sm-12" ng-if="ctrl.result.logs && ctrl.result.logs.length > 0">
+                    <soe-label label-key="common.dashboard.syslog.title"></soe-label>
+                    <div ag-grid="ctrl.gridHandlerResult.gridAg.options.gridOptions" class="ag-theme-balham margin-large-top" height-checker style="height: 800px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="pull-right">
+            <div class="col">
+                <button ng-if="ctrl.currentTab !== 4" type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.close()"></button>
+                <button ng-if="ctrl.currentTab !== 1 && ctrl.currentTab !== 4" type="button" class="btn btn-default" data-l10n-bind="'core.previous'" data-ng-click="ctrl.previousTab()" data-ng-disabled="ctrl.tabDisabled(ctrl.currentTab-1)"></button>
+                <button ng-if="ctrl.currentTab !== 4" type="button" class="btn btn-primary" data-l10n-bind="'core.next'" data-ng-click="ctrl.nextTab()" data-ng-disabled="ctrl.tabDisabled()"></button>
+                <button ng-if="ctrl.currentTab === 4" type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.close()"></button>
+            </div>
+        </div>
+    </div>
+</div>

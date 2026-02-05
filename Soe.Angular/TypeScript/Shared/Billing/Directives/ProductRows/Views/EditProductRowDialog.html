@@ -1,0 +1,221 @@
+﻿<form name="ctrl.edit" class="messagebox modal-wide" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">{{ctrl.title}}</h6>
+    </div>
+    <div class="modal-body" edit-product-row-validation ng-model="ctrl.row">
+        <div class="row btn-toolbar" data-ng-if="ctrl.showNavigationButtons">
+            <div class="col-sm-6 padding-none-left">
+                <div class="pull-left">
+                    <soe-toolbar buttons="ctrl.navigationMenuButtons" hide-border="true" no-margin="true"></soe-toolbar>
+                </div>
+            </div>
+        </div>
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="billing.products.product" data-ng-if="ctrl.mode == 1" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-typeahead label-key="billing.productrows.productnr" model="ctrl.selectedProduct" items="ctrl.rowsCtrl.products" options="item.id as item.name for item in items" is-readonly="ctrl.isReadOnlyCheckTime" on-focus="ctrl.productFocus()" on-selection-changed="ctrl.productChanged()" editable="true" edit-icon="fa-search" on-edit="ctrl.searchProduct()" enter="ctrl.searchProduct()"></soe-typeahead>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-textbox label-key="billing.productrows.text" model="ctrl.row.text" is-readonly="ctrl.isReadonly"></soe-textbox>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="col-sm-3">
+                                <soe-textbox label-key="billing.productrows.quantity" model="ctrl.row.quantity" numeric="true" decimals="0" set-focus="ctrl.mode == 1 && !ctrl.isReadonly" is-readonly="ctrl.isReadOnlyCheckTime" on-focus="ctrl.quantityFocus()" update-on="blur" on-change="ctrl.quantityChanged(model)"></soe-textbox>
+                            </div>
+                            <div class="col-sm-3" ng-if="ctrl.usePartialInvoicingOnOrderRow">
+                                <soe-textbox label-key="billing.productrows.invoicequantity" model="ctrl.row.invoiceQuantity" numeric="true" decimals="0" update-on="blur" is-readonly="ctrl.isReadonly" on-change="ctrl.invoiceQuantityChanged(model)"></soe-textbox>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-select label-key="billing.productrows.productunit" model="ctrl.row.productUnitId" items="ctrl.rowsCtrl.productUnits" options="item.value as item.label for item in items" is-readonly="ctrl.isReadOnlyCheckTime"></soe-select>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-select label-key="billing.products.taxdeductiontype" model="ctrl.row.householdDeductionType" items="ctrl.rowsCtrl.householdDeductionTypes" options="item.value as item.label for item in items" is-readonly="ctrl.isReadonly || ctrl.isRowTransferred"></soe-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.row.timeManuallyChanged">
+                        <div class="col-sm-offset-6 col-sm-2">
+                            <soe-label label-key="billing.productrows.quantitychanged.timeproject.manuallychanged" discreet="true" text-class="warningColor" text-class-condition="true"></soe-label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2" data-ng-if="ctrl.rowsCtrl.useStock">
+                            <soe-checkbox label-key="billing.productrows.isstockrow" model="ctrl.row.isStockRow" inline="true" is-readonly="ctrl.isReadonly"></soe-checkbox>
+                        </div>
+                        <div class="col-sm-2" data-ng-if="ctrl.rowsCtrl.useStock && ctrl.row.isStockRow">
+                            <soe-select label-key="billing.productrows.stockcode" model="ctrl.row.stockId" items="ctrl.row.stocksForProduct" options="item.id as item.name for item in items" is-readonly="ctrl.isReadonly"></soe-select>
+                        </div>
+                    </div>
+                </div>
+                <soe-panel label-key="common.amount" data-ng-if="ctrl.mode == 1">
+                    <div class="form-group form-group-sm">
+                        <div class="row" data-ng-if="ctrl.rowsCtrl.showSalesPricePermission">
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="billing.productrows.amount" model="ctrl.row.amountCurrency" numeric="true" decimals="2" max-decimals="4" update-on="blur" is-readonly="ctrl.isReadonly || ctrl.row.isExpenseRow" on-focus="ctrl.amountFocus()" on-change="ctrl.amountChanged(model)"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="billing.productrows.discount" model="ctrl.row.discountValue" numeric="true" decimals="2" update-on="blur" is-readonly="ctrl.isReadonly" on-change="ctrl.discountValueChanged(model)"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-select label-key="billing.productrows.discounttype" model="ctrl.row.discountType" items="ctrl.rowsCtrl.discountTypes" options="item.value as item.label for item in items" is-readonly="ctrl.isReadonly" on-changing="ctrl.discountTypeChanged(model)"></soe-select>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="billing.productrows.supplementcharge" model="ctrl.row.supplementCharge" numeric="true" decimals="2" is-readonly="ctrl.isReadonly || ctrl.isRowTransferred" update-on="blur" on-change="ctrl.supplementChargeChanged(model)"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="billing.productrows.sumamount" model="ctrl.row.sumAmountCurrency" numeric="true" decimals="2" is-readonly="true"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="ctrl.rowsCtrl.showPurchasePricePermission">
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="billing.productrows.purchaseprice" model="ctrl.row.purchasePriceCurrency" numeric="true" decimals="2" is-readonly="!ctrl.purchasePriceEnabled && (ctrl.isReadonly || ctrl.isRowTransferred)" update-on="blur" on-change="ctrl.purchasePriceChanged(model)"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="billing.order.syswholeseller" model="ctrl.row.sysWholesellerName" is-readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2" data-ng-if="!ctrl.rowsCtrl.hideIncomeRatioAndPercentage && ctrl.rowsCtrl.showSalesPricePermission">
+                                <soe-textbox label-key="billing.productrows.marginalincome.short" model="ctrl.row.marginalIncomeCurrency" numeric="true" decimals="2" is-readonly="ctrl.isReadonly || ctrl.isRowTransferred" update-on="blur" on-change="ctrl.marginalIncomeChanged(model)"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2" data-ng-if="!ctrl.rowsCtrl.hideIncomeRatioAndPercentage && ctrl.rowsCtrl.showSalesPricePermission">
+                                <soe-textbox label-key="billing.productrows.marginalincomeratio.short" model="ctrl.row.marginalIncomeRatio" numeric="true" decimals="2" is-readonly="ctrl.isReadonly || ctrl.isRowTransferred" update-on="blur" on-change="ctrl.marginalIncomeRatioChanged(model)"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="!ctrl.row.purchasePriceCurrency && !ctrl.calculateMarginalIncomeOnZeroPurchase">
+                            <div class="col-sm-2">
+                                <soe-label label-key="billing.productrows.notinmarginalratio" discreet="true" text-class="warningColor" text-class-condition="true"></soe-label>
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+                <soe-panel label-key="common.vat" data-ng-if="ctrl.mode == 1">
+                    <div class="form-group form-group-sm">
+                        <div class="row" data-ng-if="ctrl.rowsCtrl.showSalesPricePermission">
+                            <div class="col-sm-2">
+                                <soe-select label-key="billing.productrows.vatcode" model="ctrl.row.vatCodeId" items="ctrl.rowsCtrl.vatCodes" options="item.value as item.label for item in items" is-readonly="ctrl.isReadonly || ctrl.isRowTransferred" on-changing="ctrl.vatCodeChanged(model)"></soe-select>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-select label-key="billing.productrows.vataccount" model="ctrl.row.vatAccountId" items="ctrl.rowsCtrl.vatAccounts" options="item.value as item.label for item in items" is-readonly="ctrl.isReadonly || ctrl.isRowTransferred" on-changing="ctrl.vatAccountChanged(model)"></soe-select>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="billing.productrows.vatrate" model="ctrl.row.vatRate" numeric="true" decimals="2" is-readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="billing.productrows.vatamount" model="ctrl.row.vatAmountCurrency" numeric="true" decimals="2" is-readonly="true"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+                <div class="form-group form-group-sm" data-ng-if="ctrl.mode == 1">
+                    <div class="row">
+                        <div class="col-sm-2" data-ng-if="ctrl.rowsCtrl.container!=4">
+                            <soe-datepicker label-key="common.date" model="ctrl.row.date" is-readonly="ctrl.isReadonly"></soe-datepicker>
+                        </div>
+                        <div class="col-sm-2" data-ng-if="ctrl.rowsCtrl.container!=4">
+                            <soe-textbox label-key="billing.order.deliverydatetext" model="ctrl.row.deliveryDateText" maxlength="1024" is-readonly="ctrl.isReadonly"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2" data-ng-if="ctrl.rowsCtrl.container==4">
+                            <soe-datepicker label-key="common.fromdate" model="ctrl.row.date" is-readonly="ctrl.isReadonly"></soe-datepicker>
+                        </div>
+                        <div class="col-sm-2" data-ng-if="ctrl.rowsCtrl.container==4">
+                            <soe-datepicker label-key="common.todate" model="ctrl.row.dateTo" is-readonly="ctrl.isReadonly"></soe-datepicker>
+                        </div>
+                        <div class="col-sm-2" data-ng-if="ctrl.rowsCtrl.container!=4">
+                            <div class="input-group">
+                                <soe-textbox label-key="common.customer.invoices.rowstatus" model="ctrl.row.attestStateName" is-readonly="true"></soe-textbox>
+                                <span class="input-group-btn">
+                                    <svg class="inputShape" focusable="false">
+                                        <circle class="shape" cx="10" cy="10" r="9" data-ng-style="{'fill': ctrl.row.attestStateColor }" focusable="false" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-sm btn-default" style="margin-top: 22px;" data-l10n-bind="'billing.productrows.splitaccounting'" data-ng-click="ctrl.splitAccounting()" data-ng-if="ctrl.showSplitAccounting"></button>
+                        </div>
+                        <div class="col-sm-2" data-ng-if="ctrl.rowsCtrl.container!=4 && ctrl.row.ediEntryId > 0">
+                            <soe-textbox label-key="billing.order.sellerordernr" model="ctrl.ediEntry.sellerOrderNr" is-readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2" data-ng-if="ctrl.rowsCtrl.container!=4 && ctrl.row.ediEntryId > 0">
+                            <soe-label></soe-label>
+                            <button type="button" data-l10n-bind data-l10n-bind-title="'billing.order.showsupplierinvoicepdf'" class="btn btn-default" data-ng-click="ctrl.showEdiPdf(ctrl.ediEntry.ediEntryId, ctrl.ediEntry.hasPdf)"><i class="fal fa-file-pdf"></i></button>
+                        </div>
+
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-value="ctrl.householdTitle" data-ng-if="ctrl.isTaxDeductionRow || ctrl.mode == 2" is-open="ctrl.householdExpanderInitiallyOpened">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-2" data-ng-if="ctrl.applicants.length>1">
+                            <soe-select label-key="billing.invoices.householddeduction.prevapplicants" model="ctrl.selectedApplicant" items="ctrl.applicants" options="item as
+                                        item.text for item in items"></soe-select>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-checkbox label-key="common.customer.invoices.showallapplicants" model="ctrl.showAllApplicants" is-readonly="ctrl.isReadonly" inline="true"></soe-checkbox>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-panel label-key="common.customer.customer.rot.personinfo">
+                                <div class="row">
+                                    <div class="col-sm-2" data-ng-if="ctrl.row.householdTaxDeductionType !== 2">
+                                        <soe-textbox label-key="common.customer.customer.rot.property" model="ctrl.row.householdProperty" maxlength="50" set-focus="ctrl.mode == 2" is-readonly="ctrl.isReadonly"></soe-textbox>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-textbox label-key="common.customer.customer.rot.socialsecnr" label-value="ctrl.socialSecurityNumberFormat" label-value-in-parentheses="true" hide-label-value="false" placeholder-key="common.customer.customer.rot.socialsecnrinfo" model="ctrl.row.householdSocialSecNbr" maxlength="20" required="true" social-security-number="true" check-valid-date="true" must-specify-century="true" must-specify-dash="true" is-readonly="ctrl.isReadonly"></soe-textbox>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-textbox label-key="common.customer.customer.rot.name" model="ctrl.row.householdName" maxlength="50" required="true" is-readonly="ctrl.isReadonly"></soe-textbox>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-textbox label-key="billing.invoices.householddeduction.amount" model="ctrl.row.householdAmountCurrency" numeric="true" decimals="0" update-on="blur" is-readonly="ctrl.isReadonly"></soe-textbox>
+                                    </div>
+                                </div>
+                            </soe-panel>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.row.householdTaxDeductionType !== 2">
+                        <div class="col-sm-12">
+                            <soe-panel label-key="common.customer.customer.rot.brfinfo">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <soe-textbox label-key="common.customer.customer.rot.apartmentnr" model="ctrl.row.householdApartmentNbr" maxlength="50" is-readonly="ctrl.isReadonly"></soe-textbox>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-textbox label-key="common.customer.customer.rot.cooperativeorgnr" placeholder-key="common.customer.customer.rot.cooperativeorgnrinfo" model="ctrl.row.householdCooperativeOrgNbr" maxlength="20" social-security-number="true" check-valid-date="false" must-specify-century="false" must-specify-dash="true" is-readonly="ctrl.isReadonly"></soe-textbox>
+                                    </div>
+                                </div>
+                            </soe-panel>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-instruction label-key="billing.invoices.householddeduction.multipleapplicantsinfo"></soe-instruction>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="billing.order.timeproject" data-ng-if="ctrl.timeRowsHelper.timeProjectPermission && ctrl.row.isTimeProjectRow" on-open="ctrl.timeRowsHelper.loadTimeProjectRows()">
+                <div class="row" ng-if="ctrl.timeRowsHelper.timeProjectRendered">
+                    <div class="col-sm-12">
+                        <time-project-report read-only="ctrl.isReadonly" rows="ctrl.timeRowsHelper.projectTimeBlockRows" from-date="ctrl.timeRowsHelper.timeProjectFrom" to-date="ctrl.timeRowsHelper.timeProjectTo" invoice-id="ctrl.timeRowsHelper.invoiceId" project-container="3" set-loading="ctrl.timeRowsHelper.loadingTimeProjectRows" parent-guid="ctrl.guid" select-product-row-callback="ctrl.selectProductRow()"></time-project-report>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+    </div>
+    <div class="modal-footer">
+        <div class="col-sm-3">
+            <created-modified model="ctrl.row"></created-modified>
+        </div>
+        <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.close'" set-focus="ctrl.isReadonly" data-ng-click="ctrl.close()" ng-if="!ctrl.isHouseholdMode"></button>
+        <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()" ng-if="ctrl.isHouseholdMode"></button>
+        <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.ok'" set-focus="ctrl.isReadonly" data-ng-click="ctrl.close()" ng-if="ctrl.isHouseholdMode"></button>
+    </div>
+</form>
+

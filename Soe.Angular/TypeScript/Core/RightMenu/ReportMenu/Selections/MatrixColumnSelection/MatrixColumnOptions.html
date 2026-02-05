@@ -1,0 +1,78 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'common.settings'"></h6>
+    </div>
+    <div class="modal-body">
+        <soe-panel label-key="core.formatting" data-ng-if="ctrl.isAnalysis || ctrl.isNumeric || ctrl.isTime || ctrl.isDate">
+            <div class="row" data-ng-if="ctrl.isAnalysis">
+                <div class="col-sm-12 form-inline">
+                    <span class="indiscreet margin-small-right" data-l10n-bind="'core.align'"></span>
+                    <soe-radiobutton label-key="core.align.left" model="ctrl.align" group="align" value="1"></soe-radiobutton>
+                    <soe-radiobutton label-key="core.align.right" model="ctrl.align" group="align" value="2"></soe-radiobutton>
+                </div>
+            </div>
+            <div class="row margin-small-top" data-ng-if="ctrl.isNumeric || ctrl.isTime">
+                <div class="col-sm-12">
+                    <soe-checkbox label-key="core.reportmenu.selection.matrix.option.clearzero" model="ctrl.column.options.clearZero"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row margin-small-top" data-ng-if="ctrl.isDecimal">
+                <div class="col-sm-3">
+                    <soe-textbox label-key="core.reportmenu.selection.matrix.option.decimals" model="ctrl.column.options.decimals" numeric="true" decimals="0"></soe-textbox>
+                </div>
+            </div>
+            <div class="row margin-small-top" data-ng-if="ctrl.isTime">
+                <div class="col-sm-12 form-inline">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span class="indiscreet margin-small-right" data-l10n-bind="'core.reportmenu.selection.matrix.option.showtimeas'"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-radiobutton label-key="core.time.minutes" model="ctrl.showTimeAs" group="showTimeAs" value="1"></soe-radiobutton>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <soe-radiobutton label-key="core.reportmenu.selection.matrix.option.showtimeas.hhmm" model="ctrl.showTimeAs" group="showTimeAs" value="2"></soe-radiobutton>
+                            </div>
+                            <div class="row" data-ng-if="ctrl.showTimeAs == 2">
+                                <div>
+                                    <soe-checkbox label-key="core.reportmenu.selection.matrix.option.showseconds" model="ctrl.column.options.formatTimeWithSeconds"></soe-checkbox>
+                                </div>
+                                <div>
+                                    <soe-checkbox label-key="core.reportmenu.selection.matrix.option.showdays" model="ctrl.column.options.formatTimeWithDays"></soe-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-radiobutton label-key="core.reportmenu.selection.matrix.option.showtimeas.hhdd" model="ctrl.showTimeAs" group="showTimeAs" value="3"></soe-radiobutton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-small-top" data-ng-if="ctrl.isDate">
+                <div class="col-sm-3">
+                    <soe-select label-key="core.format" model="ctrl.column.options.dateFormatOption" items="ctrl.dateFormats" options="item.id as item.name for item in items"></soe-select>
+                </div>
+            </div>
+        </soe-panel>
+        <soe-panel label-key="core.grouping">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-checkbox label-key="core.reportmenu.selection.matrix.option.groupby" model="ctrl.column.options.groupBy"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row margin-small-top" data-ng-if="ctrl.isNumeric || ctrl.isTime">
+                <div class="col-sm-3">
+                    <soe-select label-key="core.reportmenu.selection.matrix.option.groupoption" model="ctrl.column.options.groupOption" items="ctrl.groupAggOptions" options="item.id as item.name for item in items"></soe-select>
+                </div>
+            </div>
+        </soe-panel>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

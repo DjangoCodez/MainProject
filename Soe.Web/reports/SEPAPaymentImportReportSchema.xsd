@@ -1,0 +1,93 @@
+﻿<xs:schema id="SOE_SEPAPaymentImport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SOE_SEPAPaymentImport" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="SEPAPaymentImport">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="Company" type="xs:string" minOccurs="0" />
+                    <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportTitleLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportDescriptionLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="OrgNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="TimeLabel" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PaymentMethodNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PaymentMethodPaymentNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="FileNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PayerNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PaymentNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="BookingDateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PaymentDateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="BatchIdLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="OCRLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PaymentAmountLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CorrectionLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ErrorMessageLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="NoteLabel" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PaymentMethod" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PaymentMethodName" type="xs:string" minOccurs="0" />
+                    <xs:element name="PaymentMethodPaymentNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="FileName" type="xs:string" minOccurs="0" />
+                    <xs:element name="Payment" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="CustomerNr" type="xs:string" minOccurs="0" />
+                          <xs:element name="CustomerName" type="xs:string" minOccurs="0" />
+                          <xs:element name="PayerName" type="xs:string" minOccurs="0" />
+                          <xs:element name="PaymentNr" type="xs:string" minOccurs="0" />
+                          <xs:element name="BookingDate" type="xs:dateTime" minOccurs="0" />
+                          <xs:element name="PaymentDate" type="xs:dateTime" minOccurs="0" />
+                          <xs:element name="BathcId" type="xs:string" minOccurs="0" />
+                          <xs:element name="InvoiceNr" type="xs:string" minOccurs="0" />
+                          <xs:element name="OCR" type="xs:string" minOccurs="0" />
+                          <xs:element name="PaymentAmount" type="xs:decimal" minOccurs="0" />
+                          <xs:element name="Correction" type="xs:string" minOccurs="0" />
+                          <xs:element name="ErrorMessage" type="xs:string" minOccurs="0" />
+                          <xs:element name="Note" type="xs:string" minOccurs="0" />
+                        </xs:sequence>
+                        <xs:attribute name="Id" type="xs:int"></xs:attribute>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Id" type="xs:int"></xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

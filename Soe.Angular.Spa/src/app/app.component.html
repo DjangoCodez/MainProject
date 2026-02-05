@@ -1,0 +1,19 @@
+@if (hasLoadedTranslations) {
+  @if (!isChromeless) {
+    <soe-header></soe-header>
+  }
+  <div class="container">
+    <information-menu
+    [positionIndex]="informationMenuPosition"></information-menu>
+    <help-menu [positionIndex]="helpMenuPosition"></help-menu>
+    <academy-menu [positionIndex]="academyMenuPosition"></academy-menu>
+    @if (showMessageMenu) {
+      <message-menu
+        [positionIndex]="messageMenuPosition"
+      ></message-menu>
+    }
+    <report-menu [positionIndex]="reportMenuPosition"></report-menu>
+    <document-menu [positionIndex]="documentMenuPosition"></document-menu>
+    <router-outlet></router-outlet>
+  </div>
+}

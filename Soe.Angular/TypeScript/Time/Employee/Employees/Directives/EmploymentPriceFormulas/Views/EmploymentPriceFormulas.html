@@ -1,0 +1,22 @@
+﻿<div>
+    <soe-panel label-key="time.employee.employmentpriceformula.title" condensed="true">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" data-l10n-bind="'time.employee.employmentpriceformula.calculatedsalary'"></th>
+                    <th scope="col" data-l10n-bind="'time.employee.employmentpriceformula.formula'"></th>
+                    <th scope="col" class="right-align-cell" data-l10n-bind="'common.amount'"></th>
+                    <th scope="col" style="width: 28px"></th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="formula in ctrl.priceFormulas">
+                <tr>
+                    <td><span>{{formula.formulaName}}</span></td>
+                    <td><span title="{{formula.formulaNames}}">{{formula.formulaPlain}}</span></td>
+                    <td class="right-align-cell"><span title="{{formula.formulaExtracted}}">{{formula.result | amount:2:true}}</span></td>
+                    <td><span><i class="fal fa-lock-alt"></i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </soe-panel>
+</div>

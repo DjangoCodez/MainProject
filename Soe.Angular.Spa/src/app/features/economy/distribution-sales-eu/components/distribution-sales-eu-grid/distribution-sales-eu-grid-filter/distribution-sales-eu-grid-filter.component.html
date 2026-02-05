@@ -1,0 +1,48 @@
+<div [formGroup]="form" role="form">
+  <div class="row">
+    <div class="d-sm-inline">
+      <soe-select
+        [labelKey]="'economy.accounting.accountyear'"
+        formControlName="accountYear"
+        [width]="150"
+        [inline]="true"
+        [items]="accountYears()"
+        [optionIdField]="'id'"
+        [optionNameField]="'name'"></soe-select>
+    </div>
+    <div class="d-sm-inline mt-1">
+      <soe-radio
+        [noMargin]="true"
+        [labelKey]="'common.month'"
+        [group]="'reportPeriod'"
+        [value]="3"
+        formControlName="reportPeriod"></soe-radio>
+    </div>
+    <div class="d-sm-inline mt-1">
+      <soe-radio
+        [noMargin]="true"
+        [labelKey]="'core.time.quarter'"
+        [group]="'reportPeriod'"
+        [value]="4"
+        formControlName="reportPeriod"></soe-radio>
+    </div>
+    <div class="d-sm-inline">
+      <soe-select
+        [labelKey]="'common.period'"
+        formControlName="fromInterval"
+        [inline]="true"
+        [items]="fromPeriods()"
+        [optionIdField]="'id'"
+        [optionNameField]="'name'"></soe-select>
+    </div>
+    <div class="d-sm-inline">
+      <soe-select
+        [labelKey]="'common.to'"
+        formControlName="toInterval"
+        [inline]="true"
+        [items]="toPeriods()"
+        [optionIdField]="'id'"
+        [optionNameField]="'name'"></soe-select>
+    </div>
+  </div>
+</div>

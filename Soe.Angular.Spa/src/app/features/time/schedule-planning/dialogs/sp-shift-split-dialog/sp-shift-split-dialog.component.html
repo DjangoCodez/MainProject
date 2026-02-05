@@ -1,0 +1,113 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form [formGroup]="form" novalidate autocomplete="off">
+        <soe-toolbar>
+          <div
+            toolbar-content-left
+            select="[toolbar-content-left]"
+            class="d-flex align-items-center">
+            <sp-toolbar-employee-date
+              [employeeName]="form.controls.employeeName.value"
+              [dateFrom]="form.controls.actualStartDate.value"
+              [showWeekdayColor]="true"></sp-toolbar-employee-date>
+          </div>
+        </soe-toolbar>
+        <div class="shift-container">
+          <sp-shift-simple [shift]="form.shift"></sp-shift-simple>
+        </div>
+        <div class="row mb-2 ms-3 me-1">
+          <div class="row">
+            <div class="col-sm-12 split-icon-container">
+              <fa-icon [icon]="['fal', 'scissors']" [rotate]="270"></fa-icon>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-timebox
+                [labelKey]="'common.from'"
+                formControlName="startTime"></soe-timebox>
+            </div>
+            <div class="col-sm-2 col-sm-offset-3">
+              <soe-timebox
+                [labelKey]="'time.schedule.planning.splitshift.splittime'"
+                [autoFocus]="true"
+                (valueChanged)="onSplitTimeChanged($event)"
+                formControlName="splitTime"></soe-timebox>
+            </div>
+            <div class="col-sm-2 col-sm-offset-3">
+              <soe-timebox
+                [labelKey]="'common.to'"
+                formControlName="stopTime"></soe-timebox>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-sm-12">
+              <soe-slider
+                [min]="sliderMinValue()"
+                [max]="sliderMaxValue()"
+                [step]="sliderStep()"
+                [value]="form.controls.splitTimeOffset.value"
+                [formatValue]="formatSliderValue"
+                (valueChanged)="onSliderChanged($event)">
+              </soe-slider>
+            </div>
+          </div>
+          <div class="row">
+            <soe-expansion-panel
+              [labelKey]="'Byt anställd'"
+              [borderless]="true"
+              [noPadding]="true"
+              (isOpened)="onEmployeeExpansionPanelOpened()">
+              <div class="row">
+                <div class="col-sm-6">
+                  <!-- TODO: Create new terms for employee1 and employee2 -->
+                  <soe-autocomplete
+                    #employee1
+                    [labelKey]="'Första delen av passet'"
+                    [items]="employeeService.employees()"
+                    [optionIdField]="'employeeId'"
+                    [optionNameField]="'numberAndName'"
+                    formControlName="employeeId1"></soe-autocomplete>
+                </div>
+                <div class="col-sm-6">
+                  <soe-autocomplete
+                    #employee2
+                    [labelKey]="'Andra delen av passet'"
+                    [items]="employeeService.employees()"
+                    [optionIdField]="'employeeId'"
+                    [optionNameField]="'numberAndName'"
+                    formControlName="employeeId2"></soe-autocomplete>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-sm-6">
+                  <skill-matcher
+                    [date]="form.controls.actualStartDate.value"
+                    [shiftTypeIds]="[form.controls.shiftTypeId.value]"
+                    [employeeId]="form.employeeId1"></skill-matcher>
+                </div>
+                <div class="col-sm-6">
+                  <skill-matcher
+                    [date]="form.controls.actualStartDate.value"
+                    [shiftTypeIds]="[form.controls.shiftTypeId.value]"
+                    [employeeId]="form.employeeId2"></skill-matcher>
+                </div>
+              </div>
+            </soe-expansion-panel>
+          </div>
+        </div>
+      </form>
+    }
+  </ng-container>
+  <div dialog-footer>
+    <soe-button
+      [caption]="'core.cancel'"
+      [disabled]="executing()"
+      (action)="cancel()"></soe-button>
+    <soe-button
+      [caption]="'core.ok'"
+      [behaviour]="'primary'"
+      [disabled]="executing()"
+      (action)="ok()"></soe-button></div
+></soe-dialog>

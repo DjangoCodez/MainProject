@@ -1,0 +1,64 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title"><span data-l10n-bind="'manage.company.templatecopy'"></span></h6>
+    </div>
+    <div class="modal-body">
+        <div class="btn-toolbar">
+            <soe-select class="pull-left" hidelabel="true" model="ctrl.selectedTemplateCompanyId" items="ctrl.templateCompanies" options="item.id as item.name for item in items"></soe-select>
+            <soe-checkbox class="pull-left margin-small-left" label-key="manage.company.selectall" model="ctrl.selectedAll"></soe-checkbox>
+            <button type="button" class="btn btn-sm btn-default fas fa-angle-double-down pull-right" data-l10n-bind data-l10n-bind-title="'manage.company.expandall'" data-ng-click="$event.stopPropagation();ctrl.expandAll()"></button>
+            <button type="button" class="btn btn-sm btn-default fas fa-angle-double-up pull-right" data-l10n-bind data-l10n-bind-title="'manage.company.collapseall'" data-ng-click="$event.stopPropagation();ctrl.collapseAll()"></button>
+        </div>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="manage.company.templatebase" is-open="ctrl.baseIsOpen">
+                <div data-ng-repeat="val in ctrl.general track by $index" class="repeater-condensed">
+                    <div class="col-sm-12">
+                        <soe-checkbox label-value="val.label" model="val.value" on-changing="ctrl.selectionChangedGeneral(val)"></soe-checkbox>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.settings" is-open="ctrl.settingsIsOpen">
+                <div data-ng-repeat="val in ctrl.settings track by $index" class="repeater-condensed">
+                    <div class="col-sm-12">
+                        <soe-checkbox label-value="val.label" model="val.value" on-changing="ctrl.selectionChangedSettings(val)"></soe-checkbox>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.report.report.reports" is-open="ctrl.reportsIsOpen">
+                <div data-ng-repeat="val in ctrl.reports track by $index" class="repeater-condensed">
+                    <div class="col-sm-12">
+                        <soe-checkbox label-value="val.label" model="val.value" on-changing="ctrl.selectionChangedReports(val)"></soe-checkbox>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="manage.company.economyacc" is-open="ctrl.economyIsOpen">
+                <div data-ng-repeat="val in ctrl.economy track by $index" class="repeater-condensed">
+                    <div class="col-sm-12">
+                        <soe-checkbox label-value="val.label" model="val.value" on-changing="ctrl.selectionChangedEconomy(val)"></soe-checkbox>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.start.module.billing" is-open="ctrl.billingIsOpen">
+                <div data-ng-repeat="val in ctrl.billing track by $index" class="repeater-condensed">
+                    <div class="col-sm-12">
+                        <soe-checkbox label-value="val.label" model="val.value" on-changing="ctrl.selectionChangedBilling(val)"></soe-checkbox>
+                    </div>
+                </div> 
+            </soe-accordion>
+            <soe-accordion label-key="common.time" is-open="ctrl.timeIsOpen">
+                <div data-ng-repeat="val in ctrl.time track by $index" class="repeater-condensed">
+                    <div class="col-sm-12">
+                        <soe-checkbox label-value="val.label" model="val.value" on-changing="ctrl.selectionChangedTime(val)"></soe-checkbox>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.copy'" data-ng-click="ctrl.buttonOkClick()" data-ng-disabled="!ctrl.selectedTemplateCompanyId || ctrl.selectedTemplateCompanyId===0"></button>
+    </div>
+</div>

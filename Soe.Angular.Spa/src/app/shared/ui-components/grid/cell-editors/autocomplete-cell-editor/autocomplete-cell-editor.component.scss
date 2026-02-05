@@ -1,0 +1,55 @@
+@use '../../../../styles/core-styles/colors.scss';
+@use '../../../../styles/core-styles/variables.scss';
+
+.autocomplete-edit-button-container {
+  margin-left: 3px;
+  display: inline-block;
+
+  .autocomplete-edit-button {
+    background: transparent;
+    border-width: 0;
+  }
+
+  .autocomplete-edit-button:hover {
+    background: transparent;
+  }
+}
+
+.autocomplete-filter {
+  .form-control {
+    width: calc(100% - 1.25rem);
+    border: none !important;
+  }
+
+  svg {
+    vertical-align: -0.25em;
+  }
+}
+
+// Materials override
+
+.cdk-overlay-pane {
+  border: 1px solid colors.$soe-border-color;
+  border-radius: variables.$border-radius;
+  background-color: colors.$soe-background-color;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+
+.mat-mdc-autocomplete-panel {
+  padding: 0 !important;
+
+  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled)
+    .mdc-list-item__primary-text {
+    color: colors.$soe-text-color;
+  }
+
+  .mat-pseudo-checkbox {
+    display: none;
+  }
+
+  // Hover styles
+  .mat-mdc-option:hover:not(.mdc-list-item--disabled),
+  .mat-mdc-option.mat-mdc-option-active:not(.mdc-list-item--disabled) {
+    background-color: colors.$soe-color-secondary-light-beige !important;
+  }
+}

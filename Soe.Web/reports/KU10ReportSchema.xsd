@@ -1,0 +1,147 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="SOE_KU10Report" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SOE_KU10Report" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="KU10Report">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="Company" type="xs:string" minOccurs="0" />
+                    <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                    <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                    <xs:element name="TimePeriod" type="xs:string" minOccurs="0" />
+                    <xs:element name="SortByLevel1" type="xs:string" minOccurs="0" />
+                    <xs:element name="SortByLevel2" type="xs:string" minOccurs="0" />
+                    <xs:element name="SortByLevel3" type="xs:string" minOccurs="0" />
+                    <xs:element name="SortByLevel4" type="xs:string" minOccurs="0" />
+                    <xs:element name="IsSortAscending" type="xs:string" minOccurs="0" />
+                    <xs:element name="GroupByLevel1" type="xs:string" minOccurs="0" />
+                    <xs:element name="GroupByLevel2" type="xs:string" minOccurs="0" />
+                    <xs:element name="GroupByLevel3" type="xs:string" minOccurs="0" />
+                    <xs:element name="GroupByLevel4" type="xs:string" minOccurs="0" />
+                    <xs:element name="Special" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateInterval" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Employee" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="EmployeeNr"/>
+                    <xs:element type="xs:string" name="EmployeeName"/>
+                    <xs:element type="xs:string" name="EmployeeSocialSec"/>
+                    <xs:element type="xs:int" name="EmployeeSex"/>
+                    <xs:element type="xs:string" name="UserName"/>
+                    <xs:element type="xs:string" name="Note"/>
+                    <xs:element name="EmployeeEcom" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="EComType" type="xs:int" minOccurs="0" msdata:Ordinal="0" />
+                          <xs:element name="EComName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                          <xs:element name="EComText" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                          <xs:element name="EComDescription" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                        </xs:sequence>
+                        <xs:attribute name="Id" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="EmployeeAddress" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="AddressType" type="xs:int" minOccurs="0" msdata:Ordinal="0" />
+                          <xs:element name="AddressName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                          <xs:element name="Address" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                          <xs:element name="AddressCO" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                          <xs:element name="AddressPostalCode" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                          <xs:element name="AddressPostalAddress" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                          <xs:element name="AddressCountry" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+                          <xs:element name="AddressStreetAddress" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+                          <xs:element name="AddressEntrenceCode" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+                        </xs:sequence>
+                        <xs:attribute name="Id" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Ku10">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="Inkomstar"/>
+                          <xs:element type="xs:string" name="Inkomsttagare"/>
+                          <xs:element type="xs:decimal" name="AvdragenSkatt"/>
+                          <xs:element type="xs:string" name="AnstalldFrom"/>
+                          <xs:element type="xs:string" name="AnstalldTom"/>
+                          <xs:element type="xs:decimal" name="KontantBruttolonMm"/>
+                          <xs:element type="xs:decimal" name="FormanUtomBilDrivmedel"/>
+                          <xs:element type="xs:decimal" name="BilformanUtomDrivmedel"/>
+                          <xs:element type="xs:string" name="KodForFormansbil"/>
+                          <xs:element type="xs:int" name="AntalManBilforman"/>
+                          <xs:element type="xs:decimal" name="KmBilersVidBilforman"/>
+                          <xs:element type="xs:decimal" name="BetaltForBilforman"/>
+                          <xs:element type="xs:decimal" name="DrivmedelVidBilforman"/>
+                          <xs:element type="xs:decimal" name="AndraKostnadsers"/>
+                          <xs:element type="xs:decimal" name="UnderlagRutarbete"/>
+                          <xs:element type="xs:decimal" name="UnderlagRotarbete"/>
+                          <xs:element type="xs:decimal" name="ErsMEgenavgifter"/>
+                          <xs:element type="xs:decimal" name="Tjanstepension"/>
+                          <xs:element type="xs:decimal" name="ErsEjSocAvg"/>
+                          <xs:element type="xs:decimal" name="ErsEjSocAvgEjJobbavd"/>
+                          <xs:element type="xs:decimal" name="Forskarskattenamnden"/>
+                          <xs:element type="xs:decimal" name="VissaAvdrag"/>
+                          <xs:element type="xs:decimal" name="Hyresersattning"/>
+                          <xs:element type="xs:int" name="BostadSmahus"/>
+                          <xs:element type="xs:int" name="Kost"/>
+                          <xs:element type="xs:int" name="BostadEjSmahus"/>
+                          <xs:element type="xs:int" name="Ranta"/>
+                          <xs:element type="xs:int" name="Parkering"/>
+                          <xs:element type="xs:int" name="AnnanForman"/>
+                          <xs:element type="xs:int" name="FormanHarJusterats"/>
+                          <xs:element type="xs:int" name="FormanSomPension"/>
+                          <xs:element type="xs:int" name="Bilersattning"/>
+                          <xs:element type="xs:int" name="TraktamenteInomRiket"/>
+                          <xs:element type="xs:int" name="TraktamenteUtomRiket"/>
+                          <xs:element type="xs:int" name="TjansteresaOver3MInrikes"/>
+                          <xs:element type="xs:int" name="TjansteresaOver3MUtrikes"/>
+                          <xs:element type="xs:int" name="Resekostnader"/>
+                          <xs:element type="xs:int" name="Logi"/>
+                          <xs:element type="xs:string" name="Arbetsstallenummer"/>
+                          <xs:element type="xs:int" name="Delagare"/>
+                          <xs:element type="xs:decimal" name="SpecAvAnnanForman"/>
+                          <xs:element type="xs:decimal" name="SpecVissaAvdrag"/>
+                          <xs:element type="xs:string" name="LandskodTIN"/>
+                          <xs:element type="xs:decimal" name="SocialAvgiftsAvtal"/>
+                          <xs:element type="xs:string" name="TIN"/>
+                          <xs:element type="xs:int" name="Borttag"/>
+                          <xs:element type="xs:int" name="Specifikationsnummer"/>
+                          <xs:element type="xs:int" name="GiltigaUppgifter"/>
+                          <xs:element name="Transactions" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="Type"/>
+                                <xs:element type="xs:string" name="PayrollProductNumber"/>
+                                <xs:element type="xs:string" name="Name"/>
+                                <xs:element type="xs:decimal" name="Quantity"/>
+                                <xs:element type="xs:decimal" name="Amount"/>
+                                <xs:element type="xs:int" name="IsPayrollStartValue"/>
+                              </xs:sequence>
+                              <xs:attribute type="xs:int" name="Id" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:int" name="Id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:int" name="Id" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

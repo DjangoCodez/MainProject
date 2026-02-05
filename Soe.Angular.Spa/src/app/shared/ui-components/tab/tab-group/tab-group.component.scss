@@ -1,0 +1,144 @@
+@use '../../../styles/core-styles/colors.scss';
+@use '../../../styles/core-styles/fonts.scss';
+@use '../../../styles/core-styles/variables.scss';
+
+// Horizontal scrollbar for tabs
+// Not compatible with all browsers
+// https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar
+
+::-webkit-scrollbar {
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: colors.$soe-color-neutral-white;
+  border: 1px solid colors.$soe-border-color;
+  border-bottom: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: colors.$soe-color-neutral-light-grey;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: colors.$soe-color-neutral-grey;
+}
+
+.soe-tabs-wrapper {
+  .soe-tabs {
+    display: flex;
+    height: 32px;
+    border-bottom: 1px solid colors.$soe-border-color;
+    margin-right: 3px; // Makes top right rounding look a little better
+
+    &.has-scrollbar {
+      height: 44px;
+      overflow-x: scroll;
+      overflow-y: clip;
+    }
+
+    .soe-tab {
+      display: flex;
+      margin-right: -1px;
+      min-width: 100px;
+      max-width: 240px;
+      border-width: 1px 1px 0 1px;
+      border-style: solid;
+      border-color: colors.$soe-border-color;
+      border-radius: variables.$border-radius variables.$border-radius 0px 0px;
+      background-color: colors.$soe-header-background-color;
+      padding: 7px 16px;
+      text-align: center;
+      font-size: fonts.$soe-font-size-md;
+      line-height: 14px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: space-between;
+
+      button {
+        margin-left: 8px;
+        border: 0;
+        background: none;
+
+        .close-tab-icon:hover {
+          color: colors.$soe-color-semantic-error;
+        }
+      }
+
+      .soe-tab__label {
+        width: 100%;
+        display: inline-block;
+        max-width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      &:disabled {
+        color: colors.$soe-disabled-text-color;
+        background-color: colors.$soe-color-neutral-ag-white;
+        cursor: not-allowed;
+
+        .soe-tab__icon {
+          &.add-tab-icon,
+          &.close-all-tabs-icon {
+            color: colors.$soe-disabled-text-color;
+          }
+        }
+      }
+
+      &.slim {
+        min-width: 48px;
+      }
+
+      &:hover {
+        background-color: colors.$soe-color-neutral-light-grey;
+        font-weight: fonts.$font-weight-bold;
+      }
+
+      &:disabled:hover {
+        background-color: colors.$soe-color-neutral-ag-white;
+        font-weight: fonts.$font-weight-normal;
+      }
+
+      &.selected {
+        margin-bottom: -1px;
+        cursor: default;
+        background: colors.$soe-background-color;
+        font-weight: fonts.$font-weight-bold;
+        padding-bottom: 8px;
+      }
+
+      .soe-tab-icon-dirty {
+        margin-top: -4px;
+        margin-left: 2px;
+        cursor: default;
+        .soe-tab__icon {
+          font-size: fonts.$soe-font-size-sm !important;
+          color: colors.$soe-color-primary;
+        }
+      }
+
+      .soe-tab__icon {
+        width: 100%;
+        text-align: center;
+        font-size: fonts.$soe-font-size-lg;
+
+        &.add-tab-icon {
+          color: colors.$soe-color-semantic-information;
+        }
+        &.close-all-tabs-icon {
+          color: colors.$soe-color-semantic-error;
+        }
+      }
+    }
+  }
+
+  .soe-tab-content {
+    border: 1px solid colors.$soe-border-color;
+    border-top: 0;
+    border-radius: 0px variables.$border-radius variables.$border-radius
+      variables.$border-radius;
+    background: colors.$soe-background-color;
+  }
+}

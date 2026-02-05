@@ -1,0 +1,134 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-panel label-key="manage.attest.role.role">
+            <div class="form-group form-group-sm">
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="common.name" model="ctrl.attestRole.name" required="true" maxlength="100" auto-focus="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="common.description" model="ctrl.attestRole.description"></soe-textbox>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="manage.attest.role.sort" model="ctrl.attestRole.sort" numeric="true" decimals="0"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="manage.attest.role.externalcodes" model="ctrl.attestRole.externalCodesString"></soe-textbox>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="manage.attest.role.defaultmaxamount" model="ctrl.attestRole.defaultMaxAmount" numeric="true" decimals="2"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2" data-ng-if="!ctrl.useAccountsHierarchy">
+                    <soe-checkbox label-key="manage.attest.role.showallcategories" model="ctrl.attestRole.showAllCategories"></soe-checkbox>
+                    <soe-checkbox label-key="manage.attest.role.showallsecondarycategories" model="ctrl.attestRole.showAllSecondaryCategories" text-class="margin-large-top" text-class-condition="true"></soe-checkbox>
+                    <soe-checkbox label-key="manage.attest.role.showuncategorized" model="ctrl.attestRole.showUncategorized" text-class="margin-large-top" text-class-condition="true"></soe-checkbox>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.useAccountsHierarchy">
+                    <soe-checkbox label-key="manage.attest.role.showallaccounts" model="ctrl.attestRole.showAllCategories"></soe-checkbox>
+                    <soe-checkbox label-key="manage.attest.role.showemployeeswithoutaccounts" model="ctrl.attestRole.showUncategorized" text-class="margin-large-top" text-class-condition="true"></soe-checkbox>
+                    <soe-checkbox label-key="manage.attest.role.allowtoaddotheremployeeaccounts" model="ctrl.attestRole.allowToAddOtherEmployeeAccounts" text-class="margin-large-top" text-class-condition="true"></soe-checkbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-checkbox label-key="manage.attest.role.showtemplateschedule" model="ctrl.attestRole.showTemplateSchedule"></soe-checkbox>
+                    <soe-checkbox label-key="manage.attest.role.alsoattestadditionsfromtime" model="ctrl.attestRole.alsoAttestAdditionsFromTime" text-class="margin-large-top" text-class-condition="true"></soe-checkbox>
+                    <soe-checkbox label-key="manage.attest.role.humanresourcesprivacy" model="ctrl.attestRole.humanResourcesPrivacy" text-class="margin-large-top" text-class-condition="true"></soe-checkbox>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.useAccountsHierarchy">
+                    <soe-checkbox label-key="manage.attest.role.isexecutive" model="ctrl.attestRole.isExecutive"></soe-checkbox>
+                    <soe-checkbox label-key="manage.attest.role.attestbyemployeeaccount" model="ctrl.attestRole.attestByEmployeeAccount" text-class="margin-large-top" text-class-condition="true"></soe-checkbox>
+                    <soe-checkbox label-key="manage.attest.role.staffingbyemployeeaccount" model="ctrl.attestRole.staffingByEmployeeAccount" text-class="margin-large-top" text-class-condition="true"></soe-checkbox>
+                </div>
+            </div>
+        </soe-panel>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <soe-panel label-key="manage.attest.role.validtransitions">
+                    <attest-transitions entity="0" module="5" read-only="!ctrl.modifyPermission" selected-transitions="ctrl.attestRole.transitionIds" on-change="ctrl.setDirty(true);"></attest-transitions>
+                </soe-panel>
+            </div>
+            <div class="col-sm-4">
+                <soe-panel label-key="manage.signing.role.roles">
+                    <attest-role-mapping entity="32" module="1" read-only="!ctrl.modifyPermission" selected-attest-roles="ctrl.selectedSigningAttestRoles" on-change="ctrl.setDirty(true);"></attest-role-mapping>
+                </soe-panel>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-8">
+                <soe-panel label-key="manage.attest.role.categories" data-ng-if="!ctrl.useAccountsHierarchy">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <soe-label label-key="manage.attest.role.primarycategories"></soe-label>
+                        </div>
+                        <div class="col-sm-6">
+                            <soe-label label-key="manage.attest.role.secondarycategories"></soe-label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <categories category-type="6" category-record-entity="5" hide-header="true" parent-guid="ctrl.guid" show-is-executive="true" use-comp-categories="true" comp-categories="ctrl.attestRole.primaryCategoryRecords" nbr-of-rows="6"></categories>
+                        </div>
+                        <div class="col-sm-6">
+                            <categories category-type="6" category-record-entity="10" hide-header="true" parent-guid="ctrl.guid" use-comp-categories="true" comp-categories="ctrl.attestRole.secondaryCategoryRecords" nbr-of-rows="6"></categories>
+                        </div>
+                    </div>
+                </soe-panel>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-8">
+                <soe-panel label-key="manage.attest.role.settingsattestreminder">
+                    <div class="form-inline">
+                        <div>
+                            <div class="form-group form-group-sm">
+                                <soe-label label-key="manage.attest.state.state"></soe-label>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <soe-select model="ctrl.attestRole.reminderAttestStateId" hidelabel="true" items="ctrl.attestStates" options="item.attestStateId as item.name for item in items"></soe-select>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <soe-label label-key="manage.attest.role.nbrofdays"></soe-label>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <soe-textbox hidelabel="true" model="ctrl.attestRole.reminderNoOfDays" numeric="true" decimals="0"></soe-textbox>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <soe-label label-key="manage.attest.role.after"></soe-label>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <soe-select model="ctrl.attestRole.reminderPeriodType" hidelabel="true" items="ctrl.periodTypes" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <soe-label label-key="manage.attest.role.haspassed"></soe-label>
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+            </div>
+        </div>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.attestRole"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.attestRole.active"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

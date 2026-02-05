@@ -1,0 +1,732 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div data-ng-if="ctrl.viewPermissionsLoaded">
+        <div style="margin: 10px 0 0 5px;" data-ng-if="ctrl.noViewPermission">
+            <span class="warning largeFont" data-l10n-bind="'time.schedule.planning.missingpermissionforview'"></span>
+        </div>
+        <div data-ng-if="!ctrl.noViewPermission">
+            <div class="form-inline planning-filter-header" data-ng-class="{'scheduleview-header':!ctrl.isTemplateView && !ctrl.isEmployeePostView && !ctrl.isScenarioView && !ctrl.isStandbyView && ctrl.editMode != 3, 'template-breaks-header': ctrl.editMode == 3, 'templateview-header': ctrl.isTemplateView, 'employeepostview-header': ctrl.isEmployeePostView, 'scenarioview-header': ctrl.isScenarioView, 'standbyview-header': ctrl.isStandbyView, 'tasksanddeliveriesview-header': ctrl.isTasksAndDeliveriesView, 'staffingneedsview-header': ctrl.isStaffingNeedsView, 'read-only-header': !ctrl.hasCurrentViewModifyPermission}">
+                <!-- View definitions -->
+                <div class="form-group form-group-sm" data-ng-if="ctrl.editMode != 3">
+                    <ul class="form-control planning-view-definition-selector" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.selectviewdefinition'">
+                        <li class="dropdown">
+                            <span class="dropdown-toggle" data-toggle="dropdown"><span>{{ctrl.selectedViewLabel}}</span><i class="fal fa-chevron-down margin-small-left"></i></span>
+                            <ul class="dropdown-menu">
+                                <li class="scheduleview-header dropdown-header" data-ng-click="ctrl.primaryViewDefinitionSelected(1)" data-ng-if="ctrl.calendarViewPermission || ctrl.dayViewPermission || ctrl.dayViewReadPermission || ctrl.scheduleViewPermission || ctrl.scheduleViewReadPermission"><span data-l10n-bind="'time.schedule.planning.viewdefinition.group.schedule'"></span></li>
+                                <li class="templateview-header dropdown-header" data-ng-click="ctrl.primaryViewDefinitionSelected(3)" data-ng-if="ctrl.templateDayViewPermission || ctrl.templateScheduleViewPermission"><span data-l10n-bind="'time.schedule.planning.viewdefinition.group.template'"></span></li>
+                                <li class="employeepostview-header dropdown-header" data-ng-click="ctrl.primaryViewDefinitionSelected(5)" data-ng-if="ctrl.employeePostDayViewPermission || ctrl.employeePostScheduleViewPermission"><span data-l10n-bind="'time.schedule.staffingneeds.viewdefinition.employeeposts'"></span></li>
+                                <li class="scenarioview-header dropdown-header" data-ng-click="ctrl.primaryViewDefinitionSelected(7)" data-ng-if="ctrl.scenarioDayViewPermission || ctrl.scenarioScheduleViewPermission"><span data-l10n-bind="'time.schedule.planning.viewdefinition.group.scenario'"></span></li>
+                                <li class="standbyview-header dropdown-header" data-ng-click="ctrl.primaryViewDefinitionSelected(9)" data-ng-if="ctrl.standbyDayViewPermission || ctrl.standbyScheduleViewPermission"><span data-l10n-bind="'time.schedule.planning.viewdefinition.group.standby'"></span></li>
+                                <li class="tasksanddeliveriesview-header dropdown-header" data-ng-click="ctrl.primaryViewDefinitionSelected(11)" data-ng-if="ctrl.tasksAndDeliveriesDayViewPermission || ctrl.tasksAndDeliveriesScheduleViewPermission"><span data-l10n-bind="'time.schedule.staffingneeds.viewdefinition.tasksanddeliveries'"></span></li>
+                                <li class="staffingneedsview-header dropdown-header" data-ng-click="ctrl.primaryViewDefinitionSelected(13)" data-ng-if="ctrl.staffingNeedsDayViewPermission || ctrl.staffingNeedsScheduleViewPermission"><span data-l10n-bind="'time.schedule.staffingneeds.viewdefinition.planning'"></span></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <div class="btn-group planning-view-definition-range-selector" role="group">
+                        <button type="button" class="btn btn-default no-border-radius" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.viewdefinition.calendar'" data-ng-click="ctrl.secondaryViewDefinitionSelected(0)" data-ng-if="ctrl.isCalendarView || ctrl.isDayView || ctrl.isScheduleView">
+                            <i class="fal fa-calendar-alt" data-ng-class="{'accentColor': ctrl.isCalendarView}"></i>
+                        </button>
+                        <button type="button" class="btn btn-default no-border-radius" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.viewdefinition.day'" data-ng-click="ctrl.secondaryViewDefinitionSelected(1)">
+                            <i class="fal fa-calendar-day" data-ng-class="{'accentColor': ctrl.isCommonDayView}"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.viewdefinition.schedule'" data-ng-click="ctrl.secondaryViewDefinitionSelected(2)">
+                            <i class="fal fa-calendar-week" data-ng-class="{'accentColor': ctrl.isCommonScheduleView && !ctrl.isScenarioCompleteView}"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.viewdefinition.complete'" data-ng-click="ctrl.secondaryViewDefinitionSelected(15)" data-ng-if="ctrl.isScenarioView && ctrl.scenarioHead">
+                            <i class="fal fa-calendar" data-ng-class="{'accentColor': ctrl.isScenarioCompleteView}"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm" style="max-width: 250px;" data-ng-if="ctrl.isScenarioView">
+                    <soe-select select-class="border-radius-left" hidelabel="true" model="ctrl.timeScheduleScenarioHeadId" items="ctrl.scenarioHeads" options="item.id as item.name for item in items" edit-icon="fa-calendar-edit" edit-tooltip-key="time.schedule.planning.scenario.edit" edit-disabled="!ctrl.scenarioHead" edit-button-class="border-radius-right" on-edit-click="ctrl.openEditScenarioHead(ctrl.scenarioHead);" button-icon="'fa-calendar-plus'" button-tooltip-key="time.schedule.planning.scenario.new" button-class="no-border-radius" on-button-click="ctrl.openEditScenarioHead(null);" on-changing="ctrl.scenarioHeadChanged(item)"></soe-select>
+                </div>
+
+                <!-- Filters -->
+                <div class="form-group form-group-sm" data-ng-if="ctrl.editMode != 3">
+                    <div class="btn-group" role="group">
+                        <!-- Filter -->
+                        <i data-l10n-bind data-l10n-bind-title="'core.selection'" class="btn btn-default fal fa-filter" data-ng-class="{'active': ctrl.showFilters, 'accentColor indiscreet': ctrl.isFiltered}" style="padding-top: 8px;" data-ng-click="ctrl.toggleFilters()"></i>
+                        <!-- Selectable information -->
+                        <div class="btn-group" role="group" data-ng-if="!ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsView">
+                            <button type="button" class="btn btn-default" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.showselectableinformation'" style="padding: 4px 10px 4px 10px;" data-ng-click="ctrl.showSelectableInformation(false)">
+                                <i class="fal" data-ng-class="{'fa-toggle-off': !ctrl.loadingSelectableInformation, 'far fa-spinner fa-pulse fa-fw':ctrl.loadingSelectableInformation}"></i>
+                            </button>
+                        </div>
+                        <!-- Day view grouping -->
+                        <div class="btn-group" role="group" data-ng-if="ctrl.isCommonDayView && !ctrl.isTasksAndDeliveriesDayView && !ctrl.isStaffingNeedsView">
+                            <button type="button" class="btn btn-default dropdown-toggle only-icon" data-toggle="dropdown" data-l10n-bind data-l10n-bind-title="'core.group'" data-ng-class="{'active': ctrl.dayViewGroupBy !== ctrl.dayViewDefaultGroupBy}"><i class="fal fa-th-list"></i></button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header"><span data-l10n-bind="'core.groupon'"></span></li>
+                                <li data-ng-class="{'selected': ctrl.dayViewGroupBy === 0}" data-ng-click="ctrl.setGroupBy(0, true)"><a href="#"><span data-l10n-bind="'common.employee'"></span></a></li>
+                                <li data-ng-class="{'selected': ctrl.dayViewGroupBy === 1}" data-ng-click="ctrl.setGroupBy(1, true)" data-ng-if="!ctrl.useAccountHierarchy && !ctrl.isEmployeePostView"><a href="#"><span data-l10n-bind="'common.categories.category'"></span></a></li>
+                                <li data-ng-repeat="accountDim in ctrl.accountDims | filter: {linkedToShiftType:'false'} track by accountDim.accountDimId" data-ng-class="{'selected': ctrl.dayViewGroupBy === accountDim.groupByIndex}" data-ng-click="ctrl.setGroupBy(accountDim.groupByIndex, true)" data-ng-if="ctrl.useAccountHierarchy">
+                                    <a href="#"><span>{{accountDim.name}}</span></a>
+                                </li>
+                                <li data-ng-class="{'selected': ctrl.dayViewGroupBy === 2}" data-ng-click="ctrl.setGroupBy(2, true)"><a href="#"><span data-l10n-bind="'common.shifttype'" data-ng-if="ctrl.isSchedulePlanningMode"></span><span data-l10n-bind="'common.ordershifttype'" data-ng-if="ctrl.isOrderPlanningMode"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group" role="group" data-ng-if="ctrl.isTasksAndDeliveriesDayView">
+                            <button type="button" class="btn btn-default dropdown-toggle only-icon" data-toggle="dropdown" data-l10n-bind data-l10n-bind-title="'core.group'" data-ng-class="{'active': ctrl.tadDayViewGroupBy !== ctrl.tadDayViewDefaultGroupBy}"><i class="fal fa-th-list"></i></button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header"><span data-l10n-bind="'core.groupon'"></span></li>
+                                <li data-ng-class="{'selected': ctrl.tadDayViewGroupBy === 0}" data-ng-click="ctrl.setGroupBy(0, true)"><a href="#"><span data-l10n-bind="'time.schedule.staffingneeds.groupby.none'"></span></a></li>
+                                <li data-ng-class="{'selected': ctrl.tadDayViewGroupBy === 1}" data-ng-click="ctrl.setGroupBy(1, true)" data-ng-if="ctrl.accountDims.length>0"><a href="#"><span>{{ctrl.accountDims[0].name}}</span></a></li>
+                                <li data-ng-class="{'selected': ctrl.tadDayViewGroupBy === 2}" data-ng-click="ctrl.setGroupBy(2, true)" data-ng-if="ctrl.accountDims.length>1"><a href="#"><span>{{ctrl.accountDims[1].name}}</span></a></li>
+                                <li data-ng-class="{'selected': ctrl.tadDayViewGroupBy === 3}" data-ng-click="ctrl.setGroupBy(3, true)" data-ng-if="ctrl.accountDims.length>2"><a href="#"><span>{{ctrl.accountDims[2].name}}</span></a></li>
+                                <li data-ng-class="{'selected': ctrl.tadDayViewGroupBy === 4}" data-ng-click="ctrl.setGroupBy(4, true)" data-ng-if="ctrl.accountDims.length>3"><a href="#"><span>{{ctrl.accountDims[3].name}}</span></a></li>
+                                <li data-ng-class="{'selected': ctrl.tadDayViewGroupBy === 5}" data-ng-click="ctrl.setGroupBy(5, true)" data-ng-if="ctrl.accountDims.length>4"><a href="#"><span>{{ctrl.accountDims[4].name}}</span></a></li>
+                                <li data-ng-class="{'selected': ctrl.tadDayViewGroupBy === 6}" data-ng-click="ctrl.setGroupBy(6, true)"><a href="#"><span data-l10n-bind="'common.shifttype'"></span></a></li>
+                            </ul>
+                        </div>
+                        <!-- Schedule view grouping -->
+                        <div class="btn-group" role="group" data-ng-if="ctrl.isCommonScheduleView && !ctrl.isTasksAndDeliveriesScheduleView && !ctrl.isStaffingNeedsView">
+                            <button type="button" class="btn btn-default dropdown-toggle only-icon" data-toggle="dropdown" data-l10n-bind data-l10n-bind-title="'core.group'" data-ng-class="{'active': ctrl.scheduleViewGroupBy !== ctrl.scheduleViewDefaultGroupBy}"><i class="fal fa-th-list"></i></button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header"><span data-l10n-bind="'core.groupon'"></span></li>
+                                <li data-ng-class="{'selected': ctrl.scheduleViewGroupBy === 0}" data-ng-click="ctrl.setGroupBy(0, true)"><a href="#"><span data-l10n-bind="'common.employee'"></span></a></li>
+                                <li data-ng-class="{'selected': ctrl.scheduleViewGroupBy === 1}" data-ng-click="ctrl.setGroupBy(1, true)" data-ng-if="!ctrl.useAccountHierarchy && !ctrl.isEmployeePostView"><a href="#"><span data-l10n-bind="'common.categories.category'"></span></a></li>
+                                <li data-ng-repeat="accountDim in ctrl.accountDims | filter: {linkedToShiftType:'false'} track by accountDim.accountDimId" data-ng-class="{'selected': ctrl.scheduleViewGroupBy === accountDim.groupByIndex}" data-ng-click="ctrl.setGroupBy(accountDim.groupByIndex, true)" data-ng-if="ctrl.useAccountHierarchy">
+                                    <a href="#"><span>{{accountDim.name}}</span></a>
+                                </li>
+                                <li data-ng-class="{'selected': ctrl.scheduleViewGroupBy === 2}" data-ng-click="ctrl.setGroupBy(2, true)"><a href="#"><span data-l10n-bind="'common.shifttype'" data-ng-if="ctrl.isSchedulePlanningMode"></span><span data-l10n-bind="'common.ordershifttype'" data-ng-if="ctrl.isOrderPlanningMode"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group" role="group" data-ng-if="ctrl.isTasksAndDeliveriesScheduleView">
+                            <button type="button" class="btn btn-default dropdown-toggle only-icon" data-toggle="dropdown" data-l10n-bind data-l10n-bind-title="'core.group'" data-ng-class="{'active': ctrl.tadScheduleViewGroupBy !== ctrl.tadScheduleViewDefaultGroupBy}"><i class="fal fa-th-list"></i></button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header"><span data-l10n-bind="'core.groupon'"></span></li>
+                                <li data-ng-class="{'selected': ctrl.tadScheduleViewGroupBy === 0}" data-ng-click="ctrl.setGroupBy(0, true)"><a href="#"><span data-l10n-bind="'time.schedule.staffingneeds.groupby.none'"></span></a></li>
+                                <li data-ng-class="{'selected': ctrl.tadScheduleViewGroupBy === 1}" data-ng-click="ctrl.setGroupBy(1, true)" data-ng-if="ctrl.accountDims.length>0"><a href="#"><span>{{ctrl.accountDims[0].name}}</span></a></li>
+                                <li data-ng-class="{'selected': ctrl.tadScheduleViewGroupBy === 2}" data-ng-click="ctrl.setGroupBy(2, true)" data-ng-if="ctrl.accountDims.length>1"><a href="#"><span>{{ctrl.accountDims[1].name}}</span></a></li>
+                                <li data-ng-class="{'selected': ctrl.tadScheduleViewGroupBy === 3}" data-ng-click="ctrl.setGroupBy(3, true)" data-ng-if="ctrl.accountDims.length>2"><a href="#"><span>{{ctrl.accountDims[2].name}}</span></a></li>
+                                <li data-ng-class="{'selected': ctrl.tadScheduleViewGroupBy === 4}" data-ng-click="ctrl.setGroupBy(4, true)" data-ng-if="ctrl.accountDims.length>3"><a href="#"><span>{{ctrl.accountDims[3].name}}</span></a></li>
+                                <li data-ng-class="{'selected': ctrl.tadScheduleViewGroupBy === 5}" data-ng-click="ctrl.setGroupBy(5, true)" data-ng-if="ctrl.accountDims.length>4"><a href="#"><span>{{ctrl.accountDims[4].name}}</span></a></li>
+                                <li data-ng-class="{'selected': ctrl.tadScheduleViewGroupBy === 6}" data-ng-click="ctrl.setGroupBy(6, true)"><a href="#"><span data-l10n-bind="'common.shifttype'"></span></a></li>
+                            </ul>
+                        </div>
+                        <!-- Day view sorting -->
+                        <div class="btn-group" role="group" data-ng-if="ctrl.isCommonDayView && !ctrl.isTasksAndDeliveriesDayView && !ctrl.isStaffingNeedsView">
+                            <button type="button" class="btn btn-default dropdown-toggle only-icon" data-toggle="dropdown" data-l10n-bind data-l10n-bind-title="'core.sorting'" data-ng-class="{'active': ctrl.dayViewSortBy !== ctrl.dayViewDefaultSortBy}"><i class="fal fa-sort-amount-down-alt"></i></button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header"><span data-l10n-bind="'core.sortingon'"></span></li>
+                                <li data-ng-class="{'selected': ctrl.dayViewSortBy === 0}" data-ng-click="ctrl.setSortBy(0, true)"><a href="#" x><span data-l10n-bind="'common.firstname'"></span></a></li>
+                                <li data-ng-class="{'selected': ctrl.dayViewSortBy === 1}" data-ng-click="ctrl.setSortBy(1, true)"><a href="#" x><span data-l10n-bind="'common.lastname'"></span></a></li>
+                                <li data-ng-class="{'selected': ctrl.dayViewSortBy === 2}" data-ng-click="ctrl.setSortBy(2, true)" data-ng-if="!ctrl.isEmployeePostView"><a href="#" x><span data-l10n-bind="'time.employee.employeenumber'"></span></a></li>
+                                <li data-ng-class="{'selected': ctrl.dayViewSortBy === 3}" data-ng-click="ctrl.setSortBy(3, true)"><a href="#" x><span data-l10n-bind="'time.schedule.planning.starttime'"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group" role="group" data-ng-if="ctrl.isTasksAndDeliveriesDayView">
+                            <button type="button" class="btn btn-default dropdown-toggle only-icon" data-toggle="dropdown" data-l10n-bind data-l10n-bind-title="'core.sorting'" data-ng-class="{'active': ctrl.tadDayViewSortBy !== ctrl.tadDayViewDefaultSortBy}"><i class="fal fa-sort-amount-down-alt"></i></button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header"><span data-l10n-bind="'core.sortingon'"></span></li>
+                                <li data-ng-class="{'selected': ctrl.tadDayViewSortBy === 0}" data-ng-click="ctrl.setSortBy(0, true)"><a href="#"><span data-l10n-bind="'common.name'"></span></a></li>
+                                <li data-ng-class="{'selected': ctrl.tadDayViewSortBy === 1}" data-ng-click="ctrl.setSortBy(1, true)"><a href="#"><span data-l10n-bind="'time.schedule.planning.starttime'"></span></a></li>
+                            </ul>
+                        </div>
+                        <!-- Schedule view sorting -->
+                        <div class="btn-group" role="group" data-ng-if="ctrl.isCommonScheduleView && !ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsView">
+                            <button type="button" class="btn btn-default dropdown-toggle only-icon" data-toggle="dropdown" data-l10n-bind data-l10n-bind-title="'core.sorting'" data-ng-class="{'active': ctrl.scheduleViewSortBy !== ctrl.scheduleViewDefaultSortBy}"><i class="fal fa-sort-amount-down-alt"></i></button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header"><span data-l10n-bind="'core.sortingon'"></span></li>
+                                <li data-ng-class="{'selected': ctrl.scheduleViewSortBy === 0}" data-ng-click="ctrl.setSortBy(0, true)"><a href="#"><span data-l10n-bind="'common.firstname'"></span></a></li>
+                                <li data-ng-class="{'selected': ctrl.scheduleViewSortBy === 1}" data-ng-click="ctrl.setSortBy(1, true)"><a href="#"><span data-l10n-bind="'common.lastname'"></span></a></li>
+                                <li data-ng-class="{'selected': ctrl.scheduleViewSortBy === 2}" data-ng-click="ctrl.setSortBy(2, true)" data-ng-if="!ctrl.isEmployeePostView"><a href="#"><span data-l10n-bind="'time.employee.employeenumber'"></span></a></li>
+                            </ul>
+                        </div>
+                        <!-- Schedule view shift style -->
+                        <div class="btn-group" role="group" data-ng-if="ctrl.isCommonScheduleView && !ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsView">
+                            <button type="button" class="btn btn-default dropdown-toggle only-icon" data-toggle="dropdown" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.shiftstyle'" data-ng-class="{'active': ctrl.shiftStyle !== ctrl.defaultShiftStyle}"><i class="fal fa-tasks-alt"></i></button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header"><span data-l10n-bind="'time.schedule.planning.shiftstyle'"></span></li>
+                                <li data-ng-class="{'selected': ctrl.shiftStyle === 0}" data-ng-click="ctrl.setShiftStyle(0, true)"><a href="#"><span>{{ctrl.shiftStyles[0].name}}</span></a></li>
+                                <li data-ng-class="{'selected': ctrl.shiftStyle === 3}" data-ng-click="ctrl.setShiftStyle(3, true)"><a href="#"><span>{{ctrl.shiftStyles[3].name}}</span></a></li>
+                                <li data-ng-class="{'selected': ctrl.shiftStyle === 1}" data-ng-click="ctrl.setShiftStyle(1, true)"><a href="#"><span>{{ctrl.shiftStyles[1].name}}</span></a></li>
+                                <li data-ng-class="{'selected': ctrl.shiftStyle === 2}" data-ng-click="ctrl.setShiftStyle(2, true)"><a href="#"><span>{{ctrl.shiftStyles[2].name}}</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date range selectors -->
+                <div class="form-group form-group-sm" data-ng-if="ctrl.editMode != 3">
+                    <div class="input-group no-border-radius-on-last-button">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-default fal fa-chevron-left" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.decreasedate'" data-ng-click="ctrl.decreaseDate()"></button>
+                        </span>
+                        <soe-datepicker id="dateFromPicker" hidelabel="true" model="ctrl.dateFrom"></soe-datepicker>
+                        <span class="input-group-btn" data-ng-if="ctrl.isCommonDayView">
+                            <button type="button" class="btn btn-sm btn-default fal fa-chevron-right border-radius-right" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.increasedate'" data-ng-click="ctrl.increaseDate()"></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm" data-ng-if="!ctrl.isCommonDayView">
+                    <div class="input-group">
+                        <soe-datepicker hidelabel="true" model="ctrl.dateTo" button-class="no-border-radius"></soe-datepicker>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-default fal fa-chevron-right border-radius-right" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.increasedate'" data-ng-click="ctrl.increaseDate()"></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm" data-ng-if="ctrl.isCommonScheduleView">
+                    <soe-select select-class="border-radius-both" hidelabel="true" model="ctrl.selectedVisibleDays" items="ctrl.visibleDays" options="item.id as item.name for item in items" on-changing="ctrl.visibleDaysChanged(item)"></soe-select>
+                </div>
+                <div class="form-group form-group-sm margin-small-left" data-ng-if="ctrl.isCommonScheduleView && ctrl.selectedVisibleDays === 0">
+                    <span>{{ctrl.nbrOfVisibleDays}}</span> <span class="lowercase" data-l10n-bind="'core.time.days'"></span>
+                </div>
+                <div class="form-group form-group-sm margin-small-left" data-ng-if="ctrl.calculatePlanningPeriodScheduledTime && ctrl.selectableInformationSettings.showPlanningPeriodSummary">
+                    <span data-l10n-bind="'time.time.timeperiod.timeperiod'"></span>: <span data-ng-class="{'errorColor': !ctrl.currentPlanningPeriodInRange}" data-ng-if="ctrl.currentPlanningPeriod">{{ctrl.currentPlanningPeriod.name}} ({{ctrl.currentPlanningPeriod.startDate | date: 'shortDate'}} - {{ctrl.currentPlanningPeriod.stopDate | date: 'shortDate'}})</span>
+                    <span class="indiscreet errorColor" data-l10n-bind="'common.missing'" data-ng-if="!ctrl.currentPlanningPeriod"></span>
+
+                    <span data-ng-if="ctrl.calculatePlanningPeriodScheduledTimeUseAveragingPeriod && ctrl.planningPeriodHead.childId">
+                        <br />
+                        <span data-ng-if="ctrl.planningPeriodChild" data-ng-class="{'errorColor': !ctrl.currentPlanningPeriodChildInRangeExact}">{{ctrl.planningPeriodChild.name}} ({{ctrl.planningPeriodChild.startDate | date: 'shortDate'}} - {{ctrl.planningPeriodChild.stopDate | date: 'shortDate'}})</span>
+                        <span data-ng-if="!ctrl.planningPeriodChild" class="indiscreet errorColor" data-l10n-bind="'common.missing'"></span>
+                    </span>
+                </div>
+                <div class="form-group form-group-sm margin-small-left" data-ng-if="ctrl.editMode != 3">
+                    <span data-ng-if="ctrl.periods && ctrl.isCalendarView" class="margin-small-left margin-small-right"><span>{{(ctrl.nbrOfVisiblePeriodShifts)}} </span><span class="smallFont">({{ctrl.nbrOfPeriodShifts}}) </span><span class="lowercase">{{ctrl.shiftsUndefined}}</span></span>
+                    <span data-ng-if="ctrl.shifts && !ctrl.isCalendarView && !ctrl.isTasksAndDeliveriesView" class="margin-small-left margin-small-right"><span>{{(ctrl.nonZeroShifts | filter:{isVisible:'true'}).length}} </span><span class="smallFont">({{ctrl.nonZeroShifts.length}}) </span><span class="lowercase">{{ctrl.shiftsUndefined}}</span></span>
+                    <i class="planning-filter-loader fal fa-sync link" data-ng-class="{'fa-spin': ctrl.loadingShifts, 'planning-filter-loader-blink': ctrl.filteredButNotLoaded}" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.refreshdate'" data-ng-if="!ctrl.isScenarioView || ctrl.timeScheduleScenarioHeadId" data-ng-click="ctrl.loadData('button click', true)"></i>
+                </div>
+                <div class="form-group form-group-sm" style="height: 30px;" data-ng-if="ctrl.editMode == 3">
+                    <span class="indiscreet largeFont">{{ctrl.dateFrom | date:'shortDate'}}</span>
+                </div>
+
+                <div class="form-group form-group-sm margin-large-left" data-ng-if="ctrl.isStaffingNeedsView">
+                    <soe-select hidelabel="true" model="ctrl.staffingNeedsSelection" items="ctrl.needsFilterTypes" options="item.id as item.name for item in items" on-changing="ctrl.staffingNeedsSelectionChanged(item)"></soe-select>
+                </div>
+
+                <!-- Progress bar -->
+                <div class="form-group form-group-sm margin-large-left" data-ng-if="ctrl.progressBusy && ctrl.terms">
+                    <soe-progressbar custom-class="progress-in-toolbar" is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+                </div>
+
+                <!-- Tools -->
+                <soe-menubutton class="pull-right" label-key="core.functions" options="ctrl.functions" option-selected="ctrl.executeFunction(option)" data-ng-if="ctrl.functions.length > 0 && !ctrl.isCalendarView && ctrl.editMode != 3 && ctrl.hasCurrentViewModifyPermission"></soe-menubutton>
+                <button type="button" class="pull-right btn btn-sm ngSoeMainButton" style="min-width: 100px; padding: 4px 8px;" data-l10n-bind="'core.save'" data-ng-if="ctrl.editMode == 3" data-ng-click="ctrl.initSaveTemplateBreaks()"></button>
+                <button type="button" class="pull-right btn btn-sm btn-default" style="min-width: 100px; padding: 4px 8px;" data-l10n-bind="'core.cancel'" data-ng-if="ctrl.editMode == 3" data-ng-click="ctrl.cancelTemplateBreaks()"></button>
+                <div class="pull-right margin-large-right" style="margin-top: -3px;" data-ng-if="ctrl.editMode == 3">
+                    <div class="largeFont errorColor indiscreet" data-l10n-bind="'time.schedule.planning.createtemplatebreaks.saveinfo.row1'"></div>
+                    <div class="smallFont" data-l10n-bind="'time.schedule.planning.createtemplatebreaks.saveinfo.row2'"></div>
+                </div>
+
+                <!-- Filters -->
+                <div class="form-inline margin-small-top" data-ng-show="ctrl.showFilters">
+                    <div data-ng-repeat="accountDim in ctrl.accountDims | filter: {linkedToShiftType:'false'} track by accountDim.accountDimId" class="form-group form-group-sm">
+                        <soe-multiselect data-ng-class="{'planning-filter-account-dim': !$last}" label="accountDim.name" options="accountDim.filteredAccounts" id-prop="accountId" display-prop="name" model="accountDim.selectedAccounts" hidelabel="true" is-disabled="!ctrl.accountDims" on-selection-complete="ctrl.filterAccounts(accountDim, false);" data-ng-if="!accountDim.hidden && accountDim.accounts.length>0"></soe-multiselect>
+                        <span class="planning-filter-account-dim-hidden" data-ng-class="{'planning-filter-account-dim-hidden-last': $last}" data-ng-attr-title="{{accountDim.name}}" data-ng-if="accountDim.hidden"><span>{{accountDim.filteredAccounts[0].name}}</span></span>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <soe-multiselect data-ng-if="ctrl.isSchedulePlanningMode" label-key="time.schedule.planning.shifttypes" options="ctrl.shiftTypes" model="ctrl.selectedShiftTypes" hidelabel="true" is-disabled="!ctrl.shiftTypes" on-selection-complete="ctrl.filterShiftTypes()"></soe-multiselect>
+                        <soe-multiselect data-ng-if="ctrl.isOrderPlanningMode" label-key="time.schedule.planning.ordershifttypes" options="ctrl.shiftTypes" model="ctrl.selectedShiftTypes" hidelabel="true" is-disabled="!ctrl.shiftTypes" on-selection-complete="ctrl.filterShiftTypes()"></soe-multiselect>
+                    </div>
+                    <div class="form-group form-group-sm" data-ng-if="ctrl.isTasksAndDeliveriesView">
+                        <soe-multiselect label-key="common.type" options="ctrl.taskTypes" model="ctrl.selectedTaskTypes" hidelabel="true" on-selection-complete="ctrl.filterTasks()"></soe-multiselect>
+                    </div>
+                    <div class="form-group form-group-sm" data-ng-if="ctrl.showTaskTypeTask() && ctrl.timeScheduleTaskTypes.length > 0">
+                        <soe-multiselect label-key="time.schedule.timescheduletasktype.types" options="ctrl.timeScheduleTaskTypes" model="ctrl.selectedTimeScheduleTaskTypes" display-prop="name" hidelabel="true" on-selection-complete="ctrl.filterTasks()"></soe-multiselect>
+                    </div>
+                    <div class="form-group form-group-sm" data-ng-if="ctrl.showTaskTypeTask()">
+                        <soe-multiselect label-key="time.schedule.staffingneeds.tasktype.tasks" options="ctrl.filteredTasks" model="ctrl.selectedTasks" id-prop="timeScheduleTaskId" display-prop="name" hidelabel="true" on-selection-complete="ctrl.filterTasks()"></soe-multiselect>
+                    </div>
+                    <div class="form-group form-group-sm" data-ng-if="ctrl.showTaskTypeDelivery()">
+                        <soe-multiselect label-key="time.schedule.staffingneeds.tasktype.deliveries" options="ctrl.deliveries" model="ctrl.selectedDeliveries" id-prop="incomingDeliveryRowId" display-prop="name" hidelabel="true" on-selection-complete="ctrl.filterTasks()"></soe-multiselect>
+                    </div>
+                    <div class="form-group form-group-sm" data-ng-if="!ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsView">
+                        <soe-multiselect label-key="common.employeegroups" options="ctrl.employeeGroups" model="ctrl.selectedEmployeeGroups" hidelabel="true" is-disabled="!ctrl.employeeGroups" on-selection-complete="ctrl.filterEmployees()"></soe-multiselect>
+                    </div>
+                    <div class="form-group form-group-sm" data-ng-if="!ctrl.useAccountHierarchy && !ctrl.isEmployeePostView && !ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsView">
+                        <soe-multiselect label-key="time.schedule.planning.categories" options="ctrl.categories" model="ctrl.selectedCategories" hidelabel="true" is-disabled="!ctrl.employees" on-selection-complete="ctrl.onCategoryFiltered(items)"></soe-multiselect>
+                    </div>
+                    <div class="form-group form-group-sm" data-ng-if="!ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsView">
+                        <soe-multiselect label-key="time.schedule.planning.employees" options="ctrl.employees" model="ctrl.selectedEmployees" hidelabel="true" limit-to="200" is-disabled="!ctrl.employees" data-ng-if="!ctrl.isEmployeePostView" on-selection-complete="ctrl.onEmployeeFiltered()"></soe-multiselect>
+                        <soe-multiselect label-key="time.schedule.employeepost.employeeposts" options="ctrl.employees" model="ctrl.selectedEmployees" hidelabel="true" is-disabled="!ctrl.employees" data-ng-if="ctrl.isEmployeePostView" on-selection-complete="ctrl.onEmployeeFiltered()"></soe-multiselect>
+                    </div>
+                    <soe-checkbox label-key="time.schedule.planning.showsecondarycategories.label" tooltip-key="time.schedule.planning.showsecondarycategories.tooltip" model="ctrl.showSecondaryCategories" is-disabled="!ctrl.employees" data-ng-if="!ctrl.useAccountHierarchy && !ctrl.isEmployeePostView && !ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsView" on-changing="ctrl.onShowSecondaryCategoriesChanged();$event.stopPropagation();$event.preventDefault();"></soe-checkbox>
+                    <soe-checkbox label-key="time.schedule.planning.showsecondaryaccounts.label" tooltip-key="time.schedule.planning.showsecondaryaccounts.tooltip" model="ctrl.showSecondaryAccounts" is-disabled="!ctrl.employees" data-ng-if="ctrl.useAccountHierarchy && !ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsView" on-changing="ctrl.toggleSecondaryAccounts();$event.stopPropagation();$event.preventDefault();"></soe-checkbox>
+                    <div class="form-group form-group-sm" data-ng-if="ctrl.isFiltered">
+                        <span class="fal fa-filter-slash link" data-l10n-bind data-l10n-bind-title="'core.uigrid.gridmenu.clear_all_filters'" data-ng-click="ctrl.clearFilters()"></span>
+                    </div>
+                </div>
+                <div class="form-inline margin-small-top" data-ng-show="ctrl.showFilters">
+                    <div class="form-group form-group-sm" data-ng-if="ctrl.showStatusFilter">
+                        <soe-multiselect label-key="time.schedule.planning.statuses" options="ctrl.statuses" model="ctrl.selectedStatuses" hidelabel="true" is-disabled="!ctrl.statuses" show-check-all="false" show-uncheck-all="false" keep-open="true" on-item-select="ctrl.setupStatusFilter(true);" on-item-deselect="ctrl.setupStatusFilter(true);" on-selection-complete="ctrl.statusFilterChanged()"></soe-multiselect>
+                    </div>
+                    <div class="form-group form-group-sm" data-ng-show="ctrl.showDeviationCauseFilter">
+                        <soe-multiselect label-key="time.schedule.planning.deviationcauses" options="ctrl.deviationCauses" model="ctrl.selectedDeviationCauses" hidelabel="true" is-disabled="!ctrl.deviationCauses" on-selection-complete="ctrl.filterShifts()"></soe-multiselect>
+                    </div>
+                    <div class="form-group form-group-sm" data-ng-if="ctrl.showBlockTypesFilter">
+                        <soe-multiselect label-key="time.schedule.planning.blocktypes" options="ctrl.blockTypes" model="ctrl.selectedBlockTypes" hidelabel="true" is-disabled="!ctrl.blockTypes" on-selection-complete="ctrl.filterShifts()"></soe-multiselect>
+                    </div>
+                    <div class="form-group form-group-sm" data-ng-if="!ctrl.isCalendarView">
+                        <soe-textbox hidelabel="true" placeholder-key="core.search" model="ctrl.freeTextFilter" on-change="ctrl.onFreeTextFiltered()"></soe-textbox>
+                    </div>
+                    <div class="form-group form-group-sm margin-large-left">
+                        <user-selection selection-type="ctrl.userSelectionType" selections="ctrl.userSelections" selected-user-selection-id="ctrl.selectedUserSelectionId" save-public-permission="ctrl.savePublicSelectionPermission" on-selections-loaded="ctrl.userSelectionsLoaded(userSelections);" on-selected="ctrl.userSelectionChanged(userSelection);" on-init-save="ctrl.createUserSelections();"></user-selection>
+                    </div>
+                </div>
+            </div>
+
+            <div class="planning-scheduleview row">
+                <div class="planning-scheduleview-table col-sm-12" data-ng-class="{'col-sm-10': (ctrl.showEmployeeList && !ctrl.isCalendarView && !ctrl.isTemplateView) || (ctrl.showWorkRuleViolations && (ctrl.isCommonScheduleView || ctrl.isTemplateView)) || ctrl.showUnscheduledTasks || (ctrl.showDashboard && !ctrl.isCalendarView && !ctrl.isEmployeePostView) || (ctrl.isOrderPlanningMode && !ctrl.isCalendarView), 'day-view': ctrl.isDayView, 'actual-time': ctrl.shiftStyle === 1 || ctrl.shiftStyle === 2}">
+                    <div class="col-sm-12 info template-schedule-warning" data-ng-if="ctrl.isTemplateView && !ctrl.disableTemplateScheduleWarning" data-ng-click="ctrl.closeTemplateScheduleWarning()">
+                        <div class="col-sm-12 template-schedule-warning-title" data-l10n-bind="'time.schedule.planning.templateschedulewarning.title'"></div>
+                        <div class="col-sm-12 template-schedule-warning-row" data-l10n-bind="'time.schedule.planning.templateschedulewarning.row1'"></div>
+                        <div class="col-sm-12 template-schedule-warning-row" data-l10n-bind="'time.schedule.planning.templateschedulewarning.row2'"></div>
+                        <div class="col-sm-6 col-sm-offset-3 margin-small-top">
+                            <div class="col-sm-6 template-schedule-warning-close margin-large-top" data-l10n-bind="'time.schedule.planning.templateschedulewarning.close'"></div>
+                            <div class="col-sm-6 pull-right">
+                                <soe-checkbox label-key="time.schedule.planning.templateschedulewarning.donotshowagain" model="ctrl.doNotShowTemplateScheduleWarningAgain" data-ng-click="$event.stopPropagation();"></soe-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 info autoload-info" data-ng-if="ctrl.disableAutoLoad && !ctrl.firstLoadHasOccurred && !ctrl.isScenarioView" data-ng-click="ctrl.loadData('autoload message click')">
+                        <div class="col-sm-12 autoload-info-row1" data-l10n-bind="'time.schedule.planning.disableautoload.inforow1'"></div>
+                        <div class="col-sm-12 autoload-info-row2" data-l10n-bind="'time.schedule.planning.disableautoload.inforow2'"></div>
+                    </div>
+                    <table>
+                        <colgroup data-ng-if="!ctrl.isCalendarView">
+                            <col width="125" />
+                            <col width="75" />
+                            <col data-ng-if="ctrl.isCommonScheduleView" data-ng-repeat="date in ctrl.dates track by date.date" width="{{ctrl.dateColumnWidth}}" />
+                        </colgroup>
+                        <!-- Calendar -->
+                        <thead data-ng-if="ctrl.isCalendarView" class="calendar-view">
+                            <tr>
+                                <td class="planning-calendar-top-left" rowspan="2"></td>
+                                <td class="planning-daterange" colspan="7">{{ctrl.getDateRangeText()}}</td>
+                            </tr>
+                            <tr>
+                                <td class="planning-calendar-day-header" data-ng-repeat="day in ctrl.dayOfWeeks track by day">{{::ctrl.getDayName(day)}}</td>
+                            </tr>
+                            <tr>
+                                <td class="planning-horizontal-separator" colspan="8">
+                            </tr>
+                            <tr class="planning-calendar-week-row" data-ng-repeat="week in ctrl.weeks track by week">
+                                <td class="planning-calendar-week" data-l10n-bind data-l10n-bind-title="'core.goto'" data-ng-click="ctrl.calendarWeekSelected(week);">
+                                    <span data-l10n-bind="'common.week'"></span><span>&nbsp;{{::week}}</span>
+                                </td>
+                                <td class="planning-calendar-day" data-ng-class="{'planning-day-today': date.date.isToday(), 'planning-day-saturday': ctrl.isSaturday(date.date), 'planning-day-sunday': ctrl.isSunday(date.date), 'planning-day-passed': ctrl.dateHasPassed(date.date) && date.date.getDay() !== 6 && date.date.getDay() !== 0, 'planning-day-saturday-passed': date.date.getDay() === 6 && ctrl.dateHasPassed(date.date), 'planning-day-sunday-passed': date.date.getDay() === 0 && ctrl.dateHasPassed(date.date)}" data-ng-repeat="date in ctrl.getDaysInWeek(week) track by date.date" data-ng-click="ctrl.calendarDaySelected(date.date);">
+                                    <div>
+                                        <span class="day-number">{{::date.date | date:'d'}}</span>
+                                        <span class="calendar-event fal fa-sticky-note accentColor link" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.scheduleevents.existsondate'" data-ng-if="ctrl.scheduleEventDates.length > 0 && ctrl.hasScheduleEvents(date.date);" data-ng-click="ctrl.doShowScheduleEvents(date.date);$event.stopPropagation();"></span>
+                                    </div>
+                                    <div>{{::date.date | date:'MMMM'}}</div>
+                                    <div data-ng-class="{'saturday':ctrl.isSaturday(date.date), 'sunday':ctrl.isSunday(date.date)}" data-ng-if="ctrl.hasHoliday(date.date)" data-ng-attr-title="{{ctrl.getHolidayDescription(date.date)}}">{{ctrl.getHolidayName(date.date)}}</div>
+                                    <div class="textColor margin-large-top" data-ng-if="ctrl.showSummaryInCalendarView">{{date.shiftPeriod.plannedMinutes | minutesToTimeSpan}}</div>
+                                    <div class="textColor" data-ng-if="ctrl.showSummaryInCalendarView && ctrl.selectableInformationSettings.showGrossTime && ctrl.loadingGrossNetAndCost"><span class="far fa-spinner fa-pulse fa-fw"></span></div>
+                                    <div class="textColor" data-ng-if="!ctrl.loadingGrossNetAndCost && ctrl.showSummaryInCalendarView">
+                                        <span data-ng-if="ctrl.selectableInformationSettings.showGrossTime">{{date.shiftPeriod.grossTime | minutesToTimeSpan}}</span>
+                                        <span data-ng-if="ctrl.selectableInformationSettings.showGrossTime && ctrl.selectableInformationSettings.showTotalCost">/</span>
+                                        <span data-ng-if="ctrl.selectableInformationSettings.showTotalCostIncEmpTaxAndSuppCharge">{{date.shiftPeriod.totalCostIncEmpTaxAndSuppCharge | amount:0}}</span>
+                                        <span data-ng-if="ctrl.selectableInformationSettings.showTotalCost && !ctrl.selectableInformationSettings.showTotalCostIncEmpTaxAndSuppCharge">{{date.shiftPeriod.totalCost | amount:0}}</span>
+                                    </div>
+                                    <div class="left-periods">
+                                        <div class="period-open" data-ng-if="date.shiftPeriod.open" title="{{date.shiftPeriod.openToolTip}}">{{date.shiftPeriod.open}}</div>
+                                        <div class="period-assigned" data-ng-if="date.shiftPeriod.assigned" title="{{date.shiftPeriod.assignedToolTip}}">{{date.shiftPeriod.assigned}}</div>
+                                        <div class="period-wanted" data-ng-if="date.shiftPeriod.wanted" title="{{date.shiftPeriod.wantedToolTip}}">{{date.shiftPeriod.wanted }}</div>
+                                        <div class="period-unwanted" data-ng-if="date.shiftPeriod.unwanted" title="{{date.shiftPeriod.unwantedToolTip}}">{{date.shiftPeriod.unwanted }}</div>
+                                    </div>
+                                    <div class="right-periods">
+                                        <div class="period-absence-requested" data-ng-if="date.shiftPeriod.absenceRequested" title="{{date.shiftPeriod.absenceRequestedToolTip}}">{{date.shiftPeriod.absenceRequested }}</div>
+                                        <div class="period-absence-approved" data-ng-if="date.shiftPeriod.absenceApproved" title="{{date.shiftPeriod.absenceApprovedToolTip}}">{{date.shiftPeriod.absenceApproved }}</div>
+                                        <div class="period-preliminary" data-ng-if="date.shiftPeriod.preliminary" title="{{date.shiftPeriod.preliminaryToolTip}}">{{date.shiftPeriod.preliminary }}</div>
+                                        <div class="period-details" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.showdetails'" data-ng-if="date.shiftPeriod" data-ng-click="ctrl.showCalendarDetails(date.shiftPeriod);$event.stopPropagation();">i</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </thead>
+                        <!-- Day -->
+                        <thead data-ng-if="ctrl.isCommonDayView">
+                            <tr>
+                                <td class="planning-top-left" colspan="2" rowspan="{{ctrl.hourParts > 1 ? 3 : 2}}">
+                                    <span class="pull-right" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.reloadallemployees'" data-ng-if="!ctrl.isEmployeePostView && !ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsView"><i class="fal fa-sync link margin-small-top margin-small-right" data-ng-hide="ctrl.loadingEmployees" data-ng-click="ctrl.reloadEmployees(null, true);"></i></span>
+                                    <span class="pull-right" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.reloadallemployeeposts'" data-ng-if="ctrl.isEmployeePostView"><i class="fal fa-sync link margin-small-top margin-small-right" data-ng-hide="ctrl.loadingEmployees" data-ng-click="ctrl.reloadEmployeePosts(null, true);"></i></span>
+                                    <soe-checkbox style="margin-right: 30px;" label-key="time.schedule.planning.showall" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.showallemployees'" model="ctrl.showAllEmployees" data-ng-if="ctrl.editMode != 3 && !ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsView" on-changing="ctrl.showAllEmployeesChanging()"></soe-checkbox>
+                                    <span class="planning-nbrofemployees" data-ng-if="ctrl.allEmployees && !ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsView">
+                                        <span>{{ctrl.nbrOfVisibleEmployees}} </span>
+                                        <span class="smallFont">({{ctrl.getFilteredEmployeeIds().length}}) <i class="far fa-spinner fa-pulse fa-fw" data-ng-if="ctrl.loadingEmployees"></i></span>
+                                    </span>
+                                </td>
+                                <td class="planning-daterange" colspan="{{ctrl.nbrOfVisibleHours * ctrl.hourParts}}">
+                                    <span data-ng-class="{'indiscreet':ctrl.isToday(ctrl.dateFrom), 'saturday':ctrl.isSaturday(ctrl.dateFrom), 'sunday':ctrl.isSunday(ctrl.dateFrom)}">{{ctrl.getDateRangeText()}}</span>
+                                    <span data-ng-class="{'saturday':ctrl.isSaturday(ctrl.dateFrom), 'sunday':ctrl.isSunday(ctrl.dateFrom)}" data-ng-if="ctrl.hasHoliday(ctrl.dateFrom)" data-ng-attr-title="{{ctrl.getHolidayDescription(ctrl.dateFrom)}}"> ({{ctrl.getHolidayName(ctrl.dateFrom)}})</span>
+                                    <span class="day-event fal fa-sticky-note accentColor link" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.scheduleevents.existsondate'" data-ng-if="ctrl.scheduleEventDates.length > 0 && ctrl.hasScheduleEvents(ctrl.dateFrom);" data-ng-click="ctrl.doShowScheduleEvents(ctrl.dateFrom);$event.stopPropagation();"></span>
+                                    <span class="day-unscheduled-task fal fa-calendar warningColor link" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.unscheduledtasks.existsondate'" data-ng-if="ctrl.showUnscheduledTasksPermission && ctrl.editMode != 3 && ctrl.unscheduledTaskDates.length > 0 && ctrl.hasUnscheduledTasks(ctrl.dateFrom);" data-ng-click="ctrl.doShowUnscheduledTasks(ctrl.dateFrom);"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="planning-day-header" data-ng-class="{'whole-hour': ctrl.hourParts > 1 && $index > 0}" data-ng-repeat="date in ctrl.dates track by date.date" colspan="{{ctrl.hourParts}}" data-ng-if="$index % ctrl.hourParts === 0">{{::date.date | date:'shortTime'}}</td>
+                            </tr>
+                            <tr data-ng-if="ctrl.hourParts > 1">
+                                <td class="planning-day-header" data-ng-class="{'whole-hour': $index > 0 && $index % ctrl.hourParts === 0}" data-ng-repeat="date in ctrl.dates track by date.date"></td>
+                            </tr>
+                            <tr class="planning-ag-chart-row vertical-line-right" data-ng-if="!ctrl.isStaffingNeedsDayView && ctrl.showDashboardPermission">
+                                <!-- ChartHandler.renderPlanningAgChartRow() -->
+                            </tr>
+                            <tr class="planning-summary-row" data-ng-if="!ctrl.isStaffingNeedsDayView">
+                                <!-- ScheduleHandler.renderScheduleSummary() -->
+                            </tr>
+
+                            <tr class="staffing-needs-ag-chart-row vertical-line-right" data-ng-if="ctrl.isStaffingNeedsDayView && ctrl.staffingNeedsDayViewShowDiagram">
+                                <!-- ScheduleHandler.renderPlanningAgChart() -->
+                            </tr>
+                            <tr class="staffing-needs-summary-row" data-ng-if="ctrl.isStaffingNeedsDayView">
+                                <!-- ScheduleHandler.renderPlanningSummary() -->
+                            </tr>
+                            <tr class="staffing-needs-summary-employees-row" data-ng-if="ctrl.isStaffingNeedsDayView">
+                                <!-- ScheduleHandler.renderPlanningSummaryEmployees() -->
+                            </tr>
+                            <tr class="staffing-needs-filtered-summary-row" data-ng-if="ctrl.isStaffingNeedsDayView">
+                                <!-- ScheduleHandler.renderPlanningFilteredSummary() -->
+                            </tr>
+                            <tr data-ng-if="ctrl.isStaffingNeedsDayView">
+                                <td class="planning-horizontal-separator">
+                            </tr>
+                            <tr class="staffing-needs-shifttype-summary-row" data-ng-if="ctrl.isStaffingNeedsDayView">
+                                <!-- ScheduleHandler.renderPlanningShiftTypeSummary() -->
+                            </tr>
+
+                            <tr>
+                                <td class="planning-horizontal-separator" colspan="{{ctrl.nbrOfVisibleHours + 1}}">
+                            </tr>
+                        </thead>
+                        <!-- Schedule (week) -->
+                        <thead data-ng-if="ctrl.isCommonScheduleView">
+                            <tr>
+                                <td class="planning-top-left" colspan="2" rowspan="2">
+                                    <span class="pull-right" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.reloadallemployees'" data-ng-if="!ctrl.isEmployeePostView && !ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsView"><i class="fal fa-sync link margin-small-top margin-small-right" data-ng-hide="ctrl.loadingEmployees" data-ng-click="ctrl.reloadEmployees(null, true);"></i></span>
+                                    <span class="pull-right" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.reloadallemployeeposts'" data-ng-if="ctrl.isEmployeePostView"><i class="fal fa-sync link margin-small-top margin-small-right" data-ng-hide="ctrl.loadingEmployees" data-ng-click="ctrl.reloadEmployeePosts(null, true);"></i></span>
+                                    <soe-checkbox class="planning-showallemployees" style="margin-right: 30px;" label-key="time.schedule.planning.showall" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.showallemployees'" model="ctrl.showAllEmployees" data-ng-if="!ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsView" on-changing="ctrl.showAllEmployeesChanging()"></soe-checkbox>
+                                    <span class="planning-nbrofemployees" data-ng-if="ctrl.allEmployees && !ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsView">
+                                        <span>{{ctrl.nbrOfVisibleEmployees}} </span>
+                                        <span class="smallFont">({{ctrl.getFilteredEmployeeIds().length}}) <i class="far fa-spinner fa-pulse fa-fw" data-ng-if="ctrl.loadingEmployees"></i></span>
+                                    </span>
+                                </td>
+                                <td class="planning-daterange" data-ng-repeat="date in ctrl.dates track by date.date" rowspan="{{ctrl.selectedVisibleDays === 365 ? 2 : 1}}" colspan="{{date.rangeNbrOfDays}}" data-ng-if="$index === 0 || date.weekday === 1" data-ng-class="{'planning-vertical-separator': $index+7 < ctrl.dates.length}">
+                                    <span>{{ctrl.getDateRangeText(date.date)}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-ng-if="ctrl.selectedVisibleDays !== 365" class="planning-day-header" data-ng-repeat="date in ctrl.dates track by date.date" data-ng-class="{'planning-vertical-separator': date.weekday === 0 && !$last}" data-l10n-bind data-l10n-bind-title="'core.goto'" data-ng-click="ctrl.scheduleDaySelected(date.date);">
+                                    <span data-ng-class="{'indiscreet':ctrl.isToday(date.date), 'saturday':ctrl.isSaturday(date.date), 'sunday':ctrl.isSunday(date.date)}">{{ctrl.getDateText(date.date)}}</span>
+                                    <span data-ng-class="{'saturday':ctrl.isSaturday(date.date), 'sunday':ctrl.isSunday(date.date)}" data-ng-if="ctrl.hasHoliday(date.date) && ctrl.selectedVisibleDays<15" data-ng-attr-title="{{ctrl.getHolidayDescription(date.date)}}"> ({{ctrl.getHolidayName(date.date)}})</span>
+                                    <span class="fal fa-calendar-star" data-ng-class="{'saturday':ctrl.isSaturday(date.date), 'sunday':ctrl.isSunday(date.date)}" data-ng-if="ctrl.hasHoliday(date.date) && ctrl.selectedVisibleDays>14" data-ng-attr-title="{{ctrl.getHolidayDescription(date.date)}}"></span>
+                                    <span class="schedule-event fal fa-sticky-note accentColor link" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.scheduleevents.existsondate'" data-ng-if="ctrl.scheduleEventDates.length > 0 && ctrl.hasScheduleEvents(date.date);" data-ng-click="ctrl.doShowScheduleEvents(date.date);$event.stopPropagation();"></span>
+                                    <span class="schedule-unscheduled-task fal fa-calendar pull-right warningColor link" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.unscheduledtasks.existsondate'" data-ng-if="ctrl.showUnscheduledTasksPermission && ctrl.unscheduledTaskDates.length > 0 && ctrl.hasUnscheduledTasks(date.date);" data-ng-click="ctrl.doShowUnscheduledTasks(date.date);$event.stopPropagation();"></span>
+                                </td>
+                            </tr>
+                            <tr class="planning-ag-chart-row vertical-line-right" data-ng-if="ctrl.showDashboardPermission && !ctrl.isStandbyView && !ctrl.isStaffingNeedsScheduleView">
+                                <!-- ChartHandler.renderPlanningAgChartRow() -->
+                            </tr>
+                            <tr class="planning-followup-table-row" data-ng-if="ctrl.showDashboardPermission && !ctrl.isStandbyView && !ctrl.isStaffingNeedsScheduleView">
+                                <!-- ScheduleHandler.renderPlanningFollowUpTable() -->
+                            </tr>
+                            <tr class="planning-summary-row" data-ng-if="!ctrl.isTasksAndDeliveriesView && !ctrl.isStaffingNeedsScheduleView">
+                                <!-- ScheduleHandler.renderScheduleSummary() -->
+                            </tr>
+                            <tr class="staffing-needs-summary-row" data-ng-if="ctrl.isStaffingNeedsScheduleView">
+                                <!-- ScheduleHandler.renderPlanningSummary() -->
+                            </tr>
+                            <tr class="staffing-needs-filtered-summary-row" data-ng-if="ctrl.isStaffingNeedsScheduleView">
+                                <!-- ScheduleHandler.renderPlanningFilteredSummary() -->
+                            </tr>
+                            <tr data-ng-if="ctrl.isStaffingNeedsScheduleView">
+                                <td class="planning-horizontal-separator">
+                            </tr>
+                            <tr class="staffing-needs-shifttype-summary-row" data-ng-if="ctrl.isStaffingNeedsScheduleView">
+                                <!-- ScheduleHandler.renderPlanningShiftTypeSummary() -->
+                            </tr>
+                            <tr>
+                                <td class="planning-horizontal-separator" colspan="{{ctrl.selectedVisibleDays === 365 ? 2 : ctrl.nbrOfVisibleDays + 1}}">
+                            </tr>
+                        </thead>
+                        <tbody id="rowsTarget">
+                            <!-- ScheduleHandler.renderSchedule() -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Employee list -->
+                <div class="col-sm-2" data-ng-if="ctrl.showEmployeeList && !ctrl.isCalendarView && !ctrl.isTemplateView">
+                    <div class="row planning-filter-header employee-list-filter-header">
+                        <div class="btn-group" role="group">
+                            <!-- Filter -->
+                            <button type="button" class="btn btn-default" data-l10n-bind data-l10n-bind-title="'core.selection'" data-ng-click="ctrl.showEmployeeListFilters = !ctrl.showEmployeeListFilters;">
+                                <i class="fal fa-filter" data-ng-class="{'active': ctrl.showEmployeeListFilters, 'accentColor': ctrl.isEmployeeListFiltered}"></i>
+                            </button>
+                            <!-- Sorting -->
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default dropdown-toggle only-icon" data-toggle="dropdown" data-l10n-bind data-l10n-bind-title="'core.sorting'" data-ng-class="{'active': ctrl.employeeListSortBy !== 0}">
+                                    <i class="fal fa-sort-amount-down-alt"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-header"><span data-l10n-bind="'core.sortingon'"></span></li>
+                                    <li data-ng-class="{'selected': ctrl.employeeListSortBy === 0}" data-ng-click="ctrl.setEmployeeListSortBy(0, true)"><a href="#"><span data-l10n-bind="'common.firstname'"></span></a></li>
+                                    <li data-ng-class="{'selected': ctrl.employeeListSortBy === 1}" data-ng-click="ctrl.setEmployeeListSortBy(1, true)"><a href="#"><span data-l10n-bind="'common.lastname'"></span></a></li>
+                                    <li data-ng-class="{'selected': ctrl.employeeListSortBy === 2}" data-ng-click="ctrl.setEmployeeListSortBy(2, true)"><a href="#"><span data-l10n-bind="'time.employee.employeenumber'"></span></a></li>
+                                    <li data-ng-if="ctrl.selectableInformationSettings.showAvailability" data-ng-class="{'selected': ctrl.employeeListSortBy === 3}" data-ng-click="ctrl.setEmployeeListSortBy(3, true)"><a href="#"><span data-l10n-bind="'time.schedule.planning.availability'"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Filters -->
+                        <div class="col-sm-12" data-ng-show="ctrl.showEmployeeListFilters">
+                            <div class="margin-small-top" data-ng-if="!ctrl.isEmployeePostView">
+                                <div class="row">
+                                    <soe-checkbox label-key="time.schedule.planning.employeelistfilteronselectedshift" model="ctrl.employeeListFilterOnSelectedShift" on-changing="ctrl.getAvailableEmployees()"></soe-checkbox>
+                                </div>
+                                <div class="row margin-small-top margin-small-bottom" data-ng-if="ctrl.employeeListFilterOnSelectedShift && ctrl.employeeListFilterShiftIds.length===0">
+                                    <span class="errorColor" data-l10n-bind="'time.schedule.planning.noshiftselected'"></span>
+                                </div>
+                                <div class="margin-small-top margin-large-bottom" data-ng-show="ctrl.employeeListFilterOnSelectedShift">
+                                    <available-employees employee-ids="ctrl.employeeListFilterEmployeeIds" shift-ids="ctrl.employeeListFilterShiftIds" show-availability="ctrl.selectableInformationSettings.showAvailability" auto-filter="true" is-filtered="ctrl.isEmployeeListFiltered" filtering="ctrl.filteringEmployees" filtering-done="ctrl.filteringEmployeesDone(employees);"></available-employees>
+                                </div>
+                            </div>
+                            <div class="margin-small-top" data-ng-if="ctrl.isEmployeePostView">
+                                <div class="row">
+                                    <soe-checkbox label-key="time.schedule.planning.employeelisthideassignedtopost" model="ctrl.employeeListHideAssignedToPost" on-changing="ctrl.onEmployeeListHideAssignedToPostChanged()"></soe-checkbox>
+                                </div>
+                                <div class="row">
+                                    <soe-checkbox label-key="time.schedule.planning.employeelistfilteronselectedemployeepost" model="ctrl.employeeListFilterOnSelectedEmployeePost" on-changing="ctrl.onEmployeeListFilterOnSelectedEmployeePostChanged()"></soe-checkbox>
+                                </div>
+                                <div data-ng-if="ctrl.employeeListFilterOnSelectedEmployeePost">
+                                    <div class="row margin-small-top margin-small-bottom" data-ng-if="!ctrl.employeeListFilterEmployeePostId">
+                                        <span class="errorColor" data-l10n-bind="'time.schedule.planning.noemployeepostselected'"></span>
+                                    </div>
+                                    <div class="row margin-large-top">
+                                        <span data-l10n-bind="'time.availableemployees.filterheader'"></span>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 padding-none-left">
+                                            <soe-checkbox label-key="time.schedule.skill.skills" model="ctrl.filterEmployeeListOnSkills" is-disabled="!ctrl.employeeListFilterEmployeePostId"></soe-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-inline">
+                                            <div class="form-group form-group-sm">
+                                                <soe-checkbox label-key="time.schedule.employeepost.worktimepercent" model="ctrl.filterEmployeeListOnPercent" is-disabled="!ctrl.employeeListFilterEmployeePostId"></soe-checkbox>
+                                            </div>
+                                            <div class="form-group form-group-sm margin-large-left">
+                                                <span data-l10n-bind="'time.schedule.planning.employeelistfilterdiffpercent'"></span>
+                                            </div>
+                                            <div class="form-group form-group-sm">
+                                                <soe-textbox hidelabel="true" model="ctrl.filterEmployeeListOnPercentDiff" data-ng-model-options="{updateOn: 'blur'}" input-width="50px" numeric="true" decimals="0" is-disabled="!ctrl.filterEmployeeListOnPercent"></soe-textbox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row margin-small-top margin-large-bottom">
+                                    <button class="btn btn-sm btn-default" data-l10n-bind data-l10n-bind-title="'core.filter'" data-ng-click="ctrl.filterEmployeeListFromGUI()">
+                                        <span><span data-l10n-bind="'core.filter'"></span><i class="fal fa-sync link margin-small-left" data-ng-class="{'fa-spin': ctrl.filteringEmployeeList}"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row form-inline margin-small-top">
+                                <div class="form-group">
+                                    <soe-textbox hidelabel="true" placeholder-key="core.search" model="ctrl.employeeListFreeTextFilter" on-change="ctrl.filterEmployeeListFromGUI()"></soe-textbox>
+                                </div>
+                                <div class="form-group margin-small-left">
+                                    <span class="fal fa-filter-slash link" data-l10n-bind data-l10n-bind-title="'core.uigrid.gridmenu.clear_all_filters'" data-ng-if="ctrl.isEmployeeListFiltered || ctrl.filterOnSkills || ctrl.filterOnPercent || ctrl.employeeListFreeTextFilter" data-ng-click="ctrl.clearEmployeeListFilters()"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Employees -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul class="employee-list" style="margin: 0 0 0 -25px;">
+                                <li>
+                                    <span data-ng-if="ctrl.filteringEmployees"><i class="far fa-spinner fa-pulse fa-fw"></i> <span data-l10n-bind="'time.schedule.planning.filteringemployees'"></span></span>
+                                    <span data-ng-if="!ctrl.filteringEmployees && ctrl.employeeList.length === 0" data-l10n-bind="'time.availableemployees.noemployees'"></span>
+                                    <span data-ng-if="!ctrl.filteringEmployees && ctrl.employeeList.length > 0"><span>{{ctrl.employeeList.length}}</span> <span data-ng-if="ctrl.employeeList.length > 1" class="lowercase" data-l10n-bind="'time.employee.employee.employees'"></span><span data-ng-if="ctrl.employeeList.length === 1" class="lowercase" data-l10n-bind="'common.employee'"></span></span>
+                                </li>
+                                <li data-ng-if="!ctrl.filteringEmployees && ctrl.employeeListFilterOnSelectedShift && ctrl.employeesWantsExtraShifts">
+                                    <span class="indiscreet" data-l10n-bind="'time.availableemployees.wantsextrashifts'"></span>
+                                </li>
+                                <li data-ng-if="!ctrl.filteringEmployees && ctrl.employeesWantsExtraShifts" data-ng-repeat="e in ctrl.employeeList | filter:{wantsExtraShifts:'true'}" id="{{e.employeeId}}" data-ng-class="{'planning-day-available':e.isFullyAvailable, 'planning-day-partly-available':e.isPartlyAvailable, 'planning-day-mixed-available':e.isMixedAvailable, 'planning-day-partly-unavailable':e.isPartlyUnavailable, 'planning-day-unavailable':e.isFullyUnavailable}" drag-object-type="employee" context-menu="ctrl.getEmployeeListContextMenuOptions(e)" context-menu-empty-text="' '">
+                                    <ng-include src="ctrl.employeeListItemUrl"></ng-include>
+                                </li>
+                                <li data-ng-if="!ctrl.filteringEmployees && ctrl.employeeListFilterOnSelectedShift && ctrl.employeesWantsExtraShifts">
+                                    <span class="indiscreet" data-l10n-bind="'time.availableemployees.dontwantextrashifts'"></span>
+                                </li>
+                                <li data-ng-if="!ctrl.filteringEmployees" data-ng-repeat="e in ctrl.employeeList | filter:{wantsExtraShifts:'!true'}" id="{{e.employeeId}}" data-ng-class="{'planning-day-available':e.isFullyAvailable, 'planning-day-partly-available':e.isPartlyAvailable, 'planning-day-mixed-available':e.isMixedAvailable, 'planning-day-partly-unavailable':e.isPartlyUnavailable, 'planning-day-unavailable':e.isFullyUnavailable}" drag-object-type="employee" context-menu="ctrl.getEmployeeListContextMenuOptions(e)" context-menu-empty-text="' '">
+                                    <ng-include src="ctrl.employeeListItemUrl"></ng-include>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work rule violations -->
+                <div class="col-sm-2" data-ng-if="ctrl.showWorkRuleViolations && ctrl.isCommonScheduleView">
+                    <div class="row planning-filter-header employee-list-filter-header">
+                        <div class="col-sm-12 info margin-small-bottom">
+                            <span data-l10n-bind="'time.schedule.planning.evaluateworkrules.violationlisttitle'"></span>
+                        </div>
+                        <div>
+                            <span><span class="fal fa-times iconDelete link" data-ng-click="ctrl.hideWorkRuleViolations();"></span> <span data-l10n-bind="'core.close'"></span></span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: -6px;">
+                        <div class="col-sm-12">
+                            <ul class="workrule-list" style="margin: 0 0 0 -25px;">
+                                <li data-ng-repeat="e in ctrl.workRuleViolations" id="{{e.id}}">
+                                    <span><span class="fal fa-times iconDelete link" style="margin-left: 4px;" data-ng-click="ctrl.removeWorkRuleViolationFromList(e);"></span> <span data-ng-click="ctrl.showWorkRuleViolationsForEmployee(e);">{{e.label}}</span></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unscheduled tasks and deliveries -->
+                <div class="col-sm-2" data-ng-if="ctrl.showUnscheduledTasks">
+                    <div class="row planning-filter-header employee-list-filter-header">
+                        <div class="col-sm-12 info margin-small-bottom">
+                            <span><span data-l10n-bind="'time.schedule.planning.unscheduledtasks'"></span><i class="fal fa-sync pull-right link" data-ng-class="{'fa-spin': ctrl.loadingUnscheduledTasksAndDeliveries}" data-ng-click="ctrl.loadUnscheduledTasksAndDeliveries()"></i></span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: -6px;" data-ng-if="!ctrl.loadingUnscheduledTasksAndDeliveries">
+                        <div class="col-sm-12">
+                            <ul class="unscheduledtaskdate-list" style="margin-left: -25px;">
+                                <uib-accordion close-others="false">
+                                    <li data-ng-repeat="date in ctrl.unscheduledTaskDates track by date">
+                                        <soe-accordion label-class="{'indiscreet':true}" label-model="date | date:'EEEE yyyy-MM-dd'" label-value-class="{'smallFont':true}" label-value="date.label" label-value-in-parentheses="true" is-open="date.isOpen">
+                                            <ul class="unscheduledtask-list">
+                                                <li data-ng-repeat="t in ctrl.unscheduledTasks | isSameDate:'startTime':date" id="{{t.id}}" drag-object-type="task" task-type="{{t.type}}" task-date="{{date | date:'yyyy'}}|{{date | date:'MM'}}|{{date | date:'dd'}}" task-start-time="{{t.startTime | date:'HH'}}|{{t.startTime | date:'mm'}}" task-stop-time="{{t.stopTime | date:'HH'}}|{{t.stopTime | date:'mm'}}" data-ng-style="{'background-color':t.color}">
+                                                    <span data-ng-style="{'color': ctrl.setColorByBackground(t.color)}"><span data-ng-if="t.type !== 0" class="fal" data-ng-class="{'fa-check-square':t.type === 1, 'fa-truck':t.type === 2}"></span> <span data-ng-if="!t.isFixed" class="fal fa-arrows-h"></span> <span data-ng-if="t.type !== 0">{{t.actualStartTime | date:'shortTime'}}-{{t.actualStopTime | date:'shortTime'}}</span> <span><span>({{t.length | minutesToTimeSpan}}</span> <span data-l10n-bind="'core.time.short.hour'" class="lowercase"></span>)</span> <span data-ng-class="{'indiscreet':t.type === 0}">{{t.name}}</span></span>
+                                                </li>
+                                            </ul>
+                                        </soe-accordion>
+                                    </li>
+                                </uib-accordion>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unscheduled orders -->
+                <div class="col-sm-2" data-ng-if="!ctrl.isCalendarView && ctrl.showOrderList">
+                    <div class="row planning-filter-header unscheduledorder-list-filter-header">
+                        <div class="col-sm-12 info margin-small-bottom">
+                            <span><span><span data-l10n-bind="'time.schedule.planning.unscheduledorders'"></span><span> ({{ctrl.orderList.length}})</span></span><i class="fal fa-sync pull-right link" data-ng-class="{'fa-spin': ctrl.loadingUnscheduledOrders}" data-ng-click="ctrl.loadAllUnscheduledOrders()"></i></span>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <!-- Filter -->
+                            <button type="button" class="btn btn-default" data-l10n-bind data-l10n-bind-title="'core.selection'" data-ng-click="ctrl.showOrderListFilters = !ctrl.showOrderListFilters;">
+                                <i class="fal fa-filter" data-ng-class="{'active': ctrl.showOrderListFilters, 'accentColor': ctrl.isOrderListFiltered}"></i>
+                            </button>
+                            <!-- Sorting -->
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default dropdown-toggle only-icon" data-toggle="dropdown" data-l10n-bind data-l10n-bind-title="'core.sorting'" data-ng-class="{'active': ctrl.orderListSortBy !== 0}">
+                                    <i class="fal fa-sort-amount-down-alt"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-header"><span data-l10n-bind="'core.sortingon'"></span></li>
+                                    <li data-ng-class="{'selected': ctrl.orderListSortBy === 0}" data-ng-click="ctrl.setOrderListSortBy(0, true)"><a href="#"><span data-l10n-bind="'common.priority'"></span></a></li>
+                                    <li data-ng-class="{'selected': ctrl.orderListSortBy === 1}" data-ng-click="ctrl.setOrderListSortBy(1, true)"><a href="#"><span data-l10n-bind="'common.startdate'"></span></a></li>
+                                    <li data-ng-class="{'selected': ctrl.orderListSortBy === 2}" data-ng-click="ctrl.setOrderListSortBy(2, true)"><a href="#"><span data-l10n-bind="'common.stopdate'"></span></a></li>
+                                    <li data-ng-class="{'selected': ctrl.orderListSortBy === 3}" data-ng-click="ctrl.setOrderListSortBy(3, true)"><a href="#"><span data-l10n-bind="'time.schedule.planning.remainingtime'"></span></a></li>
+                                    <li data-ng-class="{'selected': ctrl.orderListSortBy === 4}" data-ng-click="ctrl.setOrderListSortBy(4, true)"><a href="#"><span data-l10n-bind="'time.schedule.planning.ordernumber'"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Filters -->
+                        <div class="col-sm-12" data-ng-show="ctrl.showOrderListFilters">
+                            <div class="margin-small-top">
+                                <div class="row">
+                                    <soe-select label-key="common.ordershifttype" model="ctrl.orderListFilterOnShiftType" items="ctrl.shiftTypes" options="item.id as item.label for item in items" on-changing="ctrl.filterOrderListFromGui();"></soe-select>
+                                </div>
+                            </div>
+                            <div class="row form-inline margin-small-top">
+                                <div class="form-group">
+                                    <soe-textbox hidelabel="true" placeholder-key="core.search" model="ctrl.orderListFreeTextFilter" on-change="ctrl.onOrderListFreeTextFiltered()"></soe-textbox>
+                                </div>
+                                <div class="form-group margin-small-left">
+                                    <span class="fal fa-filter-slash link" data-l10n-bind data-l10n-bind-title="'core.uigrid.gridmenu.clear_all_filters'" data-ng-if="ctrl.isOrderListFiltered" data-ng-click="ctrl.clearOrderListFilters()"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <soe-checkbox label-key="time.schedule.planning.futureorders" model="ctrl.orderListShowFutureOrders" on-changing="ctrl.onShowFutureOrdersChanged()"></soe-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: -6px;" data-ng-if="!ctrl.loadingUnscheduledOrders && !ctrl.loadingShifts">
+                        <div class="col-sm-12">
+                            <ul class="unscheduledorderdate-list" data-ng-if="ctrl.orderListSortBy == 1 || ctrl.orderListSortBy == 2" when-rendered="ctrl.scheduleHandler.setOrderListHeight();">
+                                <uib-accordion close-others="false">
+                                    <li data-ng-repeat="date in ctrl.currentUnscheduledOrderDates track by date">
+                                        <soe-accordion label-class="{'indiscreet':true}" label-model="date | date:'EEEE yyyy-MM-dd'" label-value-class="{'smallFont':true}" label-value="date.label" label-value-in-parentheses="true">
+                                            <ul class="unscheduledorder-list" style="margin: -1px;">
+                                                <li data-ng-if="ctrl.orderListSortBy == 1" data-ng-repeat="o in ctrl.orderList | isSameDate:'plannedStartDate':date" id="{{o.orderId}}" drag-object-type="order" data-ng-style="{'background-color':o.shiftTypeColor}" data-ng-class="{'selected': o.selected}" data-ng-attr-title="{{o.toolTip}}" data-ng-click="ctrl.selectOrderInList(o);" data-ng-dblclick="ctrl.openOrderInList(o);">
+                                                    <ng-include src="ctrl.unscheduledOrderListItemUrl"></ng-include>
+                                                </li>
+                                                <li data-ng-if="ctrl.orderListSortBy == 2" data-ng-repeat="o in ctrl.orderList | isSameDate:'plannedStopDate':date" id="{{o.orderId}}" drag-object-type="order" data-ng-style="{'background-color':o.shiftTypeColor}" data-ng-class="{'selected': o.selected}" data-ng-attr-title="{{o.toolTip}}" data-ng-click="ctrl.selectOrderInList(o);" data-ng-dblclick="ctrl.openOrderInList(o);">
+                                                    <ng-include src="ctrl.unscheduledOrderListItemUrl"></ng-include>
+                                                </li>
+                                            </ul>
+                                        </soe-accordion>
+                                    </li>
+                                    <li data-ng-repeat="date in ctrl.notCurrentUnscheduledOrderDates track by date" data-ng-class="{'unscheduledtaskdate-list-separator': $first && ctrl.currentUnscheduledOrderDates.length > 0}">
+                                        <soe-accordion label-class="{'indiscreet':true}" label-model="date | date:'MMMM yyyy'" label-value-class="{'smallFont':true}" label-value="date.label" label-value-in-parentheses="true">
+                                            <ul class="unscheduledorder-list" style="margin: -1px;">
+                                                <li data-ng-if="ctrl.orderListSortBy == 1" data-ng-repeat="o in ctrl.orderList | isMonthDate:'plannedStartDate':date" id="{{o.orderId}}" drag-object-type="order" data-ng-style="{'background-color':o.shiftTypeColor}" data-ng-class="{'selected': o.selected}" data-ng-attr-title="{{o.toolTip}}" data-ng-click="ctrl.selectOrderInList(o);" data-ng-dblclick="ctrl.openOrderInList(o);">
+                                                    <ng-include src="ctrl.unscheduledOrderListItemUrl"></ng-include>
+                                                </li>
+                                                <li data-ng-if="ctrl.orderListSortBy == 2" data-ng-repeat="o in ctrl.orderList | isMonthDate:'plannedStopDate':date" id="{{o.orderId}}" drag-object-type="order" data-ng-style="{'background-color':o.shiftTypeColor}" data-ng-class="{'selected': o.selected}" data-ng-attr-title="{{o.toolTip}}" data-ng-click="ctrl.selectOrderInList(o);" data-ng-dblclick="ctrl.openOrderInList(o);">
+                                                    <ng-include src="ctrl.unscheduledOrderListItemUrl"></ng-include>
+                                                </li>
+                                            </ul>
+                                        </soe-accordion>
+                                    </li>
+                                    <li data-ng-if="ctrl.orderListSortBy == 2">
+                                        <soe-accordion label-class="{'indiscreet':true}" label-key="time.schedule.planning.orderlist.noplannedstopdate" label-value-class="{'smallFont':true}" label-value="ctrl.getNbrOfOrdersWithNoPlannedStopDate();" label-value-in-parentheses="true">
+                                            <ul class="unscheduledorder-list" style="margin: -1px;">
+                                                <li data-ng-repeat="o in ctrl.orderList | filter:{hasPlannedStopDate:'false'}" id="{{o.orderId}}" drag-object-type="order" data-ng-style="{'background-color':o.shiftTypeColor}" data-ng-class="{'selected': o.selected}" data-ng-attr-title="{{o.toolTip}}" data-ng-click="ctrl.selectOrderInList(o);" data-ng-dblclick="ctrl.openOrderInList(o);">
+                                                    <ng-include src="ctrl.unscheduledOrderListItemUrl"></ng-include>
+                                                </li>
+                                            </ul>
+                                        </soe-accordion>
+                                    </li>
+                                    <li data-ng-if="ctrl.orderListSortBy == 1">
+                                        <soe-accordion label-class="{'indiscreet':true}" label-key="time.schedule.planning.orderlist.noplannedstartdate" label-value-class="{'smallFont':true}" label-value="ctrl.getNbrOfOrdersWithNoPlannedStartDate();" label-value-in-parentheses="true">
+                                            <ul class="unscheduledorder-list" style="margin: -1px;">
+                                                <li data-ng-repeat="o in ctrl.orderList | filter:{hasPlannedStartDate:'false'}" id="{{o.orderId}}" drag-object-type="order" data-ng-style="{'background-color':o.shiftTypeColor}" data-ng-class="{'selected': o.selected}" data-ng-attr-title="{{o.toolTip}}" data-ng-click="ctrl.selectOrderInList(o);" data-ng-dblclick="ctrl.openOrderInList(o);">
+                                                    <ng-include src="ctrl.unscheduledOrderListItemUrl"></ng-include>
+                                                </li>
+                                            </ul>
+                                        </soe-accordion>
+                                    </li>
+                                </uib-accordion>
+                            </ul>
+                            <ul class="unscheduledorder-list" data-ng-if="ctrl.orderListSortBy != 1 && ctrl.orderListSortBy != 2" when-rendered="ctrl.scheduleHandler.setOrderListHeight();">
+                                <li data-ng-repeat="o in ctrl.orderList" id="{{o.orderId}}" drag-object-type="order" data-ng-style="{'background-color':o.shiftTypeColor}" data-ng-class="{'selected': o.selected}" data-ng-attr-title="{{o.toolTip}}" data-ng-click="ctrl.selectOrderInList(o);" data-ng-dblclick="ctrl.openOrderInList(o);">
+                                    <ng-include src="ctrl.unscheduledOrderListItemUrl"></ng-include>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard -->
+                <div class="col-sm-2" data-ng-if="ctrl.showDashboard && !ctrl.isCalendarView && !ctrl.isEmployeePostView">
+                    <div class="row planning-filter-header employee-list-filter-header">
+                        <div class="col-sm-12 info margin-small-bottom">
+                            <span><span data-l10n-bind="'time.schedule.planning.dashboard'"></span><i class="fal fa-sync pull-right link" data-ng-class="{'fa-spin': ctrl.loadingStaffingNeed}" data-ng-click="ctrl.loadStaffingNeed(true)"></i></span>
+                        </div>
+                    </div>
+                    <div class="row planning-dashboard">
+                        <div class="col-sm-12 text-center">
+                            <ng-gauge size="120" type="arch" thick="10" min="0" max="100" cap="butt" fraction-size="0" append="%" duration="500" value="ctrl.gaugeSalesValue" label="{{ctrl.gaugeSalesLabel}}" thresholds="ctrl.gaugeSalesThresholds"></ng-gauge>
+                            <ng-gauge size="120" type="arch" thick="10" min="0" max="100" cap="butt" fraction-size="0" append="%" duration="500" value="ctrl.gaugeHoursValue" label="{{ctrl.gaugeHoursLabel}}" thresholds="ctrl.gaugeHoursThresholds"></ng-gauge>
+                            <ng-gauge size="120" type="arch" thick="10" min="0" max="100" cap="butt" fraction-size="0" append="%" duration="500" value="ctrl.gaugeCostValue" label="{{ctrl.gaugeCostLabel}}" thresholds="ctrl.gaugeCostThresholds"></ng-gauge>
+                            <ng-gauge size="120" type="arch" thick="10" min="0" max="100" cap="butt" fraction-size="0" append="%" duration="500" value="ctrl.gaugeSalaryPercentValue" label="{{ctrl.gaugeSalaryPercentLabel}}" thresholds="ctrl.gaugeSalaryPercentThresholds"></ng-gauge>
+                            <ng-gauge size="120" type="arch" thick="10" min="0" max="100" cap="butt" fraction-size="0" append="%" duration="500" value="ctrl.gaugeLPATValue" label="{{ctrl.gaugeLPATLabel}}" thresholds="ctrl.gaugeLPATThresholds"></ng-gauge>
+                            <ng-gauge size="120" type="arch" thick="10" min="0" max="100" cap="butt" fraction-size="0" append="%" duration="500" value="ctrl.gaugeFPATValue" label="{{ctrl.gaugeFPATLabel}}" thresholds="ctrl.gaugeFPATThresholds"></ng-gauge>
+                            <ng-gauge size="120" type="arch" thick="10" min="0" max="100" cap="butt" fraction-size="0" append="%" duration="500" value="ctrl.gaugeBPATValue" label="{{ctrl.gaugeBPATLabel}}" thresholds="ctrl.gaugeBPATThresholds" data-ng-if="false"></ng-gauge>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

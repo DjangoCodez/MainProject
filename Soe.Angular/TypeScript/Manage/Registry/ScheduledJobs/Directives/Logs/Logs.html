@@ -1,0 +1,16 @@
+﻿<div>
+    <div class="row margin-large-bottom">
+        <div class="col-sm-6">
+            <soe-checkbox label-key="manage.registry.scheduledjobs.scheduledjoblog.filteronrow" model="ctrl.filterOnRow" on-changing="ctrl.filterLogsFromGui();"></soe-checkbox>
+        </div>
+        <div class="col-sm-6">
+            <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind data-l10n-bind-title="'core.reload_data'" data-ng-click="$event.stopPropagation();ctrl.loadLogs();"><span class="fal fa-sync margin-small-right"></span><span data-l10n-bind="'core.reload_data'"></span></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="logs-grid" ag-grid="ctrl.gridHandler.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+            <div id="logs-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;"></div>
+        </div>
+    </div>
+</div>

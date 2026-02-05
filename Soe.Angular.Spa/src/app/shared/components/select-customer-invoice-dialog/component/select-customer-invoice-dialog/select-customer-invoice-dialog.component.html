@@ -1,0 +1,110 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    <div class="soe-edit-form">
+      @if (form) {
+        <form [formGroup]="form" novalidate autocomplete="off">
+          @if (!isHideProjects) {
+            <div class="row">
+              <div class="col-sm-4 mb-2">
+                <soe-textbox
+                  [labelKey]="'billing.project.project'"
+                  formControlName="invoiceNumber"
+                  readonly="true"
+                  [hidden]="isHideProjects">
+                  <soe-icon-button
+                    [iconName]="'times-circle'"
+                    [tooltip]="'core.delete'"
+                    (action)="clearProject()">
+                  </soe-icon-button>
+                </soe-textbox>
+              </div>
+            </div>
+          }
+          <div class="row">
+            <soe-select-customer-invoice
+              [rows]="invoiceData"
+              [originType]="originType"
+              (changeSelection)="changeSelection($event)"
+              (rowDoubleClicked)="onRowDoubleClicked($event)"
+              (changeFilter)="
+                filterChange($event)
+              "></soe-select-customer-invoice>
+          </div>
+
+          @if (importRow) {
+            <div class="row top-margin">
+              <div class="col-sm-12">
+                <div
+                  class="col-sm-12 information-container"
+                  style="margin: 10px 0px 0px 0px">
+                  <div class="col-sm-3">
+                    <div class="row">
+                      <soe-label [labelKey]="'common.invoicenr'"></soe-label>
+                    </div>
+                    <div class="row">
+                      <soe-label
+                        class="pull-right"
+                        [labelValue]="importRow.invoiceNr">
+                      </soe-label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 margin-small-left">
+                    <div class="row">
+                      <soe-label
+                        [labelKey]="
+                          'common.customer.invoices.invoicedate'
+                        "></soe-label>
+                    </div>
+                    <div class="row">
+                      <soe-label class="pull-right" [labelValue]="paidDate">
+                      </soe-label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 margin-small-left">
+                    <div class="row">
+                      <soe-label
+                        [labelKey]="
+                          'common.customer.invoices.paidamount'
+                        "></soe-label>
+                    </div>
+                    <div class="row">
+                      <soe-label class="pull-right" [labelValue]="paidAmount">
+                      </soe-label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </form>
+      }
+
+      <div class="soe-form-footer">
+        <div class="col-sm-12">
+          <div class="float-end">
+            <soe-button
+              class="ms-3"
+              [caption]="'core.cancel'"
+              typeClass="btn btn-secondary"
+              [behaviour]="'standard'"
+              (action)="cancel()"></soe-button>
+
+            @if (currentMainInvoiceId) {
+              <soe-delete-button
+                class="ms-3"
+                typeClass="btn btn-secondary"
+                (action)="delete()"></soe-delete-button>
+            }
+
+            <soe-button
+              class="ms-3"
+              [caption]="'core.ok'"
+              typeClass="btn btn-secondary"
+              [behaviour]="'primary'"
+              (action)="ok()"></soe-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</soe-dialog>

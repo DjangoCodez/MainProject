@@ -1,0 +1,86 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [open]="true"
+      [static]="true"
+      [labelKey]="
+        'economy.inventory.inventorywriteofftemplates.inventorywriteofftemplate'
+      ">
+      <div class="row">
+        <div class="col-sm-4">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [maxLength]="100"
+            [autoFocus]="true"
+            formControlName="name">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-4">
+          <soe-textbox
+            [labelKey]="'common.description'"
+            [maxLength]="255"
+            formControlName="description">
+          </soe-textbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <soe-select
+            [labelKey]="
+              'economy.inventory.inventorywriteofftemplate.writeoffmethod'
+            "
+            [selectedId]="form.value.inventoryWriteOffMethodId"
+            [items]="writeOffMethods"
+            formControlName="inventoryWriteOffMethodId">
+          </soe-select>
+        </div>
+        <div class="col-sm-4">
+          <soe-select
+            [labelKey]="
+              'economy.inventory.inventorywriteofftemplate.voucherserie'
+            "
+            [selectedId]="form.value.voucherSeriesTypeId"
+            [items]="voucherSeriesTypes"
+            formControlName="voucherSeriesTypeId">
+          </soe-select>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [labelKey]="'economy.inventory.inventorywriteofftemplate.accountsettings'"
+      [open]="true"
+      [static]="true">
+      <div class="row">
+        <div class="col-xs-12 col-lg-12">
+          <soe-accounting-settings
+            [hideAccordion]="true"
+            [settingTypes]="accountSettingTypes"
+            [showBaseAccount]="true"
+            [minRows]="8"
+            [readOnly]="false"
+            [form]="form"
+            [baseAccounts]="baseAccounts"
+            (settingsChange)="accountSettingsChanged($event)"
+            [settings]="
+              form.accountingSettings.value
+            "></soe-accounting-settings>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

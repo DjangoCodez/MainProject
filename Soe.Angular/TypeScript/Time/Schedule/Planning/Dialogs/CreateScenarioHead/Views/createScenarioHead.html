@@ -1,0 +1,106 @@
+﻿<form name="ctrl.edit" autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.planning.scenario.new'" data-ng-if="ctrl.isNew"></h6>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.planning.scenario.edit'" data-ng-if="!ctrl.isNew"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="info">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <soe-textbox label-key="time.schedule.planning.scenario.source" model="ctrl.sourceTypeName" input-class="borderless" input-class-condition="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-6 padding-none-right">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <soe-textbox label-key="common.startdate" model="ctrl.scenarioHead.sourceDateFrom | date:'shortDate'" input-class="borderless" input-class-condition="true"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="common.stopdate" model="ctrl.scenarioHead.sourceDateTo | date:'shortDate'" input-class="borderless" input-class-condition="true"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="common.days" model="ctrl.length" input-class="borderless" input-class-condition="true"></soe-textbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.offsetText">
+                        <div class="col-sm-12">
+                            <span data-l10n-bind="'time.schedule.planning.scenario.hasoffset'"></span>
+                            <span>{{ctrl.offsetText}}</span>
+                            <span><span> (</span><span>{{ctrl.scenarioHead.sourceDateFrom | date:'EEEE'}}</span> <span class="fal fa-long-arrow-right"></span> <span>{{ctrl.scenarioHead.dateFrom | date:'EEEE'}}</span><span>)</span></span>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.lengthDiffText">
+                        <div class="col-sm-12">
+                            <span data-l10n-bind="'time.schedule.planning.scenario.haslengthdiff'"></span>
+                            <span>{{ctrl.lengthDiffText}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-6">
+                <soe-textbox label-key="common.name" model="ctrl.scenarioHead.name" required="true"></soe-textbox>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <soe-datepicker label-key="common.startdate" model="ctrl.scenarioHead.dateFrom" options="ctrl.dateOptions" required="true" is-readonly="!ctrl.isNew || (ctrl.fromScenario && ctrl.dateFunction === 0)" on-change="ctrl.dateFromChanged();"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-datepicker label-key="common.stopdate" model="ctrl.scenarioHead.dateTo" options="ctrl.dateOptions" required="true" is-readonly="!ctrl.isNew || !ctrl.fromScenario || (ctrl.fromScenario && ctrl.dateFunction !== 2)" on-change="ctrl.dateToChanged();"></soe-datepicker>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-checkBox label-key="time.schedule.planning.scenario.new.originatefrom.schedule" model="ctrl.fromSchedule" text-class="indiscreet" text-class-condition="true" data-ng-if="ctrl.isNew && ctrl.isScheduleView"></soe-checkBox>
+                <soe-checkBox label-key="time.schedule.planning.scenario.new.originatefrom.template" model="ctrl.fromTemplate" text-class="indiscreet" text-class-condition="true" data-ng-if="ctrl.isNew && ctrl.isTemplateView"></soe-checkBox>
+                <soe-checkBox label="{{ctrl.fromScenarioLabel}}" model="ctrl.fromScenario" text-class="indiscreet" text-class-condition="true" data-ng-if="ctrl.isNew && ctrl.isScenarioView && ctrl.currentScenarioHeadId"></soe-checkBox>
+                <soe-checkBox label-key="time.schedule.planning.scenario.includeabsence" model="ctrl.includeAbsence" data-ng-if="ctrl.isNew && (ctrl.fromScenario || ctrl.fromSchedule)" text-class="indiscreet margin-small-top" text-class-condition="true"></soe-checkBox>
+                <soe-checkBox label-key="time.schedule.planning.showallemployees" model="ctrl.showAllEmployees" text-class="indiscreet margin-small-top" text-class-condition="true"></soe-checkBox>
+            </div>
+            <div class="col-sm-3" data-ng-if="ctrl.fromScenario">
+                <soe-radiobutton label-key="time.schedule.planning.scenario.datefunction.keepdates" model="ctrl.dateFunction" group="dateFunction" value="0"></soe-radiobutton>
+                <soe-radiobutton label-key="time.schedule.planning.scenario.datefunction.offset" model="ctrl.dateFunction" group="dateFunction" value="1"></soe-radiobutton>
+                <soe-radiobutton label-key="time.schedule.planning.scenario.datefunction.changedates" model="ctrl.dateFunction" group="dateFunction" value="2"></soe-radiobutton>
+            </div>
+            <div class="col-sm-3">
+                <soe-instruction label-key="time.schedule.planning.scenario.datefunction.keepdates.info" full-width="true" data-ng-if="ctrl.fromScenario && ctrl.dateFunction === 0"></soe-instruction>
+                <soe-instruction label-key="time.schedule.planning.scenario.datefunction.offset.info" full-width="true" data-ng-if="ctrl.fromScenario && ctrl.dateFunction === 1"></soe-instruction>
+                <soe-instruction label-key="time.schedule.planning.scenario.datefunction.changedates.info" full-width="true" data-ng-if="ctrl.fromScenario && ctrl.dateFunction === 2"></soe-instruction>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-6" data-ng-if="ctrl.showAccounts">
+                <soe-instruction label-key="time.schedule.planning.scenario.selectaccounts" full-width="true"></soe-instruction>
+            </div>
+            <div data-ng-class="{'col-sm-6': ctrl.showAccounts, 'col-sm-12': !ctrl.showAccounts}">
+                <soe-instruction label-key="time.schedule.planning.scenario.selectemployees" full-width="true"></soe-instruction>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-6" data-ng-show="ctrl.showAccounts">
+                <div id="account-grid" ag-grid="ctrl.gridHandlerAcc.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                <div id="account-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;"></div>
+            </div>
+            <div data-ng-class="{'col-sm-6': ctrl.showAccounts, 'col-sm-12': !ctrl.showAccounts}">
+                <div id="employee-grid" ag-grid="ctrl.gridHandlerEmp.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                <div id="employee-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-inline">
+            <button type="button" class="btn btn-default" data-l10n-bind="'time.employee.employee.createvacantemployees'" data-ng-if="ctrl.useVacant && ctrl.createVacantPermission" data-ng-click="ctrl.openCreateVacantEmployees();"></button>
+            <button type="button" class="btn btn-default" data-l10n-bind="'time.employee.employee.newemployee'" data-ng-if="ctrl.modifyEmployeePermission" data-ng-click="ctrl.newEmployee();"></button>
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel();"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-l10n-bind-title="'core.ok'" data-ng-disabled="ctrl.edit.$invalid || !ctrl.isValidToSave" data-ng-click="$event.stopPropagation();ctrl.initOk();"></button>
+        </div>
+    </div>
+</form>

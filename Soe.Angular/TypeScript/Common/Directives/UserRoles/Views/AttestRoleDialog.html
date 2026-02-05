@@ -1,0 +1,23 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'"></h6>
+    </div>
+    <div class="modal-body">        
+        <div class="row">
+            <div class="col-sm-4">
+                <soe-datepicker label-key="common.fromdate" model="ctrl.userCompanyAttestRole.dateFrom" second-model="ctrl.userCompanyAttestRole.dateTo" validate-date-range="true" is-start-in-range="true" on-change="ctrl.setDirty();"></soe-datepicker>
+            </div>
+            <div class="col-sm-4">
+                <soe-datepicker label-key="common.todate" model="ctrl.userCompanyAttestRole.dateTo" second-model="ctrl.userCompanyAttestRole.dateFrom" validate-date-range="true" on-change="ctrl.setDirty();"></soe-datepicker>
+            </div>
+            <div class="col-sm-3">
+                <soe-textbox label-key="common.user.maxamount" model="ctrl.userCompanyAttestRole.maxAmount" numeric="true" decimals="2" on-change="ctrl.setDirty();"></soe-textbox>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

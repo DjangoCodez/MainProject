@@ -1,0 +1,45 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'economy.accounting.companygroup.mapping'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-4" ng-hide="ctrl.fromInventory">
+                    <soe-textbox label-key="common.number" model="ctrl.companyGroupMapping.number" numeric="true" decimals="0" required="true"></soe-textbox>
+                </div>
+                <div class="col-sm-4">
+                    <soe-textbox label-key="common.name" model="ctrl.companyGroupMapping.name" required="true"></soe-textbox>
+                </div>
+                <div class="col-sm-4" ng-hide="ctrl.fromInventory">
+                    <soe-textbox label-key="common.description" model="ctrl.companyGroupMapping.description"></soe-textbox>
+                </div>
+                <!--<div class="col-sm-3"> ONLY ONE DIMENSION IS SUPPORTED FOR NOW?
+                    <soe-select label-key="common.type" required="true"
+                    model="ctrl.companyGroupAdministration.companyGroupMappingHeadId"
+                    items="ctrl.companyGroupMappings"
+                    options="item.id as item.name for item in items"></soe-select>
+                </div>-->
+            </div>
+            <div class="row margin-large-top">
+                <div class="col-sm-12 margin-large-bottom">
+                    <button type="button" class="btn btn-default btn-sm pull-right" data-l10n-bind="'common.newrow'" data-ng-click="ctrl.addRow()"></button>
+                </div>
+                <div class="col-sm-12">
+                    <div ag-grid="ctrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer no-border no-margin">
+            <div class="pull-right">
+                <div class="col">
+                    <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.close()"></button>
+                    <button type="button" class="btn btn-default" data-l10n-bind="'core.delete'" data-ng-click="ctrl.delete()" ng-if="ctrl.companyGroupMappingId"></button>
+                    <button type="button" class="btn btn-primary" data-l10n-bind="'core.save'" data-ng-click="ctrl.save()" data-ng-disabled="!ctrl.validToSave"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

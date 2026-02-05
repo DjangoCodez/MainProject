@@ -1,0 +1,114 @@
+  <xs:schema id="SOE_ProductReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SOE_ProductReport">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ProductReport">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportHeaderLabels">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="LoginNameLabel"/>
+                    <xs:element type="xs:string" name="PageLabel"/>
+                    <xs:element type="xs:string" name="DateLabel"/>
+                    <xs:element type="xs:string" name="TimeLabel"/>
+                    <xs:element type="xs:string" name="NumberLabel"/>
+                    <xs:element type="xs:string" name="NameLabel"/>
+                    <xs:element type="xs:string" name="OrgNrLabel"/>
+                    <xs:element type="xs:string" name="VatNrLabel"/>
+                    <xs:element type="xs:string" name="CountryLabel"/>
+                    <xs:element type="xs:string" name="ReferenceLabel"/>
+                    <xs:element type="xs:string" name="VatTypeLabel"/>
+                    <xs:element type="xs:string" name="PaymentConditionLabel"/>
+                    <xs:element type="xs:string" name="PhoneJobLabel"/>
+                    <xs:element type="xs:string" name="EmailLabel"/>
+                    <xs:element type="xs:string" name="WebLabel"/>
+                    <xs:element type="xs:string" name="DeliveryAddressLabel"/>
+                    <xs:element type="xs:string" name="DistributionAdressLabel"/>
+                    <xs:element type="xs:string" name="VisitingAddressLabel"/>
+                    <xs:element type="xs:string" name="BillingAddressLabel"/>
+                    <xs:element type="xs:string" name="AdressStreetLabel"/>
+                    <xs:element type="xs:string" name="AdressCOLabel"/>
+                    <xs:element type="xs:string" name="AdressPostalCodeLabel"/>
+                    <xs:element type="xs:string" name="AdressPostalAddressLabel"/>
+                    <xs:element type="xs:string" name="AdressPostalCountryLabel"/>
+                    <xs:element type="xs:string" name="PaymentTypeLabel"/>
+                    <xs:element type="xs:string" name="PaymentNameLabel"/>
+                    <xs:element type="xs:string" name="PaymentAccountLabel"/>
+                    <xs:element type="xs:string" name="StandardLabel"/>
+                    <xs:element type="xs:string" name="CategoriesLabel"/>
+                    <xs:element type="xs:string" name="CategoryCodeLabel"/>
+                    <xs:element type="xs:string" name="CategoryNameLabel"/>
+                    <xs:element type="xs:string" name="AddressesLabel"/>
+                    <xs:element type="xs:string" name="TelecomLabel"/>
+                    <xs:element type="xs:string" name="CurrencyLabel"/>
+                    <xs:element type="xs:string" name="AccountDimLabel"/>
+					<xs:element type="xs:string" name="SupplierIdLabel"/>
+				    <xs:element type="xs:string" name="SupplierNameLabel"/>
+				    <xs:element type="xs:string" name="SupplierPaymentsLabel"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ReportHeader">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="ReportTitle"/>
+                    <xs:element type="xs:string" name="ReportDescription"/>
+                    <xs:element type="xs:string" name="ReportNr"/>
+                    <xs:element type="xs:string" name="Company"/>
+                    <xs:element type="xs:string" name="Orgnr"/>
+                    <xs:element type="xs:string" name="LoginName"/>
+                    <xs:element type="xs:string" name="DateRegardName"/>
+                    <xs:element type="xs:string" name="SortOrderName"/>
+                    <xs:element type="xs:string" name="InvoiceSelectionName"/>
+                    <xs:element type="xs:string" name="DateInterval"/>
+                    <xs:element type="xs:string" name="InvoiceInterval"/>
+                    <xs:element type="xs:string" name="ProductInterval"/>
+                    <xs:element type="xs:string" name="EntCurrencyName"/>
+                    <xs:element type="xs:string" name="EntCurrencyCode"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:string" name="PageHeaderLabels"/>
+              <xs:element name="AccountDims" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:int" name="AccountDimNr"/>
+                    <xs:element type="xs:string" name="AccountSieDimNr"/>
+                    <xs:element type="xs:string" name="AccountDimName"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Product" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="ProductNr"/>
+                    <xs:element type="xs:string" name="ProductName"/>
+                    <xs:element type="xs:string" name="Unit"/>
+                    <xs:element type="xs:string" name="EAN"/>
+                    <xs:element type="xs:string" name="Description"/>
+                    <xs:element type="xs:string" name="Type"/>
+		    <xs:element type="xs:string" name="Weight"/>
+                    <xs:element type="xs:decimal" name="Purchaseprice"/>
+                    <xs:element name="Salesprices" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="PriceListCode"/>
+                          <xs:element type="xs:decimal" name="Price"/>
+                          <xs:element type="xs:dateTime" name="StartDate"/>
+                          <xs:element type="xs:dateTime" name="StopDate"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="Id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="Id"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

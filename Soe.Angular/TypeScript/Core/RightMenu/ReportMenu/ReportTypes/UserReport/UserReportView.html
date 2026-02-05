@@ -1,0 +1,30 @@
+﻿<div class="form-group form-group-sm">
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-4">
+                <date-selection on-selected="$ctrl.onDateSelectionUpdated(selection)" label-key="common.date" date="$ctrl.date" user-selection-input="$ctrl.userSelectionInputDate" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-4">
+                <users-selection on-selected="$ctrl.onUserSelectionUpdated(selection)" selected-date="$ctrl.date" label-key="common.users" user-selection-input="$ctrl.userSelectionInputUser" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-4">
+                <bool-selection on-selected="$ctrl.onBoolSelectionUniqueRowUpdated(selection)" label-key="common.uniquerowuserroleattestrole" user-selection-input="$ctrl.userSelectionInputUniqueRow" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-12">
+                <matrix-column-selection on-selected="$ctrl.onMatrixColumnSelectionUpdated(selection)" module="$ctrl.module" sys-report-template-type-id="$ctrl.sysReportTemplateTypeId" report-id="$ctrl.reportId" user-selection-input="$ctrl.userSelectionInputColumns" selections="$ctrl.selections" show-insights="true" />
+            </div>
+        </div>
+    </div>
+</div>

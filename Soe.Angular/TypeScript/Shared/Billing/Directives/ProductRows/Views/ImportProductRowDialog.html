@@ -1,0 +1,28 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'billing.productrows.importproductrow'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="margin-large-top">
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-file-upload callback="ctrl.fileUploaded(result)" single-file="true" url="{{::ctrl.fileUrl}}" return-array="true"></soe-file-upload>
+                </div>
+                <div class="col-sm-6">
+                    <soe-label model="ctrl.filename"></soe-label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-select label-key="billing.productrows.importtype" model="ctrl.typeId" required="true" items="ctrl.importType" options="item.id as item.name for item in items" tab-with-enter></soe-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'common.download.exceltemplate'" data-ng-click="ctrl.buttonDownloadTemplateClick()" data-ng-disabled="(!ctrl.typeId)"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.buttonOkClick()" data-ng-disabled="(!ctrl.bytes || !ctrl.typeId)"></button>
+    </div>
+</div>

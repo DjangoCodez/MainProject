@@ -1,0 +1,16 @@
+@use '../../../../../../shared/styles/core-styles/colors.scss';
+
+$scanning-color-fade: 0.1;
+::ng-deep {
+    .value-is-valid input {
+        background-color: rgba(colors.$success, $scanning-color-fade);
+    }
+
+    .value-is-unsettled input {
+        background-color: rgba(colors.$danger, $scanning-color-fade);
+    }
+
+    .value-is-not-found input {
+        background-color: rgba(colors.$warning, $scanning-color-fade);
+    }
+}

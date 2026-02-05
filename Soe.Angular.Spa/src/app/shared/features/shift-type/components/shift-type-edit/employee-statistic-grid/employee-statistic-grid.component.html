@@ -1,0 +1,15 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [height]="200"
+    [rows]="rows"
+    [noMargin]="true"
+    [toolbarNoPadding]="true"
+    [parentGuid]="guid()"
+    (editRowClicked)="edit($event)"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+    <div toolbar-content-left>
+      <soe-label
+        [labelKey]="'time.schedule.shifttype.employeestatistic'"></soe-label>
+    </div>
+  </soe-grid-wrapper>
+}

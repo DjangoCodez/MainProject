@@ -1,0 +1,10 @@
+﻿<form class="form-inline">
+    <div>
+        <div class="form-group form-group-sm">
+            <soe-select model="ctrl.selectedAccountYear" items="ctrl.accountYears" options="item.accountYearId as item.yearFromTo for item in items" ng-if="!ctrl.isTemplates"></soe-select>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-select model="ctrl.selectedVoucherSerie" items="ctrl.voucherSeriesTypes" options="item.value as item.label for item in items" ng-if="!ctrl.isTemplates"></soe-select>
+        </div>
+    </div>
+</form>

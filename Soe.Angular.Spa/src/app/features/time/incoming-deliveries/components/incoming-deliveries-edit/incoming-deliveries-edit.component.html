@@ -1,0 +1,122 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-textbox
+                  #nameField
+                  [labelKey]="'common.name'"
+                  [maxLength]="100"
+                  [autoFocus]="true"
+                  formControlName="name">
+                </soe-textbox>
+              </div>
+            </div>
+            @if (useAccountsHierarchy()) {
+              <div class="row">
+                <div class="col-sm-12">
+                  <soe-select
+                    [labelKey]="'common.user.attestrole.accounthierarchy'"
+                    [items]="accounts"
+                    formControlName="accountId">
+                  </soe-select>
+                </div>
+              </div>
+            }
+          </div>
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-textarea
+                  [labelKey]="'common.description'"
+                  [rows]="3"
+                  [resizeable]="true"
+                  formControlName="description">
+                </soe-textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <soe-expansion-panel
+          [labelKey]="'common.dailyrecurrencepattern'"
+          [static]="true">
+          <div class="font-md">
+            <div class="row">
+              <div class="col-sm-12">
+                <span class="font-md">{{
+                  form.value.recurrencePatternDescription
+                }}</span>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-sm-12">
+                <span>{{ form.value.recurrenceStartsOnDescription }}</span>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-sm-12">
+                <span>{{ form.value.recurrenceEndsOnDescription }}</span>
+              </div>
+            </div>
+            @if (form.value.excludedDates.length > 0) {
+              <div class="row mt-2">
+                <div class="col-sm-12">
+                  <span class="me-1">
+                    {{
+                      'common.dailyrecurrencepattern.excludeddates' | translate
+                    }}:</span
+                  >
+                  <span>{{ form.value.excludedDatesDescription }}</span>
+                </div>
+              </div>
+            }
+          </div>
+          <div class="row mt-3">
+            <div class="col-sm-12">
+              <soe-button
+                [caption]="
+                  form.hasRecurrencePattern
+                    ? 'common.dailyrecurrencepattern.editpattern'
+                    : 'common.dailyrecurrencepattern.createpattern'
+                "
+                [iconName]="'repeat'"
+                (action)="openRecurrencePatternDialog()"></soe-button>
+            </div>
+          </div>
+        </soe-expansion-panel>
+      </div>
+    </div>
+    <soe-expansion-panel
+      [labelKey]="'time.schedule.incomingdelivery.rows'"
+      [open]="true"
+      [noTopPadding]="true">
+      <soe-incoming-deliveries-edit-rows-grid
+        [form]="form"
+        [minLength]="minLength()"></soe-incoming-deliveries-edit-rows-grid>
+    </soe-expansion-panel>
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      [saveMenuList]="saveMenuList"
+      [saveMenuDefaultItem]="saveMenuList[0]"
+      [saveMenuDropLeft]="true"
+      [saveMenuDropUp]="true"
+      (saveMenuListItemSelected)="onSaveMenuListItemSelected($event)"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

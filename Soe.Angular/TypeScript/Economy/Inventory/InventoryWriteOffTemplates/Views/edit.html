@@ -1,0 +1,52 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="economy.inventory.inventorywriteofftemplates.inventorywriteofftemplate">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.name" model="ctrl.inventoryWriteOffTemplate.name" required="true" maxlength="20" auto-focus="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.description" model="ctrl.inventoryWriteOffTemplate.description" maxlength="100"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="economy.inventory.inventorywriteofftemplate.writeoffmethod" model="ctrl.inventoryWriteOffTemplate.inventoryWriteOffMethodId" items="ctrl.writeOffMethods" options="item.id as item.name for item in items" required="true"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-select label-key="economy.inventory.inventorywriteofftemplate.voucherserie" model="ctrl.inventoryWriteOffTemplate.voucherSeriesTypeId" items="ctrl.voucherSeries" options="item.voucherSeriesTypeId as item.name for item in items" required="true"></soe-select>
+                    </div>
+                </div>                
+            </div>
+        </soe-panel>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="economy.inventory.inventorywriteofftemplate.accountsettings" is-open="false">
+                <div class="form-group form-group-sm">                    
+                    <div class="row">
+                        <div class="col-sm-9">                            
+                            <accounting-settings setting-types="ctrl.inventoryAccountSettingTypes" settings="ctrl.inventoryAccountingSettings" base-accounts="ctrl.inventoryBaseAccounts" show-base-account="true" min-rows="8" read-only="false" parent-guid="ctrl.guid"></accounting-settings>
+                        </div>                        
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.inventoryWriteOffTemplate"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

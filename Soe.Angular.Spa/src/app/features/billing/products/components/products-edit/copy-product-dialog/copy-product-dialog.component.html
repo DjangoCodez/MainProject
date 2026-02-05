@@ -1,0 +1,43 @@
+<soe-dialog>
+  <div class="p-3" dialog-content [formGroup]="form">
+    <div class="row">
+      <div class="col-sm-12">
+        <soe-instruction
+          [type]="'info'"
+          [fitToContent]="false"
+          [text]="'billing.product.copyproductinfo'"></soe-instruction>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <soe-checkbox
+          [labelKey]="'billing.product.copyprices'"
+          formControlName="copyPrice"></soe-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <soe-checkbox
+          [labelKey]="'billing.product.copyaccounts'"
+          formControlName="copyAccounts"></soe-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <soe-checkbox
+          [labelKey]="'billing.product.copystock'"
+          formControlName="copyStock"></soe-checkbox>
+      </div>
+    </div>
+  </div>
+  <div dialog-footer>
+    <soe-button
+      (action)="closeDialog()"
+      [caption]="'core.cancel'"
+      [behaviour]="'standard'"></soe-button>
+    <soe-button
+      [caption]="'core.ok'"
+      [behaviour]="'primary'"
+      (action)="triggerOk()"></soe-button>
+  </div>
+</soe-dialog>

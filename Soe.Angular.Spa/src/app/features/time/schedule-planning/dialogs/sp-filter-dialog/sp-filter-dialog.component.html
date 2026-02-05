@@ -1,0 +1,96 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-multi-select
+                  [labelKey]="'common.employees'"
+                  [items]="filterService.employeesDict || []"
+                  [showSelectedItemsInline]="true"
+                  formControlName="employeeIds"
+                  (onSelectionComplete)="onEmployeesChanged($event)">
+                </soe-multi-select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-checkbox
+                  [labelKey]="'time.schedule.planning.showallemployees'"
+                  formControlName="showAllEmployees"></soe-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-multi-select
+                  [labelKey]="'time.schedule.shifttype.shifttypes'"
+                  [items]="filterService.shiftTypesDict || []"
+                  [showSelectedItemsInline]="true"
+                  formControlName="shiftTypeIds"
+                  (onSelectionComplete)="onShiftTypesChanged($event)">
+                </soe-multi-select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-checkbox
+                  [labelKey]="'time.schedule.planning.showhiddenshifts'"
+                  formControlName="showHiddenShifts"></soe-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-multi-select
+                  [labelKey]="'common.type'"
+                  [items]="filterService.blockTypesDict || []"
+                  [showSelectedItemsInline]="true"
+                  formControlName="blockTypes"
+                  (onSelectionComplete)="onBlockTypesChanged($event)">
+                </soe-multi-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <!-- TODO: New term -->
+            <user-selection
+              [labelKey]="'Sparade urval'"
+              [selectionType]="userSelectionType()"
+              [selectedUserSelectionId]="selectedUserSelectionId()"
+              [savePublicPermission]="
+                settingService.savePublicSelectionPermission()
+              "
+              (onSelectionsLoaded)="onUserSelectionsLoaded($event)"
+              (onSelected)="onUserSelectionSelected($event)"></user-selection>
+          </div>
+        </div>
+      </form>
+    }
+  </ng-container>
+  <div dialog-footer>
+    <soe-button
+      class="ms-3"
+      [caption]="'core.uigrid.gridmenu.clear_all_filters'"
+      [iconName]="'filter-slash'"
+      (action)="clear()"></soe-button>
+    <soe-button
+      class="ms-3"
+      [caption]="'core.cancel'"
+      (action)="cancel()"></soe-button>
+    <soe-button
+      class="ms-3"
+      [caption]="'core.ok'"
+      [behaviour]="'primary'"
+      (action)="ok()"></soe-button></div
+></soe-dialog>

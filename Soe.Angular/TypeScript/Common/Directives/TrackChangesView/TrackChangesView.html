@@ -1,0 +1,26 @@
+﻿<div>
+    <div class="info form-inline margin-small-bottom">
+        <div class="form-group form-group-sm">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-sm btn-default fal fa-chevron-left" data-l10n-bind data-l10n-bind-title="'common.from'" data-ng-click="ctrl.decreaseDate()"></button>
+                </span>
+                <soe-datepicker hidelabel="true" model="ctrl.fromDate" use-ignore-dirty="true"></soe-datepicker>
+            </div>
+        </div>
+        <span>-</span>
+        <div class="form-group form-group-sm">
+            <div class="input-group">
+                <soe-datepicker hidelabel="true" model="ctrl.toDate" use-ignore-dirty="true" button-class="no-border-radius"></soe-datepicker>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-sm btn-default fal fa-chevron-right border-radius-right" data-l10n-bind data-l10n-bind-title="'common.to'" data-ng-click="ctrl.increaseDate()"></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+    <soe-toolbar buttons="ctrl.buttonGroups"></soe-toolbar>
+    <div>
+        <div ag-grid="ctrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 300px; width: 100%;"></div>
+    </div>
+</div>

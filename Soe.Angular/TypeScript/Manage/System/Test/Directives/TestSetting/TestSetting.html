@@ -1,0 +1,24 @@
+﻿<div>
+    <soe-panel label-key="common.settings" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.editTestGroupSetting();">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 28px"></th>
+                    <th scope="col" data-l10n-bind="'common.name'"></th>
+                    <th scope="col" data-l10n-bind="'common.value'"></th>
+                    <th scope="col" style="width: 28px"></th>
+                    <th scope="col" style="width: 28px"></th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="setting in ctrl.testCaseSettingDTOs | filter: ctrl.settingFilter">
+                <tr>
+                    <td><i class="{{setting.icon}}"></i></td>
+                    <td><span>{{setting.name}}</span></td>
+                    <td><span>{{setting.value}}</span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editTestGroupSetting(setting);"></i></span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteTestGroupSetting(setting);"></i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </soe-panel>
+</div>

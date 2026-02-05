@@ -1,0 +1,29 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header scheduleview-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.planning.contextmenu.deleteabsence'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-instruction label-key="time.schedule.planning.deleteshift.warning" is-warning="true"></soe-instruction>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <span class="indiscreet largeFont"><span>{{ctrl.shiftEmployee}}</span><span class="margin-small-left">{{ctrl.shiftDate}}</span></span>
+            </div>
+        </div>
+
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <span>{{::shift.actualStartDate | date:'shortDate'}}</span>
+                <span>{{::shift.shiftTypeName}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'core.ok'" data-ng-disabled="ctrl.executing" data-ng-click="ctrl.ok()"></button>
+        <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+    </div>
+</form>

@@ -1,0 +1,28 @@
+﻿<div class="ngSoeForm form-group form-group-sm">
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div class="row">
+        <soe-textbox class="col-md-3" label-key="common.licensename" model="ctrl.search.licenseSearch"></soe-textbox>
+        <soe-textbox class="col-md-3" label-key="common.companyname" model="ctrl.search.companySearch"></soe-textbox>
+        <soe-textbox class="col-md-3" label-key="common.rolename" model="ctrl.search.RoleSearch"></soe-textbox>
+        <soe-textbox class="col-md-3" label-key="common.username" model="ctrl.search.userSearch"></soe-textbox>
+    </div>
+    <div class="row">
+        <soe-datepicker class="col-md-3" label-key="common.fromdate" model="ctrl.search.fromDate"></soe-datepicker>
+        <soe-timebox class="col-md-3" hide-label="true" model="ctrl.search.fromTime" update-on="blur" is-time="true"></soe-timebox>
+        <soe-datepicker class="col-md-3" label-key="common.todate" model="ctrl.search.toDate"></soe-datepicker>
+        <soe-timebox class="col-md-3" hide-label="true" model="ctrl.search.toTime" update-on="blur" is-time="true"></soe-timebox>
+    </div>
+    <div class="row">
+        <soe-textbox class="col-md-6" label-key="manage.support.logs.incmessage" model="ctrl.search.incMessageSearch"></soe-textbox>
+        <soe-textbox class="col-md-6" label-key="manage.support.logs.exlmessage" model="ctrl.search.exlMessageSearch"></soe-textbox>
+    </div>
+    <div class="row">
+        <soe-textbox class="col-md-6" label-key="manage.support.logs.incexception" model="ctrl.search.incExceptionSearch"></soe-textbox>
+        <soe-textbox class="col-md-6" label-key="manage.support.logs.exexception" model="ctrl.search.exExceptionSearch"></soe-textbox>
+    </div>
+    <div class="row">
+        <soe-select class="col-md-3" label-key="manage.support.logs.level" model="ctrl.search.level" items="ctrl.levelFilterOptions" options="item.id as item.name for item in items"></soe-select>
+        <soe-textbox class="col-md-3" label-key="manage.support.logs.noofrecords" model="ctrl.search.noOfRecords"></soe-textbox>
+    </div>
+</div>

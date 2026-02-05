@@ -1,0 +1,106 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div mass-registration-validation ng-model="ctrl.head" rows="ctrl.head.rows" data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="time.payroll.massregistration.massregistration" is-open="true">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="row form-group form-group-sm">
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="common.name" model="ctrl.head.name" required="true" maxlength="100" set-focus="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-checkbox label-key="time.payroll.massregistration.isrecurring" model="ctrl.head.isRecurring" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-datepicker label-key="time.payroll.massregistration.recurringdateto" model="ctrl.head.recurringDateTo" is-readonly="!ctrl.modifyPermission"></soe-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textarea label-key="common.comment" model="ctrl.head.comment" rows="4" maxlength="2048" is-readonly="!ctrl.modifyPermission"></soe-textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="time.payroll.massregistration.rows" is-open="true">
+                <div class="row form-inline margin-small-bottom" data-ng-if="ctrl.modifyPermission">
+                    <div class="form-group form-group-sm margin-large-left">
+                        <soe-select hidelabel="true" model="ctrl.head.inputType" items="ctrl.inputTypes" options="item.id as item.name for item in items" input-width="200px" is-readonly="!ctrl.modifyPermission"></soe-select>
+                    </div>
+                    <div class="col-sm-6 pull-right">
+                        <soe-splitbutton label-key="time.payroll.massregistration.rowfunctions.addrow" options="ctrl.rowFunctions" main-button="true" last-button-class="last-button" option-selected="ctrl.executeAddRowFunction(option)"></soe-splitbutton>
+                    </div>
+                </div>
+                <div class="row form-inline margin-none-left margin-none-right">
+                    <div class="form-group form-group-sm" style="margin-left: 152px; margin-top: -4px;">
+                        <soe-label label-key="time.payroll.massregistration.stopon" text-width="60px"></soe-label>
+                        <soe-label label-key="time.payroll.massregistration.template" text-width="60px" text-class="margin-large-top" text-class-condition="true"></soe-label>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <soe-checkbox style="margin-bottom: 4px;" label-key="time.time.timeperiod.paymentdate" model="ctrl.head.stopOnPaymentDate" condensed="true" text-class="indiscreet" text-class-condition="true" text-width="127px" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.setupSteppingRules();"></soe-checkbox>
+                        <soe-select hidelabel="true" model="ctrl.paymentDate" items="ctrl.paymentDates" options="item.date as item.label for item in items" input-width="127px" is-readonly="!ctrl.modifyPermission"></soe-select>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <soe-checkbox style="margin-bottom: 4px;" label-key="common.payrollproduct" model="ctrl.head.stopOnProduct" condensed="true" text-class="indiscreet" text-class-condition="true" text-width="127px" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.setupSteppingRules();"></soe-checkbox>
+                        <soe-select hidelabel="true" model="ctrl.head.payrollProductId" items="ctrl.payrollProducts" options="item.productId as item.numberName for item in items" input-width="127px" is-readonly="!ctrl.modifyPermission"></soe-select>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <soe-checkbox style="margin-bottom: 4px;" label-key="common.from" model="ctrl.head.stopOnDateFrom" condensed="true" text-class="indiscreet" text-class-condition="true" text-width="127px" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.setupSteppingRules();"></soe-checkbox>
+                        <soe-datepicker hidelabel="true" model="ctrl.head.dateFrom" input-width="94px" is-readonly="!ctrl.modifyPermission" on-change="ctrl.dateFromChanged();"></soe-datepicker>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <soe-checkbox style="margin-bottom: 4px;" label-key="common.to" model="ctrl.head.stopOnDateTo" condensed="true" text-class="indiscreet" text-class-condition="true" text-width="127px" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.setupSteppingRules();"></soe-checkbox>
+                        <soe-datepicker hidelabel="true" model="ctrl.head.dateTo" input-width="94px" is-readonly="!ctrl.modifyPermission"></soe-datepicker>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <soe-checkbox style="margin-bottom: 4px;" label-key="common.quantity" model="ctrl.head.stopOnQuantity" condensed="true" text-class="indiscreet" text-class-condition="true" text-width="68px" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.setupSteppingRules();"></soe-checkbox>
+                        <soe-textbox hidelabel="true" model="ctrl.head.quantity" numeric="true" decimals="2" input-width="68px" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <div style="margin-bottom: 4px;">
+                            <soe-checkbox label-key="time.payroll.massregistration.row.isspecifiedunitprice" model="ctrl.head.stopOnIsSpecifiedUnitPrice" condensed="true" text-class="indiscreet" text-class-condition="true" text-width="74px" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.setupSteppingRules();"></soe-checkbox>
+                        </div>
+                        <div style="margin-top: -4px;">
+                            <soe-checkbox hidelabel="true" model="ctrl.head.isSpecifiedUnitPrice" condensed="true" text-width="74px" text-class="margin-small-top" text-class-condition="true" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.isSpecifiedUnitPriceChanging();"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <soe-checkbox style="margin-bottom: 4px;" label-key="common.price" model="ctrl.head.stopOnUnitPrice" condensed="true" text-class="indiscreet" text-class-condition="true" text-width="68px" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                        <soe-textbox hidelabel="true" model="ctrl.head.unitPrice" numeric="true" decimals="2" input-width="68px" is-readonly="!ctrl.modifyPermission || !ctrl.head.isSpecifiedUnitPrice"></soe-textbox>
+                    </div>
+                    <div class="form-group form-group-sm" style="margin-top: 9px;">
+                        <account-dims account1="ctrl.head.dim1Id" account2="ctrl.head.dim2Id" account3="ctrl.head.dim3Id" account4="ctrl.head.dim4Id" account5="ctrl.head.dim5Id" account6="ctrl.head.dim6Id" is-readonly="!ctrl.modifyPermission"></account-dims>
+                    </div>
+                </div>
+                <div class="row margin-large-top">
+                    <div class="col-sm-12">
+                        <div id="rows-grid" ag-grid="ctrl.gridHandler.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                        <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.head"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.head.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                    <soe-splitbutton class="pull-right" label-key="time.payroll.massregistration.functions.createtransactions" options="ctrl.buttonFunctions" drop-up="true" data-ng-if="ctrl.massRegistrationTemplateHeadId" option-selected="ctrl.executeFunction(option)" is-disabled="ctrl.loading"></soe-splitbutton>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

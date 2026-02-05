@@ -1,0 +1,56 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <div incoming-delivery-types-validation ng-model="ctrl.incomingDeliveryType" min-length="ctrl.companySettingMinLength">
+            <soe-panel label-key="time.schedule.incomingdeliverytype.incomingdeliverytype">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <soe-textbox label-key="common.name" model="ctrl.incomingDeliveryType.name" required="true" maxlength="100"></soe-textbox>
+                        </div>
+                        <div class="col-sm-9">
+                            <soe-textbox label-key="common.description" model="ctrl.incomingDeliveryType.description" maxlength="512"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.useAccountsHierarchy">
+                        <div class="col-sm-3">
+                            <soe-select label-key="common.user.attestrole.accounthierarchy" model="ctrl.incomingDeliveryType.accountId" items="ctrl.accounts" options="item.accountId as item.name for item in items"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="time.schedule.incomingdeliverytype.lengthminutes" model="ctrl.incomingDeliveryType.length" numeric="true" decimals="0" on-change="ctrl.numberChanged('length')"></soe-textbox>
+                        </div>
+                        <div class="col-sm-1" data-ng-if="ctrl.companySettingMinLength > 0">
+                            <soe-label></soe-label>
+                            <soe-instruction model="ctrl.minLengthInfoLabel" full-width="true"></soe-instruction>
+                        </div>
+                        <!--<div class="col-sm-1 info" data-ng-if="ctrl.companySettingMinLength > 0" style="margin:22px 0 0 0;display:inline-block;white-space:nowrap;">
+                            <span data-l10n-bind="'common.min'" style="text-align:center"></span>
+                            <span style="text-align:center">{{ctrl.companySettingMinLength}}</span>
+                        </div>-->
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="time.schedule.incomingdeliverytype.nbrofpersons" model="ctrl.incomingDeliveryType.nbrOfPersons" numeric="true" decimals="0" on-change="ctrl.numberChanged('nbrOfPersons')"></soe-textbox>
+                        </div>
+                    </div>
+                </div>
+            </soe-panel>
+            <div class="ngSoeFormFooter">
+                <div class="col-sm-4">
+                    <created-modified model="ctrl.incomingDeliveryType"></created-modified>
+                </div>
+                <div class="col-sm-8">
+                    <div class="pull-right">
+                        <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                        <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

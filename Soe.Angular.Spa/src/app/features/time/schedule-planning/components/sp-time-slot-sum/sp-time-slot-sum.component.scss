@@ -1,0 +1,65 @@
+@use '../../../../../shared/styles/core-styles/colors.scss';
+@use '../../../../../shared/styles/core-styles/fonts.scss';
+@use '../schedule-planning/schedule-planning-common.scss';
+
+.time-slot-sum-container {
+  background-color: colors.$soe-header-background-color;
+  border-bottom: 2px solid colors.$soe-border-color;
+
+  .time-slots-row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    font-size: fonts.$soe-font-size-md;
+    border-style: solid;
+    border-color: colors.$soe-border-color;
+    border-width: 1px 1px 1px 0;
+    margin-top: -1px;
+
+    .employee-slot {
+      padding: 0.125rem !important;
+      padding-left: 0.25rem !important;
+      padding-right: 0.25rem !important;
+      border-right-width: 2px;
+      // position: sticky;
+      // left: 0;
+      // background-color: colors.$soe-header-background-color;
+
+      .total-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: fonts.$soe-font-size-sm;
+
+        .total-label {
+          text-align: left;
+        }
+
+        .total-value {
+          text-align: right;
+        }
+      }
+    }
+
+    .time-slots {
+      .time-slot {
+        align-content: center;
+
+        &.is-end-of-hour {
+          border-right-color: colors.$soe-color-neutral-grey;
+        }
+
+        &.time-slot-week-day.is-sunday {
+          border-right-width: 2px;
+        }
+
+        &.time-slot-week-day.is-today,
+        &.time-slot-week-day.is-saturday,
+        &.time-slot-week-day.is-sunday {
+          // Background color is set in schedule-planning-common.scss, unset it here
+          background-color: unset;
+        }
+      }
+    }
+  }
+}

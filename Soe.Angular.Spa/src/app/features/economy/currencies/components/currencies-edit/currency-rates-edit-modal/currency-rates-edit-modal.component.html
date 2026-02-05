@@ -1,0 +1,65 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-datepicker
+              [labelKey]="'common.date'"
+              formControlName="date"></soe-datepicker>
+          </div>
+          <div class="col-sm-6">
+            <soe-select
+              [labelKey]="'economy.accounting.currency.source'"
+              [items]="data.sources"
+              formControlName="source"></soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-numberbox
+              [labelKey]="rateFromBase"
+              [disallowNegative]="true"
+              [decimals]="4"
+              (valueChanged)="rateToBaseChanged($event)"
+              formControlName="rateToBase"></soe-numberbox>
+          </div>
+          <div class="col-sm-6">
+            <soe-numberbox
+              [labelKey]="rateToBase"
+              [disallowNegative]="true"
+              [decimals]="4"
+              (valueChanged)="rateFromBaseChanged($event)"
+              formControlName="rateFromBase"></soe-numberbox>
+          </div>
+        </div>
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    @if (permissionToSave) {
+      <soe-button
+        (action)="closeDialog()"
+        [caption]="'core.cancel'"
+        [behaviour]="'standard'"></soe-button>
+      <soe-save-button
+        class="ms-3"
+        [caption]="'core.ok'"
+        [invalid]="form.invalid"
+        [dirty]="form.dirty"
+        (action)="triggerOk()"
+        (validationErrorsAction)="
+          form.openFormValidationErrors()
+        "></soe-save-button>
+    } @else {
+      <soe-button
+        (action)="closeDialog()"
+        [caption]="'core.close'"
+        [behaviour]="'standard'"></soe-button>
+    }
+  </div>
+</soe-dialog>

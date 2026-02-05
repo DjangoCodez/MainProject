@@ -1,0 +1,9 @@
+﻿<div class="messagebox">
+    <div class="modal-body">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" always-show="true" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-record-name="true" navigator-show-dropdown="true" navigator-record-is-date="true" navigator-on-selection-changed="ctrl.toolbar.selectedDateChanged(record);"></soe-toolbar>
+        <row-detail is-modal="true" show-multiple-days="false" expand-all="true" data="ctrl.data" is-Dirty="ctrl.isDirty" style="margin: 15px 0 0 0;" data-ng-if="!ctrl.showMultipleDays"></row-detail>
+        <div data-ng-if="ctrl.showMultipleDays" data-ng-repeat="day in ctrl.days">
+            <row-detail is-modal="true" show-multiple-days="true" data="day" style="margin: 15px 0 0 0;"></row-detail>
+        </div>
+    </div>
+</div>

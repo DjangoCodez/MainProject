@@ -1,0 +1,439 @@
+﻿@import (reference) "variables.less";
+@import (reference) "common.less";
+
+.grid-container {
+    margin: -8px -16px -16px -16px;
+    padding: 8px;
+}
+
+.edit-padding {
+    .grid-container {
+        margin: -9px -10px -6px -10px;
+    }
+}
+
+.grid-footer-container {
+    margin: 0px -8px 0px -8px;
+
+    .ngSoeFormFooter {
+        margin: 0px -8px -8px -8px;
+    }
+}
+
+.ag-theme-balham {
+    font-family: 'Roboto Condensed', Verdana, Arial, Helvetica, Sans-serif !important;
+    font-size: 12px !important;
+    color: @soe-text-color;
+    --ag-foreground-color: @soe-text-color;
+    --ag-data-color: @soe-text-color;
+    --ag-balham-active-color: @accentColor;
+    --ag-header-foreground-color: @soe-text-color;
+    --ag-header-background-color: @soe-header-background-color;
+    --ag-control-panel-background-color: @soe-header-background-color;
+    --ag-odd-row-background-color: @soe-color-neutral-ag-white;
+    --ag-selected-row-background-color: @soe-color-secondary-medium-blue;
+    --ag-row-hover-color: @soe-color-secondary-light-blue;
+    --ag-border-color: @soe-border-color;
+    --ag-header-column-separator-display: none;
+    --ag-chip-background-color: @soe-color-neutral-light-grey;
+
+    .ag-header-cell-resize {
+        margin: 8px 0px;
+        height: 16px;
+        width: 5px;
+        border-right: 1px solid @soe-color-neutral-grey
+    }
+
+    .ag-header-group-cell {
+        .ag-header-cell-resize {
+            width: 1px;
+            right: 0px;
+        }
+    }
+
+    .ag-ltr .ag-header-cell-resize {
+        right: 0px;
+    }
+
+    .ag-header {
+        font-family: 'Roboto Condensed', Verdana, Arial, Helvetica, Sans-serif !important;
+        font-size: 12px !important;
+        background-color: @soe-header-background-color;
+        border-bottom-color: @soe-color-neutral-light-grey;
+    }
+
+    .ag-header-cell {
+        padding-left: 3px !important;
+        padding-right: 3px !important;
+        font-weight: bold;
+    }
+
+    .ag-floating-filter {
+        font-weight: normal;
+    }
+
+    .ag-floating-filter-button {
+        margin-left: 3px !important;
+    }
+
+    .ag-column-drop-cell {
+        background-color: @soe-color-neutral-light-grey !important;
+    }
+
+    .ag-tooltip {
+        background-color: @soe-background-color !important;
+        border: 1px solid #000000 !important;
+        box-shadow: unset !important;
+        z-index: 5000;
+    }
+
+    .ag-cell-edit-input {
+        width: 100%;
+    }
+
+    .ag-cell.text-center, .ag-cell.shape-column {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .grid-text-right {
+        text-align: right !important;
+    }
+}
+
+.ag-theme-balham.no-detail-padding {
+    .ag-details-row {
+        padding: 2px 2px 3px 2px !important;
+    }
+}
+
+.no-row-group-indent {
+    .ag-cell-wrapper.ag-row-group[class*="ag-row-group-indent"],
+    .ag-cell-wrapper.ag-row-group-leaf-indent[class*="ag-row-group-indent"] {
+        padding-left: 0;
+    }
+}
+
+.ag-row-hover {
+    // This is needed to override selected row color
+    background-color: @soe-color-secondary-light-blue !important;
+}
+
+.time-attest {
+    .ag-theme-balham {
+        font-family: 'Roboto Condensed', Verdana, Arial, Helvetica, Sans-serif !important;
+        font-size: 12px !important;
+
+        .underline {
+            border-bottom: 2px solid @soe-border-color !important;
+        }
+
+        .ag-header {
+            font-family: 'Roboto Condensed', Verdana, Arial, Helvetica, Sans-serif !important;
+            font-size: 12px !important;
+        }
+
+        .ag-labeled.ag-label-align-right > div {
+            padding: 1px !important;
+        }
+
+        .ag-pinned-right-cols-container {
+            width: auto !important;
+        }
+
+        .ag-pinned-left-header, .ag-cell[col-id=soe-row-selection] {
+            border-right: none !important;
+        }
+
+        [row-id^="detail_"] {
+            background-color: white !important;
+        }
+
+        .ag-row-hover:not([row-id^="detail_"]) {
+            background-color: @accentColorLightFaded !important;
+        }
+
+        .ag-column-hover:not([col-id=soe-row-selection]):not([col-id=soe-grid-menu-column]):not([col-id=day]):not([col-id=date]):not([col-id=dayName]):not([col-id=weekNr]):not([col-id=attestStateColor]):not([col-id=attestStateName]):not([col-id=workedInsideScheduleColor]):not([col-id=workedOutsideScheduleColor]):not([col-id=absenceTimeColor]):not([col-id=standbyTimeColor]):not([col-id=expenseColor]):not([col-id=edit]):not([col-id=info]):not([col-id=comment]):not([col-id=view]) {
+            background-color: @accentColorLightFaded !important;
+        }
+
+        .ag-header-group-text {
+            font-weight: bold;
+        }
+
+        .ag-header-group-cellheader-group-cell {
+            border-left: none;
+            border-right: none;
+        }
+
+        .ag-header-group-cell-no-group {
+            visibility: hidden;
+        }
+
+        .ag-header-group-cell-with-group {
+            background-color: @accentColorLight;
+        }
+
+        .ag-header-cell[col-id=soe-row-selection] {
+            padding-left: 0;
+        }
+
+        .ag-body-viewport {
+            border-top: 1px solid @soe-border-color !important;
+        }
+
+        .ag-cell {
+            padding-left: 3px !important;
+            padding-right: 3px !important;
+        }
+
+        .ag-cell.text-center, .ag-cell.shape-column {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+
+        .ag-cell-focus {
+            border: none !important;
+        }
+
+        .ag-cell[col-id=soe-row-selection] {
+        }
+
+        .ag-ltr .ag-cell:not([col-id=soe-row-selection]):not([col-id=employeeInfo]):not([col-id=soe-grid-menu-column]):not([col-id=day]):not([col-id=date]):not([col-id=date]):not([col-id=dayName]):not([col-id=weekNr]):not([col-id=attestStateColor]):not([col-id=attestStateName]):not([col-id=workedInsideScheduleColor]):not([col-id=workedOutsideScheduleColor]):not([col-id=absenceTimeColor]):not([col-id=standbyTimeColor]):not([col-id=expenseColor]):not([col-id=edit]):not([col-id=info]):not([col-id=comment]):not([col-id=view]) {
+            border-right: 1px solid #aaa !important;
+        }
+
+        .ag-icon-contracted, .ag-icon-expanded {
+            margin-top: -4px;
+        }
+
+        .ag-icon-contracted:before {
+            font-size: 14px;
+            font-family: "Font Awesome 5 Pro";
+            font-weight: 300;
+            content: "\f054" !important; // fa-chevron-right
+            cursor: pointer;
+        }
+
+        .ag-icon-expanded:before {
+            font-size: 14px;
+            font-family: "Font Awesome 5 Pro";
+            font-weight: 300;
+            content: "\f078" !important; // fa-chevron-down
+            cursor: pointer;
+        }
+
+        .ag-details-row {
+            padding: 0px 19px 0px 20px;
+        }
+    }
+}
+
+.ag-vertical-center-text .ag-cell {
+    display: flex !important;
+    align-items: center;
+}
+
+.soe-ag- {
+    //TODO: Remove once SASS is in place and can update the ag-grid theme classes directly.
+    &cell- {
+        &expander {
+            display: flex !important;
+            justify-content: center;
+            align-items: center;
+            padding: 0 !important;
+
+            .ag-icon-expanded, .ag-icon-contracted {
+                margin: 0 !important;
+            }
+
+            .ag-group-contracted, .ag-group-expanded {
+                margin: 0 !important;
+                justify-content: center;
+            }
+        }
+    }
+
+    &gridColumnIsModified {
+        color: @errorColor;
+        font-size: 10px;
+    }
+
+    &totals-row-part {
+        margin-right: 8px;
+    }
+
+    &single-value-column {
+        border: 0 !important;
+    }
+
+    &aligned-grid {
+        .ag-body-viewport {
+            overflow-y: hidden !important;
+        }
+
+        .ag-root {
+            border-top-width: 0 !important;
+        }
+    }
+
+    &header {
+        .ag-header-cell-menu-button {
+            background: none !important;
+            //copied the fontawesome css style. Probably should use some LESS feature here instead.
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+
+            &:before {
+                content: "\f107";
+                opacity: 0.6;
+            }
+        }
+    }
+
+    &footer-row {
+        .ag-body {
+            background-color: @soe-color-neutral-white !important;
+        }
+
+        .ag-row-even {
+            background-color: transparent !important;
+        }
+
+        .ag-header {
+            border-bottom: none !important;
+        }
+    }
+
+    &totals-row {
+        .ag-full-width-row {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .ag-header {
+            border-bottom: none !important;
+        }
+    }
+
+    &ext-container {
+        display: inline-block;
+        top: 0;
+
+        .soe-ag-ext-error {
+            color: @errorColor;
+        }
+
+        .soe-ag-ext-display-multi {
+            padding: 0 !important;
+            padding-left: 2px;
+        }
+
+        .soe-ag-ext-display {
+            align-content: stretch;
+            justify-content: flex-start;
+
+            &-main {
+            }
+
+            &-second {
+                padding-left: 4px;
+            }
+        }
+    }
+}
+
+// Custom tooltip - added for image
+.product-image-tooltip {
+    padding: 5px;
+    color: var(--ag-foreground-color);
+    background-color: #FFFFFF;
+    border: 1px @soe-border-color solid;
+    position: fixed;
+    z-index: 10000;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+}
+
+.custom-tooltip p {
+    margin: 5px;
+    white-space: nowrap;
+}
+
+.custom-tooltip p:first-of-type {
+    font-weight: bold;
+}
+
+.shape-text {
+    margin-left: 5px;
+    vertical-align: top;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.ag-group-row-total {
+    font-weight: bold !important;
+}
+
+.ext-display {
+    margin-top: -2px;
+}
+
+.ag-popup > div {
+    z-index: 1100 !important;
+}
+
+.ag-selection-checkbox {
+    margin-left: 2px;
+}
+
+.ag-menu {
+    // Default value is 100%
+    // 'unset' makes column menu expand below grid, even though documentation says menu attaches to document.body just to be able to do this.
+    max-height: unset !important;
+}
+
+.answer_no {
+    background-color: #ED8D6C !important;
+}
+
+.answer_yes {
+    background-color: #98EF5D !important;
+}
+
+.disabled {
+    color: @soe-color-neutral-grey;
+}
+
+.gridCellDisabled {
+    background-color: @soe-disabled-background-color;
+}
+
+.deleted {
+    color: #cf1212;
+    text-decoration: line-through;
+}
+//CSS hack only for IE11,
+@media all and (-ms-high-contrast:none) {
+    //removes padding as it interferes with centering with display flex.
+    .soe-ag-cell-expander {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    // 'inherit' makes column menu expand below grid, even though documentation says menu attaches to document.body just to be able to do this.
+    .ag-menu {
+        max-height: inherit !important;
+    }
+}
+// ag-chart
+
+.ag-chart-tooltip-visible {
+    opacity: 1 !important;
+}

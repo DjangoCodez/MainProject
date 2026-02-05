@@ -1,0 +1,59 @@
+<div>
+  <form [formGroup]="formHeader" novalidate autocomplete="off">
+    <div class="row">
+      <div class="d-sm-inline">
+        <soe-select
+          [items]="employeesDict || []"
+          [inline]="true"
+          [width]="150"
+          formControlName="employeeId"
+          (valueChanged)="employeeChanged($event)"></soe-select>
+      </div>
+      <div class="d-sm-inline">
+        <soe-datepicker
+          [showArrows]="true"
+          [inline]="true"
+          [view]="'day'"
+          [lastInPeriod]="true"
+          formControlName="timeProjectFrom"
+          (valueChanged)="dateChanged($event)">
+        </soe-datepicker>
+      </div>
+      <div class="d-sm-inline">
+        <soe-textbox
+          [width]="30"
+          [labelKey]="'common.week'"
+          [inline]="true"
+          formControlName="weekNr"></soe-textbox>
+      </div>
+      <div class="d-sm-inline">
+        <soe-button
+          (action)="loadGridData()"
+          [caption]="'billing.project.central.getdata'"
+          [behaviour]="'primary'">
+        </soe-button>
+      </div>
+      <div class="d-sm-inline">
+        <soe-menu-button
+          class="me-2"
+          [caption]="'common.newrow'"
+          [list]="addRowList"
+          [behaviour]="'secondary'"
+          [variant]="'split'"
+          [dropUp]="false"
+          [disabled]="!isDataFetched()"
+          (itemSelected)="performFunctionAction($event)"
+          [selectedItem]="addRowList[0]">
+        </soe-menu-button>
+      </div>
+
+      <div class="d-sm-inline">
+        <soe-checkbox
+          [labelKey]="'billing.project.timesheet.showweekend'"
+          [inToolbar]="true"
+          (valueChanged)="clickWeekendCheckbox($event)"
+          [formControlName]="'showWeekend'"></soe-checkbox>
+      </div>
+    </div>
+  </form>
+</div>

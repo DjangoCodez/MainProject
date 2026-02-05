@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" standalone="yes"?>
+<xs:schema id="Message" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="Message" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="MessageInfo" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MessageSenderId" type="xs:string" minOccurs="0" />
+              <xs:element name="MessageType" type="xs:string" minOccurs="0" />
+              <xs:element name="MessageDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="MessageImageFileName" type="xs:string" minOccurs="0" />
+              <xs:element name="MessageCultureInfo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Seller" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SellerId" type="xs:string" minOccurs="0" />
+              <xs:element name="SellerOrganisationNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="SellerVatNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="SellerName" type="xs:string" minOccurs="0" />
+              <xs:element name="SellerAddress" type="xs:string" minOccurs="0" />
+              <xs:element name="SellerPostalCode" type="xs:string" minOccurs="0" />
+              <xs:element name="SellerPostalAddress" type="xs:string" minOccurs="0" />
+              <xs:element name="SellerCountryCode" type="xs:string" minOccurs="0" />
+              <xs:element name="SellerPhone" type="xs:string" minOccurs="0" />
+              <xs:element name="SellerFax" type="xs:string" minOccurs="0" />
+              <xs:element name="SellerReference" type="xs:string" minOccurs="0" />
+              <xs:element name="SellerReferencePhone" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Buyer" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BuyerId" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerOrganisationNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerVatNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerName" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerAddress" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerPostalCode" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerPostalAddress" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerCountryCode" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerReference" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerPhone" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerFax" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerEmailAddress" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerDeliveryName" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerDeliveryCoAddress" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerDeliveryAddress" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerDeliveryPostalCode" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerDeliveryPostalAddress" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerDeliveryCountryCode" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerDeliveryNoteText" type="xs:string" minOccurs="0" />
+              <xs:element name="BuyerDeliveryGoodsMarking" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Head" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="HeadInvoiceNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadInvoiceOcr" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadInvoiceType" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadInvoiceDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="HeadInvoiceDueDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="HeadDeliveryDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="HeadBuyerOrderNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadBuyerProjectNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadBuyerInstallationNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadSellerOrderNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadPostalGiro" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadBankGiro" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadBank" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadBicAddress" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadIbanNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadCurrencyCode" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadVatPercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HeadPaymentConditionDays" type="xs:int" minOccurs="0" />
+              <xs:element name="HeadPaymentConditionText" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadInterestPaymentPercent" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HeadInterestPaymentText" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadInvoiceGrossAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HeadInvoiceNetAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HeadVatBasisAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HeadVatAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HeadFreightFeeAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HeadHandlingChargeFeeAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HeadInsuranceFeeAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HeadRemainingFeeAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HeadDiscountAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HeadRoundingAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HeadInvoiceArrival" type="xs:int" minOccurs="0" />
+              <xs:element name="HeadInvoiceAuthorized" type="xs:int" minOccurs="0" />
+              <xs:element name="HeadInvoiceAuthorizedBy" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Labels" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="LabelMessageType" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelDate" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelDeliveryDate" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelDueDate" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelOCR" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelDeliveryAddress" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelSellersOrderNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelYourReference" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelYourOrderNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelOurReference" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelProjectNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelInstallationNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelDiscount" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelOrganizationNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelProductNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelProductName" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelAmount" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelUnitPrice" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelVAT" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelRowDiscount" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelRowSum" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelRowDeliveryDate" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelFeeAmount" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelFreightAmount" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelVATAmount" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelCurrencyCode" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelRowDiscountPercent" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelTotalGrossAmount" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelSellerOrganizationNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelSellerVatNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelHeadpostalGiro" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelHeadBankGiro" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelHeadBankNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelSellerPhone" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelSellerFax" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelSellerAddress" type="xs:string" minOccurs="0" />
+              <xs:element name="LabelPoweredBySoftOne" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Row" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RowSellerArticleNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="RowSellerArticleDescription1" type="xs:string" minOccurs="0" />
+              <xs:element name="RowSellerArticleDescription2" type="xs:string" minOccurs="0" />
+              <xs:element name="RowSellerRowNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="RowBuyerArticleNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="RowBuyerRowNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="RowDeliveryDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="RowBuyerReference" type="xs:string" minOccurs="0" />
+              <xs:element name="RowBuyerObjectId" type="xs:string" minOccurs="0" />
+              <xs:element name="RowQuantity" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RowUnitCode" type="xs:string" minOccurs="0" />
+              <xs:element name="RowUnitPrice" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RowDiscountPercent" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RowNetAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RowVatAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RowVatPercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RowSellerArticleText1" type="xs:string" minOccurs="0" />
+              <xs:element name="RowSellerArticleText2" type="xs:string" minOccurs="0" />
+              <xs:element name="RowSellerArticleText3" type="xs:string" minOccurs="0" />
+              <xs:element name="RowSellerArticleText4" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="AccountCode" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AccountCodeAccount" type="xs:string" minOccurs="0" />
+              <xs:element name="AccountCodeCostCentre" type="xs:string" minOccurs="0" />
+              <xs:element name="AccountCodeProject" type="xs:string" minOccurs="0" />
+              <xs:element name="AccountCodeBalance" type="xs:int" minOccurs="0" />
+              <xs:element name="AccountCodeQuantity" type="xs:int" minOccurs="0" />
+              <xs:element name="AccountCodeText" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

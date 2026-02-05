@@ -1,0 +1,73 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progressBusy">
+        <soe-toolbar buttons="ctrl.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="billing.invoices.textblocks.textblock">                                                
+            
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="common.name" model="ctrl.textBlock.headline" required="true" ></soe-textbox>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-select label-key="common.type" model="ctrl.textBlock.type" items="ctrl.textblockTypes" required="true" options="item.id as item.name for item in items"></soe-select>                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <soe-textarea label-key="common.text" model="ctrl.textBlock.text" rows="5" max-length="ctrl.maxTextLength" set-focus="true"></soe-textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <soe-label label-key="billing.invoices.textblocks.usedin"></soe-label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1">
+                        <soe-checkbox label-key="common.order" model="ctrl.textBlock.showInOrder"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-1">
+                        <soe-checkbox label-key="common.customerinvoice" model="ctrl.textBlock.showInInvoice"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-1">
+                        <soe-checkbox label-key="common.offer" model="ctrl.textBlock.showInOffer"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-1">
+                        <soe-checkbox label-key="common.contract" model="ctrl.textBlock.showInContract"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-1">
+                        <soe-checkbox label-key="billing.purchase.list.purchase" model="ctrl.textBlock.showInPurchase"></soe-checkbox>
+                    </div>
+                </div>
+                <br>
+                <uib-accordion close-others="false">
+                    <soe-accordion label-key="billing.product.translations" is-open="false">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <comp-terms comp-term-record-type="ctrl.compTermRecordType" record-id="ctrl.textBlockId" comp-term-rows="ctrl.compTermRows" read-only="!ctrl.modifyPermission"></comp-terms>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </uib-accordion>                
+            </div>                
+            
+        </soe-panel>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.textBlock"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

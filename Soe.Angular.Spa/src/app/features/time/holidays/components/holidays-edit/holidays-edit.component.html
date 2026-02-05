@@ -1,0 +1,78 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          [autoFocus]="true"
+          formControlName="name"
+          [required]="true">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-4">
+        <soe-textbox
+          [labelKey]="'common.description'"
+          [maxLength]="512"
+          formControlName="description">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'time.schedule.daytype.daytype'"
+          [selectedId]="form.value.dayTypeId"
+          [items]="dayTypes"
+          [required]="true"
+          formControlName="dayTypeId">
+        </soe-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'time.schedule.daytype.sysholidaytype'"
+          [selectedId]="form.value.sysHolidayTypeId"
+          [items]="holidayTypes || []"
+          formControlName="sysHolidayTypeId">
+        </soe-select>
+      </div>
+    </div>
+    @if (
+      !form.controls.sysHolidayTypeId.value ||
+      form.controls.sysHolidayTypeId.value == 0
+    ) {
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-datepicker
+            [labelKey]="'common.date'"
+            [required]="true"
+            formControlName="date"></soe-datepicker>
+        </div>
+      </div>
+    }
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-checkbox
+          [labelKey]="'time.time.timeearnedholiday.holiday'"
+          [checked]="form.value.isRedDay"
+          formControlName="isRedDay"></soe-checkbox>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

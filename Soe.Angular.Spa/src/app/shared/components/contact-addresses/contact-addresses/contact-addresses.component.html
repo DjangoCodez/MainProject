@@ -1,0 +1,41 @@
+<div>
+  <div>
+    <div class="row">
+      <div class="col-sm-6" style="padding-top: 15px">
+        <soe-label [labelKey]="'common.contact.information'"></soe-label>
+      </div>
+      <div class="col-sm-6">
+        <soe-menu-button
+          class="pull-right"
+          [caption]="'common.contactaddresses.ecommenu.label'"
+          [list]="eComTypes"
+          [disabled]="readOnly"
+          [behaviour]="'secondary'"
+          (itemSelected)="showAddAddress($event)"
+          (selectedItem)="(eComTypes)">
+        </soe-menu-button>
+        <soe-menu-button
+          class="pull-right"
+          style="margin-right: 10px"
+          [caption]="'common.contactaddresses.addressmenu.label'"
+          [list]="addressTypes"
+          [disabled]="readOnly"
+          [behaviour]="'secondary'"
+          (itemSelected)="showAddAddress($event)"
+          (selectedItem)="(addressTypes)">
+        </soe-menu-button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        @if (flowHandler.allowFetchGrid()) {
+          <soe-grid-wrapper
+            [height]="250"
+            [toolbarGroups]="[]"
+            [rows]="addressRows"
+            [parentGuid]="guid()"></soe-grid-wrapper>
+        }
+      </div>
+    </div>
+  </div>
+</div>

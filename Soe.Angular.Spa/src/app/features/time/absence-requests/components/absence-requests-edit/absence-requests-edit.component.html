@@ -1,0 +1,86 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-autocomplete
+              [labelKey]="'common.employee'"
+              formControlName="employeeId"
+              [items]="employees || []"
+              [limit]="50"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"></soe-autocomplete>
+          </div>
+          <div class="col-sm-6">
+            <soe-datepicker
+              [labelKey]="'common.fromdate'"
+              formControlName="start">
+            </soe-datepicker>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-autocomplete
+              [labelKey]="'common.time.timedeviationcause'"
+              formControlName="timeDeviationCauseId"
+              [items]="timeDeviationCauses || []"
+              [limit]="50"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"></soe-autocomplete>
+          </div>
+          <div class="col-sm-6">
+            <soe-datepicker [labelKey]="'common.todate'" formControlName="stop">
+            </soe-datepicker>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <soe-textarea
+          [labelKey]="'common.note'"
+          [rows]="4"
+          [resizeable]="true"
+          formControlName="comment"></soe-textarea>
+        <soe-instruction
+          [text]="'time.schedule.absencerequests.includenoteinmessages'"
+          [fitToContent]="true"></soe-instruction>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <soe-button (action)="testButton()"></soe-button>
+    </div> -->
+    @if (shifts.length > 0) {
+      <soe-expansion-panel
+        [labelKey]="'time.schedule.absencerequests.affectedshifts'"
+        [open]="true"
+        [addTopMargin]="true">
+        <div class="row">
+          <soe-absence-shifts
+            [shifts]="shifts"
+            [shiftsFormArray]="form.shifts"
+            [showApprovalTypeAndReplaceWithEmployee]="true"
+            [absenceStartDate]="form.value.start"
+            [absenceStopDate]="form.value.stop"
+            [employeeList]="employeeList"
+            [hiddenEmployeeId]="hiddenEmployeeId()"
+            [onlyNoReplacementIsSelectable]="onlyNoReplacementIsSelectable()"
+            [approvalTypes]="approvalTypes"></soe-absence-shifts>
+        </div>
+      </soe-expansion-panel>
+    }
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+  <!-- {{ form.value | json }} -->
+}

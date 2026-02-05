@@ -1,0 +1,233 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+        <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+        <div class="modal-header" data-ng-show="ctrl.isModal">
+            <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal()" aria-hidden="true">&times;</button>
+        </div>
+        <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+        <div data-ng-if="!ctrl.progressBusy" project-validation ng-class="ctrl.isModal ? 'edit-padding': ''" ng-model="ctrl.project" allprojects="ctrl.projects" new-pricelist="ctrl.showName" pricelist-name="ctrl.pricelistName" existing-pricelists="ctrl.projectPriceLists" use-existing="ctrl.showExisting" pricelist-type-id="ctrl.project.priceListTypeId">
+            <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+            <uib-accordion close-others="false">
+                <soe-accordion is-open="true" label-key="billing.project.projectinfo">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <soe-textbox label-key="billing.project.projectnr" model="ctrl.project.number" required="true" maxlength="100" auto-focus="true"></soe-textbox>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <soe-textbox label-key="common.name" model="ctrl.project.name" required="true" maxlength="100" auto-focus="true"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-textbox label-key="billing.projects.list.description" model="ctrl.project.description" maxlength="100"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-typeahead label-key="common.customer.customer.customer" model="ctrl.selectedCustomer" items="ctrl.customers" options="item as item.name for item in items" limit="100" is-disabled="ctrl.lockCustomer" on-edit="ctrl.loadCustomers(true)" edit-icon="fa-sync" edit-class="border-radius-right" edit-tooltip-key="billing.projects.list.loadcustomers"></soe-typeahead>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="billing.projects.list.mainproject" model="ctrl.project.parentProjectId" items="ctrl.projectsDict" options="item.id as item.name for item in items" button-icon="'fa-search'" button-tooltip-key="core.search" on-button-click="ctrl.showSelectProject()" click-button-class="no-border-radius" on-edit-click="ctrl.loadProjects(true)" edit-button-class="border-radius-right" edit-icon="fa-sync" edit-tooltip-key="billing.projects.list.loadprojects"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="billing.projects.list.allocationtype" model="ctrl.project.allocationType" items="ctrl.allocationTypes" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <soe-datepicker label-key="billing.projects.list.startdate" model="ctrl.project.startDate"></soe-datepicker>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <soe-datepicker label-key="billing.projects.list.stopdate" model="ctrl.project.stopDate"></soe-datepicker>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <soe-textbox label-key="billing.projects.list.worksitekey" model="ctrl.project.workSiteKey" maxlength="100" auto-focus="true"></soe-textbox>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <soe-textbox label-key="billing.projects.list.worksitenumber" model="ctrl.project.workSiteNumber" maxlength="100" auto-focus="true"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div data-ng-if="ctrl.attestFlowPermission">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <soe-select label-key="billing.projects.list.attestgroup" model="ctrl.project.attestWorkFlowHeadId" items="ctrl.attestGroups" options="item.id as item.name for item in items"></soe-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-typeahead label-key="billing.order.ordertemplates" model="ctrl.selectedOrderTemplate" items="ctrl.orderTemplates" options="item as item.name for item in items" limit="100" on-edit="ctrl.openOrderTemplate()" edit-class="border-radius-right" edit-tooltip-key="core.edit"></soe-typeahead>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-sm">
+                                    <account-dims hide-std-dim="true" account1="ctrl.project.defaultDim1AccountId" account2="ctrl.project.defaultDim2AccountId" account3="ctrl.project.defaultDim3AccountId" account4="ctrl.project.defaultDim4AccountId" account5="ctrl.project.defaultDim5AccountId" account6="ctrl.project.defaultDim6AccountId" is-readonly="ctrl.isLocked" parent-guid="ctrl.guid" skip-cache="ctrl.reloadAccountDims"></account-dims>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <categories category-type="7" category-record-entity="3" parent-guid="ctrl.guid" selected-categories="ctrl.categoryIds" nbr-of-rows="4" read-only="!ctrl.modifyPermission"></categories>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="billing.projects.list.persons" is-open="ctrl.projectUserExpanderIsOpen" on-open="ctrl.openProjectUserExpander()">
+                    <div class="row" data-ng-if="ctrl.projectUserRendered">
+                        <div class="form-group form-group-sm">
+                            <project-persons project-id="ctrl.project.projectId" read-only="!ctrl.modifyPermission" project-users="ctrl.projectUsers" parent-guid="ctrl.guid"></project-persons>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="billing.projects.list.accounts">
+                    <div class="form-group form-group-sm">
+                        <div class="row" data-ng-readonly="!ctrl.project.useAccounting">
+                            <div class="col-sm-8">
+                                <accounting-settings setting-types="ctrl.projectAccountSettingTypes" settings="ctrl.project.accountingSettings" base-accounts="ctrl.projectBaseAccounts" show-base-account="false" min-rows="3" read-only="ctrl.readOnly" parent-guid="ctrl.guid"></accounting-settings>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <soe-checkbox label-key="billing.projects.list.useaccounting" model="ctrl.project.useAccounting"></soe-checkbox>
+                                </div>
+                                <div class="row">
+                                    <soe-label label-key="billing.projects.list.accountingprio"></soe-label>
+                                </div>
+                                <div class="row margin-small-top">
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <soe-label label-key="billing.projects.list.payrollproductposting"></soe-label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <soe-label label-key="billing.projects.list.productsposting"></soe-label>
+                                    </div>
+                                </div>
+                                <div class="row margin-small-top">
+                                    <div class="col-sm-2">
+                                        <soe-label label-key="billing.projects.list.first"></soe-label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <soe-select hidelabel="true" model="ctrl.payrollprio1" items="ctrl.payrollProductAccountingPrios" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <soe-select hidelabel="true" model="ctrl.invoiceprio1" items="ctrl.invoiceProductAccountingPrios" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row margin-small-top">
+                                    <div class="col-sm-2">
+                                        <soe-label label-key="billing.projects.list.second"></soe-label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <soe-select hidelabel="true" model="ctrl.payrollprio2" items="ctrl.payrollProductAccountingPrios" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <soe-select hidelabel="true" model="ctrl.invoiceprio2" items="ctrl.invoiceProductAccountingPrios" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row margin-small-top">
+                                    <div class="col-sm-2">
+                                        <soe-label label-key="billing.projects.list.third"></soe-label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <soe-select hidelabel="true" model="ctrl.payrollprio3" items="ctrl.payrollProductAccountingPrios" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <soe-select hidelabel="true" model="ctrl.invoiceprio3" items="ctrl.invoiceProductAccountingPrios" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row margin-small-top">
+                                    <div class="col-sm-2">
+                                        <soe-label label-key="billing.projects.list.fourth"></soe-label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <soe-select hidelabel="true" model="ctrl.payrollprio4" items="ctrl.payrollProductAccountingPrios" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <soe-select hidelabel="true" model="ctrl.invoiceprio4" items="ctrl.invoiceProductAccountingPrios" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row margin-small-top">
+                                    <div class="col-sm-2">
+                                        <soe-label label-key="billing.projects.list.fifth"></soe-label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <soe-select hidelabel="true" model="ctrl.payrollprio5" items="ctrl.payrollProductAccountingPrios" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <soe-select hidelabel="true" model="ctrl.invoiceprio5" items="ctrl.invoiceProductAccountingPrios" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="billing.projects.list.note">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textarea ng-if="ctrl.project" hidelabel="true" model="ctrl.project.note" rows="10"></soe-textarea>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="billing.projects.list.pricelist" on-open="ctrl.openPricelistExpander()">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <soe-select label-key="billing.projects.list.projectpricelist" model="ctrl.project.priceListTypeId" items="ctrl.projectPriceLists" options="item.id as item.name for item in items" button-icon="'fal fa-plus'" button-tooltip-key="billing.projects.list.newpricelist" on-button-click="ctrl.addPriceList(false)" click-button-class="no-border-radius" edit-icon="fa-pen" on-edit-click="ctrl.addPriceList(true)" edit-class="border-radius-right" edit-disabled="!ctrl.project.priceListTypeId" edit-tooltip-key="core.edit"></soe-select>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-select label-key="billing.projects.list.comparisonpricelist" model="ctrl.comparisonPricelistId" items="ctrl.comparisonPriceLists" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-datepicker label-key="billing.projects.list.pricedate" model="ctrl.priceDate"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-checkbox label-key="billing.projects.list.loadallproducts" model="ctrl.loadAllProducts" inline="true"></soe-checkbox>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row col-sm-12">
+                            <div ag-grid="ctrl.priceListGridOptions.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+                            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="billing.projects.list.budget" ng-if="ctrl.budgetPermission">
+                    <div class="row">
+                        <project-budget budget-head="ctrl.project.budgetHead" read-only="!ctrl.modifyPermission" parent-guid="ctrl.guid"></project-budget>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="billing.projects.list.tracing" on-open="ctrl.traceRowsRendered = true">
+                    <div class="row" ng-if="ctrl.traceRowsRendered">
+                       <div class="col-sm-12">
+                           <trace-rows trace-id="ctrl.projectId" page-name="'projectEdit'"></trace-rows>
+                       </div>
+                    </div>
+                </soe-accordion>
+            </uib-accordion>
+
+            <div class="ngSoeFormFooter">
+                <div class="col-sm-3">
+                    <created-modified model="ctrl.project"></created-modified>
+                </div>
+                <div class="pull-right col-sm-9">
+                    <div class="col pull-right" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                    <div class="col pull-right" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <soe-select class="pull-right margin-small-right" hidelabel="true" label-key="" model="ctrl.project.status" items="ctrl.projectStatuses" options="item.id as item.name for item in items"></soe-select>
+                    <soe-label class="pull-right margin-small-right" label-key="common.status"></soe-label>
+                    <!--<soe-checkbox class="pull-right margin-small-right" label-key="billing.projects.list.active" model="ctrl.state"></soe-checkbox>-->
+                </div>
+            </div>
+        </div>
+    </form>

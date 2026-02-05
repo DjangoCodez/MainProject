@@ -1,0 +1,51 @@
+<div class="soe-dialog" [ngClass]="data.size" [attr.data-testid]="data.title">
+  <div
+    cdkDrag
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDragBoundary=".cdk-global-overlay-wrapper"
+    cdkDragHandle
+    class="soe-dialog-header d-flex justify-content-between align-items-center">
+    <span class="soe-dialog-header__title mb-0">{{
+      data.title | translate
+    }}</span>
+    @if (!data.hideCloseButton) {
+      <button
+        type="button"
+        class="btn-close close float-end"
+        aria-label="Close"
+        tabindex="-1"
+        (click)="closeDialog()">
+        <fa-icon [icon]="['fal', 'xmark']"></fa-icon>
+      </button>
+    }
+  </div>
+
+  <div
+    [ngClass]="{ 'soe-dialog__content': !data.disableContentScroll }"
+    [style.max-height]="data.maxHeight"
+    [style.overflow]="data.maxHeight ? 'auto' : undefined">
+    <ng-content select="[dialog-content]"></ng-content>
+    @if (data.content) {
+      <div [innerHTML]="data.content"></div>
+    }
+  </div>
+
+  @if (!data.hideFooter) {
+    <div
+      class="soe-dialog__footer d-flex justify-content-end align-items-center">
+      <ng-content select="[dialog-footer]"></ng-content>
+      @if (data.secondaryText) {
+        <soe-button
+          [inProgress]="submitting()"
+          [behaviour]="'standard'"
+          [caption]="data.secondaryText"></soe-button>
+      }
+      @if (data.primaryText) {
+        <soe-button
+          [inProgress]="submitting()"
+          [behaviour]="'primary'"
+          [caption]="data.primaryText"></soe-button>
+      }
+    </div>
+  }
+</div>

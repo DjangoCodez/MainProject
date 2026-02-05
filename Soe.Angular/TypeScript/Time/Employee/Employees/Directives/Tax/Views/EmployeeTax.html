@@ -1,0 +1,232 @@
+﻿<div>
+    <div class="row margin-large-bottom">
+        <div class="col-sm-6">
+            <div class="row margin-large-bottom" data-ng-if="ctrl.showCopyFromLastYearWarning">
+                <div class="col-sm-12">
+                    <div class="warning">
+                        <span data-l10n-bind="'time.employee.tax.copyfromlastyear.warning'"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Year -->
+            <div class="row margin-large-bottom">
+                <div class="col-sm-4">
+                    <soe-select hidelabel="true" model="ctrl.year" items="ctrl.years" options="item.id as item.name for item in items" use-ignore-dirty="true"></soe-select>
+                </div>
+                <div class="col-sm-5">
+                    <soe-instruction label-key="time.employee.tax.yearinfo" inline="true"></soe-instruction>
+                </div>
+                <div class="col-sm-3">
+                    <soe-checkbox label-key="time.employee.tax.mainemployer" model="ctrl.employeeTax.mainEmployer" is-readonly="ctrl.readOnly"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-panel label-key="time.employee.tax.taxdeduction">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.tax.type" model="ctrl.employeeTax.type" items="ctrl.types" options="item.id as item.name for item in items" is-readonly="ctrl.readOnly"></soe-select>
+                            </div>
+
+                            <!-- Tax rate -->
+                            <div data-ng-if="ctrl.employeeTax.type == 1 || ctrl.employeeTax.type == 3 || ctrl.employeeTax.type == 5">
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.tax.rate" label-value="ctrl.taxRateLabel" label-value-in-parentheses="true" model="ctrl.employeeTax.taxRate" numeric="true" decimals="0" is-readonly="ctrl.readOnly"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.tax.onetimetax" label-value="ctrl.percentLabel" label-value-in-parentheses="true" model="ctrl.employeeTax.oneTimeTaxPercent" numeric="true" decimals="0" is-readonly="ctrl.readOnly"></soe-textbox>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Adjustment -->
+                        <div data-ng-if="ctrl.employeeTax.type == 3">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <soe-select label-key="time.employee.tax.adjustment.type" model="ctrl.employeeTax.adjustmentType" items="ctrl.adjustmentTypes" options="item.id as item.name for item in items" is-readonly="ctrl.readOnly"></soe-select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.tax.adjustment.value" label-value="ctrl.adjustmentValueLabel" label-value-in-parentheses="true" model="ctrl.employeeTax.adjustmentValue" numeric="true" decimals="0" is-readonly="ctrl.readOnly"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-datepicker label-key="time.employee.tax.adjustment.period" model="ctrl.employeeTax.adjustmentPeriodFrom"></soe-datepicker>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-datepicker label-key="common.to" model="ctrl.employeeTax.adjustmentPeriodTo"></soe-datepicker>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--SINK -->
+                        <div class="row" data-ng-if="ctrl.employeeTax.type == 4">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.tax.sinktype" model="ctrl.employeeTax.sinkType" items="ctrl.sinkTypes" options="item.id as item.name for item in items" is-readonly="ctrl.readOnly"></soe-select>
+                            </div>
+                        </div>
+
+                        <!-- School youth -->
+                        <div data-ng-if="ctrl.employeeTax.type == 5">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-label label-key="time.employee.tax.schoolyouth.limit" style="margin-top: 20px;"></soe-label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.tax.schoolyouth.initial" model="ctrl.employeeTax.schoolYouthLimitInitial" numeric="true" decimals="0" is-readonly="ctrl.readOnly"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.tax.schoolyouth.used" model="ctrl.schoolYouthLimitUsed" numeric="true" decimals="0" is-readonly="true"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.tax.schoolyouth.remaining" model="ctrl.schoolYouthLimitRemaining" numeric="true" decimals="0" is-readonly="true"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 margin-large-top">
+                                    <div class="col-sm-12 info">
+                                        <span data-ng-bind-html="ctrl.schoolYouthInfo | formatHtml"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-panel>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Employment tax -->
+                    <soe-panel label-key="time.employee.tax.employmenttax">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-select label-key="time.employee.tax.employmenttaxtype" model="ctrl.employeeTax.employmentTaxType" items="ctrl.employmentTaxTypes" options="item.id as item.name for item in items" is-readonly="ctrl.readOnly"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="ctrl.employeeTax.employmentTaxType == 5">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.tax.employmentabroadcode" model="ctrl.employeeTax.employmentAbroadCode" items="ctrl.employmentAbroadCodes" options="item.id as item.name for item in items" is-readonly="ctrl.readOnly"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="ctrl.employeeTax.employmentTaxType == 1">
+                            <div class="col-sm-12">
+                                <soe-checkbox class="margin-small-bottom" label-key="time.employee.tax.regionalsupport" model="ctrl.employeeTax.regionalSupport" is-readonly="ctrl.readOnly"></soe-checkbox>
+                                <soe-checkbox class="margin-small-bottom" label-key="time.employee.tax.employmenttaxminimumrule" model="ctrl.employeeTax.applyEmploymentTaxMinimumRule" is-readonly="ctrl.readOnly"></soe-checkbox>
+                                <soe-checkbox ng-if="ctrl.showFirstSecondEmployee" label-key="time.employee.tax.firstemployee" model="ctrl.employeeTax.firstEmployee" is-readonly="ctrl.readOnly"></soe-checkbox>
+                                <soe-checkbox ng-if="ctrl.showFirstSecondEmployee" label-key="time.employee.tax.secondemployee" model="ctrl.employeeTax.secondEmployee" is-readonly="ctrl.readOnly"></soe-checkbox>
+                            </div>
+                        </div>
+                    </soe-panel>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <!-- CSR inquiry -->
+            <div class="margin-large-bottom" style="min-height: 30px;">
+                <div class="row" data-ng-show="ctrl.employeeTax.mainEmployer">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-sm btn-default" data-ng-class="{'btn-primary': !ctrl.employeeTax.csrExportDate}" data-ng-click="$event.stopPropagation();ctrl.csrInquiry();" data-ng-disabled="ctrl.readOnly || !ctrl.enableCsrInquiry"><i class="fal fa-exchange margin-small-right"></i><span data-l10n-bind="'time.employee.tax.csrinquiry'"></span></button>
+                        <span class="margin-large-left">{{ctrl.csrInquiryText}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Salary distress -->
+                    <soe-panel label-key="time.employee.tax.salarydistress">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-textbox label-key="time.employee.tax.salarydistressreservedamount" model="ctrl.employeeTax.salaryDistressReservedAmount" numeric="true" allow-empty="true" decimals="0" is-readonly="ctrl.readOnly"></soe-textbox>
+                            </div>
+                            <div class="col-sm-6">
+                                <soe-textbox label-key="time.employee.tax.salarydistresscase" model="ctrl.employeeTax.salaryDistressCase" max-length="20" allow-empty="true" is-readonly="ctrl.readOnly"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-select label-key="time.employee.tax.salarydistressamounttype" model="ctrl.employeeTax.salaryDistressAmountType" items="ctrl.salaryDistressAmountTypes" options="item.id as item.name for item in items" is-readonly="ctrl.readOnly" on-changing="ctrl.distressAmountTypeChanged(item)"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="ctrl.employeeTax.salaryDistressAmountType == 1">
+                            <div class="col-sm-6">
+                                <soe-textbox label-key="time.employee.tax.salarydistressamount" model="ctrl.employeeTax.salaryDistressAmount" numeric="true" decimals="0" is-readonly="ctrl.readOnly"></soe-textbox>
+                            </div>
+                        </div>
+                    </soe-panel>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Union fee -->
+                    <soe-panel label-key="time.employee.tax.unionfee" condensed="true" data-ng-if="ctrl.showUnionFee" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.editUnionFee();">
+                        <div>
+                            <table class="table table-condensed table-hover horizontal-line-top">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" data-l10n-bind="'time.employee.tax.unionfee'"></th>
+                                        <th scope="col" data-l10n-bind="'common.fromdate'"></th>
+                                        <th scope="col" data-l10n-bind="'common.todate'"></th>
+                                        <th scope="col" style="width: 28px"></th>
+                                        <th scope="col" style="width: 28px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody data-ng-repeat="unionFee in ctrl.unionFees">
+                                    <tr>
+                                        <td><span>{{unionFee.unionFeeName}}</span></td>
+                                        <td><span>{{unionFee.fromDate | date:'shortDate'}}</span></td>
+                                        <td><span>{{unionFee.toDate | date:'shortDate'}}</span></td>
+                                        <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editUnionFee(unionFee);"></i></span></td>
+                                        <td><span data-l10n-bind data-l10n-bind-title="'core.deleterow'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteUnionFee(unionFee);"></i></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </soe-panel>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <!-- CSR inquiry -->
+            <div class="margin-large-bottom" style="min-height: 30px;">
+                <div class="row" data-ng-show="ctrl.employeeTax.mainEmployer && !ctrl.enableCsrInquiry">
+                    <div class="col-sm-12">
+                        <div class="warning">
+                            <span data-l10n-bind="'time.employee.tax.csrinquiry.disabled.modified.info'"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Abroad -->
+                    <soe-panel label-key="time.employee.tax.abroad">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="time.employee.tax.tinnumber" model="ctrl.employeeTax.tinNumber" max-length="50" is-readonly="ctrl.readOnly"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row margin-large-bottom">
+                            <div class="col-sm-6">
+                                <soe-textbox label-key="time.employee.tax.tincountrycode" model="ctrl.employeeTax.countryCode" max-length="5" is-readonly="ctrl.readOnly"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="time.employee.tax.birthplace" model="ctrl.employeeTax.birthPlace" max-length="50" is-readonly="ctrl.readOnly"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-textbox label-key="time.employee.tax.countrycodebirthplace" model="ctrl.employeeTax.countryCodeBirthPlace" max-length="50" is-readonly="ctrl.readOnly"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-textbox label-key="time.employee.tax.countrycodecitizen" model="ctrl.employeeTax.countryCodeCitizen" max-length="50" is-readonly="ctrl.readOnly"></soe-textbox>
+                            </div>
+                        </div>
+                    </soe-panel>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

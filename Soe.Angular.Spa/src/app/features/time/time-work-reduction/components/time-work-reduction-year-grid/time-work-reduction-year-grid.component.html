@@ -1,0 +1,23 @@
+<table class="table table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>Stop</th>
+      <th>Employee Last Decided Date</th>
+      <th>Pension Product</th>
+      <th>Direct Payment Product</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let year of years">
+      <td>{{ year.stop | date: 'shortDate' }}</td>
+      <td>{{ year.employeeLastDecidedDate | date: 'shortDate' }}</td>
+      <td>{{ year.pensionDepositPayrollProductId }}</td>
+      <td>{{ year.directPaymentPayrollProductId }}</td>
+      <td>
+        <button type="button" (click)="onEdit(year)">Edit</button>
+        <button type="button" (click)="onDelete(year)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

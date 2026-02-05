@@ -1,0 +1,14 @@
+﻿<div class="row">
+    <div class="col-sm-4">
+        <soe-select label-key="{{::$ctrl.labelKey}}" hidelabel="::$ctrl.hideLabel" model="$ctrl.selectedInterval" items="$ctrl.availableSelectableIntervals" options="item.id as item.label for item in items" on-changing="$ctrl.timePeriodChanged(item)"></soe-select>
+    </div>
+    <div class="col-sm-8" data-ng-switch="$ctrl.selectedInterval">
+        <date-selection data-ng-switch-when="daterange" show-range="true" as-range="true" label-key="common.datefrom" hide-label="::$ctrl.hideLabel" additional-label-key="common.dateto" on-selected="$ctrl.propagateSelection(selection)" user-selection-input="$ctrl.userSelectionInput"></date-selection>
+        <date-selection data-ng-switch-when="date" show-range="false" as-range="true" label-key="common.date" hide-label="::$ctrl.hideLabel" additional-label-key="common.dateto" on-selected="$ctrl.propagateSelection(selection)" user-selection-input="$ctrl.userSelectionInput"></date-selection>
+        <week-selection data-ng-switch-when="week" label-key="common.year" hide-label="::$ctrl.hideLabel" additional-label-key="common.week" on-selected="$ctrl.propagateSelection(selection)" user-selection-input="$ctrl.userSelectionInput"></week-selection>
+        <month-selection data-ng-switch-when="month" label-key="common.year" hide-label="::$ctrl.hideLabel" additional-label-key="common.month" on-selected="$ctrl.propagateSelection(selection)" user-selection-input="$ctrl.userSelectionInput"></month-selection>
+        <time-interval-selection data-ng-switch-when="time-interval" label-key="common.interval" hide-label="::$ctrl.hideLabel" on-selected="$ctrl.propagateSelection(selection)" user-selection-input="$ctrl.userSelectionInput"></time-interval-selection>
+        <time-period-selection data-ng-switch-when="time-period" label-key="common.period" hide-label="::$ctrl.hideLabel" on-selected="$ctrl.propagateSelection(selection)" user-selection-input="$ctrl.userSelectionInput"></time-period-selection>
+        <planning-period-selection data-ng-switch-when="planning-period" head-label-key="common.planningperiod" label-key="common.period" hide-head-label="::$ctrl.hideHeadLabel" hide-label="::$ctrl.hideLabel" on-selected="$ctrl.propagateSelection(selection)" user-selection-input="$ctrl.userSelectionInput"></planning-period-selection>
+    </div>
+</div>

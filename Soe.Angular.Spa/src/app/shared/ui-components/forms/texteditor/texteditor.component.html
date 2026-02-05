@@ -1,0 +1,22 @@
+<div class="mt-2" [ngStyle]="width() ? { 'width.px': width() } : {}">
+  @if (hasLabel()) {
+    <div class="form-label-container d-flex align-items-center">
+      <soe-label
+        [labelKey]="labelKey()"
+        [secondaryLabelKey]="secondaryLabelKey()"
+        [secondaryLabelBold]="secondaryLabelBold()"
+        [secondaryLabelParantheses]="secondaryLabelParantheses()"
+        [secondaryLabelPostfixKey]="secondaryLabelPostfixKey()"
+        [secondaryLabelPrefixKey]="secondaryLabelPrefixKey()"
+        [isRequired]="isRequired()"></soe-label>
+    </div>
+  }
+  @if (control) {
+    <quill-editor
+      [id]="inputId()"
+      [modules]="modules"
+      [placeholder]="placeholderKey() | translate"
+      [required]="isRequired()"
+      [formControl]="control"></quill-editor>
+  }
+</div>

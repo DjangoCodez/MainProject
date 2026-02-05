@@ -1,0 +1,54 @@
+<div>
+  <form [formGroup]="formSearch" novalidate autocomplete="off">
+    <div class="row mt-2 ms-0">
+      <div class="d-sm-inline ps-0">
+        <soe-multi-select
+          [placeholderKey]="'billing.purchase.supplier'"
+          [items]="suppliersDict"
+          [inline]="true"
+          [width]="150"
+          [dropdownWidth]="300"
+          formControlName="supplierIds"></soe-multi-select>
+      </div>
+
+      <div class="d-sm-inline">
+        <soe-textbox
+          [inline]="true"
+          [labelKey]="'billing.purchase.product.supplieritemno'"
+          [width]="100"
+          formControlName="supplierProduct" />
+      </div>
+
+      <div class="d-sm-inline">
+        <soe-textbox
+          [inline]="true"
+          [labelKey]="'billing.purchase.product.supplieritemname'"
+          [width]="150"
+          formControlName="supplierProductName" />
+      </div>
+
+      <div class="d-sm-inline">
+        <soe-textbox
+          [inline]="true"
+          [labelKey]="'billing.product.number'"
+          [width]="100"
+          formControlName="product" />
+      </div>
+
+      <div class="d-sm-inline">
+        <soe-textbox
+          [inline]="true"
+          [labelKey]="'common.customer.invoices.articlename'"
+          [width]="150"
+          formControlName="productName" />
+      </div>
+
+      <div class="d-sm-inline">
+        <soe-button
+          [caption]="'core.search'"
+          [behaviour]="'primary'"
+          (action)="search()"></soe-button>
+      </div>
+    </div>
+  </form>
+</div>

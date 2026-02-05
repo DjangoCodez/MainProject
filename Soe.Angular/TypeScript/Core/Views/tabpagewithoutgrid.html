@@ -1,0 +1,9 @@
+﻿<div data-ng-init="ctrl = tab.controller">
+    <soe-toolbar buttons="ctrl.buttonGroups"></soe-toolbar>
+
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progressBusy">
+        <data-ng-include src="ctrl.pageBodyUrl" />
+    </div>       
+</div>

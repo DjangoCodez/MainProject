@@ -1,0 +1,207 @@
+﻿import { ICompositionGridController } from "../../../Core/ICompositionGridController";
+import { IGridHandlerFactory } from "../../../Core/Handlers/GridHandlerFactory";
+import { IControllerFlowHandlerFactory } from "../../../Core/Handlers/ControllerFlowHandlerFactory";
+import { IProgressHandlerFactory } from "../../../Core/Handlers/ProgressHandlerFactory";
+import { IMessagingHandlerFactory } from "../../../Core/Handlers/MessagingHandlerFactory";
+import { IUrlHelperService } from "../../../Core/Services/UrlHelperService";
+import { ITranslationService } from "../../../Core/Services/TranslationService";
+import { Feature, TermGroup_ApiMessageSourceType, TermGroup_ApiMessageType } from "../../../Util/CommonEnumerations";
+import { IPermissionRetrievalResponse } from "../../../Core/Handlers/ControllerFlowHandler";
+import { IToolbarFactory } from "../../../Core/Handlers/ToolbarFactory";
+import { IEmployeeService } from "./../EmployeeService";
+import { IGridHandler } from "../../../Core/Handlers/GridHandler";
+import { GridControllerBase2Ag } from "../../../Core/Controllers/GridControllerBase2Ag";
+import { ApiMessageGridDTO } from "../../../Common/Models/ApiMessageDTO";
+
+export class MassUpdateEmployeeGridController extends GridControllerBase2Ag implements ICompositionGridController {
+
+    // Init parameters
+    private feature: Feature;
+
+    // Terms:
+    private terms: any;
+
+    // Data
+    private messages: ApiMessageGridDTO[];
+
+    // Toolbar
+    private toolbarInclude: any;
+
+    // Flags
+    private disableAutoLoad: boolean = true;
+    private firstLoadHasOccurred: boolean = false;
+    private filterShowOnlyErrors: boolean = false;
+    private _filterFromDate: Date;
+    private get filterFromDate(): Date {
+        return this._filterFromDate;
+    }
+    private set filterFromDate(date: Date) {
+        if (!date)
+            date = new Date().date();
+        this._filterFromDate = date;
+    }
+    private _filterToDate: Date;
+    private get filterToDate(): Date {
+        return this._filterToDate;
+    }
+    private set filterToDate(date: Date) {
+        if (!date)
+            date = new Date().date();
+        this._filterToDate = date;
+    }
+
+
+    //@ngInject
+    constructor(
+        private employeeService: IEmployeeService,
+        private translationService: ITranslationService,
+        private $timeout: ng.ITimeoutService,
+        controllerFlowHandlerFactory: IControllerFlowHandlerFactory,
+        progressHandlerFactory: IProgressHandlerFactory,
+        messagingHandlerFactory: IMessagingHandlerFactory,
+        gridHandlerFactory: IGridHandlerFactory,
+        urlHelperService: IUrlHelperService) {
+        super(gridHandlerFactory, "Time.Employee.MassUpdateEmployeeFields", progressHandlerFactory, messagingHandlerFactory);
+
+        this.filterFromDate = new Date().date().addMonths(-1);
+        this.filterToDate = new Date().date();
+        this.toolbarInclude = urlHelperService.getViewUrl("massUpdateGridHeader.html");
+        
+
+        this.flowHandler = controllerFlowHandlerFactory.createForGrid()
+            .onAllPermissionsLoaded(x => this.onPermissionsLoaded(x))
+            .onCreateToolbar((toolbarFactory) => this.onCreateToolbar(toolbarFactory))
+            .onBeforeSetUpGrid(() => this.loadTerms())
+            .onSetUpGrid(() => this.setupGrid())
+            .onLoadGridData(() => this.loadGridData(false));
+    }
+
+    // SETUP
+
+    public onInit(parameters: any) {
+        this.parameters = parameters;
+        this.isHomeTab = !!parameters.isHomeTab;
+        this.feature = soeConfig.feature;
+
+        this.flowHandler.start([
+            { feature: this.feature, loadReadPermissions: true, loadModifyPermissions: true },
+        ]);
+    }
+
+    private onPermissionsLoaded(response: IPermissionRetrievalResponse) {
+        this.readPermission = response[this.feature].readPermission;
+        this.modifyPermission = response[this.feature].modifyPermission;
+    }
+
+    public setupGrid() {
+
+        this.doubleClickToEdit = false;
+        this.gridAg.options.enableRowSelection = true;
+        let colDef = this.gridAg.addColumnText("identifiers", this.terms["common.employees"], 100, true);
+        colDef.cellRenderer = 'agGroupCellRenderer';
+        this.gridAg.addColumnText("recordCount", this.terms["common.api.recordcount"], 25, true);
+        this.gridAg.addColumnText("statusName", this.terms["common.api.status"], 45, true);
+        this.gridAg.addColumnDateTime("created", this.terms["common.created"], 60, true, null, { showSeconds: true });
+        this.gridAg.addColumnText("comment", this.terms["common.api.comment"], 85, true);
+        var colValidationMessage = this.gridAg.addColumnText("validationMessage", this.terms["common.api.validationmessage"], null, true);
+        if (colValidationMessage) {
+            colValidationMessage.cellClassRules = {
+                "errorRow": (params) => params.data.hasError === true,
+            };
+        }
+
+        // Details
+        this.gridAg.enableMasterDetail(true);
+        this.gridAg.detailOptions.enableFiltering = false;
+        this.gridAg.options.setDetailCellDataCallback((params) => {
+            // Hide selection row, since enableRowSelection does not seem to work for detail grids
+            let gridName = (params.node && params.node.detailGridInfo ? params.node.detailGridInfo.id : null);
+            if (gridName)
+                this.gridAg.options.setChildGridColumnVisibility(gridName, 'soe-row-selection', false);
+
+            // Return data
+            params.successCallback(params.data['changes']);
+        });
+        this.gridAg.detailOptions.addColumnText("identifier", this.terms["common.employee"], 30);
+        this.gridAg.detailOptions.addColumnText("recordName", this.terms["common.api.recordname"], 85);
+        this.gridAg.detailOptions.addColumnText("fieldTypeName", this.terms["common.api.changefieldtype"], 90);
+        this.gridAg.detailOptions.addColumnText("fromValue", this.terms["common.api.fromvalue"], 80);
+        this.gridAg.detailOptions.addColumnText("toValue", this.terms["common.api.tovalue"], 80);
+        this.gridAg.detailOptions.addColumnDate("fromDate", this.terms["common.from"], 35);
+        this.gridAg.detailOptions.addColumnDate("toDate", this.terms["common.to"], 35);
+        var colError = this.gridAg.detailOptions.addColumnText("error", this.terms["core.error"], null);
+        if (colError) {
+            colError.cellClassRules = {
+                "errorRow": (params) => params.data.hasError === true,
+            };
+        }
+
+        this.gridAg.finalizeInitGrid("common.api", true);
+    }
+
+    private onCreateToolbar(toolbarFactory: IToolbarFactory) {
+        this.toolbar = toolbarFactory.createDefaultGridToolbar(<IGridHandler>this.gridAg, () => this.reloadData());
+        this.toolbar.addInclude(this.toolbarInclude);
+    }
+
+    // SERVICE CALLS
+
+    private loadTerms(): ng.IPromise<any> {
+        var keys: string[] = [
+            "core.aggrid.totals.filtered",
+            "core.aggrid.totals.total",
+            "common.created",
+            "common.employee",
+            "common.employees",
+            "common.api.status",
+            "common.api.comment",
+            "common.api.validationmessage",
+            "common.api.recordcount",
+            "common.api.recordname",
+            "common.api.changetype",
+            "common.api.changefieldtype",
+            "common.api.fromvalue",
+            "common.api.tovalue",
+            "common.from",
+            "common.to",
+            "core.error",
+            "core.workfailed",
+            "core.worked",
+        ];
+
+        return this.translationService.translateMany(keys).then(terms => {
+            this.terms = terms;
+        });
+    }
+
+    public loadGridData(force: boolean) {
+        if (!force && this.isAutoLoadDisabled())
+            return;
+
+        this.progress.startLoadingProgress([() => {
+            return this.employeeService.getApiMessages(TermGroup_ApiMessageType.Employee, TermGroup_ApiMessageSourceType.MassUpdateEmployeeFields, this.filterFromDate, this.filterToDate, false, this.filterShowOnlyErrors).then(x => {
+                this.messages = x;
+                this.setData(this.messages);
+                this.firstLoadHasOccurred = true;
+            });
+        }]);
+    }
+
+    private reloadData() {
+        this.loadGridData(true);
+    }
+
+    private filterChanged() {
+        if (this.isAutoLoadDisabled())
+            return;
+        this.$timeout(() => {
+            this.reloadData();
+        });
+    }
+
+    // HELP-METHODS
+
+    private isAutoLoadDisabled() {
+        return this.disableAutoLoad && !this.firstLoadHasOccurred;
+    }
+}

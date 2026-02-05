@@ -1,0 +1,116 @@
+﻿@import (reference) "variables.less";
+@import (reference) "../../../../node_modules/bootstrap/less/bootstrap";
+@import "../../../../node_modules/bootstrap/less/variables";
+
+.main-content {
+    .nav-tabs {
+        height: 32px;
+        margin-bottom: 0;
+        margin-right: 0;
+
+        > li {
+            > a {
+                height: 32px;
+                color: @soe-text-color;
+                border-color: @soe-border-color;
+                border-radius: 0;
+                border-top-left-radius: @border-radius;
+                border-top-right-radius: @border-radius;
+                margin-right: -1px;
+                padding: 7px 16px 3px 16px;
+                text-align: center;
+            }
+
+            > a:hover {
+                border-color: @soe-border-color;
+                background-color: @soe-border-color;
+            }
+        }
+
+        > li.active {
+            > a, > a:hover, > a:focus {
+                font-weight: bold;
+                border-color: @soe-border-color;
+                border-bottom-color: transparent;
+
+                label {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        > li.disabled {
+            > a:hover {
+                background-color: @soe-color-neutral-ag-white;
+            }
+        }
+
+        > li label {
+            padding: 0;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        li:not(:first-child) {
+            margin-left: -1px;
+        }
+    }
+
+    .tab-content {
+        background-color: @soe-background-color;
+        border-left: 1px solid @soe-border-color;
+        border-right: 1px solid @soe-border-color;
+        border-bottom: 1px solid @soe-border-color;
+        padding: 16px;
+    }
+
+    .tab {
+        height: 32px;
+        min-width: 100px;
+        background-color: @soe-header-background-color;
+
+        &.slim {
+            min-width: 48px;
+        }
+
+        &.disabled {
+            background-color: @soe-color-neutral-ag-white;
+        }
+    }
+    // Tab icon
+    .addTabIcon {
+        color: @informationColor;
+        margin-left: -2px;
+    }
+
+    .addTabIconDisabled {
+        color: @soe-disabled-text-color;
+        margin-left: -2px;
+    }
+
+    .removableTabIcon {
+        color: @soe-text-color;
+        margin-left: 5px;
+        cursor: pointer;
+    }
+
+    .removableTabIcon:hover {
+        color: @errorColor;
+    }
+
+    .removeAllTabIcon {
+        color: @errorColor;
+        margin-left: -2px;
+    }
+
+    .removeAllTabIconDisabled {
+        color: @soe-disabled-text-color;
+        margin-left: -2px;
+    }
+
+    .dirtyTabIcon {
+        color: @soe-color-primary;
+        font-size: 12px;
+        font-weight: normal;
+    }
+}

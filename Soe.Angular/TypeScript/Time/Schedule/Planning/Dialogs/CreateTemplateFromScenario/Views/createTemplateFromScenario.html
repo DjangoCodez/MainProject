@@ -1,0 +1,55 @@
+﻿<form name="ctrl.edit" autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title"><span data-l10n-bind="'time.schedule.planning.scenario.createtemplate'"></span> <span>{{ctrl.scenarioHead.name}}</span>: <span>{{ctrl.scenarioHead.dateFrom | date:'shortDate'}}</span> - <span>{{ctrl.scenarioHead.dateTo | date:'shortDate'}}</span></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-panel label-key="time.schedule.planning.templateschedule.headtitle">
+                    <div class="row margin-small-bottom">
+                        <div data-ng-class="{'col-sm-3': ctrl.useStopDate, 'col-sm-4': !ctrl.useStopDate}">
+                            <soe-textbox label-key="core.time.weeks" model="ctrl.nbrOfWeeks" numeric="true" decimals="0" is-disabled="true"></soe-textbox>
+                        </div>
+                        <div data-ng-class="{'col-sm-3': ctrl.useStopDate, 'col-sm-4': !ctrl.useStopDate}">
+                            <soe-datepicker label-key="time.schedule.planning.templateschedule.startdate" model="ctrl.dateFrom" required="true" on-change="ctrl.dateFromChanged();"></soe-datepicker>
+                        </div>
+                        <div data-ng-class="{'col-sm-3': ctrl.useStopDate, 'col-sm-4': !ctrl.useStopDate}">
+                            <soe-textbox label-key="time.schedule.planning.templateschedule.weekincycle" model="ctrl.weekInCycle" numeric="true" decimals="0" update-on="blur" on-change="ctrl.weekInCycleChanged()"></soe-textbox>
+                        </div>
+                        <div class="col-sm-3" data-ng-if="ctrl.useStopDate">
+                            <soe-datepicker label-key="time.schedule.planning.templateschedule.stopdate" model="ctrl.dateTo" on-change="ctrl.dateToChanged();"></soe-datepicker>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 margin-large-top">
+                            <button type="button" class="btn btn-primary" data-l10n-bind="'time.schedule.planning.evaluateworkrules'" data-l10n-bind-title="'time.schedule.planning.evaluateworkrules'" data-ng-disabled="!ctrl.isDirty" data-ng-click="$event.stopPropagation();ctrl.evaluateWorkRules()"></button>
+                        </div>
+                        <!--<div data-ng-class="{'col-sm-offset-1 col-sm-3': ctrl.useStopDate, 'col-sm-offset-2 col-sm-4': !ctrl.useStopDate}" class="margin-large-top" data-ng-if="ctrl.startDateNotMonday">
+                            <div class="warning">
+                                <span data-l10n-bind="'time.schedule.planning.templateschedule.muststartonmonday'"></span>
+                            </div>
+                        </div>-->
+                    </div>
+                </soe-panel>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <soe-checkbox label-key="time.schedule.planning.scenario.createtemplate.showonlyinvalidworkrules" model="ctrl.showOnlyInvalidWorkRules" condensed="true" on-changing="ctrl.filterRows();"></soe-checkbox>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <div id="scenario-grid" ag-grid="ctrl.gridHandler.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-inline">
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-l10n-bind-title="'core.ok'" data-ng-disabled="ctrl.edit.$invalid || !ctrl.isValidToCreateTemplate" data-ng-click="$event.stopPropagation();ctrl.initOk()"></button>
+        </div>
+    </div>
+</form>

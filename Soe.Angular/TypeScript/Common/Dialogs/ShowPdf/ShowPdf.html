@@ -1,0 +1,17 @@
+﻿<div class="messagebox" style="margin-top: -70px;">
+    <div class="modal-header">
+        <button type="button" class="btn btn-sm btn-default fal fa-chevron-left" ng-click="ctrl.onPrevPage()" data-l10n-bind data-l10n-bind-title="'core.previous'"></button>
+        <span>{{ctrl.pageNum}} / {{ctrl.numberOfPages}}</span>
+        <button type="button" class="btn btn-sm btn-default fal fa-chevron-right" ng-click="ctrl.onNextPage()" data-l10n-bind data-l10n-bind-title="'core.next'"></button>
+        <button type="button" class="btn btn-sm btn-default fal fa-search-minus" ng-click="ctrl.zoomOut()" data-l10n-bind data-l10n-bind-title="'core.zoomout'"></button>
+        <button type="button" class="btn btn-sm btn-default fal fa-search-plus" ng-click="ctrl.zoomIn()" data-l10n-bind data-l10n-bind-title="'core.zoomin'"></button>
+        <a ng-href="{{ctrl.getUrl()}}" target="_blank" class="btn btn-sm btn-default fal fa-download" ng-if="ctrl.invoiceId" style="margin-bottom: 5px;"></a>
+
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+    </div>
+    <div class="modal-body" style="padding: 0;">
+        <div class="pdf-holder temp" style="max-height: 700px;">
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,6 @@
+﻿
+
+
+//Available methods for CoreCustomerController
+
+

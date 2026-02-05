@@ -1,0 +1,51 @@
+<form [formGroup]="statisticsForm" novalidate autocomplete="off">
+  <div class="row">
+    <div class="col-sm-2">
+      <soe-select
+        [items]="allItemsSelectionDict"
+        formControlName="selectedAllItemsId"
+        (valueChanged)="allItemsSelectionChanged($event)">
+      </soe-select>
+    </div>
+    <div class="col-sm-2 align-self-end">
+      <soe-button
+        [caption]="'core.search'"
+        [behaviour]="'standard'"
+        [iconName]="'file-search'"
+        (action)="loadCustomerStatistics()"></soe-button>
+    </div>
+  </div>
+
+  <div class="row my-2">
+    <div class="col-sm-12">
+      @if (flowHandler.allowFetchGrid()) {
+        <soe-grid-wrapper
+          [height]="250"
+          [noMargin]="true"
+          [toolbarGroups]="[]"
+          [rows]="rowData"
+          [parentGuid]="guid()"
+          (selectionChanged)="rowDataSelectionChanged($event)">
+        </soe-grid-wrapper>
+      }
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-8 col-sm-4">
+      <div class="row justify-content-end">
+        <div class="col-sm-4">
+          <soe-numberbox
+            [labelKey]="'common.customer.customer.selectedtotal'"
+            formControlName="selectedTotal"
+            [decimals]="2"></soe-numberbox>
+        </div>
+        <div class="col-sm-4">
+          <soe-numberbox
+            [labelKey]="'common.customer.customer.filteredtotal'"
+            formControlName="filteredTotal"
+            [decimals]="2"></soe-numberbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

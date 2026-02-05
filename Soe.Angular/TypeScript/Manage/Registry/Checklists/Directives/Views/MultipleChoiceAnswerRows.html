@@ -1,0 +1,30 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">        
+        <h6 class="modal-title" data-l10n-bind="'manage.registry.checklists.multiplechoice.questions'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-textbox label="true" model="ctrl.answerHead.title"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-select label-key="manage.registry.checklists.multiplechoice.previouslyused" model="ctrl.answerHead.checkListMultipleChoiceAnswerHeadId" items="ctrl.answerHeads" options="item.checkListMultipleChoiceAnswerHeadId as item.title for item in items"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <multiple-choice-answer-rows answer-rows="ctrl.answerrows" on-change="ctrl.setDirty();"></multiple-choice-answer-rows>
+                </div>
+            </div>            
+        </div>            
+    </div>
+
+    <div class="modal-footer margin-small-top">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.save'" data-ng-click="ctrl.buttonSaveClick()"></button>
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.buttonCloseClick()"></button>
+    </div>
+</div>
+

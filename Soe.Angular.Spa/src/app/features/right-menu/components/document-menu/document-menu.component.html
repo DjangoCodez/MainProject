@@ -1,0 +1,231 @@
+<div>
+  @if (showMenu) {
+    <div class="right-menu" [class.fullscreen]="fullscreen">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          @if (fullscreen) {
+            <button
+              class="panel-heading-button panel-heading-button-left"
+              [title]="'core.restore' | translate"
+              (click)="toggleFullscreen()">
+              <fa-icon [icon]="['fal', 'chevrons-right']"></fa-icon>
+            </button>
+          }
+          <span class="font-bold" translate
+            >{{ 'core.documentmenu.title' }}
+          </span>
+          <button
+            type="button"
+            class="panel-heading-button"
+            [title]="'core.close' | translate"
+            (click)="toggleShowMenu()">
+            <fa-icon [icon]="['fal', 'xmark']"></fa-icon>
+          </button>
+          <button
+            type="button"
+            class="panel-heading-button"
+            [title]="'core.reload_data' | translate"
+            [disabled]="loadingDocuments"
+            (click)="loadDocuments()">
+            <fa-icon [icon]="['fal', 'sync']"></fa-icon>
+          </button>
+          @if (modifyPermission()) {
+            <button
+              type="button"
+              class="panel-heading-button"
+              [title]="'core.document.new' | translate"
+              (click)="edit()">
+              <fa-icon [icon]="['fal', 'plus']"></fa-icon>
+            </button>
+          }
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            @if (fullscreen) {
+              <div class="document-menu-left-container col-sm-9">
+                <div class="document-menu-preview">
+                  @if (pdf) {
+                    <soe-pdf-viewer [base64Data]="pdf"></soe-pdf-viewer>
+                  }
+                  @if (image) {
+                    <div class="content-border">
+                      <img src="data:image/jpg;base64,{{ image }}" />
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+            <div
+              class="document-menu-right-container"
+              [class.col-sm-12]="!fullscreen"
+              [class.col-sm-3]="fullscreen">
+              <div class="document-menu-tabs">
+                <ul>
+                  @for (tab of tabs; track tab) {
+                    <li
+                      [class.selected]="tab.selected"
+                      (click)="selectTab(tab)">
+                      <span>{{ tab.title }}</span>
+                    </li>
+                  }
+                </ul>
+              </div>
+              <div class="document-menu-documents">
+                @if (loadingDocuments) {
+                  <soe-instruction
+                    [showIcon]="true"
+                    [iconPrefix]="'fas'"
+                    [iconName]="'spinner'"
+                    [iconSpin]="true"
+                    [text]="'core.loading'"></soe-instruction>
+                }
+                @if (!loadingDocuments && documents.length === 0) {
+                  <soe-instruction
+                    [text]="'core.documentmenu.nodocuments'"></soe-instruction>
+                }
+                @if (!loadingDocuments && documents.length > 0) {
+                  <ul>
+                    @for (folder of folders; track folder) {
+                      <li>
+                        <span
+                          class="far link"
+                          [class.fa-chevron-down]="!folder.expanded"
+                          [class.fa-chevron-up]="folder.expanded"
+                          style="margin-right: 4px"
+                          (click)="toggleFolder(folder)"></span>
+                        <span
+                          class="font-italic font-bold link"
+                          (click)="toggleFolder(folder)"
+                          ><span>{{ folder.name }}</span>
+                          @if (folder.nbrOfUnread > 0) {
+                            <span>
+                              (<span>{{ folder.nbrOfUnread }}</span
+                              >)</span
+                            >
+                          }
+                        </span>
+                        @if (folder.expanded) {
+                          <ul>
+                            @for (
+                              document of documentsInFolder(folder.name);
+                              track document
+                            ) {
+                              <li
+                                [cdkContextMenuTriggerFor]="context_menu"
+                                (dblclick)="edit(document)">
+                                <ng-template #context_menu>
+                                  <document-menu-context-menu
+                                    [document]="document"
+                                    (menuSelected)="
+                                      onMenuSelected($event)
+                                    "></document-menu-context-menu>
+                                </ng-template>
+                                <soe-icon-button
+                                  class="panel-body-button"
+                                  [noBorder]="true"
+                                  [transparent]="true"
+                                  [noMargins]="true"
+                                  [iconName]="'eye'"
+                                  [disabled]="!document.canViewDocument"
+                                  [tooltip]="'core.document.view' | translate"
+                                  (action)="viewFile(document)">
+                                </soe-icon-button>
+                                <soe-icon-button
+                                  class="panel-body-button"
+                                  [noBorder]="true"
+                                  [transparent]="true"
+                                  [noMargins]="true"
+                                  [iconName]="'download'"
+                                  [tooltip]="
+                                    'core.document.downloadfile' | translate
+                                  "
+                                  (action)="downloadFile(document)">
+                                </soe-icon-button>
+                                @if (document.messageId) {
+                                  <soe-icon-button
+                                    class="panel-body-button"
+                                    [noBorder]="true"
+                                    [transparent]="true"
+                                    [noMargins]="true"
+                                    [iconName]="'envelope-open-text'"
+                                    [tooltip]="
+                                      'core.document.viewmessage' | translate
+                                    "
+                                    (action)="viewMessage(document)">
+                                  </soe-icon-button>
+                                }
+                                <span
+                                  class="ms-2"
+                                  [class.font-bold]="!document.readDate"
+                                  title="{{ getDocumentToolTip(document) }}"
+                                  >{{ document.displayName }}</span
+                                >
+                                @if (isGeneralTab && modifyPermission()) {
+                                  <soe-icon-button
+                                    class="panel-body-button panel-body-button-right"
+                                    [noBorder]="true"
+                                    [transparent]="true"
+                                    [noMargins]="true"
+                                    [iconName]="'pencil'"
+                                    [tooltip]="'core.document.edit' | translate"
+                                    (action)="edit(document)">
+                                  </soe-icon-button>
+                                }
+                                @if (document.needsConfirmation) {
+                                  <fa-icon
+                                    class="float-end me-2"
+                                    [icon]="[
+                                      'fal',
+                                      document.answerType === 1
+                                        ? 'file-check'
+                                        : 'file-exclamation'
+                                    ]"
+                                    [class.color-success]="
+                                      document.answerType === 1
+                                    "
+                                    [class.color-error]="
+                                      document.answerType !== 1
+                                    "
+                                    title="{{
+                                      getConfirmedTooltip(document)
+                                    }}"></fa-icon>
+                                }
+                              </li>
+                            }
+                          </ul>
+                        }
+                      </li>
+                    }
+                  </ul>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+  <div
+    id="document-menu-toggle"
+    class="right-menu-toggle"
+    [style.top.px]="topPosition"
+    [title]="toggleTooltip"
+    (click)="toggleShowMenu()">
+    <a>
+      @if (nbrOfUnreadCompanyDocuments === 0) {
+        <fa-icon [icon]="['fal', 'file-lines']"></fa-icon>
+      }
+      @if (nbrOfUnreadCompanyDocuments > 0) {
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="['fal', 'file-lines']"></fa-icon>
+          <fa-layers-counter
+            content="{{
+              nbrOfUnreadCompanyDocuments > 99
+                ? '99+'
+                : nbrOfUnreadCompanyDocuments
+            }}"></fa-layers-counter>
+        </fa-layers>
+      }
+    </a>
+  </div>
+</div>

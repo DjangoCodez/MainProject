@@ -1,0 +1,406 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'economy.accounting.accountdistribution.accountdistribution'"
+      [open]="true">
+      <div class="row m-2">
+        <div class="col-sm-2">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            formControlName="name"
+            [maxLength]="100"
+            [autoFocus]="true"></soe-textbox>
+        </div>
+        <div class="col-sm-2">
+          <soe-datepicker
+            [labelKey]="'economy.accounting.accountdistribution.startdate'"
+            [disabled]="entriesIsStarted()"
+            formControlName="startDate"
+            (valueChanged)="triggerDateChange()"></soe-datepicker>
+        </div>
+        @if (isPeriodAccountDistribution) {
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'economy.accounting.accountdistribution.type'"
+              [selectedId]="form.value.triggerType"
+              [items]="triggerType || []"
+              formControlName="triggerType"
+              (valueChanged)="triggerTypeChange($event)"></soe-select>
+          </div>
+          <div class="col-sm-2">
+            <soe-numberbox
+              [disallowNegative]="true"
+              [labelKey]="'economy.accounting.accountdistribution.dayinperiod'"
+              formControlName="dayNumber"></soe-numberbox>
+          </div>
+        }
+      </div>
+
+      <div class="row m-2">
+        <div class="col-sm-2">
+          <soe-textbox
+            [labelKey]="'common.description'"
+            [maxLength]="100"
+            formControlName="description"></soe-textbox>
+        </div>
+        <div class="col-sm-2">
+          <soe-datepicker
+            [labelKey]="'economy.accounting.accountdistribution.enddate'"
+            formControlName="endDate"
+            (valueChanged)="triggerDateChange()"
+            ></soe-datepicker>
+        </div>
+        @if (isPeriodAccountDistribution) {
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'economy.accounting.accountdistribution.voucherserie'"
+              [selectedId]="form.value.voucherSeriesTypeId"
+              [items]="voucherSeries || []"
+              formControlName="voucherSeriesTypeId"></soe-select>
+          </div>
+          @if (registrationAsTriggerType) {
+            <div class="col-sm-2">
+              <soe-numberbox
+                [labelKey]="
+                  'economy.accounting.accountdistribution.numberoftimes'
+                "
+                formControlName="numberOfTimes"></soe-numberbox>
+            </div>
+          }
+        }
+      </div>
+
+      <div class="row m-2">
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="
+              'economy.accounting.accountdistribution.calculationtype'
+            "
+            [selectedId]="form.value.calculationTypeId"
+            [items]="calculationType || []"
+            (valueChanged)="calculationTypeChange($event)"
+            formControlName="calculationTypeId"></soe-select>
+        </div>
+
+        @if (!registrationAsTriggerType && isPeriodAccountDistribution) {
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'economy.accounting.accountdistribution.periodtype'"
+              [selectedId]="form.value.periodType"
+              [items]="filteredPeriodTypes || []"
+              formControlName="periodType"
+              (valueChanged)="periodTypeChange($event)"></soe-select>
+          </div>
+        }
+      </div>
+
+      @if (registrationAsTriggerType) {
+        <div class="row my-3">
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-label
+                [labelKey]="
+                  'economy.accounting.accountdistribution.usein'
+                "></soe-label>
+            </div>
+          </div>
+
+          <div class="row mx-2">
+            <div class="row">
+              <div class="col-sm-3">
+                <soe-checkbox
+                  [labelKey]="
+                    'economy.accounting.accountdistribution.voucherregister'
+                  "
+                  formControlName="useInVoucher"></soe-checkbox>
+              </div>
+              <div class="col-sm-3">
+                <soe-checkbox
+                  [labelKey]="
+                    'economy.accounting.accountdistribution.customerinvoice'
+                  "
+                  formControlName="useInCustomerInvoice"></soe-checkbox>
+              </div>
+              <div class="col-sm-3">
+                <soe-checkbox
+                  [labelKey]="
+                    'economy.accounting.accountdistribution.payrollvoucher'
+                  "
+                  formControlName="useInPayrollVoucher"></soe-checkbox>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-3">
+                <soe-checkbox
+                  [labelKey]="
+                    'economy.accounting.accountdistribution.supplierinvoice'
+                  "
+                  formControlName="useInSupplierInvoice"></soe-checkbox>
+              </div>
+              <div class="col-sm-3">
+                <soe-checkbox
+                  [labelKey]="'economy.accounting.accountdistribution.import'"
+                  formControlName="useInImport"></soe-checkbox>
+              </div>
+              <div class="col-sm-3">
+                <soe-checkbox
+                  [labelKey]="
+                    'economy.accounting.accountdistribution.payrollvacationvoucher'
+                  "
+                  formControlName="useInPayrollVacationVoucher"></soe-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+      @if (isPeriodAccountDistribution) {
+        <div class="information-container no-margin">
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-label
+                [labelKey]="
+                  'economy.accounting.accountdistribution.totalcount'
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                [labelKey]="
+                  'economy.accounting.accountdistribution.transferredcount'
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                [labelKey]="
+                  'economy.accounting.accountdistribution.remainingcount'
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                [labelKey]="
+                  'economy.accounting.accountdistribution.lasttransferdate'
+                ">
+              </soe-label>
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-sm-2">
+              <soe-label
+                [labelValue]="
+                  (entryTotalCount || '').toLocaleString(undefined, {})
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                [labelValue]="
+                  (entryTransferredCount || '').toLocaleString(undefined, {})
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                [labelValue]="
+                  (entryRemainingCount || '').toLocaleString(undefined, {})
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              @if (entryLatestTransferDate) {
+                <soe-label
+                  [labelValue]="entryLatestTransferDate.toFormattedDate()">
+                </soe-label>
+              }
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-label
+                [labelKey]="
+                  'economy.accounting.accountdistribution.totalamount'
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                [labelKey]="'economy.accounting.accountdistribution.saldo'">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                [labelKey]="
+                  'economy.accounting.accountdistribution.remainingamount'
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                [labelKey]="
+                  'economy.accounting.accountdistribution.periodamount'
+                ">
+              </soe-label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-label
+                [labelValue]="
+                  (entryTotalAmount || 0).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                [labelValue]="
+                  (entryTransferredAmount || 0).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                [labelValue]="
+                  (entryRemainingAmount || 0).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                [labelValue]="
+                  (entryPeriodAmount || 0).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+          </div>
+        </div>
+      }
+    </soe-expansion-panel>
+
+    @if (!amountAsPeriodType) {
+      <soe-expansion-panel
+        [labelKey]="'economy.accounting.accountdistribution.conditions'"
+        [open]="true">
+        <div class="row m-2">
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="accountDim1Name"
+              formControlName="dim1Expression">
+            </soe-textbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="accountDim2Name"
+              formControlName="dim2Expression">
+            </soe-textbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="accountDim3Name"
+              formControlName="dim3Expression">
+            </soe-textbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="accountDim4Name"
+              formControlName="dim4Expression">
+            </soe-textbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="accountDim5Name"
+              formControlName="dim5Expression">
+            </soe-textbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="accountDim6Name"
+              formControlName="dim6Expression">
+            </soe-textbox>
+          </div>
+        </div>
+
+        <div class="row m-2">
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="
+                'economy.accounting.accountdistribution.amountoperator'
+              "
+              [items]="amountOperatorWildCardOptions"
+              formControlName="amountOperator">
+            </soe-select>
+          </div>
+          <div class="col-sm-2">
+            <soe-textbox [labelKey]="'common.amount'" formControlName="amount">
+            </soe-textbox>
+          </div>
+          @if (!isPeriodAccountDistribution) {
+          <div class="col-sm-2">
+            <soe-checkbox
+              [labelKey]="'economy.accounting.accountdistribution.keeprow'"
+              [inline]="true"
+              formControlName="keepRow">
+            </soe-checkbox>
+          </div>
+          }
+        </div>
+
+        <div class="row my-2">
+          <soe-instruction
+            text="economy.accounting.accountdistribution.informationtext">
+          </soe-instruction>
+        </div>
+      </soe-expansion-panel>
+    }
+
+    <soe-expansion-panel [labelKey]="'common.accountingrows'" [open]="true">
+      <soe-distribution-rows
+        [rows]="distributionRow"
+        [activeRows]="distributionActiveRows"
+        [form]="form"></soe-distribution-rows>
+    </soe-expansion-panel>
+
+    @if (!form.isNew) {
+      <soe-expansion-panel [labelKey]="'common.tracing'" [open]="false">
+        <soe-trace-rows
+          [traceId]="form.accountDistributionHeadId.value"
+          [pageName]="pageName">
+        </soe-trace-rows>
+      </soe-expansion-panel>
+    }
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"
+      (activeChanged)="activeChanged($event)"></soe-edit-footer>
+  </form>
+}

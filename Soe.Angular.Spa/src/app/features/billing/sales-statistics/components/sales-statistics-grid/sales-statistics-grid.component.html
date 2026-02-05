@@ -1,0 +1,170 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+    (selectionChanged)="triggerSelectedItemCalc()">
+    <soe-sales-statistics-grid-filter
+      toolbar-content-left
+      (searchClick)="doSearch($event)"></soe-sales-statistics-grid-filter>
+    <div class="row" footer>
+      <div class="col-sm-12">
+        <div class="information-container no-top-margin">
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-label class="pull-right"> </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label class="pull-right" [labelKey]="'common.quantity'">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label class="pull-right" [labelKey]="'common.price'">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label class="pull-right" [labelKey]="'common.amount'">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label class="pull-right" [labelKey]="'common.purchaseprice'">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelKey]="'common.customer.customer.marginalincome'">
+              </soe-label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelKey]="'core.aggrid.totals.filtered'">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  filteredQuantity.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  filteredPrice.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  filteredAmount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  filteredPurchasePrice.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  filteredMarginalIncome.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelKey]="'core.aggrid.totals.selected'">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  selectedQuantity.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  selectedPrice.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  selectedAmount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  selectedPurchasePrice.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  selectedMarginalIncome.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </soe-grid-wrapper>
+}

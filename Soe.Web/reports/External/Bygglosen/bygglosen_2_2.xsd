@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2015 rel. 4 (x64) (http://www.altova.com) by hockey (UC AB) --> 
+<!-- edited with XMLSPY v5 rel. 4 U (http://www.xmlspy.com) by jlarsson@codefighters.com (Softronic AB) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Lista_lonegranskning">
+		<xs:annotation>
+			<xs:documentation>Hanterar lönegranskning</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Korrigeringskod" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Kod för korrigering av denna fil</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="13"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="KorrigeringAvFil" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Kod för fil som ska korrigeras</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="13"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Lonesystem" type="xs:string" minOccurs="0"/>
+				<xs:element name="Lonegranskning" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Organisationsnummer">
+								<xs:annotation>
+									<xs:documentation>Juridiskt organisationsnummer</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:length value="10"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Foretagsnamn" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>Företagets namn</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="LoneperiodStartdatum">
+								<xs:annotation>
+									<xs:documentation>AAAAMMDD</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:totalDigits value="8"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="LoneperiodSlutdatum">
+								<xs:annotation>
+									<xs:documentation>AAAAMMDD</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:totalDigits value="8"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Avtalsomrade">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:length value="5"/>
+										<xs:pattern value="10075"/>
+										<xs:pattern value="28075"/>
+										<xs:pattern value="28071"/>
+										<xs:pattern value="25070"/>
+										<xs:pattern value="25071"/>
+										<xs:pattern value="25072"/>
+										<xs:pattern value="25073"/>
+										<xs:pattern value="42074"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Lonetyp">
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:totalDigits value="1"/>
+										<xs:pattern value="1"/>
+										<xs:pattern value="2"/>
+										<xs:pattern value="3"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="LanOchKommun">
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:totalDigits value="4"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Postort">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="18"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Personer">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Person" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="Arbetsplatsnr" minOccurs="0">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="100"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="UtlanadTillOrgnr" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>Juridiskt organisationsnummer på det företag man varit utlånad till
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:length value="10"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Anstallningsnummer" type="xs:string" minOccurs="0"/>
+													<xs:element name="Personnummer">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:length value="10"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Namn">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="80"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Fordelningstal">
+														<xs:annotation>
+															<xs:documentation>Procent</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:integer">
+																<xs:totalDigits value="3"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="ArbetadeTimmar" type="xs:double">
+														<xs:annotation>
+															<xs:documentation>2 decimaler</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GrundlonPerTimma" type="xs:double" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>2 decimaler</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="UtbNivaPerTimma" type="xs:double" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>2 decimaler</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="UtbetaltOverskott" type="xs:double" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>2 decimaler</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Lonesumma" type="xs:double">
+														<xs:annotation>
+															<xs:documentation>2 decimaler</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="OBTillagg" type="xs:double">
+														<xs:annotation>
+															<xs:documentation>2 decimaler</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AvtalsenligManadslon" type="xs:double">
+														<xs:annotation>
+															<xs:documentation>2 decimaler</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Overtidstimmar" type="xs:double">
+														<xs:annotation>
+															<xs:documentation>2 decimaler</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Overtidstillagg" type="xs:double">
+														<xs:annotation>
+															<xs:documentation>2 decimaler</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Rolltillagg" type="xs:double" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>2 decimaler</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Aktivitetstillagg" type="xs:double" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>2 decimaler</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Kompetenstillagg" type="xs:double" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>2 decimaler</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Ansvarstillagg" type="xs:double" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>2 decimaler</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Yrkeskod" type="xs:integer"/>
+													<xs:element name="Yrkeskategori" type="xs:integer" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>Obligatoriskt för teknikföretagen</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

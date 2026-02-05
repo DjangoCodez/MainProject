@@ -1,0 +1,120 @@
+@use '../../../../styles/core-styles/colors.scss';
+@use '../../../../styles/core-styles/fonts.scss';
+@use '../../../../styles/core-styles/variables.scss';
+
+.soe-multi-select-button {
+  text-align: left;
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    padding-right: 1.5rem;
+  }
+
+  &.has-selected-items {
+    border: 1px solid colors.$soe-color-secondary-blue !important;
+    background-color: colors.$soe-color-secondary-blue-70;
+  }
+
+  &:active {
+    outline: none;
+  }
+}
+
+.soe-multi-select-list-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  z-index: 10;
+  border: 1px solid colors.$soe-border-color;
+  border-radius: 0 0 variables.$border-radius variables.$border-radius;
+  box-shadow: 0 0.5rem 1rem rgba(102, 102, 102, 0.15);
+
+  &.dropup {
+    top: unset;
+    bottom: 0;
+    margin-bottom: 2rem;
+  }
+}
+
+.soe-multi-select-list-container__filter {
+  padding: 0.5rem;
+  border-top: 1px solid colors.$soe-border-color;
+  background-color: colors.$soe-color-neutral-white;
+  ::ng-deep {
+    button {
+      width: 100%;
+    }
+  }
+}
+
+.soe-multi-select-list-container__search {
+  border-top: 1px solid colors.$soe-border-color;
+  border-bottom: 1px solid colors.$soe-border-color;
+  background-color: colors.$soe-color-neutral-white;
+  font-size: fonts.$soe-font-size-md;
+  padding: 0.25rem 0.5rem;
+  input {
+    margin: 4px 0;
+    padding: 4px;
+    width: 100%;
+  }
+}
+
+.soe-multi-select-list-container__totals-info {
+  background-color: colors.$soe-color-neutral-white;
+  border-bottom: 1px solid colors.$soe-border-color;
+  font-size: fonts.$soe-font-size-md;
+  padding: 0.25rem 0.5rem;
+  &:hover {
+    background-color: colors.$soe-color-neutral-white;
+    cursor: default;
+  }
+
+  .select-all-checkbox {
+    margin-left: 0px !important;
+    margin-top: 1px !important;
+  }
+
+  .filtered-count {
+    float: right;
+  }
+}
+
+.soe-multi-select-list {
+  background: colors.$soe-color-neutral-white;
+  min-width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 348px;
+  li {
+    padding: 0.125rem 0.5rem;
+    font-size: fonts.$soe-font-size-md;
+    cursor: pointer;
+    &:hover {
+      background-color: colors.$soe-color-secondary-light-beige;
+    }
+
+    .form-check-input {
+      margin-left: 0px !important;
+    }
+
+    .form-check-label {
+      margin-top: 0.25rem;
+    }
+  }
+}
+
+.soe-multi-select-selected-items {
+  margin-top: 0.5rem;
+  list-style: none;
+  padding-left: 0.5rem;
+  font-size: fonts.$soe-font-size-md;
+}

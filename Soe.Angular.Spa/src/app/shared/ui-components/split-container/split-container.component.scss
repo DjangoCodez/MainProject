@@ -1,0 +1,75 @@
+@use '../../styles/core-styles/colors.scss';
+@use '../../styles/core-styles/fonts.scss';
+@use '../../styles/core-styles/variables.scss';
+
+::ng-deep {
+  .noselect {
+    user-select: none;
+  }
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+
+  .flex-item {
+    flex: 1 5 50%;
+
+    &.hidden {
+      display: none;
+    }
+
+    ::ng-deep [left],
+    ::ng-deep [right] {
+      height: 100%;
+    }
+  }
+
+  .divider {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 2;
+    background: linear-gradient(
+        colors.$soe-border-color,
+        colors.$soe-border-color
+      )
+      no-repeat center/1px 100%;
+
+    &.no-margins {
+      margin-left: -16px;
+      margin-right: -16px;
+    }
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .divider:hover {
+    cursor: e-resize;
+  }
+
+  .divider > .handle {
+    height: 4rem;
+    width: 0.75rem;
+    background-color: colors.$soe-color-secondary-blue;
+    border-radius: variables.$border-radius;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: e-resize;
+  }
+
+  .divider > .handle > fa-icon {
+    flex: 1 1;
+    color: colors.$soe-color-neutral-white;
+    font-size: fonts.$soe-font-size-lg;
+    margin-left: 1px;
+  }
+
+  .divider.grabbing > .handle {
+    background-color: colors.$soe-color-neutral-dark-grey;
+  }
+}

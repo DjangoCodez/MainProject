@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://INT036_Lonesystem.Schemas.ArbetsgivarintygService" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="BizTalkServiceInstance" targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>
+    <CreationInfo Created="2020-08-04 10:54:24Z" />
+  </wsdl:documentation>
+  <wsp:Policy wsu:Id="CustomBinding_ITwoWayAsync_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygService/Imports">
+      <xsd:import schemaLocation="https://arbetsgivarintygtest.sverigesakassor.se/HR_SystemService/ArbetsgivarintygService.svc?xsd=xsd2" namespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_Bas" />
+      <xsd:import schemaLocation="https://arbetsgivarintygtest.sverigesakassor.se/HR_SystemService/ArbetsgivarintygService.svc?xsd=xsd3" namespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp" />
+      <xsd:import schemaLocation="https://arbetsgivarintygtest.sverigesakassor.se/HR_SystemService/ArbetsgivarintygService.svc?xsd=xsd4" namespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_API" />
+      <xsd:import schemaLocation="https://arbetsgivarintygtest.sverigesakassor.se/HR_SystemService/ArbetsgivarintygService.svc?xsd=xsd5" namespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygService_API" />
+      <xsd:import schemaLocation="https://arbetsgivarintygtest.sverigesakassor.se/HR_SystemService/ArbetsgivarintygService.svc?xsd=xsd6" namespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygService" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ArbetsgivarintygService_SaveArbetsgivarintygService_InputMessage">
+    <wsdl:part name="part" element="tns:ArbetsgivarintygServiceRequest" />
+  </wsdl:message>
+  <wsdl:message name="ArbetsgivarintygService_SaveArbetsgivarintygService_OutputMessage">
+    <wsdl:part name="part" element="tns:ArbetsgivarintygServiceResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ArbetsgivarintygService">
+    <wsdl:documentation />
+    <wsdl:operation name="SaveArbetsgivarintygService">
+      <wsdl:documentation />
+      <wsdl:input message="tns:ArbetsgivarintygService_SaveArbetsgivarintygService_InputMessage" />
+      <wsdl:output message="tns:ArbetsgivarintygService_SaveArbetsgivarintygService_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CustomBinding_ITwoWayAsync" type="tns:ArbetsgivarintygService">
+    <wsp:PolicyReference URI="#CustomBinding_ITwoWayAsync_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SaveArbetsgivarintygService">
+      <wsdl:documentation />
+      <soap:operation soapAction="SaveArbetsgivarintygService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BizTalkServiceInstance">
+    <wsdl:port name="CustomBinding_ITwoWayAsync" binding="tns:CustomBinding_ITwoWayAsync">
+      <soap:address location="https://arbetsgivarintygtest.sverigesakassor.se/HR_SystemService/ArbetsgivarintygService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

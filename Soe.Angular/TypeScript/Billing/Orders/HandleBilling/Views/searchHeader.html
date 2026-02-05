@@ -1,0 +1,46 @@
+﻿<form class="form-inline">
+    <div>
+        <div class="form-group form-group-sm">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-sm btn-default fal fa-chevron-left" data-l10n-bind data-l10n-bind-title="'common.from'" data-ng-click="directiveCtrl.decreaseDate()"></button>
+                </span>
+                <soe-datepicker hidelabel="true" model="ctrl.selectedDateFrom" use-ignore-dirty="true"></soe-datepicker>
+            </div>
+        </div>
+        <span>-</span>
+        <div class="form-group form-group-sm">
+            <div class="input-group">
+                <soe-datepicker hidelabel="true" model="ctrl.selectedDateTo" use-ignore-dirty="true" button-class="no-border-radius"></soe-datepicker>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-sm btn-default fal fa-chevron-right border-radius-right" data-l10n-bind data-l10n-bind-title="'common.to'" data-ng-click="directiveCtrl.increaseDate()"></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group form-group-sm margin-large-right">
+            <soe-multiselect options="ctrl.orders" model="ctrl.selectedOrders" label-key="common.order" hidelabel="true" limit-to="20" style="width:100px;" on-selection-complete="ctrl.orderSelectionComplete()"></soe-multiselect>
+        </div>
+        <div class="form-group form-group-sm margin-large-right">
+            <soe-multiselect options="ctrl.projects" model="ctrl.selectedProjects" label-key="billing.project.project" hidelabel="true" limit-to="20" style="width: 100px;" on-selection-complete="ctrl.projectSelectionComplete()"></soe-multiselect>
+        </div>
+        <div class="form-group form-group-sm margin-large-right">
+            <soe-multiselect options="ctrl.customers" model="ctrl.selectedCustomers" label-key="common.customer" hidelabel="true" limit-to="20" style="width: 100px;" on-selection-complete="ctrl.customerSelectionComplete()"></soe-multiselect>
+        </div>
+        <div class="form-group form-group-sm margin-large-right">
+            <soe-multiselect options="ctrl.orderTypes" model="ctrl.selectedOrderTypes" label-key="common.customer.invoices.ordertype" hidelabel="true" limit-to="20" style="width: 100px;" on-selection-complete="ctrl.orderTypesSelectionComplete()"></soe-multiselect>
+        </div>
+        <div class="form-group form-group-sm margin-large-right">
+            <soe-multiselect options="ctrl.orderContractTypes" model="ctrl.selectedOrderContractTypes" label-key="common.customer.invoices.fixedpriceordertype" hidelabel="true" limit-to="20" style="width: 100px;" on-selection-complete="ctrl.orderContractTypesSelectionComplete()"></soe-multiselect>
+        </div>
+        <div class="form-group form-group-sm margin-large-right">
+            <soe-checkbox label-key="common.customer.invoices.showmine" model="ctrl.loadOnlyMine" is-readonly="ctrl.onlyMineLocked"></soe-checkbox>
+        </div>
+        <div class="form-group form-group-sm margin-large-right">
+            <soe-checkbox label-key="billing.order.handlebilling.onlyready" model="ctrl.onlyValidToTransfer"></soe-checkbox>
+        </div>
+        <div class="form-group form-group-sm">
+            <button type="button" class="pull-left btn btn-sm btn-default ngSoeMainButton rounded-left rounded-right" style="height:30px" data-l10n-bind="'core.search'" data-ng-click="$event.stopPropagation();ctrl.searchCustomerInvoiceRows()" data-ng-disabled="!ctrl.selectedDateFrom || !ctrl.selectedDateTo"></button>
+        </div>
+    </div>
+</form>
+

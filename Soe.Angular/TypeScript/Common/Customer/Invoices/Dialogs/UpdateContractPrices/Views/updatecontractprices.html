@@ -1,0 +1,48 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'common.customer.contract.updatepricesheader'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="control-label" data-l10n-bind="'common.rounding'" />
+                </div>
+                <div class="col-sm-2">
+                    <soe-radiobutton label-key="common.noone" model="ctrl.rounding" group="rounding" value="0"></soe-radiobutton>
+                </div>
+                <div class="col-sm-2">
+                    <soe-radiobutton label-key="common.customer.contract.one" model="ctrl.rounding" group="rounding" value="1"></soe-radiobutton>
+                </div>
+                <div class="col-sm-2">
+                    <soe-radiobutton label-key="common.customer.contract.tens" model="ctrl.rounding" group="rounding" value="10"></soe-radiobutton>
+                </div>
+                <div class="col-sm-2">
+                    <soe-radiobutton label-key="common.customer.contract.hundreds" model="ctrl.rounding" group="rounding" value="100"></soe-radiobutton>
+                </div>
+                <div class="col-sm-2">
+                    <soe-radiobutton label-key="common.customer.contract.thousands" model="ctrl.rounding" group="rounding" value="1000"></soe-radiobutton>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="control-label" data-l10n-bind="'common.customer.contract.raisepercent'" />
+                </div>
+                <div class="col-sm-2">
+                    <soe-textbox hidelabel="true" model="ctrl.percent" numeric="true" decimals="2"></soe-textbox>
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label" data-l10n-bind="'common.customer.contract.raiseamount'" />
+                </div>
+                <div class="col-sm-2">
+                    <soe-textbox hidelabel="true" model="ctrl.amount" numeric="true" decimals="2"></soe-textbox>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.buttonOkClick()"></button>
+    </div>
+</div>

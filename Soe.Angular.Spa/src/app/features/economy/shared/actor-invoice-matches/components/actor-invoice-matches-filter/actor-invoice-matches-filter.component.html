@@ -1,0 +1,80 @@
+<form class="row" [formGroup]="form">
+  <div class="col-sm-12 px-3">
+    <soe-expansion-panel [labelKey]="'core.search'" [open]="true">
+      <div class="row form-group">
+        <div class="col-sm-4">
+          <soe-autocomplete
+            [labelKey]="actorLabelKey()"
+            formControlName="actorId"
+            [items]="actors()"
+            [optionIdField]="'id'"
+            [optionNameField]="'name'"
+            [limit]="10">
+          </soe-autocomplete>
+        </div>
+      </div>
+
+      <soe-expansion-panel
+        [labelKey]="moreFilterLabel()"
+        [addTopMargin]="true"
+        [borderless]="true"
+        (isOpened)="moreFilterExpanded($event)">
+        <div class="row form-group">
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'common.type'"
+              formControlName="type"
+              [items]="types()">
+            </soe-select>
+          </div>
+          <div class="col-sm-2">
+            <soe-numberbox
+              [labelKey]="'common.amount'"
+              [secondaryLabelKey]="'common.from'"
+              [placeholderKey]="'common.from'"
+              formControlName="amountFrom">
+            </soe-numberbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-numberbox
+              [labelKey]="'common.amount'"
+              [secondaryLabelKey]="'common.to'"
+              [placeholderKey]="'common.to'"
+              formControlName="amountTo">
+            </soe-numberbox>
+          </div>
+
+          <div class="col-sm-2">
+            <soe-datepicker
+              [labelKey]="'common.date'"
+              [secondaryLabelKey]="'common.from'"
+              formControlName="dateFrom">
+            </soe-datepicker>
+          </div>
+
+          <div class="col-sm-2">
+            <soe-datepicker
+              [labelKey]="'common.date'"
+              [secondaryLabelKey]="'common.to'"
+              formControlName="dateTo">
+            </soe-datepicker>
+          </div>
+        </div>
+      </soe-expansion-panel>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-save-button
+            [caption]="'core.search'"
+            [title]="'core.search'"
+            [invalid]="form.invalid"
+            [invalidTooltip]="'error.unabletosearch_tooltip'"
+            (action)="triggerSearch()"
+            (validationErrorsAction)="form.openFormValidationErrors()"
+            class="pull-right">
+          </soe-save-button>
+        </div>
+      </div>
+    </soe-expansion-panel>
+  </div>
+</form>

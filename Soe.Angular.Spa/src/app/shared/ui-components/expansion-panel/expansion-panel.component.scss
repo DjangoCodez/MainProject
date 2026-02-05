@@ -1,0 +1,251 @@
+@use '@angular/material' as mat;
+@use '../../styles/core-styles/colors.scss';
+@use '../../styles/core-styles/fonts.scss';
+@use '../../styles/core-styles/variables.scss';
+
+:host {
+  @include mat.expansion-overrides(
+    (
+      container-background-color: colors.$soe-background-color,
+      container-text-color: colors.$soe-text-color,
+      container-text-size: fonts.$soe-font-size-lg,
+      container-text-weight: fonts.$font-weight-normal,
+      header-description-color: colors.$soe-text-color,
+      header-text-color: colors.$soe-text-color,
+      header-text-size: fonts.$soe-font-size-lg,
+      header-text-weight: fonts.$font-weight-normal,
+      header-collapsed-state-height: 1.5rem,
+      header-expanded-state-height: 1.5rem,
+    )
+  );
+}
+
+.mat-expansion-panel:last-of-type {
+  border-bottom-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
+
+.mat-expansion-panel:first-of-type {
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 0px !important;
+}
+
+.mat-expansion-panel-container {
+  border: 1px solid colors.$soe-border-color;
+  border-radius: variables.$border-radius;
+  margin-bottom: 1rem;
+
+  &.no-bottom-margin {
+    margin-bottom: 0px;
+  }
+
+  .mat-expansion-panel {
+    .mat-expansion-panel-header {
+      background-color: colors.$soe-header-background-color;
+      padding: 0.5rem;
+
+      mat-panel-title {
+        flex-grow: unset;
+        flex-basis: auto;
+
+        soe-label {
+          height: 1.25rem;
+          line-height: 1.25rem;
+
+          &::ng-deep {
+            label {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      .mat-expansion-panel-header-description {
+        flex-basis: auto;
+
+        .toggle-icon-container {
+          position: absolute;
+          top: 0;
+          right: 0.5rem;
+          height: 1.5rem;
+          line-height: 1.5rem;
+          margin-left: 0.25rem;
+        }
+      }
+
+      &::ng-deep {
+        .mat-expansion-indicator {
+          height: 2rem;
+        }
+      }
+
+      &.static {
+        mat-panel-title {
+          soe-label {
+            &::ng-deep {
+              label {
+                cursor: default;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .mat-expansion-panel-header.mat-expanded {
+      border-bottom: 1px solid colors.$soe-border-color;
+      border-radius: variables.$border-radius variables.$border-radius 0 0;
+    }
+
+    &::ng-deep {
+      .mat-expansion-panel-content {
+        .mat-expansion-panel-body {
+          padding: 1rem;
+        }
+      }
+    }
+
+    &.no-margin {
+      margin: 0px;
+    }
+
+    &.no-padding {
+      &::ng-deep {
+        .mat-expansion-panel-content {
+          .mat-expansion-panel-body {
+            padding: 0px;
+
+            .toolbar-container {
+              margin: 0px;
+            }
+          }
+        }
+      }
+    }
+
+    &.condensed-body {
+      &::ng-deep {
+        .mat-expansion-panel-content {
+          .mat-expansion-panel-body {
+            padding: 0.5rem;
+
+            .toolbar-container {
+              margin: 0px;
+            }
+          }
+        }
+      }
+    }
+
+    &.do-padding {
+      // With nested panels, no-padding will be inherited all the way down because of the ::ng-deep
+      // unless we redo original padding like this
+      &::ng-deep {
+        .mat-expansion-panel-content {
+          .mat-expansion-panel-body {
+            padding: 1rem;
+          }
+        }
+      }
+    }
+
+    &.no-top-padding {
+      &::ng-deep {
+        .mat-expansion-panel-content {
+          .mat-expansion-panel-body {
+            padding-top: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  &.borderless {
+    border: none;
+
+    > .mat-expansion-panel {
+      > .mat-expansion-panel-header {
+        height: 2rem;
+        width: fit-content;
+        padding-left: 0.75rem;
+        background-color: transparent;
+
+        &::ng-deep {
+          > .mat-content {
+            > .mat-expansion-panel-header-title {
+              margin-right: 0.25rem;
+            }
+
+            > .mat-expansion-panel-header-description {
+              .toggle-icon-container {
+                height: 2rem !important;
+                line-height: 2rem !important;
+              }
+            }
+          }
+        }
+      }
+
+      > .mat-expansion-panel-header:not([aria-disabled='true']):hover {
+        background-color: colors.$soe-header-background-color;
+        border-radius: variables.$button-border-radius;
+        border: 1px solid colors.$soe-border-color;
+        margin-left: -0.5px;
+      }
+
+      > .mat-expansion-panel-header.mat-expanded {
+        border-bottom: none;
+      }
+
+      &::ng-deep {
+        .mat-expansion-panel-content {
+          .mat-expansion-panel-body {
+            padding: 0.25rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+.mat-expansion-panel:has(.mat-expanded) {
+  display: contents;
+  transition: display 1s allow-discrete;
+}
+
+.mat-expansion-panel:not(.mat-expanded) {
+  display: block;
+  transition: display 1ms allow-discrete;
+}
+
+.mat-expansion-panel:not([class*='mat-elevation-z']) {
+  box-shadow: none;
+}
+
+.mat-expansion-panel:not(.mat-expanded)
+  .mat-expansion-panel-header:not([aria-disabled='true']):hover,
+.mat-expansion-panel
+  .mat-expansion-panel-header:not([aria-disabled='true']).cdk-keyboard-focused,
+.mat-expansion-panel
+  .mat-expansion-panel-header:not([aria-disabled='true']).cdk-program-focused {
+  background-color: colors.$soe-header-background-color;
+}
+
+.mat-expansion-panel-header[aria-disabled='true'] {
+  color: colors.$soe-disabled-text-color !important;
+  cursor: default !important;
+
+  &.static {
+    color: colors.$soe-text-color !important;
+  }
+}
+
+.header-content {
+  margin-bottom: 0.5rem;
+}
+
+::ng-deep {
+  .mat-expansion-toggle-indicator-before .mat-content.mat-content-hide-toggle {
+    margin-left: 0 !important;
+  }
+}

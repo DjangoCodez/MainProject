@@ -1,0 +1,402 @@
+<xs:schema id="SOE_TimeScheduleBlockHistory" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="SOE_TimeScheduleBlockHistory" msdata:IsDataSet="true" msdata:Locale="en-US">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="TimeScheduleBlockHistory">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+										<xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+										<xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+										<xs:element name="Company" type="xs:string" minOccurs="0" />
+										<xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+										<xs:element name="LoginName" type="xs:string" minOccurs="0" />
+										<xs:element name="TimePeriod" type="xs:string" minOccurs="0" />
+										<xs:element name="SortByLevel1" type="xs:string" minOccurs="0" />
+										<xs:element name="SortByLevel2" type="xs:string" minOccurs="0" />
+										<xs:element name="SortByLevel3" type="xs:string" minOccurs="0" />
+										<xs:element name="SortByLevel4" type="xs:string" minOccurs="0" />
+										<xs:element name="IsSortAscending" type="xs:string" minOccurs="0" />
+										<xs:element name="GroupByLevel1" type="xs:string" minOccurs="0" />
+										<xs:element name="GroupByLevel2" type="xs:string" minOccurs="0" />
+										<xs:element name="GroupByLevel3" type="xs:string" minOccurs="0" />
+										<xs:element name="GroupByLevel4" type="xs:string" minOccurs="0" />
+										<xs:element name="Special" type="xs:string" minOccurs="0" />
+										<xs:element name="DateInterval" type="xs:string" minOccurs="0" />
+										<xs:element name="HasShowCostsPermission" type="xs:int" minOccurs="0" />
+										<xs:element name="HasShowGrossNetTimeSetting" type="xs:int" minOccurs="0" />
+										<xs:element name="CompanyLogo" type="xs:string" minOccurs="0" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="TimeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="TimePeriodLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="DateIntervalLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="NoShowCostsPermissionLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="NoShowGrossNetTimeSettingLabel" type="xs:string" minOccurs="0" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="EmployeeNrLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="EmployeeNameLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="EmployeeCategoryLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleTypeFactorMinutesLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekDayMondayShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekDayTuesdayShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekDayWednesdayShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekDayThursdayShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekDayFridayShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekDaySaturdayShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekDaySundayShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="IsPreliminaryLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="IsPreliminaryShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="EmployeeWeekTotalLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="GrossTimeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="NetTimeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="CostLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="EmploymentWorkTimeWeekLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="EmploymentPercentLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="AgreedTimeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="SchemeTimeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="AverageTimeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="TypeNameLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="FromShiftStatusLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ToShiftStatusLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ShiftStatusChangedLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="FromShiftUserStatusLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ToShiftUserStatusLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ShiftUserStatusChangedLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="FromEmployeeNameLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ToEmployeeNameLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="FromEmployeeNrLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ToEmployeeNrLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="FromTimeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ToTimeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="TimeChangedLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="FromShiftTypeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ToShiftTypeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ShiftTypeChangedLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="FromTimeDeviationCauseLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="CreatedLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="CreatedByLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="AbsenceRequestApprovedTextLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="FromStartLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="FromStopLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ToStartLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ToStopLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="OriginEmployeeNrLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="OriginEmployeeNameLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="TimeDeviationCauseLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ShiftTypeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleLabel" type="xs:string" minOccurs="0" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Employee" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="EmployeeNr" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+										<xs:element name="EmployeeName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+										<xs:element name="EmployeeCategory" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+										<xs:element name="EmployeeGroup" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+										<xs:element name="EmployeeGroupRuleWorkTimeWeek" type="xs:int" minOccurs="0" msdata:Ordinal="4" />
+										<xs:element name="EmployeeGroupRuleWorkTimeYear" type="xs:int" minOccurs="0" msdata:Ordinal="5" />
+										<xs:element name="EmployeeGroupRuleRestTimeWeek" type="xs:int" minOccurs="0" msdata:Ordinal="6" />
+										<xs:element name="EmployeeGroupRuleRestTimeDay" type="xs:int" minOccurs="0" msdata:Ordinal="7" />
+										<xs:element name="Day" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="IsTemplate" type="xs:int" minOccurs="0" msdata:Ordinal="10" />
+													<xs:element name="TemplateNbrOfWeeks" type="xs:int" minOccurs="0" msdata:Ordinal="15" />
+													<xs:element name="TemplateDayNumber" type="xs:int" minOccurs="0" msdata:Ordinal="20" />
+													<xs:element name="DayNr" type="xs:int" minOccurs="0" msdata:Ordinal="25" />
+													<xs:element name="IsZeroScheduleDay" type="xs:int" minOccurs="0" msdata:Ordinal="30" />
+													<xs:element name="IsAbsenceDay" type="xs:int" minOccurs="0" msdata:Ordinal="35" />
+													<xs:element name="IsPreliminary" type="xs:int" minOccurs="0" msdata:Ordinal="40" />
+													<xs:element name="AbsencePayrollProductName" type="xs:string" minOccurs="0" msdata:Ordinal="45" />
+													<xs:element name="AbsencePayrollProductShortName" type="xs:string" minOccurs="0" msdata:Ordinal="50" />
+													<xs:element name="ScheduleStartTime" type="xs:string" minOccurs="0" msdata:Ordinal="55" />
+													<xs:element name="ScheduleStopTime" type="xs:string" minOccurs="0" msdata:Ordinal="60" />
+													<xs:element name="ScheduleTime" type="xs:int" minOccurs="0" msdata:Ordinal="65" />
+													<xs:element name="OccupiedTime" type="xs:int" minOccurs="0" msdata:Ordinal="66" />
+													<xs:element name="ScheduleTypeFactorMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="67" />
+													<xs:element name="ScheduleBreakTime" type="xs:int" minOccurs="0" msdata:Ordinal="70" />
+													<xs:element name="ScheduleBreak1Start" type="xs:dateTime" minOccurs="0" msdata:Ordinal="75" />
+													<xs:element name="ScheduleBreak1Minutes" type="xs:int" minOccurs="0" msdata:Ordinal="80" />
+													<xs:element name="ScheduleBreak2Start" type="xs:dateTime" minOccurs="0" msdata:Ordinal="85" />
+													<xs:element name="ScheduleBreak2Minutes" type="xs:int" minOccurs="0" msdata:Ordinal="90" />
+													<xs:element name="ScheduleBreak3Start" type="xs:dateTime" minOccurs="0" msdata:Ordinal="95" />
+													<xs:element name="ScheduleBreak3Minutes" type="xs:int" minOccurs="0" msdata:Ordinal="100" />
+													<xs:element name="ScheduleBreak4Start" type="xs:dateTime" minOccurs="0" msdata:Ordinal="105" />
+													<xs:element name="ScheduleBreak4Minutes" type="xs:int" minOccurs="0" msdata:Ordinal="110" />
+													<xs:element name="ScheduleDate" type="xs:dateTime" minOccurs="0" msdata:Ordinal="115" />
+													<xs:element name="ScheduleGrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="120" />
+													<xs:element name="ScheduleNetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="125" />
+													<xs:element name="ScheduleEmploymentTaxCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="130" />
+													<xs:element name="ScheduleSupplementChargeCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="131" />
+													<xs:element name="ScheduleTotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="132" />
+													<xs:element name="ScheduleWeekNr" type="xs:int" minOccurs="0" msdata:Ordinal="133" />
+													<xs:element name="EmployeeWeekTimeTotal" type="xs:int" minOccurs="0" msdata:Ordinal="134" />
+													<xs:element name="EmploymentWorkTimeWeek" type="xs:decimal" minOccurs="0" msdata:Ordinal="135" />
+													<xs:element name="EmploymentPercent" type="xs:decimal" minOccurs="0" msdata:Ordinal="136" />
+													<xs:element name="Shift1Name" type="xs:string" minOccurs="0" msdata:Ordinal="137" />
+													<xs:element name="Shift1StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="140" />
+													<xs:element name="Shift1StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="145" />
+													<xs:element name="Shift1Description" type="xs:string" minOccurs="0" msdata:Ordinal="150" />
+													<xs:element name="Shift1Color" type="xs:string" minOccurs="0" msdata:Ordinal="155" />
+													<xs:element name="Shift1GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="160" />
+													<xs:element name="Shift1NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="165" />
+													<xs:element name="Shift1EmploymentTaxCost" type="xs:int" minOccurs="0" msdata:Ordinal="166" />
+													<xs:element name="Shift1SupplementChargeCost" type="xs:int" minOccurs="0" msdata:Ordinal="167" />
+													<xs:element name="Shift1TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="170" />
+													<xs:element name="Shift1TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="175" />
+													<xs:element name="Shift1Link" type="xs:string" minOccurs="0" msdata:Ordinal="180" />
+													<xs:element name="Shift2Name" type="xs:string" minOccurs="0" msdata:Ordinal="185" />
+													<xs:element name="Shift2StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="190" />
+													<xs:element name="Shift2StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="195" />
+													<xs:element name="Shift2Description" type="xs:string" minOccurs="0" msdata:Ordinal="200" />
+													<xs:element name="Shift2Color" type="xs:string" minOccurs="0" msdata:Ordinal="205" />
+													<xs:element name="Shift2GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="210" />
+													<xs:element name="Shift2NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="215" />
+													<xs:element name="Shift2EmploymentTaxCost" type="xs:int" minOccurs="0" msdata:Ordinal="216" />
+													<xs:element name="Shift2SupplementChargeCost" type="xs:int" minOccurs="0" msdata:Ordinal="217" />
+													<xs:element name="Shift2TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="220" />
+													<xs:element name="Shift2TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="225" />
+													<xs:element name="Shift2Link" type="xs:string" minOccurs="0" msdata:Ordinal="230" />
+													<xs:element name="Shift3Name" type="xs:string" minOccurs="0" msdata:Ordinal="235" />
+													<xs:element name="Shift3StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="240" />
+													<xs:element name="Shift3StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="245" />
+													<xs:element name="Shift3Description" type="xs:string" minOccurs="0" msdata:Ordinal="250" />
+													<xs:element name="Shift3Color" type="xs:string" minOccurs="0" msdata:Ordinal="255" />
+													<xs:element name="Shift3GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="260" />
+													<xs:element name="Shift3NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="265" />
+													<xs:element name="Shift3EmploymentTaxCost" type="xs:int" minOccurs="0" msdata:Ordinal="266" />
+													<xs:element name="Shift3SupplementChargeCost" type="xs:int" minOccurs="0" msdata:Ordinal="267" />
+													<xs:element name="Shift3TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="270" />
+													<xs:element name="Shift3TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="275" />
+													<xs:element name="Shift3Link" type="xs:string" minOccurs="0" msdata:Ordinal="280" />
+													<xs:element name="Shift4Name" type="xs:string" minOccurs="0" msdata:Ordinal="285" />
+													<xs:element name="Shift4StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="290" />
+													<xs:element name="Shift4StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="295" />
+													<xs:element name="Shift4Description" type="xs:string" minOccurs="0" msdata:Ordinal="300" />
+													<xs:element name="Shift4Color" type="xs:string" minOccurs="0" msdata:Ordinal="305" />
+													<xs:element name="Shift4GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="310" />
+													<xs:element name="Shift4NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="315" />
+													<xs:element name="Shift4EmploymentTaxCost" type="xs:int" minOccurs="0" msdata:Ordinal="316" />
+													<xs:element name="Shift4SupplementChargeCost" type="xs:int" minOccurs="0" msdata:Ordinal="317" />
+													<xs:element name="Shift4TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="320" />
+													<xs:element name="Shift4TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="325" />
+													<xs:element name="Shift4Link" type="xs:string" minOccurs="0" msdata:Ordinal="330" />
+													<xs:element name="Shift5Name" type="xs:string" minOccurs="0" msdata:Ordinal="335" />
+													<xs:element name="Shift5StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="340" />
+													<xs:element name="Shift5StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="345" />
+													<xs:element name="Shift5Description" type="xs:string" minOccurs="0" msdata:Ordinal="350" />
+													<xs:element name="Shift5Color" type="xs:string" minOccurs="0" msdata:Ordinal="355" />
+													<xs:element name="Shift5GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="360" />
+													<xs:element name="Shift5NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="365" />
+													<xs:element name="Shift5EmploymentTaxCost" type="xs:int" minOccurs="0" msdata:Ordinal="366" />
+													<xs:element name="Shift5SupplementChargeCost" type="xs:int" minOccurs="0" msdata:Ordinal="367" />
+													<xs:element name="Shift5TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="370" />
+													<xs:element name="Shift5TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="375" />
+													<xs:element name="Shift5Link" type="xs:string" minOccurs="0" msdata:Ordinal="380" />
+													<xs:element name="Shift6Name" type="xs:string" minOccurs="0" msdata:Ordinal="385" />
+													<xs:element name="Shift6StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="390" />
+													<xs:element name="Shift6StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="395" />
+													<xs:element name="Shift6Description" type="xs:string" minOccurs="0" msdata:Ordinal="400" />
+													<xs:element name="Shift6Color" type="xs:string" minOccurs="0" msdata:Ordinal="405" />
+													<xs:element name="Shift6GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="410" />
+													<xs:element name="Shift6NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="415" />
+													<xs:element name="Shift6EmploymentTaxCost" type="xs:int" minOccurs="0" msdata:Ordinal="416" />
+													<xs:element name="Shift6SupplementChargeCost" type="xs:int" minOccurs="0" msdata:Ordinal="417" />
+													<xs:element name="Shift6TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="420" />
+													<xs:element name="Shift6TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="425" />
+													<xs:element name="Shift6Link" type="xs:string" minOccurs="0" msdata:Ordinal="430" />
+													<xs:element name="Shift7Name" type="xs:string" minOccurs="0" msdata:Ordinal="435" />
+													<xs:element name="Shift7StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="440" />
+													<xs:element name="Shift7StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="445" />
+													<xs:element name="Shift7Description" type="xs:string" minOccurs="0" msdata:Ordinal="450" />
+													<xs:element name="Shift7Color" type="xs:string" minOccurs="0" msdata:Ordinal="455" />
+													<xs:element name="Shift7GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="460" />
+													<xs:element name="Shift7NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="465" />
+													<xs:element name="Shift7EmploymentTaxCost" type="xs:int" minOccurs="0" msdata:Ordinal="466" />
+													<xs:element name="Shift7SupplementChargeCost" type="xs:int" minOccurs="0" msdata:Ordinal="467" />
+													<xs:element name="Shift7TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="470" />
+													<xs:element name="Shift7TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="475" />
+													<xs:element name="Shift7Link" type="xs:string" minOccurs="0" msdata:Ordinal="480" />
+													<xs:element name="Shift8Name" type="xs:string" minOccurs="0" msdata:Ordinal="485" />
+													<xs:element name="Shift8StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="490" />
+													<xs:element name="Shift8StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="495" />
+													<xs:element name="Shift8Description" type="xs:string" minOccurs="0" msdata:Ordinal="500" />
+													<xs:element name="Shift8Color" type="xs:string" minOccurs="0" msdata:Ordinal="505" />
+													<xs:element name="Shift8GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="510" />
+													<xs:element name="Shift8NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="515" />
+													<xs:element name="Shift8EmploymentTaxCost" type="xs:int" minOccurs="0" msdata:Ordinal="516" />
+													<xs:element name="Shift8SupplementChargeCost" type="xs:int" minOccurs="0" msdata:Ordinal="517" />
+													<xs:element name="Shift8TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="520" />
+													<xs:element name="Shift8TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="525" />
+													<xs:element name="Shift8Link" type="xs:string" minOccurs="0" msdata:Ordinal="530" />
+													<xs:element name="Shift9Name" type="xs:string" minOccurs="0" msdata:Ordinal="535" />
+													<xs:element name="Shift9StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="540" />
+													<xs:element name="Shift9StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="545" />
+													<xs:element name="Shift9Description" type="xs:string" minOccurs="0" msdata:Ordinal="550" />
+													<xs:element name="Shift9Color" type="xs:string" minOccurs="0" msdata:Ordinal="555" />
+													<xs:element name="Shift9GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="560" />
+													<xs:element name="Shift9NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="565" />
+													<xs:element name="Shift9EmploymentTaxCost" type="xs:int" minOccurs="0" msdata:Ordinal="566" />
+													<xs:element name="Shift9SupplementChargeCost" type="xs:int" minOccurs="0" msdata:Ordinal="567" />
+													<xs:element name="Shift9TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="570" />
+													<xs:element name="Shift9TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="575" />
+													<xs:element name="Shift9Link" type="xs:string" minOccurs="0" msdata:Ordinal="580" />
+													<xs:element name="Shift10Name" type="xs:string" minOccurs="0" msdata:Ordinal="585" />
+													<xs:element name="Shift10StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="590" />
+													<xs:element name="Shift10StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="595" />
+													<xs:element name="Shift10Description" type="xs:string" minOccurs="0" msdata:Ordinal="600" />
+													<xs:element name="Shift10Color" type="xs:string" minOccurs="0" msdata:Ordinal="605" />
+													<xs:element name="Shift10GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="610" />
+													<xs:element name="Shift10NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="615" />
+													<xs:element name="Shift10EmploymentTaxCost" type="xs:int" minOccurs="0" msdata:Ordinal="616" />
+													<xs:element name="Shift10SupplementChargeCost" type="xs:int" minOccurs="0" msdata:Ordinal="617" />
+													<xs:element name="Shift10TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="620" />
+													<xs:element name="Shift10TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="625" />
+													<xs:element name="Shift10Link" type="xs:string" minOccurs="0" msdata:Ordinal="630" />
+													<xs:element name="Shift11Name" type="xs:string" minOccurs="0" msdata:Ordinal="631" />
+													<xs:element name="Shift11StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="635" />
+													<xs:element name="Shift11StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="640" />
+													<xs:element name="Shift11Description" type="xs:string" minOccurs="0" msdata:Ordinal="645" />
+													<xs:element name="Shift11Color" type="xs:string" minOccurs="0" msdata:Ordinal="650" />
+													<xs:element name="Shift11GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="655" />
+													<xs:element name="Shift11NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="660" />
+													<xs:element name="Shift11EmploymentTaxCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="661" />
+													<xs:element name="Shift11SupplementChargeCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="662" />
+													<xs:element name="Shift11TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="665" />
+													<xs:element name="Shift11TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="670" />
+													<xs:element name="Shift11Link" type="xs:string" minOccurs="0" msdata:Ordinal="675" />
+													<xs:element name="Shift12Name" type="xs:string" minOccurs="0" msdata:Ordinal="680" />
+													<xs:element name="Shift12StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="685" />
+													<xs:element name="Shift12StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="690" />
+													<xs:element name="Shift12Description" type="xs:string" minOccurs="0" msdata:Ordinal="695" />
+													<xs:element name="Shift12Color" type="xs:string" minOccurs="0" msdata:Ordinal="700" />
+													<xs:element name="Shift12GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="705" />
+													<xs:element name="Shift12NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="710" />
+													<xs:element name="Shift12EmploymentTaxCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="711" />
+													<xs:element name="Shift12SupplementChargeCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="712" />
+													<xs:element name="Shift12TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="715" />
+													<xs:element name="Shift12TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="720" />
+													<xs:element name="Shift12Link" type="xs:string" minOccurs="0" msdata:Ordinal="725" />
+													<xs:element name="Shift13Name" type="xs:string" minOccurs="0" msdata:Ordinal="730" />
+													<xs:element name="Shift13StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="735" />
+													<xs:element name="Shift13StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="740" />
+													<xs:element name="Shift13Description" type="xs:string" minOccurs="0" msdata:Ordinal="745" />
+													<xs:element name="Shift13Color" type="xs:string" minOccurs="0" msdata:Ordinal="750" />
+													<xs:element name="Shift13GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="755" />
+													<xs:element name="Shift13NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="760" />
+													<xs:element name="Shift13EmploymentTaxCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="761" />
+													<xs:element name="Shift13SupplementChargeCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="762" />
+													<xs:element name="Shift13TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="765" />
+													<xs:element name="Shift13TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="770" />
+													<xs:element name="Shift13Link" type="xs:string" minOccurs="0" msdata:Ordinal="775" />
+													<xs:element name="Shift14Name" type="xs:string" minOccurs="0" msdata:Ordinal="780" />
+													<xs:element name="Shift14StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="785" />
+													<xs:element name="Shift14StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="790" />
+													<xs:element name="Shift14Description" type="xs:string" minOccurs="0" msdata:Ordinal="795" />
+													<xs:element name="Shift14Color" type="xs:string" minOccurs="0" msdata:Ordinal="800" />
+													<xs:element name="Shift14GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="805" />
+													<xs:element name="Shift14NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="810" />
+													<xs:element name="Shift14EmploymentTaxCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="811" />
+													<xs:element name="Shift14SupplementChargeCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="812" />
+													<xs:element name="Shift14TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="815" />
+													<xs:element name="Shift14TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="820" />
+													<xs:element name="Shift14Link" type="xs:string" minOccurs="0" msdata:Ordinal="825" />
+													<xs:element name="Shift15Name" type="xs:string" minOccurs="0" msdata:Ordinal="830" />
+													<xs:element name="Shift15StartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="835" />
+													<xs:element name="Shift15StopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="840" />
+													<xs:element name="Shift15Description" type="xs:string" minOccurs="0" msdata:Ordinal="845" />
+													<xs:element name="Shift15Color" type="xs:string" minOccurs="0" msdata:Ordinal="850" />
+													<xs:element name="Shift15GrossTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="855" />
+													<xs:element name="Shift15NetTimeMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="860" />
+													<xs:element name="Shift15EmploymentTaxCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="861" />
+													<xs:element name="Shift15SupplementChargeCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="862" />
+													<xs:element name="Shift15TotalCost" type="xs:decimal" minOccurs="0" msdata:Ordinal="865" />
+													<xs:element name="Shift15TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="870" />
+													<xs:element name="Shift15Link" type="xs:string" minOccurs="0" msdata:Ordinal="875" />
+													<xs:element name="Shifts" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="ShiftName" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+																<xs:element name="ShiftDescription" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+																<xs:element name="ShiftStartTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="2" />
+																<xs:element name="ShiftStopTime" type="xs:dateTime" minOccurs="0" msdata:Ordinal="3" />
+																<xs:element name="Color" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+																<xs:element name="ShiftGrossTimeMinutes" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+																<xs:element name="ShiftNetTimeMinutes" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+																<xs:element name="ShiftEmploymentTaxCost" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+																<xs:element name="ShiftSupplementChargeCost" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+																<xs:element name="ShiftTotalCost" type="xs:string" minOccurs="0" msdata:Ordinal="9" />
+																<xs:element name="ShiftTimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="10" />
+															</xs:sequence>
+															<xs:attribute name="id" type="xs:string" />
+														</xs:complexType>
+													</xs:element>
+
+													<xs:element name="ShiftHistory" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="TypeName" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+																<xs:element name="FromShiftStatus" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+																<xs:element name="ToShiftStatus" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+																<xs:element name="ShiftStatusChanged" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+																<xs:element name="FromShiftUserStatus" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+																<xs:element name="ToShiftUserStatus" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+																<xs:element name="ShiftUserStatusChanged" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+																<xs:element name="FromEmployeeName" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+																<xs:element name="ToEmployeeName" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+																<xs:element name="FromEmployeeNr" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+																<xs:element name="ToEmployeeNr" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+																<xs:element name="FromTime" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+																<xs:element name="ToTime" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+																<xs:element name="TimeChanged" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+																<xs:element name="FromShiftType" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+																<xs:element name="ToShiftType" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+																<xs:element name="ShiftTypeChanged" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+																<xs:element name="FromTimeDeviationCause" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+																<xs:element name="Created" type="xs:dateTime" minOccurs="0" msdata:Ordinal="8" />
+																<xs:element name="CreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+																<xs:element name="AbsenceRequestApprovedText" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+																<xs:element name="FromStart" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+																<xs:element name="FromStop" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+																<xs:element name="ToStart" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+																<xs:element name="ToStop" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+																<xs:element name="OriginEmployeeNr" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+																<xs:element name="OriginEmployeeName" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+															</xs:sequence>
+															<xs:attribute name="id" type="xs:string" />
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="id" type="xs:string" />
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="id" type="xs:string" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

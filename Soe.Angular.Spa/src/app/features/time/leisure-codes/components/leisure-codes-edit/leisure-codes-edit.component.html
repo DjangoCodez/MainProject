@@ -1,0 +1,60 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-4">
+        <soe-select
+          [labelKey]="'time.employee.employeegroup.employeegroup'"
+          [selectedId]="form.value.employeeGroupId"
+          [items]="performEmployeeGroups.data || []"
+          formControlName="employeeGroupId">
+        </soe-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'time.schedule.leisurecode.leisurecodetype'"
+          [selectedId]="form.value.timeLeisureCodeTypeId"
+          [items]="performLeisureCodeTypes.data || []"
+          [optionIdField]="'timeLeisureCodeId'"
+          [optionNameField]="'name'"
+          formControlName="timeLeisureCodeId">
+        </soe-select>
+      </div>
+      <div class="col-sm-2">
+        <soe-datepicker
+          [labelKey]="'time.schedule.leisurecode.datefrom'"
+          formControlName="dateFrom">
+        </soe-datepicker>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-sm-4">
+        <soe-expansion-panel
+          [labelKey]="'time.schedule.leisurecode.settings'"
+          [open]="true">
+          <soe-toolbar
+            [itemGroups]="settingsToolbarService.toolbarItemGroups"
+            [noPadding]="true">
+          </soe-toolbar>
+          <soe-leisure-codes-edit-grid #settingsGrid [form]="form">
+          </soe-leisure-codes-edit-grid>
+        </soe-expansion-panel>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

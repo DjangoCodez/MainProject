@@ -1,0 +1,596 @@
+﻿@import (reference) "variables.less";
+@import (reference) "../../../../node_modules/bootstrap/less/bootstrap";
+@import "../../../../node_modules/bootstrap/less/variables";
+
+// Colors
+.textColor {
+    color: @soe-text-color !important;
+}
+
+.disabledTextColor {
+    color: @soe-disabled-text-color !important;
+}
+
+.invertedTextColor {
+    color: @soe-color-neutral-white !important;
+}
+
+.okColor {
+    color: @successColor !important;
+}
+
+.okColorFaded {
+    color: @successBackgroundColor !important;
+}
+
+.infoColor {
+    color: @informationColor !important;
+}
+
+.warningColor {
+    color: @warningColor !important;
+}
+
+.errorColor {
+    color: @errorColor !important;
+}
+
+.yellowColor {
+    color: @soe-color-semantic-yellow !important;
+}
+
+.lightGrayColor {
+    color: @lightGrayColor !important;
+}
+
+.mediumGrayColor {
+    color: @mediumGrayColor !important;
+}
+
+.accentColor {
+    color: @accentColor !important;
+}
+
+.accentColorFaded {
+    color: @accentColorFaded !important;
+}
+
+.accentColorLight {
+    color: @accentColorLight !important;
+}
+
+.accentColorLightFaded {
+    color: @accentColorLightFaded !important;
+}
+
+.maleColor {
+    color: @maleColor !important;
+}
+
+.femaleColor {
+    color: @femaleColor !important;
+}
+
+.iconClose {
+    color: @soe-text-color !important;
+}
+
+.iconClose:hover {
+    color: @errorColor !important;
+}
+
+.iconDelete {
+    color: @errorColor !important;
+}
+
+.iconEdit {
+    color: @soe-text-color !important;
+}
+
+.colorTransparent {
+    color: transparent !important;
+}
+
+.disabledBackgroundColor {
+    background-color: @soe-disabled-background-color !important;
+}
+
+.warningBackgroundColor {
+    background-color: @warningBackgroundColor !important;
+}
+
+.errorBackgroundColor {
+    background-color: @errorBackgroundColor !important;
+}
+
+.colorValid {
+    fill: @shiftAssignedBackgroundColor !important;
+}
+
+.colorInsecure {
+    fill: @shiftWantedBackgroundColor !important;
+}
+
+.colorInvalid {
+    fill: @shiftAbsenceBackgroundColor !important;
+}
+
+.inputShape {
+    height: 20px;
+    width: 20px;
+    margin-top: 25px;
+    margin-left: 2px;
+    pointer-events: none;
+}
+// Layout
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.align-bottom {
+    position: absolute;
+    bottom: 0;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.rounded-right {
+    border-top-right-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
+}
+
+.rounded-left {
+    border-top-left-radius: 15px !important;
+    border-bottom-left-radius: 15px !important;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.full-height {
+    height: 100%;
+}
+
+// Margins and paddings
+.margin-none-top {
+    margin-top: 0 !important;
+}
+
+.margin-none-right {
+    margin-right: 0 !important;
+}
+
+.margin-none-bottom {
+    margin-bottom: 0 !important;
+}
+
+.margin-none-left {
+    margin-left: 0 !important;
+}
+
+.margin-small-top {
+    margin-top: @padding-small-vertical;
+}
+
+.margin-small-right {
+    margin-right: @padding-small-horizontal;
+}
+
+.margin-small-bottom {
+    margin-bottom: @padding-small-vertical;
+}
+
+.margin-small-left {
+    margin-left: @padding-small-horizontal;
+}
+
+.margin-large-top {
+    margin-top: @padding-large-vertical;
+}
+
+.margin-large-right {
+    margin-right: @padding-large-horizontal;
+}
+
+.margin-large-bottom {
+    margin-bottom: @padding-large-vertical;
+}
+
+.margin-large-left {
+    margin-left: @padding-large-horizontal;
+}
+
+.padding-none-left {
+    padding-left: 0 !important;
+}
+
+.padding-none-right {
+    padding-right: 0 !important;
+}
+
+.padding-small {
+    padding-top: @padding-small-vertical;
+    padding-right: @padding-small-horizontal;
+    padding-bottom: @padding-large-vertical;
+    padding-left: @padding-small-horizontal;
+}
+
+.padding-small-top {
+    padding-top: @padding-small-vertical;
+}
+
+.padding-small-right {
+    padding-right: @padding-small-horizontal;
+}
+
+.padding-small-bottom {
+    padding-bottom: @padding-small-vertical;
+}
+
+.padding-small-left {
+    padding-left: @padding-small-horizontal;
+}
+
+.padding-large {
+    padding-top: @padding-large-vertical;
+    padding-right: @padding-large-horizontal;
+    padding-bottom: @padding-large-vertical;
+    padding-left: @padding-large-horizontal;
+}
+
+.padding-large-top {
+    padding-top: @padding-large-vertical;
+}
+
+.padding-large-right {
+    padding-right: @padding-large-horizontal;
+}
+
+.padding-large-bottom {
+    padding-bottom: @padding-large-vertical;
+}
+
+.padding-large-left {
+    padding-left: @padding-large-horizontal;
+}
+
+.padding-left {
+    padding-left: (@grid-gutter-width / 2);
+}
+
+.padding-right {
+    padding-right: (@grid-gutter-width / 2);
+}
+// Fonts and text
+.tinyFont {
+    font-size: @tinyFontSize !important;
+    font-weight: bold !important;
+    margin-top: 0;
+}
+
+.smallFont {
+    font-size: @smallFontSize !important;
+    margin-top: 0;
+}
+
+.mediumFont {
+    font-size: @mediumFontSize !important;
+    margin-top: 0;
+}
+
+.largeFont {
+    font-size: @largeFontSize !important;
+    margin-top: 0;
+}
+
+.extraLargeFont {
+    font-size: @extraLargeFontSize !important;
+    margin-top: 0;
+}
+
+.discreet {
+    font-weight: normal !important;
+}
+
+.indiscreet {
+    font-weight: bold !important;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.text-right {
+    text-align: right !important;
+    padding-right: 5px !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.strike-through {
+    text-decoration: line-through;
+}
+// FontAwesome
+.fa, .fab, .fad, .fal, .far, .fas {
+    font-size: 14px;
+}
+
+.fa-file-word {
+    color: #2A5699;
+}
+
+.fa-file-excel {
+    color: #207245;
+}
+
+.fa-file-alt {
+    color: @soe-text-color;
+}
+
+.fa-file-pdf {
+    color: #BB0706;
+}
+
+@keyframes fa-blink {
+    0% {
+        opacity: 1;
+    }
+
+    25% {
+        opacity: 0.75;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    75% {
+        opacity: 0.75;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.fa-blink {
+    -moz-animation: fa-blink 1s linear infinite;
+    -o-animation: fa-blink 1s linear infinite;
+    -webkit-animation: fa-blink 1s linear infinite;
+    animation: fa-blink 1s linear infinite;
+}
+
+// Glyphicons
+.glyphicon {
+    top: 0;
+}
+// Border´s
+.mark-border {
+    border: solid 1px;
+    border-color: #DFDB9C;
+}
+
+.content-border {
+    border: solid 1px @soe-border-color;
+    background-color: @soe-header-background-color;
+
+    .btn-sm {
+        padding: 5px 10px;
+    }
+
+    .content-border-button {
+        cursor: pointer;
+        border-top-right-radius: 4px;
+        border-left: 1px solid @soe-border-color;
+        margin-right: -15px;
+        padding: 0px 5px 0px 5px;
+
+        i {
+            margin: 5px 5px 4px 5px;
+        }
+
+        label {
+            cursor: pointer;
+            font-weight: normal;
+            margin: 3px 5px 0px 0px;
+        }
+    }
+
+    .content-border-button:hover {
+        background-color: @soe-background-color;
+    }
+}
+
+.no-border-left {
+    border-left: none;
+}
+
+.no-border-radius {
+    border-radius: 0;
+}
+
+.border-radius-right {
+    border-radius: 0 @button-border-radius @button-border-radius 0 !important;
+}
+
+.border-radius-left {
+    border-radius: @button-border-radius 0 0 @button-border-radius !important;
+}
+
+.border-radius-both {
+    border-radius: @button-border-radius @button-border-radius @button-border-radius @button-border-radius !important;
+}
+
+.border-radius-left-small {
+    border-bottom-left-radius: 4px !important;
+    border-top-left-radius: 4px !important;
+}
+
+.no-left-border-radius {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.no-right-border-radius {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.content-border-no-radius {
+    border-radius: 0px;
+    border: solid 1px @soe-border-color;
+    background-color: @soe-header-background-color;
+
+    .content-border-button {
+        cursor: pointer;
+        border-top-right-radius: 0px;
+        border-left: 1px solid @soe-border-color;
+        margin-right: -15px;
+        padding: 0px 5px 0px 5px;
+
+        i {
+            margin: 5px 5px 4px 5px;
+        }
+
+        label {
+            cursor: pointer;
+            font-weight: normal;
+            margin: 3px 5px 0px 0px;
+        }
+    }
+
+    .content-border-button:hover {
+        background-color: @soe-background-color;
+    }
+}
+
+.content-border-line {
+    border: solid 1px @soe-border-color;
+}
+
+.horizontal-line {
+    border-bottom: solid 1px @soe-border-color;
+}
+
+.horizontal-line-top {
+    border-top: solid 1px @soe-border-color;
+}
+
+.vertical-line-left {
+    border-left: solid 1px @soe-border-color;
+}
+
+.vertical-line-left-black {
+    border-left: solid 1px @soe-text-color;
+}
+
+.vertical-line-right {
+    border-right: solid 1px @soe-border-color;
+}
+
+// Misc
+.nowrap {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.col {
+    float: left;
+    white-space: nowrap;
+}
+
+.clear {
+    clear: left;
+}
+
+.link {
+    cursor: pointer;
+}
+
+.nolink {
+    cursor: default;
+}
+
+.disabled-icon {
+    color: @soe-disabled-text-color;
+    cursor: not-allowed;
+}
+
+.invisible {
+    opacity: 0;
+}
+
+.transparent-quarter {
+    opacity: 0.25;
+}
+
+.transparent-half {
+    opacity: 0.5;
+}
+
+.history-bubble {
+    margin-top: 10px;
+    position: relative;
+    background: #E9E9E9;
+    border-radius: .4em;
+}
+
+.history-bubble-deleted {
+    margin-top: 10px;
+    position: relative;
+    background: rgba(237, 141, 108, 0.5);
+    border-radius: .4em;
+}
+
+.history-speech-bubble {
+    margin-top: 10px;
+    position: relative;
+    background: #FFECB0;
+    border-radius: .4em;
+}
+
+.history-speech-bubble:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-bottom-color: #FFECB0;
+    border-top: 0;
+    margin-left: -10px;
+    margin-top: -10px;
+}
+
+.history-paragraph {
+    text-align: center;
+    background: #D3D3D3;
+    height: 1px;
+    margin-top: 10px;
+}
+
+.history-paragraph-span {
+    background: #FFFFFF;
+    padding: 10px;
+    position: relative;
+    top: -10px;
+}

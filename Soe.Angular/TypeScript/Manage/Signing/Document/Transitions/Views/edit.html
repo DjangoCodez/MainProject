@@ -1,0 +1,44 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">            
+        <soe-panel label-key="manage.signing.state.state">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-select label-key="common.type" model="ctrl.currentAttestEntity" items="ctrl.attestEntities" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="common.name" model="ctrl.signingTransition.name" required="true" maxlength="100" auto-focus="true"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-select model="ctrl.signingTransition.attestStateFromId" label-key="manage.attest.state.fromstate" items="ctrl.signingStates" options="item.attestStateId as item.name for item in items" on-changing="ctrl.suggestTransitionName();"></soe-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-select model="ctrl.signingTransition.attestStateToId" label-key="manage.attest.state.tostate" items="ctrl.signingStates" options="item.attestStateId as item.name for item in items" on-changing="ctrl.suggestTransitionName();"></soe-select>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.signingTransition"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>

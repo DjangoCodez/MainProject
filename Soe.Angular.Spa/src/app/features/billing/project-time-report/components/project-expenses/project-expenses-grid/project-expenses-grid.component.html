@@ -1,0 +1,34 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (editRowClicked)="edit($event)"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+    (selectionChanged)="selectionChanged($event)">
+    <soe-project-time-report-grid-header
+      toolbar-content-left
+      [isExpenses]="isExpenses"
+      [employeeCategoryDict]="employeeCategoryDict"
+      [projectsDict]="projectsDict"
+      [ordersDict]="ordersDict"
+      (categoriesLoad)="loadCategories()"
+      (projectsOrdersLoad)="loadProjectsOrder($event)"
+      (searchEvent)="
+        searchGridData($event)
+      "></soe-project-time-report-grid-header>
+
+    <div class="row" footer>
+      <div class="col-sm-12 p-2 d-flex flex-row-reverse align-items-end">
+        <soe-menu-button
+          class="me-2"
+          [caption]="'billing.project.atteststate'"
+          [list]="userValidPayrollAttestStatesOptions"
+          [disabled]="isAttestDisabled"
+          [behaviour]="'primary'"
+          [dropUp]="true"
+          (itemSelected)="saveAttest($event)">
+        </soe-menu-button>
+      </div>
+    </div>
+  </soe-grid-wrapper>
+}

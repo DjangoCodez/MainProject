@@ -1,0 +1,14 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+    <soe-discount-letters-grid-header
+      toolbar-content-left
+      [wholesellersDict]="wholesellersDict"
+      (filterChanged)="changeWholeseller($event)"
+      (clickImportAgreement)="openImportAgreementDialog()"
+      (clickRemoveAgreement)="openRemoveAgreementDialog()"
+      (clickAddRow)="openEditDialog()"></soe-discount-letters-grid-header>
+  </soe-grid-wrapper>
+}

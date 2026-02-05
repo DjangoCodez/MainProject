@@ -1,0 +1,164 @@
+<div class="time-slot-header-container">
+  @if (filterService.isCommonDayView()) {
+    <!-- Day view -->
+    <div class="time-slots-row">
+      <!-- Top left corner -->
+      <div
+        class="employee-slot"
+        [class.information-background-color]="
+          settingsLoaded() &&
+          settingService.disableAutoLoad() &&
+          !shiftService.initialShiftsLoaded()
+        ">
+        @if (shiftService.loadingShifts()) {
+          <span>{{ 'core.loading' | translate }}</span>
+        } @else if (
+          settingsLoaded() &&
+          settingService.disableAutoLoad() &&
+          !shiftService.initialShiftsLoaded()
+        ) {
+          <span class="font-bold">{{
+            'time.schedule.planning.disableautoload.inforow1' | translate
+          }}</span>
+        } @else {
+          <span>{{ nbrOfShiftsInfo() }}</span>
+        }
+      </div>
+      <!-- Day -->
+      <div class="time-slots">
+        @for (daySlot of slotService.daySlots(); track $index) {
+          <!-- TODO: Create new term -->
+          <div
+            class="time-slot time-slot-day"
+            [class.is-today]="daySlot.isToday"
+            [class.is-saturday]="daySlot.isSaturday"
+            [class.is-sunday]="daySlot.isSunday"
+            [matTooltip]="`Gå till veckovy, vecka ${daySlot.start | date: 'w'}`"
+            (click)="onDaySlotClicked(daySlot)">
+            {{ daySlot.text }}
+          </div>
+        }
+      </div>
+      @if (hasScrollbar()) {
+        <div class="scrollbar-placeholder"></div>
+      }
+    </div>
+    <div class="time-slots-row">
+      <!-- Top left corner (second row) -->
+      <div
+        class="employee-slot"
+        [cdkContextMenuTriggerFor]="employee_context_menu">
+        @if (employeeService.loadingEmployees()) {
+          <span>{{ 'core.loading' | translate }}</span>
+        } @else {
+          <span>{{ nbrOfEmployeesInfo() }}</span>
+        }
+        <ng-template #employee_context_menu>
+          <sp-employee-menu
+            (menuSelected)="onEmployeeMenuSelected($event)"></sp-employee-menu>
+        </ng-template>
+      </div>
+      <!-- Hours -->
+      <div class="time-slots">
+        <!-- @if (settingService.isDayViewTickLengthHour()) { -->
+        @for (hourSlot of slotService.hourSlots(); track $index) {
+          <div class="time-slot time-slot-hour">
+            {{ hourSlot.text }}
+          </div>
+        }
+        <!-- } @else if (settingService.isDayViewTickLengthHalfHour()) {
+          @for (halfHourSlot of slotService.halfHourSlots(); track $index) {
+            <div class="time-slot time-slot-half-hour">
+              {{ halfHourSlot.text }}
+            </div>
+          }
+        } @else if (settingService.isDayViewTickLengthQuarterHour()) {
+          @for (
+            quarterHourSlot of slotService.quarterHourSlots();
+            track $index
+          ) {
+            <div class="time-slot time-slot-quarter-hour">
+              {{ quarterHourSlot.text }}
+            </div>
+          }
+        } -->
+      </div>
+      @if (hasScrollbar()) {
+        <div class="scrollbar-placeholder"></div>
+      }
+    </div>
+  } @else if (filterService.isCommonScheduleView()) {
+    <!-- Schedule view (week) -->
+    <div class="time-slots-row">
+      <!-- Top left corner -->
+      <div
+        class="employee-slot"
+        [class.information-background-color]="
+          settingsLoaded() &&
+          settingService.disableAutoLoad() &&
+          !shiftService.initialShiftsLoaded()
+        ">
+        @if (shiftService.loadingShifts()) {
+          <span>{{ 'core.loading' | translate }}</span>
+        } @else if (
+          settingsLoaded() &&
+          settingService.disableAutoLoad() &&
+          !shiftService.initialShiftsLoaded()
+        ) {
+          <span class="font-bold">{{
+            'time.schedule.planning.disableautoload.inforow1' | translate
+          }}</span>
+        } @else {
+          <span>{{ nbrOfShiftsInfo() }}</span>
+        }
+      </div>
+      <!-- Weeks -->
+      <div class="time-slots weeks-grid">
+        @for (weekSlot of slotService.weekSlots(); track $index) {
+          <div
+            class="time-slot time-slot-week"
+            [style.gridColumn]="'span ' + weekSlot.nbrOfDaysInWeek">
+            {{ weekSlot.text }}
+          </div>
+        }
+      </div>
+      @if (hasScrollbar()) {
+        <div class="scrollbar-placeholder"></div>
+      }
+    </div>
+    <div class="time-slots-row">
+      <!-- Top left corner (second row) -->
+      <div
+        class="employee-slot"
+        [cdkContextMenuTriggerFor]="employee_context_menu">
+        @if (employeeService.loadingEmployees()) {
+          <span>{{ 'core.loading' | translate }}</span>
+        } @else {
+          <span>{{ nbrOfEmployeesInfo() }}</span>
+        }
+        <ng-template #employee_context_menu>
+          <sp-employee-menu
+            (menuSelected)="onEmployeeMenuSelected($event)"></sp-employee-menu>
+        </ng-template>
+      </div>
+      <!-- Days -->
+      <div class="time-slots days-grid">
+        @for (daySlot of slotService.daySlots(); track $index) {
+          <!-- TODO: New term -->
+          <div
+            class="time-slot time-slot-week-day"
+            [class.is-today]="daySlot.isToday"
+            [class.is-saturday]="daySlot.isSaturday"
+            [class.is-sunday]="daySlot.isSunday"
+            [matTooltip]="`Gå till dagvy, den ${daySlot.start | date: 'd LLLL'}`"
+            (click)="onDaySlotClicked(daySlot)">
+            {{ daySlot.text }}
+          </div>
+        }
+      </div>
+      @if (hasScrollbar()) {
+        <div class="scrollbar-placeholder"></div>
+      }
+    </div>
+  }
+</div>

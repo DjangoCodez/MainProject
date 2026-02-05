@@ -1,0 +1,15 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-toolbar
+    [itemGroups]="toolbarService.toolbarItemGroups"
+    [noPadding]="false"
+    [noMargin]="false"
+    [noBorder]="false">
+  </soe-toolbar>
+  <soe-grid-wrapper
+    [rows]="rows"
+    [parentGuid]="guid()"
+    [noMargin]="true"
+    (editRowClicked)="edit($event)"
+    [height]="150">
+  </soe-grid-wrapper>
+}

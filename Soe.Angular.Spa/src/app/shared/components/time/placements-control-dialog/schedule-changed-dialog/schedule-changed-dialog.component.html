@@ -1,0 +1,17 @@
+<soe-dialog>
+  <div dialog-content>
+    <soe-schedule-changed-dialog-grid
+      [rows]="scheduleChanges.rows"></soe-schedule-changed-dialog-grid>
+  </div>
+  <div dialog-footer>
+    <div class="d-flex justify-content-end">
+      <soe-button
+        class="ms-3"
+        [caption]="'core.cancel'"
+        [tooltip]="'core.cancel'"
+        [behaviour]="'standard'"
+        (action)="cancel()">
+      </soe-button>
+    </div>
+  </div>
+</soe-dialog>

@@ -1,0 +1,199 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.modal.close()" aria-hidden="true">&times;</button>
+    </div>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" ng-class="ctrl.isModal ? 'edit-padding': ''">
+        <div class="btn-toolbar">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="pull-left">
+                        <soe-toolbar buttons="ctrl.toolbar.navigationMenuButtons" hide-border="true" no-margin="true" data-ng-if="ctrl.showNavigationButtons"></soe-toolbar>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <soe-toolbar buttons="ctrl.toolbar.buttonGroups" hide-border="true" no-margin="true"></soe-toolbar>
+                </div>
+            </div>
+        </div>
+        <soe-panel label-key="economy.inventory.inventories.inventory">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="economy.inventory.inventories.inventorynr" model="ctrl.inventory.inventoryNr" required="true" maxlength="20" auto-focus="true" is-readonly="!ctrl.isNew"></soe-textbox>
+                            </div>
+                            <div class="col-sm-8">
+                                <soe-textbox label-key="common.name" model="ctrl.inventory.name" required="true" is-readonly="!ctrl.draft"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="economy.inventory.inventories.status" model="ctrl.inventory.statusName" is-readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-8">
+                                <!--<soe-textbox label-key="economy.inventory.inventories.parentname" model="ctrl.inventory.parentName"></soe-textbox>-->
+                                <soe-select label-key="economy.inventory.inventories.parentname" model="ctrl.inventory.parentId" items="ctrl.inventories" options="item.id as item.name for item in items" is-readonly="!ctrl.draft"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="economy.inventory.inventories.writeoffamount" model="ctrl.inventory.writeOffAmount" numeric="true" decimals="2" is-readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="economy.inventory.inventories.writeoffremainingamount" model="ctrl.inventory.writeOffRemainingAmount" numeric="true" decimals="2" is-readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="economy.inventory.inventories.accwriteoffamount" model="ctrl.inventory.accWriteOffAmount" numeric="true" decimals="2" is-readonly="true"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-datepicker label-key="economy.inventory.inventories.purchasedate" model="ctrl.selectedPurchaseDate" required="true" is-readonly="!ctrl.draft"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-datepicker label-key="economy.inventory.inventories.writeoffdate" model="ctrl.inventory.writeOffDate" required="true" is-readonly="!ctrl.isDraftOrActive || ctrl.isWriteOffsStarted"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="economy.inventory.inventories.writeoffperiods" model="ctrl.inventory.writeOffPeriods" is-readonly="!ctrl.draft"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="economy.inventory.inventories.purchaseamount" model="ctrl.inventory.purchaseAmount" numeric="true" decimals="2" is-readonly="!ctrl.draft" on-change="ctrl.amountChanged()"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="economy.inventory.inventories.writeoffsum" model="ctrl.inventory.writeOffSum" numeric="true" decimals="2" is-readonly="!ctrl.draft" on-change="ctrl.amountChanged()"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="economy.inventory.inventories.endamount" model="ctrl.inventory.endAmount" numeric="true" decimals="2" is-readonly="!ctrl.draft" on-change="ctrl.amountChanged()"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="col-sm-8">
+                            <soe-textarea label-key="common.description" model="ctrl.inventory.description" rows="5" is-readonly="!ctrl.draft"></soe-textarea>
+                            <categories category-type="9" category-record-entity="9" parent-guid="ctrl.guid" selected-categories="ctrl.inventory.categoryIds" nbr-of-rows="3"></categories>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="common.note" is-open="false">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-textarea hidelabel="true" model="ctrl.inventory.notes" rows="7"></soe-textarea>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="economy.inventory.inventories.writeoff" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-select label-key="economy.inventory.inventories.writeofftemplate" model="ctrl.selectedWriteOffTemplateId" items="ctrl.inventoryWriteOffTemplates" options="item.id as item.name for item in items" is-readonly="!ctrl.draft"></soe-select>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-select label-key="economy.inventory.inventories.voucherseriestype" model="ctrl.inventory.voucherSeriesTypeId" items="ctrl.voucherSeries" options="item.voucherSeriesTypeId as item.name for item in items" required="false" is-readonly="!ctrl.draft"></soe-select>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-select label-key="economy.inventory.inventories.writeoffmethod" model="ctrl.inventory.inventoryWriteOffMethodId" items="ctrl.inventoryWriteOffMethods" options="item.inventoryWriteOffMethodId as item.name for item in items" required="true" is-readonly="!ctrl.draft" on-changing="ctrl.writeOffMethodIdChanged(item)"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-select label-key="economy.inventory.inventories.periodtype" model="ctrl.inventory.periodType" items="ctrl.periodTypes" options="item.id as item.name for item in items" is-readonly="true"></soe-select>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="economy.inventory.inventories.periodvalue" model="ctrl.inventory.periodValue" numeric="true" decimals="0" is-readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-3">
+                            <soe-label></soe-label>
+                            <div class="info" data-ng-if="ctrl.info">
+                                <soe-text model="ctrl.info"></soe-text>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <accounting-settings setting-types="ctrl.inventoryAccountSettingTypes" settings="ctrl.inventory.accountingSettings" base-accounts="ctrl.inventoryBaseAccounts" show-base-account="true" min-rows="8" read-only="!ctrl.draft" parent-guid="ctrl.guid"></accounting-settings>
+                        </div>
+                    </div>
+                </div>
+
+            </soe-accordion>
+        </uib-accordion>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="economy.inventory.inventories.files" label-value="ctrl.filesHelper.nbrOfFiles" label-value-in-parentheses="true" on-open="ctrl.filesHelper.loadFiles(ctrl.inventoryId)" is-open="ctrl.documentExpanderIsOpen">
+                <div class="row form-group form-group-sm">
+                    <div class="col-sm-12">
+                        <soe-file-display files="ctrl.filesHelper.files" nbr-of-files-changed="ctrl.filesHelper.nbrOfFilesChanged(nbrOfFiles)" file-name-changed="ctrl.filesHelper.fileNameChanged(file)" read-only="ctrl.isLocked"></soe-file-display>
+                        <soe-file-upload callback="ctrl.filesHelper.fileUploadedCallback(result)" entity="{{::ctrl.filesHelper.entity}}" image-type="{{::ctrl.filesHelper.type}}" read-only="ctrl.isLocked"></soe-file-upload>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="common.tracing" is-open="false" on-open="ctrl.isTraceViewOpened = true;ctrl.LoadTraceViews();ctrl.LoadInvoices()">
+                <div class="form-group form-group-sm">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div ag-grid="ctrl.inventoryTraceViewGridOptions.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+                                <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-typeahead label-key="economy.inventory.inventories.supplierinvoice" model="ctrl.selectedSupplierInvoice" items="ctrl.supplierInvoices" options="item as item.name for item in items" on-edit="ctrl.openSupplierInvoice()" edit-tooltip-key="core.edit" edit-disabled="!ctrl.inventory.supplierInvoiceId"></soe-typeahead>
+                            </div>
+                        </div>
+                        <p></p>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-typeahead label-key="economy.inventory.inventories.customerinvoice" model="ctrl.selectedCustomerInvoice" items="ctrl.customerInvoices" options="item as item.name for item in items" on-edit="ctrl.openCustomerInvoice()" edit-tooltip-key="core.edit" edit-disabled="!ctrl.inventory.customerInvoiceId"></soe-typeahead>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.inventory"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col">
+                        <soe-checkbox label-key="economy.inventory.inventories.preliminary" data-l10n-bind data-l10n-bind-title="'economy.inventory.inventories.preliminarytooltip'" data-ng-if="ctrl.writeOfHasStarted()" model="ctrl.draft" is-disabled="!ctrl.isDraftOrActive" style="margin: 5px 15px 5px 0px;"></soe-checkbox>
+                    </div>
+                    <div class="col" data-ng-include data-ng-if="ctrl.modifyPermission && ctrl.isDraftOrActive && !ctrl.isWriteOffsStarted" src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                    <div class="col">
+                        <soe-splitbutton button-name="btnAdjust" label-key="economy.inventory.inventories.adjust" options="ctrl.adjustFunctions" drop-up="true" data-ng-if="ctrl.modifyPermission" is-disabled="ctrl.isDisabled() || !ctrl.isDraftOrActive || ctrl.isDraft" option-selected="ctrl.executeAdjustFunction(option)"></soe-splitbutton>
+                    </div>
+                    <div class="col">
+                        <soe-splitbutton button-name="btnDispose" label-key="economy.inventory.inventories.dispose" options="ctrl.disposeFunctions" drop-up="true" data-ng-if="ctrl.modifyPermission" is-disabled="ctrl.isDisabled()  || !ctrl.isDraftOrActiveOrWrittenOff || ctrl.isDraft" option-selected="ctrl.executeDisposeFunction(option)"></soe-splitbutton>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

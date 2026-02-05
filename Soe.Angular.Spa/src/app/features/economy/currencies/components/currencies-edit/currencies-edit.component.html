@@ -1,0 +1,57 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+@if (form) {
+  <form
+    [formGroup]="form"
+    name=""
+    class="soe-edit-form"
+    novalidate
+    autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'economy.accounting.currency.currency'"
+      [static]="true">
+      <div class="row">
+        <div class="col-sm-4">
+          <soe-select
+            [labelKey]="'economy.accounting.currency.currency'"
+            [optionIdField]="'sysCurrencyId'"
+            [optionNameField]="'description'"
+            [items]="sysCurrencies"
+            (valueChange)="setSysCurrencyCode($event || 0)"
+            formControlName="sysCurrencyId"></soe-select>
+        </div>
+        <div class="col-sm-4">
+          <soe-select
+            [labelKey]="'economy.accounting.currency.rateupdate'"
+            [items]="intervalTypes"
+            formControlName="intervalType"></soe-select>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    @if (selectedCurrency) {
+      <soe-expansion-panel
+        [labelKey]="'economy.accounting.currency.rates'"
+        [static]="true">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-currency-rates-grid
+              [form]="form"
+              [sysCurrency]="selectedCurrency"></soe-currency-rates-grid>
+          </div>
+        </div>
+      </soe-expansion-panel>
+    }
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

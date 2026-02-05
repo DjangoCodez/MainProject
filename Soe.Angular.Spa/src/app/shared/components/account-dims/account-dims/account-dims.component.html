@@ -1,0 +1,78 @@
+<div>
+  <form [formGroup]="form">
+    <div class="row">
+      @if (dimLabels.dim1.length > 0) {
+        <div class="col-sm-2">
+          <soe-autocomplete
+            [labelKey]="dimLabels.dim1"
+            formControlName="account1"
+            [items]="dimAccounts.dim1"
+            [optionIdField]="'accountId'"
+            [optionNameField]="'numberName'"
+            [required]="mandatoryDims.dim1"
+            (valueChanged)="selectionChanged(1, $event)"></soe-autocomplete>
+        </div>
+      }
+      @if (dimLabels.dim2.length > 0) {
+        <div class="col-sm-2">
+          <soe-autocomplete
+            [labelKey]="dimLabels.dim2"
+            formControlName="account2"
+            [items]="internalAccounts2"
+            [optionIdField]="'id'"
+            [optionNameField]="'name'"
+            [required]="mandatoryDims.dim2"
+            (valueChanged)="selectionChanged(2, $event)"></soe-autocomplete>
+        </div>
+      }
+      @if (dimLabels.dim3.length > 0) {
+        <div class="col-sm-2">
+          <soe-autocomplete
+            [labelKey]="dimLabels.dim3"
+            formControlName="account3"
+            [items]="internalAccounts3"
+            [optionIdField]="'id'"
+            [optionNameField]="'name'"
+            [required]="mandatoryDims.dim3"
+            (valueChanged)="selectionChanged(3, $event)"></soe-autocomplete>
+        </div>
+      }
+      @if (dimLabels.dim4.length > 0) {
+        <div class="col-sm-2">
+          <soe-autocomplete
+            [labelKey]="dimLabels.dim4"
+            formControlName="account4"
+            [items]="internalAccounts4"
+            [optionIdField]="'id'"
+            [optionNameField]="'name'"
+            [required]="mandatoryDims.dim4"
+            (valueChanged)="selectionChanged(4, $event)"></soe-autocomplete>
+        </div>
+      }
+      @if (dimLabels.dim5.length > 0) {
+        <div class="col-sm-2">
+          <soe-autocomplete
+            [labelKey]="dimLabels.dim5"
+            formControlName="account5"
+            [items]="internalAccounts5"
+            [optionIdField]="'id'"
+            [optionNameField]="'name'"
+            [required]="mandatoryDims.dim5"
+            (valueChanged)="selectionChanged(5, $event)"></soe-autocomplete>
+        </div>
+      }
+      @if (dimLabels.dim6.length > 0) {
+        <div class="col-sm-2">
+          <soe-autocomplete
+            [labelKey]="dimLabels.dim6"
+            formControlName="account6"
+            [items]="internalAccounts6"
+            [optionIdField]="'id'"
+            [optionNameField]="'name'"
+            [required]="mandatoryDims.dim6"
+            (valueChanged)="selectionChanged(6, $event)"></soe-autocomplete>
+        </div>
+      }
+    </div>
+  </form>
+</div>

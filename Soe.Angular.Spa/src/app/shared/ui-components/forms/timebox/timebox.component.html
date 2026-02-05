@@ -1,0 +1,63 @@
+<div
+  [class.mt-2]="!inline() && !gridMode()"
+  [class.grid-mode]="gridMode()"
+  [ngStyle]="width() && !inline() ? { 'width.px': width() } : {}"
+  [class.d-flex]="inline()"
+  [class.flex-nowrap]="inline()"
+  [class.form-label-inline-top-alignment]="alignInline()">
+  <input type="hidden" [formControl]="control" />
+  @if (!gridMode() && hasLabel()) {
+    <div
+      class="form-label-container d-flex align-items-center"
+      [class.me-2]="inline()">
+      <soe-label
+        [labelKey]="labelKey()"
+        [labelLowercase]="labelLowercase()"
+        [secondaryLabelKey]="secondaryLabelKey()"
+        [secondaryLabelBold]="secondaryLabelBold()"
+        [secondaryLabelParantheses]="secondaryLabelParantheses()"
+        [secondaryLabelPostfixKey]="secondaryLabelPostfixKey()"
+        [secondaryLabelPrefixKey]="secondaryLabelPrefixKey()"
+        [secondaryLabelLowercase]="secondaryLabelLowercase()"
+        [isRequired]="isRequired()"></soe-label>
+    </div>
+  }
+  <div
+    class="d-flex input-group"
+    [class.grid-mode]="gridMode()"
+    [ngStyle]="width() && inline() ? { 'width.px': width() } : {}">
+    @if (showLeftRangeArrow() && !gridMode()) {
+      <soe-icon-button
+        [iconName]="'chevron-left'"
+        [disabled]="isDisabled() || (control && control.value === '')"
+        (action)="!isDisabled() ? notifyRangeStepLeft() : ''"
+        [attachedToTextbox]="true"
+        [class.no-radius-right]="true"></soe-icon-button>
+    }
+    <input
+      #input
+      type="text"
+      class="form-control input-sm text-right"
+      [placeholder]="placeholderKey() | translate"
+      [value]="timeSpan"
+      [class.no-border-right-radius]="showRightRangeArrow() || hasContent()"
+      [class.no-radius-left]="showLeftRangeArrow()"
+      [autofocus]="autoFocus()"
+      onfocus="select()"
+      [disabled]="control.disabled"
+      [ngStyle]="width() ? { 'width.px': width() } : {}"
+      [attr.title]="tooltipDate()"
+      (blur)="formatValue($event.target)" />
+    <div #content class="d-flex align-center soe-button-group">
+      @if (showRightRangeArrow() && !gridMode()) {
+        <soe-icon-button
+          [iconName]="'chevron-right'"
+          [lastInGroup]="true"
+          [disabled]="isDisabled() || (control && control.value === '')"
+          (action)="!isDisabled() ? notifyRangeStepRight() : ''"
+          [attachedToTextbox]="true"></soe-icon-button>
+      }
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

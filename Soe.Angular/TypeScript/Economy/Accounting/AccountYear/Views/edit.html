@@ -1,0 +1,118 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+   
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" year-validation ng-model="ctrl.accountYear" previouse-account-year-to="ctrl.previouseAccountYearTo" previouse-account-year-from="ctrl.previouseAccountYearFrom" account-years="ctrl.accountYears">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="economy.accounting.accountyear.accountyear">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-instruction label-key="economy.accounting.accountyear.headerinfo" ng-if="ctrl.isNew"></soe-instruction>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-datepicker label-key="common.from" model="ctrl.accountYear.from" is-disabled="!ctrl.enableChangePeriods" on-change="ctrl.dateChanged()" required="true"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-datepicker label-key="common.to" model="ctrl.accountYear.to" is-disabled="!ctrl.enableChangePeriods && !ctrl.isAccountYearOpen" on-change="ctrl.dateChanged()" required="true"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-select label-key="common.status" model="ctrl.accountYear.status" items="ctrl.accountStatuses" options="item.id as item.name for item in items" on-changing="ctrl.accountYearStatusChanged(item)" ng-if="ctrl.accountYear.accountYearId > 0" is-readonly="ctrl.accountYear.status > 3"></soe-select>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="economy.accounting.accountyear.periods">
+                <div class="form-group form-group-sm">
+                    <div class="btn-toolbar">
+                        <div class="row">
+                            <div>
+                                <div class="col margin-large-right pull-right">
+                                    <soe-select class="margin-large-left" style="width:170px" hidelabel="true" model="ctrl.selectedPeriodStatus" items="ctrl.accountStatuses" options="item.id as item.name for item in items" is-readonly="ctrl.accountYear.status > 3" on-button-click="ctrl.changeStatusOnPeriod()" button-icon="'fa-play-circle'" button-class="border-radius-right" button-tooltip-key="economy.accounting.accountyear.changestatus" button-disabled="ctrl.isNew || ctrl.accountYear.status > 3" use-ignore-dirty="true"></soe-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div ag-grid="ctrl.periodsGridOptions.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="economy.accounting.voucherseriestypes">
+                <div class="form-group form-group-sm">
+                    <div class="btn-toolbar">
+                        <div class="row">
+                            <div>
+                                <div class="col margin-large-right pull-right">
+                                    <soe-select class="margin-large-left" style="width:170px" hidelabel="true" model="ctrl.selectedVoucherSeriesType" items="ctrl.filteredVoucherSeriesTypes" options="item.id as item.name for item in items" is-readonly="ctrl.accountYear.status > 2" on-button-click="ctrl.addVoucherSerie()" button-icon="'fa-plus'" button-class="border-radius-right" button-tooltip-key="core.newrow" button-disabled="ctrl.accountYear.status > 2" use-ignore-dirty="true"></soe-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div ag-grid="ctrl.voucherSeriesGridOptions.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="economy.accounting.accountyear.vouchertemplates" ng-if="ctrl.voucherTemplatesPermission">
+                <div class="form-group form-group-sm">
+                    <div class="btn-toolbar">
+                        <div class="row">
+                            <div>
+                                <div class="col margin-large-right pull-right">
+                                    <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind="'economy.accounting.accountyear.copytemplates'" data-l10n-bind-title="'economy.accounting.accountyear.copytemplatestooltip'" data-ng-click="$event.stopPropagation();ctrl.copyVoucherTemplates()" ng-disabled="ctrl.isNew || ctrl.accountYear.status > 2 || ctrl.dirtyHandler.isDirty"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div ag-grid="ctrl.voucherTemplatesGridOptions.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="economy.accounting.grossprofitcode.grossprofitcodes" ng-if="ctrl.grossProfitCodesPermission">
+                <div class="form-group form-group-sm">
+                    <div class="btn-toolbar">
+                        <div class="row">
+                            <div>
+                                <div class="col margin-large-right pull-right">
+                                    <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind="'economy.accounting.accountyear.copycodes'" data-l10n-bind-title="'economy.accounting.accountyear.copycodestooltip'" data-ng-click="$event.stopPropagation();ctrl.copyGrossProfitCodes()" ng-disabled="ctrl.isNew || ctrl.accountYear.status > 2 || ctrl.dirtyHandler.isDirty"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div ag-grid="ctrl.grossProfitCodesGridOptions.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.accountYear"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-if="ctrl.isNew">
+                        <soe-checkbox label-key="economy.accounting.accountyear.keepnumbers" model="ctrl.keepNumberSeries"></soe-checkbox>
+                    </div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" ng-if="ctrl.enableDeleteYear" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

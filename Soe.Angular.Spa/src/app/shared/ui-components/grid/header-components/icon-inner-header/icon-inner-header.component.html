@@ -1,0 +1,8 @@
+<div class="icon-inner-header">
+  @if (params.iconName) {
+    <fa-icon
+      [icon]="[params.iconPrefix!, params.iconName]"
+      [ngClass]="params.iconClass"></fa-icon>
+  }
+  <span>{{ params.displayName }}</span>
+</div>

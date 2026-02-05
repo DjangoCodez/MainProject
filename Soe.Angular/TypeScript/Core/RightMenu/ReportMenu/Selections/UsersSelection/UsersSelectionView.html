@@ -1,0 +1,15 @@
+﻿<div>
+    <div class="row margin-large-bottom">
+        <div class="col-sm-8">
+            <soe-checkbox label-key="common.includeinactive" text-class="discreet" text-class-condition="true" model="$ctrl.includeInactive" on-changing="$ctrl.showInactiveChanged()"></soe-checkbox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <soe-multiselect label-key="{{$ctrl.labelKey}}" hidelabel="$ctrl.hideLabel" model="$ctrl.selectedUsers" options="$ctrl.users" show-selected="true" id-prop="userId" display-prop="userInfo" is-disabled="!$ctrl.users" on-item-select="$ctrl.onChange()" on-item-deselect="$ctrl.onChange()"></soe-multiselect>
+        </div>
+        <div class="col-sm-1 padding-none-left padding-none-right" style="margin-left: -10px; margin-top: 25px;">
+            <span class="far fa-spinner fa-pulse fa-fw extraLargeFont" data-ng-if="$ctrl.populating"></span>
+        </div>
+    </div>
+</div>

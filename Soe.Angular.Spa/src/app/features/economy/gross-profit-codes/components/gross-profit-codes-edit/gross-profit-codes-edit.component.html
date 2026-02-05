@@ -1,0 +1,273 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-4 col-md-4 col-lg-3 col-xl-3 col-xxl-2">
+        <div class="col">
+          <div class="row">
+            <soe-select
+              [labelKey]="
+                'economy.accounting.grossprofitcode.selectaccountyear'
+              "
+              [selectedId]="form.value.accountYearId"
+              [items]="accountYearFilterOptions"
+              (valueChanged)="accountYearIdChanged($event)"
+              formControlName="accountYearId">
+            </soe-select>
+          </div>
+          <div class="row">
+            <soe-select
+              [labelKey]="'economy.accounting.grossprofitcode.selectaccountdim'"
+              [selectedId]="form.value.accountDimId"
+              [items]="accountDimSmallOptions"
+              [optionIdField]="'accountDimId'"
+              [optionNameField]="'name'"
+              (valueChanged)="accountDimIdChanged($event)"
+              formControlName="accountDimId">
+            </soe-select>
+          </div>
+          <div class="row">
+            <soe-select
+              [labelKey]="'economy.accounting.grossprofitcode.selectaccount'"
+              [items]="accountFilterOptions"
+              [selectedId]="form.value.accountId"
+              formControlName="accountId">
+            </soe-select>
+          </div>
+          <div class="row">
+            <soe-numberbox
+              [labelKey]="'common.code'"
+              [required]="true"
+              [noFormatting]="true"
+              formControlName="code">
+            </soe-numberbox>
+          </div>
+          <div class="row">
+            <soe-textbox
+              [labelKey]="'common.name'"
+              [required]="true"
+              [maxLength]="50"
+              formControlName="name">
+            </soe-textbox>
+          </div>
+          <div class="row">
+            <soe-textarea
+              [rows]="6"
+              [labelKey]="'common.description'"
+              [maxLength]="50"
+              formControlName="description">
+            </soe-textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-8 col-md-8 col-lg-6 col-xl-5 col-xxl-3">
+        <div class="col">
+          <div class="row">
+            <soe-instruction
+              [type]="'info'"
+              [text]="'economy.accounting.grossprofitcode.shareinpercent'"
+              style="text-align: center">
+            </soe-instruction>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 px-2 my-1">
+              <soe-numberbox
+                [labelKey]="'economy.accounting.grossprofitcode.openingbalance'"
+                [decimals]="2"
+                formControlName="openingBalance">
+              </soe-numberbox>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6 my-1">
+              <div class="row my-1">
+                <soe-numberbox
+                  tabIndex="1"
+                  [decimals]="2"
+                  [labelKey]="'common.period'"
+                  [secondaryLabelPrefixKey]="'-'"
+                  [secondaryLabelParantheses]="false"
+                  [secondaryLabelKey]="'common.january'"
+                  [secondaryLabelPostfixKey]="
+                    period1SecondaryLabelPostfixText()
+                  "
+                  formControlName="period1">
+                </soe-numberbox>
+              </div>
+              <div class="row my-1">
+                <soe-numberbox
+                  tabIndex="2"
+                  [decimals]="2"
+                  [labelKey]="'common.period'"
+                  [secondaryLabelPrefixKey]="'-'"
+                  [secondaryLabelParantheses]="false"
+                  [secondaryLabelKey]="'common.february'"
+                  [secondaryLabelPostfixKey]="
+                    period2SecondaryLabelPostfixText()
+                  "
+                  formControlName="period2">
+                </soe-numberbox>
+              </div>
+              <div class="row my-1">
+                <soe-numberbox
+                  tabIndex="3"
+                  [decimals]="2"
+                  [labelKey]="'common.period'"
+                  [secondaryLabelPrefixKey]="'-'"
+                  [secondaryLabelParantheses]="false"
+                  [secondaryLabelKey]="'common.march'"
+                  [secondaryLabelPostfixKey]="
+                    period3SecondaryLabelPostfixText()
+                  "
+                  formControlName="period3">
+                </soe-numberbox>
+              </div>
+              <div class="row my-1">
+                <soe-numberbox
+                  tabIndex="4"
+                  [decimals]="2"
+                  [labelKey]="'common.period'"
+                  [secondaryLabelPrefixKey]="'-'"
+                  [secondaryLabelParantheses]="false"
+                  [secondaryLabelKey]="'common.april'"
+                  [secondaryLabelPostfixKey]="
+                    period4SecondaryLabelPostfixText()
+                  "
+                  formControlName="period4">
+                </soe-numberbox>
+              </div>
+              <div class="row my-1">
+                <soe-numberbox
+                  tabIndex="5"
+                  [decimals]="2"
+                  [labelKey]="'common.period'"
+                  [secondaryLabelPrefixKey]="'-'"
+                  [secondaryLabelParantheses]="false"
+                  [secondaryLabelKey]="'common.may'"
+                  [secondaryLabelPostfixKey]="
+                    period5SecondaryLabelPostfixText()
+                  "
+                  formControlName="period5">
+                </soe-numberbox>
+              </div>
+              <div class="row my-1">
+                <soe-numberbox
+                  tabIndex="6"
+                  [decimals]="2"
+                  [labelKey]="'common.period'"
+                  [secondaryLabelPrefixKey]="'-'"
+                  [secondaryLabelParantheses]="false"
+                  [secondaryLabelKey]="'common.june'"
+                  [secondaryLabelPostfixKey]="
+                    period6SecondaryLabelPostfixText()
+                  "
+                  formControlName="period6">
+                </soe-numberbox>
+              </div>
+            </div>
+            <div class="col-sm-6 my-1">
+              <div class="row my-1">
+                <soe-numberbox
+                  tabIndex="7"
+                  [decimals]="2"
+                  [labelKey]="'common.period'"
+                  [secondaryLabelPrefixKey]="'-'"
+                  [secondaryLabelParantheses]="false"
+                  [secondaryLabelKey]="'common.july'"
+                  [secondaryLabelPostfixKey]="
+                    period7SecondaryLabelPostfixText()
+                  "
+                  formControlName="period7">
+                </soe-numberbox>
+              </div>
+              <div class="row my-1">
+                <soe-numberbox
+                  tabIndex="8"
+                  [decimals]="2"
+                  [labelKey]="'common.period'"
+                  [secondaryLabelPrefixKey]="'-'"
+                  [secondaryLabelParantheses]="false"
+                  [secondaryLabelKey]="'common.august'"
+                  [secondaryLabelPostfixKey]="
+                    period8SecondaryLabelPostfixText()
+                  "
+                  formControlName="period8">
+                </soe-numberbox>
+              </div>
+              <div class="row my-1">
+                <soe-numberbox
+                  tabIndex="9"
+                  [decimals]="2"
+                  [labelKey]="'common.period'"
+                  [secondaryLabelPrefixKey]="'-'"
+                  [secondaryLabelParantheses]="false"
+                  [secondaryLabelKey]="'common.september'"
+                  [secondaryLabelPostfixKey]="
+                    period9SecondaryLabelPostfixText()
+                  "
+                  formControlName="period9">
+                </soe-numberbox>
+              </div>
+              <div class="row my-1">
+                <soe-numberbox
+                  tabIndex="10"
+                  [decimals]="2"
+                  [labelKey]="'common.period'"
+                  [secondaryLabelPrefixKey]="'-'"
+                  [secondaryLabelParantheses]="false"
+                  [secondaryLabelKey]="'common.october'"
+                  [secondaryLabelPostfixKey]="
+                    period10SecondaryLabelPostfixText()
+                  "
+                  formControlName="period10">
+                </soe-numberbox>
+              </div>
+              <div class="row my-1">
+                <soe-numberbox
+                  tabIndex="11"
+                  [decimals]="2"
+                  [labelKey]="'common.period'"
+                  [secondaryLabelPrefixKey]="'-'"
+                  [secondaryLabelParantheses]="false"
+                  [secondaryLabelKey]="'common.november'"
+                  [secondaryLabelPostfixKey]="
+                    period11SecondaryLabelPostfixText()
+                  "
+                  formControlName="period11">
+                </soe-numberbox>
+              </div>
+              <div class="row my-1">
+                <soe-numberbox
+                  tabIndex="12"
+                  [decimals]="2"
+                  [labelKey]="'common.period'"
+                  [secondaryLabelPrefixKey]="'-'"
+                  [secondaryLabelParantheses]="false"
+                  [secondaryLabelKey]="'common.december'"
+                  [secondaryLabelPostfixKey]="
+                    period12SecondaryLabelPostfixText()
+                  "
+                  formControlName="period12">
+                </soe-numberbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

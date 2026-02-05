@@ -1,0 +1,40 @@
+﻿<div class="form-inline btn-toolbar-no-border" role="toolbar">
+    <div class="form-group form-group-sm">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-sm btn-default fal fa-chevron-left" data-l10n-bind data-l10n-bind-title="'common.from'" data-ng-click="directiveCtrl.decreaseDate()"></button>
+            </span>
+            <soe-datepicker hidelabel="true" model="directiveCtrl.fromDate" use-ignore-dirty="true"></soe-datepicker>
+        </div>
+    </div>
+    <span>-</span>
+    <div class="form-group form-group-sm">
+        <div class="input-group">
+            <soe-datepicker hidelabel="true" model="directiveCtrl.toDate" use-ignore-dirty="true" button-class="no-border-radius"></soe-datepicker>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-sm btn-default fal fa-chevron-right border-radius-right" data-l10n-bind data-l10n-bind-title="'common.to'" data-ng-click="directiveCtrl.increaseDate()"></button>
+            </span>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <soe-multiselect label-key="common.categories" options="directiveCtrl.filteredEmployeeCategoriesDict" model="directiveCtrl.selectedEmployeeCategoryDict" hidelabel="true" limit-to="20" on-selection-opened="directiveCtrl.populateEmployeeCategories()" on-selection-complete="directiveCtrl.employeeCategoriesSelectionComplete()"></soe-multiselect>
+    </div>
+    <div class="form-group form-group-sm" ng-if="directiveCtrl.modifyOtherEmployeesPermission">
+        <soe-multiselect label-key="common.employee" options="directiveCtrl.employeesDict" model="directiveCtrl.selectedEmployeesDict" hidelabel="true" on-selection-complete="directiveCtrl.employeeSelectionComplete()"></soe-multiselect>
+    </div>
+    <div class="form-group form-group-sm">
+        <soe-multiselect label-key="common.order" options="directiveCtrl.filteredOrdersDict" model="directiveCtrl.selectedOrdersDict" hidelabel="true" limit-to="20" on-selection-opened="directiveCtrl.populateProjectAndInvoice()" on-selection-complete="directiveCtrl.orderSelectionComplete()"></soe-multiselect>
+    </div>
+    <div class="form-group form-group-sm">
+        <soe-multiselect label-key="billing.project.project" options="directiveCtrl.filteredProjectsDict" model="directiveCtrl.selectedProjectsDict" hidelabel="true" limit-to="20" on-selection-opened="directiveCtrl.populateProjectAndInvoice()" on-selection-complete="directiveCtrl.projectSelectionComplete()"></soe-multiselect>
+    </div>
+    <div class="form-group form-group-sm">
+        <soe-splitbutton class="pull-right" label-key="core.search" options="directiveCtrl.searchButtonFunctions" option-selected="$event.stopPropagation();directiveCtrl.executeSearchButtonFunction(option)" main-button="true"></soe-splitbutton>
+    </div>
+    <!--<div class="form-group form-group-sm" ng-if="directiveCtrl.buttonFunctions.length > 0">
+        <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'common.customer.invoices.newexpenserow'" data-l10n-bind-title="'common.customer.invoices.newexpenserow'" data-ng-disabled="directiveCtrl.readOnly" data-ng-click="$event.stopPropagation();directiveCtrl.edit()"></button>
+    </div>
+    <div class="btn-group pull-right">
+        <i class="btn btn-default fal fa-print" data-l10n-bind data-l10n-bind-title="'core.print'" data-ng-disabled="!directiveCtrl.timeProjectReportId" data-ng-if="directiveCtrl.isOrder" data-ng-click="directiveCtrl.print();"></i>
+    </div>-->
+</div>

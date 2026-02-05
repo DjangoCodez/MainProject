@@ -1,0 +1,128 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'billing.purchase.delivery.delivery'"
+      [open]="true"
+      [static]="true">
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-textbox
+            [labelKey]="'billing.purchase.delivery.deliveryno'"
+            formControlName="deliveryNr">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-4">
+          <soe-autocomplete
+            [labelKey]="'billing.purchase.supplier'"
+            [items]="supplierOptions() || []"
+            [optionIdField]="'id'"
+            [optionNameField]="'name'"
+            [limit]="20"
+            (valueChanged)="changeSupplier($event.id)"
+            formControlName="supplierId">
+            <soe-icon-button
+              [disabled]="true"
+              [noBorder]="false"
+              [iconName]="'pencil'"
+              [iconClass]="'icon-edit'"
+              [tooltip]="'core.edit'"
+              (action)="openSupplier()"></soe-icon-button>
+          </soe-autocomplete>
+        </div>
+        <div class="col-sm-4">
+          <soe-autocomplete
+            [labelKey]="'billing.purchase.purchasenr'"
+            [items]="filteredPurchase() || []"
+            [optionIdField]="'purchaseId'"
+            [optionNameField]="'name'"
+            [optionDisplayNameField]="'purchaseNr'"
+            [hidden]="!form.isNew"
+            (valueChanged)="changePurchase($event)"
+            [limit]="20"
+            formControlName="purchaseId">
+          </soe-autocomplete>
+        </div>
+        <div class="col-sm-2 mt-4">
+          <soe-button
+            [caption]="'billing.purchase.delivery.fetchrows'"
+            [behaviour]="'standard'"
+            [hidden]="isHideFetchButton()"
+            [disabled]="isFetchDisable()"
+            (action)="fetchPurchaseRows()">
+          </soe-button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-datepicker
+            [labelKey]="'billing.purchase.delivery.deliverydate'"
+            formControlName="deliveryDate"
+            (valueChanged)="changeDate($event)">
+          </soe-datepicker>
+        </div>
+        <div class="col-sm-2">
+          <soe-checkbox
+            [labelKey]="'billing.purchase.delivery.finaldelivery'"
+            formControlName="finalDelivery"
+            [hidden]="!form.isNew"
+            (valueChanged)="checkFinalDelivery($event)"
+            [inline]="true">
+          </soe-checkbox>
+        </div>
+        <div class="col-sm-2">
+          <soe-checkbox
+            [labelKey]="'billing.purchase.delivery.copyqty'"
+            formControlName="copyQty"
+            [checked]="form.value.copyQty"
+            [hidden]="!form.isNew"
+            [inline]="true">
+          </soe-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 mb-3">
+          <soe-textbox
+            [labelKey]="'billing.purchase.origindescription'"
+            formControlName="originDescription"
+            [hidden]="!form.isNew"
+            readonly="true">
+          </soe-textbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel [labelKey]="'billing.purchase.rows'" [open]="true">
+      <soe-delivery-rows [rows]="purchaseData"
+      (openEditInNewTab)="openEditInNewTab($event)"></soe-delivery-rows>
+    </soe-expansion-panel>
+    @if (!form.isNew && viewType) {
+      <soe-expansion-panel
+        [labelKey]="'billing.purchase.orderrows'"
+        [open]="true"
+        [noTopPadding]="true">
+        <soe-purchase-customer-invoice-rows [id]="id" [viewType]="viewType">
+        </soe-purchase-customer-invoice-rows>
+      </soe-expansion-panel>
+    }
+    <div class="row" footer>
+      <div class="col-sm-12 p-2 d-flex flex-row-reverse align-items-end">
+        <soe-menu-button
+          class="me-2"
+          [caption]="'core.save'"
+          [list]="menuList"
+          [disabled]="isSaveDisable()"
+          [behaviour]="'secondary'"
+          [dropUp]="true"
+          (itemSelected)="peformAction($event)"
+          (selectedItem)="(menuList)">
+        </soe-menu-button>
+      </div>
+    </div>
+  </form>
+}

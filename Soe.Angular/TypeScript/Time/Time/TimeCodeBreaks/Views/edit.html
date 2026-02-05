@@ -1,0 +1,180 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+            <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+        </soe-toolbar>
+        <soe-panel label-key="common.timecode" is-open="true">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="common.code" model="ctrl.timeCode.code" required="true" maxlength="20" set-focus="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="common.name" model="ctrl.timeCode.name" required="true" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                    <div class="col-sm-5">
+                        <soe-textbox label-key="common.description" model="ctrl.timeCode.description" maxlength="512" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                    <div class="col-sm-1">
+                        <soe-checkbox label-key="time.time.timecodebreaks.template" model="ctrl.timeCode.template" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+
+        <uib-accordion close-others="false">
+            <div class="row margin-large-top margin-small-bottom">
+                <div class="col-sm-4">
+                    <soe-accordion label-key="time.time.timecodebreaks.breakwindow.in" is-open="true">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.time.timecodebreaks.breakwindow.event" model="ctrl.timeCode.startType" items="ctrl.startStopTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                            </div>
+                            <div class="col-sm-6" data-ng-show="ctrl.timeCode.startType !== 5">
+                                <soe-textbox label-key="time.time.timecodebreaks.breakwindow.minutes" model="ctrl.timeCode.startTimeMinutes" update-on="blur" numeric="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                            <div class="col-sm-6" data-ng-show="ctrl.timeCode.startType === 5">
+                                <soe-textbox label-key="time.time.timecodebreaks.breakwindow.time" model="ctrl.timeCode.startTimeMinutesFormatted" update-on="blur" is-time="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-select label-key="time.time.timecodebreaks.breakwindow.earlierthanstart" model="ctrl.timeCodeEarlierThanStart" items="ctrl.timeCodes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </div>
+                <div class="col-sm-4">
+                    <soe-accordion label-key="time.time.timecodebreaks.breakwindow.out" is-open="true">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.time.timecodebreaks.breakwindow.event" model="ctrl.timeCode.stopType" items="ctrl.startStopTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                            </div>
+                            <div class="col-sm-6" data-ng-show="ctrl.timeCode.stopType !== 5">
+                                <soe-textbox label-key="time.time.timecodebreaks.breakwindow.minutes" model="ctrl.timeCode.stopTimeMinutes" update-on="blur" numeric="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                            <div class="col-sm-6" data-ng-show="ctrl.timeCode.stopType === 5">
+                                <soe-textbox label-key="time.time.timecodebreaks.breakwindow.time" model="ctrl.timeCode.stopTimeMinutesFormatted" update-on="blur" is-time="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-select label-key="time.time.timecodebreaks.breakwindow.laterthanstop" model="ctrl.timeCodeLaterThanStop" items="ctrl.timeCodes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </div>
+                <div class="col-sm-4">
+                    <soe-accordion label-key="time.time.timecodebreaks.breakrules" is-open="true">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-textbox label-key="time.time.timecodebreaks.breakrules.min" label-value="ctrl.minutesLabel" label-value-in-parentheses="true" model="ctrl.timeCode.minMinutes" update-on="blur" numeric="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                            <div class="col-sm-6">
+                                <soe-textbox label-key="time.time.timecodebreaks.breakrules.max" label-value="ctrl.minutesLabel" label-value-in-parentheses="true" model="ctrl.timeCode.maxMinutes" update-on="blur" numeric="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-textbox label-key="time.time.timecodebreaks.breakrules.default" label-value="ctrl.minutesLabel" label-value-in-parentheses="true" model="ctrl.timeCode.defaultMinutes" update-on="blur" numeric="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                            <div class="col-sm-6">
+                                <soe-timebox label-key="time.time.timecodebreaks.breakrules.starttime" label-value="ctrl.timeLabel" label-value-in-parentheses="true" model="ctrl.timeCode.startTime" is-time="true" is-readonly="!ctrl.modifyPermission"></soe-timebox>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </div>
+            </div>
+
+            <div class="row margin-large-top">
+                <div class="col-sm-4">
+                    <soe-accordion label-key="time.time.timecode.timecodes" is-open="true">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <soe-select label-key="time.time.timecodebreaks.timecode.morethanmax" model="ctrl.timeCodeMoreThanMax" items="ctrl.timeCodes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                                    <span class="input-group-btn">
+                                        <svg class="inputShape margin-small-left" focusable="false">
+                                            <circle class="shape" fill="#da1e28" cx="10" cy="10" r="9" focusable="false" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <soe-select label-key="time.time.timecodebreaks.timecode.betweenstandardandmax" model="ctrl.timeCodeBetweenStdAndMax" items="ctrl.timeCodes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                                    <span class="input-group-btn">
+                                        <svg class="inputShape margin-small-left" focusable="false">
+                                            <circle class="shape" fill="#fbbd0e" cx="10" cy="10" r="9" focusable="false" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <soe-select label-key="time.time.timecodebreaks.timecode.standard" model="ctrl.timeCodeStd" items="ctrl.timeCodes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                                    <span class="input-group-btn">
+                                        <svg class="inputShape margin-small-left" focusable="false">
+                                            <circle class="shape" fill="#24a148" cx="10" cy="10" r="9" focusable="false" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <soe-select label-key="time.time.timecodebreaks.timecode.betweenminandstandard" model="ctrl.timeCodeBetweenMinAndStd" items="ctrl.timeCodes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                                    <span class="input-group-btn">
+                                        <svg class="inputShape margin-small-left" focusable="false">
+                                            <circle class="shape" fill="#fbbd0e" cx="10" cy="10" r="9" focusable="false" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <soe-select label-key="time.time.timecodebreaks.timecode.lessthanmin" model="ctrl.timeCodeLessThanMin" items="ctrl.timeCodes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                                    <span class="input-group-btn">
+                                        <svg class="inputShape margin-small-left" focusable="false">
+                                            <circle class="shape" fill="#da1e28" cx="10" cy="10" r="9" focusable="false" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </div>
+                <div class="col-sm-4">
+                    <soe-accordion label-key="time.time.timecodebreaks.breakgroupemployeegroups" is-open="true" data-ng-if="ctrl.breakGroupPermission">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.time.timecodebreaks.breakgroup" model="ctrl.timeCode.timeCodeBreakGroupId" items="ctrl.breakGroups" options="item.timeCodeBreakGroupId as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row margin-large-top">
+                            <div class="col-sm-12">
+                                <employee-groups selected-employee-groups="ctrl.timeCode.employeeGroupIds" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></employee-groups>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </div>
+                <div class="col-sm-4">
+                    <time-code-time-deviation-cause rows="ctrl.timeCode.timeCodeDeviationCauses" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></time-code-time-deviation-cause>
+                </div>
+            </div>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.timeCode"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.timeCode.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

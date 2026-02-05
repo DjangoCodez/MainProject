@@ -1,0 +1,31 @@
+<soe-dialog>
+  <div dialog-content class="px-3 py-3">
+    @if (data.info && data.info.length > 0) {
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <soe-instruction [type]="'info'" [text]="data.info"></soe-instruction>
+        </div>
+      </div>
+    }
+    <div class="row">
+      <div class="col-sm-12">
+        <soe-search-invoice-product-grid
+          [(dialogData)]="data"
+          [(productPriceResult)]="selectedProductPrice"
+          [(productResult)]="selectedProduct"
+          (triggerClose)="triggerOk()"></soe-search-invoice-product-grid>
+      </div>
+    </div>
+  </div>
+  <div dialog-footer>
+    <soe-button
+      (action)="closeDialog()"
+      [caption]="'core.cancel'"
+      [behaviour]="'standard'"></soe-button>
+    <soe-button
+      [caption]="'core.add'"
+      [behaviour]="'primary'"
+      [disabled]="hasNoSelectedRows()"
+      (action)="triggerOk()"></soe-button>
+  </div>
+</soe-dialog>

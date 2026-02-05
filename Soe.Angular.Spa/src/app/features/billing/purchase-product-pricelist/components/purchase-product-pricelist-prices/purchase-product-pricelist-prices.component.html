@@ -1,0 +1,37 @@
+@if (flowHandler.allowFetchGrid()) {
+  <div class="row">
+    <div class="col-12 pe-3 pb-2 d-flex justify-content-end gap-2">
+      <soe-button
+        [behaviour]="'standard'"
+        [caption]="'billing.purchase.pricelists.getallproducts'"
+        [tooltip]="'billing.purchase.pricelists.getallproducts'"
+        [disabled]="disableGetAllProducts()"
+        (action)="getAllProducts()"></soe-button>
+      @if (!hideLoadCurrentPrices()) {
+        <soe-checkbox
+          [labelKey]="'billing.purchase.product.getactualprices'"
+          [noMargin]="true"
+          [ngStyle]="{ 'margin-top': '0.25rem' }"
+          [formControl]="loadActualPrices"
+          (valueChanged)="loadActualPricesClicked($event)"></soe-checkbox>
+      }
+      <soe-menu-button
+        [caption]="'common.newrow'"
+        [list]="rowFunctions"
+        [variant]="'split'"
+        [disabled]="!flowHandler.modifyPermission()"
+        [behaviour]="'secondary'"
+        [disabled]="disableAddRow()"
+        (itemSelected)="performRowFunctions($event)"
+        [selectedItem]="rowFunctions[0]">
+      </soe-menu-button>
+    </div>
+  </div>
+  <soe-grid-wrapper
+    [parentGuid]="guid()"
+    [rows]="rowData"
+    [height]="450"
+    (editRowClicked)="edit($event)"
+    (selectionChanged)="rowSelectionChanged($event)">
+  </soe-grid-wrapper>
+}

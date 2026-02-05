@@ -1,0 +1,132 @@
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [static]="true"
+      [labelKey]="'economy.accounting.companygroup.companygrouptransfer'">
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'economy.accounting.companygroup.transfertype'"
+            [selectedId]="form.value.transferType"
+            [items]="transferTypes || []"
+            formControlName="transferType"
+            (valueChanged)="changeTransferType($event)">
+          </soe-select>
+        </div>
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'economy.accounting.accountyear'"
+            [selectedId]="form.value.accountYearId"
+            [items]="accountYearsDict"
+            formControlName="accountYearId">
+          </soe-select>
+        </div>
+        <div class="col-sm-2">
+          @if (!showBudgetFields() && !showBalanceFields()) {
+            <soe-select
+              [labelKey]="'economy.accounting.companygroup.periodfrom'"
+              [selectedId]="form.value.fromAccountPeriodId"
+              [items]="fromAccountPeriodDict()"
+              formControlName="fromAccountPeriodId">
+            </soe-select>
+          }
+          @if (showBudgetFields()) {
+            <soe-select
+              [labelKey]="'economy.accounting.companygroup.masterbudget'"
+              [selectedId]="form.value.masterBudgetId"
+              [items]="masterBudgets || []"
+              formControlName="masterBudgetId"
+              (valueChanged)="changeBudget($event)">
+            </soe-select>
+          }
+        </div>
+        <div class="col-sm-2">
+          @if (!showBudgetFields() && !showBalanceFields()) {
+            <soe-select
+              [labelKey]="'economy.accounting.companygroup.periodto'"
+              [selectedId]="form.value.toAccountPeriodId"
+              [items]="fromAccountPeriodDict()"
+              formControlName="toAccountPeriodId">
+            </soe-select>
+          }
+          @if (showBudgetFields()) {
+            <soe-select
+              [labelKey]="'economy.accounting.companygroup.childcompany'"
+              [selectedId]="form.value.childCompanyId"
+              [items]="filteredChildCompanies || []"
+              formControlName="childCompanyId">
+            </soe-select>
+          }
+        </div>
+        <div class="col-sm-2">
+          @if (!showBudgetFields() && !showBalanceFields()) {
+            <soe-select
+              [labelKey]="'economy.accounting.voucherseriestype'"
+              [selectedId]="form.value.voucherSeriesId"
+              [items]="voucherSeries || []"
+              formControlName="voucherSeriesId">
+            </soe-select>
+          }
+          @if (showBudgetFields()) {
+            <soe-select
+              [labelKey]="'economy.accounting.companygroup.childbudget'"
+              [selectedId]="form.value.childBudgetId"
+              [items]="filteredChildCompanyBudgets || []"
+              formControlName="childBudgetId">
+            </soe-select>
+          }
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel
+      [static]="true"
+      [labelKey]="'economy.accounting.companygroup.completedtransfers'">
+      <soe-transfer-carried-out-grid
+        [isConsolidation]="isConsolidation"
+        (deleteCompleted)="deleteCompleted($event)"
+        (openEditInNewTab)="openEditInNewTab($event)"
+        [rowData]="transferRows"></soe-transfer-carried-out-grid>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel
+      [static]="false"
+      [labelKey]="'economy.accounting.companygroup.log'"
+      [open]="showLogs()">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col" class="form-label">
+              <soe-label [labelKey]="'common.errormessage'"></soe-label>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (logs().length > 0) {
+            @for (item of logs(); track $index) {
+              <tr>
+                <td style="vertical-align: middle">
+                  <span>{{ item }}</span>
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </soe-expansion-panel>
+
+    <div class="soe-form-footer">
+      <div class="d-flex align-items-center float-end">
+        <soe-save-button
+          class="me-2"
+          [caption]="'economy.accounting.companygroup.dotransfer'"
+          [tooltip]="'economy.accounting.companygroup.dotransfer'"
+          [inProgress]="performAction.inProgress()"
+          [invalid]="form.invalid"
+          [dirty]="true"
+          (validationErrorsAction)="form.openFormValidationErrors()"
+          (action)="performSave()"></soe-save-button>
+      </div>
+    </div>
+  </form>
+}

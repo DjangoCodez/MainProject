@@ -1,0 +1,30 @@
+﻿<form name="searchFilter" class="ngSoeForm form-group form-group-sm">
+    <div class="row form-group">
+        <div class="col-sm-2">
+            <soe-typeahead label-key="economy.supplier.supplier.supplier" model="ctrl.selectedActor" items="ctrl.actors" options="item as item.name for item in items" limit="10" filter-property="name" required="true"></soe-typeahead>
+        </div>
+        <div class="col-sm-2">
+            <soe-select label-key="common.type" model="ctrl.searchModel.type" items="ctrl.types" options="item.id as item.name for item in items"></soe-select>
+        </div>
+        <div class="col-sm-2">
+            <soe-textbox label-key="common.amount" placeholder-key="common.from" model="ctrl.searchModel.amountFrom"></soe-textbox>
+        </div>
+        <div class="col-sm-2">
+            <soe-datepicker label-key="common.from" placeholder-key="common.from"  form="searchFilter" model="ctrl.searchModel.dateFrom"></soe-datepicker>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-offset-4 col-sm-2">
+            <soe-textbox hidelabel="true" placeholder-key="common.to" model="ctrl.searchModel.amountTo"></soe-textbox>
+        </div>
+        <div class="col-sm-2">
+            <soe-datepicker hidelabel="true" placeholder-key="common.to"  form="searchFilter" model="ctrl.searchModel.dateTo"></soe-datepicker>
+        </div>
+        <div class="col-sm-4">
+            <div class="pull-right">
+                <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.clearselection'" data-l10n-bind-title="'core.clearselection'" data-ng-click="$event.stopPropagation();ctrl.resetSearchModel()"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButton" ng-disabled="searchFilter.$invalid" data-l10n-bind="'core.search'" data-l10n-bind-title="'core.search'" data-ng-click="$event.stopPropagation();ctrl.search()"></button>
+            </div>
+        </div>
+    </div>
+</form>

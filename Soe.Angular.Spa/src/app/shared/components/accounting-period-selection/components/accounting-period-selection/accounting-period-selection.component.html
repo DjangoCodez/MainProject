@@ -1,0 +1,73 @@
+<soe-expansion-panel [labelKey]="'common.period.selection'" [static]="true">
+  <div role="form" [formGroup]="form">
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-radio
+          [labelKey]="'common.period.selection.byaccountingyear'"
+          formControlName="selectionType"
+          [group]="'selectionType'"
+          [value]="1"></soe-radio>
+      </div>
+      <div class="col-sm-2">
+        <soe-radio
+          [labelKey]="'common.period.selection.bydate'"
+          formControlName="selectionType"
+          [group]="'selectionType'"
+          [value]="2"></soe-radio>
+      </div>
+    </div>
+    @switch (form.selectionType.value) {
+      @case (1) {
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'economy.accounting.accountyear'"
+              formControlName="accountingYearFrom"
+              [items]="accountYears()"
+              [optionIdField]="'accountYearId'"
+              [optionNameField]="'yearFromTo'"></soe-select>
+          </div>
+          @if (!hideAccountingYearTo()) {
+            <div class="col-sm-2">
+              <soe-select
+                [labelKey]="'common.to'"
+                formControlName="accountingYearTo"
+                [items]="accountYears()"
+                [optionIdField]="'id'"
+                [optionNameField]="'name'"></soe-select>
+            </div>
+          }
+          <div class="col-sm-1">
+            <soe-select
+              [labelKey]="'economy.accounting.periodselection.periodfrom'"
+              formControlName="monthFrom"
+              [items]="fromPeriods()"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"></soe-select>
+          </div>
+          <div class="col-sm-1">
+            <soe-select
+              [labelKey]="'economy.accounting.periodselection.periodto'"
+              formControlName="monthTo"
+              [items]="toPeriods()"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"></soe-select>
+          </div>
+        </div>
+      }
+      @case (2) {
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-daterangepicker
+              [view]="'day'"
+              [inline]="false"
+              [separatorDash]="true"
+              [autoAdjustRange]="true"
+              formControlName="dateRange">
+            </soe-daterangepicker>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</soe-expansion-panel>

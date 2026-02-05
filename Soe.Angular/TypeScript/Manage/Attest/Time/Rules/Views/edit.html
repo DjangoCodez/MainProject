@@ -1,0 +1,56 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div>
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="manage.attest.time.rule">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="common.name" model="ctrl.attestRuleHead.name" required="true" maxlength="100"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="common.description" model="ctrl.attestRuleHead.description" maxlength="100"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="manage.attest.time.daytype" model="ctrl.attestRuleHead.dayTypeId" items="ctrl.dayTypes" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                            <div class="col-sm-6">
+                                <soe-select label-key="manage.registry.scheduledjobs.scheduledjobhead" model="ctrl.attestRuleHead.scheduledJobHeadId" items="ctrl.scheduledJobHeads" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row margin-large-top">
+                            <div class="col-sm-12">
+                                <employee-groups selected-employee-groups="ctrl.attestRuleHead.employeeGroupIds" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></employee-groups>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <soe-label label-key="manage.attest.time.rulerows"></soe-label>
+                        <attest-rule-rows attest-rule-head-id="ctrl.attestRuleHeadId" attest-rule-rows="ctrl.attestRuleHead.attestRuleRows" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></attest-rule-rows>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+    </div>
+
+    <div class="ngSoeFormFooter">
+        <div class="col-sm-4">
+            <created-modified model="ctrl.attestRuleHead"></created-modified>
+        </div>
+        <div class="col-sm-8">
+            <div class="pull-right">
+                <div class="col"><soe-checkbox label-key="common.active" model="ctrl.attestRuleHead.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,125 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" ng-class="ctrl.isModal ? 'edit-padding': ''">
+
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+
+        <soe-panel label-key="time.schedule.shifttype.shifttype">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-select label-key="common.type" model="ctrl.shiftType.timeScheduleTemplateBlockType" items="ctrl.timeScheduleTemplateBlockTypes" options="item.id as item.name for item in items" on-changing="ctrl.timeScheduleTypeSelected(item)"></soe-select>
+                    </div>
+                    <div class="col-sm-10">
+                        <soe-label></soe-label>
+                        <soe-instruction label-key="time.schedule.shifttype.typeinfo"></soe-instruction>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="common.name" model="ctrl.shiftType.name" required="true" maxlength="100" auto-focus="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-10">
+                        <soe-textbox label-key="common.description" model="ctrl.shiftType.description" maxlength="512"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row" data-ng-if="ctrl.shiftTypeAccountDim">
+                    <div class="col-sm-2">
+                        <soe-select label-key="time.schedule.shifttype.linktoaccount" model="ctrl.shiftType.accountId" items="ctrl.shiftTypeAccountDim.accounts" options="item.accountId as item.numberName for item in items" on-changing="ctrl.linkedAccountChanged(item);"></soe-select>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="common.number" model="ctrl.shiftType.needsCode" maxlength="100"></soe-textbox>
+                    </div>
+                    <div class="col-sm-8" data-ng-if="!ctrl.shiftType.accountIsNotActive && ctrl.shiftType.accountId && ctrl.shiftType.accountId > 0">
+                        <soe-label></soe-label>
+                        <soe-instruction label-key="time.schedule.shifttype.linkedtoaccount"></soe-instruction>                        
+                    </div>
+                    <div class="col-sm-8" data-ng-if="ctrl.shiftType.accountIsNotActive && ctrl.shiftType.accountId && ctrl.shiftType.accountId > 0">
+                        <soe-label></soe-label>                        
+                        <soe-instruction model="ctrl.linkedToInactivatedAccountInfo"></soe-instruction>
+                    </div>
+                </div>
+                <div class="row" data-ng-if="!ctrl.shiftTypeAccountDim">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="common.code" model="ctrl.shiftType.needsCode" maxlength="100"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row" data-ng-if="ctrl.timeScheduleTypeVisible">
+                    <div class="col-sm-2">
+                        <soe-select label-key="time.schedule.scheduletype.scheduletype" model="ctrl.shiftType.timeScheduleTypeId" items="ctrl.timeScheduleTypes" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-colorpicker label-key="time.schedule.shifttype.color" model="ctrl.shiftType.color"></soe-colorpicker>
+                    </div>
+                </div>
+                <div class="row margin-large-top" data-ng-if="!ctrl.isOrder">
+                    <div class="col-sm-2">
+                        <soe-checkbox label-key="time.schedule.shifttype.handlingmoney" model="ctrl.shiftType.handlingMoney"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row" data-ng-if="ctrl.isOrder">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="time.schedule.shifttype.defaultlength" model="ctrl.shiftType.defaultLengthFormatted" update-on="blur" is-time="true"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="time.schedule.scheduletype.settings">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <soe-label label-key="time.schedule.shifttype.hierarchyaccounts" data-ng-if="ctrl.useAccountHierarchy"></soe-label>
+                        <hierarchy-accounts hierarchy-accounts="ctrl.shiftType.hierarchyAccounts" default-employee-account-dim-id="ctrl.defaultEmployeeAccountDimId" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();" data-ng-if="ctrl.useAccountHierarchy"></hierarchy-accounts>
+                        <categories category-type="6" category-record-entity="11" parent-guid="ctrl.guid" selected-categories="ctrl.shiftType.categoryIds" nbr-of-rows="5" read-only="!ctrl.modifyPermission" data-ng-if="!ctrl.useAccountHierarchy"></categories>
+                    </div>
+                    <div class="col-sm-6" data-ng-if="!ctrl.isOrder">
+                        <accounting-settings setting-types="ctrl.settingTypes" settings="ctrl.settings" hide-std-dim="true" show-base-account="false" min-rows="3" read-only="!ctrl.modifyPermission" parent-guid="ctrl.guid"></accounting-settings>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6" data-ng-if="ctrl.hasEmployeeStatisticsPermission">
+                        <employee-statistic selected-statistic-rows="ctrl.shiftType.employeeStatisticsTargets" nbr-of-rows="3" read-only="!ctrl.modifyPermission" is-taxi-kurir="ctrl.isTaxiKurir"></employee-statistic>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6" data-ng-if="ctrl.hasEmployeeStatisticsPermission">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <soe-textbox label-key="time.schedule.shifttype.externalcode" model="ctrl.shiftType.externalCode" maxlength="100"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="common.skills.skills">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <skills record-entity="37" selected-skills="ctrl.skills" nbr-of-rows="5" hide-header="true" hide-date="true" read-only="!ctrl.modifyPermission"></skills>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.shiftType"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

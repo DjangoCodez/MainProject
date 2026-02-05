@@ -1,0 +1,80 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title"><span data-l10n-bind="'common.contact.information'"></span></h6>
+    </div>
+    <div class="modal-body">
+
+        <div data-ng-if="ctrl.selectedAddress && (!ctrl.selectedAddress.isSecret || !ctrl.readOnly)">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.contactaddresses.name" model="ctrl.selectedAddress.name" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.selectedAddress.isAddressDelivery">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.contactaddresses.addressrow.name" model="ctrl.selectedAddress.addressName" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.selectedAddress.isAddress">
+                <div class="col-sm-6" data-ng-if="ctrl.showAddress()">
+                    <soe-textbox label-key="common.contactaddresses.addressrow.address" model="ctrl.selectedAddress.address" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+                <div class="col-sm-6" data-ng-if="ctrl.showAddressCO()">
+                    <soe-textbox label-key="common.contactaddresses.addressrow.co" model="ctrl.selectedAddress.addressCO" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.selectedAddress.isAddress">
+                <div class="col-sm-6" data-ng-if="ctrl.showStreetAddress()">
+                    <soe-textbox label-key="common.contactaddresses.addressrow.street" model="ctrl.selectedAddress.streetAddress" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+                <div class="col-sm-6" data-ng-if="ctrl.showEntranceCode()">
+                    <soe-textbox label-key="common.contactaddresses.addressrow.entrancecode" model="ctrl.selectedAddress.entranceCode" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.selectedAddress.isAddress">
+                <div class="col-sm-6" data-ng-if="ctrl.showPostalCode()">
+                    <soe-textbox label-key="common.contactaddresses.addressrow.postalcode" model="ctrl.selectedAddress.postalCode" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+                <div class="col-sm-6" data-ng-if="ctrl.showPostalAddress()">
+                    <soe-textbox label-key="common.contactaddresses.addressrow.postaladdress" model="ctrl.selectedAddress.postalAddress" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.selectedAddress.isAddress">
+                <div class="col-sm-12" data-ng-if="ctrl.showCountry()">
+                    <soe-textbox label-key="common.contactaddresses.addressrow.country" model="ctrl.selectedAddress.country" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="!ctrl.selectedAddress.isAddress && !ctrl.showEmail() && !ctrl.selectedAddress.isCoordinates">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.contactaddresses.value" model="ctrl.selectedAddress.eComText" required="true" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.showEmail()">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.contactaddresses.ecommenu.email" model="ctrl.selectedAddress.eComText" email="true" allow-invalid="true" required="true" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.showClosestRelative()">
+                <div class="col-sm-6">
+                    <soe-textbox label-key="common.contactaddresses.ecom.closestrelative.name" model="ctrl.selectedAddress.closestRelativeName" required="true" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+                <div class="col-sm-6">
+                    <soe-textbox label-key="common.contactaddresses.ecom.closestrelative.relation" model="ctrl.selectedAddress.closestRelativeRelation" required="true" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.selectedAddress.isCoordinates">
+                <div class="col-sm-6">
+                    <soe-textbox label-key="common.contactaddresses.ecom.longitude" model="ctrl.selectedAddress.longitude" required="true" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+                <div class="col-sm-6">
+                    <soe-textbox label-key="common.contactaddresses.ecom.latitude" model="ctrl.selectedAddress.latitude" required="true" on-change="ctrl.setDisplayAddressFromGUI()" is-disabled="ctrl.readOnly"></soe-textbox>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.select'" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

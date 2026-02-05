@@ -1,0 +1,72 @@
+@use '@angular/material' as mat;
+@use '../../styles/core-styles/colors.scss';
+@use '../../styles/core-styles/variables.scss';
+
+:host {
+  @include mat.slider-overrides(
+    (
+      active-track-height: 2px,
+      inactive-track-height: 2px,
+      active-track-color: colors.$soe-border-color,
+      inactive-track-color: colors.$soe-border-color,
+      handle-color: colors.$soe-color-secondary-blue,
+      focus-handle-color: colors.$soe-color-secondary-blue,
+      hover-handle-color: colors.$soe-color-secondary-blue-70,
+      handle-height: 2rem,
+      handle-width: 0.25rem,
+      with-tick-marks-active-container-color: colors.$soe-color-secondary-blue,
+      with-tick-marks-inactive-container-color: colors.$soe-color-secondary-blue,
+      value-indicator-opacity: 1,
+      with-tick-marks-active-container-opacity: 1,
+      with-tick-marks-inactive-container-opacity: 1,
+      label-container-color: colors.$soe-color-secondary-blue,
+      value-indicator-padding: 0.5rem,
+    )
+  );
+}
+
+.slider-flex-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.slider-label {
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+.slider-flex {
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+::ng-deep {
+  .show-active-track {
+    .mdc-slider__track--active_fill {
+      border-color: colors.$soe-color-secondary-blue !important;
+    }
+  }
+
+  .mdc-slider__track--inactive {
+    opacity: 1 !important;
+  }
+
+  .mdc-slider__value-indicator-container {
+    transform: none !important;
+    left: 0px !important;
+    bottom: 32px !important;
+
+    .mdc-slider__value-indicator {
+      border-radius: variables.$border-radius;
+      width: 50px;
+
+      .mdc-slider__value-indicator-text {
+        transform: none;
+        text-align: center;
+        color: colors.$soe-inverted-text-color;
+      }
+    }
+  }
+}

@@ -1,0 +1,117 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    <div class="soe-edit-form">
+      @if (form) {
+      <form [formGroup]="form" novalidate autocomplete="off">
+        @if (searching()) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-instruction
+                [text]="
+                  'common.accountingrows.addaccount.sysaccountnotfound'
+                "></soe-instruction>
+            </div>
+          </div>
+        }
+        @if (!searching() && !addingAccount()) {
+          @if (sysAccountFound()) {
+            <div class="row">
+              <div class="col-sm-6">
+                <soe-instruction
+                  [text]="
+                    'common.accountingrows.addaccount.sysaccountfound'
+                  "></soe-instruction>
+              </div>
+              <div class="col-sm-6 margin-large-top">
+                <span>{{ sysAccount.accountNr || '' }}</span>
+                <span> </span>
+                <span>{{ sysAccount.name || '' }}</span>
+              </div>
+            </div>
+          }
+          @if (!sysAccountFound()) {
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-instruction
+                  [text]="
+                    'common.accountingrows.addaccount.sysaccountnotfound'
+                  "></soe-instruction>
+              </div>
+            </div>
+          }
+        }
+        @if (addingAccount()) {
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'economy.accounting.accountnr'"
+                [maxLength]="50"
+                formControlName="accountNr">
+              </soe-textbox>
+            </div>
+            <div class="col-sm-8">
+              <soe-textbox
+                [labelKey]="'common.name'"
+                [maxLength]="100"
+                formControlName="name">
+              </soe-textbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'economy.accounting.accounttype'"
+                [items]="accountTypes()"
+                formControlName="accountTypeSysTermId">
+              </soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'economy.accounting.account.sysvataccount'"
+                [items]="sysVatAccounts()"
+                formControlName="sysVatAccountId">
+              </soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'economy.accounting.account.scrucode1'"
+                [items]="sysAccountSruCodes()"
+                formControlName="sysAccountSruCode1Id">
+              </soe-select>
+            </div>
+          </div>
+        }
+      </form>
+      }
+
+      <div class="soe-form-footer">
+        <div class="col-sm-12">
+          <div class="float-end">
+            <soe-button
+              class="ms-3"
+              [caption]="'core.cancel'"
+              typeClass="btn btn-secondary"
+              [behaviour]="'standard'"
+              (action)="cancel()"></soe-button>
+            @if (!this.sysAccountFound() && !this.addingAccount()) {
+              <soe-button
+                class="ms-3"
+                [caption]="'core.ok'"
+                typeClass="btn btn-secondary"
+                [behaviour]="'primary'"
+                (action)="ok()"></soe-button>
+            } @else {
+              <soe-save-button
+                [caption]="'core.ok'"
+                [behaviour]="'primary'"
+                [disabled]="form.invalid || !form.dirty"
+                [invalid]="form.invalid"
+                (validationErrorsAction)="form.openFormValidationErrors()"
+                (action)="save()"></soe-save-button>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</soe-dialog>

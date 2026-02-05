@@ -1,0 +1,189 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <div customer-payment-validation ng-model="ctrl.payment" invoice="ctrl.invoice" accounting-rows="ctrl.payment.paymentAccountRows" has-modified-accounting-rows="ctrl.hasModifiedRows()" is-base-currency="ctrl.isBaseCurrency" account-year-is-open="ctrl.accountYearIsOpen" account-period="ctrl.accountPeriod" default-voucher-series-id="ctrl.defaultVoucherSeriesId"
+             selected-customer="ctrl.selectedCustomer" selected-payment-method="ctrl.selectedPaymentMethod" selected-pay-date="ctrl.selectedPayDate" selected-voucher-date="ctrl.selectedVoucherDate">
+            <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+            <uib-accordion close-others="false">
+                <soe-accordion label-key="common.customer.invoices.newpayment" is-open="true">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-typeahead label-key="common.customer" model="ctrl.selectedCustomer" items="ctrl.customers" options="item as item.name for item in items" is-disabled="ctrl.locked || ctrl.specificInvoiceOrPayment" required="true" event-focus-name="ctrl_selectedCustomer"></soe-typeahead>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-typeahead label-key="economy.supplier.invoice.invoicenr" model="ctrl.selectedInvoice" items="ctrl.unpaidInvoices" options="item as item.name for item in items" is-disabled="ctrl.locked || ctrl.specificInvoiceOrPayment" on-edit="ctrl.selectInvoice()" edit-icon="fa-search" edit-tooltip-key="core.edit" required="true"></soe-typeahead>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-select label-key="economy.supplier.invoice.billingtype" model="ctrl.payment.billingType" items="ctrl.billingTypes" options="item.id as item.name for item in items" is-disabled="ctrl.selectedInvoice.id || ctrl.locked && !ctrl.isSupportSuperAdminUnlocked" on-changing="ctrl.billingTypeChanging()"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-datepicker label-key="economy.supplier.payment.paymentdate" model="ctrl.selectedPayDate" required="true" is-disabled="ctrl.isCancelled || (ctrl.isVoucherCreated && !ctrl.isSupportUnlocked && !ctrl.isSupportSuperAdminUnlocked && !ctrl.extendedPaymentEditPermission)"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-select label-key="economy.supplier.payment.paymentmethod" model="ctrl.selectedPaymentMethod" items="ctrl.paymentMethods" options="item as item.name for item in items" is-disabled="ctrl.isCancelled || (ctrl.isVoucherCreated && !ctrl.extendedPaymentEditPermission)" required="true"></soe-select>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-datepicker label-key="common.customer.payment.voucherdate" model="ctrl.selectedVoucherDate" required="true" is-disabled="ctrl.isCancelled || (ctrl.locked && !ctrl.isSupportUnlocked && !ctrl.isSupportSuperAdminUnlocked)"></soe-datepicker>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="economy.supplier.payment.amount" hide-label-value="ctrl.isBaseCurrency" label-value="ctrl.baseCurrencyCode" label-value-in-parentheses="true" model="ctrl.payment.amount" numeric="true" decimals="2" is-disabled="ctrl.locked" on-blur="ctrl.amountChanged('amount')"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-select label-key="economy.supplier.invoice.voucherseries" model="ctrl.selectedVoucherSeries" items="ctrl.voucherSeries" options="item as item.voucherSeriesTypeName for item in items" is-disabled="ctrl.isCancelled || ctrl.isVoucherCreated" required="true"></soe-select>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="economy.supplier.invoice.seqnr" model="ctrl.invoice.seqNr" readonly="true"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="ctrl.isBaseCurrency">
+                            <div class="col-sm-4">
+                                <soe-select label-key="economy.supplier.invoice.currency" model="ctrl.payment.currencyId" items="ctrl.currencies" options="item.currencyId as item.name for item in items" is-disabled="true"></soe-select>
+                            </div>
+                            <div class="col-sm-8">
+                                <soe-textbox label-key="economy.supplier.invoice.description" model="ctrl.payment.originDescription" is-readonly="ctrl.isCancelled"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="!ctrl.isBaseCurrency">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="economy.supplier.payment.amount" label-value="ctrl.currencyCode" label-value-in-parentheses="true" model="ctrl.payment.amountCurrency" numeric="true" decimals="2" is-disabled="ctrl.locked" on-blur="ctrl.amountChanged('amountCurrency')"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-select label-key="economy.supplier.invoice.currency" model="ctrl.payment.currencyId" items="ctrl.currencies" options="item.currencyId as item.name for item in items" is-disabled="true"></soe-select>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="economy.supplier.invoice.description" model="ctrl.payment.originDescription" is-readonly="ctrl.isCancelled"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="ctrl.selectedInvoice.id && ctrl.useMatching">
+                            <div class="col-sm-4">
+                                <soe-select label-key="economy.supplier.payment.matchcodes" model="ctrl.selectedMatchCode" items="ctrl.matchCodes" options="item as item.name for item in items" is-disabled="!ctrl.enableMatchCode || ctrl.locked" on-changing="ctrl.matchCodeChanging()"></soe-select>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="col-sm-4" ng-if="ctrl.useVatVisibility">
+                                    <soe-checkbox label-key="economy.supplier.invoice.matches.accountvat" model="ctrl.useVat" is-disabled="!ctrl.enableMatchCode || ctrl.locked" inline="true" ng-if="ctrl.useVatVisibility"></soe-checkbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-checkbox label-key="economy.supplier.payment.fullypaid" model="ctrl.payment.fullyPaid" inline="true" is-disabled="!ctrl.fullyPaidEnabled" on-changing="ctrl.fullyPaidChanged()"></soe-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="ctrl.selectedInvoice.id && !ctrl.useMatching">
+                            <div class="col-sm-4">
+                                <soe-checkbox label-key="economy.supplier.payment.fullypaid" model="ctrl.payment.fullyPaid" inline="true" is-disabled="!ctrl.fullyPaidEnabled" on-changing="ctrl.fullyPaidChanged()"></soe-checkbox>
+                            </div>
+                        </div>
+                    </div>
+
+                    <soe-panel label-key="economy.supplier.payment.invoicedetaillabel">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="common.customer.invoices.total" label-value="ctrl.ledgerCurrencyCode" label-value-in-parentheses="true" model="ctrl.invoice.totalAmountCurrency" numeric="true" decimals="2" is-disabled="true"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-select label-key="economy.supplier.invoice.currency" model="ctrl.payment.currencyId" items="ctrl.currencies" options="item.currencyId as item.name for item in items" readonly="true" is-disabled="true"></soe-select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="economy.supplier.payment.paidamount" model="ctrl.payment.paidAmount" numeric="true" decimals="2" readonly="true" is-disabled="true"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-datepicker label-key="common.customer.invoices.invoicedate" model="ctrl.selectedInvoiceDate" is-disabled="true"></soe-datepicker>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="economy.supplier.payment.remainingamount" model="ctrl.payment.remainingAmount" numeric="true" decimals="2" readonly="true" is-disabled="true"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-datepicker label-key="common.customer.invoices.duedate" model="ctrl.selectedDueDate" is-disabled="true"></soe-datepicker>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2" data-ng-if="!ctrl.isBaseCurrency">
+                                    <soe-textbox label-key="economy.supplier.invoice.currencyrate" label-value="ctrl.currencyDate | date: 'shortDate'" label-value-in-parentheses="true" model="ctrl.currencyRate" input-type="number" readonly="true" is-disabled="true"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2" data-ng-if="!ctrl.isBaseCurrency">
+                                    <soe-textbox label-key="economy.supplier.payment.totalamount" label-value="ctrl.baseCurrencyCode" label-value-in-parentheses="true" model="ctrl.invoice.totalAmount" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2" data-ng-if="!ctrl.isLedgerCurrency && ctrl.baseCurrencyCode !== ctrl.ledgerCurrencyCode">
+                                    <soe-textbox label-key="economy.supplier.payment.totalamount" label-value="ctrl.ledgerCurrencyCode" label-value-in-parentheses="true" model="ctrl.invoice.totalAmountLedgerCurrency" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-panel>
+                </soe-accordion>
+
+                <soe-accordion label-key="economy.supplier.invoice.accountingrows" is-open="true">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <accounting-rows is-readonly="ctrl.isCancelled || (ctrl.isVoucherCreated && !isSupportUnlocked && !ctrl.extendedPaymentEditPermission)"
+                                                 container="5"
+                                                 accounting-rows="ctrl.payment.paymentAccountRows"
+                                                 actor-id="ctrl.payment.actorId"
+                                                 currency-id="ctrl.payment.currencyId"
+                                                 base-currency-code="ctrl.baseCurrencyCode"
+                                                 ledger-currency-code="ctrl.ledgerCurrencyCode"
+                                                 transaction-currency-code="ctrl.currencyCode"
+                                                 currency-date="ctrl.currencyDate"
+                                                 currency-rate-date="ctrl.payment.currencyDate"
+                                                 transaction-currency-rate="ctrl.currencyRate"
+                                                 is-base-currency="ctrl.isBaseCurrency"
+                                                 is-ledger-currency="ctrl.isLedgerCurrency"
+                                                 on-amount-converted="ctrl.amountConverted(item)"
+                                                 show-sort-buttons="true"
+                                                 show-row-nr="true"
+                                                 show-text="true"
+                                                 show-transaction-currency="ctrl.showTransactionCurrency"
+                                                 show-enterprise-currency="ctrl.showEnterpriseCurrency"
+                                                 show-ledger-currency="ctrl.showLedgerCurrency"
+                                                 show-balance="true"
+                                                 show-amount-summary="true"
+                                                 show-instructions="true"
+                                                 parent-guid="ctrl.guid">
+                                </accounting-rows>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+
+                <soe-accordion label-key="common.tracing" data-ng-if="!ctrl.isNew">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <trace-rows trace-id="ctrl.paymentId" page-name="'paymentEdit'"></trace-rows>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+            </uib-accordion>
+        </div>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.payment"></created-modified>
+            </div>
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <div class="col">
+                        <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'economy.supplier.payment.cancelpayment'" data-l10n-bind-title="'economy.supplier.payment.cancelpayment'" ng-if="!ctrl.isCancelled && !ctrl.isNew && (!ctrl.isVoucherCreated || ctrl.extendedPaymentEditPermission)" ng-click="$event.stopPropagation();ctrl.initRevoke()"></button>
+                    </div>
+                    <div class="col" data-ng-class="{'no-border-radius-on-specified-last-button' : ctrl.edit.$invalid}">
+                        <soe-splitbutton label-key="core.save" options="ctrl.saveFunctions" last-button-class="last-button" main-button="true" drop-up="true" data-ng-if="ctrl.modifyPermission" is-disabled="ctrl.isDisabled()" option-selected="ctrl.executeSaveFunction(option)"></soe-splitbutton>
+                    </div>
+                    <button type="button" class="btn btn-sm ngSoeMainButtonInvalid no-left-border-radius" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-if="!ctrl.isCancelled && ctrl.modifyPermission" data-ng-show="ctrl.edit.$invalid" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

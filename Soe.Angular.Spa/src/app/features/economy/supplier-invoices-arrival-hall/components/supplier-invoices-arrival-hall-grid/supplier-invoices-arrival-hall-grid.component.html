@@ -1,0 +1,47 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (editRowClicked)="edit($event)"
+    (selectionChanged)="selectionChanged($event)"
+    (selectedItemsChanged)="selectedItemsChanged($event)"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+    <div footer>
+      <div class="information-container">
+        <soe-grid-footer-amounts
+          [grid]="grid"
+          [rowData]="rowData"
+          [values]="[
+            {
+              changeOn: 'selection',
+              labelKey: 'economy.supplier.invoice.selelectedtotal',
+              incVatKey: 'totalAmount',
+              exVatKey: 'totalAmountExcludingVat'
+            },
+            {
+              changeOn: 'filter',
+              labelKey: 'economy.supplier.invoice.total',
+              incVatKey: 'totalAmount',
+              exVatKey: 'totalAmountExcludingVat'
+            }
+          ]"></soe-grid-footer-amounts>
+      </div>
+      @if (buttonFunctions().length > 0) {
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6 d-flex flex-row align-items-start"></div>
+            <div class="col-sm-6 p-2 d-flex flex-row-reverse align-items-end">
+              <soe-menu-button
+                [list]="buttonFunctions()"
+                [behaviour]="'primary'"
+                [variant]="'split'"
+                [disabled]="selectedRows().length === 0"
+                [dropUp]="true"
+                (itemSelected)="functionSelected($event)"></soe-menu-button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </soe-grid-wrapper>
+}

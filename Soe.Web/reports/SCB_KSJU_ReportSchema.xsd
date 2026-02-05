@@ -1,0 +1,65 @@
+ <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="SOE_SCB_KSJU_Report">
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element name="SCB_KSJU_Report">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ReportHeader">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element type="xs:string" name="ReportTitle" minOccurs="0" />
+                      <xs:element type="xs:string" name="ReportDescription" minOccurs="0" />
+                      <xs:element type="xs:string" name="ReportNr" minOccurs="0" />
+                      <xs:element type="xs:string" name="Company" minOccurs="0" />
+                      <xs:element type="xs:string" name="Orgnr" minOccurs="0" />
+                      <xs:element type="xs:string" name="LoginName" minOccurs="0" />
+                      <xs:element type="xs:string" name="TimePeriod" minOccurs="0" />
+                      <xs:element type="xs:string" name="SortByLevel1" minOccurs="0" />
+                      <xs:element type="xs:string" name="SortByLevel2" minOccurs="0" />
+                      <xs:element type="xs:string" name="SortByLevel3" minOccurs="0" />
+                      <xs:element type="xs:string" name="SortByLevel4" minOccurs="0" />
+                      <xs:element type="xs:string" name="IsSortAscending" minOccurs="0" />
+                      <xs:element type="xs:string" name="GroupByLevel1" minOccurs="0" />
+                      <xs:element type="xs:string" name="GroupByLevel2" minOccurs="0" />
+                      <xs:element type="xs:string" name="GroupByLevel3" minOccurs="0" />
+                      <xs:element type="xs:string" name="GroupByLevel4" minOccurs="0" />
+                      <xs:element type="xs:string" name="Special" minOccurs="0" />
+                      <xs:element type="xs:string" name="DateInterval" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="Head">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element type="xs:string" name="NumberOfEmployees" minOccurs="0" />
+                      <xs:element type="xs:dateTime" name="Date" minOccurs="0" />
+                          <xs:element name="Transactions" maxOccurs="unbounded" minOccurs="0">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element type="xs:int" name="EmployeeId"/>
+                                  <xs:element type="xs:string" name="EmployeeNr"/>
+                                  <xs:element type="xs:string" name="EmployeeName"/>
+                                  <xs:element type="xs:string" name="PeOrgNr"/>
+                                  <xs:element type="xs:string" name="PersonNr"/>
+                                  <xs:element type="xs:dateTime" name="SjukFrom"/>
+                                  <xs:element type="xs:dateTime" name="SjukTom"/>
+                                  <xs:element type="xs:int" name="HelAntDagar"/>
+                                  <xs:element type="xs:int" name="DelAntDagar"/>
+                                  <xs:element type="xs:string" name="Korrigeringsuppgift"/>
+                                  <xs:element type="xs:string" name="Cfar"/>
+                                </xs:sequence>
+                                <xs:attribute type="xs:int" name="Id" use="optional" />
+                              </xs:complexType>
+                          </xs:element>
+                          </xs:sequence>
+                          <xs:attribute type="xs:int" name="Id" />
+                        </xs:complexType>
+                      </xs:element>                   
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>

@@ -1,0 +1,13 @@
+@if (flowHandler.allowFetchGrid()) {
+  <div class="row">
+    <div class="col-sm-12">
+      <soe-grid-wrapper
+        [rows]="rowData"
+        [height]="100"
+        [parentGuid]="guid()"
+        [noMargin]="true"
+        [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+      </soe-grid-wrapper>
+    </div>
+  </div>
+}

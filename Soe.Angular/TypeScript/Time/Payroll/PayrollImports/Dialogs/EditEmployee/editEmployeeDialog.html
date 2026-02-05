@@ -1,0 +1,26 @@
+﻿<form name="ctrl.edit" autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">{{ctrl.employee.employeeInfo}}</h6>
+    </div>
+    <div class="modal-body">
+        <div class="row margin-large-bottom">
+            <div class="col-sm-8">
+                <soe-toolbar label-key="time.payroll.payrollimport.employee.transactions" buttons="ctrl.transactionsButtonGroups"></soe-toolbar>
+                <div id="transactions-grid" ag-grid="ctrl.gridHandlerTransactions.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                <div id="transactions-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;"></div>
+            </div>
+            <div class="col-sm-4 padding-none-left">
+                <soe-toolbar label-key="time.payroll.payrollimport.employee.schedule" buttons="ctrl.scheduleButtonGroups"></soe-toolbar>
+                <div id="schedule-grid" ag-grid="ctrl.gridHandlerSchedule.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                <div id="schedule-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;"></div>
+            </div>
+        </div>
+        <br />
+    </div>
+    <div class="modal-footer">
+        <div class="form-inline">
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.cancel();"></button>
+        </div>
+    </div>
+</form>

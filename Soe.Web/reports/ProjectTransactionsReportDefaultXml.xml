@@ -1,0 +1,584 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SOE_ProjectTransactionsReport>
+  <xs:schema id="SOE_ProjectTransactionsReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="SOE_ProjectTransactionsReport" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="ProjectTransactionsReport">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="TimeLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountIntervalLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="IncludeChildProjectLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ExcludeInternalOrdersLabel" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="Company" type="xs:string" minOccurs="0" />
+                      <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                      <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateFrom" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateTo" type="xs:string" minOccurs="0" />
+                      <xs:element name="PayrollDateFrom" type="xs:string" minOccurs="0" />
+                      <xs:element name="PayrollDateTo" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountInterval" type="xs:string" minOccurs="0" />
+                      <xs:element name="IncludeChildProjects" type="xs:string" minOccurs="0" />
+                      <xs:element name="ExcludeInternalOrders" type="xs:string" minOccurs="0" />
+					  <xs:element name="ExportType" type="xs:string" minOccurs="0" />
+					  <xs:element name="AccountDimNr1Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr1ShortName" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr1SieDimNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr2Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr2ShortName" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr2SieDimNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr3Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr3ShortName" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr3SieDimNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr4Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr4ShortName" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr4SieDimNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr5Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr5ShortName" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr5SieDimNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr6Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr6ShortName" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr6SieDimNr" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectOverviewExtendedInfo" type="xs:int" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="NameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="DescriptionLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="StatusLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="TypeLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="StartLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="StopLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="QuantityLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="AmountLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="VatAmountLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="VatRateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="CurrencyLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="LedgerCurrencyLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="EntCurrencyLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="CreatedLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="CreatedByLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProjectLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="CustomerNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="CustomerNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductUnitLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="EmployeeNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="EmployeeNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="TimeCodeTransactionLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="TimeInvoiceTransactionLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="TimePayrollTransactionLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OfferLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OrderLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="InvoiceLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OfferNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OrderNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="InvoiceNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OfferDateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OrderDateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="InvoiceDateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="TransactionDateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="BillingRowIsTimeProjectRowLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="CommentLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="BillableMinutesInvoicedLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="BillableMinutesNotInvoicedLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PersonellIncomeInvoicedLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PersonellIncomeNotInvoicedLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="MaterialIncomeInvoicedLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="MaterialIncomeNotInvoicedLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="IncomeInvoicedLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="IncomeNotInvoicedLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PersonellCostLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="MaterialCostLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ExpensesLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OverheadCostLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PersonellCostSumBudgetLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="MaterialCostSumBudgetLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ExpenseCostSumBudgetLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OverheadCostSumBudgetLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="CostLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ResultLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="BudgetLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OutcomeLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="DeviationLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PreliminaryLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="IncomeLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="WorkHoursLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="NotInvoicedHoursLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="OfferSumLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectDescriptionLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="MaterielLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectWorkHoursLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectOtherLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectTotalLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectCompletionLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectFinalAmountLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectTenderLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectInvoiceHoursLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectNotInvoicedLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectInvoicedLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectWorkInProgressLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectGrossMarginLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectGrossCoverageLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectOBLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectWorkLabel" type="xs:string" minOccurs="0" />
+            <xs:element name="ProjectCalculatedCostLabel" type="xs:string" minOccurs="0" />
+            <xs:element name="ProjectFinnishedWorkLabel" type="xs:string" minOccurs="0" />
+            <xs:element name="ProjectRemindingWorkLabel" type="xs:string" minOccurs="0" />
+            <xs:element name="ProjectOngoingLabel" type="xs:string" minOccurs="0" />
+            <xs:element name="ProjectFixedPriceLabel" type="xs:string" minOccurs="0" />
+            <xs:element name="ProjectBudgetCostLabel" type="xs:string" minOccurs="0" />
+            <xs:element name="ProjectGrandTotalLabel" type="xs:string" minOccurs="0" />
+            <xs:element name="ProjectHoursLabel" type="xs:string" minOccurs="0" />
+            <xs:element name="ProjectHoursCostLabel" type="xs:string" minOccurs="0" />
+            <xs:element name="ProjectBudgetIncomeLabel" type="xs:string" minOccurs="0" />
+            <xs:element name="ProjectBudgetGrossMarginLabel" type="xs:string" minOccurs="0" />
+            <xs:element name="ProjectBudgetGrossCoverageLabel" type="xs:string" minOccurs="0" />
+            <xs:element name="ProjectWorkInProgressLongLabel" type="xs:string" minOccurs="0" />
+					  <xs:element name="ProjectResultLabel" type="xs:string" minOccurs="0" />
+		     		 </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="Project" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ProjectNr" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                      <xs:element name="ProjectName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                      <xs:element name="ProjectDescription" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                      <xs:element name="ProjectType" type="xs:int" minOccurs="0" msdata:Ordinal="3" />
+                      <xs:element name="ProjectStatus" type="xs:int" minOccurs="0" msdata:Ordinal="4" />
+                      <xs:element name="ProjectStatusName" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                      <xs:element name="ProjectStartDate" type="xs:dateTime" minOccurs="0" msdata:Ordinal="6" />
+                      <xs:element name="ProjectStopDate" type="xs:dateTime" minOccurs="0" msdata:Ordinal="7" />
+                      <xs:element name="ProjectCreated" type="xs:dateTime" minOccurs="0" msdata:Ordinal="8" />
+                      <xs:element name="ProjectCreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="9" />
+                      <xs:element name="ProjectCustomerNr" type="xs:string" minOccurs="0" msdata:Ordinal="10" />
+                      <xs:element name="ProjectCustomerName" type="xs:string" minOccurs="0" msdata:Ordinal="11" />
+					  <xs:element name="ProjectAccountInternalNr1" type="xs:string" minOccurs="0" msdata:Ordinal="12" />
+					  <xs:element name="ProjectAccountInternalNr2" type="xs:string" minOccurs="0" msdata:Ordinal="13" />
+					  <xs:element name="ProjectAccountInternalNr3" type="xs:string" minOccurs="0" msdata:Ordinal="14" />
+					  <xs:element name="ProjectAccountInternalNr4" type="xs:string" minOccurs="0" msdata:Ordinal="15" />
+					  <xs:element name="ProjectAccountInternalNr5" type="xs:string" minOccurs="0" msdata:Ordinal="16" />
+                      <xs:element name="ProjectCategory" type="xs:string" minOccurs="0" msdata:Ordinal="17" />
+                      <xs:element name="ProjectBillableMinutesInvoicedSum" type="xs:decimal" minOccurs="0" msdata:Ordinal="18" />
+                      <xs:element name="ProjectBillableMinutesPreliminaryInvoicedSum" type="xs:decimal" minOccurs="0" msdata:Ordinal="19" />
+                      <xs:element name="ProjectBillableMinutesNotInvoicedSum" type="xs:decimal" minOccurs="0" msdata:Ordinal="20" />
+                      <xs:element name="ProjectBillableMinutesInvoicedSumBudget" type="xs:decimal" minOccurs="0" msdata:Ordinal="21" />
+                      <xs:element name="ProjectPersonellIncomeInvoicedSum" type="xs:decimal" minOccurs="0" msdata:Ordinal="22" />
+                      <xs:element name="ProjectPersonellIncomePreliminaryInvoicedSum" type="xs:decimal" minOccurs="0" msdata:Ordinal="23" />
+                      <xs:element name="ProjectPersonellIncomeNotInvoicedSum" type="xs:decimal" minOccurs="0" msdata:Ordinal="24" />
+                      <xs:element name="ProjectPersonellIncomeInvoicedSumBudget" type="xs:decimal" minOccurs="0" msdata:Ordinal="25" />
+                      <xs:element name="ProjectMaterialIncomeInvoicedSum" type="xs:decimal" minOccurs="0" msdata:Ordinal="26" />
+                      <xs:element name="ProjectMaterialIncomePreliminaryInvoicedSum" type="xs:decimal" minOccurs="0" msdata:Ordinal="27" />
+                      <xs:element name="ProjectMaterialIncomeNotInvoicedSum" type="xs:decimal" minOccurs="0" msdata:Ordinal="28" />
+                      <xs:element name="ProjectMateriallIncomeInvoicedSumBudget" type="xs:decimal" minOccurs="0" msdata:Ordinal="29" />
+                      <xs:element name="ProjectPersonellCostSum" type="xs:decimal" minOccurs="0" msdata:Ordinal="30" />
+                      <xs:element name="ProjectPersonellCostSumBudget" type="xs:decimal" minOccurs="0" msdata:Ordinal="31" />
+                      <xs:element name="ProjectMaterialCostSum" type="xs:decimal" minOccurs="0" msdata:Ordinal="32" />
+                      <xs:element name="ProjectMaterialCostSumSupplInv" type="xs:decimal" minOccurs="0" msdata:Ordinal="33" />
+                      <xs:element name="ProjectMaterialCostSumBudget" type="xs:decimal" minOccurs="0" msdata:Ordinal="34" />
+                      <xs:element name="ProjectExpenceCostSum" type="xs:decimal" minOccurs="0" msdata:Ordinal="35" />
+                      <xs:element name="ProjectExpenceCostSumBudget" type="xs:decimal" minOccurs="0" msdata:Ordinal="36" />
+                      <xs:element name="ProjectOverheadCostSum" type="xs:decimal" minOccurs="0" msdata:Ordinal="37" />
+                      <xs:element name="ProjectOverheadCostSumBudget" type="xs:decimal" minOccurs="0" msdata:Ordinal="38" />
+                      <xs:element name="ProjectParentProjectId" type="xs:int" minOccurs="0" msdata:Ordinal="39" />
+                      <xs:element name="ProjectParentProjectNumber" type="xs:string" minOccurs="0" msdata:Ordinal="40" />
+                      <xs:element name="ProjectIsFixedPriceType1" type="xs:int" minOccurs="0" msdata:Ordinal="41" />
+                      <xs:element name="ProjectIsFixedPriceType2" type="xs:int" minOccurs="0" msdata:Ordinal="45" />
+                      <xs:element name="ProjectFixedPrice" type="xs:decimal" minOccurs="0" msdata:Ordinal="50" />
+                      <xs:element name="ProjectOpenLiftAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="55" />
+                      <xs:element name="ProjectInvoicedLiftAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="60" />
+                      <xs:element name="ProjectRetainedGuaranteeAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="65" />
+                      <xs:element name="ProjectBillableMinutesInvoicedSumIB" type="xs:decimal" minOccurs="0" msdata:Ordinal="70" />
+                      <xs:element name="ProjectPersonellIncomeInvoicedSumIB" type="xs:decimal" minOccurs="0" msdata:Ordinal="75" />
+                      <xs:element name="ProjectMateriallIncomeInvoicedSumIB" type="xs:decimal" minOccurs="0" msdata:Ordinal="80" />
+                      <xs:element name="ProjectPersonellCostSumIB" type="xs:decimal" minOccurs="0" msdata:Ordinal="85" />
+                      <xs:element name="ProjectMaterialCostSumIB" type="xs:decimal" minOccurs="0" msdata:Ordinal="90" />
+                      <xs:element name="ProjectExpenceCostSumIB" type="xs:decimal" minOccurs="0" msdata:Ordinal="95" />
+                      <xs:element name="ProjectOverheadCostSumIB" type="xs:decimal" minOccurs="0" msdata:Ordinal="100" />
+                      <xs:element name="TimeCodeTransaction" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="TimeCodeTransactionType" type="xs:int" minOccurs="0" msdata:Ordinal="0" />
+                            <xs:element name="TimeCodeTransactionStart" type="xs:dateTime" minOccurs="0" msdata:Ordinal="1" />
+                            <xs:element name="TimeCodeTransactionStop" type="xs:dateTime" minOccurs="0" msdata:Ordinal="2" />
+                            <xs:element name="TimeCodeTransactionQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="3" />
+                            <xs:element name="TimeCodeTransactionInvoiceQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="4" />
+                            <xs:element name="TimeCodeTransactionAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="5" />
+                            <xs:element name="TimeCodeTransactionVatAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="6" />
+                            <xs:element name="TimeCodeTransactionCode" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+                            <xs:element name="TimeCodeTransactionName" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+                            <xs:element name="TimeCodeTransactionIsSupplierInvoice" type="xs:boolean" minOccurs="0" msdata:Ordinal="9" />
+                            <xs:element name="TimeCodeTransactionCustomerInvoiceRowId" type="xs:int" minOccurs="0" msdata:Ordinal="10" />
+                            <xs:element name="BillingRow" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="BillingRowHeadIsOffer" type="xs:int" minOccurs="0" msdata:Ordinal="0" />
+                                  <xs:element name="BillingRowHeadIsOrder" type="xs:int" minOccurs="0" msdata:Ordinal="1" />
+                                  <xs:element name="BillingRowHeadIsInvoice" type="xs:int" minOccurs="0" msdata:Ordinal="2" />
+                                  <xs:element name="BillingRowHeadNr" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                                  <xs:element name="BillingRowHeadStatus" type="xs:int" minOccurs="0" msdata:Ordinal="4" />
+                                  <xs:element name="BillingRowHeadStatusName" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                                  <xs:element name="BillingRowHeadDate" type="xs:dateTime" minOccurs="0" msdata:Ordinal="6" />
+                                  <xs:element name="BillingRowHeadCreated" type="xs:dateTime" minOccurs="0" msdata:Ordinal="7" />
+                                  <xs:element name="BillingRowHeadCreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+                                  <xs:element name="BillingRowQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="9" />
+                                  <xs:element name="BillingRowAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="10" />
+                                  <xs:element name="BillingRowAmountCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="11" />
+                                  <xs:element name="BillingRowAmountLedgerCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="12" />
+                                  <xs:element name="BillingRowAmountEntCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="13" />
+                                  <xs:element name="BillingRowSumAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="14" />
+                                  <xs:element name="BillingRowSumAmountCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="15" />
+                                  <xs:element name="BillingRowSumAmountLedgerCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="16" />
+                                  <xs:element name="BillingRowSumAmountEntCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="17" />
+                                  <xs:element name="BillingRowVatAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="18" />
+                                  <xs:element name="BillingRowVatAmountCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="19" />
+                                  <xs:element name="BillingRowVatAmountLedgerCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="20" />
+                                  <xs:element name="BillingRowVatAmountEntCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="21" />
+                                  <xs:element name="BillingRowVatRate" type="xs:decimal" minOccurs="0" msdata:Ordinal="22" />
+                                  <xs:element name="BillingRowIsTimeProjectRow" type="xs:int" minOccurs="0" msdata:Ordinal="23" />
+                                  <xs:element name="BillingRowCreated" type="xs:dateTime" minOccurs="0" msdata:Ordinal="24" />
+                                  <xs:element name="BillingRowCreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="25" />
+                                  <xs:element name="BillingRowProductNumber" type="xs:string" minOccurs="0" msdata:Ordinal="26" />
+                                  <xs:element name="BillingRowProductName" type="xs:string" minOccurs="0" msdata:Ordinal="27" />
+                                  <xs:element name="BillingRowProductDescription" type="xs:string" minOccurs="0" msdata:Ordinal="28" />
+                                  <xs:element name="BillingRowProductUnitCode" type="xs:string" minOccurs="0" msdata:Ordinal="29" />
+                                  <xs:element name="BillingRowProductUnitName" type="xs:string" minOccurs="0" msdata:Ordinal="30" />
+                                  <xs:element name="BillingRowPurchasePrice" type="xs:decimal" minOccurs="0" msdata:Ordinal="31" />
+                                  <xs:element name="BillingRowMarginalIncome" type="xs:decimal" minOccurs="0" msdata:Ordinal="32" />
+                                  <xs:element name="BillingRowMarginalIncomeRatio" type="xs:decimal" minOccurs="0" msdata:Ordinal="33" />
+                                  <xs:element name="BillingRowDiscountPercent" type="xs:decimal" minOccurs="0" msdata:Ordinal="34" />
+                                  <xs:element name="BillingRowIsInvoice" type="xs:boolean" minOccurs="0" msdata:Ordinal="35" />
+                                  <xs:element name="BillingRowCustomerInvoiceRowId" type="xs:int" minOccurs="0" msdata:Ordinal="36" />
+                                </xs:sequence>
+                                <xs:attribute name="id" type="xs:string" />
+                              </xs:complexType>
+                            </xs:element>
+                            <xs:element name="ExternalTransaction" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="ExternalTransactionIsInvoiceTransaction" type="xs:int" minOccurs="0" msdata:Ordinal="0" />
+                                  <xs:element name="ExternalTransactionIsPayrollTransaction" type="xs:int" minOccurs="0" msdata:Ordinal="1" />
+                                  <xs:element name="ExternalTransactionQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="2" />
+                                  <xs:element name="ExternalTransactionInvoiceQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="3" />
+                                  <xs:element name="ExternalTransactionAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="4" />
+                                  <xs:element name="ExternalTransactionAmountCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="5" />
+                                  <xs:element name="ExternalTransactionAmountLedgerCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="6" />
+                                  <xs:element name="ExternalTransactionAmountEntCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="7" />
+                                  <xs:element name="ExternalTransactionVatAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="8" />
+                                  <xs:element name="ExternalTransactionVatAmountCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="9" />
+                                  <xs:element name="ExternalTransactionVatAmountLedgerCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="10" />
+                                  <xs:element name="ExternalTransactionVatAmountEntCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="11" />
+                                  <xs:element name="ExternalTransactionComment" type="xs:string" minOccurs="0" msdata:Ordinal="12" />
+                                  <xs:element name="ExternalTransactionEmployeeNr" type="xs:string" minOccurs="0" msdata:Ordinal="13" />
+                                  <xs:element name="ExternalTransactionEmployeeName" type="xs:string" minOccurs="0" msdata:Ordinal="14" />
+                                  <xs:element name="ExternalTransactionDate" type="xs:dateTime" minOccurs="0" msdata:Ordinal="15" />
+                                  <xs:element name="ExternalTransactionCode" type="xs:string" minOccurs="0" msdata:Ordinal="16" />
+                                  <xs:element name="ExternalTransactionName" type="xs:string" minOccurs="0" msdata:Ordinal="17" />
+                                  <xs:element name="ExternalTransactionEmployeeCostPerHour" type="xs:decimal" minOccurs="0" msdata:Ordinal="18" />
+                                </xs:sequence>
+                                <xs:attribute name="id" type="xs:string" />
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                          <xs:attribute name="id" type="xs:string" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="id" type="xs:string" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <ProjectTransactionsReport>
+    <ReportHeaderLabels>
+      <LoginNameLabel>Användare:</LoginNameLabel>
+      <PageLabel>Sida:</PageLabel>
+      <DateLabel>Datum:</DateLabel>
+      <TimeLabel>Tid:</TimeLabel>
+    </ReportHeaderLabels>
+    <ReportHeader>
+      <ReportTitle />
+      <ReportDescription />
+      <ReportNr />
+      <Company />
+      <Orgnr />
+      <LoginName />
+      <DateFrom/>
+      <DateTo/>
+      <IncludeChildProjects/>
+      <ExcludeInternalOrders />
+	  <ExportType />
+	  <AccountInterval/>
+	  <AccountDimNr1Name/>
+	  <AccountDimNr1ShortName/>
+	  <AccountDimNr1SieDimNr/>
+	  <AccountDimNr2Name/>
+	  <AccountDimNr2ShortName/>
+	  <AccountDimNr2SieDimNr/>
+	  <AccountDimNr3Name/>
+	  <AccountDimNr3ShortName/>
+	  <AccountDimNr3SieDimNr/>
+	  <AccountDimNr4Name/>
+	  <AccountDimNr4ShortName/>
+	  <AccountDimNr4SieDimNr/>
+	  <AccountDimNr5Name/>
+	  <AccountDimNr5ShortName/>
+	  <AccountDimNr5SieDimNr/>
+	  <AccountDimNr6Name/>
+	  <AccountDimNr6ShortName/>
+	  <AccountDimNr6SieDimNr/>
+	  <ProjectOverviewExtendedInfo>0</ProjectOverviewExtendedInfo>
+    </ReportHeader>
+    <PageHeaderLabels>
+      <NameLabel>Namn</NameLabel>
+      <DescriptionLabel>Beskrivning</DescriptionLabel>
+      <StatusLabel>Status</StatusLabel>
+      <TypeLabel>Typ</TypeLabel>
+      <StartLabel>Start</StartLabel>
+      <StopLabel>Stopp</StopLabel>
+      <QuantityLabel>Kvantitet</QuantityLabel>
+      <AmountLabel>Belopp</AmountLabel>
+      <VatAmountLabel>Momsbelopp</VatAmountLabel>
+      <VatRateLabel>Momssats</VatRateLabel>
+      <CurrencyLabel>Valuta</CurrencyLabel>
+      <LedgerCurrencyLabel>Reskontravaluta</LedgerCurrencyLabel>
+      <EntCurrencyLabel>Koncernvaluta</EntCurrencyLabel>
+      <CreatedLabel>Skapad</CreatedLabel>
+      <CreatedByLabel>Skapad av</CreatedByLabel>
+      <ProjectLabel>Projekt</ProjectLabel>
+      <CustomerNrLabel>Kundnr</CustomerNrLabel>
+      <CustomerNameLabel>Kundnamn</CustomerNameLabel>
+      <ProductNrLabel>Artikelnr</ProductNrLabel>
+      <ProductNameLabel>Artikelnamn</ProductNameLabel>
+      <ProductUnitLabel>Enhet</ProductUnitLabel>
+      <EmployeeNrLabel>Anställningsnr</EmployeeNrLabel>
+      <EmployeeNameLabel>Anställd</EmployeeNameLabel>
+      <TimeCodeTransactionLabel>Tidkodstransaktion</TimeCodeTransactionLabel>
+      <TimeInvoiceTransactionLabel>Artikeltransaktion</TimeInvoiceTransactionLabel>
+      <TimePayrollTransactionLabel>Löneartstransaktion</TimePayrollTransactionLabel>
+      <OfferLabel>Offert</OfferLabel>
+      <OrderLabel>Order</OrderLabel>
+      <InvoiceLabel>Invoice</InvoiceLabel>
+      <OfferNrLabel>Offertnr</OfferNrLabel>
+      <OrderNrLabel>OrderNr</OrderNrLabel>
+      <InvoiceNrLabel>Fakturanr</InvoiceNrLabel>
+      <OfferDateLabel>Offertdatum</OfferDateLabel>
+      <OrderDateLabel>Orderdatum</OrderDateLabel>
+      <InvoiceDateLabel>Fakturadatum</InvoiceDateLabel>
+      <TransactionDateLabel>Transaktionsdatum</TransactionDateLabel>
+      <BillingRowIsTimeProjectRowLabel>Tidrad</BillingRowIsTimeProjectRowLabel>
+      <CommentLabel>Kommentar</CommentLabel>
+      <BillableMinutesInvoicedLabel>Debiterbara timmar, fakturerat</BillableMinutesInvoicedLabel>
+      <BillableMinutesNotInvoicedLabel>Debiterbara timmar, ej fakturerat</BillableMinutesNotInvoicedLabel>
+      <PersonellIncomeInvoicedLabel>Intäkter personal, fakturerat</PersonellIncomeInvoicedLabel>
+      <PersonellIncomeNotInvoicedLabel>Intäkter personal, ej fakturerat</PersonellIncomeNotInvoicedLabel>
+      <MaterialIncomeInvoicedLabel>Intäkter material, fakturerat</MaterialIncomeInvoicedLabel>
+      <MaterialIncomeNotInvoicedLabel>Intäkter material, ej fakturerat</MaterialIncomeNotInvoicedLabel>
+      <IncomeInvoicedLabel>Intäkter, fakturerat</IncomeInvoicedLabel>
+      <IncomeNotInvoicedLabel>Intäkter, ej fakturerat</IncomeNotInvoicedLabel>
+      <PersonellCostLabel>Personalkostnad</PersonellCostLabel>
+      <MaterialCostLabel>Materialkostnad</MaterialCostLabel>      
+      <ExpensesLabel>Utlägg</ExpensesLabel>
+      <OverheadCostLabel>Overheadkostnad</OverheadCostLabel>
+      <PersonellCostSumBudgetLabel>Budget personalkostnad</PersonellCostSumBudgetLabel>
+      <MaterialCostSumBudgetLabel>Budget materialkostnad</MaterialCostSumBudgetLabel>
+      <ExpenseCostSumBudgetLabel>Budget utlägg</ExpenseCostSumBudgetLabel>
+      <OverheadCostSumBudgetLabel>Budget overhead</OverheadCostSumBudgetLabel>      
+      <CostLabel>Kostnad</CostLabel>
+      <ResultLabel>Resultat</ResultLabel>
+      <BudgetLabel>Budget</BudgetLabel>
+      <OutcomeLabel>Utfall</OutcomeLabel>
+      <DeviationLabel>Avvikelse</DeviationLabel>
+	  <PreliminaryLabel>Preliminärt</PreliminaryLabel>
+      <IncomeLabel>Intäkt</IncomeLabel>	  
+	  <WorkHoursLabel>Arbetade timmar</WorkHoursLabel>
+	  <NotInvoicedHoursLabel>Ej fakturerade timmar</NotInvoicedHoursLabel>
+	  <OfferSumLabel>Anbudssumma</OfferSumLabel>	 
+	  <ProjectDescriptionLabel>Projektbeskrivning</ProjectDescriptionLabel>
+	  <MaterielLabel>Material</MaterielLabel>
+	  <ProjectWorkHoursLabel>Arb. tim</ProjectWorkHoursLabel>
+	  <ProjectOtherLabel>Övrigt</ProjectOtherLabel>
+	  <ProjectTotalLabel>Total</ProjectTotalLabel>
+	  <ProjectCompletionLabel>Färdig grad</ProjectCompletionLabel>
+	  <ProjectFinalAmountLabel>Färdig bel.</ProjectFinalAmountLabel>
+	  <ProjectTenderLabel>Anbud</ProjectTenderLabel>
+	  <ProjectInvoiceHoursLabel>Faktbar. tim</ProjectInvoiceHoursLabel>
+	  <ProjectNotInvoicedLabel>Ej fakturerat</ProjectNotInvoicedLabel>
+	  <ProjectInvoicedLabel>Fakturerat</ProjectInvoicedLabel>
+	  <ProjectWorkInProgressLabel>Påg. arbete</ProjectWorkInProgressLabel>
+	  <ProjectGrossMarginLabel>TB</ProjectGrossMarginLabel>
+	  <ProjectGrossCoverageLabel>TG</ProjectGrossCoverageLabel>
+	  <ProjectOBLabel>IB</ProjectOBLabel>
+	  <ProjectWorkLabel>Arbete</ProjectWorkLabel>
+    <ProjectCalculatedCostLabel>Kalk.kostnad</ProjectCalculatedCostLabel>
+    <ProjectFinnishedWorkLabel>Upparbetat</ProjectFinnishedWorkLabel>
+    <ProjectRemindingWorkLabel>Rest</ProjectRemindingWorkLabel>
+    <ProjectOngoingLabel>Löpande</ProjectOngoingLabel>
+    <ProjectFixedPriceLabel>Fastpris</ProjectFixedPriceLabel>
+    <ProjectBudgetCostLabel>Budg. kostnad</ProjectBudgetCostLabel>
+    <ProjectGrandTotalLabel>Totalt</ProjectGrandTotalLabel>
+    <ProjectHoursLabel>Timmar</ProjectHoursLabel>
+    <ProjectHoursCostLabel>Timkostnad</ProjectHoursCostLabel>
+    <ProjectBudgetIncomeLabel>Budg. intäkt</ProjectBudgetIncomeLabel>
+    <ProjectBudgetGrossMarginLabel>TB budg</ProjectBudgetGrossMarginLabel>
+    <ProjectBudgetGrossCoverageLabel>TG Budg</ProjectBudgetGrossCoverageLabel>
+    <ProjectWorkInProgressLongLabel>Pågående arbete</ProjectWorkInProgressLongLabel>
+    <ProjectResultLabel>Utfall</ProjectResultLabel>  
+    </PageHeaderLabels>
+    <Project>
+      <ProjectNr />
+      <ProjectName />
+      <ProjectDescription />
+      <ProjectType>0</ProjectType>
+      <ProjectStatus>0</ProjectStatus>
+      <ProjectStatusName />
+      <ProjectStartDate>1900-01-01T00:00:00+00:00</ProjectStartDate>
+      <ProjectStopDate>1900-01-01T00:00:00+00:00</ProjectStopDate>
+      <ProjectCreated>1900-01-01T00:00:00+00:00</ProjectCreated>
+      <ProjectCreatedBy />
+      <ProjectCustomerNr />
+      <ProjectCustomerName />
+	  <ProjectAccountInternalNr1 />
+	  <ProjectAccountInternalNr2 />
+	  <ProjectAccountInternalNr3 />
+	  <ProjectAccountInternalNr4 />
+	  <ProjectAccountInternalNr5 />
+	  <ProjectCategory />
+      <ProjectBillableMinutesInvoicedSum>0</ProjectBillableMinutesInvoicedSum>
+      <ProjectBillableMinutesPreliminaryInvoicedSum>0</ProjectBillableMinutesPreliminaryInvoicedSum>
+      <ProjectBillableMinutesNotInvoicedSum>0</ProjectBillableMinutesNotInvoicedSum>
+      <ProjectBillableMinutesInvoicedSumBudget>0</ProjectBillableMinutesInvoicedSumBudget>
+      <ProjectPersonellIncomeInvoicedSum>0</ProjectPersonellIncomeInvoicedSum>
+      <ProjectPersonellIncomePreliminaryInvoicedSum>0</ProjectPersonellIncomePreliminaryInvoicedSum>
+      <ProjectPersonellIncomeNotInvoicedSum>0</ProjectPersonellIncomeNotInvoicedSum>
+      <ProjectPersonellIncomeInvoicedSumBudget>0</ProjectPersonellIncomeInvoicedSumBudget>
+      <ProjectMaterialIncomeInvoicedSum>0</ProjectMaterialIncomeInvoicedSum>
+      <ProjectMaterialIncomePreliminaryInvoicedSum>0</ProjectMaterialIncomePreliminaryInvoicedSum>
+      <ProjectMaterialIncomeNotInvoicedSum>0</ProjectMaterialIncomeNotInvoicedSum>
+      <ProjectMateriallIncomeInvoicedSumBudget>0</ProjectMateriallIncomeInvoicedSumBudget>
+      <ProjectPersonellCostSum>0</ProjectPersonellCostSum>
+      <ProjectPersonellCostSumBudget>0</ProjectPersonellCostSumBudget>
+      <ProjectMaterialCostSum>0</ProjectMaterialCostSum>
+      <ProjectMaterialCostSumBudget>0</ProjectMaterialCostSumBudget>
+      <ProjectExpenceCostSum>0</ProjectExpenceCostSum>
+      <ProjectExpenceCostSumBudget>0</ProjectExpenceCostSumBudget>
+      <ProjectOverheadCostSum>0</ProjectOverheadCostSum>
+      <ProjectOverheadCostSumBudget>0</ProjectOverheadCostSumBudget>
+      <ProjectParentProjectId>0</ProjectParentProjectId>
+      <ProjectParentProjectNumber />
+      <ProjectFixedPrice>0</ProjectFixedPrice>
+      <ProjectOpenLiftAmount>0</ProjectOpenLiftAmount>
+      <ProjectInvoicedLiftAmount>0</ProjectInvoicedLiftAmount>
+      <ProjectIsFixedPriceType1>0</ProjectIsFixedPriceType1>
+      <ProjectIsFixedPriceType2>0</ProjectIsFixedPriceType2>      
+      <RetainedGuaranteeAmount>0</RetainedGuaranteeAmount>
+      <ProjectBillableMinutesInvoicedSumIB>0</ProjectBillableMinutesInvoicedSumIB>
+      <ProjectPersonellIncomeInvoicedSumIB>0</ProjectPersonellIncomeInvoicedSumIB>
+      <ProjectMateriallIncomeInvoicedSumIB>0</ProjectMateriallIncomeInvoicedSumIB>
+      <ProjectPersonellCostSumIB>0</ProjectPersonellCostSumIB>
+      <ProjectMaterialCostSumIB>0</ProjectMaterialCostSumIB>
+      <ProjectExpenceCostSumIB>0</ProjectExpenceCostSumIB>
+      <ProjectOverheadCostSumIB>0</ProjectOverheadCostSumIB>
+      <TimeCodeTransaction id ="1">
+        <TimeCodeTransactionType>0</TimeCodeTransactionType>
+        <TimeCodeTransactionStart>1900-01-01T00:00:00+00:00</TimeCodeTransactionStart>
+        <TimeCodeTransactionStop>1900-01-01T00:00:00+00:00</TimeCodeTransactionStop>
+        <TimeCodeTransactionQuantity>0</TimeCodeTransactionQuantity>
+        <TimeCodeTransactionInvoiceQuantity>0</TimeCodeTransactionInvoiceQuantity>
+        <TimeCodeTransactionAmount>0</TimeCodeTransactionAmount>
+        <TimeCodeTransactionVatAmount>0</TimeCodeTransactionVatAmount>
+        <TimeCodeTransactionCode />
+        <TimeCodeTransactionName />
+        <TimeCodeTransactionIsSupplierInvoice>0</TimeCodeTransactionIsSupplierInvoice>
+        <TimeCodeTransactionCustomerInvoiceRowId>0</TimeCodeTransactionCustomerInvoiceRowId>
+        <BillingRow id="1">
+          <BillingRowHeadIsOffer>0</BillingRowHeadIsOffer>
+          <BillingRowHeadIsOrder>0</BillingRowHeadIsOrder>
+          <BillingRowHeadIsInvoice>0</BillingRowHeadIsInvoice>
+          <BillingRowHeadNr />
+          <BillingRowHeadStatus>0</BillingRowHeadStatus>
+          <BillingRowHeadStatusName />
+          <BillingRowHeadDate>1900-01-01T00:00:00+00:00</BillingRowHeadDate>
+          <BillingRowHeadCreated>1900-01-01T00:00:00+00:00</BillingRowHeadCreated>
+          <BillingRowHeadCreatedBy />
+          <BillingRowQuantity>0</BillingRowQuantity>>
+          <BillingRowAmount>0</BillingRowAmount>
+          <BillingRowAmountCurrency>0</BillingRowAmountCurrency>
+          <BillingRowAmountLedgerCurrency>0</BillingRowAmountLedgerCurrency>
+          <BillingRowAmountEntCurrency>0</BillingRowAmountEntCurrency>
+          <BillingRowSumAmount>0</BillingRowSumAmount>
+          <BillingRowSumAmountCurrency>0</BillingRowSumAmountCurrency>
+          <BillingRowSumAmountLedgerCurrency>0</BillingRowSumAmountLedgerCurrency>
+          <BillingRowSumAmountEntCurrency>0</BillingRowSumAmountEntCurrency>
+          <BillingRowVatAmount>0</BillingRowVatAmount>
+          <BillingRowVatAmountCurrency>0</BillingRowVatAmountCurrency>
+          <BillingRowVatAmountLedgerCurrency>0</BillingRowVatAmountLedgerCurrency>
+          <BillingRowVatAmountEntCurrency>0</BillingRowVatAmountEntCurrency>
+          <BillingRowVatRate>0</BillingRowVatRate>
+          <BillingRowIsTimeProjectRow>0</BillingRowIsTimeProjectRow>
+          <BillingRowCreated>1900-01-01T00:00:00+00:00</BillingRowCreated>
+          <BillingRowCreatedBy />
+          <BillingRowProductNumber />
+          <BillingRowProductName />
+          <BillingRowProductDescription />
+          <BillingRowProductUnitCode />
+          <BillingRowProductUnitName />
+          <BillingRowPurchasePrice>0</BillingRowPurchasePrice>
+          <BillingRowMarginalIncome>0</BillingRowMarginalIncome>
+          <BillingRowMarginalIncomeRatio>0</BillingRowMarginalIncomeRatio>
+          <BillingRowDiscountPercent>0</BillingRowDiscountPercent>
+          <BillingRowIsInvoice>0</BillingRowIsInvoice>
+          <BillingRowCustomerInvoiceRowId>0</BillingRowCustomerInvoiceRowId>
+        </BillingRow>
+        <ExternalTransaction id="1">
+          <ExternalTransactionIsInvoiceTransaction>0</ExternalTransactionIsInvoiceTransaction>
+          <ExternalTransactionIsPayrollTransaction>0</ExternalTransactionIsPayrollTransaction>
+          <ExternalTransactionQuantity>0</ExternalTransactionQuantity>
+          <ExternalTransactionInvoiceQuantity>0</ExternalTransactionInvoiceQuantity>
+          <ExternalTransactionAmount>0</ExternalTransactionAmount>
+          <ExternalTransactionAmountCurrency>0</ExternalTransactionAmountCurrency>
+          <ExternalTransactionAmountLedgerCurrency>0</ExternalTransactionAmountLedgerCurrency>
+          <ExternalTransactionAmountEntCurrency>0</ExternalTransactionAmountEntCurrency>
+          <ExternalTransactionVatAmount>0</ExternalTransactionVatAmount>
+          <ExternalTransactionVatAmountCurrency>0</ExternalTransactionVatAmountCurrency>
+          <ExternalTransactionVatAmountLedgerCurrency>0</ExternalTransactionVatAmountLedgerCurrency>
+          <ExternalTransactionVatAmountEntCurrency>0</ExternalTransactionVatAmountEntCurrency>
+          <ExternalTransactionComment />
+          <ExternalTransactionEmployeeNr />
+          <ExternalTransactionEmployeeName />
+          <ExternalTransactionDate>1900-01-01T00:00:00+00:00</ExternalTransactionDate>
+          <ExternalTransactionCode />
+          <ExternalTransactionName />
+          <ExternalTransactionEmployeeCostPerHour>0</ExternalTransactionEmployeeCostPerHour>
+        </ExternalTransaction>
+      </TimeCodeTransaction>
+    </Project>
+  </ProjectTransactionsReport>
+</SOE_ProjectTransactionsReport>

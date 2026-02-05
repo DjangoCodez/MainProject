@@ -1,0 +1,16 @@
+<div class="row">
+  <soe-drill-down-reports-search
+    (valueChange)="onSearchValueChange($event)"
+    (createReport)="onCreateReport($event)"></soe-drill-down-reports-search>
+</div>
+@if (flowHandler.allowFetchGrid()) {
+  <div class="row">
+    <div class="col-sm-12 px-3">
+      <soe-grid-wrapper
+        [rows]="gridRowsSubject"
+        [parentGuid]="guid()"
+        [masterDetail]="true">
+      </soe-grid-wrapper>
+    </div>
+  </div>
+}

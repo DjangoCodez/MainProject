@@ -1,0 +1,22 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="messagebox">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'time.payroll.payrollproduct.setting.addnew'"></h6>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-select label-key="time.payroll.payrollproduct.setting.addnewfor" model="ctrl.createForPayrollGroupId" items="ctrl.availablePayrollGroups" options="item.payrollGroupId as item.name for item in items" required="true" auto-focus="true"></soe-select>
+                </div>
+                <div class="col-sm-6">
+                    <soe-select label-key="time.payroll.payrollproduct.setting.addnewfrom" model="ctrl.createFromPayrollGroupId" items="ctrl.usedPayrollGroups" options="item.id as item.name for item in items" auto-focus="true"></soe-select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-disabled="!ctrl.createForPayrollGroupId" data-ng-click="ctrl.ok()"></button>
+        </div>
+    </div>
+</form>

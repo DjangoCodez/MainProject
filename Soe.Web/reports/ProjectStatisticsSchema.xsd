@@ -1,0 +1,274 @@
+﻿<xs:schema id="SOE_ProjectStatistics" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SOE_ProjectStatistics" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ProjectStatistics">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="TimeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="AccountIntervalLabel" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="Company" type="xs:string" minOccurs="0" />
+                    <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                    <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateInterval" type="xs:string" minOccurs="0" />
+		    <xs:element name="EmployeeInterval" type="xs:string" minOccurs="0" />
+		    <xs:element name="ProjectInterval" type="xs:string" minOccurs="0" />
+		    <xs:element name="CustomerInterval" type="xs:string" minOccurs="0" />
+                    <xs:element name="AccountInterval" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ProjectNumberLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjectNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjectDescriptionLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CreatedLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CreatedByLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjecStateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="EmployeeNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="EmployeeNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="QuantityLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ExportedLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProductNumberLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProductNumberShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProductNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProductNameShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProductDescriptionLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProductDescriptionShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="NoteLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="WeekLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="OrderNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="WeekDayLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="OrderLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CauseLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoicingTypeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ExternalNoteLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="WorkTimeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoicedTimeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="AllLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="TotalLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceNrLabel" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Project" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ProjectNumber" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                    <xs:element name="ProjectName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                    <xs:element name="ProjectDescription" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                    <xs:element name="ProjectCreated" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                    <xs:element name="ProjectCreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                    <xs:element name="ProjectState" type="xs:int" minOccurs="0" msdata:Ordinal="5" />
+                    <xs:element name="ProjectCustomerNr" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+                    <xs:element name="ProjectCustomerName" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+                    <xs:element name="Invoice" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="InvoiceNr" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                          <xs:element name="InvoiceCreated" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                          <xs:element name="InvoiceCreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                          <xs:element name="InvoiceCustomerNr" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                          <xs:element name="InvoiceCustomerName" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                          <xs:element name="CustomerInvoiceRow" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="InvoiceRowCreated" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                                <xs:element name="InvoiceRowCreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xs:element name="InvoiceRowProductNumber" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                                <xs:element name="InvoiceRowProductName" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                                <xs:element name="InvoiceRowProductDescription" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                                <xs:element name="InvoiceRowUnitName" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                              </xs:sequence>
+                              <xs:attribute name="id" type="xs:string" />
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="CustomerInvoiceExpenseRow" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:sequence>
+								  <xs:element name="ProjectNumber" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                                  <xs:element name="ProjectName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+								  <xs:element name="InvoiceNr" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+								  <xs:element name="InvoiceCustomerName" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                                  <xs:element name="InvoiceExpenseRowEmployeeName" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                                  <xs:element name="InvoiceExpenseRowTimeCodeName" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                                  <xs:element name="InvoiceExpenseRowPayrollAttestStateName" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+                                  <xs:element name="InvoiceExpenseRowQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="7" />
+								  <xs:element name="InvoiceExpenseRowQuantityType" type="xs:decimal" minOccurs="0" msdata:Ordinal="8" />
+								  <xs:element name="InvoiceExpenseRowUnitPrice" type="xs:decimal" minOccurs="0" msdata:Ordinal="9" />
+                                  <xs:element name="InvoiceExpenseRowAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="10" />
+                                  <xs:element name="InvoiceExpenseRowInvoicedAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="11" />
+                                  <xs:element name="InvoiceExpenseRowDate" type="xs:string" minOccurs="0" msdata:Ordinal="12" />
+								  <xs:element name="InvoiceExpenseRowEmployeeNr" type="xs:string" minOccurs="0" msdata:Ordinal="13" />
+								  <xs:element name="InvoiceExpenseRowPayrollProductNr" type="xs:string" minOccurs="0" msdata:Ordinal="14" />
+								  <xs:element name="InvoiceExpenseRowPayrollProductName" type="xs:string" minOccurs="0" msdata:Ordinal="15" />
+                                </xs:sequence>
+                                <xs:attribute name="id" type="xs:string" />
+                              </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="TimePayrollTransaction" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="EmployeeNr" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                          <xs:element name="EmployeeName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                          <xs:element name="Date" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                          <xs:element name="Note" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                          <xs:element name="ExternalNote" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                          <xs:element name="PayrollTransactionQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="4" />
+                          <xs:element name="PayrollTransactionCreated" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                          <xs:element name="PayrollTransactionCreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+                          <xs:element name="PayrollTransactionExported" type="xs:int" minOccurs="0" msdata:Ordinal="7" />
+                          <xs:element name="PayrollTransactionProductNumber" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+                          <xs:element name="PayrollTransactionProductName" type="xs:string" minOccurs="0" msdata:Ordinal="9" />
+                          <xs:element name="PayrollTransactionProductDescription" type="xs:string" minOccurs="0" msdata:Ordinal="10" />
+                          <xs:element name="WeekNumber" type="xs:string" minOccurs="0" msdata:Ordinal="11" />
+                          <xs:element name="IsoDate" type="xs:string" minOccurs="0" msdata:Ordinal="12" />
+                          <xs:element name="PayrollTransactionTimeCodeCode" type="xs:string" minOccurs="0" msdata:Ordinal="13" />
+                          <xs:element name="PayrollTransactionTimeCodeName" type="xs:string" minOccurs="0" msdata:Ordinal="14" />
+                          <xs:element name="PayrollTransactionTimeCodeDescription" type="xs:string" minOccurs="0" msdata:Ordinal="15" />
+                          <xs:element name="PayrollTransactionTimeCodeTransactionId" type="xs:string" minOccurs="0" msdata:Ordinal="16" />
+                          <xs:element name="PayrollTransactionTimeCodeTransactionQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="17" />
+                          <xs:element name="PayrollTransactionTimeCodeTransactionInvoiceQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="18" />
+                          <xs:element name="PayrollTransactionTimeCodeTransactionProjectId" type="xs:string" minOccurs="0" msdata:Ordinal="19" />
+                          <xs:element name="PayrollTransactionTimeCodeTransactionProjectNumber" type="xs:string" minOccurs="0" msdata:Ordinal="20" />
+                          <xs:element name="PayrollTransactionTimeCodeTransactionProjectName" type="xs:string" minOccurs="0" msdata:Ordinal="21" />
+                          <xs:element name="PayrollTransactionTimeCodeTransactionProjectNote" type="xs:string" minOccurs="0" msdata:Ordinal="22" />
+                          <xs:element name="PayrollTransactionTimeCodeTransactionParentProjectNumber" type="xs:string" minOccurs="0" msdata:Ordinal="23" />
+                          <xs:element name="PayrollTransactionTimeCodeTransactionParentProjectName" type="xs:string" minOccurs="0" msdata:Ordinal="24" />
+                          <xs:element name="PayrollType" type="xs:int" minOccurs="0" msdata:Ordinal="25" />
+                          <xs:element name="isPayed" type="xs:int" minOccurs="0" msdata:Ordinal="26" />
+                          <xs:element name="InvoiceNr" type="xs:string" minOccurs="0" msdata:Ordinal="27" />
+                          <xs:element name="OriginType" type="xs:int" minOccurs="0" msdata:Ordinal="28" /> 
+                          <xs:element name="PayrollTransactionInvoiceCustomerName" type="xs:string" minOccurs="0" msdata:Ordinal="29" />
+                          <xs:element name="PayrollTransactionInvoiceCustomerNr" type="xs:string" minOccurs="0" msdata:Ordinal="30" />
+                          <xs:element name="TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="31" />    
+                          <xs:element name="PayrollTransactionUnitPrice" type="xs:decimal" minOccurs="0" msdata:Ordinal="32" />	
+                           <xs:element name="PayrollAttestStateName" type="xs:string" minOccurs="0" msdata:Ordinal="33" />							  
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="TimeInvoiceTransaction" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="EmployeeNr" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                          <xs:element name="EmployeeName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                          <xs:element name="Date" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                          <xs:element name="Note" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                          <xs:element name="ExternalNote" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                          <xs:element name="InvoiceTransactionQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="4" />
+                          <xs:element name="InvoiceTransactionInvoiceQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="5" />
+                          <xs:element name="InvoiceTransactionCreated" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+                          <xs:element name="InvoiceTransactionCreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+                          <xs:element name="InvoiceTransactionExported" type="xs:int" minOccurs="0" msdata:Ordinal="8" />
+                          <xs:element name="InvoiceTransactionProductNumber" type="xs:string" minOccurs="0" msdata:Ordinal="9" />
+                          <xs:element name="InvoiceTransactionProductName" type="xs:string" minOccurs="0" msdata:Ordinal="10" />
+                          <xs:element name="InvoiceTransactionProductDescription" type="xs:string" minOccurs="0" msdata:Ordinal="11" />
+                          <xs:element name="InvoiceTransactionTimeCodeCode" type="xs:string" minOccurs="0" msdata:Ordinal="14" />
+                          <xs:element name="InvoiceTransactionTimeCodeName" type="xs:string" minOccurs="0" msdata:Ordinal="15" />
+                          <xs:element name="InvoiceTransactionTimeCodeDescription" type="xs:string" minOccurs="0" msdata:Ordinal="16" />
+                          <xs:element name="InvoiceTransactionTimeCodeTransactionId" type="xs:string" minOccurs="0" msdata:Ordinal="17" />
+                          <xs:element name="InvoiceTransactionTimeCodeTransactionQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="18" />
+                          <xs:element name="InvoiceTransactionTimeCodeTransactionInvoiceQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="19" />
+                          <xs:element name="InvoiceTransactionTimeCodeTransactionProjectId" type="xs:string" minOccurs="0" msdata:Ordinal="20" />
+                          <xs:element name="InvoiceTransactionTimeCodeTransactionProjectNumber" type="xs:string" minOccurs="0" msdata:Ordinal="21" />
+                          <xs:element name="InvoiceTransactionTimeCodeTransactionProjectName" type="xs:string" minOccurs="0" msdata:Ordinal="22" />
+                          <xs:element name="InvoiceTransactionTimeCodeTransactionProjectNote" type="xs:string" minOccurs="0" msdata:Ordinal="23" />
+                          <xs:element name="InvoiceTransactionTimeCodeTransactionParentProjectNumber" type="xs:string" minOccurs="0" msdata:Ordinal="24" />
+                          <xs:element name="InvoiceTransactionTimeCodeTransactionParentProjectName" type="xs:string" minOccurs="0" msdata:Ordinal="25" />
+                          <xs:element name="WeekNumber" type="xs:string" minOccurs="0" msdata:Ordinal="26" />
+                          <xs:element name="IsoDate" type="xs:string" minOccurs="0" msdata:Ordinal="27" />
+                          <xs:element name="InvoiceNr" type="xs:string" minOccurs="0" msdata:Ordinal="28" />
+                          <xs:element name="OriginType" type="xs:int" minOccurs="0" msdata:Ordinal="29" />
+                          <xs:element name="InvoiceTransactionInvoiceCustomerName" type="xs:string" minOccurs="0" msdata:Ordinal="29" />
+                          <xs:element name="InvoiceTransactionInvoiceCustomerNr" type="xs:string" minOccurs="0" msdata:Ordinal="30" />
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="MergedTransaction" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="EmployeeNr" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                          <xs:element name="EmployeeName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                          <xs:element name="Date" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                          <xs:element name="Note" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                          <xs:element name="ExternalNote" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                          <xs:element name="WeekNumber" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                          <xs:element name="IsoDate" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                          <xs:element name="PayrollTransactionQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="6" />
+                          <xs:element name="PayrollTransactionCreated" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+                          <xs:element name="PayrollTransactionCreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+                          <xs:element name="PayrollTransactionExported" type="xs:int" minOccurs="0" msdata:Ordinal="9" />
+                          <xs:element name="PayrollTransactionProductNumber" type="xs:string" minOccurs="0" msdata:Ordinal="10" />
+                          <xs:element name="PayrollTransactionProductName" type="xs:string" minOccurs="0" msdata:Ordinal="11" />
+                          <xs:element name="PayrollTransactionProductDescription" type="xs:string" minOccurs="0" msdata:Ordinal="12" />
+                          <xs:element name="InvoiceTransactionQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="13" />
+                          <xs:element name="InvoiceTransactionInvoiceQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="14" />
+                          <xs:element name="InvoiceTransactionCreated" type="xs:string" minOccurs="0" msdata:Ordinal="15" />
+                          <xs:element name="InvoiceTransactionCreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="16" />
+                          <xs:element name="InvoiceTransactionExported" type="xs:int" minOccurs="0" msdata:Ordinal="17" />
+                          <xs:element name="InvoiceTransactionProductNumber" type="xs:string" minOccurs="0" msdata:Ordinal="18" />
+                          <xs:element name="InvoiceTransactionProductName" type="xs:string" minOccurs="0" msdata:Ordinal="19" />
+                          <xs:element name="InvoiceTransactionProductDescription" type="xs:string" minOccurs="0" msdata:Ordinal="20" />
+                          <xs:element name="TimeCodeCode" type="xs:string" minOccurs="0" msdata:Ordinal="21" />
+                          <xs:element name="TimeCodeName" type="xs:string" minOccurs="0" msdata:Ordinal="22" />
+                          <xs:element name="TimeCodeDescription" type="xs:string" minOccurs="0" msdata:Ordinal="23" />
+                          <xs:element name="TimeCodeTransactionId" type="xs:string" minOccurs="0" msdata:Ordinal="24" />
+                          <xs:element name="TimeCodeTransactionQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="25" />
+                          <xs:element name="TimeCodeTransactionInvoiceQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="26" />
+                          <xs:element name="TimeCodeTransactionProjectId" type="xs:string" minOccurs="0" msdata:Ordinal="27" />
+                          <xs:element name="TimeCodeTransactionProjectNumber" type="xs:string" minOccurs="0" msdata:Ordinal="28" />
+                          <xs:element name="TimeCodeTransactionProjectName" type="xs:string" minOccurs="0" msdata:Ordinal="29" />
+                          <xs:element name="TimeCodeTransactionProjectNote" type="xs:string" minOccurs="0" msdata:Ordinal="30" />
+                          <xs:element name="TimeCodeTransactionParentProjectNumber" type="xs:string" minOccurs="0" msdata:Ordinal="31" />
+                          <xs:element name="TimeCodeTransactionParentProjectName" type="xs:string" minOccurs="0" msdata:Ordinal="32" />
+                          <xs:element name="PayrollType" type="xs:int" minOccurs="0" msdata:Ordinal="33" />
+                          <xs:element name="isPayed" type="xs:int" minOccurs="0" msdata:Ordinal="34" />
+                          <xs:element name="InvoiceNr" type="xs:string" minOccurs="0" msdata:Ordinal="35" />
+                          <xs:element name="OriginType" type="xs:int" minOccurs="0" msdata:Ordinal="36" />
+                          <xs:element name="PayrollTransactionInvoiceCustomerName" type="xs:string" minOccurs="0" msdata:Ordinal="37" />
+                          <xs:element name="PayrollTransactionInvoiceCustomerNr" type="xs:string" minOccurs="0" msdata:Ordinal="38" />
+                          <xs:element name="TimeDeviationCauseName" type="xs:string" minOccurs="0" msdata:Ordinal="39" />
+						  <xs:element name="PayrollTransactionUnitPrice" type="xs:decimal" minOccurs="0" msdata:Ordinal="40" />
+ 						  <xs:element name="PayrollAttestStateName" type="xs:string" minOccurs="0" msdata:Ordinal="41" />
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

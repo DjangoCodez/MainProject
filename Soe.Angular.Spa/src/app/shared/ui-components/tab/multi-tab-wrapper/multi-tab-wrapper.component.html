@@ -1,0 +1,85 @@
+<soe-tab-group
+  [activeIndex]="activeTabIndex"
+  (tabIndexChanged)="tabIndexChanged($event)"
+  (tabAdded)="initalizeAddTab()"
+  (tabRemoved)="removeTab($event)"
+  (allTabsRemoved)="removeAllTabs()"
+  (tabDblClicked)="tabDoubleClicked($event)"
+  [hideAdd]="hideAdd()"
+  [hideCloseAll]="hideCloseAll()">
+  <!-- Grid tabs -->
+  @for (tab of config(); track tab; let i = $index) {
+    @if (tab.gridComponent) {
+      <soe-tab
+        [key]="tab.key"
+        [label]="tab.gridTabLabel || '' | translate"
+        [closable]="false"
+        [disabled]="tab.disabled || false"
+        [attr.data-testid]="'gridTab-' + i">
+        <ng-container
+          *ngComponentOutlet="
+            tab.gridComponent;
+            inputs: {
+              gridIndex: i,
+              rowData: tab.rowData,
+              exportFilenameKey: tab.exportFilenameKey || tab.gridTabLabel,
+              rowEdited: rowEdited,
+              gridDataLoaded: gridDataLoaded,
+              additionalGridProps: tab.additionalGridProps
+            }
+          " />
+      </soe-tab>
+    }
+  }
+
+  <!-- Edit/create tabs -->
+  @for (tab of editTabs; track tab; let i = $index) {
+    <soe-tab
+      [attr.data-testid]="'editTab-' + i"
+      [label]="
+        tab.label +
+        ' ' +
+        ((!tab.isNew &&
+          tab.inputs.form &&
+          tab.inputs.form.getRawValue()[tab.inputs.form.nameFieldName]) ||
+          '')
+      "
+      [closable]="!tab.hideCloseTab"
+      [isDirty]="tab.inputs.form?.dirty || false"
+      [isNew]="tab.inputs.form?.isNew || false">
+      <ng-container *ngComponentOutlet="tab.component; inputs: tab.inputs" />
+    </soe-tab>
+  }
+</soe-tab-group>
+
+@if (showAddList()) {
+  <ul
+    [isOpen]="showAddList()"
+    data-testid="add-tab-list"
+    class="soe-multi-tab-wrapper__selection"
+    [style.left]="addButton?.getBoundingClientRect()?.left + 'px'"
+    [style.top]="addButton?.getBoundingClientRect()?.top + 'px'"
+    soeClickOutside
+    (clickOutside)="closeAddSelection()">
+    @for (tab of visibleTabsForCreateTabMenu; track tab; let i = $index) {
+      @if (!tab.hideForCreateTabMenu) {
+        @if (tab.addOptions?.length) {
+          @for (option of tab.addOptions; track option; let j = $index) {
+            <li
+              (click)="createTabByTabIndex(i, option.id)"
+              [attr.data-testid]="option.label">
+              {{ option.label | translate }}
+            </li>
+          }
+        }
+        @else {
+          <li
+            (click)="createTabByTabIndex(i)"
+            [attr.data-testid]="tab.gridTabLabel">
+            {{ tab.gridTabLabel || '' | translate }}
+          </li>
+        }
+      }
+    }
+  </ul>
+}

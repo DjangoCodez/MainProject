@@ -1,0 +1,328 @@
+﻿<#
+/*
+   Copyright (c) 2009, thinktecture (http://www.thinktecture.com).
+   All rights reserved.
+
+   Permission is hereby granted to use this software, for both commercial
+   and non-commercial purposes, without limitations and free of charge.
+   Permission is hereby granted to copy and distribute the software for
+   non-commercial purposes. A commercial distribution is NOT allowed without
+   prior written permission of the authors.
+
+   This software is supplied "AS IS". The authors disclaim all warranties,
+   expressed or implied, including, without limitation, the warranties of
+   merchantability and of fitness for any purpose. The authors assume no
+   liability for direct, indirect, incidental, special, exemplary, or
+   consequential damages, which may result from the use of this software,
+   even if advised of the possibility of such damage.
+*/
+#>
+<#@ template debug="true" hostspecific="true" #>
+<#@ output extension="cs" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#   
+    // USAGE:
+    // 1. Drop this file into your VS project
+    // 2. Rename this file to match this pattern: {YOUR_SERVICECONTRACT_FILE}Async.tt
+    // 3. The async version of your original service contract gets generated as
+    //    {YOUR_SERVICECONTRACT_FILE}Async.cs
+   
+    EnvDTE.DTE dte = GetEnvDTE();
+
+    string sourceFileName = dte.Solution.FindProjectItem(Host.TemplateFile).Name;
+    sourceFileName = sourceFileName.Replace("Async.tt", ".cs");
+  
+    ProjectItem enumProjectItem = dte.Solution.FindProjectItem(sourceFileName);
+    FileCodeModel codeModel = enumProjectItem.FileCodeModel;
+
+    CodeNamespace codeNamespace = FindNamespace(codeModel.CodeElements);
+    CodeInterface codeInterface = FindInterface(codeModel.CodeElements);
+    List<CodeFunction> codeFunctions = FindMethods(codeInterface.Children);
+       
+    //System.Diagnostics.Debugger.Break();
+#>
+using System;
+using System.ServiceModel;
+
+namespace <#= codeNamespace.Name #>
+{
+    [ServiceContract(Name="<#= codeInterface.Name #>")]
+    public interface <#= codeInterface.Name #>Async
+    {                   
+        <#
+            PushIndent("        ");
+           
+            int methodCount = 0;
+           
+            foreach (CodeFunction method in codeFunctions)
+            {
+                if(methodCount > 0)
+                {
+                    WriteLine(String.Empty);
+                    WriteLine(String.Empty);
+                }
+               
+                WriteAsyncOperationContract(method);
+                WriteLine(string.Empty);
+               
+                methodCount ++;
+            }
+           
+            ClearIndent();
+        #>
+    }
+}
+
+<#+
+    private void WriteAsyncCall(CodeFunction method)
+    {
+        string operationContractValue = TryGetOperationContractValue(method);
+       
+        Write("public void " + method.Name + "Async");
+        Write("(");
+		 
+		WriteParameters(method, true, true);
+		
+		if (method.Type.AsString != "void")
+	        Write("object userState, System.EventHandler<ResultAsyncCompletedEventArgs<" + method.Type.AsString + ">> completed) {");
+		else
+			Write("object userState, System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> completed) {");
+
+		PushIndent("    ");
+
+		WriteLine("");
+
+        WriteLine("InvokeAsync(");
+		WriteLine("  new BeginOperationDelegate(OnBegin" + method.Name + "),");
+		Write("  new object[] { ");
+		WriteParameters(method, false, false);
+		Write(" },");
+		WriteLine("");
+		WriteLine("  new EndOperationDelegate(OnEnd" + method.Name + "),");
+		WriteLine("  new System.Threading.SendOrPostCallback(s => {");
+		WriteLine("    if (completed != null) {");
+		WriteLine("      InvokeAsyncCompletedEventArgs e = (InvokeAsyncCompletedEventArgs)s;");
+
+		if (method.Type.AsString != "void")
+			WriteLine("      completed(this, new ResultAsyncCompletedEventArgs<" + method.Type.AsString + ">((e.Results != null && e.Results.Length > 0) ? (" + method.Type.AsString + ")e.Results[0] : default(" + method.Type.AsString + "), e.Error, e.Cancelled, e.UserState));");
+		else
+			WriteLine("      completed(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));");
+
+		WriteLine("    }");
+		WriteLine("  }),");
+		WriteLine("  userState);");
+
+		ClearIndent();
+        PushIndent("        ");
+
+        WriteLine("}");
+    }
+
+	private string GetClientClassName(string interfaceName)
+	{
+		if (interfaceName != null & interfaceName.Length > 0 && interfaceName[0] == 'I')
+			return interfaceName.Substring(1);
+		else
+			return interfaceName;
+	}
+
+    private void WriteBeginCall(CodeFunction method)
+    {
+	    WriteLine("private System.IAsyncResult OnBegin" + method.Name + "(object[] inValues, System.AsyncCallback callback, object asyncState) {");
+
+		PushIndent("    ");
+
+        int count = 0;
+        foreach(CodeElement element in method.Parameters)
+        {
+            CodeParameter parameter = element as CodeParameter;
+       
+            if (parameter != null)
+            {
+                WriteLine(parameter.Type.AsString + " " + parameter.Name + " = ((" + parameter.Type.AsString + ")inValues[" + count + "]);");
+               
+                count++;
+            }
+        }
+
+        Write("return Channel.Begin" + method.Name + "(");
+		WriteParameters(method, false, true);
+		Write("callback, asyncState);");
+		WriteLine("");
+
+		ClearIndent();
+        PushIndent("        ");
+
+        WriteLine("}");
+	}
+
+    private void WriteEndCall(CodeFunction method)
+    {
+	    WriteLine("private object[] OnEnd" + method.Name + "(System.IAsyncResult result) {");
+
+		PushIndent("    ");
+
+		if (method.Type.AsString != "void")
+		{
+			WriteLine("return new object[] { Channel.End" + method.Name + "(result) };");
+		}
+		else
+		{
+			WriteLine("Channel.End" + method.Name + "(result);");
+			WriteLine("return null;");
+		}
+
+		ClearIndent();
+        PushIndent("        ");
+
+        WriteLine("}");
+	}
+
+	private void WriteParameters(CodeFunction method, bool includeTypes, bool trailingComma)
+	{
+        int count = 0;           
+        foreach(CodeElement element in method.Parameters)
+        {
+            CodeParameter parameter = element as CodeParameter;
+       
+            if (parameter != null)
+            {
+				if (includeTypes)
+					Write(parameter.Type.AsString + " ");
+
+				Write(parameter.Name);
+              
+                if (count < method.Parameters.Count && (trailingComma || (count != method.Parameters.Count - 1)))
+                    Write(", ");
+               
+                count++;
+            }
+        }
+	}
+   
+    private void WriteAsyncOperationContract(CodeFunction method)
+    {
+        string operationContractValue = TryGetOperationContractValue(method);
+       
+        WriteLine("[OperationContract(");
+       
+        if(String.IsNullOrEmpty(operationContractValue))
+        {           
+            //Write("    Action = \"");
+            //Write(method.Name + "\",");
+            //WriteLine(String.Empty);
+            //Write("    ReplyAction = \"");
+            //Write(method.Name + "Reply\",");
+            //WriteLine(String.Empty);
+        }
+        else
+        {
+            ClearIndent();
+            WriteLine("            " + operationContractValue + ",");
+            PushIndent("        ");
+        }
+       
+        WriteLine("    AsyncPattern = true)]");
+       
+        Write("IAsyncResult Begin");
+        Write(method.Name);
+        Write("(");
+               
+		WriteParameters(method, true, true);
+       
+        Write("AsyncCallback callback, object asyncState);");
+       
+        WriteLine(String.Empty);
+        WriteLine(String.Empty);
+       
+        Write(method.Type.AsString + " ");
+        Write("End");
+        Write(method.Name);
+        Write("(IAsyncResult result);");       
+    }
+   
+    private string TryGetOperationContractValue(CodeFunction method)
+    {
+        string attributeValue = String.Empty;
+       
+        foreach(CodeElement attributeElement in method.Attributes)
+        {
+            CodeAttribute attribute = attributeElement as CodeAttribute;
+           
+            if(attribute != null)
+            {       
+                if(attribute.Name == "OperationContract" || attribute.Name == "OperationContractAttribute")
+                {
+                    attributeValue = attribute.Value;
+                    break;
+                }
+            }
+        }
+       
+        return attributeValue;
+    }
+   
+    private CodeNamespace FindNamespace(CodeElements elements)
+    {
+        foreach (CodeElement element in elements)
+        {
+            CodeNamespace ns = element as CodeNamespace;
+       
+            if (ns != null)
+                return ns;
+        }
+   
+        return null;
+    }
+   
+    private CodeInterface FindInterface(CodeElements elements)
+    {
+        foreach (CodeElement element in elements)
+        {
+            CodeInterface codeInterface = element as CodeInterface;
+       
+            if (codeInterface != null)
+                return codeInterface;
+   
+            codeInterface = FindInterface(element.Children);
+   
+            if (codeInterface != null)
+                return codeInterface;
+        }
+   
+        return null;
+    }
+   
+    private List<CodeFunction> FindMethods(CodeElements elements)
+    {
+        List<CodeFunction> methods = new List<CodeFunction>();
+       
+        foreach (CodeElement element in elements)
+        {
+            CodeFunction method = element as CodeFunction;
+       
+            if (method != null)
+                methods.Add(method);           
+        }
+   
+        return methods;
+    }
+   
+    private EnvDTE.DTE GetEnvDTE()
+    {
+        IServiceProvider hostServiceProvider = (IServiceProvider)Host;
+       
+        if (hostServiceProvider == null)
+               throw new Exception("Host property returned unexpected value (null)");
+       
+        EnvDTE.DTE dte = (EnvDTE.DTE)hostServiceProvider.GetService(typeof(EnvDTE.DTE));
+       
+        if (dte == null)
+               throw new Exception("Unable to retrieve EnvDTE.DTE");
+   
+        return dte;
+    }
+#>

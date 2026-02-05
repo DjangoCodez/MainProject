@@ -1,0 +1,28 @@
+@use '../../styles/core-styles/colors.scss';
+@use '../../styles/core-styles/fonts.scss';
+
+:host ::ng-deep .ag-row-footer > .ag-cell-value {
+  font-weight: fonts.$font-weight-bold;
+}
+
+:host ::ng-deep {
+  .totals-grid {
+    soe-checkbox-cell-renderer {
+      display: none;
+    }
+  }
+}
+
+.ag-body-viewport {
+  overflow-y: scroll !important;
+}
+
+.soe-grid-totals {
+  height: 24px;
+  margin: -1px;
+  border: 1px solid colors.$soe-border-color;
+  border-top-width: 0px;
+  background-color: colors.$soe-header-background-color;
+  padding: 4px 8px 4px 8px;
+  font-size: fonts.$soe-font-size-md;
+}

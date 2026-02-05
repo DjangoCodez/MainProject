@@ -1,0 +1,118 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-panel label-key="common.expensetype" is-open="true">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-select label-key="common.type" model="ctrl.timeCode.expenseType" items="ctrl.expenseTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission" set-focus="true" on-changing="ctrl.expenseTypeChanged();"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.code" model="ctrl.timeCode.code" required="true" maxlength="20" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                            <div class="col-sm-8">
+                                <soe-textbox label-key="common.name" model="ctrl.timeCode.name" required="true" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="common.description" model="ctrl.timeCode.description" maxlength="512" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-select label-key="time.time.timecode.registrationtype" model="ctrl.timeCode.registrationType" required="true" items="ctrl.registrationTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                        </div>
+                        <div class="col-sm-4" data-ng-hide="ctrl.timeCode.registrationType !== 2" >
+                            <soe-textbox label-key="time.time.timecode.fixedquantity" model="ctrl.timeCode.fixedQuantity" numeric="true" decimals="0" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div>
+                                <soe-checkbox label-key="time.time.timecode.hideforemployee" model="ctrl.timeCode.hideForEmployee" is-readonly="!ctrl.modifyPermission" inline="true"></soe-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-hide="ctrl.hideShowInTerminal">
+                        <div class="col-sm-4">
+                            <div>
+                                <soe-checkbox label-key="time.schedule.scheduletype.showinterminal" model="ctrl.timeCode.showInTerminal" is-readonly="!ctrl.modifyPermission" inline="true"></soe-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+            </div>
+            <div class="col-sm-6">
+                <soe-panel label-key="time.time.timecodeadditiondeductions.stopat" is-open="true">
+                    <div class="row" data-ng-if="ctrl.showStopAtDateStart">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="time.time.timecodeadditiondeductions.stopatdatestart" model="ctrl.timeCode.stopAtDateStart"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.showStopAtDateStop">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="time.time.timecodeadditiondeductions.stopatdatestop" model="ctrl.timeCode.stopAtDateStop"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.showStopAtPrice">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="common.price" model="ctrl.timeCode.stopAtPrice"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.showStopAtVat">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="common.vat" model="ctrl.timeCode.stopAtVat"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.showStopAtComment">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="common.comment" model="ctrl.timeCode.stopAtComment"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.showStopAtComment">
+                        <div class="col-sm-11 margin-large-left">
+                            <soe-checkbox label-key="core.mandatory" model="ctrl.timeCode.commentMandatory"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.showStopAtAccounting">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="common.accounting" model="ctrl.timeCode.stopAtAccounting"></soe-checkbox>
+                        </div>
+                    </div>
+                </soe-panel>
+            </div>
+        </div>
+
+        <div class="row margin-large-top margin-large-bottom">
+            <div class="col-sm-6">
+                <time-code-payroll-products time-code-products="ctrl.timeCode.payrollProducts" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></time-code-payroll-products>
+            </div>
+            <div class="col-sm-6">
+                <time-code-invoice-products time-code-products="ctrl.timeCode.invoiceProducts" time-code-type="ctrl.timeCode.type" expense-type="ctrl.timeCode.expenseType" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></time-code-invoice-products>
+            </div>
+        </div>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.timeCode"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.timeCode.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

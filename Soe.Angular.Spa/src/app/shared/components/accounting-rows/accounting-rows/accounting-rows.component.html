@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="my-2">
+    <div class="float-end">
+      @if (!isReadOnly()) {
+        <soe-button
+          class="ms-3"
+          [caption]="'common.newrow'"
+          [tooltip]="'common.newrow'"
+          [iconName]="'plus'"
+          [behaviour]="'standard'"
+          (action)="addRow(true)"></soe-button>
+      }
+      @if (showRegenerateButton() && !isReadOnly()) {
+        <soe-button
+          class="ms-3"
+          [caption]="'common.accountingrows.regeneraterows'"
+          [tooltip]="'common.accountingrows.regeneraterowstooltip'"
+          [iconName]="'sync'"
+          typeClass="btn btn-secondary"
+          [behaviour]="'standard'"
+          (action)="initRegenerateRows()"></soe-button>
+      }
+      @if (showReloadAccountsButton()) {
+        <soe-button
+          class="ms-3"
+          [caption]="'common.accountingrows.reloadaccounts'"
+          [tooltip]="'common.accountingrows.reloadaccounts'"
+          [iconName]="'sync'"
+          [behaviour]="'standard'"
+          (action)="loadAccountsRows()"></soe-button>
+      }
+    </div>
+  </div>
+</div>
+
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="gridRowsSubject"
+    [noMargin]="true"
+    [parentGuid]="guid()"
+    [masterDetail]="true"
+    (editRowClicked)="edit($event)"
+    [height]="250">
+  </soe-grid-wrapper>
+}

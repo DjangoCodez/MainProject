@@ -1,0 +1,28 @@
+﻿<div>
+    <div data-ng-if="ctrl.showTimeCodeTransactionsPermission">
+        <table class="table table-more-condensed table-outer-bordered table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 20px"><span style="margin-left: 2px;"><i class="fal fa-fw link" data-ng-class="{'fa-chevron-down': ctrl.expanded, 'fa-chevron-right': !ctrl.expanded}" data-ng-click="ctrl.toggleExpanded();"></i></span></th>
+                    <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('timeCodeName');"><span><span data-l10n-bind="'common.timecode'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='timeCodeName' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='timeCodeName' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='timeCodeName'"></i></span></th>
+                    <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('timeRuleName');"><span><span data-l10n-bind="'time.time.attest.timerule'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='timeRuleName' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='timeRuleName' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='timeRuleName'"></i></span></th>
+                    <th scope="col" class="column-sortable right-align-cell" data-ng-click="ctrl.sort('timeRuleSort');"><span><span data-l10n-bind="'core.sorting.short'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='timeRuleSort' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='timeRuleSort' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='timeRuleSort'"></i></span></th>
+                    <th scope="col" class="column-sortable right-align-cell" data-ng-click="ctrl.sort('startTime');"><span><span data-l10n-bind="'common.start'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='startTime' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='startTime' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='startTime'"></i></span></th>
+                    <th scope="col" class="column-sortable right-align-cell" data-ng-click="ctrl.sort('stopTime');"><span><span data-l10n-bind="'common.end'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='stopTime' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='stopTime' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='stopTime'"></i></span></th>
+                    <th scope="col" class="column-sortable right-align-cell" data-ng-click="ctrl.sort('quantityString');"><span><span data-l10n-bind="'common.quantity'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='quantityString' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='quantityString' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='quantityString'"></i></span></th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="trans in ctrl.model.timeCodeTransactions | orderBy:ctrl.sortBy:ctrl.sortByReverse track by $index" data-ng-if="ctrl.expanded">
+                <tr data-ng-class="{'table-selected-row': ctrl.selectedTransaction === trans, 'marked': trans.timeCodeTransactionId > 0 && trans.timeCodeTransactionId === ctrl.selectedTimeCodeTransactionId}" data-ng-click="ctrl.transactionSelected(trans)">
+                    <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedTransaction === trans"></i></td>
+                    <td><span>{{trans.timeCodeName}}</span></td>
+                    <td><span class="margin-small-right">{{trans.timeRuleId}}</span><i class="fal fa-pencil iconEdit link margin-small-right" data-l10n-bind data-l10n-bind-title="'time.time.attest.timerule.edit'" data-ng-if="ctrl.showTimeRulePermission && trans.timeRuleId" data-ng-click="ctrl.editTimeRule(trans.timeRuleId);"></i><span>{{trans.timeRuleName}}</span></td>
+                    <td class="right-align-cell"><span>{{trans.timeRuleSort}}</span></td>
+                    <td class="right-align-cell"><span data-ng-if="!trans.isTimeZero">{{trans.startTime | date:'shortTime'}}</span></td>
+                    <td class="right-align-cell"><span data-ng-if="!trans.isTimeZero">{{trans.stopTime | date:'shortTime'}}</span></td>
+                    <td class="right-align-cell"><span>{{trans.quantityString}}</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

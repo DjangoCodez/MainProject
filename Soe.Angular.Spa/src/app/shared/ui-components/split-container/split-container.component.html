@@ -1,0 +1,20 @@
+<div class="flex-container" [class.noselect]="isGrabbing()">
+  <div #leftElement class="flex-item" [class.hidden]="hideLeftContent()">
+    <ng-content class="flex-item-left" select="[left]"></ng-content>
+  </div>
+  <div
+    #divider
+    class="divider"
+    [class.no-margins]="dividerNoMargins()"
+    [class.hidden]="hideLeftContent() || hideRightContent()"
+    [style.width.px]="dividerWidth()"
+    [class.grabbing]="isGrabbing()"
+    (mousedown)="dividerMouseDown()">
+    <div class="handle" #handle [style.margin-top.px]="offset()">
+      <fa-icon [icon]="['fas', 'grip-vertical']"></fa-icon>
+    </div>
+  </div>
+  <div #rightElement class="flex-item" [class.hidden]="hideRightContent()">
+    <ng-content class="flex-item-right" select="[right]"></ng-content>
+  </div>
+</div>

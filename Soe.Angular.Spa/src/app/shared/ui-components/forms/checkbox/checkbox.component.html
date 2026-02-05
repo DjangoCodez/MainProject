@@ -1,0 +1,31 @@
+<div
+  class="form-check"
+  [class.form-switch]="behaviour() === 'switch'"
+  [ngClass]="{
+    inline: inline(),
+    'form-check-inline me-3': inline(),
+    'mt-2': !noMargin() && !inline() && !inToolbar(),
+    'mt-1': inToolbar()
+  }">
+  <input
+    [id]="inputId()"
+    #input
+    type="checkbox"
+    [attr.role]="behaviour() === 'switch' ? 'switch' : null"
+    class="form-check-input"
+    [checked]="control.value"
+    [formControl]="control"
+    (change)="onValueChange(input.checked)" />
+  @if (hasLabel()) {
+    <soe-label
+      [labelKey]="labelKey()"
+      [forRef]="inputId()"
+      [labelClass]="'form-check-label'"
+      [secondaryLabelKey]="secondaryLabelKey()"
+      [secondaryLabelBold]="secondaryLabelBold()"
+      [secondaryLabelParantheses]="secondaryLabelParantheses()"
+      [secondaryLabelPostfixKey]="secondaryLabelPostfixKey()"
+      [secondaryLabelPrefixKey]="secondaryLabelPrefixKey()"
+      [isRequired]="isRequired()"></soe-label>
+  }
+</div>

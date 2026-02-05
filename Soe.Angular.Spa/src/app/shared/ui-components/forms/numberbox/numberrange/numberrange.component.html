@@ -1,0 +1,60 @@
+<form [formGroup]="form" novalidate autocomplete="off">
+  <div class="row">
+    <div class="col-sm-6 left-picker">
+      <soe-numberbox
+        #numberFrom
+        [id]="inputIdFrom()"
+        [labelKey]="labelKeyFrom()"
+        [secondaryLabelKey]="secondaryLabelKeyFrom()"
+        [secondaryLabelBold]="secondaryLabelBoldFrom()"
+        [secondaryLabelParantheses]="secondaryLabelParanthesesFrom()"
+        [secondaryLabelPrefixKey]="secondaryLabelPrefixKeyFrom()"
+        [secondaryLabelPostfixKey]="secondaryLabelPostfixKeyFrom()"
+        [width]="width()"
+        [decimals]="decimals()"
+        [step]="step()"
+        [inline]="inline()"
+        [alignInline]="alignInline()"
+        [showArrows]="showStepArrows()"
+        [showLeftRangeArrow]="showRangeArrows()"
+        [inRange]="true"
+        [manualDisabled]="isDisabled()"
+        (stepLeft)="stepLeft()"
+        (valueChanged)="updateFrom($event)"
+        formControlName="valueFrom">
+      </soe-numberbox>
+    </div>
+    @if (separatorDash()) {
+      <div class="col-sm-1 d-flex separator-dash" [class.inline]="inline()">
+        <soe-label [labelKey]="'-'"> </soe-label>
+      </div>
+    }
+    <div class="col-sm-6 right-picker">
+      <soe-numberbox
+        #numberTo
+        [id]="inputIdTo()"
+        [labelKey]="labelKeyTo()"
+        [secondaryLabelKey]="secondaryLabelKeyTo()"
+        [secondaryLabelBold]="secondaryLabelBoldTo()"
+        [secondaryLabelParantheses]="secondaryLabelParanthesesTo()"
+        [secondaryLabelPrefixKey]="secondaryLabelPrefixKeyTo()"
+        [secondaryLabelPostfixKey]="secondaryLabelPostfixKeyTo()"
+        [width]="width()"
+        [decimals]="decimals()"
+        [step]="step()"
+        [inline]="inline()"
+        [alignInline]="alignInline()"
+        [showArrows]="showStepArrows()"
+        [showRightRangeArrow]="showRangeArrows()"
+        [inRange]="true"
+        [manualDisabled]="isDisabled()"
+        (stepRight)="stepRight()"
+        (valueChanged)="updateTo($event)"
+        formControlName="valueTo">
+      </soe-numberbox>
+    </div>
+  </div>
+  @if (description()) {
+    <span class="description">{{ description() | translate }}</span>
+  }
+</form>

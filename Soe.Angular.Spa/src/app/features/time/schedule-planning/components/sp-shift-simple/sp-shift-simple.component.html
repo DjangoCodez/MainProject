@@ -1,0 +1,79 @@
+<div
+  [id]="shift().timeScheduleTemplateBlockId"
+  class="shift"
+  [style.background-color]="shift().shiftTypeColor"
+  [style.color]="shift().textColor"
+  [class.is-clickable]="isClickable()"
+  [class.is-preliminary]="shift().isPreliminary"
+  [class.is-absence]="shift().isAbsence"
+  [class.is-absence-request]="shift().isAbsenceRequest"
+  [class.has-absence-request]="shift().hasAbsenceRequest"
+  [class.is-booking]="shift().isBooking"
+  [class.is-onduty]="shift().isOnDuty"
+  [class.is-standby]="shift().isStandby"
+  [class.is-leisure-code]="shift().isLeisureCode"
+  [class.is-hidden]="!shift().isVisible"
+  (click)="onShiftClick($event)">
+  <div class="first-row">
+    @if (shift().timeDeviationCauseId) {
+      <div class="deviation-cause me-2">
+        {{ shift().timeDeviationCauseName }}
+      </div>
+    }
+    @if (!shift().isAbsenceRequest && !shift().isLeisureCode) {
+      <div class="shift-time">
+        <!-- Show date -->
+        @if (showDate()) {
+          <span class="me-2">{{
+            shift().actualStartDate | date: 'shortDate'
+          }}</span>
+        }
+        <!-- Show whole day text or time -->
+        @if (shift().isWholeDay) {
+          <span>{{ 'time.schedule.planning.wholedaylabel' | translate }}</span>
+        } @else {
+          <span
+            >{{ shift().startTime | date: 'shortTime' }}-{{
+              shift().stopTime | date: 'shortTime'
+            }}</span
+          >
+          @if (shiftBreaksLength() > 0) {
+            <span class="ms-1"
+              >({{ shiftBreaksLength() | minutesToTimeSpan }})</span
+            >
+          }
+        }
+      </div>
+    }
+  </div>
+  <div class="second-row">
+    <div class="shift-types">
+      @if (!shift().isAbsenceRequest) {
+        <span class="shift-type">{{ shift().shiftTypeName }}</span>
+        @if (scheduleTypeText()) {
+          <span class="mx-1">-</span>
+          <span>{{ scheduleTypeText() }}</span>
+        }
+        @if (shift().description) {
+          <span class="mx-1">-</span>
+          <span class="description">{{ shift().description }}</span>
+        }
+      }
+    </div>
+  </div>
+
+  <!-- Icons -->
+  <div class="shift-icons">
+    @if (shift().isStandby) {
+      <fa-icon [icon]="['fal', 'alarm-snooze']"></fa-icon>
+    } @else if (shift().isOnDuty) {
+      <fa-icon [icon]="['fal', 'alarm-exclamation']"></fa-icon>
+    }
+    @if (shift().extraShift) {
+      <fa-icon [icon]="['fal', 'calendar-plus']"></fa-icon>
+    }
+    @if (shift().substituteShift) {
+      <fa-icon [icon]="['fal', 'user-plus']"></fa-icon>
+    }
+  </div>
+</div>

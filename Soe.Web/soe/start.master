@@ -1,0 +1,27 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/base.Master" AutoEventWireup="true" CodeBehind="start.master.cs" Inherits="SoftOne.Soe.Web.soe.start" %>
+
+<%@ Register TagName="TopMenu" TagPrefix="SOE" Src="~/UserControls/Layout/TopMenu.ascx" %>
+<%@ Register TagName="SessionTimeout" TagPrefix="SOE" Src="~/UserControls/SessionTimeout.ascx" %>
+<asp:Content ID="baseMasterBodyContent" ContentPlaceHolderID="baseMasterBody" runat="server">
+    <!-- Invisible controls -->
+
+    <div class="container-fluid bootstrap-master">
+        <!-- Top menu -->
+        <div class="row top start-page">
+            <SOE:TopMenu ID="soeTopMenu" runat="server" />
+        </div>
+        <div class="row start-page">
+            <!-- Main content -->
+            <div class="main-content">
+                <div>
+                    <div class="col-sm-12">
+                        <div id="LayoutLeftContent">
+                            <asp:ContentPlaceHolder ID="soeLeftContent" Visible="false" runat="server" />
+                        </div>
+                        <asp:ContentPlaceHolder ID="soeMainContent" runat="server" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</asp:Content>

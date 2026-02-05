@@ -1,0 +1,43 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'manage.system.admin.sysinformation.sysfeatures'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-checkbox label-key="manage.system.admin.sysinformation.sysfeatures.onlyselected" model="ctrl.showOnlySelected"></soe-checkbox>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <soe-textbox hidelabel="true" model="ctrl.filter"></soe-textbox>
+
+                <div class="table-scrollable-wrapper">
+                    <div class="table-scrollable" style="height: 622px;">
+                        <table class="table table-more-condensed table-hover table-outer-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width: 20px;"></th>
+                                    <th scope="col" data-l10n-bind="'common.name'"></th>
+                                    <th scope="col" class="right-align-cell" style="width: 100px;">SysFeatureId</th>
+                                </tr>
+                            </thead>
+                            <tbody data-ng-repeat="feature in ctrl.filteredSysFeatures track by $index">
+                                <tr class="link" data-ng-click="feature.selected = !feature.selected">
+                                    <td><i class="fal" data-ng-class="{'fa-check-square': feature.selected, 'fa-square': !feature.selected}"></i></td>
+                                    <td><span>{{feature.name}}</span></td>
+                                    <td class="right-align-cell"><span>{{feature.id}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

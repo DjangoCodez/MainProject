@@ -1,0 +1,438 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'time.time.timedeviationcause.type'"
+          [selectedId]="form.value.type"
+          [items]="this.service.performTypes.data || []"
+          [required]="true"
+          formControlName="type">
+        </soe-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          [autoFocus]="true"
+          [required]="true"
+          formControlName="name">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-6">
+        <soe-textarea
+          [labelKey]="'common.description'"
+          [maxLength]="512"
+          [rows]="1"
+          formControlName="description">
+        </soe-textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'time.time.timedeviationcause.extcode'"
+          [maxLength]="50"
+          formControlName="extCode">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-expansion-panel
+              [labelKey]="'common.settings'"
+              [open]="false"
+              [addTopMargin]="true">
+              <div class="col-sm-12">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <div class="row">
+                      <div class="col-sm-10">
+                        <soe-select
+                          [labelKey]="'time.time.timedeviationcause.timecodeid'"
+                          [selectedId]="form.value.timeCodeId"
+                          [items]="timeCodes"
+                          formControlName="timeCodeId">
+                        </soe-select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="row">
+                      <div class="col-sm-10">
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.onlyWholeDay'
+                            "
+                            [checked]="form.value.onlyWholeDay"
+                            formControlName="onlyWholeDay">
+                          </soe-checkbox>
+                        </div>
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="'time.time.timedeviationcause.payed'"
+                            [checked]="form.value.payed"
+                            formControlName="payed">
+                          </soe-checkbox>
+                        </div>
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.notChargeable'
+                            "
+                            [checked]="form.value.notChargeable"
+                            formControlName="notChargeable">
+                          </soe-checkbox>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="row">
+                      <div class="col-sm-10">
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.validforstandby'
+                            "
+                            [checked]="form.value.validForStandby"
+                            formControlName="validForStandby">
+                          </soe-checkbox>
+                        </div>
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.validforhibernating'
+                            "
+                            [checked]="form.value.validForHibernating"
+                            formControlName="validForHibernating">
+                          </soe-checkbox>
+                        </div>
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.candidateforovertime'
+                            "
+                            [checked]="form.value.candidateForOvertime"
+                            formControlName="candidateForOvertime">
+                          </soe-checkbox>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="row">
+                      <div class="col-sm-10">
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.calculateasothertimeinsales'
+                            "
+                            [checked]="form.value.calculateAsOtherTimeInSales"
+                            formControlName="calculateAsOtherTimeInSales">
+                          </soe-checkbox>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <soe-expansion-panel
+                        [labelKey]="'common.absence'"
+                        [addTopMargin]="true"
+                        [static]="true">
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.isVacation'
+                            "
+                            [checked]="form.value.isVacation"
+                            formControlName="isVacation">
+                          </soe-checkbox>
+                        </div>
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.specifyChild'
+                            "
+                            [checked]="form.value.specifyChild"
+                            formControlName="specifyChild">
+                          </soe-checkbox>
+                        </div>
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.showZeroDaysInAbsencePlanning'
+                            "
+                            [checked]="form.value.showZeroDaysInAbsencePlanning"
+                            formControlName="showZeroDaysInAbsencePlanning">
+                          </soe-checkbox>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <soe-numberbox
+                              [labelKey]="
+                                'time.time.timedeviationcause.attachZeroDaysNbrOfDaysBefore'
+                              "
+                              [showArrows]="true"
+                              [disallowNegative]="true"
+                              formControlName="attachZeroDaysNbrOfDaysBefore">
+                            </soe-numberbox>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <soe-numberbox
+                              [labelKey]="
+                                'time.time.timedeviationcause.attachZeroDaysNbrOfDaysAfter'
+                              "
+                              [showArrows]="true"
+                              [disallowNegative]="true"
+                              formControlName="attachZeroDaysNbrOfDaysAfter">
+                            </soe-numberbox>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <soe-numberbox
+                              [labelKey]="
+                                'time.time.timedeviationcause.employeeRequestPolicyNbrOfDaysBefore'
+                              "
+                              [showArrows]="true"
+                              [disallowNegative]="true"
+                              formControlName="employeeRequestPolicyNbrOfDaysBefore">
+                            </soe-numberbox>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.employeeRequestPolicyNbrOfDaysBeforeCanOverride'
+                            "
+                            [checked]="
+                              form.value
+                                .employeeRequestPolicyNbrOfDaysBeforeCanOverride
+                            "
+                            formControlName="employeeRequestPolicyNbrOfDaysBeforeCanOverride">
+                          </soe-checkbox>
+                        </div>
+                      </soe-expansion-panel>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <soe-expansion-panel
+                        [labelKey]="'common.time'"
+                        [addTopMargin]="true"
+                        [static]="true">
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.changeDeviationCauseAccordingToPlannedAbsence'
+                            "
+                            [checked]="
+                              form.value
+                                .changeDeviationCauseAccordingToPlannedAbsence
+                            "
+                            formControlName="changeDeviationCauseAccordingToPlannedAbsence"
+                            (valueChanged)="
+                              onPlannedAbsenceCheckboxChanged($event)
+                            ">
+                          </soe-checkbox>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <soe-timebox
+                              [labelKey]="
+                                'time.time.timedeviationcause.changeCauseOutsideOfPlannedAbsence'
+                              "
+                              [secondaryLabelKey]="
+                                form.value.changeCauseOutsideOfPlannedAbsence ||
+                                0
+                              "
+                              [secondaryLabelPostfixKey]="
+                                'core.time.short.minute'
+                              "
+                              [secondaryLabelLowercase]="true"
+                              [isDuration]="true"
+                              (valueChanged)="
+                                changeCauseOutsideOfPlannedAbsenceChanged(
+                                  $event
+                                )
+                              "
+                              formControlName="changeCauseOutsideOfPlannedAbsenceFormatted">
+                            </soe-timebox>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <soe-timebox
+                              [labelKey]="
+                                'time.time.timedeviationcause.changeCauseInsideOfPlannedAbsence'
+                              "
+                              [secondaryLabelKey]="
+                                form.value.changeCauseInsideOfPlannedAbsence ||
+                                0
+                              "
+                              [secondaryLabelPostfixKey]="
+                                'core.time.short.minute'
+                              "
+                              [secondaryLabelLowercase]="true"
+                              [isDuration]="true"
+                              (valueChanged)="
+                                changeCauseInsideOfPlannedAbsenceChanged($event)
+                              "
+                              formControlName="changeCauseInsideOfPlannedAbsenceFormatted">
+                            </soe-timebox>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <soe-timebox
+                              [labelKey]="
+                                'time.time.timedeviationcause.adjustTimeOutsideOfPlannedAbsence'
+                              "
+                              [secondaryLabelKey]="
+                                form.value.adjustTimeOutsideOfPlannedAbsence ||
+                                0
+                              "
+                              [secondaryLabelPostfixKey]="
+                                'core.time.short.minute'
+                              "
+                              [secondaryLabelLowercase]="true"
+                              [isDuration]="true"
+                              (valueChanged)="
+                                adjustTimeOutsideOfPlannedAbsenceChanged($event)
+                              "
+                              formControlName="adjustTimeOutsideOfPlannedAbsenceFormatted">
+                            </soe-timebox>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <soe-timebox
+                              [labelKey]="
+                                'time.time.timedeviationcause.adjustTimeInsideOfPlannedAbsence'
+                              "
+                              [secondaryLabelKey]="
+                                form.value.adjustTimeInsideOfPlannedAbsence || 0
+                              "
+                              [secondaryLabelPostfixKey]="
+                                'core.time.short.minute'
+                              "
+                              [secondaryLabelLowercase]="true"
+                              [isDuration]="true"
+                              (valueChanged)="
+                                adjustTimeInsideOfPlannedAbsenceChanged($event)
+                              "
+                              formControlName="adjustTimeInsideOfPlannedAbsenceFormatted">
+                            </soe-timebox>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.allowGapToPlannedAbsence'
+                            "
+                            [checked]="form.value.allowGapToPlannedAbsence"
+                            formControlName="allowGapToPlannedAbsence">
+                          </soe-checkbox>
+                        </div>
+                      </soe-expansion-panel>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <soe-expansion-panel
+                        [labelKey]="
+                          'time.time.timedeviationcause.deviationregistration'
+                        "
+                        [static]="true">
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.mandatoryNote'
+                            "
+                            [checked]="form.value.mandatoryNote"
+                            formControlName="mandatoryNote">
+                          </soe-checkbox>
+                        </div>
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.mandatoryTime'
+                            "
+                            [checked]="form.value.mandatoryTime"
+                            formControlName="mandatoryTime">
+                          </soe-checkbox>
+                        </div>
+                      </soe-expansion-panel>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <soe-expansion-panel
+                        [labelKey]="'time.schedule.planning.workrules'"
+                        [static]="true">
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.excludeFromPresenceWorkRules'
+                            "
+                            [checked]="form.value.excludeFromPresenceWorkRules"
+                            formControlName="excludeFromPresenceWorkRules">
+                          </soe-checkbox>
+                        </div>
+                        <div class="row">
+                          <soe-checkbox
+                            [labelKey]="
+                              'time.time.timedeviationcause.excludeFromScheduleWorkRules'
+                            "
+                            [checked]="form.value.excludeFromScheduleWorkRules"
+                            formControlName="excludeFromScheduleWorkRules">
+                          </soe-checkbox>
+                        </div>
+                      </soe-expansion-panel>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </soe-expansion-panel>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

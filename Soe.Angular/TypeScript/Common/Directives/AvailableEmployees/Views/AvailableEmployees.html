@@ -1,0 +1,41 @@
+﻿<div>
+    <div class="row">
+        <span data-l10n-bind="'time.availableemployees.filterheader'"></span>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <soe-checkbox label-key="time.schedule.shifttype.shifttype" model="ctrl.filterOnShiftType" use-ignore-dirty="true"></soe-checkbox>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <soe-checkbox label-key="time.schedule.skill.skills" model="ctrl.filterOnSkills" use-ignore-dirty="true"></soe-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <soe-checkbox label-key="time.schedule.planning.workrules" model="ctrl.filterOnWorkRules" use-ignore-dirty="true"></soe-checkbox>
+            </div>
+        </div>
+        <div class="col-sm-6" data-ng-if="ctrl.showAvailability">
+            <div class="row">
+                <soe-checkbox label-key="time.schedule.planning.availability" model="ctrl.filterOnAvailability" use-ignore-dirty="true"></soe-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="row" data-ng-if="ctrl.messageGroups && ctrl.messageGroups.length > 0">
+        <div class="col-sm-6">
+            <div class="row">
+                <soe-select label-key="common.receiverslist.messagegroup" model="ctrl.filterOnMessageGroupId" items="ctrl.messageGroups" options="item.recordId as item.name for item in items" edit-icon="fa-pen" edit-tooltip-key="common.editmessagegroups" edit-disabled="!ctrl.editMessageGroupPermission" on-edit-click="ctrl.openMessageGroups()"></soe-select>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-large-top">
+        <button class="btn btn-sm btn-default" data-l10n-bind data-l10n-bind-title="'core.filter'" data-ng-click="ctrl.filter()">
+            <span><span data-l10n-bind="'core.filter'"></span><i class="fal fa-sync link margin-small-left" data-ng-class="{'fa-spin': ctrl.filtering}"></i></span>
+        </button>
+    </div>
+</div>

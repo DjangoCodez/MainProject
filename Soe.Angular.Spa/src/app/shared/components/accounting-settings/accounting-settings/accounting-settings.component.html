@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-xs-12">
+    @if (!hideAccordion) {
+      <soe-expansion-panel
+        [labelKey]="labelKey"
+        [noPadding]="true"
+        [noMargin]="true"
+        [static]="true">
+        <div>
+          @if (flowHandler.allowFetchGrid()) {
+            <soe-grid-wrapper
+              [rows]="settingsRows"
+              [height]="256"
+              [parentGuid]="guid()"
+              [noMargin]="true"
+              [toolbarGroups]="[]">
+            </soe-grid-wrapper>
+          }
+        </div>
+      </soe-expansion-panel>
+    }
+    @if (hideAccordion) {
+      <div>
+        @if (flowHandler.allowFetchGrid()) {
+          <soe-grid-wrapper
+            [rows]="settingsRows"
+            [height]="256"
+            [parentGuid]="guid()"
+            [noMargin]="true"
+            [toolbarGroups]="[]">
+          </soe-grid-wrapper>
+        }
+      </div>
+    }
+  </div>
+</div>

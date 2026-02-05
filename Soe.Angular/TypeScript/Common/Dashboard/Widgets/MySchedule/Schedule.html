@@ -1,0 +1,14 @@
+﻿<div class="myschedule-schedule">
+    <table class="table-bordered">
+        <thead>
+            <tr>
+                <th scope="col" class="myschedule-schedule-day-header"></th>
+                <th scope="col" class="myschedule-schedule-day-header" data-ng-repeat="timeSlot in ctrl.timeSlots track by $index">{{timeSlot | minutesToTimeSpan:false:false:true:true:true}}</th>
+                <th scope="col" class="myschedule-schedule-day-header iconcolumn" data-ng-if="ctrl.enableAvailibility">
+                    <span class="fal fa-calendar-check link" data-l10n-bind data-l10n-bind-title="'common.dashboard.myschedule.availability.editperiod'" data-ng-click="ctrl.editAvailability();"></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>

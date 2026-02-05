@@ -1,0 +1,24 @@
+<form [formGroup]="form">
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [parentGuid]="guid()"
+      (editRowClicked)="edit($event)"
+      [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+      <div toolbar-content-left>
+        <soe-checkbox
+          [labelKey]="'economy.accounting.accountdistribution.showopen'"
+          [inToolbar]="true"
+          [inline]="true"
+          formControlName="showOpen"
+          (valueChanged)="showOpenChange($event)"></soe-checkbox>
+        <soe-checkbox
+          [labelKey]="'economy.accounting.accountdistribution.showclosed'"
+          [inToolbar]="true"
+          [inline]="true"
+          formControlName="showClosed"
+          (valueChanged)="showClosedChange($event)"></soe-checkbox>
+      </div>
+    </soe-grid-wrapper>
+  }
+</form>

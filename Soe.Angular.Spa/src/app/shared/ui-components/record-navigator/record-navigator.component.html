@@ -1,0 +1,104 @@
+@if (!hideIfEmpty() || records().length > 1) {
+  <div class="btn-group" role="group">
+    <button
+      type="button"
+      class="btn btn-default btn-navigate"
+      [title]="'core.navigatefirst' | translate"
+      data-testid="moveFirst"
+      [disabled]="index < 1"
+      (click)="moveFirst()">
+      <fa-icon [icon]="['fal', 'chevron-double-left']"></fa-icon>
+    </button>
+    <button
+      type="button"
+      class="btn btn-default btn-navigate"
+      data-testid="movePrev"
+      [title]="'core.navigateleft' | translate"
+      [disabled]="index < 1"
+      (click)="movePrev()">
+      <fa-icon [icon]="['fal', 'chevron-left']"></fa-icon>
+    </button>
+    @if (!hidePosition() && hideDropdown()) {
+      <div class="btn-position no-dropdown">
+        @if (!showRecordName()) {
+          <div class="mt-2">
+            <span class="mx-1">{{ index + 1 }}</span>
+            <span>{{ 'common.of' | translate }}</span>
+            <span class="mx-1">{{ records().length }}</span>
+          </div>
+        }
+        @if (showRecordName()) {
+          <div class="mt-2">
+            @if (!isDate()) {
+              <span>{{ selectedRecord[dropdownTextProperty()] }}</span>
+            }
+            @if (isDate()) {
+              <span class="mx-1">{{ selectedRecord.toFormattedDate() }}</span>
+            }
+          </div>
+        }
+      </div>
+    }
+    @if (!hideDropdown()) {
+      <div class="btn-group" role="group">
+        <button
+          type="button"
+          class="btn btn-default btn-position dropdown-toggle"
+          [title]="'core.select' | translate"
+          data-toggle="dropdown">
+          @if (!hidePosition()) {
+            <span>
+              <span class="mx-1">{{ index + 1 }}</span>
+              <span>{{ 'common.of' | translate }}</span>
+              <span class="mx-1">{{ records().length }}</span>
+            </span>
+          }
+          @if (showRecordName()) {
+            <span>
+              @if (!isDate()) {
+                <span>{{ selectedRecord[dropdownTextProperty()] }}</span>
+              }
+              @if (isDate()) {
+                <span class="mx-1">{{ selectedRecord.toFormattedDate() }}</span>
+              }
+            </span>
+          }
+        </button>
+        <ul class="dropdown-menu">
+          @for (record of records(); track record) {
+            <li
+              [class.selected]="record === selectedRecord"
+              (click)="$event.preventDefault(); selectRecord(record)">
+              <a href="#">
+                @if (!isDate()) {
+                  <span>{{ record[dropdownTextProperty()] }}</span>
+                }
+                @if (isDate()) {
+                  <span>{{ record.toFormattedDate() }}</span>
+                }
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+    <button
+      type="button"
+      class="btn btn-default btn-navigate"
+      data-testid="moveNext"
+      [title]="'core.navigateright' | translate"
+      [disabled]="index === records().length - 1"
+      (click)="moveNext()">
+      <fa-icon [icon]="['fal', 'chevron-right']"></fa-icon>
+    </button>
+    <button
+      type="button"
+      class="btn btn-default btn-navigate"
+      data-testid="moveLast"
+      [title]="'core.navigatelast' | translate"
+      [disabled]="index === records().length - 1"
+      (click)="moveLast()">
+      <fa-icon [icon]="['fal', 'chevron-double-right']"></fa-icon>
+    </button>
+  </div>
+}

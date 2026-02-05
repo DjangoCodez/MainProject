@@ -1,0 +1,42 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'billing.purchase.confirmdeliverydate'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-datepicker label-value="ctrl.dateLabel"
+                                    label-value-indiscreet="false"
+                                    model="ctrl.dateHead" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm" style="margin-top: 20px;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div ag-grid="ctrl.gridHandler.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+                    <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                </div>
+            </div>
+            <div class="row" ng-if="!ctrl.isValid()">
+                <div class="col-sm-12">
+                    <div class="form-group form-group-sm">
+                        <div class="col-sm-12 info">
+                            <div>
+                                <soe-label label-key="billing.purchaserows.deldatebefore" discreet="true" ng-if="!ctrl.headDateValid"></soe-label>
+                                <soe-label label-key="billing.purchaserows.deldatebeforerows" discreet="true" ng-if="ctrl.headDateValid && !ctrl.rowDateValid"></soe-label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.buttonOkClick()" data-ng-disabled="!ctrl.isValid() || ctrl.success"></button>
+    </div>
+</div>
+

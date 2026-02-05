@@ -1,0 +1,16 @@
+﻿<div>
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+    <div class="row">
+        <div class="col-sm-12 margin-small-bottom">
+            <div class="btn-toolbar">
+                <button type="button" class="btn btn-default btn-sm pull-right" data-l10n-bind="'common.newrow'" data-ng-click="ctrl.addRow()"></button>
+                <soe-checkbox class="pull-right margin-small-right" label-key="economy.supplier.invoice.showhiddenprojects" model="ctrl.showHiddenProjects"></soe-checkbox>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div ag-grid="ctrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 300px; width: 100%;"></div>
+            <div id="sum-footer-grid" class="ag-theme-balham" style="height: 30px; width: 100%;" prevent-enter></div>
+            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+        </div>
+    </div>
+</div>

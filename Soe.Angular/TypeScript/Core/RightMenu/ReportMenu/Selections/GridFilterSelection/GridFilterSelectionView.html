@@ -1,0 +1,49 @@
+﻿<div class="row" style="margin-bottom:10px;">
+    <div class="">
+        <div class="form-inline btn-toolbar-no-border margin-small-bottom" role="toolbar">
+
+            <div class="col-sm-3">
+                <id-list-selection on-selected="$ctrl.onProjectStatusSelectionChanged(selection)" label-key="common.status" items="$ctrl.projectStatus" options="$ctrl.projectStatus"  user-selection-input="$ctrl.selectedProjectStatusDict" />
+            </div>
+            <div class="col-sm-3">
+                <id-list-selection on-selected="$ctrl.onProjectCategorySelectionChanged(selection)" 
+                                   label-key="common.categories" 
+                                   items="$ctrl.projectCategory" 
+                                   options="$ctrl.projectCategory"  
+                                   user-selection-input="$ctrl.selectedCategoryDict"
+                                   is-disabled="!$ctrl.items" 
+                                   />
+            </div>
+            <div class="col-sm-6" style="margin-top:23px;">
+                <div>
+                    <div style="float:left;width:30%;">
+                        <bool-selection label-key="common.report.selection.withoutenddate" use-ignore-dirty="true" on-selected="$ctrl.onWithoutStopDateSelected(selection)"  user-selection-input="$ctrl.withoutStopDate"></bool-selection>
+                    </div>
+                    <div style="float:left;width:50%;">
+                        <div class="" style="margin-top:0px;">
+                            <button type="button" class="btn btn-sm ngSoeMainButton"
+                                    data-l10n-bind="'core.search'" data-l10n-bind-title="'core.search'" data-ng-click="$event.stopPropagation();$ctrl.searchProjects()"></button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+
+    </div>
+    
+</div>
+
+<div class="row">
+
+    <div class="col-sm-12">
+
+        <div class="form-group form-group-sm">
+            <div ag-grid="$ctrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+        </div>
+    </div>
+
+
+</div>

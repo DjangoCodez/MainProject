@@ -1,0 +1,140 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">{{ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="common.time" model="ctrl.formattedTime" readonly="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="common.shifttype" model="ctrl.shift.shiftTypeName" readonly="true" data-ng-if="!ctrl.shiftIsOrder"></soe-textbox>
+                        <soe-textbox label-key="common.ordershifttype" model="ctrl.shift.shiftTypeName" readonly="true" data-ng-if="ctrl.shiftIsOrder"></soe-textbox>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-label label-key="common.employee" data-ng-if="!ctrl.isEmployeePost"></soe-label>
+                        <soe-label label-key="time.schedule.employeepost.employeepost" data-ng-if="ctrl.isEmployeePost"></soe-label>
+                        <soe-textbox hidelabel="true" model="ctrl.shift.employeeName" readonly="true"></soe-textbox>
+                    </div>
+                </div>
+                <br />
+                <soe-panel label-key="time.schedule.planning.splitshift.title">
+                    <div class="row margin-large-bottom">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <soe-label label-key="time.schedule.planning.splitshift.splittime"></soe-label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <i class="fal fa-long-arrow-down" style="font-size: 24px; margin: 3px;"></i>
+                                </div>
+                                <div class="col-sm-5" data-ng-if="!ctrl.sameDate">
+                                    <soe-datepicker hidelabel="true" model="ctrl.shift.actualStartTime" is-readonly="true"></soe-datepicker>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-timebox hidelabel="true" model="ctrl.shift.actualStartTime" is-time="true" is-readonly="true"></soe-timebox>
+                                </div>
+                            </div>
+                            <div class="row margin-small-top">
+                                <div class="col-sm-1">
+                                    <i class="fal fa-cut textColor" style="font-size: 24px; margin: 3px;"></i>
+                                </div>
+                                <div class="col-sm-5" data-ng-if="!ctrl.sameDate">
+                                    <soe-datepicker hidelabel="true" model="ctrl.splitDate"></soe-datepicker>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-timebox hidelabel="true" model="ctrl.splitTime" is-time="true" set-focus="true"></soe-timebox>
+                                </div>
+                            </div>
+                            <div class="row margin-small-top">
+                                <div class="col-sm-1">
+                                    <i class="fal fa-long-arrow-up" style="font-size: 24px; margin: 3px;"></i>
+                                </div>
+                                <div class="col-sm-5" data-ng-if="!ctrl.sameDate">
+                                    <soe-datepicker hidelabel="true" model="ctrl.shift.actualStopTime" is-readonly="true"></soe-datepicker>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-timebox hidelabel="true" model="ctrl.shift.actualStopTime" is-time="true" is-readonly="true"></soe-timebox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <soe-instruction model="ctrl.instruction"></soe-instruction>
+                            <div class="row margin-large-top">
+                                <div class="col-sm-12">
+                                    <soe-label label-key="time.schedule.planning.splitshift.filteremployees" data-ng-if="!ctrl.isEmployeePost"></soe-label>
+                                    <soe-label label-key="time.schedule.planning.splitshift.filteremployeeposts" data-ng-if="ctrl.isEmployeePost"></soe-label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <i data-l10n-bind data-l10n-bind-title="'core.filter'" class="btn btn-default fal fa-filter" data-ng-class="{'active': ctrl.showEmployeeFilters, 'accentColor': ctrl.filterEmployeesOnSkill || ctrl.filterEmployeesOnAvailability}" data-ng-click="ctrl.toggleEmployeeFilters()"></i>
+                                </div>
+                                <div class="col-sm-5" data-ng-if="ctrl.showEmployeeFilters">
+                                    <soe-checkbox label-key="time.schedule.planning.splitshift.filteremployees.skill" model="ctrl.filterEmployeesOnSkill" on-changing="ctrl.onFilterEmployees()"></soe-checkbox>
+                                </div>
+                                <div class="col-sm-5" data-ng-if="ctrl.showEmployeeFilters">
+                                    <soe-checkbox label-key="time.schedule.planning.splitshift.filteremployees.availability" model="ctrl.filterEmployeesOnAvailability" on-changing="ctrl.onFilterEmployees()"></soe-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row margin-large-top">
+                        <div class="col-sm-6">
+                            <soe-typeahead hidelabel="true" model="ctrl.selectedEmployee1" items="ctrl.employees" options="item as item.numberAndName for item in items" filter-property="numberAndName" limit="50" required="true"></soe-typeahead>
+                        </div>
+                        <div class="col-sm-6">
+                            <soe-typeahead hidelabel="true" model="ctrl.selectedEmployee2" items="ctrl.employees" options="item as item.numberAndName for item in items" filter-property="numberAndName" limit="50" required="true"></soe-typeahead>
+                        </div>
+                    </div>
+
+                    <div class="row margin-small-top" data-ng-if="ctrl.showSkills">
+                        <div class="col-sm-6">
+                            <uib-accordion close-others="false">
+                                <soe-accordion label-key="time.schedule.planning.editshift.skills" label-class="{'errorColor':ctrl.invalidSkills1}" label-value="ctrl.nbrOfSkills1" label-value-in-parentheses="true" condensed="true" is-open="ctrl.skillsOpen1">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <skill-matcher invalid="ctrl.invalidSkills1" date="ctrl.shift.actualStartTime" shift-type-ids="ctrl.shiftTypeIds" employee-id="ctrl.selectedEmployee1.employeeId" ignore-employee-ids="ctrl.ignoreSkillEmployeeIds" nbr-of-skills="ctrl.nbrOfSkills1" on-open="ctrl.skillsOpened1()"></skill-matcher>
+                                        </div>
+                                    </div>
+                                </soe-accordion>
+                            </uib-accordion>
+                            <div class="warning" data-ng-if="ctrl.placement1">
+                                <span class="indiscreet" data-l10n-bind="'time.schedule.planning.scheduleactivated.title'"></span><span class="indiscreet"> {{ctrl.placement1.stop | date: 'shortDate'}}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <uib-accordion close-others="false">
+                                <soe-accordion label-key="time.schedule.planning.editshift.skills" label-class="{'errorColor':ctrl.invalidSkills2}" label-value="ctrl.nbrOfSkills2" label-value-in-parentheses="true" condensed="true" is-open="ctrl.skillsOpen2">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <skill-matcher invalid="ctrl.invalidSkills2" date="ctrl.shift.actualStartTime" shift-type-ids="ctrl.shiftTypeIds" employee-id="ctrl.selectedEmployee2.employeeId" ignore-employee-ids="ctrl.ignoreSkillEmployeeIds" nbr-of-skills="ctrl.nbrOfSkills2" on-open="ctrl.skillsOpened2()"></skill-matcher>
+                                        </div>
+                                    </div>
+                                </soe-accordion>
+                            </uib-accordion>
+                            <div class="warning" data-ng-if="ctrl.placement2">
+                                <span class="indiscreet" data-l10n-bind="'time.schedule.planning.scheduleactivated.title'"></span><span class="indiscreet"> {{ctrl.placement2.stop | date: 'shortDate'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+                <div class="info margin-large-top" data-ng-if="ctrl.shift.extraShift || ctrl.shift.substituteShift">
+                    <span data-l10n-bind="'time.schedule.planning.splitshift.extrashiftinfo'" data-ng-if="ctrl.shift.extraShift && !ctrl.shift.substituteShift"></span>
+                    <span data-l10n-bind="'time.schedule.planning.splitshift.substituteinfo'" data-ng-if="ctrl.shift.substituteShift && !ctrl.shift.extraShift"></span>
+                    <span data-l10n-bind="'time.schedule.planning.splitshift.extrashiftandsubstituteinfo'" data-ng-if="ctrl.shift.extraShift && ctrl.shift.substituteShift"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'core.ok'" data-l10n-bind-title="'core.ok'" data-ng-disabled="ctrl.executing" data-ng-click="$event.stopPropagation();ctrl.ok()"></button>
+        <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+    </div>
+</form>

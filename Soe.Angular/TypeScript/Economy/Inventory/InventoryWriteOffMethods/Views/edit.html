@@ -1,0 +1,46 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="economy.inventory.inventorywriteoffmethods.inventorywriteoffmethod">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.name" model="ctrl.inventoryWriteOffMethod.name" required="true" maxlength="20" auto-focus="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.description" model="ctrl.inventoryWriteOffMethod.description" maxlength="100"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-select label-key="economy.inventory.inventorywriteoffmethod.type" model="ctrl.inventoryWriteOffMethod.type" items="ctrl.writeOffTypes" options="item.id as item.name for item in items" required="true"></soe-select>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="economy.inventory.inventorywriteoffmethod.periodtype" model="ctrl.inventoryWriteOffMethod.periodType" items="ctrl.periodTypes" options="item.id as item.name for item in items" required="true"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="economy.inventory.inventorywriteoffmethod.periodvalue" model="ctrl.inventoryWriteOffMethod.periodValue" data-ng-hide="ctrl.inventoryWriteOffMethod.type == 2 || ctrl.inventoryWriteOffMethod.type == 4"  maxlength="100"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="economy.inventory.inventorywriteoffmethod.yearpercent" model="ctrl.inventoryWriteOffMethod.yearPercent" data-ng-hide="ctrl.inventoryWriteOffMethod.type == 1 || ctrl.inventoryWriteOffMethod.type == 3" numeric="true" decimals="2" maxlength="100"></soe-textbox>
+                    </div>
+                </div>                
+            </div>
+        </soe-panel>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.inventoryWriteOffMethod"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

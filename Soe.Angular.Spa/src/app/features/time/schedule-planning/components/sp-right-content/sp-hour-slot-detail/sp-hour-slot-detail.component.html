@@ -1,0 +1,38 @@
+@if (slot()) {
+  <div class="detail-container">
+    <p>Markerad cell</p>
+    <div>
+      <span>{{ slot()?.employeeInfo }}</span>
+    </div>
+    <div>
+      <span>{{ slot()?.start | date: 'shortDate' }}</span>
+      <span class="ms-1">{{ slot()?.start | date: 'shortTime' }}</span>
+    </div>
+    <!-- Availability -->
+    @if (slot()?.hasAvailability || slot()?.hasUnavailability) {
+      <div class="group-container">
+        <p>{{ 'time.schedule.planning.availability' | translate }}</p>
+        @if (slot()?.hasAvailability) {
+          <p class="available">
+            {{ 'time.schedule.planning.available' | translate }}
+          </p>
+          <div class="item-container availability">
+            <div>
+              <span>{{ slot()?.availableText }}</span>
+            </div>
+          </div>
+        }
+        @if (slot()?.hasUnavailability) {
+          <p class="unavailable">
+            {{ 'time.schedule.planning.unavailable' | translate }}
+          </p>
+          <div class="item-container availability">
+            <div>
+              <span>{{ slot()?.unavailableText }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}

@@ -1,0 +1,40 @@
+﻿<div>
+    <soe-progressbar is-busy="directiveCtrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+    <div ng-disabled="directiveCtrl.progressBusy">
+        <div>
+            <soe-toolbar buttons="directiveCtrl.buttonGroups">
+                <data-ng-include src="directiveCtrl.toolbarInclude" data-ng-hide="directiveCtrl.isOrderMode" />
+            </soe-toolbar>
+        </div>
+        <div class="grid-container">
+            <div ag-grid="directiveCtrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 800px; width: 100%;" height-checker prevent-enter></div>
+            <div id="expense-row-grid-sum-footer" class="ag-theme-balham" style="height: 30px; width: 100%;" prevent-enter data-ng-hide="!directiveCtrl.isOrderMode"></div>
+            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+        </div>
+        <div style="margin-top: 30px;" data-ng-hide="!directiveCtrl.isOrderMode">
+            <div class="info">
+                <div class="row">
+                    <div class="col-sm-2 pull-right">
+                        <soe-textbox label-key="common.customer.invoices.sumexpensesinvoiced" model="directiveCtrl.sumExpensesInvoiced" readonly="true" numeric="true" decimals="2"></soe-textbox>
+                    </div>
+                    <div class="col-sm-2 pull-right">
+                        <soe-textbox label-key="common.customer.invoices.sumexpenses" model="directiveCtrl.sumExpenses" readonly="true" numeric="true" decimals="2"></soe-textbox>
+                    </div>
+                    <div class="col-sm-2 pull-right">
+                        <soe-select label-key="common.customer.invoices.includeexpenseinreport" model="directiveCtrl.includeExpenseInReport" items="directiveCtrl.includeExpenseInReportItems" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ngSoeFormFooter top-margin" data-ng-hide="directiveCtrl.isOrderMode">
+            <div class="pull-right margin-large-right">
+                <div>
+                    <div class="btn-group pull-right">
+                        <soe-menubutton label-key="billing.project.atteststate" options="directiveCtrl.userValidPayrollAttestStatesOptions" option-selected="directiveCtrl.saveAttest(option)" is-disabled="directiveCtrl.isAttestDisabled" main-button="true" drop-up="true"></soe-menubutton>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

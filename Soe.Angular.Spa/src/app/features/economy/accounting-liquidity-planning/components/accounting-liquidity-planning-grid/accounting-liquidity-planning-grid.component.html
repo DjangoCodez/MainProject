@@ -1,0 +1,40 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+    <soe-accounting-liquidity-planning-grid-filter
+      header
+      (searchClick)="
+        searchNew($event)
+      "></soe-accounting-liquidity-planning-grid-filter>
+    <div class="row mb-2" footer>
+      <div class="pull-right">
+        <div class="d-sm-inline">
+          <soe-numberbox [decimals]="2" class="pull-right margin-small-right mx-2"
+            [labelKey]="'economy.accounting.liquidityplanning.totalinvalue'" [formControl]="totalIn" />
+        </div>
+        <div class="d-sm-inline">
+          <soe-numberbox [decimals]="2" class="pull-right margin-small-right mx-2"
+            [labelKey]="'economy.accounting.liquidityplanning.totalin'" [formControl]="valueIn" />
+        </div>
+        <div class="d-sm-inline">
+          <soe-numberbox [decimals]="2" class="pull-right margin-small-right mx-2"
+            [labelKey]="'economy.accounting.liquidityplanning.totalout'" [formControl]="valueOut" />
+        </div>
+        <div class="d-sm-inline">
+          <soe-numberbox [decimals]="2" class="pull-right margin-small-right mx-2"
+            [labelKey]="'economy.accounting.liquidityplanning.totaloutvalue'" [formControl]="totalOut" />
+        </div>
+      </div>
+    </div>
+  </soe-grid-wrapper>
+}
+
+<soe-expansion-panel
+  [labelKey]="'economy.accounting.liquidityplanning.graph'"
+  (isOpened)="open($event)">
+  @if (liquidityPlanningChartConfig) {
+    <soe-chart [config]="liquidityPlanningChartConfig"></soe-chart>
+  }
+</soe-expansion-panel>

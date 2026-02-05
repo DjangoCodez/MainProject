@@ -1,0 +1,12 @@
+﻿<div class="">
+    <div class="row">
+        <div class="col-sm-12 margin-large-right" data-ng-if="!ctrl.isNew && ctrl.showSender">
+            <span class="indiscreet" data-l10n-bind="'common.messages.sender'"></span>: <span>{{::ctrl.message.senderName}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 margin-large-right" data-ng-if="ctrl.isNeedsConfirmation && !ctrl.isOutgoing && ctrl.isConfirmedByMe">
+            <span class="fal fa-check-square okColor"></span> <span class="indiscreet"><span data-l10n-bind="'common.messages.confirmed'"></span> <span>{{ctrl.isConfirmedByMeDate | date:'shortDate'}} {{ctrl.isConfirmedByMeDate | date:'shortTime'}}</span></span>
+        </div>
+    </div>
+</div>

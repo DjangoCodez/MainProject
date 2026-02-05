@@ -1,0 +1,18 @@
+﻿<div>
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progressBusy">
+        <div class="row margin-large-top">
+            <div class="col-md-12">
+                <div class="pull-left margin-small-left">
+                    <soe-toolbar buttons="directiveCtrl.sortMenuButtons" hide-border="true"></soe-toolbar>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div ag-grid="directiveCtrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</div>

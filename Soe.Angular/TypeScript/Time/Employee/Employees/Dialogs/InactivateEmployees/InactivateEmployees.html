@@ -1,0 +1,64 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.employee.employee.inactivate'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row margin-large-bottom" data-ng-if="ctrl.validating">
+            <div class="col-sm-12">
+                <div class="info">
+                    <span class="indiscreet" data-l10n-bind="'time.employee.employee.inactivate.validating'"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-bottom" data-ng-if="ctrl.employees.length > 0">
+            <div class="col-sm-12">
+                <table class="table table-outer-bordered table-more-condensed table-hover margin-large-top">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"><span data-l10n-bind="'common.number'"></span></th>
+                            <th scope="col"><span data-l10n-bind="'common.name'"></span></th>
+                            <th scope="col"><span data-l10n-bind="'common.message'"></span></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="employee in ctrl.employees">
+                            <td style="width: 20px;"><span class="fal link" data-ng-class="{'fa-square': !employee.selected && employee.success, 'fa-check-square': employee.selected }" data-ng-click="employee.selected = !employee.selected"></span></td>
+                            <td><span>{{employee.employeeNr}}</span></td>
+                            <td><span>{{employee.employeeName}}</span></td>
+                            <td><span>{{employee.message}}</span></td>
+                            <td style="width: 20px;"><span class="fal" data-ng-class="{'fa-check-circle okColor': employee.success, 'fa-exclamation-triangle errorColor': !employee.success }"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row margin-large-top" data-ng-if="!ctrl.validating">
+            <div class="col-sm-6">
+                <div class="warning" data-ng-if="ctrl.showWarning">
+                    <span class="indiscreet" data-l10n-bind="'time.employee.employee.inactivate.unabletoinactivate'"></span>
+                    <div>
+                        <span data-l10n-bind="'time.employee.employee.inactivate.unabletoinactivate.message'"></span>
+                    </div>
+                </div>
+                <div class="margin-small-top">
+                    <span>{{ctrl.nbrOfSelected}}</span> <span data-l10n-bind="'core.multiselect.selection_count'"></span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <soe-textbox label-key="time.employee.employee.delete.validationcode" label-value="ctrl.employeeIds[0]" label-value-in-parentheses="true" model="ctrl.validationCode" numeric="true" decimals="0" allow-empty="true"></soe-textbox>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" data-ng-if="!ctrl.progress.progressBusy">
+        <div class="pull-right">
+            <span data-ng-if="ctrl.countDownInProgress"><i class="fal fa-bomb margin-large-right" style="font-size: 20px;"></i><span class="indiscreet errorColor">{{ctrl.countDownText}}</span></span>
+            <button type="button" class="btn btn-sm btn-default margin-large-left" data-l10n-bind="'core.cancel'" data-l10n-bind-title="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-l10n-bind-title="'core.ok'" data-ng-disabled="!ctrl.isValidCode || ctrl.countDownInProgress || ctrl.nbrOfSelected === 0" data-ng-click="ctrl.ok()"></button>
+        </div>
+    </div>
+</form>

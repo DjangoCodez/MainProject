@@ -1,0 +1,44 @@
+﻿<form class="form-inline">
+    <div>
+        <div class="form-group form-group-sm">
+            <div class="form-group form-group-sm">
+                <soe-label label-key="common.fromdate"></soe-label>
+            </div>
+            <div class="form-group form-group-sm">
+                <soe-datepicker model="ctrl.fromDate" hidelabel="true"></soe-datepicker>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="form-group form-group-sm">
+                <soe-label label-key="common.todate"></soe-label>
+            </div>
+            <div class="form-group form-group-sm">
+                <soe-datepicker model="ctrl.toDate" hidelabel="true"></soe-datepicker>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="form-group form-group-sm">
+                <soe-label label-key="economy.accounting.liquidityplanning.exclusionfrom"></soe-label>
+            </div>
+            <div class="form-group form-group-sm">
+                <soe-datepicker model="ctrl.exclusionDate" hidelabel="true"></soe-datepicker>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="form-group form-group-sm">
+                <soe-label label-key="economy.accounting.liquidityplanning.openingbalance"></soe-label>
+            </div>
+            <div class="form-group form-group-sm">
+                <soe-textbox model="ctrl.openingBalance" numeric="true" decimals="2"></soe-textbox>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="form-group form-group-sm">
+                <soe-multiselect label-key="economy.supplier.invoice.paymentstatuses" options="ctrl.paymentStatuses" model="ctrl.selectedPaymentStatuses" hidelabel="true" limit-to="20" on-selection-complete="ctrl.saveSelection()"></soe-multiselect>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.search'" data-l10n-bind-title="'core.search'" data-ng-click="ctrl.searchNew()" data-ng-disabled="ctrl.searchDisabled"></button>
+        </div>
+    </div>
+</form>

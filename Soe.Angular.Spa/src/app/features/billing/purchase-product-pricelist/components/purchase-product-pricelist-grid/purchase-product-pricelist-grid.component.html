@@ -1,0 +1,13 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (editRowClicked)="edit($event)"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+    <soe-purchase-product-pricelist-grid-header
+      toolbar-content-left
+      (onSearchClick)="
+        doSearch($event)
+      "></soe-purchase-product-pricelist-grid-header>
+  </soe-grid-wrapper>
+}

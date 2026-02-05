@@ -1,0 +1,29 @@
+﻿<div>
+    <div class="file-upload" ng-if="!directiveCtrl.toolbarmode">
+        <button type="button" data-ng-if="!directiveCtrl.singleFile" class="btn btn-sm btn-default" data-l10n-bind="'core.fileupload.choosefilestoupload'" data-l10n-bind-title="'core.fileupload.choosefilestoupload'" data-ng-click="directiveCtrl.showUploadDialog()" ng-disabled="directiveCtrl.readOnly"></button>
+        <button type="button" data-ng-if="directiveCtrl.singleFile" class="btn btn-sm btn-default" data-l10n-bind="'core.fileupload.choosefiletoupload'" data-l10n-bind-title="'core.fileupload.choosefiletoupload'" data-ng-click="directiveCtrl.showUploadDialog()" ng-disabled="directiveCtrl.readOnly"></button>
+        <button type="button" data-ng-if="directiveCtrl.singleFile && directiveCtrl.showDelete && !directiveCtrl.readOnly" class="btn btn-sm btn-default margin-small-left" data-l10n-bind="'core.delete'" data-l10n-bind-title="'core.delete'" data-ng-click="directiveCtrl.delete()"></button>
+        <button type="button" data-ng-if="directiveCtrl.showReload" class="btn btn-sm btn-default margin-small-left" data-l10n-bind data-l10n-bind-title="'core.reload_data'" data-ng-click="directiveCtrl.reload()"><span class="fal fa-sync"></span></button>
+    </div>
+    <div class="btn-toolbar margin-small-bottom" ng-if="directiveCtrl.toolbarmode">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <div class="form-inline">
+                        <div class="form-group form-group-sm">
+                            <soe-checkbox label-key="core.fileupload.distributeall" model="directiveCtrl.distributeAll" is-disabled="ctrl.readOnly" ng-if="directiveCtrl.showDistributionCheckBox"></soe-checkbox>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <soe-checkbox label-key="core.fileupload.transferall" model="directiveCtrl.transferAll" is-disabled="ctrl.readOnly" ng-if="directiveCtrl.showTransferCheckBox"></soe-checkbox>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <button type="button" data-ng-if="!directiveCtrl.singleFile" class="btn btn-sm btn-default" data-l10n-bind="'core.fileupload.choosefilestoupload'" data-l10n-bind-title="'core.fileupload.choosefilestoupload'" data-ng-click="directiveCtrl.showUploadDialog()" ng-disabled="directiveCtrl.readOnly"></button>
+                            <button type="button" data-ng-if="directiveCtrl.singleFile" class="btn btn-sm btn-default" data-l10n-bind="'core.fileupload.choosefiletoupload'" data-l10n-bind-title="'core.fileupload.choosefiletoupload'" data-ng-click="directiveCtrl.showUploadDialog()" ng-disabled="directiveCtrl.readOnly"></button>
+                            <button type="button" data-ng-if="directiveCtrl.singleFile && directiveCtrl.showDelete && !directiveCtrl.readOnly" class="btn btn-sm btn-default" data-l10n-bind="'core.delete'" data-l10n-bind-title="'core.delete'" data-ng-click="directiveCtrl.delete()"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

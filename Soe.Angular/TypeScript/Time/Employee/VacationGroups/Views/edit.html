@@ -1,0 +1,394 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+            <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+        </soe-toolbar>
+        <soe-panel>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="common.name" model="ctrl.vacationGroup.name" required="true" maxlength="100" auto-focus="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-select label-key="time.employee.vacationgroup.type" model="ctrl.vacationGroup.type" items="ctrl.vacationGroupTypes" options="item.id as item.name for item in items" on-changing="ctrl.typeChanged(item)"></soe-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-select label-key="time.employee.vacationgroup.fromdate" model="ctrl.selectedFromDateId" items="ctrl.dayRangesWithManualFromDate" options="item.id as item.name for item in items" on-changing="ctrl.monthChanged(item)"></soe-select>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-datepicker model="ctrl.selectedFromDate" data-ng-show="ctrl.selectedFromDateId === 0"></soe-datepicker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="time.employee.vacationgroup.vacationdays" model="ctrl.vacationGroup.vacationDaysPaidByLaw" maxlength="100" input-type="number" auto-focus="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="time.employee.vacationgroup.latestvacationyearend" model="ctrl.latestVacationYearEnd" is-readonly="true"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="common.externalcodes" model="ctrl.vacationGroup.externalCodesString" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <div class="row margin-small-top">
+            <div class="col-sm-12">
+                <uib-accordion close-others="false" is-disabled="true">
+                    <soe-accordion label-key="time.employee.vacationgroup.settings" ng-if="ctrl.showAccordions">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.vacationgroup.calculationtype" model="ctrl.vacationGroup.vacationGroupSE.calculationType" items="ctrl.calculationTypes" options="item.id as item.name for item in items" on-changing="ctrl.calculationTypeChanged(item)"></soe-select>
+                            </div>
+                        </div>
+                        <br>
+                        <!-- Additional vacationdays  -->
+                        <soe-panel hidelabel="true" ng-if="ctrl.useAdditionalVacationDaysVisibility">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <soe-checkbox label-key="time.employee.vacationgroup.useadditionalvacationdays" model="ctrl.vacationGroup.vacationGroupSE.useAdditionalVacationDays" ng-hide="!ctrl.useAdditionalVacationDaysVisibility" on-changing="ctrl.useAdditionalDaysChanged(ctrl.vacationGroup.vacationGroupSE.useAdditionalVacationDays)"></soe-checkbox>
+                                </div>
+                            </div>
+                            <div class="row" ng-hide="!ctrl.vacationGroup.vacationGroupSE.useAdditionalVacationDays">
+                                <div class="col-sm-4">
+                                    <soe-select label-key="time.employee.vacationgroup.calculationpoints" model="ctrl.vacationGroup.vacationGroupSE.nbrOfAdditionalVacationDays" items="ctrl.nbrOfValidAdditionalVacationDays" options="item.id as item.name for item in items" on-changing="ctrl.additionalDaysChanged(item)"></soe-select>
+                                </div>
+                            </div>
+                            <div class="row" ng-hide="!ctrl.additionalVacationDays1Visibility">
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="time.employee.vacationgroup.vacationdaysfromage" model="ctrl.vacationGroup.vacationGroupSE.additionalVacationDaysFromAge1" input-type="number"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.vacationgroup.vacationdaysfromageplus" model="ctrl.vacationGroup.vacationGroupSE.additionalVacationDays1" input-type="number"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="row" ng-hide="!ctrl.additionalVacationDays2Visibility">
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="time.employee.vacationgroup.vacationdaysfromage" model="ctrl.vacationGroup.vacationGroupSE.additionalVacationDaysFromAge2" input-type="number"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.vacationgroup.vacationdaysfromageplus" model="ctrl.vacationGroup.vacationGroupSE.additionalVacationDays2" input-type="number"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="row" ng-hide="!ctrl.additionalVacationDays3Visibility">
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="time.employee.vacationgroup.vacationdaysfromage" model="ctrl.vacationGroup.vacationGroupSE.additionalVacationDaysFromAge3" input-type="number"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.vacationgroup.vacationdaysfromageplus" model="ctrl.vacationGroup.vacationGroupSE.additionalVacationDays3" input-type="number"></soe-textbox>
+                                </div>
+                            </div>
+                        </soe-panel>
+                        <!-- Vacationgroup handlerules  -->
+                        <soe-panel hidelabel="true" ng-if="ctrl.vacationHandleRuleVisibility">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <soe-select label-key="time.employee.vacationgroup.handlerule" model="ctrl.vacationGroup.vacationGroupSE.vacationHandleRule" items="ctrl.vacationHandleRules" options="item.id as item.name for item in items" ng-hide="!ctrl.vacationHandleRuleVisibility" on-changing="ctrl.vacationHandleRuleChanged()"></soe-select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <soe-select label-key="time.employee.vacationgroup.dayshandlerule" model="ctrl.vacationGroup.vacationGroupSE.vacationDaysHandleRule" items="ctrl.vacationDaysHandleRules" options="item.id as item.name for item in items" ng-hide="!ctrl.vacationDaysHandleRuleVisibility"></soe-select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <soe-checkbox label-key="time.employee.vacationgroup.grossusefivedaysperweek" model="ctrl.vacationGroup.vacationGroupSE.vacationDaysGrossUseFiveDaysPerWeek" inline="true" ng-hide="!ctrl.vacationDaysGrossUseFiveDaysPerWeekVisibility" on-changing="ctrl.useGrossDays(ctrl.vacationGroup.vacationGroupSE.vacationDaysGrossUseFiveDaysPerWeek)"></soe-checkbox>
+                                </div>
+                            </div>
+                            <div class="row" ng-hide="!ctrl.vacationGroup.vacationGroupSE.vacationDaysGrossUseFiveDaysPerWeek">
+                                <div class="col-sm-2">
+                                    <soe-multiselect label-key="time.employee.vacationgroup.grossusefivedaysperweek.daytypes" display-prop="name" options="ctrl.dayTypes" model="ctrl.selectedDayTypes"  dynamic-title="true" show-selected-items="true" on-selection-complete="ctrl.dayTypesComplete()"></soe-multiselect>
+                                </div>
+                            </div>
+                        </soe-panel>
+                        <!-- Remainingdays  -->
+                        <soe-panel hidelabel="true" ng-if="ctrl.remainingDaysRectangleVisibility">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <soe-select label-key="time.employee.vacationgroup.remainingdaysrule" model="ctrl.vacationGroup.vacationGroupSE.remainingDaysRule" items="ctrl.remainingDaysRules" options="item.id as item.name for item in items" ng-hide="!ctrl.remainingDaysRuleVisibility" is-readonly="ctrl.remainingDaysRuleReadOnly" on-changing="ctrl.remaingDaysRuleChanged(item)"></soe-select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="col-sm-4">
+                                        <soe-checkbox label-key="time.employee.vacationgroup.usemaxremainingdays" model="ctrl.vacationGroup.vacationGroupSE.useMaxRemainingDays" inline="true" ng-hide="!ctrl.useMaxRemainingDaysVisibility" on-changing="ctrl.useMaxRemainingDays(ctrl.vacationGroup.vacationGroupSE.useMaxRemainingDays)"></soe-checkbox>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-textbox label-key="time.employee.vacationgroup.calculationpoints" model="ctrl.vacationGroup.vacationGroupSE.maxRemainingDays" input-type="number" ng-hide="!ctrl.useMaxRemainingDaysVisibility"></soe-textbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <soe-select label-key="time.employee.vacationgroup.remainingdayspayoutmonth" model="ctrl.selectedRemainingDaysPayoutMonthId" items="ctrl.monthNames" options="item.id as item.name for item in items" ng-hide="!ctrl.remainingDaysPayoutMonthVisibility"></soe-select>
+                                </div>
+                            </div>
+                        </soe-panel>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.vacationgroup.earningyearamountfromdate" model="ctrl.selectedEarningYearAmountFromDateId" items="ctrl.dayRangesWithManualFromDate" options="item.id as item.name for item in items" ng-hide="!ctrl.earningYearAmountFromDateVisibility"></soe-select>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-datepicker model="ctrl.selectedEarningYearAmountFromDate" data-ng-if="ctrl.selectedEarningYearAmountFromDateId === 0 && ctrl.earningYearAmountFromDateVisibility" required="true"></soe-datepicker>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-sm-4">
+                                    <soe-checkbox label-key="time.employee.vacationgroup.earningyearvariableamountfromdate" model="ctrl.useEarningYearVariableAmountFromDate" inline="true" ng-hide="!ctrl.earningYearVariableAmountFromDateVisibility" on-changing="ctrl.useEarningYearVariableAmountFromDateChanging(ctrl.useEarningYearVariableAmountFromDate)"></soe-checkbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-select label-key="time.employee.vacationgroup.maxremainingdays" model="ctrl.selectedEarningYearVariableAmountDateId" items="ctrl.dayRanges" options="item.id as item.name for item in items" ng-hide="!ctrl.earningYearVariableAmountFromDateVisibility" is-readonly="!ctrl.useEarningYearVariableAmountFromDate"></soe-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.vacationgroup.monthlysalaryformula" model="ctrl.vacationGroup.vacationGroupSE.monthlySalaryFormulaId" items="ctrl.payrollPriceFormulas" options="item.id as item.name for item in items" ng-hide="!ctrl.monthlySalaryFormulaVisibility"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.vacationgroup.hourlysalaryformula" model="ctrl.vacationGroup.vacationGroupSE.hourlySalaryFormulaId" items="ctrl.payrollPriceFormulas" options="item.id as item.name for item in items" ng-hide="!ctrl.hourlySalaryFormulaVisibility"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="time.employee.vacationgroup.vacationdaypercent" model="ctrl.vacationGroup.vacationGroupSE.vacationDayPercent" input-type="number" ng-hide="!ctrl.vacationDayPercentVisibility" is-readonly="ctrl.vacationDayPercentReadOnly"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="time.employee.vacationgroup.vacationdayadditionalpercent" model="ctrl.vacationGroup.vacationGroupSE.vacationDayAdditionPercent" input-type="number" ng-hide="!ctrl.vacationDayAdditionPercentVisibility" is-readonly="ctrl.vacationDayAdditionPercentReadOnly"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="time.employee.vacationgroup.vacationvariablepercent" model="ctrl.vacationGroup.vacationGroupSE.vacationVariablePercent" input-type="number" ng-hide="!ctrl.vacationVariablePercentVisibility" is-readonly="ctrl.vacationVariablePercentReadOnly"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.vacationgroup.vacationdaypercent" model="ctrl.vacationGroup.vacationGroupSE.vacationDayPercentPriceTypeId" items="ctrl.payrollPriceTypes" options="item.id as item.name for item in items" ng-hide="!ctrl.vacationDayPercentPriceTypeVisibility"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.vacationgroup.vacationdayadditionalpercenttype" model="ctrl.vacationGroup.vacationGroupSE.vacationDayAdditionPercentPriceTypeId" items="ctrl.payrollPriceTypes" options="item.id as item.name for item in items" ng-hide="!ctrl.vacationDayAdditionPercentPriceTypeVisibility"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.vacationgroup.vacationvariablepercenttype" model="ctrl.vacationGroup.vacationGroupSE.vacationVariablePercentPriceTypeId" items="ctrl.payrollPriceTypes" options="item.id as item.name for item in items" ng-hide="!ctrl.vacationVariablePercentPriceTypeVisibility"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row margin-large-top" >
+                            <div class="col-sm-12">
+                                <soe-panel label-key="time.employee.vacationgroup.guaranteeamount" data-ng-hide="!ctrl.useGuaranteeAmountVisibility">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <soe-checkbox label-key="time.employee.vacationgroup.guaranteeamount" model="ctrl.vacationGroup.vacationGroupSE.useGuaranteeAmount" on-changing="ctrl.useGuaranteeAmountFromDateChanging(ctrl.vacationGroup.vacationGroupSE.useGuaranteeAmount)"></soe-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="row" data-ng-hide="!ctrl.vacationGroup.vacationGroupSE.useGuaranteeAmount">
+                                        <div class="col-sm-2">
+                                            <soe-checkbox label-key="time.employee.vacationgroup.guaranteeamountaccordingtohandels" model="ctrl.vacationGroup.vacationGroupSE.guaranteeAmountAccordingToHandels" inline="true"></soe-checkbox>
+                                        </div>
+                                        <div class="col-sm-1" data-ng-if="ctrl.vacationGroup.vacationGroupSE.guaranteeAmountAccordingToHandels">
+                                            <soe-textbox label-key="time.employee.vacationgroup.hours" model="ctrl.handelsGuaranteeAmountHours" numeric="true" is-readonly="true"></soe-textbox>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-large-top" data-ng-hide="!ctrl.vacationGroup.vacationGroupSE.useGuaranteeAmount || !ctrl.vacationGroup.vacationGroupSE.guaranteeAmountAccordingToHandels">
+                                        <div class="col-sm-2">
+                                            <soe-checkbox label-key="time.employee.vacationgroup.useownguaranteeamount" model="ctrl.vacationGroup.vacationGroupSE.useOwnGuaranteeAmount" on-changing="ctrl.useOwnGuaranteeAmountChanged();"></soe-checkbox>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <soe-textbox hidelabel="true" model="ctrl.vacationGroup.vacationGroupSE.ownGuaranteeAmount" numeric="true" is-disabled="!ctrl.vacationGroup.vacationGroupSE.useOwnGuaranteeAmount"></soe-textbox>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-large-top">
+                                        <div class="col-sm-6">
+                                            <soe-select label-key="time.employee.vacationgroup.maxnbrofdays" model="ctrl.vacationGroup.vacationGroupSE.guaranteeAmountMaxNbrOfDaysRule" items="ctrl.guaranteeAmountMaxNbrOfDaysRules" options="item.id as item.name for item in items" ng-hide="!ctrl.vacationGroup.vacationGroupSE.useGuaranteeAmount"></soe-select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <soe-textbox label-key="time.employee.vacationgroup.guaranteeamountemployednbrofyears" model="ctrl.vacationGroup.vacationGroupSE.guaranteeAmountEmployedNbrOfYears" input-type="number" ng-hide="!ctrl.vacationGroup.vacationGroupSE.useGuaranteeAmount"></soe-textbox>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <soe-select label-key="time.employee.vacationgroup.guaranteeamountperdaypricetype" model="ctrl.vacationGroup.vacationGroupSE.guaranteeAmountPerDayPriceTypeId" items="ctrl.payrollPriceTypes" options="item.id as item.name for item in items" ng-hide="!ctrl.vacationGroup.vacationGroupSE.useGuaranteeAmount"></soe-select>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-large-top">
+                                        <div class="col-sm-6">
+                                            <soe-checkbox label-key="time.employee.vacationgroup.guaranteeamountjuvenile" model="ctrl.vacationGroup.vacationGroupSE.guaranteeAmountJuvenile" ng-hide="!ctrl.vacationGroup.vacationGroupSE.useGuaranteeAmount"></soe-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <soe-textbox label-key="time.employee.vacationgroup.guaranteeamountjuvenileagelimit" model="ctrl.vacationGroup.vacationGroupSE.guaranteeAmountJuvenileAgeLimit" input-type="number" ng-hide="!ctrl.vacationGroup.vacationGroupSE.guaranteeAmountJuvenile"></soe-textbox>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <soe-select label-key="time.employee.vacationgroup.guaranteeamountjuvenileperdaypricetype" model="ctrl.vacationGroup.vacationGroupSE.guaranteeAmountJuvenilePerDayPriceTypeId" items="ctrl.payrollPriceTypes" options="item.id as item.name for item in items" ng-hide="!ctrl.vacationGroup.vacationGroupSE.guaranteeAmountJuvenile"></soe-select>
+                                        </div>
+                                    </div>
+                                </soe-panel>
+                            </div>
+                        </div>
+                        <div class="row margin-large-top">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.vacationgroup.vacationabsensecalculationrule" model="ctrl.vacationGroup.vacationGroupSE.vacationAbsenceCalculationRule" items="ctrl.absenceCalculationRules" options="item.id as item.name for item in items" ng-hide="!ctrl.vacationAbsenceCalculationRuleVisibility"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-label model="ctrl.vacationSalaryPayoutRuleSelectorLabel"></soe-label>
+                                <soe-select hidelabel="true" model="ctrl.vacationGroup.vacationGroupSE.vacationSalaryPayoutRule" items="ctrl.salaryPayoutRules" options="item.id as item.name for item in items" ng-hide="!ctrl.vacationSalaryPayoutRuleVisibility" on-changing="ctrl.salaryPayoutRulesChanging(ctrl.vacationGroup.vacationGroupSE.vacationSalaryPayoutRule)"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="time.employee.vacationgroup.nbrofdays" model="ctrl.vacationGroup.vacationGroupSE.vacationSalaryPayoutDays" input-type="number" ng-hide="!ctrl.vacationSalaryPayoutDaysVisibility"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.vacationgroup.payoutmonth" model="ctrl.vacationGroup.vacationGroupSE.vacationSalaryPayoutMonth" items="ctrl.monthNames" options="item.id as item.name for item in items" ng-hide="!ctrl.vacationSalaryPayoutMonthVisibility"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.vacationgroup.salarypayoutruleselectorlabel3" model="ctrl.vacationGroup.vacationGroupSE.vacationVariablePayoutRule" items="ctrl.variablePayoutRules" options="item.id as item.name for item in items" ng-hide="!ctrl.vacationVariablePayoutRuleVisibility" on-changing="ctrl.salaryPayoutRulesChanging(ctrl.vacationGroup.vacationGroupSE.vacationVariablePayoutRule)"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="time.employee.vacationgroup.nbrofdays" model="ctrl.vacationGroup.vacationGroupSE.vacationVariablePayoutDays" input-type="number" ng-hide="!ctrl.vacationVariablePayoutDaysVisibility"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.vacationgroup.payoutmonth" model="ctrl.vacationGroup.vacationGroupSE.vacationVariablePayoutMonth" items="ctrl.monthNames" options="item.id as item.name for item in items" ng-hide="!ctrl.vacationVariablePayoutMonthVisibility"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.employee.vacationgroup.replacementtimedeviationcause" model="ctrl.vacationGroup.vacationGroupSE.replacementTimeDeviationCauseId" items="ctrl.timeDeviationCauses" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                    <soe-accordion label-key="time.employee.vacationgroup.vacationyearchange" ng-if="ctrl.showAccordions">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-select label-key="time.employee.vacationgroup.remainingdays" model="ctrl.vacationGroup.vacationGroupSE.yearEndRemainingDaysRule" items="ctrl.yearEndRemainingDaysRules" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-checkbox label-key="time.employee.vacationgroup.usefilluptovacationdayspaidbylawrule" model="ctrl.vacationGroup.vacationGroupSE.useFillUpToVacationDaysPaidByLawRule" inline="true" ng-hide="!ctrl.showUsefilluptovacationdayspaidbylawrule()"></soe-checkbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-select label-key="time.employee.vacationgroup.overduedays" model="ctrl.vacationGroup.vacationGroupSE.yearEndOverdueDaysRule" items="ctrl.yearEndOverdueDaysRules" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-select label-key="time.employee.vacationgroup.variablerule" model="ctrl.vacationGroup.vacationGroupSE.yearEndVacationVariableRule" items="ctrl.yearEndVacationVariableRules" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                    <soe-accordion label-key="time.employee.vacationgroup.vacationdebtaccounting" ng-if="ctrl.showAccordions">
+                        <soe-panel label-key="time.employee.vacationgroup.valuedaysaccountinternaloncredit">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.vacationgroup.valuedaysdebitaccountid" model="ctrl.vacationGroup.vacationGroupSE.valueDaysDebitAccountId" items="ctrl.accountStds" options="item.accountId as item.numberAndName for item in items"></soe-select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.vacationgroup.valuedayscreditaccountid" model="ctrl.vacationGroup.vacationGroupSE.valueDaysCreditAccountId" items="ctrl.accountStds" options="item.accountId as item.numberAndName for item in items"></soe-select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-checkbox label-key="time.employee.vacationgroup.valuedaysaccountinternalondebit" model="ctrl.vacationGroup.vacationGroupSE.valueDaysAccountInternalOnDebit"></soe-checkbox>
+                                </div>
+                                <div class="col-sm-9">
+                                    <soe-checkbox label-key="time.employee.vacationgroup.valuedaysaccountinternaloncredit" model="ctrl.vacationGroup.vacationGroupSE.valueDaysAccountInternalOnCredit"></soe-checkbox>
+                                </div>
+                            </div>
+                        </soe-panel>
+                        <soe-panel label-key="time.employee.vacationgroup.employmenttaxcreditaccountid">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <soe-checkbox label-key="time.employee.vacationgroup.useemploymenttaxacccount" model="ctrl.vacationGroup.vacationGroupSE.useEmploymentTaxAcccount"></soe-checkbox>
+                                </div>
+                            </div>
+                            <div class="row margin-large-top">
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.vacationgroup.employmenttaxdebitaccountid" model="ctrl.vacationGroup.vacationGroupSE.employmentTaxDebitAccountId" items="ctrl.accountStds" options="item.accountId as item.numberAndName for item in items"></soe-select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.vacationgroup.employmenttaxcreditaccountid" model="ctrl.vacationGroup.vacationGroupSE.employmentTaxCredidAccountId" items="ctrl.accountStds" options="item.accountId as item.numberAndName for item in items"></soe-select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-checkbox label-key="time.employee.vacationgroup.employmenttaxaccountinternalondebit" model="ctrl.vacationGroup.vacationGroupSE.employmentTaxAccountInternalOnDebit"></soe-checkbox>
+                                </div>
+                                <div class="col-sm-9">
+                                    <soe-checkbox label-key="time.employee.vacationgroup.employmenttaxaccountinternaloncredit" model="ctrl.vacationGroup.vacationGroupSE.employmentTaxAccountInternalOnCredit"></soe-checkbox>
+                                </div>
+                            </div>
+                        </soe-panel>
+                        <soe-panel label-key="time.employee.vacationgroup.supplementchargecreditaccountid">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <soe-checkbox label-key="time.employee.vacationgroup.usesupplementchargeacccount" model="ctrl.vacationGroup.vacationGroupSE.useSupplementChargeAccount"></soe-checkbox>
+                                </div>
+                            </div>
+                            <div class="row margin-large-top">
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.vacationgroup.supplementchargedebitaccountid" model="ctrl.vacationGroup.vacationGroupSE.supplementChargeDebitAccountId" items="ctrl.accountStds" options="item.accountId as item.numberAndName for item in items"></soe-select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.vacationgroup.supplementchargecreditaccountid" model="ctrl.vacationGroup.vacationGroupSE.supplementChargeCreditAccountId" items="ctrl.accountStds" options="item.accountId as item.numberAndName for item in items"></soe-select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-checkbox label-key="time.employee.vacationgroup.supplementchargeaccountinternalondebit" model="ctrl.vacationGroup.vacationGroupSE.supplementChargeAccountInternalOnDebit"></soe-checkbox>
+                                </div>
+                                <div class="col-sm-9">
+                                    <soe-checkbox label-key="time.employee.vacationgroup.supplementchargeaccountinternaloncredit" model="ctrl.vacationGroup.vacationGroupSE.supplementChargeAccountInternalOnCredit"></soe-checkbox>
+                                </div>
+                            </div>
+                        </soe-panel>
+                    </soe-accordion>
+                </uib-accordion>
+            </div>
+        </div>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.vacationGroup"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

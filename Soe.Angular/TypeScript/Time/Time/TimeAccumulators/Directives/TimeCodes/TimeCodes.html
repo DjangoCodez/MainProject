@@ -1,0 +1,24 @@
+﻿<div>
+    <soe-panel label-key="time.time.timecode.timecodes" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.editTimeCode();">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 20px"></th>
+                    <th scope="col" data-l10n-bind="'time.time.timecode.timecode'"></th>
+                    <th scope="col" style="width: 200px" data-l10n-bind="'time.time.timecode.factor'"></th>
+                    <th scope="col" style="width: 28px"></th>
+                    <th scope="col" style="width: 28px"></th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="timeCode in ctrl.timeCodes">
+                <tr data-ng-class="{'table-selected-row': ctrl.selectedTimeCode === timeCode}" data-ng-click="ctrl.selectedTimeCode = timeCode">
+                    <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedTimeCode === timeCode"></i></td>
+                    <td><span>{{timeCode.timeCodeName}}</span></td>
+                    <td><span>{{timeCode.factor}}</span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly && !timeCode.isHeadTimeCode" data-ng-click="ctrl.editTimeCode(timeCode);"></i></span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly && !timeCode.isHeadTimeCode" data-ng-click="ctrl.deleteTimeCode(timeCode);"></i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </soe-panel>
+</div>

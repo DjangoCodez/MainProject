@@ -1,0 +1,131 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">
+            <span data-l10n-bind="'time.schedule.planning.annualsummary.title'"></span><span> {{ctrl.employee.name}}</span>
+        </h6>
+    </div>
+    <div class="modal-body">
+        <div class="row margin-large-bottom">
+            <div class="col-sm-12">
+                <span data-ng-if="!ctrl.planningPeriodMissing && ctrl.dateFrom && ctrl.dateTo"><span class="indiscreet"><span data-l10n-bind="'time.time.timeperiod.timeperiod'"></span>: {{ctrl.periodName}}, <span>{{ctrl.dateFrom | date: 'shortDate'}} - {{ctrl.dateTo | date: 'shortDate'}}</span></span> (<span data-l10n-bind="'common.week'"></span> <span>{{ctrl.weekString}})</span></span>
+                <span data-ng-if="ctrl.planningPeriodMissing" class="indiscreet errorColor"><span data-l10n-bind="'time.time.timeperiod.timeperiod'"></span> <span class="lowercase" data-l10n-bind="'common.missing'"></span></span>
+            </div>
+        </div>
+        <div class="row margin-large-bottom" data-ng-if="ctrl.employmentDateFrom">
+            <div class="col-sm-12">
+                <span class="indiscreet accentColor"><span data-l10n-bind="'time.employee.employee.employmentdate'"></span><span>: {{ctrl.employmentDateFrom | date: 'shortDate'}}</span></span>
+            </div>
+        </div>
+        <div class="row margin-large-bottom" data-ng-if="ctrl.employmentDateTo">
+            <div class="col-sm-12">
+                <span class="indiscreet accentColor"><span data-l10n-bind="'common.stopdate'"></span><span>: {{ctrl.employmentDateTo | date: 'shortDate'}}</span></span>
+            </div>
+        </div>
+        <div class="content-border-line" style="padding: 0 15px 0 15px;">
+            <div class="row">
+                <div class="col-sm-3 col-sm-offset-6">
+                    <soe-label class="text-right" label-key="time.schedule.planning.annualsummary.totalperiod"></soe-label>
+                </div>
+                <div class="col-sm-3">
+                    <soe-label class="text-right" label-key="time.schedule.planning.annualsummary.averageweek"></soe-label>
+                </div>
+            </div>
+            <div class="row horizontal-line margin-small-top"></div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-label label-key="time.schedule.planning.annualsummary.planned"></soe-label>
+                </div>
+                <div class="col-sm-3">
+                    <soe-text model="ctrl.employee.annualScheduledTimeMinutes | minutesToTimeSpan" bold="true" text-class="text-right" text-class-condition="true"></soe-text>
+                </div>
+                <div class="col-sm-3">
+                    <soe-text model="ctrl.annualScheduledTimeMinutesWeek | minutesToTimeSpan" bold="true" text-class="text-right" text-class-condition="true"></soe-text>
+                </div>
+            </div>
+            <div class="row horizontal-line margin-small-top"></div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-label label-key="time.schedule.planning.annualsummary.activated" text-class="margin-small-left" text-class-condition="true"></soe-label>
+                </div>
+                <div class="col-sm-3">
+                    <soe-text model="ctrl.annualScheduledTimePlaced | minutesToTimeSpan" text-class="text-right" text-class-condition="true"></soe-text>
+                </div>
+                <div class="col-sm-3">
+                    <soe-text model="ctrl.annualScheduledTimePlacedWeek | minutesToTimeSpan" text-class="text-right" text-class-condition="true"></soe-text>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-label label-key="time.schedule.planning.annualsummary.template" text-class="margin-small-left" text-class-condition="true"></soe-label>
+                </div>
+                <div class="col-sm-3">
+                    <soe-text model="ctrl.annualScheduledTime | minutesToTimeSpan" text-class="text-right" text-class-condition="true"></soe-text>
+                </div>
+                <div class="col-sm-3">
+                    <soe-text model="ctrl.annualScheduledTimeWeek | minutesToTimeSpan" text-class="text-right" text-class-condition="true"></soe-text>
+                </div>
+            </div>
+            <div class="row horizontal-line margin-small-top"></div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-label label-key="time.schedule.planning.annualsummary.annual"></soe-label>
+                </div>
+                <div class="col-sm-3">
+                    <soe-text model="ctrl.employee.annualWorkTimeMinutes | minutesToTimeSpan" bold="true" text-class="text-right" text-class-condition="true"></soe-text>
+                </div>
+                <div class="col-sm-3">
+                    <soe-text model="ctrl.annualWorkTimeMinutesWeek | minutesToTimeSpan" bold="true" text-class="text-right" text-class-condition="true"></soe-text>
+                </div>
+            </div>
+            <div class="row horizontal-line margin-small-top"></div>
+            <div class="row padding-small-bottom" data-ng-style="{ backgroundColor: ctrl.balanceBackgroundColor, color: ctrl.balanceColor}">
+                <div class="col-sm-6">
+                    <soe-label label-key="time.schedule.planning.annualsummary.diff"></soe-label>
+                </div>
+                <div class="col-sm-3">
+                    <soe-text model="ctrl.diff | minutesToTimeSpan" bold="true" text-class="text-right" text-class-condition="true"></soe-text>
+                </div>
+                <div class="col-sm-3">
+                    <soe-text model="ctrl.diffWeek | minutesToTimeSpan" bold="true" text-class="text-right" text-class-condition="true"></soe-text>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-outer-bordered table-condensed table-hover margin-large-top" data-ng-if="ctrl.planningPeriodHeadId && ctrl.timeAccumulators.length>0">
+            <thead>
+                <tr>
+                    <th scope="col" data-l10n-bind="'time.schedule.planning.annualsummary.accumulators'" class="indiscreet" colspan="{{ctrl.timeAccumulators.length + 1}}"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td class="right-align-cell indiscreet" data-ng-repeat="timeAccumulator in ctrl.timeAccumulators">{{timeAccumulator.name}}</td>
+                </tr>
+                <tr>
+                    <td data-l10n-bind="'time.time.timeaccumulator.timeaccumulator'" class="indiscreet"></td>
+                    <td class="right-align-cell" data-ng-repeat="timeAccumulator in ctrl.timeAccumulators">{{timeAccumulator.sumPlanningPeriod | minutesToTimeSpan}}</td>
+                </tr>
+                <tr>
+                    <td data-l10n-bind="'time.schedule.planning.annualsummary.accumulator.schedule'" class="indiscreet"></td>
+                    <td class="right-align-cell" data-ng-repeat="timeAccumulator in ctrl.timeAccumulators">{{ctrl.annualScheduledTimePlaced | minutesToTimeSpan}}</td>
+                </tr>
+                <tr>
+                    <td data-l10n-bind="'time.schedule.planning.annualsummary.accumulator.templateschedule'" class="indiscreet"></td>
+                    <td class="right-align-cell" data-ng-repeat="timeAccumulator in ctrl.timeAccumulators">{{ctrl.annualScheduledTime | minutesToTimeSpan}}</td>
+                </tr>
+                <tr>
+                    <td data-l10n-bind="'time.schedule.planning.annualsummary.diff'" class="indiscreet disabledBackgroundColor"></td>
+                    <td class="right-align-cell" data-ng-style="{ backgroundColor: ctrl.getAccumulatorBalanceBackgroundColor(timeAccumulator), color: ctrl.getAccumulatorBalanceColor(timeAccumulator)}" data-ng-repeat="timeAccumulator in ctrl.timeAccumulators">{{timeAccumulator.sumPlanningPeriod-ctrl.employee.annualScheduledTimeMinutes | minutesToTimeSpan}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <span class="far fa-spinner fa-pulse fa-fw margin-small-right" data-ng-if="ctrl.recalcing || ctrl.loadingAccumulators"></span>
+        <button type="button" class="btn btn-default" data-l10n-bind="'time.schedule.planning.annualsummary.accumulator.load'" data-ng-if="ctrl.planningPeriodHeadId && ctrl.timeAccumulators.length===0" data-ng-disabled="ctrl.loadingAccumulators" data-ng-click="ctrl.loadTimeAccumulators()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'time.schedule.planning.annualsummary.recalc'" data-ng-disabled="ctrl.recalcing" data-ng-if="!ctrl.recalcOnOpen" data-ng-click="ctrl.recalc()"></button>
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.cancel()"></button>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+@if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper [rows]="rowData" [parentGuid]="guid()" [toolbarGroups]="toolbarUtils.toolbarGroups">
+        <soe-accounting-reconciliation-grid-filter (searchRows)="searchRows($event)" header></soe-accounting-reconciliation-grid-filter>
+    </soe-grid-wrapper>
+    }

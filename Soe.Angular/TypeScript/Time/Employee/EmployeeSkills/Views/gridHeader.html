@@ -1,0 +1,42 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="margin-large-bottom">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <soe-textbox label-key="time.employee.employeeskills.employeenrfrom" model="ctrl.selectedEmployeeNrFrom"></soe-textbox>
+                    </div>
+                    <div class="col-sm-1">
+                        <soe-textbox label-key="time.employee.employeeskills.employeenrto" model="ctrl.selectedEmployeeNrTo"></soe-textbox>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-select label-key="time.employee.position.position" model="ctrl.selectedPositionId" items="ctrl.positions" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-select label-key="time.schedule.skill.skill" model="ctrl.selectedSkillId" items="ctrl.skills" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-2" data-ng-if="!ctrl.useAccountsHierarchy">
+                        <soe-select label-key="common.categories.category" model="ctrl.selectedCategoryId" items="ctrl.categories" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-2" data-ng-if="ctrl.useAccountsHierarchy">
+                        <soe-select label-key="common.user.attestrole.accounthierarchy" model="ctrl.selectedAccount" items="ctrl.accounts" options="item as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-datepicker label-key="common.stopdate" model="ctrl.selectedEndDate"></soe-datepicker>
+                    </div>
+                    <div class="pull-right margin-small-top">
+                        <button type="button" class="btn btn-sm ngSoeMainButton margin-large-right" data-l10n-bind="'time.employee.employeeskills.search'" data-l10n-bind-title="'time.employee.employeeskills.search'" data-ng-disabled="ctrl.loading" data-ng-click="$event.stopPropagation();ctrl.loadData()"></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 col-sm-offset-2">
+                        <soe-checkbox label-key="common.missing" model="ctrl.selectedPositionMissing"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-checkbox label-key="common.missing" model="ctrl.selectedSkillMissing"></soe-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,76 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-3">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          [autoFocus]="true"
+          formControlName="name"
+          [required]="true">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-6">
+        <soe-textbox
+          [labelKey]="'common.description'"
+          [maxLength]="500"
+          formControlName="description">
+        </soe-textbox>
+      </div>
+    </div>
+
+    @if (useAccountsHierarchy()) {
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'common.user.attestrole.accounthierarchy'"
+            [selectedId]="form.value.accountId"
+            [items]="accounts"
+            formControlName="accountId">
+          </soe-select>
+        </div>
+      </div>
+    }
+
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-numberbox
+          [labelKey]="'time.schedule.schedulecycle.nbrofweeks'"
+          formControlName="nbrOfWeeks"
+          [updateInstantly]="true"
+          (valueChanged)="onNbrOfWeeksChanged()">
+        </soe-numberbox>
+      </div>
+    </div>
+
+    @if (initialized()) {
+      <soe-expansion-panel
+        [labelKey]="'time.schedule.schedulecycle.rules'"
+        [open]="true"
+        [addTopMargin]="true"
+        [static]="true">
+        <div class="row">
+          <div class="col-sm-8">
+            <soe-sc-rules-grid [form]="form"></soe-sc-rules-grid>
+          </div>
+        </div>
+      </soe-expansion-panel>
+    }
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()">
+    </soe-edit-footer>
+  </form>
+}

@@ -1,0 +1,30 @@
+<div class="container">
+  <!-- Employee name -->
+  <span>{{ employeeName() }}</span>
+
+  @if (dateFrom() || dateTo()) {
+  <!-- If any dates, add a pipe as separator -->
+  <span class="mx-2">|</span>
+
+  <!-- If single date, show full date with day name
+  If multiple dates, show date range in short format -->
+  @if (multipleDates()) {
+  <span
+    [class.is-saturday]="isDateFromSaturday()"
+    [class.is-sunday]="isDateFromSunday()"
+    >{{ dateFrom() | date: 'shortDate' }}</span
+  >
+  <span class="mx-1">-</span>
+  <span
+    [class.is-saturday]="isDateToSaturday()"
+    [class.is-sunday]="isDateToSunday()"
+    >{{ dateTo() | date: 'shortDate' }}</span
+  >
+  } @else if (dateFrom()) {
+  <span
+    [class.is-saturday]="isDateFromSaturday()"
+    [class.is-sunday]="isDateFromSunday()"
+    >{{ dateFrom() | date: 'fullDate' | titlecase }}</span
+  >
+  } }
+</div>

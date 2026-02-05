@@ -1,0 +1,23 @@
+﻿<div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-6">
+                <date-time-interval-selection on-selected="$ctrl.onDateRangeSelectionUpdated(selection)" label-key="common.period" selected-interval="month" user-selection-input="$ctrl.userSelectionInputDate" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-4">
+                <category-selection on-selected="$ctrl.onCategorySelectionUpdated(selection)" label-key="common.categories" user-selection-input="$ctrl.userSelectionInputCategory" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-12">
+                <bool-selection on-selected="$ctrl.onBoolSelectionInactiveUpdated(selection)" label-key="common.includeinactive"  user-selection-input="$ctrl.userSelectionInputInactive" />
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿<!-- For now, this code is duplicated in Employee/Views/massUpdateGridHeader. Changes here should alos be made there -->
+<form class="form-inline">
+    <div class="form-group form-group-sm" width="100%">
+        <div class="col" style="margin-left: 5px;margin-top:7px"><span data-l10n-bind="'time.employee.massupdateemployeefields.filter'"></span></div>
+        <div class="col" style="margin-left:5px"><soe-datepicker hidelabel="true" model="ctrl.filterFromDate" use-ignore-dirty="true" on-change="$event.stopPropagation();ctrl.filterChanged()"></soe-datepicker></div>
+        <div class="col" style="margin-left:5px"><soe-datepicker hidelabel="true" model="ctrl.filterToDate" use-ignore-dirty="true" on-change="$event.stopPropagation();ctrl.filterChanged()"></soe-datepicker></div>
+        <div class="col" style="margin-top: 5px;margin-left:5px"><soe-checkbox label-key="common.api.showonlyerrors" model="ctrl.filterShowOnlyErrors" on-changing="stopPropagation();ctrl.filterChanged()"></soe-checkbox></div>
+    </div>
+    <div class="info autoload-info" width="100%" data-ng-if="ctrl.isAutoLoadDisabled()" data-ng-click="ctrl.loadGridData(true)" style="margin-top:5px;cursor:pointer">
+        <strong><span class="autoload-info-row1" data-l10n-bind="'common.api.disableautoload.inforow1'"></span></strong><br />
+        <span class="autoload-info-row2" data-l10n-bind="'common.api.disableautoload.inforow2'"></span>
+    </div>
+</form>

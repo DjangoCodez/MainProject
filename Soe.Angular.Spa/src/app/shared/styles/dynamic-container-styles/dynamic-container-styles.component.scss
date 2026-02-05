@@ -1,0 +1,46 @@
+// This is used when the container width is dynamic and column
+// widths need to be adjusted based on the container size.
+// Usage: Apply the class "responsive-width-container" to the container.
+
+:host ::ng-deep .responsive-width-container {
+  container-type: inline-size;
+}
+
+:host ::ng-deep {
+  // Add more media queries as needed for different breakpoints
+
+  @container (max-width: 800px) {
+    .col-sm-8,
+    .col-sm-9 {
+      width: 100%;
+    }
+    .col-sm-5 {
+      width: 58.33%;
+    }
+    .col-sm-4 {
+      width: 50%
+    }
+    .col-sm-3 {
+      width: 33.33%;
+    }
+    .col-sm-2 {
+      width: 25%;
+    }
+  }
+
+  @container (max-width: 400px) {
+    .col-sm-9,
+    .col-sm-8,
+    .col-sm-6,
+    .col-sm-5, 
+    .col-sm-4 {
+      width: 100%;
+    }
+    .col-sm-3 {
+      width: 75%;
+    }
+    .col-sm-2 {
+      width: 50%;
+    }
+  }
+}

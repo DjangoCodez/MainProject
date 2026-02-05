@@ -1,0 +1,2 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="getAccountsByName.aspx.cs" Inherits="SoftOne.Soe.Web.ajax.getAccountsByName" %>
+<%@ outputcache Duration="1" Location="None" VaryByParam="*" %>

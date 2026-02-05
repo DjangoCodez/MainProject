@@ -1,0 +1,162 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row" data-ng-if="ctrl.modifyCurrentUserPermission">
+            <div class="col-sm-12">
+                <soe-checkbox label-key="common.user.showallcompanies" model="ctrl.showAllCompanies" data-ng-class="ctrl.setVisible();"></soe-checkbox>
+            </div>
+        </div>
+        <div class="row margin-small-bottom" data-ng-if="!ctrl.modifyCurrentUserPermission">
+            <div class="col-sm-12">
+                <div class="info">
+                    <span data-l10n-bind="'common.user.cantmodifyrolesonmyself'"></span>
+                </div>
+            </div>
+        </div>
+        <div class="table-outer-bordered">
+            <table class="table table-condensed table-hover" style="margin-bottom: 0;">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 20px" data-ng-if="ctrl.companyRoles.length>0 && !ctrl.allRowsExpanded"><span class="link fal fa-chevron-right" data-l10n-bind data-l10n-bind-title="'common.user.expandrows'" data-ng-click="ctrl.expandAllRows();"></span></th>
+                        <th scope="col" style="width: 20px" data-ng-if="ctrl.companyRoles.length>0 && ctrl.allRowsExpanded"><span class="link fal fa-chevron-down" data-l10n-bind data-l10n-bind-title="'common.user.collapserows'" data-ng-click="ctrl.collapseAllRows();"></span></th>
+                        <th scope="col" colspan="2" data-l10n-bind="'common.user.company'"></th>
+                    </tr>
+                </thead>
+                <tbody data-ng-repeat="companyRole in ctrl.companyRoles | filter:{visible:'true'}">
+                    <!-- Company -->
+                    <tr class="link">
+                        <td data-ng-click="companyRole.expanded=!companyRole.expanded">
+                            <span class="fal fa-chevron-right" data-l10n-bind data-l10n-bind-title="'common.user.expandrow'" data-ng-if="!companyRole.expanded"></span>
+                            <span class="fal fa-chevron-down" data-l10n-bind data-l10n-bind-title="'common.user.collapserow'" data-ng-if="companyRole.expanded"></span>
+                        </td>
+                        <td style="width: 28px" data-l10n-bind data-l10n-bind-title="'common.standard'"><span class="fal" data-ng-class="{'fa-square': !companyRole.defaultCompany, 'fa-check-square': companyRole.defaultCompany, 'disabledTextColor': companyRole.readOnly, 'link': !companyRole.readOnly}" data-ng-click="ctrl.companyRoleDefaultSelected(companyRole);"></span></td>
+                        <td data-ng-click="companyRole.expanded=!companyRole.expanded"><span data-ng-class="{'indiscreet': companyRole.defaultCompany}">{{companyRole.companyName}}</span></td>
+                    </tr>
+
+                    <tr data-ng-if="(companyRole.userCompanyRoles.length > 0 || companyRole.userCompanyAttestRoles.length > 0) && companyRole.expanded">
+                        <td colspan="3">
+                            <div class="row">
+                                <!-- Roles -->
+                                <div class="col-sm-4" style="padding-right: 0px;" data-ng-if="ctrl.userRolesReadPermission">
+                                    <div class="table-outer-bordered">
+                                        <table class="table table-condensed table-striped table-hover" style="margin-bottom: 0;">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" style="width: 20px"></th>
+                                                    <th scope="col" style="width: 28px"></th>
+                                                    <th scope="col" data-l10n-bind="'common.user.roles'"></th>
+                                                    <th scope="col" data-l10n-bind="'common.datefrom'"></th>
+                                                    <th scope="col" data-l10n-bind="'common.dateto'"></th>
+                                                    <th scope="col" style="width: 28px" data-l10n-bind="'common.standard'"></th>
+                                                    <th scope="col" style="width: 28px" data-ng-if="ctrl.userRolesModifyPermission && ctrl.modifyCurrentUserPermission"><span class="fal fa-plus link" data-ng-click="ctrl.createUserRole(companyRole);"></span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-ng-repeat="role in companyRole.userCompanyRoles | orderBy:['name', 'dateFrom'] track by $index">
+                                                    <td><span class="fal fa-asterisk errorColor smallFont" data-ng-if="role.isModified"></span></td>
+                                                    <td><span class="fal" data-ng-class="{'fa-square': !role.selected, 'fa-check-square': role.selected, 'disabledTextColor': role.readOnly || role.isDelegated, 'link': !role.readOnly && !role.isDelegated}" data-ng-click="ctrl.roleSelected(role);"></span></td>
+                                                    <td><span style="word-break: break-all;">{{role.name}}</span></td>
+                                                    <td><span data-ng-class="{'errorColor': !role.isRoleActive()}">{{role.dateFrom | date:'shortDate'}}</span></td>
+                                                    <td><span data-ng-class="{'errorColor': !role.isRoleActive()}">{{role.dateTo | date:'shortDate'}}</span></td>
+                                                    <td><span class="fal" data-ng-class="{'fa-square': role.selected && !role.default, 'fa-check-square': role.selected && role.default, 'disabledTextColor': role.readOnly || role.isDelegated, 'link': !role.readOnly && !role.isDelegated}" data-ng-click="ctrl.roleDefaultSelected(role);"></span></td>
+                                                    <td data-ng-if="!role.readOnly"><span class="fal link" data-ng-class="{'fa-pencil iconEdit': !role.isDelegated, 'fa-lock-alt': role.isDelegated}" data-ng-click="ctrl.editUserRole(companyRole, role);"></span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- Attest roles -->
+                                <div class="col-sm-8" data-ng-if="ctrl.attestRolesReadPermission">
+                                    <div class="table-outer-bordered">
+                                        <table class="table table-condensed table-striped table-hover" style="margin-bottom: 0;">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" style="width: 20px"></th>
+                                                    <th scope="col" style="width: 28px"></th>
+                                                    <th scope="col" style="width: 15%" data-l10n-bind="'common.user.attestroles'"></th>
+                                                    <th scope="col" style="width: 10%" data-l10n-bind="'common.module'"></th>
+                                                    <th scope="col" style="width: 10%" data-ng-if="ctrl.useAccountsHierarchy" data-l10n-bind="'common.accountdim'"></th>
+                                                    <th scope="col" style="width: 20%" data-ng-if="ctrl.useAccountsHierarchy" data-l10n-bind="'common.name'"></th>
+                                                    <th scope="col" style="width: 10%" data-ng-if="ctrl.useAccountsHierarchy" data-l10n-bind="'core.permission'"></th>
+                                                    <th scope="col" style="width: 10%" data-l10n-bind="'common.datefrom'"></th>
+                                                    <th scope="col" style="width: 10%" data-l10n-bind="'common.dateto'"></th>
+                                                    <th scope="col" class="right-align-cell" data-l10n-bind="'common.user.maxamount'"></th>
+                                                    <th scope="col" style="width: 28px" data-ng-if="ctrl.useAccountsHierarchy" data-l10n-bind="'common.user.attestrole.isexecutive.short'"></th>
+                                                    <th scope="col" style="width: 28px" data-ng-if="ctrl.useIsNearestManagerOnAttestRoleUser" data-l10n-bind="'common.user.attestrole.isnearestmanager'"></th>
+                                                    <th scope="col" style="width: 28px" data-ng-if="ctrl.attestRolesModifyPermission && ctrl.modifyCurrentUserPermission"><span data-ng-if="ctrl.useAccountsHierarchy" class="fal fa-plus link" data-ng-click="ctrl.createUserAttestRole(companyRole);"></span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody data-ng-repeat="role in companyRole.userCompanyAttestRoles | orderBy:'name'">
+                                                <tr data-ng-hide="role.state === 1 && !role.selected">
+                                                    <td style="width: 20px"><span class="fal fa-asterisk errorColor smallFont" data-ng-if="role.isModified"></span></td>
+                                                    <td style="width: 28px"><span class="fal" data-ng-class="{'fa-square': !role.selected, 'fa-check-square': role.selected, 'disabledTextColor': role.readOnly || role.isDelegated, 'link': !role.readOnly && !role.isDelegated}" data-ng-click="ctrl.attestRoleSelected(role);"></span></td>
+                                                    <td style="width: 15%"><span style="word-break: break-all;">{{role.name}}</span>&nbsp;<span data-ng-if="role.state === 1">(</span><span data-l10n-bind="'common.inactive'" data-ng-if="role.state === 1"></span><span data-ng-if="role.state === 1">)</span></td>
+                                                    <td style="width: 10%"><span style="word-break: break-all;">{{role.moduleName}}</span></td>
+                                                    <td style="width: 10%" data-ng-if="ctrl.useAccountsHierarchy"><span>{{role.accountDimName}}</span></td>
+                                                    <td style="width: 20%" data-ng-if="ctrl.useAccountsHierarchy"><span style="word-break: break-all;">{{role.accountName}}</span></td>
+                                                    <td style="width: 10%" data-ng-if="ctrl.useAccountsHierarchy"><span>{{role.accountPermissionTypeName}}</span></td>
+                                                    <td style="width: 10%"><span>{{role.dateFrom | date:'shortDate'}}</span></td>
+                                                    <td style="width: 10%"><span>{{role.dateTo | date:'shortDate'}}</span></td>
+                                                    <td class="right-align-cell"><span>{{role.maxAmount | amount:2:true}}</span></td>
+                                                    <td style="width: 28px" data-ng-if="ctrl.useAccountsHierarchy"><span data-ng-if="role.isExecutive" class="fal fa-check"></span></td>
+                                                    <td style="width: 28px" data-ng-if="ctrl.useIsNearestManagerOnAttestRoleUser"><span data-ng-if="role.isNearestManager" class="fal fa-check"></span></td>
+                                                    <td style="width: 28px" data-ng-if="ctrl.attestRolesModifyPermission && ctrl.modifyCurrentUserPermission"><span data-ng-if="!role.readOnly" class="fal link" data-ng-class="{'fa-pencil iconEdit': !role.isDelegated, 'fa-lock-alt': role.isDelegated}" data-ng-click="ctrl.editUserAttestRole(companyRole, role);"></span></td>
+                                                </tr>
+                                                <tr data-ng-hide="role.state === 1 && !role.selected">
+                                                    <td colspan="13" style="padding: 0px;">
+                                                        <table class="table table-condensed table-hover">
+                                                            <tbody data-ng-repeat="child in role.children">
+                                                                <tr>
+                                                                    <td style="width: 20px"></td>
+                                                                    <td style="width: 28px"></td>
+                                                                    <td style="width: 15%"></td>
+                                                                    <td style="width: 10%"></td>
+                                                                    <td style="width: 10%" data-ng-if="ctrl.useAccountsHierarchy"><span class="italic">{{child.accountDimName}}</span></td>
+                                                                    <td style="width: 20%" data-ng-if="ctrl.useAccountsHierarchy"><span class="italic" style="padding-left: 8px; word-break: break-all;">{{child.accountName}}</span></td>
+                                                                    <td style="width: 10%" data-ng-if="ctrl.useAccountsHierarchy"><span class="italic">{{child.accountPermissionTypeName}}</span></td>
+                                                                    <td style="width: 10%"><span class="italic">{{child.dateFrom | date:'shortDate'}}</span></td>
+                                                                    <td style="width: 10%"><span class="italic">{{child.dateTo | date:'shortDate'}}</span></td>
+                                                                    <td></td>
+                                                                    <td style="width: 28px" data-ng-if="ctrl.useAccountsHierarchy"><span data-ng-if="child.isExecutive" class="fal fa-check"></span></td>
+                                                                    <td style="width: 28px" data-ng-if="ctrl.useIsNearestManagerOnAttestRoleUser"><span data-ng-if="child.isNearestManager" class="fal fa-check"></span></td>
+                                                                    <td style="width: 28px" data-ng-if="ctrl.attestRolesModifyPermission && ctrl.modifyCurrentUserPermission"></td>
+                                                                </tr>
+                                                                <!-- Sub children -->
+                                                                <tr data-ng-repeat="subChild in child.children">
+                                                                    <td style="width: 20px"></td>
+                                                                    <td style="width: 28px"></td>
+                                                                    <td style="width: 15%"></td>
+                                                                    <td style="width: 10%"></td>
+                                                                    <td style="width: 10%"><span class="italic">{{subChild.accountDimName}}</span></td>
+                                                                    <td style="width: 20%"><span class="italic" style="padding-left: 16px; word-break: break-all;">{{subChild.accountName}}</span></td>
+                                                                    <td style="width: 10%" data-ng-if="ctrl.useAccountsHierarchy"><span class="italic">{{subChild.accountPermissionTypeName}}</span></td>
+                                                                    <td style="width: 10%"><span data-ng-if="subChild.dateFrom"></span><span class="italic">{{subChild.dateFrom | date:'shortDate'}}</span></td>
+                                                                    <td style="width: 10%"><span data-ng-if="subChild.dateTo"></span><span class="italic">{{subChild.dateTo | date:'shortDate'}}</span></td>
+                                                                    <td></td>
+                                                                    <td style="width: 28px" data-ng-if="ctrl.useAccountsHierarchy"><span data-ng-if="subChild.isExecutive" class="fal fa-check"></span></td>
+                                                                    <td style="width: 28px" data-ng-if="ctrl.useIsNearestManagerOnAttestRoleUser"><span data-ng-if="subChild.isNearestManager" class="fal fa-check"></span></td>
+                                                                    <td style="width: 28px" data-ng-if="ctrl.attestRolesModifyPermission && ctrl.modifyCurrentUserPermission"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-disabled="!ctrl.hasDefaultRole" data-ng-if="(ctrl.userRolesModifyPermission || ctrl.attestRolesModifyPermission) && ctrl.modifyCurrentUserPermission" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

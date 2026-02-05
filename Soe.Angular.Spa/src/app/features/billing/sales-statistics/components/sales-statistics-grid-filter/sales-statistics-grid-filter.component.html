@@ -1,0 +1,32 @@
+<div>
+  <form [formGroup]="formFilter" novalidate autocomplete="off">
+    <div class="row">
+      <div class="d-sm-inline">
+        <soe-select
+          [labelKey]="'common.type'"
+          [inline]="true"
+          [items]="types"
+          [width]="200"
+          formControlName="originType" />
+      </div>
+      <div class="d-sm-inline">
+        <soe-datepicker
+          [labelKey]="'common.fromdate'"
+          [inline]="true"
+          formControlName="fromDate" />
+      </div>
+      <div class="d-sm-inline">
+        <soe-datepicker
+          [labelKey]="'common.todate'"
+          [inline]="true"
+          formControlName="toDate" />
+      </div>
+      <div class="d-sm-inline">
+        <soe-button
+          [caption]="'core.search'"
+          [behaviour]="'primary'"
+          (action)="search()" />
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,73 @@
+@if (form) {
+  <form
+    [formGroup]="form"
+    class="soe-edit-form p-0"
+    novalidate
+    autocomplete="off">
+    @if (flowHandler.allowFetchGrid() && !dialogData().hideProducts) {
+      <div class="row mb-2">
+        <soe-search-invoice-product-grid-header
+          toolbar-content-left
+          [firstTierCategories]="firstTierCategories"
+          (firstTierCategoryChanged)="firstTierCategoryChanged($event)"
+          [secondTierCategories]="secondTierCategories"
+          (secondTierCategoryChanged)="secondTierCategoryChanged($event)"
+          [useExtendSearchInfo]="useExtendSearchInfo"
+          (onSearchClick)="doSearch($event)">
+          ></soe-search-invoice-product-grid-header
+        >
+      </div>
+      <soe-grid
+        [height]="300"
+        [parentGuid]="guid()"
+        [rows]="rowData"
+        (selectionChanged)="productSelectionChanged($event)">
+      </soe-grid>
+    }
+    @if (dialogData().hideProducts) {
+      <div class="row mt-3 mb-2">
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.number'"
+            formControlName="number"></soe-textbox>
+        </div>
+      </div>
+    }
+    @if (hasSearchedProducts() && !dialogData().hidePrices) {
+      <div class="row mt-3">
+        <soe-sys-wholesaler-prices
+          [priceListTypeId]="form.value.priceListTypeId"
+          [customerId]="dialogData().customerId"
+          [currencyId]="dialogData().currencyId"
+          [sysWholesellerId]="dialogData().sysWholesellerId ?? 0"
+          [number]="selectedProductRow()?.number ?? ''"
+          [providerType]="selectedProductRow()?.type ?? 0"
+          [(selectedPrice)]="selectedProductPrice"
+          (rowSelected)="
+            wholesalerPriceSelected($event)
+          "></soe-sys-wholesaler-prices>
+      </div>
+    }
+    @if (
+      showPriceListSelect() && hasSearchedProducts() && !dialogData().hidePrices
+    ) {
+      <div class="row mt-3 mb-2">
+        <div class="col-sm-4">
+          <soe-select
+            [labelKey]="'billing.product.pricelist.name'"
+            formControlName="priceListTypeId"
+            [items]="priceLists()"></soe-select>
+        </div>
+      </div>
+    }
+    @if (flowHandler.allowFetchGrid() && !showPriceListSelect()) {
+      <div class="row mt-3 mb-2">
+        <div class="col-sm-3">
+          <soe-numberbox
+            [labelKey]="'common.quantity'"
+            formControlName="quantity"></soe-numberbox>
+        </div>
+      </div>
+    }
+  </form>
+}

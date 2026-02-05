@@ -1,0 +1,225 @@
+<form [formGroup]="form()" novalidate autocomplete="off">
+  <div class="shift-panel">
+    <div class="row">
+      <div class="col-sm-3">
+        <soe-menu-button
+          [variant]="'menu'"
+          [behaviour]="'secondary'"
+          [list]="filterService.blockTypeItems"
+          [showSelectedItemIcon]="true"
+          [showSelectedItemLabel]="true"
+          [fitContainer]="true"
+          [noBorderRadius]="true"
+          (itemSelected)="blockTypeSelected($event)"
+          [selectedItem]="selectedBlockType"></soe-menu-button>
+      </div>
+      <div class="col-sm-9">
+        <soe-delete-button
+          class="float-end"
+          [showDefaultIcon]="true"
+          (action)="deleteShift()"></soe-delete-button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <!-- TODO: New term -->
+        <soe-timebox
+          #startTime
+          [labelKey]="'Passet startar'"
+          [showDateAsTooltip]="true"
+          formControlName="actualStartTime"
+          (valueChanged)="startTimeChanged($event)">
+          <soe-select
+            [inline]="true"
+            [selectedId]="form().value.startTimeBelongsTo"
+            [items]="service.startsOnItems || []"
+            [noBorderLeftRadius]="true"
+            [tabindex]="-1"
+            (valueChanged)="startTimeStartsOnChanged($event)"
+            formControlName="startTimeStartsOn"></soe-select>
+        </soe-timebox>
+      </div>
+      <div class="col-sm-3">
+        <!-- TODO: New term -->
+        <soe-timebox
+          #stopTime
+          [labelKey]="'Passet slutar'"
+          [showDateAsTooltip]="true"
+          formControlName="actualStopTime"
+          (valueChanged)="stopTimeChanged($event)">
+          <soe-select
+            [inline]="true"
+            [selectedId]="form().value.stopTimeBelongsTo"
+            [items]="service.startsOnItems || []"
+            [noBorderLeftRadius]="true"
+            formControlName="stopTimeStartsOn"></soe-select>
+        </soe-timebox>
+      </div>
+      <div class="col-sm-2">
+        <soe-timebox
+          [labelKey]="'time.schedule.planning.editshift.duration'"
+          [isDuration]="true"
+          formControlName="shiftLength">
+        </soe-timebox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <soe-select
+          [labelKey]="'common.shifttype'"
+          [items]="filterService.shiftTypesDict"
+          formControlName="shiftTypeId"
+          (valueChanged)="shiftTypeChanged($event)"></soe-select>
+      </div>
+      <div class="col-sm-3">
+        <soe-select
+          [labelKey]="'time.schedule.scheduletype.scheduletype'"
+          [items]="filterService.timeScheduleTypesDict"
+          formControlName="timeScheduleTypeId"></soe-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <soe-textbox
+          [labelKey]="'time.schedule.planning.editshift.description'"
+          [maxLength]="255"
+          formControlName="description">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="d-flex align-items-center gap-3">
+        <soe-checkbox
+          [labelKey]="'time.schedule.planning.editshift.preliminary'"
+          formControlName="isPreliminary">
+        </soe-checkbox>
+        <soe-checkbox
+          [labelKey]="'time.schedule.planning.editshift.extrashift'"
+          formControlName="extraShift">
+        </soe-checkbox>
+        <soe-checkbox
+          [labelKey]="'time.schedule.planning.editshift.substitute'"
+          formControlName="substituteShift">
+        </soe-checkbox>
+      </div>
+    </div>
+    <div class="breaks-panel">
+      <soe-expansion-panel
+        [labelKey]="'time.schedule.planning.breaks'"
+        [condensedBody]="true"
+        [noBottomMargin]="true"
+        [open]="true">
+        <div formArrayName="breaks" class="mb-2">
+          @if (form().breaks.controls.length > 0) {
+            <div class="row break-labels">
+              <div class="col-sm-3">
+                <soe-label [labelKey]="'Rasten startar'"></soe-label>
+              </div>
+              <div class="col-sm-3">
+                <soe-label [labelKey]="'Rasten slutar'"></soe-label>
+              </div>
+              <div class="col-sm-2">
+                <soe-label
+                  [labelKey]="
+                    'time.schedule.planning.editshift.duration'
+                  "></soe-label>
+              </div>
+              <div class="col-sm-2">
+                <soe-label
+                  [labelKey]="
+                    'time.schedule.planning.editshift.breaktimecode'
+                  "></soe-label>
+              </div>
+            </div>
+          } @else {
+            <div>
+              <!-- TODO: New term -->
+              <soe-instruction
+                [text]="'Inga raster inom markerat pass'"
+                [fitToContent]="true"></soe-instruction>
+            </div>
+          }
+          @for (
+            breakForm of form().breaks.controls;
+            track breakForm.breakId;
+            let i = $index
+          ) {
+            <div [formGroupName]="i">
+              <div class="row break-fields">
+                <div class="col-sm-3">
+                  <soe-timebox
+                    #breakStartTime
+                    [showDateAsTooltip]="true"
+                    (valueChanged)="breakStartTimeChanged(breakForm, $event)"
+                    formControlName="startTime">
+                    <soe-select
+                      [inline]="true"
+                      [selectedId]="breakForm.value.startTimeBelongsTo"
+                      [items]="service.startsOnItems || []"
+                      [noBorderLeftRadius]="true"
+                      [tabindex]="-1"
+                      (valueChanged)="
+                        breakStartTimeStartsOnChanged(breakForm, $event)
+                      "
+                      formControlName="startTimeStartsOn"></soe-select>
+                  </soe-timebox>
+                </div>
+                <div class="col-sm-3">
+                  <soe-timebox
+                    [showDateAsTooltip]="true"
+                    (valueChanged)="breakStopTimeChanged(breakForm, $event)"
+                    formControlName="stopTime">
+                    <soe-select
+                      [inline]="true"
+                      [selectedId]="breakForm.value.stopTimeBelongsTo"
+                      [items]="service.startsOnItems || []"
+                      [noBorderLeftRadius]="true"
+                      formControlName="stopTimeStartsOn"></soe-select>
+                  </soe-timebox>
+                </div>
+                <div class="col-sm-2">
+                  <soe-timebox [isDuration]="true" formControlName="minutes">
+                  </soe-timebox>
+                </div>
+                <div class="col-sm-2">
+                  <soe-select
+                    [items]="service.timeCodeBreaks"
+                    [optionIdField]="'timeCodeId'"
+                    (valueChanged)="breakTimeCodeChanged(breakForm, $event)"
+                    formControlName="timeCodeId"></soe-select>
+                </div>
+                @if (!breakForm.value.isIntersecting) {
+                  <div class="col-sm-2 delete-icon-container">
+                    <span title="{{ 'core.delete' | translate }}">
+                      <fa-icon
+                        class="delete-icon"
+                        [icon]="'xmark'"
+                        (click)="deleteBreak(i)"></fa-icon
+                    ></span>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+        <div class="break-buttons">
+          <soe-button
+            [caption]="'time.schedule.planning.editshift.newbreak'"
+            [iconName]="'plus'"
+            [behaviour]="'standard'"
+            (action)="addBreak()"></soe-button>
+        </div>
+      </soe-expansion-panel>
+      @if (hasSkills()) {
+        <div class="skills-panel">
+          <soe-expansion-panel
+            [labelKey]="'time.schedule.planning.editshift.skills'"
+            [condensedBody]="true"
+            [noBottomMargin]="true"
+            >Kompetenser kommer att läggas till här...
+          </soe-expansion-panel>
+        </div>
+      }
+    </div>
+  </div>
+</form>

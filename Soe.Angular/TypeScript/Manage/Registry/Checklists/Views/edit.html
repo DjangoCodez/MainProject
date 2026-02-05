@@ -1,0 +1,63 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+    <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+    <div data-ng-if="!ctrl.progress.progressBusy">
+
+        <soe-panel label-key="">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-checkbox label-key="common.active" model="ctrl.active"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="manage.registry.checklists.name" model="ctrl.checklistHead.name" required="true" maxlength="50" on-change="ctrl.setModified()"></soe-textbox>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="manage.registry.checklists.description" model="ctrl.checklistHead.description" maxlenght="100"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="manage.registry.checklists.type" model="ctrl.checklistHead.type" required="true" items="ctrl.checklistHeadTypes" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-checkbox label-key="manage.registry.checklists.showalwaysinorder" model="ctrl.checklistHead.defaultInOrder" inline="true"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="manage.registry.checklists.reporttemplate" model="ctrl.checklistHead.reportId" items="ctrl.checklistReports" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-checkbox label-key="manage.registry.checklists.addattachementstoeinvoice" model="ctrl.checklistHead.addAttachementsToEInvoice" inline="true"></soe-checkbox>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <checklist-rows checklist-rows="ctrl.checklistRows" checklist-head-id="ctrl.checklistHead.checklistHeadId" parent-guid="ctrl.guid"></>
+                    </div>
+                </div>
+            </div>
+
+        </soe-panel>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.checklistHead"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,69 @@
+﻿
+<div>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <date-selection label-key="common.report.selection.date" show-range="true" as-range="true" on-selected="$ctrl.onDateRangeSelected(selection)" user-selection-input="$ctrl.selectedDateRange" use-min-max-if-empty="true"></date-selection>
+        </div>
+    </div>
+
+    <div class="row" data-ng-hide="!$ctrl.showDim2">
+        <div class="col-sm-4">
+            <id-selection label-value="$ctrl.dim2Header" hide-label="true" on-selected="$ctrl.onDim2FromChanged(selection)" items="$ctrl.dim2" user-selection-input="$ctrl.selecteddim2FromItem" options="item.id as item.name for item in items | orderBy: 'name'" model="$ctrl.selecteddim2FromItem" />
+        </div>
+        <div class="col-sm-4 margin-small-top">
+            <id-selection on-selected="$ctrl.onDim2ToChanged(selection)" items="$ctrl.dim2" user-selection-input="$ctrl.selecteddim2ToItem" options="item.id as item.name for item in items | orderBy: 'name'" model="$ctrl.selecteddim2ToItem" />
+        </div>
+    </div>
+
+    <div class="row" data-ng-hide="!$ctrl.showDim3">
+        <div class="col-sm-4">
+            <id-selection label-value="$ctrl.dim3Header" hide-label="true" on-selected="$ctrl.onDim3FromChanged(selection)" items="$ctrl.dim3" user-selection-input="$ctrl.selecteddim3FromItem" options="item.id as item.name for item in items | orderBy: 'name'" model="$ctrl.selecteddim3FromItem" />
+        </div>
+        <div class="col-sm-4 margin-small-top">
+            <id-selection on-selected="$ctrl.onDim3ToChanged(selection)" items="$ctrl.dim3" user-selection-input="$ctrl.selecteddim3ToItem" options="item.id as item.name for item in items | orderBy: 'name'" model="$ctrl.selecteddim3ToItem" />
+        </div>
+    </div>
+
+    <div class="row" data-ng-hide="!$ctrl.showDim4">
+        <div class="col-sm-4">
+            <id-selection label-value="$ctrl.dim4Header" hide-label="true" on-selected="$ctrl.onDim4FromChanged(selection)" items="$ctrl.dim4" user-selection-input="$ctrl.selecteddim4FromItem" model="$ctrl.selecteddim4FromItem" options="item.id as item.name for item in items | orderBy: 'name'" />
+        </div>
+        <div class="col-sm-4 margin-small-top">
+            <id-selection on-selected="$ctrl.onDim4ToChanged(selection)" items="$ctrl.dim4" user-selection-input="$ctrl.selecteddim4ToItem" model="$ctrl.selecteddim4ToItem" options="item.id as item.name for item in items | orderBy: 'name'" />
+        </div>
+    </div>
+
+    <div class="row" data-ng-hide="!$ctrl.showDim5">
+        <div class="col-sm-4">
+            <id-selection label-value="$ctrl.dim5Header" hide-label="true" on-selected="$ctrl.onDim5FromChanged(selection)" items="$ctrl.dim5" user-selection-input="$ctrl.selecteddim5FromItem" model="$ctrl.selecteddim5FromItem" options="item.id as item.name for item in items | orderBy: 'name'" />
+        </div>
+        <div class="col-sm-4 margin-small-top">
+            <id-selection on-selected="$ctrl.onDim5ToChanged(selection)" items="$ctrl.dim5" user-selection-input="$ctrl.selecteddim5ToItem" model="$ctrl.selecteddim5ToItem" options="item.id as item.name for item in items | orderBy: 'name'" />
+        </div>
+    </div>
+
+    <div class="row" data-ng-hide="!$ctrl.showDim6">
+        <div class="col-sm-4">
+            <id-selection label-value="$ctrl.dim6Header" hide-label="true" items="ctrl.dim6" options="item.id as item.name for item in items | orderBy: 'name'" user-selection-input="$ctrl.selecteddim6FromItem" model="$ctrl.selecteddim6FromItem"/>
+        </div>
+        <div class="col-sm-4">
+            <id-selection items="ctrl.dim6" options="item.id as item.name for item in items | orderBy: 'name'" user-selection-input="$ctrl.selecteddim6ToItem" model="$ctrl.selecteddim6ToItem"/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <bool-selection model="ctrl.includeChildProjects" label-key="common.report.selection.includesubprojects" on-selected="$ctrl.onIncludeChildProjectSelected(selection)" user-selection-input="$ctrl.includeChildProjectSelected"></bool-selection>
+        </div>
+        <div class="col-sm-4">
+            <bool-selection model="ctrl.excludeInternaOrders" label-key="common.report.selection.excludeinternalorders" on-selected="$ctrl.onExcludeInternalOrdersSelected(selection)" user-selection-input="$ctrl.excludeInternalOrdersSelected"></bool-selection>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <grid-filter-selection on-Search-Projects="$ctrl.onSearchProjects(projectStatusSelection)" on-Selected-Project-Ids="$ctrl.onSelectedProjectIds(projectIds)"></grid-filter-selection>
+        </div>
+    </div>
+</div>

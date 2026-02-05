@@ -1,0 +1,219 @@
+﻿/* MenuBar */
+#MenuBar
+{
+    height: 30px;
+	width:  1000px;
+    float: left;
+}
+#MenuBar a
+{    
+	padding: 0px 8px 0 8px;
+	text-decoration:none;
+    display: block;
+}
+#MenuBar a, #MenuBar span
+{
+    color:#FFFFFF;
+	font-weight:normal;
+	text-align:left;
+}
+#MenuBar ul
+{   	
+	margin:0;
+    padding:0;
+	list-style:none;
+    border: 0;
+}
+#MenuBar li
+{
+    line-height:30px;
+	float:left;
+	font-size:14px;
+	font-weight:bold;    
+}
+#MenuBar li img
+{
+    vertical-align: middle;
+}
+#MenuBar li a:hover
+{
+    background-color: #4C4C4C;
+    cursor: text;
+}
+    #MenuBar li a.active, #MenuBar li a.active:hover {
+        color: #72acf8;
+    }
+#MenuBar li div
+{
+    float: left;
+}
+#MenuBar li ul
+{
+    height:auto; 
+	padding: 0 0 5px 0;
+    position:absolute;   
+    display:none;
+    background:#333333;
+    border: 0;
+    z-index: 1000;
+}
+#MenuBar li:hover ul
+{
+	display:block;
+}
+#MenuBar li li
+{
+	display:block;
+	float:none;
+    background-color: #333333;
+}
+#MenuBar li.subheader 
+{
+    height: 24px;
+    margin: 5px 0 0 0;
+    border-top: 1px solid #525252;
+}
+#MenuBar li.subheader:first-child
+{
+    border-top: 0;
+}
+#MenuBar li.subheader span
+{
+    margin:0;
+    padding: 0 10px 0 10px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform:uppercase;
+}
+#MenuBar .sub
+{
+    height: 26px;
+    margin: 0;
+}
+#MenuBar .sub a
+{
+    margin: 0;
+    padding: 0 10px 0 10px;
+	font-size:12px;
+    text-indent: 10px;  
+}
+#MenuBar li ul li a:hover
+{
+    background-color: #4C4C4C;
+    cursor: pointer;
+}	
+
+/*QuickSearch*/
+#MenuBar .search
+{
+    width: auto;
+    margin: 0;
+    padding: 5px 0px 5px 0px;
+    float:right;
+}
+#MenuBar .search input[type=text]
+{
+    height: 16px;
+    width: 110px;
+	font-size: 11px;
+	border: 1px solid #8C9FC7;
+}
+#MenuBar .search input[type=image]
+{
+    padding: 0 0 0 2px;
+    border: 0;
+    cursor: text;
+}
+
+/* MenuSelector */
+.MenuSelector
+{
+	margin:0;
+	padding: 0;
+	float:right;
+    text-align: left;
+	border:0;
+}
+.MenuSelector ul
+{
+    width: auto;
+    min-width: 100px;
+    height:auto; 
+    position:absolute;   
+    display:none;
+    background:#333333;
+    border: 1px solid #A4A4A4;
+    list-style:none;
+    z-index:1000;
+}
+.MenuSelector:hover ul
+{
+	display:block;
+}
+.MenuSelector li
+{
+    width: auto;
+    min-width: 100px;
+	display:block;
+	float:none;
+    background-color:#2E2E2E;
+}
+.MenuSelector li a, .MenuSelector span
+{
+	height:20px;    
+	margin:0px;
+	padding: 2px 10px 0 10px;
+	display:block;
+	color: #A4A4A4;
+	font-size:12px;
+	font-style:normal;
+	font-weight:bold;
+	text-decoration:none;
+	text-align:left;
+}
+
+.MenuSelector li a:hover, .MenuSelector li li:hover a
+{
+	border:0px;
+	color:#FFFFFF;
+	text-decoration:none;
+	background-color: #4C4C4C;
+}
+.MenuSelector.Module li a, .MenuSelector.Module span
+{
+    width: 150px;
+	margin:0px;
+	display:block;
+	color: #FFFFFF;
+	font-size:13px;
+	font-style:normal;
+	font-weight:bold;
+	text-decoration:none;
+	text-align:right;
+}
+.MenuSelector.Module li a
+{
+    direction: rtl;
+    text-indent: 13px;  
+}
+.MenuSelector span
+{
+    width: auto;
+	padding: 0 0 0 0;
+    white-space: nowrap;
+	overflow: hidden;
+}
+.MenuSelector span.multiple
+{
+    padding: 0 20px 0 0;
+    background: url(merge/menu/selector.png) no-repeat right 20%;  
+}
+#MenuLinkMessagesHeader
+{
+    margin-bottom: -1px; /* Fix for gui glitch */
+}
+    #MenuLinkMessagesHeader span {
+        margin-left: 1px;
+        color: #72acf8;
+        font-size: 11px;
+    }

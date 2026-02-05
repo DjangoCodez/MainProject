@@ -1,0 +1,103 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'billing.invoices.textblocks.textblock'"
+      [static]="true">
+      <div class="row">
+        <div class="col-sm-4">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [maxLength]="100"
+            formControlName="headline">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'common.type'"
+            formControlName="type"
+            [items]="textBlockTypes"></soe-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <soe-textarea
+            [labelKey]="'common.text'"
+            [rows]="5"
+            formControlName="text">
+          </soe-textarea>
+        </div>
+      </div>
+
+      <div class="row my-2">
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-label
+              [labelKey]="'billing.invoices.textblocks.usedin'"></soe-label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-1">
+            <soe-checkbox
+              [labelKey]="'common.order'"
+              formControlName="showInOrder">
+            </soe-checkbox>
+          </div>
+          <div class="col-sm-1">
+            <soe-checkbox
+              [labelKey]="'common.customerinvoice'"
+              formControlName="showInInvoice">
+            </soe-checkbox>
+          </div>
+          <div class="col-sm-1">
+            <soe-checkbox
+              [labelKey]="'common.offer'"
+              formControlName="showInOffer">
+            </soe-checkbox>
+          </div>
+          <div class="col-sm-1">
+            <soe-checkbox
+              [labelKey]="'common.contract'"
+              formControlName="showInContract">
+            </soe-checkbox>
+          </div>
+          <div class="col-sm-1">
+            <soe-checkbox
+              [labelKey]="'billing.purchase.list.purchase'"
+              formControlName="showInPurchase">
+            </soe-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <soe-expansion-panel
+          [noTopPadding]="true"
+          [labelKey]="'billing.product.translations'">
+          <div class="col-sm-6 p-0">
+            <soe-language-translations
+              [compTermRecordType]="compTermsRecordType"
+              [recordId]="form.textblockId.value"
+              [(compTermRows)]="translations"
+              [readOnly]="false"
+              [textToTranslate]="form.text.value"
+              [form]="form"></soe-language-translations>
+          </div>
+        </soe-expansion-panel>
+      </div>
+    </soe-expansion-panel>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

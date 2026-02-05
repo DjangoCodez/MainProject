@@ -1,0 +1,100 @@
+@if (!isSearch()) {
+  <div class="row">
+    <div class="col-sm-12">
+      <form novalidate="" autocomplete="off" class="p-2 mb-2">
+        <div class="row log-search-bar">
+          <div class="col-sm-12">
+            <soe-textbox
+              [autoFocus]="true"
+              [autoFocusDelay]="200"
+              [formControl]="searchTerm"
+              [placeholderKey]="
+                'manage.support.logs.filtermessage'
+              "></soe-textbox>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+} @else {
+  <div class="row">
+    <div class="col-sm-12">
+      <form
+        [formGroup]="formSearch"
+        novalidate=""
+        autocomplete="off"
+        class="soe-edit-form p-2 pt-0 pb-3">
+        <div class="row">
+          <soe-textbox
+            class="col-md-3"
+            [labelKey]="'common.licensename'"
+            formControlName="licenseSearch"></soe-textbox>
+          <soe-textbox
+            class="col-md-3"
+            [labelKey]="'common.companyname'"
+            formControlName="companySearch"></soe-textbox>
+          <soe-textbox
+            class="col-md-3"
+            [labelKey]="'common.rolename'"
+            formControlName="roleSearch"></soe-textbox>
+          <soe-textbox
+            class="col-md-3"
+            [labelKey]="'common.username'"
+            formControlName="userSearch"></soe-textbox>
+        </div>
+        <div class="row">
+          <soe-datepicker
+            class="col-md-3"
+            [labelKey]="'common.fromdate'"
+            formControlName="fromDate"></soe-datepicker>
+          <soe-timebox
+            class="col-md-3"
+            placeholderKey="HH:MM"
+            [labelKey]="emptyLabel"
+            formControlName="fromTime"></soe-timebox>
+          <soe-datepicker
+            class="col-md-3"
+            [labelKey]="'common.todate'"
+            formControlName="toDate"></soe-datepicker>
+          <soe-timebox
+            class="col-md-3"
+            placeholderKey="HH:MM"
+            [labelKey]="emptyLabel"
+            formControlName="toTime"></soe-timebox>
+        </div>
+        <div class="row">
+          <soe-textbox
+            class="col-md-6"
+            [labelKey]="'manage.support.logs.incmessage'"
+            formControlName="incMessageSearch"></soe-textbox>
+          <soe-textbox
+            class="col-md-6"
+            [labelKey]="'manage.support.logs.exlmessage'"
+            formControlName="exlMessageSearch"></soe-textbox>
+        </div>
+        <div class="row">
+          <soe-textbox
+            class="col-md-6"
+            [labelKey]="'manage.support.logs.incexception'"
+            formControlName="incExceptionSearch"></soe-textbox>
+          <soe-textbox
+            class="col-md-6"
+            [labelKey]="'manage.support.logs.exexception'"
+            formControlName="exExceptionSearch"></soe-textbox>
+        </div>
+        <div class="row">
+          <soe-select
+            class="col-md-3"
+            [labelKey]="'manage.support.logs.level'"
+            [items]="levelFilterOptions"
+            formControlName="levelSelect"></soe-select>
+          <soe-numberbox
+            class="col-md-3"
+            [labelKey]="'manage.support.logs.noofrecords'"
+            [decimals]="0"
+            formControlName="noOfrecords"></soe-numberbox>
+        </div>
+      </form>
+    </div>
+  </div>
+}

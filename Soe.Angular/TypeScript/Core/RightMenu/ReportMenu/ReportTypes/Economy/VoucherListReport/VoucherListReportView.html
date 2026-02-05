@@ -1,0 +1,25 @@
+﻿<div>
+    <div class="row">
+        <div class="col-sm-12">
+            <bool-selection label-key="common.report.selection.date" on-selected="$ctrl.onDateSelectionSelected(selection)" user-selection-input="$ctrl.dateIsSelectedDTO"></bool-selection>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12" data-ng-if="$ctrl.showRange">
+            <accounting-year-and-period-range-selection on-interval-from-selected="$ctrl.intervalFromChanged(selection)" on-interval-to-selected="$ctrl.intervalToChanged(selection)" selected-range-from="$ctrl.accountPeriodFrom" selected-range-to="$ctrl.accountPeriodTo"></accounting-year-and-period-range-selection>
+        </div>
+        <div class="col-sm-8" data-ng-show="!$ctrl.showRange">
+            <date-selection show-range="true" as-range="true" label-key="common.datefrom" additional-label-key="common.dateto" on-selected="$ctrl.onDateRangeSelected(selection)" user-selection-input="$ctrl.selectedDateRange"></date-selection>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <journal-range-selection voucher-series-from="$ctrl.voucherSeriesFrom" voucher-series-to="$ctrl.voucherSeriesTo" voucher-number-from="$ctrl.voucherNumberFrom" voucher-number-to="$ctrl.voucherNumberTo" voucher-series-list=$ctrl.voucherSeriesList on-voucher-series-selected-from="$ctrl.voucherSeriesChangedFrom(selection)" on-voucher-series-selected-to="$ctrl.voucherSeriesChangedTo(selection)" on-voucher-number-changed-from="$ctrl.voucherNumberChangedFrom(selection)" on-voucher-number-changed-to="$ctrl.voucherNumberChangedTo(selection)"></journal-range-selection>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <account-range-selection filter-ranges="$ctrl.rangeFilters" selectable-range-names="$ctrl.selectableRangeNames"></account-range-selection>
+        </div>
+    </div>
+</div>

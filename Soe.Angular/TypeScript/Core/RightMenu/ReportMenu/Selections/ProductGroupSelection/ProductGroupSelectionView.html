@@ -1,0 +1,9 @@
+﻿<div class="row">
+    <div class="col-sm-6">
+        <soe-typeahead label-key="common.report.selection.productgroups" model="$ctrl.productGroupFrom" items="$ctrl.selectableProductGroups" options="item as item.name for item in items" editable="true" on-selection-changed="$ctrl.productGroupsChangedFrom(item)"></soe-typeahead>
+    </div>
+
+    <div class="col-sm-6">
+        <soe-typeahead class="margin-small-top" model="$ctrl.productGroupTo" items="$ctrl.selectableProductGroups" options="item as item.name for item in items" editable="true" on-selection-changed="$ctrl.productGroupsChangedTo(item)"></soe-typeahead>
+    </div>
+</div>

@@ -1,0 +1,493 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <soe-expansion-panel [labelKey]="'common.general'" [static]="true">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-checkbox [labelKey]="'common.active'" formControlName="active">
+            </soe-checkbox>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="'economy.accounting.accountnr'"
+              [maxLength]="50"
+              formControlName="accountNr"
+              (focusout)="validateAccountNr()"
+              [autoFocus]="true">
+            </soe-textbox>
+          </div>
+          <div class="col-sm-4">
+            <soe-textbox
+              [labelKey]="'common.name'"
+              [maxLength]="100"
+              formControlName="name">
+            </soe-textbox>
+          </div>
+
+          <div class="col-sm-4">
+            <soe-textbox
+              [labelKey]="'common.description'"
+              [maxLength]="500"
+              formControlName="description">
+            </soe-textbox>
+          </div>
+        </div>
+        @if (isProjectAccountDim || isShiftTypeAccountDim) {
+          <div class="row">
+            <div class="col-sm-6">
+              @if (isProjectAccountDim) {
+                <soe-instruction
+                  [text]="
+                    'economy.accounting.account.linkedtoprojectinfo'
+                  "></soe-instruction>
+              }
+              @if (isShiftTypeAccountDim) {
+                <soe-instruction
+                  [text]="
+                    'economy.accounting.account.linkedtoshifttypeinfo'
+                  "></soe-instruction>
+              }
+            </div>
+          </div>
+        }
+
+        @if (this.form.isStdAccount) {
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-select
+                [labelKey]="'economy.accounting.accounttype'"
+                [items]="accountTypes"
+                formControlName="accountTypeSysTermId">
+              </soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'economy.accounting.account.sysvataccount'"
+                [items]="sysVatAccounts"
+                formControlName="sysVatAccountId"
+                (valueChanged)="sysVatAccountChanged()">
+              </soe-select>
+            </div>
+            <div class="col-sm-2">
+              <soe-textbox
+                [labelKey]="'economy.accounting.account.sysvatrate'"
+                formControlName="sysVatRate"></soe-textbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-checkbox
+                [labelKey]="'economy.accounting.account.isaccrualaccount'"
+                formControlName="isAccrualAccount"
+                [inline]="true">
+              </soe-checkbox>
+            </div>
+          </div>
+        }
+
+        @if (!this.form.isStdAccount) {
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-textbox
+                [labelKey]="'economy.accounting.account.externalcode'"
+                [maxLength]="50"
+                formControlName="externalCode">
+              </soe-textbox>
+            </div>
+          </div>
+        }
+      </soe-expansion-panel>
+    </div>
+    <div class="row">
+      <soe-expansion-panel
+        [labelKey]="'economy.accounting.account.translations'">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-language-translations
+              [compTermRecordType]="compTermsRecordType"
+              [recordId]="form.accountId.value"
+              [(compTermRows)]="translations"
+              [readOnly]="false"
+              [textToTranslate]="form.name"
+              [form]="form">
+            </soe-language-translations>
+          </div>
+        </div>
+      </soe-expansion-panel>
+    </div>
+
+    @if (!this.form.isStdAccount) {
+      <soe-expansion-panel [labelKey]="'common.settings'">
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-multi-select
+              [labelKey]="'common.categories'"
+              [items]="categories"
+              [limit]="30"
+              [dropdownWidth]="300"
+              [showSelected]="true"
+              (onItemSelect)="onCategorySelectionChanged($event)"
+              formControlName="categoryIds">
+            </soe-multi-select>
+          </div>
+        </div>
+        @if (isCostPlaceDim) {
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'economy.accounting.account.attestgroup'"
+                [items]="attestGroups"
+                formControlName="attestWorkFlowHeadId">
+              </soe-select>
+            </div>
+          </div>
+        }
+        @if (form.value.useVatDeductionDim) {
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-checkbox
+                [labelKey]="'economy.accounting.account.usevatdeduction'"
+                formControlName="useVatDeduction">
+              </soe-checkbox>
+            </div>
+            @if (form.value.useVatDeduction) {
+              <div class="col-sm-2">
+                <soe-numberbox
+                  [labelKey]="'economy.accounting.account.vatdeduction'"
+                  formControlName="vatDeduction">
+                </soe-numberbox>
+              </div>
+            }
+          </div>
+        }
+        @if (showExternalCodes) {
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-expansion-panel
+                [labelKey]="'economy.accounting.account.payrollexport'"
+                [static]="true">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <soe-textbox
+                      [labelKey]="
+                        'economy.accounting.account.accounthierachypayrollexportunitexternalcode'
+                      "
+                      formControlName="accountHierachyPayrollExportExternalCode"></soe-textbox>
+                  </div>
+                  <div class="col-sm-6">
+                    <soe-textbox
+                      [labelKey]="
+                        'economy.accounting.account.accounthierachypayrollexportexternalcode'
+                      "
+                      formControlName="accountHierachyPayrollExportUnitExternalCode">
+                    </soe-textbox>
+                  </div>
+                </div>
+              </soe-expansion-panel>
+            </div>
+          </div>
+        }
+      </soe-expansion-panel>
+    }
+    @if (this.form.isStdAccount) {
+      <soe-expansion-panel [labelKey]="'economy.accounting.accountinternals'">
+        <div class="row">
+          <soe-label
+            class="pull-left col-sm-3"
+            [labelKey]="'economy.accounting.accountinternal'"></soe-label>
+          <soe-label
+            class="pull-left col-sm-4"
+            [labelKey]="'common.standard'"></soe-label>
+          <soe-label
+            class="pull-left col-sm-5"
+            [labelKey]="
+              'economy.accounting.account.mandatorylevel'
+            "></soe-label>
+        </div>
+        @if (form.accountMappings) {
+          <ng-container formArrayName="accountMappings">
+            @for (
+              accountMapping of form.accountMappings.controls;
+              track accountMapping;
+              let i = $index
+            ) {
+              <div class="row" [formGroup]="accountMapping">
+                <div class="col-sm-3">
+                  <soe-label
+                    [inline]="true"
+                    [secondaryLabelParantheses]="false"
+                    [secondaryLabelKey]="
+                      accountMapping?.accountDimName || ''
+                    "></soe-label>
+                </div>
+                <div class="col-sm-4">
+                  <soe-select
+                    [items]="accountMapping.accounts"
+                    formControlName="defaultAccountId"
+                    [optionNameField]="'numberName'"
+                    [optionIdField]="'accountId'">
+                  </soe-select>
+                </div>
+                <div class="col-sm-5">
+                  <soe-select
+                    [items]="accountMapping.mandatoryLevels"
+                    formControlName="mandatoryLevel">
+                  </soe-select>
+                </div>
+              </div>
+            }
+          </ng-container>
+        }
+      </soe-expansion-panel>
+
+      <soe-expansion-panel [labelKey]="'economy.accounting.account.srucodes'">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'economy.accounting.account.scrucode1'"
+              [items]="sysAccountSruCodes"
+              formControlName="sysAccountSruCode1Id"></soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'economy.accounting.account.scrucode2'"
+              [items]="sysAccountSruCodes"
+              formControlName="sysAccountSruCode2Id"></soe-select>
+          </div>
+        </div>
+      </soe-expansion-panel>
+      <soe-expansion-panel [labelKey]="'economy.accounting.account.voucher'">
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'economy.accounting.account.amountstop'"
+              formControlName="amountStop"
+              [items]="amountStopTypes"></soe-select>
+          </div>
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="'economy.accounting.account.unit'"
+              formControlName="unit"></soe-textbox>
+          </div>
+        </div>
+        <div class="row">
+          <soe-checkbox
+            [labelKey]="'economy.accounting.account.unitstop'"
+            formControlName="unitStop"></soe-checkbox>
+        </div>
+        <div class="row">
+          <soe-checkbox
+            [labelKey]="'economy.accounting.account.rowtextstop'"
+            formControlName="rowTextStop"></soe-checkbox>
+        </div>
+      </soe-expansion-panel>
+
+      @if (accountId !== 0) {
+        <soe-expansion-panel
+          [labelKey]="'economy.accounting.accountbalances'"
+          [open]="balanceExpanderInitiallyOpened">
+          <div class="table-responsive col-sm-6">
+            <table class="table table-condensed table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th scope="col" class="form-label">
+                    <soe-label
+                      [labelKey]="'economy.accounting.accountyear'"></soe-label>
+                  </th>
+                  <th scope="col" class="form-label">
+                    <soe-label
+                      [labelKey]="
+                        'economy.accounting.accountbalance'
+                      "></soe-label>
+                  </th>
+                  <th scope="col" class="form-label">
+                    <soe-label
+                      [labelKey]="
+                        'economy.accounting.accountbalancelastmodified'
+                      "></soe-label>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (accountBalance of accountBalances; track accountBalance) {
+                  <tr>
+                    <td>
+                      <soe-label
+                        class="pull-left"
+                        [secondaryLabelParantheses]="false"
+                        [secondaryLabelKey]="
+                          accountBalance.accountYearStr
+                        "></soe-label>
+                    </td>
+                    <td class="text-right">
+                      <soe-label
+                        class="pull-left"
+                        [secondaryLabelParantheses]="false"
+                        [secondaryLabelKey]="
+                          accountBalance.balanceStr
+                        "></soe-label>
+                    </td>
+                    <td>
+                      <soe-label
+                        class="pull-left"
+                        [secondaryLabelParantheses]="false"
+                        [secondaryLabelKey]="
+                          accountBalance.modifiedCreatedStr
+                        "></soe-label>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          <div class="col-sm-6">
+            <div class="row">
+              <soe-checkbox
+                [labelKey]="'economy.accounting.account.recalculateall'"
+                [formControl]="calcAllAccounts"></soe-checkbox>
+            </div>
+            <div class="row">
+              <soe-instruction
+                [fitToContent]="true"
+                [text]="
+                  'economy.accounting.account.recalculationinfo'
+                "></soe-instruction>
+            </div>
+            <div class="row pull-left">
+              <soe-button
+                type="button"
+                class="btn btn-default"
+                [caption]="'economy.accounting.account.recalculatebalances'"
+                (action)="onReCalculateBalances()"></soe-button>
+            </div>
+          </div>
+        </soe-expansion-panel>
+      }
+
+      <soe-expansion-panel [labelKey]="'economy.accounting.account.vatcodes'">
+        <div class="row">
+          <soe-checkbox
+            [labelKey]="'economy.accounting.account.excludevatverification'"
+            formControlName="excludeVatVerification"></soe-checkbox>
+        </div>
+      </soe-expansion-panel>
+    }
+    @if (accounts.length > 0 || childrenAccounts.length > 0) {
+      <div class="row">
+        <soe-expansion-panel
+          [open]="false"
+          [labelKey]="'economy.accounting.account.parentaccount'">
+          @if (accounts.length > 0) {
+            <div class="row">
+              <div class="col-sm-4">
+                <soe-select
+                  [labelKey]="parentAccountDimName()"
+                  [items]="accounts"
+                  formControlName="parentAccountId"></soe-select>
+              </div>
+              <div class="col-sm-4">
+                <soe-checkbox
+                  [inline]="true"
+                  [labelKey]="'economy.accounting.account.hierarchyOnly'"
+                  formControlName="hierarchyOnly"></soe-checkbox>
+              </div>
+            </div>
+          }
+          @if (childrenAccounts.length > 0) {
+            <div class="row">
+              <div class="col-sm-4">
+                <div style="max-height: 250px; overflow-y: auto">
+                  <table
+                    class="table table-scrollable table-bordered table-condensed table-striped table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">
+                          <span class="indiscreet">
+                            {{
+                              'economy.accounting.account.childaccount'
+                                | translate
+                            }}
+                          </span>
+                        </th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (account of childrenAccounts; track account) {
+                        <tr>
+                          <td>
+                            <span>
+                              ({{ account.accountNr }})
+                              {{ account.name }}
+                            </span>
+                          </td>
+                          <td>
+                            <i
+                              class="fal fa-pencil iconEdit link pull-right"
+                              [title]="terms['core.edit']"
+                              (click)="openEditAccount(account)"></i>
+                          </td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          }
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-checkbox
+                [inline]="true"
+                [labelKey]="'common.hideinscheduleplanning'"
+                formControlName="hierarchyNotOnSchedule"></soe-checkbox>
+            </div>
+          </div>
+        </soe-expansion-panel>
+      </div>
+    }
+    <!-- Wait for account dim to load before showing extra fields,
+    otherwise they might load with incorrect connectedRecordId -->
+    @if (accountDim) {
+      <div class="row">
+        <soe-expansion-panel
+          [open]="false"
+          [labelKey]="'common.extrafields.extrafields'">
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-extra-fields-input
+                [initialLoad]="!form.isCopy"
+                [copiedExtraFieldRecords]="copiedExtraFieldRecords"
+                [recordId]="form.accountId.value"
+                [entity]="entityType"
+                [connectedEntity]="connectedEntityType"
+                [connectedRecordId]="accountDim.accountDimId"
+                [readOnly]="!flowHandler.modifyPermission()"
+                (recordsChange)="
+                  extraFieldsChanged($event)
+                "></soe-extra-fields-input>
+            </div>
+          </div>
+        </soe-expansion-panel>
+      </div>
+    }
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

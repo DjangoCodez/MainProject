@@ -1,0 +1,46 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">       
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title">{{ctrl.modelTitle}}</h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-checkbox label-key="billing.productrows.functions.newpurchase" model="ctrl.createNewPurchase" is-readonly="ctrl.success || ctrl.isReadonly"></soe-checkbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-typeahead label-key="economy.supplier.supplier.supplier" model="ctrl.selectedSupplier" items="ctrl.suppliers" on-selection-changed="ctrl.selectSupplier(item)" filter-property="'displayName'" options="item as item.displayName for item in items" required="true" is-readonly="ctrl.success || ctrl.isReadonly"></soe-typeahead>
+            </div>
+            <div class="col-sm-6" ng-if="!ctrl.createNewPurchase">
+                <soe-typeahead label-key="billing.productrows.functions.purchase" model="ctrl.selectedPurchase" items="ctrl.existingFilteredPurchases" options="item as item.displayName for item in items" limit="50" required="true" is-readonly="ctrl.success || ctrl.isReadonly"></soe-typeahead>
+            </div>
+        </div>
+        <div class="margin-large-top" ng-if="ctrl.createNewPurchase">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-checkbox label-key="billing.productrows.functions.copyproject" model="ctrl.copyProject" is-readonly="ctrl.success"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-checkbox label-key="billing.productrows.functions.copydeliveryaddress" model="ctrl.copydeliveryaddress" is-readonly="ctrl.success"></soe-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm" style="margin-top: 20px;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div ag-grid="ctrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+                    <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'billing.productrows.functions.createpurchase'" data-ng-click="ctrl.buttonCreateClick()" data-ng-disabled="!ctrl.isValid() || ctrl.success"></button>
+    </div>
+</div>
+

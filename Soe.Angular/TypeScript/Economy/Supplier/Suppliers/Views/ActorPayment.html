@@ -1,0 +1,19 @@
+﻿<div>
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <soe-label ng-if="!ctrl.isForegin && !ctrl.isCompany" label-key="economy.supplier.supplier.nativepayments" style="margin-top: 15px;"></soe-label>
+            <soe-label ng-if="ctrl.isForegin && !ctrl.isCompany" label-key="economy.supplier.supplier.foreginpayments" style="margin-top: 15px;"></soe-label>
+        </div>
+        <div class="col-sm-6 margin-small-bottom">
+            <button type="button" class="btn btn-default btn-sm pull-right" data-l10n-bind="'common.newrow'" ng-click="ctrl.addRow()"></button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="paymentrowinfo-grid" ag-grid="ctrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;" prevent-enter></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal()" aria-hidden="true">&times;</button>
+        <h6 class="modal-title">{{ctrl.modalTitle}}</h6>
+    </div>
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="billing.invoices.pricelists.pricelist" ng-if="!ctrl.isModal">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.name" model="ctrl.priceList.name" required="true"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.description" model="ctrl.priceList.description"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="common.customer.invoices.currency" model="ctrl.priceList.currencyId" items="ctrl.currencies" options="item.currencyId as item.name for item in items" on-changing="ctrl.vatTypeChanged(item)"></soe-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-checkbox label-key="common.incvat" model="ctrl.priceList.inclusiveVat"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-checkbox label-key="common.customer.invoices.projectpricelist" model="ctrl.priceList.isProjectPriceList"></soe-checkbox>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <div class="modal-body" ng-if="ctrl.isModal">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-textbox label-key="common.name" model="ctrl.priceList.name" required="true"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-textbox label-key="common.description" model="ctrl.priceList.description"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-select label-key="common.customer.invoices.currency" model="ctrl.priceList.currencyId" items="ctrl.currencies" options="item.currencyId as item.name for item in items" on-changing="ctrl.vatTypeChanged(item)"></soe-select>
+                    </div>
+                </div>
+                <div class="row margin-large-top">
+                    <div class="col-sm-3">
+                        <soe-checkbox label-key="common.incvat" model="ctrl.priceList.inclusiveVat"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row margin-large-top">
+                    <div class="col-sm-3">
+                        <soe-checkbox label-key="common.customer.invoices.projectpricelist" model="ctrl.priceList.isProjectPriceList"></soe-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ngSoeFormFooter" data-ng-class="{'no-margin': ctrl.isModal}">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.priceList"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

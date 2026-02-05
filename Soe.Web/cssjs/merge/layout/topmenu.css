@@ -1,0 +1,136 @@
+﻿.top-menu {
+    z-index: 200;
+    height: 48px;
+    position: fixed;
+    right: 0;
+    left: 199px;
+    background-color: var(--soe-color-primary);
+    top: 0;
+}
+
+    .top-menu.brand-flexibla-kontoret {
+        background-color: var(--soe-color-primary-brand-flexibla-kontoret);
+    }
+
+    .top-menu .go-logo {
+        height: 32px;
+        width: 32px;
+        margin: 16px -4px;
+    }
+
+    .top-menu .year-not-open {
+        color: var(--soe-inverted-text-color);
+    }
+
+    .top-menu .separator {
+        display: inline-block;
+        border-left: 1px solid var(--soe-border-color);
+        width: 2px;
+        height: 32px;
+        margin: 8px 6px 0px 6px;
+    }
+
+    .top-menu.brand-flexibla-kontoret .separator {
+        border-color: var(--soe-text-color-brand-flexibla-kontoret);
+    }
+
+    .top-menu .space {
+        display: inline-block;
+        margin-right: 6px;
+    }
+
+    .top-menu img {
+        height: 32px;
+        margin: -8px 16px 10px 0px;
+        vertical-align: top;
+    }
+
+#sessionClock {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 11px;
+    font-weight: normal;
+    color: var(--soe-inverted-text-color);
+    margin-right: 10px;
+}
+
+.top-menu a {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 14px;
+    font-weight: normal;
+    color: var(--soe-inverted-text-color) !important; /* Overwritten by new bootstrap reboot */
+    text-decoration: none !important; /* Overwritten by new bootstrap reboot */
+    margin: 14px 4px 0px 4px;
+}
+
+.top-menu.brand-flexibla-kontoret a {
+    color: var(--soe-text-color-brand-flexibla-kontoret) !important;
+}
+
+.top-menu a:hover {
+    color: var(--soe-color-neutral-light-grey) !important; /* Overwritten by new bootstrap reboot */
+    text-decoration: none !important; /* Overwritten by new bootstrap reboot */
+}
+
+.top-menu li:hover {
+    text-decoration: none !important; /* Overwritten by new bootstrap reboot */
+}
+
+.top-menu a .fal, .top-menu a .fas, .top-menu a .fab, .top-menu a .fad {
+    font-size: 20px;
+}
+
+.top-menu ul li a {
+    color: var(--soe-text-color) !important; /* Overwritten by .top-menu a color above */
+    text-decoration: none !important; /* Overwritten by new bootstrap reboot */
+}
+
+    .top-menu ul li a:hover {
+        color: var(--soe-text-color) !important; /* Overwritten by .top-menu a color above */
+        text-decoration: none !important; /* Overwritten by new bootstrap reboot */
+    }
+
+
+#favoriteSelector {
+    margin-top: 14px;
+    width: 15px;
+}
+
+.top-menu li a {
+    margin: 0;
+}
+
+.top-menu .dropdown {
+    display: inline;
+    cursor: pointer;
+}
+
+    .top-menu .dropdown .caret {
+        margin-left: 5px;
+    }
+
+.top-menu .dropdown-menu {
+    max-height: 600px;
+    overflow-y: auto;
+    box-shadow: 4px 4px 8px var(--soe-color-neutral-grey);
+}
+
+    .top-menu .dropdown-menu.multi-level {
+        overflow-y: visible;
+    }
+
+.top-menu .dropdown-submenu {
+    position: relative;
+}
+
+    .top-menu .dropdown-submenu > .dropdown-menu {
+        top: 26px;
+        right: 100%;
+        margin-top: -26px;
+        margin-left: 150px;
+    }
+
+    .top-menu .dropdown-submenu:hover > .dropdown-menu {
+        display: block;
+    }

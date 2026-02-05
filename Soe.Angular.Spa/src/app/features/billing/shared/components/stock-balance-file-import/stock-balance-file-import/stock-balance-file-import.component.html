@@ -1,0 +1,62 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="form-group form-group-sm">
+            @if (!fromInventory) {
+              <div class="col-sm-4" ng-hide="fromInventory">
+                <soe-select
+                  [labelKey]="'common.customer.customer.wholesellername'"
+                  [selectedId]="form.value.wholesellerId"
+                  [items]="performWholeSellersLoad.data || []"
+                  formControlName="wholesellerId">
+                </soe-select>
+              </div>
+            }
+            @if (!fromInventory) {
+              <div class="col-sm-4" ng-hide="fromInventory">
+                <soe-select
+                  [labelKey]="'billing.stock.stocks.stock'"
+                  [selectedId]="form.value.wholesellerId"
+                  [items]="performStockLoad.data || []"
+                  formControlName="stockId">
+                </soe-select>
+              </div>
+            }
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'common.filename'"
+                [required]="true"
+                formControlName="fileName">
+                <soe-icon-button
+                  [iconName]="'upload'"
+                  [tooltip]="'core.document.choosefile'"
+                  (action)="openFileUpload()">
+                </soe-icon-button>
+              </soe-textbox>
+            </div>
+          </div>
+        </div>
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    <soe-button
+      [caption]="'core.cancel'"
+      [behaviour]="'standard'"
+      (action)="cancel()"></soe-button>
+
+    <soe-save-button
+      class="ms-3"
+      [caption]="'core.ok'"
+      [invalid]="form.invalid"
+      [dirty]="form.dirty"
+      (action)="import()"
+      (validationErrorsAction)="openFormValidationErrors()"></soe-save-button>
+  </div>
+</soe-dialog>

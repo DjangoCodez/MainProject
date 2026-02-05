@@ -1,0 +1,25 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.saveasdefinitive'"></h6>
+    </div>
+    <div class="modal-body">    
+        <div class="info margin-large-top">
+            <div class="row">
+                <div class="col-sm-12">
+                    <span>{{ctrl.infoText}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-checkbox label-key="common.customer.invoice.sendemail" model="ctrl.Mail"></soe-checkbox>
+            <soe-checkbox label-key="common.customer.invoice.sendeinvoice" model="ctrl.SendEInvoice" data-ng-if="ctrl.hasSendEInvoicePermission"></soe-checkbox>
+            <soe-checkbox label-key="common.customer.invoice.downloadeinvoice" model="ctrl.CreateEInvoice" data-ng-if="ctrl.hasDownloadEInvoicePermission"></soe-checkbox>
+            <soe-checkbox label-key="common.report.report.print" model="ctrl.Print" data-ng-if="ctrl.hasReportPermission"></soe-checkbox>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.buttonOkClick()"></button>
+    </div>
+</div>

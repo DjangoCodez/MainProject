@@ -1,0 +1,31 @@
+﻿<div>
+    <table class="table table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col" data-l10n-bind="'common.employee'"></th>
+                <th scope="col" data-l10n-bind="'time.availableemployees.wantsextrashifts'"></th>
+                <th scope="col" class="right-align-cell" data-l10n-bind="'time.schedule.planning.shiftqueue.employmentdays'" data-ng-if="ctrl.sortByLas"></th>
+                <th scope="col" data-l10n-bind="'time.schedule.planning.shiftqueue.type'"></th>
+                <th scope="col" data-l10n-bind="'time.schedule.planning.shiftqueue.wanteddate'"></th>
+                <th scope="col" class="right-align-cell" data-l10n-bind="'time.schedule.planning.shiftqueue.number'"></th>
+                <th scope="col" data-l10n-bind="'time.schedule.planning.shiftqueue.assignfromqueue'" data-ng-if="!ctrl.isReadonly"></th>
+                <th scope="col" data-l10n-bind="'time.schedule.planning.shiftqueue.removefromqueue'" data-ng-if="!ctrl.isReadonly"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="queue in ctrl.queues track by $index" data-ng-class="{'table-selected-row': ctrl.selectedQueue === queue}" data-ng-click="ctrl.selectedQueue = queue">
+                <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedQueue === queue"></i></td>
+                <td><span>{{queue.employeeName}}</span></td>
+                <td data-ng-if="queue.wantExtraShifts" data-l10n-bind="'core.yes'"></td>
+                <td data-ng-if="!queue.wantExtraShifts" data-l10n-bind="'core.no'"></td>
+                <td class="right-align-cell" data-ng-if="ctrl.sortByLas"><span>{{queue.employmentDays.toString().toFormattedNumber(0)}}</span></td>
+                <td><span>{{queue.typeName}}</span></td>
+                <td><span>{{queue.date|date:'shortDate'}} {{queue.date|date:'shortTime'}}</span></td>
+                <td class="right-align-cell"><span>{{queue.sort}}</span></td>
+                <td data-ng-if="!ctrl.isReadonly"><i class="fal fa-thumbs-up link" data-ng-click="ctrl.assignEmployeeFromQueue(queue);"></i></td>
+                <td data-ng-if="!ctrl.isReadonly"><i class="fal fa-times iconDelete link" data-ng-click="ctrl.removeEmployeeFromQueue(queue);"></i></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

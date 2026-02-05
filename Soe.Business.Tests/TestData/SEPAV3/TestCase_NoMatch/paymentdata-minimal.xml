@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.054.001.02">
+  <BkToCstmrDbtCdtNtfctn>
+    <GrpHdr>
+      <MsgId>TEST_NOMATCH_001</MsgId>
+      <CreDtTm>2024-12-19T12:00:00</CreDtTm>
+    </GrpHdr>
+    <Ntfctn>
+      <Id>TEST_NOMATCH_001</Id>
+      <CreDtTm>2024-12-19T12:00:00</CreDtTm>
+      <Acct>
+        <Id>
+          <Othr>
+            <Id>123456789</Id>
+          </Othr>
+        </Id>
+      </Acct>
+      <Ntry>
+        <Amt Ccy="SEK">1000.00</Amt>
+        <CdtDbtInd>DBIT</CdtDbtInd>
+        <Sts>BOOK</Sts>
+        <BookgDt>
+          <Dt>2024-12-19</Dt>
+        </BookgDt>
+        <NtryDtls>
+          <TxDtls>
+            <Refs>
+              <EndToEndId>99999</EndToEndId>
+            </Refs>
+            <AmtDtls>
+              <InstdAmt>
+                <Amt Ccy="SEK">1000.00</Amt>
+              </InstdAmt>
+            </AmtDtls>
+            <RltdPties>
+              <Cdtr>
+                <Nm>Unknown Supplier</Nm>
+              </Cdtr>
+            </RltdPties>
+            <RmtInf>
+              <Ustrd>INV-001</Ustrd>
+            </RmtInf>
+          </TxDtls>
+        </NtryDtls>
+      </Ntry>
+    </Ntfctn>
+  </BkToCstmrDbtCdtNtfctn>
+</Document>

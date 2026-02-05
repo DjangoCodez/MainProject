@@ -1,0 +1,65 @@
+<div class="row" role="form" [formGroup]="form">
+  <div class="col-sm-12 px-3 pt-2">
+    <soe-expansion-panel [labelKey]="'core.search'" [open]="true">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-date-period
+                [labelKey]="'Date Period'"
+                [dateFromControl]="form.fromDate"
+                [dateToControl]="form.toDate"
+                [defaultPeriod]="3"
+                [manualDisabled]="form.disabled"></soe-date-period>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <soe-textbox
+            [labelKey]="'Sender Email'"
+            formControlName="senderEmail"
+            [email]="true"></soe-textbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <soe-textbox
+            [labelKey]="'Recipient Emails'"
+            [placeholderKey]="
+              'Enter recipient emails by seperating with semicolons( ; )'
+            "
+            formControlName="recipientEmails"></soe-textbox>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <soe-multi-select
+            [labelKey]="'Recipient Status'"
+            [items]="deliveryStatusOptions()"
+            [dropdownWidth]="300"
+            formControlName="deliveryStatus"
+            [showSelectedItemsInline]="true"></soe-multi-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="d-flex justify-content-end">
+            <soe-numberbox
+              [labelKey]="'Records'"
+              formControlName="noOfRecords"
+              [decimals]="0"
+              [noFormatting]="true"
+              [inline]="true"
+              [width]="60"
+              class="me-3"></soe-numberbox>
+            <soe-save-button
+              [caption]="'core.search'"
+              [title]="'core.search'"
+              [invalid]="form.invalid"
+              (action)="triggerSearch()"
+              (validationErrorsAction)="openFormValidationErrors()"
+              class=""></soe-save-button>
+          </div>
+        </div>
+      </div>
+    </soe-expansion-panel>
+  </div>
+</div>

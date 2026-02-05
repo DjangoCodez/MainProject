@@ -1,0 +1,32 @@
+<div>
+    <form [formGroup]="formSearch" novalidate autocomplete="off">
+        <div class="row">
+            <div class="col-sm-4">
+                <soe-datepicker
+                    formControlName="fromDate"
+                    [labelKey]="'common.fromdate'"
+                    [view]="'day'"
+                    [inline]="true"
+                    (valueChanged)="updateFromDate($event)">
+                </soe-datepicker>
+            </div>
+            <div class="col-sm-4">
+                <soe-datepicker
+                    formControlName="toDate"
+                    [labelKey]="'common.todate'"
+                    [view]="'day'"
+                    [inline]="true"
+                    (valueChanged)="updateToDate($event)">
+                </soe-datepicker>
+            </div>
+            <div class="col-sm-4">
+                <soe-button
+                    [title]="'core.search'"
+                    [caption]="'core.search'"
+                    [behaviour]="'primary'"
+                    (action)="filterByDates()">
+                </soe-button>
+            </div>
+        </div>
+    </form>
+</div>

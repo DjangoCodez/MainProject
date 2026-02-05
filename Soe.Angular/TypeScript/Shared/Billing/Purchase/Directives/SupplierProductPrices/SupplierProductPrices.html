@@ -1,0 +1,17 @@
+﻿<div>
+    <soe-progressbar is-busy="directiveCtrl.progressBusy" message="directiveCtrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-show="!directiveCtrl.progressBusy">
+        <div class="row btn-toolbar">
+            <div class="col pull-right">
+                <div class="col pull-right">
+                    <soe-splitbutton class="margin-large-left" label-key="common.newrow" options="directiveCtrl.rowFunctions" option-selected="directiveCtrl.executeRowFunction(option)" is-disabled="directiveCtrl.readOnly"></soe-splitbutton>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div ag-grid="directiveCtrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+        </div>
+    </div>
+</div>

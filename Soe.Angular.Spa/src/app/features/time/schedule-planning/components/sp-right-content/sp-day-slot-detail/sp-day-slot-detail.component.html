@@ -1,0 +1,92 @@
+@if (slot()) {
+  <div class="detail-container">
+    <p>Markerad cell</p>
+    <div>
+      <span>{{ slot()?.employeeInfo }}</span>
+    </div>
+    <div>
+      <span>{{ slot()?.start | date: 'shortDate' }}</span>
+      <span class="ms-1">{{ slot()?.start | date: 'shortTime' }}</span>
+    </div>
+    <!-- Availability -->
+    @if (slot()?.hasAvailability || slot()?.hasUnavailability) {
+      <div class="group-container">
+        <p>{{ 'time.schedule.planning.availability' | translate }}</p>
+        @if (slot()?.hasAvailability) {
+          <p class="available">
+            {{ 'time.schedule.planning.available' | translate }}
+          </p>
+          <div class="item-container availability">
+            <div>
+              <span>{{ slot()?.availableText }}</span>
+            </div>
+          </div>
+        }
+        @if (slot()?.hasUnavailability) {
+          <p class="unavailable">
+            {{ 'time.schedule.planning.unavailable' | translate }}
+          </p>
+          <div class="item-container availability">
+            <div>
+              <span>{{ slot()?.unavailableText }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    }
+    <!-- Time and cost -->
+    <div class="group-container">
+      <!-- TODO: New term -->
+      <p>Tid och kostnad</p>
+      <div class="time-cost-row">
+        <span class="time-cost-label"
+          >{{ 'time.schedule.planning.nettime' | translate }}:</span
+        ><span class="time-cost-value">{{
+          slot()?.netTime || 0 | minutesToTimeSpan
+        }}</span>
+      </div>
+      @if (
+        settingService.showScheduleTypeFactorTime() && slot()?.factorTime !== 0
+      ) {
+        <div class="time-cost-row">
+          <span class="time-cost-label"
+            >{{
+              'time.schedule.planning.scheduletypefactortime' | translate
+            }}:</span
+          ><span class="time-cost-value">{{
+            slot()?.factorTime || 0 | minutesToTimeSpan
+          }}</span>
+        </div>
+      }
+      @if (settingService.showGrossTime()) {
+        <div class="time-cost-row">
+          <span class="time-cost-label"
+            >{{ 'time.schedule.planning.grosstime' | translate }}:</span
+          ><span class="time-cost-value">{{
+            slot()?.grossTime || 0 | minutesToTimeSpan
+          }}</span>
+        </div>
+      }
+      @if (settingService.showTotalCost()) {
+        <div class="time-cost-row">
+          <span class="time-cost-label"
+            >{{ 'time.schedule.planning.cost' | translate }}:</span
+          ><span class="time-cost-value">{{
+            slot()?.cost || 0 | number: '1.0-0'
+          }}</span>
+        </div>
+      }
+      @if (settingService.showTotalCostIncEmpTaxAndSuppCharge()) {
+        <div class="time-cost-row">
+          <span class="time-cost-label"
+            >{{
+              'time.schedule.planning.includeemptaxandsuppcharge' | translate
+            }}:</span
+          ><span class="time-cost-value">{{
+            slot()?.costIncEmpTaxAndSuppCharge || 0 | number: '1.0-0'
+          }}</span>
+        </div>
+      }
+    </div>
+  </div>
+}

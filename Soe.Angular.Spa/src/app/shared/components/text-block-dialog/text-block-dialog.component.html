@@ -1,0 +1,105 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    <div
+      class="soe-edit-form"
+      [formGroup]="formTextBlock"
+      novalidate
+      autocomplete="off">
+      <div class="row">
+        <div class="col-sm-3">
+          @if (showTitle()) {
+            <soe-textbox [labelKey]="'common.name'" formControlName="headline">
+            </soe-textbox>
+          }
+          @if (!data.textboxTitle) {
+            <label>{{ data.textboxTitle ?? '' | translate }}</label>
+          }
+        </div>
+        <div class="col-sm-3 offset-sm-6">
+          @if (showTemplatesSelect()) {
+            <soe-select
+              [labelKey]="'economy.accounting.voucher.template'"
+              [items]="templates || []"
+              [optionIdField]="'textblockId'"
+              [optionNameField]="'headline'"
+              formControlName="textBlockId"
+              (valueChanged)="templateOnChange($event)"></soe-select>
+          }
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-textarea
+            [labelKey]="''"
+            [resizeable]="true"
+            formControlName="text"
+            [maxLength]="data.maxTextLength ?? 10000"></soe-textarea>
+        </div>
+      </div>
+      @if (showTranslations()) {
+        <soe-expansion-panel [labelKey]="'billing.product.translations'">
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-language-translations
+                [compTermRecordType]="compTermsRecordType"
+                [recordId]="formTextBlock.textBlockId.value"
+                [(compTermRows)]="translations"
+                [readOnly]="false"
+                [form]="formTextBlock"
+                [textToTranslate]="
+                  formTextBlock.text.value
+                "></soe-language-translations>
+            </div>
+          </div>
+        </soe-expansion-panel>
+      }
+      <div class="soe-form-footer">
+        <div class="col-sm-6 noMargin">
+          @if (showTemplatesButtons()) {
+            <soe-save-button
+              [disabled]="!saveTemplateValid()"
+              [dirty]="formTextBlock.dirty"
+              [invalid]="!formTextBlock.valid"
+              [caption]="'common.savetemplate'"
+              (action)="performSave()"
+              (validationErrorsAction)="
+                formTextBlock.openFormValidationErrors()
+              ">
+            </soe-save-button>
+          }
+          @if (showTemplatesButtons()) {
+            <soe-delete-button
+              [disabled]="
+                formTextBlock.value.textBlockId <= 0 ||
+                formTextBlock.value.textBlockId === null
+              "
+              class="ms-3"
+              [caption]="'common.deletetemplate'"
+              typeClass="btn btn-secondary"
+              (action)="performDelete()">
+            </soe-delete-button>
+          }
+        </div>
+        <div class="col-sm-6 noMargin text-right pe-3">
+          @if (showOk()) {
+            <soe-button
+              class="ms-3"
+              [caption]="'core.ok'"
+              typeClass="btn btn-primary"
+              [behaviour]="'primary'"
+              [disabled]="!okAlwaysEnabled() && !hasTextValue()"
+              (action)="setTextValue()">
+            </soe-button>
+          }
+          <soe-button
+            class="ms-3"
+            [caption]="'core.cancel'"
+            typeClass="btn btn-secondary"
+            [behaviour]="'standard'"
+            (action)="cancel()">
+          </soe-button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</soe-dialog>

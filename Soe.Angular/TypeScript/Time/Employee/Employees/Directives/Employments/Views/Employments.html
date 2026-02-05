@@ -1,0 +1,173 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <!--<div class="row margin-small-bottom">
+        <div class="col-sm-12">
+            <div class="col-sm-12 info">
+                <span data-l10n-bind="'time.employee.employment.editinfo'"></span>
+            </div>
+        </div>
+    </div>-->
+
+        <div class="row margin-large-bottom">
+            <div class="col-sm-12">
+                <soe-checkbox class="pull-left" label-key="time.employee.employment.showdeleted" label-value="ctrl.nbrOfDeleted" label-value-in-parentheses="true" model="ctrl.showDeleted" use-ignore-dirty="true"></soe-checkbox>
+                <button type="button" class="btn btn-sm btn-default pull-right" data-ng-if="!ctrl.readOnly" data-ng-disabled="ctrl.hasNewEmployments" data-ng-click="$event.stopPropagation();ctrl.initAddEmployment();"><i class="fal fa-plus margin-small-right"></i><span data-l10n-bind="'time.employee.employment.new'"></span></button>
+                <button type="button" class="btn btn-sm btn-default pull-right margin-large-right" data-ng-click="$event.stopPropagation();ctrl.reloadEmployments();"><i class="fal fa-sync margin-small-right"></i><span data-l10n-bind="'time.employee.employment.refresh'"></span></button>
+                <soe-datepicker class="col-sm-2 pull-right" hidelabel="true" model="ctrl.selectedDate" use-ignore-dirty="true" on-change="$event.stopPropagation();ctrl.reloadEmployments()"></soe-datepicker>
+                <soe-label class="pull-right" label-key="time.employee.employment.basedondate"></soe-label>
+            </div>
+        </div>
+
+        <div class="table-outer-bordered">
+            <table class="table table-condensed table-hover" style="margin-bottom: 0;">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 20px"></th>
+                        <th scope="col" data-ng-if="ctrl.employments.length>0 && !ctrl.allRowsExpanded"><span data-l10n-bind data-l10n-bind-title="'time.employee.employment.expandrows'"><i class="link" data-ng-click="ctrl.expandAllRows();">+</i></span></th>
+                        <th scope="col" data-ng-if="ctrl.employments.length>0 && ctrl.allRowsExpanded"><span data-l10n-bind data-l10n-bind-title="'time.employee.employment.collapserows'"><i class="link" data-ng-click="ctrl.collapseAllRows();">-</i></span></th>
+                        <th scope="col" data-l10n-bind="'common.startdate'"></th>
+                        <th scope="col" data-l10n-bind="'common.stopdate'"></th>
+                        <th scope="col" data-l10n-bind="'time.employee.employee.employmenttype'"></th>
+                        <th scope="col" data-l10n-bind="'time.employee.payrollgroup.payrollgroup'"></th>
+                        <th scope="col" data-l10n-bind="'time.employee.employeegroup.employeegroup'"></th>
+                        <th scope="col" data-l10n-bind="'time.payroll.vacationgroup.vacationgroup'"></th>
+                        <th scope="col" data-l10n-bind="'time.employee.annualleavegroup'" data-ng-if="ctrl.useAnnualLeave"></th>
+                        <th scope="col" class="right-align-cell" data-l10n-bind="'time.schedule.planning.worktimeweek'"></th>
+                        <th scope="col" data-l10n-bind="'time.employee.employment.workplace'"></th>
+                        <th scope="col" style="width: 28px"></th>
+                        <th scope="col" style="width: 28px"></th>
+                        <th scope="col" style="width: 28px"></th>
+                        <th scope="col" style="width: 28px"></th>
+                    </tr>
+                </thead>
+                <tbody data-ng-repeat="employment in ctrl.filteredEmployments()">
+                    <!-- Employment (primary information) -->
+                    <tr class="link" data-ng-class="{'table-selected-row': ctrl.selectedEmployment === employment, 'table-blue-row': employment.isSecondaryEmployment}" data-ng-click="ctrl.selectedEmployment = employment">
+                        <td>
+                            <i class="fas fa-caret-right" data-ng-if="ctrl.selectedEmployment === employment"></i>
+                        </td>
+                        <td>
+                            <span data-l10n-bind data-l10n-bind-title="'time.employee.employment.expandrow'" data-ng-if="!employment.expanded"><span class="link" data-ng-click="employment.expanded=true;ctrl.setExperienceMonthsText(employment);">+</span></span>
+                            <span data-l10n-bind data-l10n-bind-title="'time.employee.employment.collapserow'" data-ng-if="employment.expanded"><span class="link" data-ng-click="employment.expanded=false">-</span></span>
+                        </td>
+                        <td data-ng-class="{'strike-through': employment.isDeleted, 'indiscreet': employment.isEditing, 'italic smallFont': employment.isSecondaryEmployment}">
+                            <span>{{employment.dateFrom | date:'shortDate'}}</span>
+                        </td>
+                        <td data-ng-class="{'strike-through': employment.isDeleted, 'indiscreet': employment.isEditing, 'italic smallFont': employment.isSecondaryEmployment}">
+                            <span>{{employment.dateTo | date:'shortDate'}}</span>
+                        </td>
+                        <td data-ng-class="{'strike-through': employment.isDeleted, 'indiscreet': employment.isEditing, 'italic smallFont': employment.isSecondaryEmployment}">
+                            <span><span>{{employment.employmentTypeName}}</span> <span data-ng-if="employment.isSecondaryEmployment">(<span data-l10n-bind="'time.employee.employment.issecondaryemployment'"></span>)</span><span data-ng-if="employment.isTemporaryPrimary">(<span data-l10n-bind="'time.employee.employment.istemporaryprimary.short'"></span>)</span><span data-ng-if="employment.hibernatingTimeDeviationCauseName">({{employment.hibernatingTimeDeviationCauseName}})</span></span>
+                        </td>
+                        <td data-ng-class="{'strike-through': employment.isDeleted, 'indiscreet': employment.isEditing, 'italic smallFont': employment.isSecondaryEmployment}">
+                            <span>{{employment.payrollGroupName}}</span>
+                        </td>
+                        <td data-ng-class="{'strike-through': employment.isDeleted, 'indiscreet': employment.isEditing, 'italic smallFont': employment.isSecondaryEmployment}">
+                            <span>{{employment.employeeGroupName}} ({{employment.employeeGroupWorkTimeWeek | minutesToTimeSpan}})</span>
+                        </td>
+                        <td data-ng-class="{'strike-through': employment.isDeleted, 'indiscreet': employment.isEditing, 'italic smallFont': employment.isSecondaryEmployment}">
+                            <span>{{ctrl.getCurrentVacationGroupName(employment)}}</span>
+                        </td>
+                        <td data-ng-class="{'strike-through': employment.isDeleted, 'indiscreet': employment.isEditing, 'italic smallFont': employment.isSecondaryEmployment}" data-ng-if="ctrl.useAnnualLeave">
+                            <span>{{employment.annualLeaveGroupName}}</span>
+                        </td>
+                        <td class="right-align-cell" data-ng-class="{'strike-through': employment.isDeleted, 'indiscreet': employment.isEditing, 'italic smallFont': employment.isSecondaryEmployment}">
+                            <span>{{employment.workTimeWeek | minutesToTimeSpan}} / {{employment.percent | amount:2}}%</span>
+                        </td>
+                        <td data-ng-class="{'strike-through': employment.isDeleted, 'indiscreet': employment.isEditing, 'italic smallFont': employment.isSecondaryEmployment}">
+                            <span>{{employment.workPlace}}</span>
+                        </td>
+                        <td data-ng-if="ctrl.isEmploymentDeletedInThisSession(employment)" colspan="3">
+                            <button type="button" class="btn btn-sm btn-default pull-right margin-large-right" data-ng-click="$event.stopPropagation();ctrl.restoreEmployment(employment);"><span data-l10n-bind="'time.employee.employment.restore'"></span></button>
+                        </td>
+                        <td data-ng-if="!employment.isDeleted || !ctrl.isEmploymentDeletedInThisSession(employment)">
+                            <span data-l10n-bind data-l10n-bind-title="'time.employee.employment.hibernating'"><em class="fa fa-solid fa-clone" data-ng-if="!ctrl.readOnly && employment.allowEdit && employment.isTemporaryPrimary && employment.employmentId > 0" data-ng-click="ctrl.timeHibernatingAbsenceDialog(employment);"></em></span>
+                        </td>
+                        <td data-ng-if="!employment.isDeleted || !ctrl.isEmploymentDeletedInThisSession(employment)">
+                            <span data-l10n-bind data-l10n-bind-title="'time.employee.employment.printemploymentcontract'"><i class="fal fa-file-pdf link" data-ng-if="employment.allowPrintEmploymentContract && employment.payrollGroupHasReports && ctrl.reportPermission && ctrl.companyPayrollGroupReports.length > 0" data-ng-click="ctrl.printEmploymentContract(employment);"></i></span>
+                        </td>
+                        <td data-ng-if="!employment.isDeleted || !ctrl.isEmploymentDeletedInThisSession(employment)">
+                            <span data-l10n-bind data-l10n-bind-title="'time.employee.employment.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly && employment.allowEdit" data-ng-click="ctrl.editEmployment(employment);"></i></span>
+                        </td>
+                        <td data-ng-if="!employment.isDeleted || !ctrl.isEmploymentDeletedInThisSession(employment)">
+                            <span data-l10n-bind data-l10n-bind-title="'time.employee.employment.delete'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly && employment.allowDelete && ctrl.filteredEmployments().length > 1" data-ng-click="ctrl.deleteEmployment(employment);"></i></span>
+                        </td>
+                    </tr>
+
+                    <!-- Employment (secondary information) -->
+                    <tr data-ng-if="employment.expanded">
+                        <td colspan="14">
+                            <div class="table-outer-bordered">
+                                <table class="table table-condensed" style="margin-bottom: 0;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" data-l10n-bind="'time.employee.employment.worktasks'"></th>
+                                            <th scope="col" data-l10n-bind="'time.employee.employment.specialconditions'"></th>
+                                            <th scope="col" data-l10n-bind="'time.employee.employment.substitutefor'"></th>
+                                            <th scope="col" data-l10n-bind="'time.employee.employment.substitutefordueto'"></th>
+                                            <th scope="col" data-l10n-bind="'time.employee.employment.baseworktimeweek'"></th>
+                                            <th scope="col" data-l10n-bind="'time.employee.employment.experience'"></th>
+                                            <th scope="col" data-l10n-bind="'time.employee.endreason.endreason'"></th>
+                                            <th scope="col" data-l10n-bind="'common.externalcode'" data-ng-if="ctrl.showExternalCode"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span>{{employment.workTasks}}</span></td>
+                                            <td><span>{{employment.specialConditions}}</span></td>
+                                            <td><span>{{employment.substituteFor}}</span></td>
+                                            <td><span>{{employment.substituteForDueTo}}</span></td>
+                                            <td><span>{{employment.baseWorkTimeWeekFormatted}}</span></td>
+                                            <td><span>{{employment.experienceMonthsText}}</span></td>
+                                            <td><span>{{employment.employmentEndReasonName}}</span></td>
+                                            <td data-ng-if="ctrl.showExternalCode"><span>{{employment.externalCode}}</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Employment changes -->
+                    <tr data-ng-if="employment.changes.length>0 && employment.expanded">
+                        <td colspan="14">
+                            <soe-instruction label-key="time.employee.employment.history" inline="true"></soe-instruction>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="employment.changes.length>0 && employment.expanded">
+                        <td colspan="14">
+                            <div class="table-outer-bordered">
+                                <table class="table table-condensed table-striped table-hover" style="margin-bottom: 0;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" data-l10n-bind="'common.startdate'"></th>
+                                            <th scope="col" data-l10n-bind="'common.stopdate'"></th>
+                                            <th scope="col" data-l10n-bind="'common.field'"></th>
+                                            <th scope="col" data-l10n-bind="'common.from'"></th>
+                                            <th scope="col" data-l10n-bind="'common.to'"></th>
+                                            <th scope="col" data-l10n-bind="'common.modified'"></th>
+                                            <th scope="col"><span class="indiscreet capitalize" data-l10n-bind="'common.by'"></span></th>
+                                            <th scope="col" style="width: 28px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-ng-repeat="change in employment.changes | orderBy:'-created'">
+                                            <td data-ng-class="{'strike-through': change.isDeleted}"><span>{{change.fromDate | date:'shortDate'}}</span></td>
+                                            <td data-ng-class="{'strike-through': change.isDeleted}"><span>{{change.toDate | date:'shortDate'}}</span></td>
+                                            <td data-ng-class="{'strike-through': change.isDeleted}"><span>{{change.fieldTypeName}}</span></td>
+                                            <td data-ng-class="{'strike-through': change.isDeleted}"><span>{{change.fromValueName}}</span></td>
+                                            <td data-ng-class="{'strike-through': change.isDeleted}"><span>{{change.toValueName}}</span></td>
+                                            <td data-ng-class="{'strike-through': change.isDeleted}"><span>{{change.created | date:'shortDate'}} {{change.created | date:'shortTime'}}</span></td>
+                                            <td data-ng-class="{'strike-through': change.isDeleted}"><span>{{change.createdBy}}</span></td>
+                                            <td><span data-l10n-bind data-l10n-bind-title="'core.showinfo'"><i class="fal fa-info-circle infoColor link" data-ng-click="ctrl.showHistoryInformation(change);"></i></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

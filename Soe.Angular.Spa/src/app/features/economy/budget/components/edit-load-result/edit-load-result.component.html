@@ -1,0 +1,50 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-12">
+            <strong>{{ messageResultInfoText()  }}</strong>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-sm-12">
+            {{ messageIncludeAcountDim() }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <soe-checkbox
+              [labelKey]="data.dim2Name"
+              [noMargin]="true"
+              formControlName="useDim2"
+              [checked]="useDim2()">
+            </soe-checkbox>
+            <soe-checkbox
+              [labelKey]="data.dim3Name"
+              [noMargin]="true"
+              formControlName="useDim3"
+              [checked]="useDim3()">
+            </soe-checkbox>
+          </div>
+        </div>
+      </form>
+    }
+  </div>
+
+  <div dialog-footer>
+    <soe-button
+      [behaviour]="'standard'"
+      [caption]="'core.no'"
+      (action)="closeDialog()"></soe-button>
+    <soe-button
+      [behaviour]="'primary'"
+      [caption]="'core.yes'"
+      (action)="buttonYesClick()"></soe-button>
+  </div>
+</soe-dialog>

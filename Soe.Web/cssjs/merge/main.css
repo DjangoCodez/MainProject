@@ -1,0 +1,325 @@
+﻿:root {
+    /* Colors from Figma design system */
+    /* See variables.scss in Angular.Spa project for details */
+    /* Primary and secondary */
+    --soe-color-primary: #ec3641;
+    --soe-color-secondary-blue: #72a9f5;
+    --soe-color-secondary-blue-70: #9cc3f8;
+    --soe-color-secondary-medium-blue: #bad5f9;
+    /* Primary tints */
+    --soe-color-primary-tone-75: #f16870;
+    /* Secondary tints */
+    --soe-color-secondary-medium-beige: #efeae3;
+    --soe-color-secondary-light-beige: #f7f4f0;
+    /* Neutral */
+    --soe-color-neutral-black: #1e1e1e;
+    --soe-color-neutral-grey: #b6b6b6;
+    --soe-color-neutral-light-grey: #dfdfdf;
+    --soe-color-neutral-white: #ffffff;
+    --soe-color-neutral-ag-white: #fefdfd;
+    --soe-color-semantic-information-20: #cde0f4;
+    /* Semantic */
+    --soe-color-semantic-error: #da1e28;
+    --soe-color-semantic-warning: #ff832b;
+    --soe-color-semantic-success: #24a148;
+    --soe-color-semantic-information: #0565c9;
+    --soe-color-semantic-yellow: #fbbd0e;
+    /* Standard color variables */
+    --soe-border-color: var(--soe-color-neutral-light-grey);
+    --soe-background-color: var(--soe-color-neutral-white);
+    --soe-text-color: var(--soe-color-neutral-black);
+    --soe-inverted-text-color: var(--soe-color-neutral-white);
+    --soe-disabled-text-color: --soe-color-neutral-grey;
+    /* Branding companies */
+    --soe-color-primary-brand-flexibla-kontoret: #aad0c6;
+    --soe-text-color-brand-flexibla-kontoret: #1e1e1e;
+}
+
+.accentColor {
+    color: var(--soe-color-secondary-blue) !important;
+}
+
+.warningColor {
+    color: var(--soe-color-semantic-warning) !important;
+}
+
+.errorColor {
+    color: var(--soe-color-semantic-error) !important;
+}
+
+.successColor {
+    color: var(--soe-color-semantic-success) !important;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Roboto Condensed', Verdana, Arial, Helvetica, Sans-serif;
+    height: 100%;
+    width: 100%;
+    min-width: 1000px;
+    font-size: 11px;
+    /*background-color: var(--soe-color-secondary-medium-beige);*/
+}
+    /*Opera Fix*/
+    body: before {
+        content: "";
+        height: 100%;
+        float: left;
+        width: 0;
+        margin-top: -32767px;
+    }
+
+/* Get rid of Chromes black focus ring that appears when tabbing into an element */
+*:focus-visible {
+    outline: none;
+}
+
+/*Login*/
+#Login {
+    height: 100%;
+    width: 100%;
+    background-color: var(--soe-background-color);
+    border: 0;
+}
+
+    #Login .logo {
+        text-align: center;
+    }
+
+    #Login .form {
+        height: auto;
+        width: 450px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 0 0 100px; /* justify for padding in logo image */
+        display: block;
+    }
+
+        #Login .form table {
+            width: 450px;
+            text-align: center;
+            border: 0;
+        }
+
+            #Login .form table th {
+                width: 120px;
+                text-align: left;
+                vertical-align: middle;
+                font-size: 11px;
+            }
+
+        #Login .form input {
+            height: 20px;
+            margin-top: 3px;
+        }
+
+        #Login .form table button {
+            margin: 5px 0 0 0;
+            padding: 5px 10px 5px 10px;
+            font-size: 12px;
+        }
+
+    #Login .progress {
+        width: 99%;
+        margin: 50px auto 0 auto;
+        padding: 2px 5px 2px 5px;
+        background-color: #D51521;
+        color: #FFF;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+        #Login .progress img {
+            vertical-align: middle;
+            margin-right: 2px;
+        }
+
+/*General*/
+a img {
+    border: none;
+}
+
+a {
+    color: #004E98;
+}
+
+.clear, .C {
+    clear: both;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+/* Error */
+.error {
+    font-size: 12px;
+}
+
+    .error h1 {
+        margin-bottom: 10px;
+    }
+
+    .error .description {
+        margin-bottom: 20px;
+    }
+
+    .error ul {
+        margin-left: 20px;
+        font-weight: bold;
+    }
+
+        .error ul li {
+            margin: 5px 0 5px 0;
+        }
+
+    .error .details {
+        margin: 5px 0 5px 0;
+    }
+
+    .error a {
+        color: Black;
+        font-size: 12px;
+        font-weight: normal;
+        text-decoration: underline;
+    }
+
+/* SupportContactInfo */
+.supportcontactinfo ul {
+    font-size: 12px;
+    margin: 0;
+    font-weight: normal;
+}
+
+    .supportcontactinfo ul li {
+        margin: 5px 0 5px 0;
+        line-height: 20px;
+        list-style: none;
+    }
+
+.supportcontactinfo a {
+    color: Black;
+    font-size: 12px;
+    font-weight: normal;
+    text-decoration: underline;
+}
+
+/* Modal dialog*/
+#modal-dialog {
+    min-height: 100px;
+    padding: 10px;
+    position: relative;
+}
+
+#modal-icon {
+    margin-right: 10px;
+}
+
+#ok {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    box-sizing: border-box;
+}
+
+/* Bootstrap */
+.bootstrap-master .master-row {
+    margin: 0;
+}
+
+.bootstrap-master .top {
+    height: 55px;
+}
+
+.top-left-hamburger-menu {
+    position: absolute;
+    top: 0;
+    height: 48px;
+    width: 100%;
+    background-color: var(--soe-color-primary);
+    z-index: 50;
+}
+
+.left-menu.brand-flexibla-kontoret .top-left-hamburger-menu {
+    background-color: var(--soe-color-primary-brand-flexibla-kontoret);
+}
+
+.top-left-hamburger-menu .menu-icons-container {
+    position: absolute;
+    top: 0;
+    height: 48px;
+    width: 100%;
+}
+
+.top-left-hamburger-menu .go-logo {
+    display: block;
+    height: 32px;
+    width: 32px;
+    margin: 8px 6px;
+}
+
+.top-left-hamburger-menu .hamburger-menu {
+    font-size: 20px;
+    margin: -34px 8px 8px 8px;
+    color: white;
+    float: right;
+}
+
+.left-menu.brand-flexibla-kontoret .top-left-hamburger-menu .hamburger-menu {
+    color: var(--soe-text-color-brand-flexibla-kontoret);
+}
+
+.top-left-hamburger-menu:hover .hamburger-menu {
+    color: var(--soe-color-neutral-light-grey) !important;
+}
+
+
+.collapse-menu.toggled .menu-toggle {
+    position: absolute;
+    top: 106px;
+}
+
+.bootstrap-master .main-content {
+    position: absolute;
+    top: 48px;
+    left: 200px;
+    right: 0px;
+    bottom: 16px;
+}
+
+.bootstrap-master #wrapper {
+    padding-left: 0;
+}
+
+#wrapper #favoriteSelector {
+    display: none;
+}
+
+.start-page .top-menu {
+    left: 0 !important;
+}
+
+.start-page .main-content {
+    position: absolute;
+    top: 48px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.legacy .main-content {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    padding-right: 0px !important;
+}

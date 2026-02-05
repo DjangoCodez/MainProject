@@ -1,0 +1,51 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'manage.registry.checklists.multiplechoice.question'"></h6>        
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-textbox label-key="manage.registry.checklists.multiplechoice.title" model="ctrl.answerHead.title"></soe-textbox>
+                </div>
+                <div class="col-sm-6">
+                    <soe-select label-key="manage.registry.checklists.multiplechoice.previouslyused" model="ctrl.answerHead.checkListMultipleChoiceAnswerHeadId" items="ctrl.answerHeads" options="item.checkListMultipleChoiceAnswerHeadId as item.title for item in items" on-changing="ctrl.answerHeadChanged(item)"></soe-select>
+                </div>
+            </div>
+            
+            <br />
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-panel label-key="manage.registry.checklists.multiplechoice.answers" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.addAnswer();">
+                        <div>
+                            <table class="table table-condensed table-hover horizontal-line-top">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 20px"></th>                                        
+                                        <th scope="col" data-l10n-bind="'manage.registry.checklists.multiplechoice.answers'"></th>                                        
+                                        <th scope="col" style="width: 28px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody data-ng-repeat="row in ctrl.answerRows">
+                                    <tr data-ng-class="{'table-selected-row': ctrl.selectedRow === row}" data-ng-click="ctrl.selectedRow = row">
+                                        <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedRow === row"></i></td>
+                                        <td><span data-ng-class="{'indiscreet': row.isCurrent}">{{row.question}}</span></td>
+                                        <td><span data-l10n-bind data-l10n-bind-title="'core.deleterow'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteAnswer(row);"></i></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </soe-panel>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.save'" data-ng-click="ctrl.save()"></button>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿<div class="info" style="margin-top: 16px; margin-bottom: 8px;">
+    <div class="row">
+        <div class="col-sm-12 pull-right">
+            <div class="col-sm-2 pull-right">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="economy.supplier.invoice.filteredtotal"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredTotal | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 margin-small-right pull-right">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="economy.supplier.invoice.selelectedtotal"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.selectedTotal | amount}}</label>
+                </div>
+            </div>
+            <div class="col pull-right">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <soe-checkbox label-key="common.customer.invoices.showsummaryinclvat" model="ctrl.showVatFree" data-ng-click="ctrl.showVatFreeChanged()"></soe-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ngSoeFormFooter">
+    <div class="row">
+        <div class="col-sm-12 pull-right">
+            <div class="col pull-right">
+                <soe-splitbutton class="pull-right margin-small-right" label-key="core.functions" options="ctrl.buttonFunctions" main-button="true" drop-up="true" data-ng-if="ctrl.hasOpenPermission" is-disabled="ctrl.soeGridOptions.getSelectedCount() === 0" option-selected="ctrl.executeButtonFunction(option)"></soe-splitbutton>
+            </div>
+        </div>
+    </div>
+</div>

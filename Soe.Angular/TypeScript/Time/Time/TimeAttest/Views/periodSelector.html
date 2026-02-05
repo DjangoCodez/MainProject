@@ -1,0 +1,14 @@
+﻿<div class="timeattest-periodselector form-inline">
+    <div class="form-group form-group-sm" style="margin-top: 5px;">
+        <soe-select hidelabel="true" model="ctrl.currentTimePeriodType" input-width="73px" items="ctrl.timePeriodTypes" options="item.id as item.name for item in items" data-ng-hide="!ctrl.hasLoadedTimePeriodTypes()" on-changing="ctrl.toolbarSelectionTimePeriodTypeChanged(item)"></soe-select>
+    </div>
+    <div class="input-group" style="margin-top: 5px;">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-sm btn-default fal fa-chevron-left" data-l10n-bind data-l10n-bind-title="'core.previous'" ng-class="{ disabled: !ctrl.toolbarPrevPeriodValid() }" data-ng-click="$event.stopPropagation();ctrl.toolbarPrevPeriodValid() && ctrl.toolbarPrevPeriodGoTo()"></button>
+        </span>
+        <soe-datepicker hidelabel="true" hidevalue="true" model="ctrl.currentStartDate" input-width="auto" button-class="no-border-radius" description="ctrl.currentTimePeriodName" is-disabled="!ctrl.hasLoadedTimePeriodTypes()" on-change="ctrl.toolbarSelectionCurrentDateChanged()"></soe-datepicker>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-sm btn-default fal fa-chevron-right  border-radius-right" data-l10n-bind data-l10n-bind-title="'core.next'" ng-class="{ disabled: !ctrl.toolbarNextPeriodValid() }" data-ng-click="$event.stopPropagation();ctrl.toolbarNextPeriodValid() && ctrl.toolbarNextPeriodGoTo()"></button>
+        </span>
+    </div>
+</div>

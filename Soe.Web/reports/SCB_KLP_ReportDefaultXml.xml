@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SOE_SCB_KLP_Report>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="SOE_SCB_KLP_Report">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SCB_KLP_Report">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportHeader">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="ReportTitle"/>
+                    <xs:element type="xs:string" name="ReportDescription"/>
+                    <xs:element type="xs:string" name="ReportNr"/>
+                    <xs:element type="xs:string" name="Company"/>
+                    <xs:element type="xs:string" name="Orgnr"/>
+                    <xs:element type="xs:string" name="LoginName"/>
+                    <xs:element type="xs:string" name="TimePeriod"/>
+                    <xs:element type="xs:string" name="SortByLevel1"/>
+                    <xs:element type="xs:string" name="SortByLevel2"/>
+                    <xs:element type="xs:string" name="SortByLevel3"/>
+                    <xs:element type="xs:string" name="SortByLevel4"/>
+                    <xs:element type="xs:string" name="IsSortAscending"/>
+                    <xs:element type="xs:string" name="GroupByLevel1"/>
+                    <xs:element type="xs:string" name="GroupByLevel2"/>
+                    <xs:element type="xs:string" name="GroupByLevel3"/>
+                    <xs:element type="xs:string" name="GroupByLevel4"/>
+                    <xs:element type="xs:string" name="Special"/>
+                    <xs:element type="xs:string" name="DateInterval"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Head">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:dateTime" name="Date"/>
+                    <xs:element type="xs:decimal" name="TotaltAntalAnstallda"/>
+                    <xs:element type="xs:decimal" name="OverenskommenManadslon"/>
+                    <xs:element type="xs:decimal" name="Utbetaldlon"/>
+                    <xs:element type="xs:decimal" name="DaravOvertidstillagg"/>
+                    <xs:element type="xs:decimal" name="ArbetadeTimmar"/>
+                    <xs:element type="xs:decimal" name="AvtaladeTimmar"/>
+                    <xs:element type="xs:decimal" name="DaravOvertidstimmar"/>
+                    <xs:element type="xs:decimal" name="Retrolon"/>
+                    <xs:element type="xs:decimal" name="Sjuklon"/>
+                    <xs:element type="xs:decimal" name="RorligaTillagg"/>
+                    <xs:element name="Anstalld" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:int" name="EmployeeId"/>
+                          <xs:element type="xs:string" name="EmployeeNr"/>
+                          <xs:element type="xs:string" name="EmployeeName"/>
+                          <xs:element type="xs:string" name="PersonNr"/>
+                          <xs:element type="xs:string" name="Typ"/>
+                          <xs:element type="xs:string" name="Loneform"/>
+                          <xs:element type="xs:string" name="PersonalKategori"/>
+                          <xs:element type="xs:string" name="ArbetsKategori"/>
+                          <xs:element type="xs:decimal" name="OverenskommenManadslon"/>
+                          <xs:element type="xs:decimal" name="Utbetaldlon"/>
+                          <xs:element type="xs:decimal" name="DaravOvertidstillagg"/>
+                          <xs:element type="xs:decimal" name="ArbetadeTimmar"/>
+                          <xs:element type="xs:decimal" name="AvtaladeTimmar"/>
+                          <xs:element type="xs:decimal" name="DaravOvertidstimmar"/>
+                          <xs:element type="xs:decimal" name="Retrolon"/>
+                          <xs:element type="xs:decimal" name="Sjuklon"/>
+                          <xs:element type="xs:decimal" name="Sysselsattningsgrad"/>
+                          <xs:element type="xs:string" name="Period"/>
+                          <xs:element type="xs:decimal" name="RorligaTillagg"/>
+                          <xs:element name="Transactions" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="Type"/>
+                                <xs:element type="xs:string" name="EmployeeNr"/>
+                                <xs:element type="xs:string" name="PayrollProductNumber"/>
+                                <xs:element type="xs:string" name="PayrollProductName"/>
+                                <xs:element type="xs:decimal" name="Quantity"/>
+                                <xs:element type="xs:decimal" name="Amount"/>
+                                <xs:element type="xs:string" name="Date"/>
+                                <xs:element type="xs:int" name="SysPayrollTypeLevel1"/>
+                                <xs:element type="xs:int" name="SysPayrollTypeLevel2"/>
+                                <xs:element type="xs:int" name="SysPayrollTypeLevel3"/>
+                                <xs:element type="xs:int" name="SysPayrollTypeLevel4"/>                                
+                              </xs:sequence>
+                              <xs:attribute type="xs:int" name="Id" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:int" name="Id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:int" name="Id"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+  <SCB_KLP_Report>
+    <ReportHeader>
+      <ReportTitle></ReportTitle>
+      <ReportDescription></ReportDescription>
+      <ReportNr></ReportNr>
+      <Company></Company>
+      <Orgnr></Orgnr>
+      <LoginName>sys</LoginName>
+      <TimePeriod></TimePeriod>
+      <SortByLevel1>Unknown</SortByLevel1>
+      <SortByLevel2>Unknown</SortByLevel2>
+      <SortByLevel3>Unknown</SortByLevel3>
+      <SortByLevel4>Unknown</SortByLevel4>
+      <IsSortAscending>false</IsSortAscending>
+      <GroupByLevel1>Unknown</GroupByLevel1>
+      <GroupByLevel2>Unknown</GroupByLevel2>
+      <GroupByLevel3>Unknown</GroupByLevel3>
+      <GroupByLevel4>Unknown</GroupByLevel4>
+      <Special></Special>
+      <DateInterval></DateInterval>
+    </ReportHeader>
+    <Head Id="0">
+      <Date>1901-01-01T00:00:00</Date>
+      <TotaltAntalAnstallda>0</TotaltAntalAnstallda>
+      <OverenskommenManadslon>0</OverenskommenManadslon>
+      <Utbetaldlon>0</Utbetaldlon>
+      <DaravOvertidstillagg>0</DaravOvertidstillagg>
+      <ArbetadeTimmar>0</ArbetadeTimmar>
+      <AvtaladeTimmar>0</AvtaladeTimmar>
+      <DaravOvertidstimmar>0</DaravOvertidstimmar>
+      <Retrolon>0</Retrolon>
+      <Sjuklon>0</Sjuklon>
+      <RorligaTillagg>0</RorligaTillagg>
+      <Anstalld Id="0">
+        <EmployeeId>0</EmployeeId>
+        <EmployeeNr>0</EmployeeNr>
+        <EmployeeName>0</EmployeeName>
+        <PersonNr></PersonNr>
+        <Typ>1</Typ>
+        <Loneform></Loneform>
+        <PersonalKategori></PersonalKategori>
+        <ArbetsKategori></ArbetsKategori>
+        <OverenskommenManadslon>0</OverenskommenManadslon>
+        <Utbetaldlon>0</Utbetaldlon>
+        <DaravOvertidstillagg>0</DaravOvertidstillagg>
+        <ArbetadeTimmar>0</ArbetadeTimmar>
+        <AvtaladeTimmar>0</AvtaladeTimmar>
+        <DaravOvertidstimmar>0</DaravOvertidstimmar>
+        <Retrolon>0</Retrolon>
+        <Sjuklon>0</Sjuklon>
+        <Sysselsattningsgrad>0</Sysselsattningsgrad>
+        <Period>0</Period>
+        <RorligaTillagg>0</RorligaTillagg>
+        <Transactions Id="0">
+          <Type>Retrolon</Type>
+          <EmployeeNr>16</EmployeeNr>
+          <PayrollProductNumber>93210</PayrollProductNumber>
+          <PayrollProductName></PayrollProductName>
+          <Quantity>7383.00</Quantity>
+          <Amount>0.00</Amount>
+          <Date></Date>
+          <SysPayrollTypeLevel1>0</SysPayrollTypeLevel1>        
+          <SysPayrollTypeLevel2>0</SysPayrollTypeLevel2>
+          <SysPayrollTypeLevel3>0</SysPayrollTypeLevel3>
+          <SysPayrollTypeLevel4>0</SysPayrollTypeLevel4>      
+        </Transactions>        
+      </Anstalld>
+    </Head>
+  </SCB_KLP_Report>
+</SOE_SCB_KLP_Report>

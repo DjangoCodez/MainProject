@@ -1,0 +1,285 @@
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by Ricardo Civalero (Livförsäkrings AB Skandia) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.skandia.se/Inrapportering_anstallningsuppgifter" targetNamespace="http://schemas.skandia.se/Inrapportering_anstallningsuppgifter" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:complexType name="Rapport">
+		<xs:sequence>
+			<xs:element name="Arbetsgivare" type="tns:Arbetsgivare"/>
+		</xs:sequence>
+		<xs:attribute name="datumRapportSkapad" type="xs:date" use="required"/>
+		<xs:attribute name="antalRapporteradeArbetstagare" type="xs:positiveInteger" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Arbetsgivare">
+		<xs:attribute name="organisationsnummer" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="\d{10}"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="UppdateringArbetstagare">
+		<xs:attribute name="personnummer" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="\d{12}"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="sorteringsbegreppArbetsgivare" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="8"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="NyttUppdrag">
+		<xs:sequence>
+			<xs:element name="Uppdragskategori" type="tns:Uppdragskategori"/>
+			<xs:element name="Pensionsbestämmelse" type="tns:Pensionsbestämmelse"/>
+		</xs:sequence>
+		<xs:attribute name="tillträdesdatum" type="xs:date" use="required"/>
+		<xs:attribute name="överenskommetArvode" type="xs:positiveInteger" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="NyAnställning">
+		<xs:sequence>
+			<xs:element name="Anställningskategori" type="tns:Anställningskategori"/>
+			<xs:element name="Pensionsbestämmelse" type="tns:Pensionsbestämmelse"/>
+		</xs:sequence>
+		<xs:attribute name="anställningsdatum" type="xs:date" use="required"/>
+		<xs:attribute name="överenskommenLön" type="xs:positiveInteger" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ÖverenskommenLön">
+		<xs:attribute name="datumÖverenskommenLönFrOM" type="xs:date" use="optional"/>
+		<xs:attribute name="överenskommenLön" type="xs:positiveInteger" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ÄndradÖverenskommenLön">
+		<xs:attribute name="datumÄndradÖverenskommenLönFrOM" type="xs:date" use="optional"/>
+		<xs:attribute name="ändradÖverenskommenLön" type="xs:positiveInteger" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Anställning">
+		<xs:sequence>
+			<xs:element name="Anställningskategori" type="tns:Anställningskategori" minOccurs="0"/>
+			<xs:element name="Pensionsbestämmelse" type="tns:Pensionsbestämmelse"/>
+		</xs:sequence>
+		<xs:attribute name="anställningsdatum" type="xs:date" use="required"/>
+		<xs:attribute name="överenskommenLön" type="xs:positiveInteger" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ByteAnställningskategori">
+		<xs:sequence>
+			<xs:element name="Anställningskategori" type="tns:Anställningskategori"/>
+		</xs:sequence>
+		<xs:attribute name="datumAnställningskategoriFrOM" type="xs:date" use="required"/>
+		<xs:attribute name="överenskommenLön" type="xs:positiveInteger"/>
+	</xs:complexType>
+	<xs:complexType name="Avgång">
+		<xs:attribute name="avgångsdatum" type="xs:date" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="AvslutAvUppdrag">
+		<xs:attribute name="avgångsdatum" type="xs:date" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="PensionsgrundandeLön">
+		<xs:sequence>
+			<xs:element name="Pensionsbestämmelse" type="tns:Pensionsbestämmelse"/>
+			<xs:element name="AvgiftssatsUnderTak" type="tns:Procent"/>
+			<xs:element name="AvgiftssatsÖverTak" type="tns:Procent"/>
+		</xs:sequence>
+		<xs:attribute name="lönebelopp" type="xs:nonNegativeInteger" use="required"/>
+		<xs:attribute name="datumLönFrOM" type="xs:date" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Inkomstersättning">
+		<xs:sequence>
+			<xs:element name="Pensionsbestämmelse" type="tns:Pensionsbestämmelse"/>
+			<xs:element name="AvgiftssatsUnderTak" type="tns:Procent"/>
+			<xs:element name="AvgiftssatsÖverTak" type="tns:Procent"/>
+		</xs:sequence>
+		<xs:attribute name="belopp" type="xs:nonNegativeInteger" use="required"/>
+		<xs:attribute name="datumInkomstFrOM" type="xs:date" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Tjänstledighetsperiod">
+		<xs:attribute name="datumEjPensionsgrundandePeriodFrOM" type="xs:date" use="required"/>
+		<xs:attribute name="datumEjPensionsgrundandePeriodTOM" type="xs:date" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="PensionsgrundandeTidTimanställning">
+		<xs:attribute name="antalDagarTimanställning" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:int">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="366"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:simpleType name="Anställningskategori">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AB_MÅNADSAVLÖNAD"/>
+			<xs:enumeration value="BRANDMAN_MÅNADSAVLÖNAD"/>
+			<xs:enumeration value="BRANDMAN_UTAN_RÄTT_TILL_SAP"/>
+			<xs:enumeration value="MEDICINE_STUDERANDE_MÅNADSAVLÖNAD"/>
+			<xs:enumeration value="BEA_MÅNADSAVLÖNAD"/>
+			<xs:enumeration value="BEA_TIMAVLÖNAD"/>
+			<xs:enumeration value="AB_TIMAVLÖNAD"/>
+			<xs:enumeration value="PAN_RIB_TIMAVLÖNAD"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Uppdragskategori">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FÖRTROENDEVALD"/>
+			<xs:enumeration value="FRITIDSPOLITIKER"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Procent">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Pensionsbestämmelse">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PFA_98_LT"/>
+			<xs:enumeration value="PFA_98_KOM"/>
+			<xs:enumeration value="PFA_01_KOM"/>
+			<xs:enumeration value="PFA_FÖRETAG_98"/>
+			<xs:enumeration value="PFA_FÖRETAG_01"/>
+			<xs:enumeration value="PFA_TRAFIK_98"/>
+			<xs:enumeration value="PFA_TRAFIK_01"/>
+			<xs:enumeration value="PFA_FASTIGO_98"/>
+			<xs:enumeration value="PFA_SLTF"/>
+			<xs:enumeration value="PFA_KYRKAN_00"/>
+			<xs:enumeration value="PFA_KYRKAN_01"/>
+			<xs:enumeration value="KAP_KL"/>
+			<xs:enumeration value="PA_KL"/>
+			<xs:enumeration value="AKAP_KR"/>
+			<xs:enumeration value="OPF_KL"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="InrapporteringAnställningsuppgifter">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element name="Årsrapport" type="tns:Årsrapport">
+					<xs:unique name="unikÅrsrapportArbetstagare">
+						<xs:selector xpath="tns:ÅrsrapportArbetstagare"/>
+						<xs:field xpath="@tns:personnummer"/>
+					</xs:unique>
+				</xs:element>
+				<xs:element name="Halvårsrapport" type="tns:Halvårsrapport">
+					<xs:unique name="unikHalvårsrapportArbetstagare">
+						<xs:selector xpath="tns:HalvårsrapportArbetstagare"/>
+						<xs:field xpath="@tns:personnummer"/>
+					</xs:unique>
+				</xs:element>
+				<xs:element name="Delårsrapport" type="tns:Delårsrapport">
+					<xs:unique name="unikDelårsrapportArbetstagare">
+						<xs:selector xpath="tns:DelårsrapportArbetstagare"/>
+						<xs:field xpath="@tns:personnummer"/>
+					</xs:unique>
+				</xs:element>
+				<xs:element name="Startrapport" type="tns:Startrapport">
+					<xs:unique name="unikStartrapportArbetstagare">
+						<xs:selector xpath="tns:StartrapportArbetstagare"/>
+						<xs:field xpath="@tns:personnummer"/>
+					</xs:unique>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Årsrapport">
+		<xs:complexContent>
+			<xs:extension base="tns:Rapport">
+				<xs:sequence>
+					<xs:element name="ÅrsrapportArbetstagare" type="tns:ÅrsrapportArbetstagare" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="avrapporteringsår" type="xs:gYear" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Halvårsrapport">
+		<xs:complexContent>
+			<xs:extension base="tns:Rapport">
+				<xs:sequence>
+					<xs:element name="HalvårsrapportArbetstagare" type="tns:HalvårsrapportArbetstagare" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="avrapporteringsår" type="xs:gYear" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Delårsrapport">
+		<xs:complexContent>
+			<xs:extension base="tns:Rapport">
+				<xs:sequence>
+					<xs:element name="DelårsrapportArbetstagare" type="tns:DelårsrapportArbetstagare" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="avrapporteringsår" type="xs:gYear" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Startrapport">
+		<xs:complexContent>
+			<xs:extension base="tns:Rapport">
+				<xs:sequence>
+					<xs:element name="StartrapportArbetstagare" type="tns:StartrapportArbetstagare" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="avrapporteringsdatum" type="xs:date" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ÅrsrapportArbetstagare">
+		<xs:complexContent>
+			<xs:extension base="tns:UppdateringArbetstagare">
+				<xs:sequence>
+					<xs:element name="NyAnställning" type="tns:NyAnställning" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="ÖverenskommenLön" type="tns:ÖverenskommenLön" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="ÄndradÖverenskommenLön" type="tns:ÄndradÖverenskommenLön" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="ByteAnställningskategori" type="tns:ByteAnställningskategori" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Avgång" type="tns:Avgång" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="PensionsgrundandeLön" type="tns:PensionsgrundandeLön" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Tjänstledighetsperiod" type="tns:Tjänstledighetsperiod" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="PensionsgrundandeTidTimanställning" type="tns:PensionsgrundandeTidTimanställning" minOccurs="0"/>
+					<xs:element name="NyttUppdrag" type="tns:NyttUppdrag" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Inkomstersättning" type="tns:Inkomstersättning" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="AvslutAvUppdrag" type="tns:Avgång" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="HalvårsrapportArbetstagare">
+		<xs:complexContent>
+			<xs:extension base="tns:UppdateringArbetstagare">
+				<xs:sequence>
+					<xs:element name="NyAnställning" type="tns:NyAnställning" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="ÖverenskommenLön" type="tns:ÖverenskommenLön" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="ÄndradÖverenskommenLön" type="tns:ÄndradÖverenskommenLön" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="ByteAnställningskategori" type="tns:ByteAnställningskategori" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Avgång" type="tns:Avgång" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="PensionsgrundandeLön" type="tns:PensionsgrundandeLön" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Tjänstledighetsperiod" type="tns:Tjänstledighetsperiod" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="PensionsgrundandeTidTimanställning" type="tns:PensionsgrundandeTidTimanställning" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DelårsrapportArbetstagare">
+		<xs:complexContent>
+			<xs:extension base="tns:UppdateringArbetstagare">
+				<xs:sequence>
+					<xs:element name="NyAnställning" type="tns:NyAnställning" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="ÖverenskommenLön" type="tns:ÖverenskommenLön" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="ÄndradÖverenskommenLön" type="tns:ÄndradÖverenskommenLön" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="ByteAnställningskategori" type="tns:ByteAnställningskategori" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Avgång" type="tns:Avgång" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="NyttUppdrag" type="tns:NyttUppdrag" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="AvslutAvUppdrag" type="tns:AvslutAvUppdrag" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="StartrapportArbetstagare">
+		<xs:complexContent>
+			<xs:extension base="tns:UppdateringArbetstagare">
+				<xs:sequence>
+					<xs:element name="Anställning" type="tns:Anställning" maxOccurs="unbounded"/>
+					<xs:element name="ByteAnställningskategori" type="tns:ByteAnställningskategori" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Avgång" type="tns:Avgång" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

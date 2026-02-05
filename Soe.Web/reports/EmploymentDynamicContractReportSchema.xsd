@@ -1,0 +1,126 @@
+﻿<xs:schema id="SOE_EmploymentDynamicContract" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="SOE_EmploymentDynamicContract" msdata:IsDataSet="true" msdata:Locale="en-US">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="EmploymentDynamicContract" maxOccurs="unbounded" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded" minOccurs="0">
+							<xs:element name="ReportHeaderLabels">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="LoginNameLabel"/>
+										<xs:element type="xs:string" name="PageLabel"/>
+										<xs:element type="xs:string" name="DateLabel"/>
+										<xs:element type="xs:string" name="TimeLabel"/>
+										<xs:element type="xs:string" name="TimePeriodLabel"/>
+										<xs:element type="xs:string" name="DateIntervalLabel"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ReportHeader">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="ReportTitle"/>
+										<xs:element type="xs:string" name="ReportDescription"/>
+										<xs:element type="xs:string" name="ReportNr"/>
+										<xs:element type="xs:string" name="Company"/>
+										<xs:element type="xs:string" name="Orgnr"/>
+										<xs:element type="xs:string" name="LoginName"/>
+										<xs:element type="xs:string" name="TimePeriod"/>
+										<xs:element type="xs:string" name="CompanyVatNr"/>
+										<xs:element type="xs:string" name="CompanyAddress"/>
+										<xs:element type="xs:string" name="CompanyAddressCO"/>
+										<xs:element type="xs:string" name="CompanyPostalCode"/>
+										<xs:element type="xs:string" name="CompanyPostalAddress"/>
+										<xs:element type="xs:string" name="CompanyCountry"/>
+										<xs:element type="xs:string" name="CompanyEmail"/>
+										<xs:element type="xs:string" name="CompanyPhoneHome"/>
+										<xs:element type="xs:string" name="CompanyPhoneWork"/>
+										<xs:element type="xs:string" name="CompanyPhoneMobile"/>
+										<xs:element type="xs:string" name="CompanyFax"/>
+										<xs:element type="xs:string" name="CompanyWebAddress"/>
+										<xs:element type="xs:string" name="CompanyLogo"/>
+										<xs:element type="xs:int" name="PrintedFromScheduleplanning"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="PageHeaderLabels">
+								<xs:complexType mixed="true">
+									<xs:sequence>
+										<xs:element type="xs:string" name="LoginNameLabel" minOccurs="0"/>
+										<xs:element type="xs:string" name="PageLabel" minOccurs="0"/>
+										<xs:element type="xs:string" name="DateLabel" minOccurs="0"/>
+										<xs:element type="xs:string" name="TimeLabel" minOccurs="0"/>
+										<xs:element type="xs:string" name="TimePeriodLabel" minOccurs="0"/>
+										<xs:element type="xs:string" name="DateIntervalLabel" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="EmployeeTemplate">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="Title"/>
+										<xs:element type="xs:string" name="EmployeeNr"/>
+										<xs:element type="xs:string" name="SocialSec"/>
+										<xs:element type="xs:string" name="EmployeeName"/>
+										<xs:element name="EmployeeTemplateGroup" maxOccurs="unbounded" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element type="xs:string" name="Name"/>
+													<xs:element type="xs:string" name="Description"/>
+													<xs:element type="xs:string" name="Title"/>
+													<xs:element type="xs:int" name="SortOrder"/>
+													<xs:element type="xs:int" name="Type"/>
+													<xs:element type="xs:int" name="NewPageBefore"/>
+													<xs:element name="EmployeeTemplateField" maxOccurs="unbounded" minOccurs="0">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element type="xs:string" name="InitialValue"/>
+																<xs:element type="xs:int" name="Type"/>
+																<xs:element type="xs:int" name="RegistrationLevel"/>
+																<xs:element type="xs:int" name="MandatoryLevel"/>
+																<xs:element type="xs:string" name="Comment"/>
+																<xs:element type="xs:int" name="Row"/>
+																<xs:element type="xs:int" name="StartColumn"/>
+																<xs:element type="xs:int" name="SpanColumns"/>
+																<xs:element type="xs:int" name="NbrOfColumns"/>
+																<xs:element type="xs:string" name="Format"/>
+																<xs:element type="xs:string" name="Title"/>
+																<xs:element type="xs:string" name="Description"/>
+																<xs:element type="xs:int" name="Bold"/>
+																<xs:element type="xs:int" name="CanGrow"/>
+																<xs:element type="xs:int" name="Bool"/>
+																<xs:element type="xs:int" name="Checked"/>
+																<xs:element type="xs:int" name="Border"/>
+															</xs:sequence>
+															<xs:attribute type="xs:int" name="id" use="optional"/>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="SubstituteShift" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="IsAbsence" type="xs:int"  minOccurs="0" msdata:Ordinal="0" />
+																<xs:element name="IsCopiedOrMoved" type="xs:int"  minOccurs="0" msdata:Ordinal="1" />
+																<xs:element name="Date" type="xs:dateTime"  minOccurs="0" msdata:Ordinal="2" />
+																<xs:element name="Time" type="xs:string"  minOccurs="0" msdata:Ordinal="3" />
+																<xs:element name="NbrOfHours" type="xs:string"  minOccurs="0" msdata:Ordinal="4" />
+																<xs:element name="SubstituteText" type="xs:string"  minOccurs="0" msdata:Ordinal="5" />
+															</xs:sequence>
+															<xs:attribute name="id" type="xs:string" />
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute type="xs:int" name="id" use="optional"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute type="xs:int" name="id" use="optional"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

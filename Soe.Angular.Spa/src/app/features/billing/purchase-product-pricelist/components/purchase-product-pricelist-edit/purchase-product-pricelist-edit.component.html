@@ -1,0 +1,79 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'common.general'"
+      [static]="false"
+      [open]="true">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-autocomplete
+            [labelKey]="'billing.purchase.supplier'"
+            [items]="suppliers"
+            [optionIdField]="'id'"
+            [optionNameField]="'name'"
+            [limit]="10"
+            formControlName="supplierId">
+          </soe-autocomplete>
+        </div>
+        <div class="col-sm-2">
+          <soe-datepicker
+            [labelKey]="'billing.purchase.pricelists.activefrom'"
+            formControlName="startDate"></soe-datepicker>
+        </div>
+        <div class="col-sm-2">
+          <soe-datepicker
+            [labelKey]="'billing.purchase.pricelists.activeto'"
+            formControlName="endDate"></soe-datepicker>
+        </div>
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'common.currency'"
+            formControlName="currencyId"
+            [selectedId]="form.value.currencyId"
+            [optionIdField]="'currencyId'"
+            [optionNameField]="'name'"
+            [items]="currencyService.currencies"></soe-select>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [labelKey]="'billing.purchase.product.purchaseprices'"
+      [open]="true">
+      <div class="row">
+        <div class="col-sm-12">
+          @if (form) {
+            <soe-purchase-product-pricelist-prices
+              [form]="form"
+              [rows]="priceData"
+              [supplierId]="form.supplierId.value"
+              [startDate]="form.startDate.value"
+              [currencyId]="form.currencyId.value"
+              [pricelistId]="form.supplierProductPriceListId.value"
+              [endDate]="form.endDate.value"
+              [rowCount]="rowCount"
+              [isInActiveSupplier]="isInActiveSupplier"
+              (openEditInNewTab)="
+                openEditInNewTab($event)
+              "></soe-purchase-product-pricelist-prices>
+          }
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"
+      [hideDelete]="isInActiveSupplier()"
+      [hideSave]="isInActiveSupplier()"></soe-edit-footer>
+  </form>
+}

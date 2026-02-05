@@ -1,0 +1,18 @@
+﻿<div>
+    <div class="row" data-ng-if="::!$ctrl.hideLabel">
+        <div class="col-sm-6">
+            <label class="control-label" data-l10n-bind="::$ctrl.labelKey"></label>
+        </div>
+        <div class="col-sm-6">
+            <label class="control-label" data-l10n-bind="::$ctrl.additionalLabelKey"></label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <soe-select hidelabel="true" model="$ctrl.selectedYear" items="$ctrl.availableSelectableYears" options="item.id as item.label for item in items" on-changing="$ctrl.changeYear(item)"></soe-select>
+        </div>
+        <div class="col-sm-6">
+            <soe-select hidelabel="true" model="$ctrl.selectedWeek" items="$ctrl.availableSelectableWeeks" options="item.id as item.label for item in items" on-changing="$ctrl.changeWeek(item)"></soe-select>
+        </div>
+    </div>
+</div>

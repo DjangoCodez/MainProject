@@ -1,0 +1,8 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="SoftOne.Soe.Web.soe.billing.stock.saldo._default" Title="Untitled Page"%>
+<%@ Register Src="~/UserControls/AngularSpaHost.ascx" TagPrefix="SOE" TagName="AngularSpaHost" %>
+<asp:Content ID="Content3" ContentPlaceHolderID="soeMainContent" runat="server">
+    <SOE:AngularSpaHost ID="AngularSpaHost" runat="server" />
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="soeLeftContent" runat="server">
+</asp:Content>

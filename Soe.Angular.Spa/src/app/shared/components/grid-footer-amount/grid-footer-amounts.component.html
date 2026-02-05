@@ -1,0 +1,25 @@
+<div>
+  <div class="row">
+    <div class="col-auto ms-auto">
+      <div class="float-end">
+        <soe-checkbox
+          [labelKey]="'economy.supplier.invoice.showvatfree'"
+          [checked]="showSumsInclVat()"
+          (valueChanged)="showSumsInclVat.set($event)"></soe-checkbox>
+      </div>
+    </div>
+    @for (value of values(); track value.labelKey) {
+      <div class="col-auto">
+        <div class="float-end">
+          <soe-grid-footer-amount
+            [labelKey]="value.labelKey"
+            [sum]="
+              showSumsInclVat()
+                ? sums()[value.labelKey].incVat
+                : sums()[value.labelKey].exVat
+            "></soe-grid-footer-amount>
+        </div>
+      </div>
+    }
+  </div>
+</div>

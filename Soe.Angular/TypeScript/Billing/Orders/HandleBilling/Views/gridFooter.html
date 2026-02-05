@@ -1,0 +1,34 @@
+﻿<div class="info" style="margin-top: 16px; margin-bottom: 8px;">
+    <div class="row">
+        <div class="col-sm-6 pull-right">
+            <div class="col-sm-3 pull-right">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="billing.order.handlebilling.amountreadyforinvoice"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredValidForInvoice | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-3 margin-small-right pull-right">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="billing.productrows.splitaccounting.totalamount"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredTotal | amount}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ngSoeFormFooter">
+    <div class="row">
+        <div class="col-sm-12 pull-right">
+            <div class="col pull-right">
+                <soe-splitbutton class="pull-right margin-small-right" label-key="core.functions" options="ctrl.buttonFunctions" main-button="true" drop-up="true" data-ng-if="ctrl.hasTransferToPreliminaryPermission || ctrl.hasTransferToDefinitivePermission" is-disabled="ctrl.gridAg.options.getSelectedCount() === 0" selected-option="ctrl.splitButtonSelectedOption" option-selected="ctrl.initTransfer(option)"></soe-splitbutton>
+            </div>
+            <div class="col pull-right margin-small-right">
+                <soe-select class="pull-right" style="width:170px" hidelabel="true" model="ctrl.selectedAttestState" items="ctrl.availableAttestStateOptions" options="item.id as item.name for item in items" on-changing="ctrl.attestStateChanged()" on-button-click="ctrl.initChangeAttestState()" button-icon="'fa-play-circle'" button-tooltip-key="billing.productrows.changeatteststate" button-disabled="ctrl.gridAg.options.getSelectedCount() === 0"></soe-select>
+            </div>
+        </div>
+    </div>
+</div>

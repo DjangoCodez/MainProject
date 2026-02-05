@@ -1,0 +1,30 @@
+@if (form) {
+  <div [formGroup]="form" class="row">
+    <div class="col-sm-3">
+      <soe-autocomplete
+        formControlName="selectedContactPerson"
+        [labelKey]="'common.contactperson.addcontactperson'"
+        [items]="availablePersons"
+        [optionIdField]="'actorContactPersonId'"
+        [optionNameField]="'firstAndLastName'"
+        (valueChanged)="addExistingContactPerson($event)"></soe-autocomplete>
+    </div>
+    <div class="col-sm-2 align-self-end">
+      <soe-button
+        [caption]="'common.contactperson.addnewcontactperson'"
+        [behaviour]="'standard'"
+        (action)="addNewContactPerson()"></soe-button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      @if (flowHandler.allowFetchGrid()) {
+        <soe-grid-wrapper
+          [toolbarGroups]="[]"
+          [rows]="rowData"
+          [height]="250"
+          [parentGuid]="guid()"></soe-grid-wrapper>
+      }
+    </div>
+  </div>
+}

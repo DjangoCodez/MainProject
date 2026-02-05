@@ -1,0 +1,29 @@
+﻿<div>
+    <soe-panel label-key="common.employeegroups" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.editRule();">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 20px"></th>
+                    <th scope="col" data-l10n-bind="'time.employee.employeegroup.employeegroup'"></th>
+                    <th scope="col" data-l10n-bind="'common.datefrom'"></th>
+                    <th scope="col" data-l10n-bind="'common.dateto'"></th>
+                    <th scope="col" style="width: 28px"></th>
+                    <th scope="col" style="width: 28px"></th>
+                    <th scope="col" style="width: 28px"></th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="rule in ctrl.rules | orderBy:'employeeGroupName'">
+                <tr data-ng-class="{'table-selected-row': ctrl.selectedRule === rule}" data-ng-click="ctrl.selectedRule = rule">
+                    <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedRule === rule"></i></td>
+                    <td><span>{{rule.employeeGroupName}}</span></td>
+                    <td><span>{{rule.dateFrom | date:'shortDate'}}</span></td>
+                    <td><span>{{rule.dateTo | date:'shortDate'}}</span></td>
+                    
+                    <td><span class="fal fa-clock" data-l10n-bind data-l10n-bind-title="'time.time.timeaccumulator.employeegrouprule.scheduled'" data-ng-if="rule.scheduledJobHeadId"></span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editRule(rule);"></i></span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteRule(rule);"></i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </soe-panel>
+</div>

@@ -1,0 +1,178 @@
+﻿@import (reference) "../variables.less";
+@import (reference) "../../../../../node_modules/bootstrap/less/bootstrap";
+@import "../../../../../node_modules/bootstrap/less/variables";
+
+.col-fixed-200 {
+    position: absolute;
+    width: 207px;
+    padding-left: 15px;
+    z-index: 1;
+}
+
+.col-offset-200 {
+    padding-left: 215px;
+}
+
+.expression-container {
+    border: solid 1px @soe-border-color;
+    border-radius: @border-radius;
+    background-color: @soe-header-background-color;
+    padding: 0;
+
+    .control-label {
+        margin-left: 10px;
+    }
+
+    ul {
+        margin: 5px 10px 5px 10px;
+    }
+
+    .expressions, li {
+        margin-bottom: 10px;
+    }
+
+    .operators, li {
+        display: inline-block;
+        margin-right: 10px;
+    }
+}
+
+.formula-container {
+    border: solid 1px @soe-border-color;
+    border-radius: @border-radius;
+    background-color: @soe-header-background-color;
+    padding: 0;
+    height: 200px;
+
+    .control-label {
+        margin-left: 10px;
+    }
+
+    ul {
+        height: 147px;
+        margin: 0px 10px 0px 10px;
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+
+    ul li {
+        display: inline-block;
+        margin-right: 10px;
+
+        .widget-container.expression {
+            .panel-heading {
+                border-bottom: solid 1px @soe-border-color;
+            }
+        }
+    }
+}
+
+.widget-list {
+    list-style: none;
+    height: 100%;
+}
+
+.widget-container.expression, .widget-container.operator {
+    padding: 0;
+    margin: 0;
+
+    .panel-heading {
+        border-bottom: 0;
+    }
+}
+
+.widget {
+    .panel-heading {
+        padding: 5px;
+    }
+
+    .panel-title {
+        text-align: center;
+        cursor: pointer;
+        background-color: transparent !important;
+    }
+
+    .panel-body {
+        border-top: 0;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.widget.panel {
+    margin: 0;
+}
+
+.widget-toolbar {
+    margin-top: -5px;
+    margin-right: -5px;
+
+    i {
+        margin-left: -15px;
+        cursor: pointer;
+    }
+
+    .fal {
+        color: @errorColor;
+        opacity: 1;
+    }
+}
+
+.widget-setting-container {
+    padding: 5px 20px 5px 20px;
+}
+
+.widget.default {
+    .panel-heading {
+        background-color: @soe-color-neutral-light-grey;
+    }
+}
+
+.widget.customerdiscount, .widget.not {
+    .panel-heading {
+        background-color: @errorBackgroundColor;
+    }
+}
+
+.widget.gain, .widget.supplieragreement, .widget.schedule {
+    .panel-heading {
+        background-color: @successBackgroundColor;
+    }
+}
+
+.widget.standby {
+    .panel-heading {
+        background-color: @shiftStandby;
+    }
+}
+
+.widget.gnp, .widget.balance, .widget.netprice {
+    .panel-heading {
+        background-color: @informationBackgroundColor;
+    }
+}
+
+.widget.markup, .widget.pricebasedmarkup, .widget.clock {
+    .panel-heading {
+        background-color: @warningBackgroundColor;
+    }
+}
+
+.widget.balance {
+    .select-borderless {
+        select {
+            cursor: pointer;
+            border-width: 0px;
+            box-shadow: none;
+            font-size: @extraLargeFontSize;
+            text-align-last: center;
+            padding: 0px 5px;
+            -webkit-appearance: none; // Hide dropdown arrow
+            -moz-appearance: none; // Hide dropdown arrow
+        }
+
+        select::-ms-expand {
+            display: none; // Hide dropdown arrow
+        }
+    }
+}

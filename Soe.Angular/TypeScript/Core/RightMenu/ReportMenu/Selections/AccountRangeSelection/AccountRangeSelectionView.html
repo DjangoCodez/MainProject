@@ -1,0 +1,53 @@
+﻿<div>
+	<div class="row margin-large-top">
+		<div class="col-sm-6">
+			<soe-label label-key="common.report.selection.accountandinternal"></soe-label>
+		</div>
+	</div>
+	<div class="row" data-ng-repeat="filterRange in $ctrl.filterRanges">
+		<div class="col-sm-8">
+			<div class="row">
+				<div class="col-sm-4">
+					<soe-select label-key="" items="filterRange.availableSelectionNames" options="item as item.name for item in items" on-changing="$ctrl.onRangeNameChanged(item,filterRange)" model="filterRange.selectedSelection"></soe-select>
+				</div>
+				<div class="col-sm-4">
+					<soe-typeahead filter-property="'numberName'"
+								   custom-pipe="orderAccountsByStartsWithFirst:$viewValue"
+								   label-key="{{$ctrl.labelKey}}"
+								   hidelabel="$ctrl.hideLabel"
+								   model="filterRange.accountFrom"
+								   items="filterRange.selectedSelection.accounts"
+								   options="item as item.numberName for item in items"
+								   editable="true"
+								   on-selection-changed="$ctrl.onOptionFromChanged(item,filterRange)"
+								   on-focus="$ctrl.onFromFocus()"
+								   on-focus-lost="$ctrl.onFromBlur(value, filterRange)">
+					</soe-typeahead>
+				</div>
+				<div class="col-sm-4">
+					<soe-typeahead id="filterRangeAccountTo"
+								   filter-property="'numberName'"
+								   custom-pipe="orderAccountsByStartsWithFirst:$viewValue"
+								   label-key=""
+								   model="filterRange.accountTo"
+								   items="filterRange.selectedSelection.accounts"
+								   options="item as item.numberName for item in items"
+								   editable="true"
+								   on-selection-changed="$ctrl.onOptionToChanged(item,filterRange)"
+								   on-focus="$ctrl.onToFocus()"
+								   on-focus-lost="$ctrl.onToBlur(value, filterRange)"
+								   >
+					</soe-typeahead>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-1">
+			<button type="button" data-ng-if="$index != 0" class="btn btn-default" style="margin-top: 14px;" data-ng-click="$ctrl.deleteRow($index)"><span class="fal fa-times iconDelete"></span></button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 padding-none-right">
+			<button type="button" class="btn btn-default" style="margin-top: 14px;" data-ng-click="$ctrl.addRow()"><span class="fal fa-plus"></span></button>
+		</div>
+	</div>
+</div>

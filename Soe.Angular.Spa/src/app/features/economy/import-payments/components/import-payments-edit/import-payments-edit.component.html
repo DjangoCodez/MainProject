@@ -1,0 +1,145 @@
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel [labelKey]="textKeySingle()" [static]="true">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'economy.import.payment.importBatchId'"
+            [autoFocus]="true"
+            formControlName="batchId">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'economy.import.payment.importpaymenttype'"
+            [items]="importPaymentTypes"
+            formControlName="importType">
+          </soe-select>
+        </div>
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'economy.import.payment.paymentmethodnew'"
+            [items]="paymentMethodsDict"
+            formControlName="type"
+            (valueChanged)="onPaymentMethodChanged()">
+          </soe-select>
+        </div>
+        <div class="col-sm-3 align-items-end">
+          <div class="col-sm-12 d-flex flex-row-reverse align-items-end">
+            @if (!form.isNew || !isUploadFileButtonVisible()) {
+              <soe-label [labelValue]="form.filename.value"></soe-label>
+            }
+
+            @if (
+              flowHandler.modifyPermission() && isUploadFileButtonVisible()
+            ) {
+              <soe-save-button
+                class="ms-2"
+                [dirty]="form.dirty"
+                [caption]="'core.chooseFile'"
+                [invalid]="form.invalid"
+                [disabled]="disableUpload()"
+                (action)="openFileUpload()"
+                (validationErrorsAction)="
+                  form.openFormValidationErrors()
+                "></soe-save-button>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-datepicker
+            [labelKey]="importDateLabel()"
+            formControlName="importDate">
+          </soe-datepicker>
+        </div>
+        <div class="col-sm-3">
+          @if (form.paymentImportId.value > 0) {
+            <soe-numberbox
+              [decimals]="2"
+              [labelKey]="'economy.supplier.invoice.matches.totalamount'"
+              formControlName="totalAmount"></soe-numberbox>
+          }
+        </div>
+        <div class="col-sm-6"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-8">
+          @if (showPaymentLabel()) {
+            <soe-textbox
+              [labelKey]="'economy.import.payment.label'"
+              formControlName="paymentLabel">
+            </soe-textbox>
+          }
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel
+      [labelKey]="'economy.import.payment.details'"
+      [open]="isPaymentDetailOpen()">
+      <div class="row">
+        @if (form) {
+          <soe-import-payments-edit-detail-grid
+            (peformUpdateAction)="performUpdateAction($event)"
+            [form]="form"
+            [terms]="terms"
+            [customerPaymentEditPermission]="customerPaymentEditPermission"
+            [importPaymentTypeId]="importPaymentType()"
+            [useExternalInvoiceNr]="useExternalInvoiceNr"
+            [rows]="rows"
+            [matchCodes]="matchCodes"></soe-import-payments-edit-detail-grid>
+        }
+      </div>
+    </soe-expansion-panel>
+
+    @if (visibleTraceRows()) {
+      <soe-expansion-panel
+        [labelKey]="'common.tracing'"
+        (isOpened)="openTraceRowsExpander()">
+        @if (traceRowsRendered()) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-trace-rows
+                [traceId]="form.paymentImportId.value"
+                [pageName]="pageName"></soe-trace-rows>
+            </div>
+          </div>
+        }
+      </soe-expansion-panel>
+    }
+
+    <div class="soe-form-footer">
+      <div class="col-sm-6 d-flex flex-row align-items-start">
+        <created-modified [model]="form.value" class="ps-2"></created-modified>
+      </div>
+      <div class="col-sm-6 d-flex flex-row-reverse align-items-end">
+        @if (showSaveButton()) {
+          <soe-save-button
+            class="me-2"
+            [invalid]="form.invalid"
+            [dirty]="form.dirty"
+            [inProgress]="performAction.inProgress()"
+            [disabled]="
+              !form.dirty &&
+              form.paymentImportId.value > 0 &&
+              !flowHandler.modifyPermission()
+            "
+            (action)="save()"
+            (validationErrorsAction)="
+              form.openFormValidationErrors()
+            "></soe-save-button>
+        }
+        @if (showDeleteButton()) {
+          <soe-delete-button
+            class="me-2"
+            [disabled]="!flowHandler.modifyPermission()"
+            (action)="delete()"></soe-delete-button>
+        }
+      </div>
+    </div>
+  </form>
+}

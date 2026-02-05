@@ -1,0 +1,127 @@
+@use '../../../styles/core-styles/colors.scss';
+@use '../../../styles/core-styles/fonts.scss';
+@use '../../../styles/core-styles/variables.scss';
+
+.soe-dialog {
+  font-size: fonts.$soe-font-size-md;
+  width: 100%;
+
+  &.sm {
+    width: 300px;
+  }
+
+  &.md {
+    width: 600px;
+  }
+
+  &.lg {
+    width: 900px;
+  }
+
+  &.xl {
+    width: 1200px;
+  }
+
+  .soe-dialog-header {
+    padding: 0.25rem 0.5rem;
+    border-top-left-radius: variables.$border-radius;
+    border-top-right-radius: variables.$border-radius;
+    border-bottom: 1px solid colors.$soe-border-color;
+    background-color: colors.$soe-header-background-color;
+    color: colors.$soe-text-color;
+    cursor: move;
+
+    .soe-dialog-header__title {
+      font-size: fonts.$soe-font-size-lg;
+      font-weight: fonts.$font-weight-bold;
+    }
+
+    .btn-close {
+      border-width: 0px !important;
+      font-size: fonts.$soe-font-size-md !important;
+    }
+
+    &.information {
+      background-color: colors.$soe-color-semantic-information-20;
+      color: colors.$soe-text-color;
+
+      .btn-close {
+        color: colors.$soe-text-color;
+      }
+    }
+
+    &.warning {
+      background-color: colors.$soe-color-semantic-warning-20;
+      color: colors.$soe-text-color;
+
+      .btn-close {
+        color: colors.$soe-text-color;
+      }
+    }
+
+    &.error {
+      background-color: colors.$soe-color-semantic-error-20;
+      color: colors.$soe-text-color;
+
+      .btn-close {
+        color: colors.$soe-text-color;
+      }
+    }
+
+    &.success {
+      background-color: colors.$soe-color-semantic-success-20;
+      color: colors.$soe-text-color;
+
+      .btn-close {
+        color: colors.$soe-text-color;
+      }
+    }
+  }
+
+  .soe-dialog__content {
+    padding: 0.5rem;
+    white-space: pre-line;
+    min-height: 4rem;
+
+    .soe-dialog__icon-text-content {
+      display: flex;
+
+      .soe-dialog__icon-content {
+        flex: 0 0 40px;
+
+        .soe-dialog__icon {
+          font-size: fonts.$soe-font-size-xxxl;
+          margin-left: 0.25rem;
+          margin-right: 0.5rem;
+        }
+      }
+
+      .soe-dialog__text-content {
+        overflow: auto;
+        word-wrap: break-word;
+        margin-top: 0.5rem;
+      }
+    }
+
+    .form-check-label {
+      line-height: 24px;
+    }
+  }
+
+  .soe-dialog__hidden-content {
+    padding: 0.5rem 1rem;
+    white-space: pre-line;
+    border-top: 1px solid colors.$soe-border-color;
+  }
+
+  .soe-dialog__footer {
+    padding: 0.5rem;
+    border-top: 1px solid colors.$soe-border-color;
+
+    &::ng-deep {
+      soe-button {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+}

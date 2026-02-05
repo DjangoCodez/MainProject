@@ -1,0 +1,136 @@
+﻿<form name="ctrl.dialogform">
+    <div class="messagebox" edit-employee-availability-validation ng-model="ctrl" comment-mandatory="ctrl.commentMandatory" requests="ctrl.requests">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'common.dashboard.myschedule.availability.edit'" data-ng-if="!ctrl.readOnly"></h6>
+            <h6 class="modal-title" data-l10n-bind="'common.dashboard.myschedule.availability.show'" data-ng-if="ctrl.readOnly"></h6>
+        </div>
+        <soe-progressbar is-busy="ctrl.loading" message="" data-ng-if="ctrl.loading"></soe-progressbar>
+        <div class="modal-body" data-ng-if="!ctrl.loading">
+            <div class="margin-large-bottom info" data-ng-if="ctrl.employeeInfo || ctrl.date">
+                <div class="row" data-ng-if="ctrl.employeeInfo" ">
+                    <!-- Employee -->
+                    <div class="col-sm-4">
+                        <span class="indiscreet margin-large-right" data-l10n-bind="'common.employee'"></span>
+                    </div>
+                    <div class="col-sm-8">
+                        <span class="pull-right largeFont indiscreet">{{ctrl.employeeInfo.numberAndName}}</span>
+                    </div>
+                </div>
+                <div class="row" data-ng-if="ctrl.date">
+                    <!-- Date -->
+                    <div class="col-sm-8">
+                        <span class="indiscreet margin-large-right" data-l10n-bind="'common.dashboard.myschedule.availability.interval'"></span>
+                        <label class="radio-inline">
+                            <input type="radio" name="interval" ng-model="ctrl.selectedInterval" ng-value="1" data-ng-disabled="ctrl.readOnly">
+                            <span data-l10n-bind="'common.dashboard.myschedule.availability.interval.wholeday'"></span>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="interval" ng-model="ctrl.selectedInterval" ng-value="2" data-ng-disabled="ctrl.readOnly">
+                            <span data-l10n-bind="'common.dashboard.myschedule.availability.interval.partofday'"></span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="pull-right largeFont indiscreet">{{ctrl.date.toFormattedDate()}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Period -->
+            <div class="margin-small-bottom info" data-ng-if="!ctrl.date">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <span data-l10n-bind="'common.dashboard.myschedule.availability.periodinfo'"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-large-bottom warning" data-ng-if="!ctrl.date">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <span data-l10n-bind="'common.dashboard.myschedule.availability.periodwarning'"></span>
+                    </div>
+                </div>
+            </div>
+
+            <soe-panel label-value="ctrl.panelLabel">
+                <div class="row margin-small-top" data-ng-repeat="request in ctrl.filteredRequests">
+                    <div class="col-sm-12">
+                        <div data-ng-if="$first">
+                            <div class="row margin-small-bottom">
+                                <div class="col-sm-4">
+                                    <div class="info condensed" data-ng-if="!ctrl.readOnly">
+                                        <span class="fal fa-long-arrow-down margin-small-right"></span><span data-l10n-bind="'common.dashboard.myschedule.availability.changetype'"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 padding-none-right">
+                                    <div class="col-sm-6" data-ng-if="ctrl.selectedInterval!==1">
+                                        <soe-label label-key="common.from"></soe-label>
+                                    </div>
+                                    <div class="col-sm-6" data-ng-if="ctrl.selectedInterval!==1">
+                                        <soe-label label-key="common.to"></soe-label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4" data-ng-click="ctrl.toggleType(request);">
+                                <i class="fal link margin-small-right" data-ng-class="{'fa-calendar-check':request.type===2, 'fa-calendar-times':request.type===3,'okColor':request.type===2, 'errorColor':request.type===3}" style="font-size: 22px;"></i>
+                                <span class="link" data-l10n-bind="'time.schedule.planning.available'" data-ng-if="request.type===2"></span>
+                                <span class="link" data-l10n-bind="'time.schedule.planning.unavailable'" data-ng-if="request.type===3"></span>
+                            </div>
+                            <div class="col-sm-6 padding-none-right">
+                                <div class="col-sm-6" data-ng-if="!ctrl.date">
+                                    <soe-datepicker hidelabel="true" model="request.start" min-date="ctrl.today" is-disabled="ctrl.readOnly || (request.start < ctrl.today && request.employeeRequestId != undefined)"></soe-datepicker>
+                                </div>
+                                <div class="col-sm-6" data-ng-if="ctrl.selectedInterval===2">
+                                    <soe-timebox hidelabel="true" model="request.start" is-time="true" is-disabled="ctrl.readOnly || (request.start < ctrl.today && request.employeeRequestId != undefined)"></soe-timebox>
+                                </div>
+                                <div class="col-sm-6" data-ng-if="!ctrl.date">
+                                    <soe-datepicker hidelabel="true" model="request.stop" min-date="ctrl.yesterday" is-disabled="ctrl.readOnly"></soe-datepicker>
+                                </div>
+                                <div class="col-sm-6" data-ng-if="ctrl.selectedInterval===2">
+                                    <soe-timebox hidelabel="true" model="request.stop" is-time="true" is-disabled="ctrl.readOnly"></soe-timebox>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 padding-none-left padding-small-right">
+                                <div class="col-sm-3 padding-none-left padding-none-right">
+                                    <button type="button" class="btn btn-sm btn-link fal fa-exclamation-triangle warningColor" data-l10n-bind data-l10n-bind-title="'common.dashboard.myschedule.availability.periodhastimeswarning'" data-ng-if="ctrl.selectedInterval!==2 && !request.isWholeDay"></button>
+                                </div>
+                                <div class="col-sm-3 padding-none-left padding-none-right" data-ng-if="!ctrl.sameCommentForAllRequests">
+                                    <button type="button" class="btn btn-sm btn-link fal fa-comment" data-ng-class="{'fa-comment-dots': request.comment.length > 0}" data-ng-attr-title="{{ctrl.getRequestCommentTooltip(request)}}" data-ng-click="$event.stopPropagation();ctrl.editRequestComment(request);"></button>
+                                </div>
+                                <div class="col-sm-3 padding-none-left padding-none-right">
+                                    <button type="button" class="btn btn-sm btn-link fal fa-info-circle infoColor" data-l10n-bind data-l10n-bind-title="'core.info'" data-ng-if="request.employeeRequestId" data-ng-click="$event.stopPropagation();ctrl.showRequestInfo(request);"></button>
+                                </div>
+                                <div class="col-sm-3 padding-none-left padding-none-right" data-ng-if=" (request.start >= ctrl.today || request.employeeRequestId == undefined ) && !ctrl.readOnly">
+                                    <button type="button" class="btn btn-sm btn-link fal fa-times errorColor" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.deleteRequest(request);"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-large-top" data-ng-if="(ctrl.selectedInterval!==1 || ctrl.filteredRequests.length===0) && !ctrl.readOnly">
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-sm btn-default" style="min-width: 100px;" data-l10n-bind="'core.newrow'" data-ng-disabled="ctrl.selectedInterval==1 && ctrl.filteredRequests.length>0" data-ng-click="$event.stopPropagation();ctrl.addRequest();"></button>
+                    </div>
+                </div>
+            </soe-panel>
+            <soe-checkbox label-key="common.dashboard.myschedule.availability.usesamecommentforall" model="ctrl.sameCommentForAllRequests" is-disabled="ctrl.readOnly"></soe-checkbox>
+            <soe-panel label-key="common.comment" data-ng-if="ctrl.sameCommentForAllRequests">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-textarea hidelabel="true" model="ctrl.comment" update-on="blur" rows="3" on-change="ctrl.commentChanged();" is-disabled="ctrl.readOnly"></soe-textarea>
+                    </div>
+                </div>
+            </soe-panel>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-show="!ctrl.dialogform.$invalid && !ctrl.readOnly" data-ng-click="ctrl.ok()"></button>
+            <div class="btn-group" role="group" data-ng-show="ctrl.dialogform.$invalid && !ctrl.readOnly">
+                <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.ok'" data-ng-disabled="ctrl.dialogform.$invalid"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButtonInvalid" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+            </div>
+        </div>
+    </div>
+</form>

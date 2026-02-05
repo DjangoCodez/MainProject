@@ -1,0 +1,767 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
+    <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
+	<LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="src\app\shared\models\generated-interfaces\AccountingSettingDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\AccountingSettingDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\AccountingRowDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\AccountingRowDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\AltInnDTOs - Copy.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\AltInnDTOs - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\AuthenticationDetailsDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\SignatoryContract\AuthenticationDetailsDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\BankIntegrationDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\BankIntegrationDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\BillingModels.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Models\BillingModels.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\CommodityCodeDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\CommodityCodeDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\ContactAddressItem.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\ContactAddressItem.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\ContactDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Actor\ContactDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\CoreModels.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Models\CoreModels.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\CustomerDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Actor\CustomerDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\CustomerInvoiceDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\CustomerInvoice\CustomerInvoiceDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\CustomerStatisticsDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\CustomerStatisticsDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\EconomyModels.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Models\EconomyModels.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\EmployeeCollectiveAgreementDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\EmployeeCollectiveAgreementDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\ExportDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\ExportDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\ExtraFieldDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\ExtraFieldDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\GetPermissionResultDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\SignatoryContract\GetPermissionResultDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\InvoiceProductCopyResult.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\InvoiceProductCopyResult.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\InvoiceProductDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Product\InvoiceProductDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\InvoiceProductPriceResult.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\InvoiceProductPriceResult.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\MatrixResult.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\MatrixResult.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\Monitoring.ts">
+      <CustomToolNamespace>..\Soe.Common\Util\Monitoring.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\NetPriceDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\CustomerInvoice\NetPriceDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\PaymentImportDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Payment\PaymentImportDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\PriceListDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Product\PriceListDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\PriceListTypeDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Product\PriceListTypeDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\PriceUpdateDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\PriceUpdateDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\ProductDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Product\ProductDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\ProductStatisticsDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\ProductStatisticsDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\ProductStatisticsRequest.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\ProductStatisticsRequest.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\ProjectDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Project\ProjectDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\PurchaseDeliveryDTOs .ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Purchase\PurchaseDeliveryDTOs .cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\PurchaseDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Purchase\PurchaseDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\ReportModels.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Models\ReportModels.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\PurchaseStatisticsDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\PurchaseStatisticsDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\SearchSuppliersDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\SearchSuppliersDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\SearchSysLogsDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\SearchSysLogsDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\SOECompModelDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\SOECompModelDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\AccountHierarchyTreeDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\AccountHierarchyTreeDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\AgGridColumnSettingDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\AgGridColumnSettingDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\AltInnDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\AltInnDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\ApiMatrixDataSelection.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\ApiExternal\ApiMatrixDataSelection.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\DailyRecurrencePatternDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\DailyRecurrencePatternDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\EmploymentLASDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\EmploymentLASDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\Enumerations.ts">
+      <CustomToolNamespace>..\Soe.Common\Util\Enumerations.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\ExportDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\ExportDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\GenericType.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\GenericType.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\ImportDynamicDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\ImportDynamicDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\MatrixResult.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\MatrixResult.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\PurchaseDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Purchase\PurchaseDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\ReportDataDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\ReportDataDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\RpnParser.ts">
+      <CustomToolNamespace>..\Soe.Common\Util\RpnParser.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\SOECompModelDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\SOECompModelDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\SOESysModelDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\SOESysModelDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\SoftOneStatusDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\SoftOneStatusDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\SupplierAgreementDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\CustomerInvoice\SupplierAgreementDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\SupplierInvoiceDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\SupplierInvoice\SupplierInvoiceDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\SupplierProductDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Purchase\SupplierProductDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\SysExtraFieldDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\SysExtraFieldDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\TimeBalanceIODTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\ApiExternal\TimeBalanceIODTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\TimeModels.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Models\TimeModels.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\TimeScheduleInfoIODTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\TimeScheduleInfoIODTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\UtilityDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\UtilityDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\VoucherHeadDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Voucher\VoucherHeadDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\VoucherRowDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Voucher\VoucherRowDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\VoucherSeriesDTOs.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\Voucher\VoucherSeriesDTOs.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-interfaces\WholsellerNetPriceDTO.ts">
+      <CustomToolNamespace>..\Soe.Common\DTO\CustomerInvoice\WholsellerNetPriceDTO.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-service-endpoints\Accounting.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\Economy\AccountingController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-service-endpoints\BillingModels.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Models\BillingModels.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-service-endpoints\Core.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\CoreController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-service-endpoints\CustomerProductPrice.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\Billing\CustomerProductPriceController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-service-endpoints\DayTypes.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\DayTypesController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-service-endpoints\Purchase.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\Billing\PurchaseController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-service-endpoints\Schedule.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\Time\ScheduleController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\models\generated-service-endpoints\Time.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\Time\TimeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\BillingProduct.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\BillingProductController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\CommodityCodes - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\CommodityCodesController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\CommodityCodes.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\CommodityCodesController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\ContractGroup.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\ContractGroupController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\Delivery.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\DeliveryController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\DeliveryCondition - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\DeliveryConditionController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\DeliveryCondition.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\DeliveryConditionController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\DeliveryType - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\DeliveryTypeController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\DeliveryType.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\DeliveryTypeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\HouseholdTaxDeduction.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\HouseholdTaxDeductionController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\InvoiceNetPrices.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\InvoiceNetPricesController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\InvoicePayment.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\InvoicePaymentController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\InvoicePriceLists.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\InvoicePriceListsController.cs</CustomToolNamespace>
+    </None>
+	  <None Update="src\app\shared\services\generated-service-endpoints\billing\FInvoice.endpoints.ts">
+		  <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\FInvoiceController.cs</CustomToolNamespace>
+	  </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\InvoiceProduct.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\InvoiceProductController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\InvoiceProject - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\InvoiceProjectController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\InvoiceProject.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\InvoiceProjectController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\InvoiceSupplierAgreements.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\InvoiceSupplierAgreementsController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\InvoiceVoucher.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\InvoiceVoucherController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\OfferV2.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\OfferV2Controller.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\OrderHandleBilling.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\OrderHandleBillingController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\OrderIntrastat.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\OrderIntrastatController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\OrderV2.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\OrderV2Controller.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\PaymentCondition.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\PaymentConditionController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\PriceBasedMarkup.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\PriceBasedMarkupController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\PriceList - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\PriceListController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\PriceList.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\PriceListController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\Product.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\ProductController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\ProductGroup - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\ProductGroupController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\ProductGroup.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\ProductGroupController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\ProductRows.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\ProductRowsController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\Products.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\ProductsController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\ProductStatistics.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\ProductStatisticsController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\ProductUnit.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\ProductUnitController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\ProductUnitConvert.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\ProductUnitConvertController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\PurchaseCustomerInvoiceRows.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\PurchaseCustomerInvoiceRowsController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\PurchaseOrders - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\PurchaseOrdersController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\PurchaseOrders.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\PurchaseOrdersController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\PurchaseStaistics - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\PurchaseStaisticsController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\PurchaseStaistics.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\PurchaseStaisticsController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\PurchaseStatistics.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\PurchaseStatisticsController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\StockInventory.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\StockInventoryController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\StockPlace.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\StockPlaceController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\StockProduct.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\StockProductController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\StockPurchase .endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\StockPurchaseController .cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\StockPurchases.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\StockPurchasesController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\StockV2 - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\StockV2Controller - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\StockV2.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\StockV2Controller.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\stock\StockV2.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\Stock\StockV2Controller.cs</CustomToolNamespace>
+    </None>
+	<None Update="src\app\shared\services\generated-service-endpoints\billing\PurchaseDelivery.endpoints.ts">
+		<CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\PurchaseDeliveryController.cs</CustomToolNamespace>
+	</None>
+	<None Update="src\app\shared\services\generated-service-endpoints\billing\SupplierAgreements.endpoints.ts">
+	  <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\SupplierAgreementsController.cs</CustomToolNamespace>
+	</None>
+	<None Update="src\app\shared\services\generated-service-endpoints\billing\SupplierProductPrice.endpoints.ts">
+	  <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\SupplierProductPriceController.cs</CustomToolNamespace>
+	</None>
+	<None Update="src\app\shared\services\generated-service-endpoints\billing\SupplierProductPriceList.endpoints.ts">
+	  <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\SupplierProductPriceListController.cs</CustomToolNamespace>
+	</None>
+	<None Update="src\app\shared\services\generated-service-endpoints\billing\SupplierPurchaseProduct.endpoints.ts">
+	  <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\SupplierPurchaseProductController.cs</CustomToolNamespace>
+	</None>
+	<None Update="src\app\shared\services\generated-service-endpoints\billing\SysWholeseller.endpoints.ts">
+	  <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\SysWholesellerController.cs</CustomToolNamespace>
+	</None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\TimeCodeMaterial.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\TimeCodeMaterialController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\billing\WholeSellerNetPrices.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Billing\WholeSellerNetPricesController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Category.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\CategoryController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Communication.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\CommunicationController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\ContactAddress.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\ContactAddressController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\ContactPersons.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\ContactPersonsController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Core.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\CoreController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Core2.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\CoreController2.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\CoreCurrency.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\CoreCurrencyController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\CoreCustomer.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\CoreCustomerController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Customer.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\CustomerController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\CustomerInvoices.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\CustomerInvoicesController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Document.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\DocumentController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\EmailTemplates.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\EmailTemplatesController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\ExtraField.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\ExtraFieldController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Feature - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\FeatureController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Feature.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\FeatureController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\File.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\FileController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Grid.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\GridController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Image.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\ImageController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\ImportDynamic.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\ImportDynamicController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Information.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\InformationController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Positions.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\PositionsController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Process.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\ProcessController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Settings.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\SettingsController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\SysCountry.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\SysCountryController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\SysLanguage.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\SysLanguageController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Term - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\TermController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Term.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\TermController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\TextBlock.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\TextBlockController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\TextBlockDialog.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\TextBlockDialogController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\core\Validator.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Core\ValidatorController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\DayType.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\DayTypeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\DayTypes.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\DayTypesController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\Account.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\AccountController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\AccountDistribution.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\AccountDistributionController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\AccountBalance.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\AccountBalanceController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\AccountDistributionEntry.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\AccountDistributionEntryController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\AccountingBalance.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\AccountingBalanceController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\AccountYear.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\AccountYearController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\Balance.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\BalanceController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\Budget.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\BudgetController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\CompanyGroupAdministration.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\CompanyGroupAdministrationController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\CompanyGroupMappings.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\CompanyGroupMappingsController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\CompanyGroupTransfer.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\CompanyGroupTransferController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\CustomerPaymentMethod.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\CustomerPaymentMethodController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\DeliveryType.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\DeliveryTypeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\DistributionCode.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\DistributionCodeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\ExportFiles.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\ExportFilesController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\GrossProfitCode.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\GrossProfitCodeController.cs</CustomToolNamespace>
+    </None>    
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\ImportPayment.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\ImportPaymentController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\InventoryV2.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\InventoryV2Controller.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\InventoryWriteOffMethod.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\InventoryWriteOffMethodController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\InventoryWriteOffTemplate.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\InventoryWriteOffTemplateController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\PaymentCondition.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\PaymentConditionController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\PaymentMethod.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\PaymentMethodController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\MatchCode.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\MatchCodeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\SupplierAttestGroup.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\SupplierAttestGroupController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\SupplierInvoice.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\SupplierInvoiceController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\SupplierPaymentMethod.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\SupplierPaymentMethodController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\SupplierV2.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\SupplierV2Controller.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\VatCode - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\VatCodeController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\VatCode.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\VatCodeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\Voucher.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\VoucherController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\VoucherSeries.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\VoucherSeriesController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\economy\VoucherSeriesType.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Economy\VoucherSeriesTypeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\manage\AttestTransition.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Manage\AttestTransitionController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\manage\SysCommodityCodes.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Manage\SysCommodityCodesController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\manage\EdiMessage - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Manage\EdiMessageController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\manage\EdiMessage.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Manage\EdiMessageController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\manage\ManageSystem.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Manage\ManageSystemController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\manage\OpeningHour.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Manage\OpeningHourController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\manage\SchoolHoliday.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Manage\SchoolHolidayController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\manage\SupportV2.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Manage\SupportV2Controller.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\manage\SysCommodityCodes.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Manage\SysCommodityCodesController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\manage\UserV2.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Manage\UserV2.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\manage\SysCompany.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Manage\SysCompanyController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\manage\System.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Manage\SystemController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\manage\User.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Manage\UserController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\report\ReportPrint.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Report\ReportPrintController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\report\ReportV2.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Report\ReportV2Controller.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\shared\Currency.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Shared\CurrencyController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\shared\CustomerV2.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Shared\CustomerV2Controller.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\shared\Export.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Shared\ExportController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\shared\Shared.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Shared\SharedController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\CardNumber - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\CardNumberController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\CardNumber.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\CardNumberController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\DayType - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\DayTypeController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\DayType.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\DayTypeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\Employee.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\EmployeeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\EmployeeCategory.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\EmployeeCategoryController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\EmployeeCollectiveAgreement.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\EmployeeCollectiveAgreementController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\EmployeeGroup.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\EmployeeGroupController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\EmployeePosition.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\EmployeePositionController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\EndReason - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\EndReasonController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\EndReason.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\EndReasonController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\FollowupType.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\FollowupTypeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\Halfday.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\HalfdayController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\Holiday.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\HolidayController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\IncomingDeliveryType.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\IncomingDeliveryTypeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\PayrollGroup.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\PayrollGroupController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\ShiftType.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\ShiftTypeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\Skill - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\SkillController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\Skill.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\SkillController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\SkillType.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\SkillTypeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\StaffingNeeds.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\StaffingNeedsController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\Time - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\TimeController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\Time.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\TimeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\TimeCode - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\TimeCodeController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\TimeCode.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\TimeCodeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\TimeCodeBreakGroup.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\TimeCodeBreakGroupController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\TimeScheduleTask - Copy.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\TimeScheduleTaskController - Copy.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\TimeScheduleTask.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\TimeScheduleTaskController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\TimeScheduleType.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\TimeScheduleTypeController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\TimeWorkAccount.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\TimeWorkAccountController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\shared\services\generated-service-endpoints\time\VacationGroup.endpoints.ts">
+      <CustomToolNamespace>..\Soe.WebApi\Controllers\V2\Time\VacationGroupController.cs</CustomToolNamespace>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="__test__\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.9.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,33 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'billing.products.product.unitconversion'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-6">
+                    <soe-textbox hidelabel="true" label-key="core.filename" model="ctrl.importFileName" readonly="true"></soe-textbox>
+                </div>
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.chooseFile'" data-l10n-bind-title="'common.chooseFile'" data-ng-click="$event.stopPropagation();ctrl.addFile()" inline="true"></button>
+                </div>
+            </div>
+            <div class="row margin-large-top">
+                <div class="col-sm-12">
+                    <div ag-grid="ctrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+                    <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="pull-right">
+            <div class="col">
+                <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.close()"></button>
+                <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.import()" data-ng-disabled="!ctrl.importValid()"></button>
+            </div>
+        </div>
+    </div>
+</div>
+

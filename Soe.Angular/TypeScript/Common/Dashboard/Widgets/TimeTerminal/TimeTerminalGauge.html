@@ -1,0 +1,13 @@
+﻿<div>
+    <div data-ng-if="!ctrl.widgetSettingsMode" data-ui-grid="ctrl.soeGridOptions.gridOptions" ui-grid-auto-resize ui-grid-resize-columns></div>
+    <div data-ng-if="ctrl.widgetSettingsMode" class="widget-settings">
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-checkbox label-key="common.dashboard.timeterminal.allcompanies" model="ctrl.allCompanies" data-ng-if="ctrl.showAllCompanies"></soe-checkbox>
+                <soe-checkbox label-key="common.dashboard.timeterminal.onlyregistered" model="ctrl.onlyRegistered"></soe-checkbox>
+                <soe-checkbox label-key="common.dashboard.timeterminal.onlysynced" model="ctrl.onlySynced"></soe-checkbox>
+                <soe-select label-key="common.dashboard.timeterminal.terminaltype" model="ctrl.timeTerminalType" items="ctrl.timeTerminalTypes" options="item.id as item.name for item in items"></soe-select>
+            </div>
+        </div>
+    </div>
+</div>

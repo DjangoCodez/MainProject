@@ -1,0 +1,50 @@
+<div
+  [class.mt-2]="!inline()"
+  [style.width]="width() && !inline() ? width() + 'px' : ''"
+  [class.d-flex]="inline()"
+  [class.flex-nowrap]="inline()"
+  [class.form-label-inline-top-alignment]="alignInline()">
+  @if (hasLabel()) {
+    <div
+      class="form-label-container d-flex align-items-center"
+      [class.me-2]="inline()">
+      <soe-label
+        [labelKey]="labelKey()"
+        [secondaryLabelKey]="secondaryLabelKey()"
+        [secondaryLabelBold]="secondaryLabelBold()"
+        [secondaryLabelParantheses]="secondaryLabelParantheses()"
+        [secondaryLabelPostfixKey]="secondaryLabelPostfixKey()"
+        [secondaryLabelPrefixKey]="secondaryLabelPrefixKey()"
+        [isRequired]="isRequired()"></soe-label>
+    </div>
+  }
+  <div
+    class="d-flex input-group"
+    [ngStyle]="width() && inline() ? { 'width.px': width() } : {}">
+    <div class="form-control">
+      <label
+        [for]="inputId()"
+        class="input-label d-flex justify-content-between">
+        <span>{{ control.value }}</span>
+        <input
+          [id]="inputId()"
+          #input
+          type="color"
+          [class.is-invalid]="control.invalid"
+          [class.no-border-right-radius]="hasContent()"
+          [autofocus]="autoFocus()"
+          (change)="onValueChange(input.value)"
+          [formControl]="control" />
+        <fa-icon
+          class="dropdown-icon"
+          [icon]="faAngleDown"
+          [ngStyle]="{
+            color: foregroundColorByBackgroundBrightness(control.value)
+          }"></fa-icon>
+      </label>
+    </div>
+    <div #content class="d-flex align-center soe-button-group">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

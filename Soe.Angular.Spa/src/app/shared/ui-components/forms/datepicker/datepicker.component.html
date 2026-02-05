@@ -1,0 +1,112 @@
+<div
+  [class.mt-2]="!inline() && !gridMode()"
+  [ngStyle]="width() && !inline() ? { 'width.px': width() } : {}">
+  <div [class.d-flex]="inline()" [class.flex-nowrap]="inline()">
+    @if (!gridMode() && hasLabel()) {
+      <div
+        class="form-label-container d-flex align-items-center"
+        [class.form-label-inline-top-alignment]="alignInline()"
+        [class.me-2]="inline()">
+        <soe-label
+          [forRef]="inputId()"
+          [labelKey]="labelKey()"
+          [secondaryLabelKey]="secondaryLabelKey()"
+          [secondaryLabelBold]="secondaryLabelBold()"
+          [secondaryLabelParantheses]="secondaryLabelParantheses()"
+          [secondaryLabelPostfixKey]="secondaryLabelPostfixKey()"
+          [secondaryLabelPrefixKey]="secondaryLabelPrefixKey()"
+          [isRequired]="isRequired()"></soe-label>
+      </div>
+    }
+    <soe-label
+      [hidden]="!isReadOnly()"
+      [labelValue]="formattedDate()"
+      [applyMinHeight]="true">
+    </soe-label>
+    <div
+      [hidden]="isReadOnly()"
+      class="d-flex input-group"
+      [class.grid-mode]="gridMode()"
+      [ngStyle]="width() && inline() ? { 'width.px': width() } : {}">
+      @if ((showArrows() || showLeftArrow()) && !gridMode()) {
+        <soe-icon-button
+          [iconName]="'chevron-left'"
+          [disabled]="isDisabled() || (control && control.value == '')"
+          (action)="!isDisabled() ? step(-1) : ''"
+          [attachedToTextbox]="true"
+          [class.no-radius-right]="true"></soe-icon-button>
+      }
+      <input
+        #pickerInput
+        [matDatepicker]="picker"
+        [min]="minDate()"
+        [max]="maxDate()"
+        (dateChange)="formatDateOnChange($event)"
+        matInput
+        class="form-control soe-datepicker-input"
+        [class.no-border-right-radius]="showArrows() || showRightArrow()"
+        [class.mat-datepicker-uppercase]="view() === 'day'"
+        [class.mat-datepicker-capitalize]="view() !== 'day'"
+        [class.no-radius-left]="showArrows() || showLeftArrow()"
+        [autofocus]="autoFocus()"
+        [formControl]="control"
+        [placeholder]="dateFormatText"
+        [readonly]="view() !== 'day'" />
+      <div #content class="d-flex align-center soe-button-group">
+        @if (!hideCalendarButton()) {
+          <button
+            type="button"
+            class="soe-datepicker-button"
+            [class.inside-group]="showArrows() || showRightArrow()"
+            [class.no-radius-left]="!showArrows() && !showRightArrow()"
+            [disabled]="isDisabled()"
+            (click)="picker.open()">
+            <fa-icon [icon]="faCalendarDays"></fa-icon>
+          </button>
+        }
+        @if ((showArrows() || showRightArrow()) && !gridMode()) {
+          <soe-icon-button
+            [iconName]="'chevron-right'"
+            [lastInGroup]="true"
+            [disabled]="isDisabled() || (control && control.value == '')"
+            (action)="!isDisabled() ? step(1) : ''"
+            [attachedToTextbox]="true"></soe-icon-button>
+        }
+      </div>
+      @if (!gridMode()) {
+        <ng-content></ng-content>
+      }
+    </div>
+    <mat-datepicker
+      #picker
+      [dateClass]="dateClass"
+      [panelClass]="
+        view() === 'month' || view() === 'year' ? 'monthYearPanel' : ''
+      "
+      [startView]="getStartView()"
+      (monthSelected)="view() === 'month' ? setMonth($event) : true"
+      (yearSelected)="view() === 'year' ? setYear($event) : true">
+      <!-- <mat-datepicker-actions>
+        <div class="d-flex justify-content-between w-100">
+          @if (!hideClear()) {
+            <soe-button
+              behaviour="primary"
+              (action)="clearDatepickerValue()"
+              [caption]="'core.datepicker.clear'">
+            </soe-button>
+          }
+          @if (!hideToday()) {
+            <soe-button
+              behaviour="primary"
+              (action)="switchToToday()"
+              [caption]="'core.datepicker.current'">
+            </soe-button>
+          }
+        </div>
+      </mat-datepicker-actions> -->
+    </mat-datepicker>
+  </div>
+</div>
+@if (description()) {
+  <span class="description">{{ description() | translate }}</span>
+}

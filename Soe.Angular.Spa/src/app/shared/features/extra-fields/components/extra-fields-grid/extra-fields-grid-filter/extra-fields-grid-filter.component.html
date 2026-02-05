@@ -1,0 +1,15 @@
+<div>
+  <form [formGroup]="formFilter" novalidate autocomplete="off">
+    <div class="row">
+      <div class="d-sm-inline">
+        <soe-select
+          [labelKey]="'manage.logs.changelogs.search.entity'"
+          [inline]="true"
+          [items]="entities"
+          [width]="200"
+          (valueChanged)="search()"
+          formControlName="entity"></soe-select>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,25 @@
+﻿<div class="product-row-grid">
+    <soe-progressbar is-busy="directiveCtrl.progressBusy" message="directiveCtrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-show="!directiveCtrl.progressBusy">
+        <soe-toolbar always-show="true">
+            <data-ng-include src="directiveCtrl.toolbarInclude" />
+        </soe-toolbar>
+        <uib-accordion close-others="false">
+            <div>
+                <div data-ng-repeat="head in directiveCtrl.activeRows" class="horizontal-list-item">
+                    <soe-accordion hidelabel="true" label-value="head.checklistHeadName" is-open="false" status-icon="fa-file-signature" status-tooltip-key="common.customer.invoices.hassignatures" hide-signature-icon="head.hideSignatureIcon" button-icon="fa-times" button-tooltip-key="billing.invoices.checklists.deletechecklist" on-button-click="directiveCtrl.deleteChecklist(head)" button-disabled="!directiveCtrl.hasAddChecklistsModifyPermission" on-open="directiveCtrl.accordionOpen(head)">
+                        <div>
+                            <soe-checkbox label-key="common.customer.customer.einvoiceattachments" model="head.addAttachementsToEInvoice"></soe-checkbox>
+                        </div>
+                        <div ng-attr-class="{{'accordion-' + head.rowNr + '-' + directiveCtrl.guid}}">
+                        </div>
+                        <div class="col-sm-12">
+                            <soe-file-display files="head.signatures" nbr-of-files-changed="directiveCtrl.nbrOfFilesChanged(nbrOfFiles)" file-name-changed="directiveCtrl.fileNameChanged(file)"></soe-file-display>
+                        </div>
+                    </soe-accordion>
+                </div>
+            </div>
+        </uib-accordion>
+    </div>
+</div>

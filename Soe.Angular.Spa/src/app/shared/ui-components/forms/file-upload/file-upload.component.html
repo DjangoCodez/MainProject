@@ -1,0 +1,150 @@
+<div class="soe-dropzone" [ngStyle]="inline() ? { 'margin-top': '2rem' } : {}">
+  @if (labelKey()) {
+    <soe-label
+      [isRequired]="isRequired()"
+      [forRef]="inputId()"
+      class="form-label"
+      >{{ labelKey() | translate }}</soe-label
+    >
+  }
+  @if (!hideInputField()) {
+    <div class="input-group">
+      <input
+        #fileImportInput
+        class="form-control"
+        [placeholder]="placeholderKey() | translate"
+        [id]="inputId()"
+        (change)="onFileChange($event)"
+        [disabled]="control.disabled || isDoingWork()"
+        type="file"
+        [multiple]="multipleFiles()"
+        [accept]="acceptedFileExtensions().join(',')" />
+
+      @if (isDoingWork()) {
+        <soe-icon-button
+          [iconName]="'spinner'"
+          [iconClass]="'icon-spinner'"
+          [tooltip]="'core.fileupload.uploading'"
+          [transparent]="true"
+          [animation]="'spin-pulse'"
+          [noBorder]="true"></soe-icon-button>
+      }
+    </div>
+  }
+
+  @if (!hideDropZone()) {
+    <div
+      class="soe-dropzone__section"
+      [class.file-over]="isFileOver()"
+      (dragover)="onFileOver($event)"
+      (dragleave)="onFileLeave($event)"
+      (drop)="onFileDropped($event)">
+      <div class="soe-dropzone__section-title">
+        {{ 'core.fileupload.dropfiles' | translate }}
+      </div>
+    </div>
+  }
+
+  @if (hasFile() && !hideDetails()) {
+    <div class="soe-dropzone__table">
+      <table class="table table-sm table-outer-bordered table-hover mt-2">
+        <thead>
+          <tr>
+            <th>{{ 'core.fileupload.filename' | translate }}</th>
+            <th>{{ 'core.fileupload.size' | translate }}</th>
+            @if (showStatus()) {
+              <th></th>
+            }
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (file of attachedFiles(); track file) {
+            <tr>
+              <td>
+                {{ file.name }}
+              </td>
+              <td>
+                {{ file.size | byteFormatter }}
+              </td>
+              @if (showStatus()) {
+                <td>
+                  <div class="d-flex justify-content-end">
+                    @switch (file.fileUploadStatus) {
+                      @case ('Uploading') {
+                        <soe-icon-button
+                          [iconName]="'spinner'"
+                          [iconClass]="'icon-spinner'"
+                          [tooltip]="'core.fileupload.uploading'"
+                          [transparent]="true"
+                          [animation]="'spin-pulse'"
+                          [noBorder]="true"></soe-icon-button>
+                      }
+                      @case ('Uploaded') {
+                        <soe-icon-button
+                          [iconName]="'check'"
+                          [iconClass]="'success-color'"
+                          [tooltip]="'core.fileupload.uploaded'"
+                          [transparent]="true"
+                          [noBorder]="true"></soe-icon-button>
+                      }
+                      @case ('Error') {
+                        <soe-icon-button
+                          [iconName]="'exclamation-triangle'"
+                          [iconClass]="'icon-delete'"
+                          [tooltip]="file.errorMessage ?? ''"
+                          [transparent]="true"
+                          [noBorder]="true"></soe-icon-button>
+                      }
+                    }
+                  </div>
+                </td>
+              }
+              <td>
+                <div class="d-flex justify-content-end">
+                  @if (showDeleteButton()) {
+                    <soe-icon-button
+                      [iconName]="'xmark'"
+                      [iconClass]="'icon-delete'"
+                      [tooltip]="'core.fileupload.remove'"
+                      [noBorder]="true"
+                      [transparent]="true"
+                      [disabled]="file.fileUploadStatus === 'Uploaded'"
+                      (action)="removeFile(file)"></soe-icon-button>
+                  }
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (showActionButtons()) {
+    <div class="d-flex justify-content-end mt-2 gap-2">
+      @if (showCancelButton()) {
+        <soe-button
+          [disabled]="fileHasBeenUploaded()"
+          [caption]="'core.cancel'"
+          (action)="onCancel()"></soe-button>
+      }
+      @if (showClearButton()) {
+        <soe-button
+          [caption]="
+            multipleFiles()
+              ? 'core.fileupload.removeall'
+              : 'core.fileupload.remove'
+          "
+          (action)="onClear()"
+          [disabled]="!hasFile()"></soe-button>
+      }
+      @if (showUploadButton()) {
+        <soe-button
+          (action)="onUpload()"
+          [disabled]="!hasFile()"
+          [caption]="'core.fileupload.upload'"
+          [behaviour]="'primary'"></soe-button>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,157 @@
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'time.time.timeworkreduction.timeworkreduction'"
+      [static]="true">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.description'"
+            [maxLength]="200"
+            formControlName="description">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'time.time.timeaccumulators.timeaccumulator'"
+            [items]="timeAccumulators"
+            formControlName="timeAccumulatorId">
+          </soe-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-checkbox
+            [labelKey]="'time.payroll.worktimeaccount.usepensiondeposit'"
+            formControlName="usePensionDeposit"
+            (change)="checkChanged()">
+          </soe-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-checkbox
+            [labelKey]="'time.payroll.worktimeaccount.usedirectpayment'"
+            formControlName="useDirectPayment"
+            (change)="checkChanged()">
+          </soe-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'time.payroll.worktimeaccount.defaultwithdrawalmethod'"
+            [items]="filteredWithdrawalMethods"
+            formControlName="defaultWithdrawalMethod">
+          </soe-select>
+        </div>
+      </div>
+      <!--  <soe-expansion-panel
+        [labelKey]="'time.time.timeworkreduction.reconcilations'"
+        [addTopMargin]="true"
+        [static]="true">
+        <soe-time-work-reduction-year-grid
+          [years]="form!.timeWorkReductionReconciliationYearDTO.value"
+          [directPaymentpayrollProducts]="this.directPaymentpayrollProducts"
+          [pensionPayrollProducts]="this.pensionPayrollProducts"
+          (editEvent)="editYear(false, $event)"
+          (delete)="deleteYear($event)">
+        </soe-time-work-reduction-year-grid>
+      </soe-expansion-panel>-->
+      <soe-expansion-panel
+        [labelKey]="'time.time.timeworkreduction.reconcilations'"
+        [addTopMargin]="true"
+        [static]="true">
+        <div class="row margin-large-right margin-large-top">
+          <div class="col-sm-12 d-flex justify-content-end align-items-center">
+            <soe-button
+              [caption]="'time.time.timeworkreduction.newreconcilation'"
+              (action)="editYear(true)"></soe-button>
+          </div>
+        </div>
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th scope="col" style="width: auto">
+                {{ 'time.time.timeworkreduction.stopdate' | translate }}
+              </th>
+              @if (this.form!.value.usePensionDeposit) {
+                <th scope="col" style="width: auto">
+                  {{
+                    'time.payroll.worktimeaccount.pensionproduct' | translate
+                  }}
+                </th>
+              }
+              @if (this.form!.value.useDirectPayment) {
+                <th scope="col" style="width: auto">
+                  {{
+                    'time.payroll.worktimeaccount.directpaymentproduct'
+                      | translate
+                  }}
+                </th>
+              }
+              <th scope="col" style="width: auto"></th>
+              <th scope="col" style="width: 18px" id="header_editempty">
+                &nbsp;
+              </th>
+              <th scope="col" style="width: 18px" id="header_deleteempty">
+                &nbsp;
+              </th>
+            </tr>
+          </thead>
+          @for (
+            item of form.value.timeWorkReductionReconciliationYearDTO;
+            track i;
+            let i = $index
+          ) {
+            <tbody>
+              <tr>
+                <td style="width: auto">
+                  <span> {{ item.stop | date: 'shortDate' }}</span>
+                </td>
+
+                @if (this.form!.value.usePensionDeposit) {
+                  <td style="width: auto">
+                    <span>
+                      {{
+                        getPensionDepositName(
+                          item.pensionDepositPayrollProductId
+                        )
+                      }}</span
+                    >
+                  </td>
+                }
+                @if (this.form!.value.useDirectPayment) {
+                  <td style="width: auto">
+                    <span>
+                      {{
+                        getDirectPaymentName(item.directPaymentPayrollProductId)
+                      }}</span
+                    >
+                  </td>
+                }
+                <td style="width: 28px">
+                  <span>
+                    <em
+                      class="fal fa-pen icon-edit link"
+                      (click)="editYear(false, item)"></em>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          }
+        </table>
+      </soe-expansion-panel>
+      <div class="row"></div>
+
+      <soe-edit-footer
+        [form]="form"
+        [idFieldName]="idFieldName"
+        [showActive]="false"
+        [modifyPermission]="flowHandler.modifyPermission()"
+        [inProgress]="performAction.inProgress()"
+        (saved)="performSave()"
+        (deleted)="triggerDelete()"></soe-edit-footer>
+    </soe-expansion-panel>
+  </form>
+}

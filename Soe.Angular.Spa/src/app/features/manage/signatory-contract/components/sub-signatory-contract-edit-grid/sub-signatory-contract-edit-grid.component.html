@@ -1,0 +1,17 @@
+@if (flowHandler.allowFetchGrid()) {
+<soe-expansion-panel
+    [secondaryLabelKey]="'manage.registry.signatorycontract.subcontracts'"
+    [secondaryLabelBold]="true"
+    [secondaryLabelParantheses]="false"
+    [static]="true"
+    [noMargin]="true"
+    [noPadding]="true"
+>
+    <soe-grid-wrapper
+        [rows]="rowData"
+        [height]="380"
+        [parentGuid]="guid()"
+        [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+    ></soe-grid-wrapper>
+</soe-expansion-panel>
+}

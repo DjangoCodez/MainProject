@@ -1,0 +1,44 @@
+﻿<div class="full-height">
+    <div class="full-height" data-ng-show="ctrl.pdfDoc" data-ng-class="{'pull-right': ctrl.alignRight}">
+        <div class="row" style="overflow:auto; max-height:30px; text-align:center; margin: 0">
+            <div class="col-sm-12 form-inline">
+                <div class="form-group">
+                    <button type="button" class="btn btn-sm btn-default fal fa-chevron-double-left" ng-click="ctrl.onFirstPage()" data-l10n-bind data-l10n-bind-title="'core.navigatefirst'"></button>
+                    <button type="button" class="btn btn-sm btn-default fal fa-chevron-left" ng-click="ctrl.onPrevPage()" data-l10n-bind data-l10n-bind-title="'core.previous'"></button>
+                </div>
+                <div class="form-group">
+                    <span>{{ctrl.pageNum}} / {{ctrl.numberOfPages}}</span>
+                </div>
+                <div class="form-group" style="margin-right:15px;">
+                    <button type="button" class="btn btn-sm btn-default fal fa-chevron-right" ng-click="ctrl.onNextPage()" data-l10n-bind data-l10n-bind-title="'core.next'"></button>
+                    <button type="button" class="btn btn-sm btn-default fal fa-chevron-double-right" ng-click="ctrl.onLastPage()" data-l10n-bind data-l10n-bind-title="'core.navigatelast'"></button>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-sm btn-default fal fa-search-minus" ng-click="ctrl.zoomOut()" data-l10n-bind data-l10n-bind-title="'core.zoomout'"></button>
+                </div>
+                <div class="form-group" style="margin-left:-5px;">
+                    <soe-select hidelabel="true" model="ctrl.scale" items="ctrl.scales" options="item.value as item.name for item in items" on-changing="ctrl.updatePage()" use-ignore-dirty="true"></soe-select>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-sm btn-default fal fa-search-plus" ng-click="ctrl.zoomIn()" data-l10n-bind data-l10n-bind-title="'core.zoomin'"></button>
+                </div>
+                <div class="form-group" data-ng-if="!ctrl.hideDownload">
+                    <a ng-href="{{ctrl.getUrl()}}" target="_blank" class="btn btn-sm btn-default fal fa-download"></a>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-sm btn-default fal fa-ruler" ng-click="ctrl.enhance()" data-l10n-bind data-l10n-bind-title="'core.increasepixeldensity'"></button>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-sm btn-default fal fa-window-maximize" ng-click="ctrl.openDialog()" data-l10n-bind data-l10n-bind-title="'core.fullscreen'"></button>
+                </div>
+                <div class="form-group" ng-if="ctrl.showDelete">
+                    <button type="button" class="btn btn-sm btn-default fal fa-trash" ng-click="ctrl.onDelete()" data-l10n-bind data-l10n-bind-title="'core.delete'"></button>
+                </div>
+            </div>
+        </div>
+        <!--A4 72 dpi (web) = 595 X 842 pixels-->
+        <div class="pdf-holder temp" style="height: 100%">
+            <!--<canvas class="pdf-canvas"></canvas>-->
+        </div>
+    </div>
+</div>

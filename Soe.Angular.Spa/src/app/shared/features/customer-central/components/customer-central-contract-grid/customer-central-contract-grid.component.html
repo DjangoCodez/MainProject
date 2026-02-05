@@ -1,0 +1,21 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rows"
+    (editRowClicked)="edit($event)"
+    [parentGuid]="guid()"
+    [height]="250"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+    [toolbarNoMargin]="true"
+    [toolbarNoTopBottomPadding]="true"
+    [toolbarNoBorder]="true"
+    [masterDetail]="true">
+    <div toolbar-content-left>
+      <soe-checkbox
+        [labelKey]="'common.showonlyopen'"
+        [inToolbar]="true"
+        [inline]="true"
+        [formControl]="isOnlyOpen"
+        (valueChanged)="showOnlyOpenChange($event)"></soe-checkbox>
+    </div>
+  </soe-grid-wrapper>
+}

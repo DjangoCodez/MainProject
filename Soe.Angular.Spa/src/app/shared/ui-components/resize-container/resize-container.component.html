@@ -1,0 +1,13 @@
+<div #content>
+  <ng-content></ng-content>
+</div>
+<div
+  class="divider"
+  #divider
+  [style.height.px]="dividerHeight()"
+  [class.grabbing]="isGrabbing()"
+  (mousedown)="dividerMouseDown()">
+  <div class="handle" #handle [style.margin-left.px]="offset()">
+    <fa-icon [icon]="['fas', 'grip-horizontal']"></fa-icon>
+  </div>
+</div>

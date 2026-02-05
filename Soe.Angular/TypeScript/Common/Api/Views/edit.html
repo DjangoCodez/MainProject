@@ -1,0 +1,55 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+
+        <div class="row margin-large-bottom">
+            <div class="col-sm-12">
+                <table class="table table-outer-bordered table-striped table-hover" style="table-layout: auto;">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 10px;"></th>
+                            <th scope="col" style="width: 10px;"></th>
+                            <th scope="col" style="width: 400px;">
+                                <soe-textbox label-key="common.name" placeholder-key="core.filter" model="ctrl.filterName" use-ignore-dirty="true"></soe-textbox>
+                            </th>
+                            <th scope="col" style="width: auto;">
+                                <soe-textbox label-key="common.description" placeholder-key="core.filter" model="ctrl.filterDescription" use-ignore-dirty="true"></soe-textbox>
+                            </th>
+                            <th scope="col" style="width: 200px; vertical-align: top;">
+                                <soe-label label-key="common.value"></soe-label>
+                            </th>
+                            <th scope="col" style="width: 28px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="setting in ctrl.filteredSettings track by setting.guid" data-ng-class="{'repeater-selected-row': ctrl.selectedSetting === setting}" style="height: 37px;" data-ng-click="ctrl.selectedSetting = setting">
+                            <td><span class="fas fa-caret-right" style="margin: 2px 0px 0px 0px;" data-ng-if="ctrl.selectedSetting === setting"></span></td>
+                            <td><span class="fal fa-asterisk errorColor smallFont" style="margin: 2px 0px 0px 0px;" data-ng-if="setting.isModified"></span></td>
+                            <td><span>{{setting.name}}</span></td>
+                            <td><span>{{setting.description}}</span></td>
+                            <td style="padding: 2px;">
+                                <soe-textbox data-ng-if="setting.dataType == 1" hidelabel="true" model="setting.stringValue" data-ng-model-options="{updateOn: 'blur'}" focus-on-show="true" on-change="ctrl.valueChanged(setting);"></soe-textbox>
+                                <soe-textbox data-ng-if="setting.dataType == 2 && !setting.options" hidelabel="true" model="setting.integerValue" data-ng-model-options="{updateOn: 'blur'}" numeric="true" decimals="0" focus-on-show="true" on-change="ctrl.valueChanged(setting);"></soe-textbox>
+                                <soe-select data-ng-if="setting.dataType == 2 && setting.options" hidelabel="true" model="setting.integerValue" items="setting.options" options="item.id as item.name for item in items" focus-on-show="true" on-change="ctrl.valueChanged(setting);"></soe-select>
+                                <soe-checkbox data-ng-if="setting.dataType == 3" hidelabel="true" model="setting.booleanValue" focus-on-show="true" on-changing="ctrl.valueChanged(setting);"></soe-checkbox>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="9" class="right-align-cell">{{ctrl.footerInfo}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

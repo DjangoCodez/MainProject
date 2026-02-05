@@ -1,0 +1,109 @@
+﻿@import (reference) "../variables.less";
+
+.designer {
+    .group-placeholder {
+        border: 1px solid #00000000;
+        margin-bottom: 5px;
+
+        &.selected {
+            border-color: @accentColor;
+            box-shadow: 0px 0px 3px @accentColor;
+        }
+
+        .panel {
+            margin-bottom: 0px;
+        }
+
+        .group-placeholder-icon {
+            position: absolute;
+            top: 5px;
+            right: 48px;
+        }
+
+        .field-placeholder {
+            border: 1px solid #00000000;
+            margin-bottom: 5px;
+
+            &.selected {
+                border-color: @accentColor;
+                box-shadow: 0px 0px 3px @accentColor;
+            }
+
+            &.invalid-position {
+                border-color: @errorColor;
+                box-shadow: 0px 0px 3px @errorColor;
+            }
+
+
+            .field-placeholder-icon {
+                position: absolute;
+                top: 5px;
+                right: 20px;
+
+                &.second {
+                    right: 40px;
+                    color: @soe-disabled-text-color;
+                }
+
+                &.third {
+                    right: 60px;
+                    color: @soe-disabled-text-color;
+                }
+
+                &.fourth {
+                    right: 80px;
+                    color: @soe-disabled-text-color;
+                }
+
+                &.fifth {
+                    right: 100px;
+                    color: @soe-disabled-text-color;
+                }
+            }
+
+            .field-placeholder-icon-with-margin {
+                position: absolute;
+                top: 10px;
+                right: 80px;
+
+                &.second {
+                    right: 100px;
+                    color: @soe-disabled-text-color;
+                }
+
+                &.third {
+                    right: 120px;
+                    color: @soe-disabled-text-color;
+                }
+
+                &.fourth {
+                    right: 140px;
+                    color: @soe-disabled-text-color;
+                }
+
+                &.fifth {
+                    right: 160px;
+                    color: @soe-disabled-text-color;
+                }
+            }
+        }
+    }
+}
+
+.designer-properties {
+    .designer-properties-toolbar {
+        text-align: right;
+        margin-top: -35px;
+    }
+
+    .col-width-selector {
+        button {
+            padding: 4px 10px 4px 10px;
+            width: 30px;
+
+            i {
+                font-size: 18px;
+            }
+        }
+    }
+}

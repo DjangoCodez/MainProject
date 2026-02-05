@@ -1,0 +1,43 @@
+<soe-dialog>
+  <div dialog-content class="px-3 py-3">
+    <div class="row">
+      <div class="col-sm-6">
+        <soe-textbox
+          [labelKey]="''"
+          [inline]="true"
+          [formControl]="importFileName"></soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-button
+          [caption]="'core.chooseFile'"
+          [behaviour]="'primary'"
+          (action)="openFileImportDialog()"></soe-button>
+      </div>
+    </div>
+    <div class="row px-2 mt-3">
+      <div class="col-sm-12">
+        <soe-dynamic-grid
+          [gridName]="'common.dialogs.searchprojects'"
+          [columns]="gridColumns"
+          [suppressFiltering]="true"
+          [suppressGridMenu]="true"
+          [enableRowSelection]="true"
+          [height]="250"
+          (rowSelectionChanged)="rowSelectionChanged($event)"
+          [gridData]="gridRows"
+          [(gridRef)]="gridRef"></soe-dynamic-grid>
+      </div>
+    </div>
+  </div>
+  <div dialog-footer>
+    <soe-button
+      (action)="closeDialog()"
+      [caption]="'core.cancel'"
+      [behaviour]="'standard'"></soe-button>
+    <soe-button
+      [caption]="'core.ok'"
+      [behaviour]="'primary'"
+      [disabled]="!rowSelected()"
+      (action)="importRows()"></soe-button>
+  </div>
+</soe-dialog>

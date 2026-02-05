@@ -1,0 +1,20 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (editRowClicked)="edit($event)"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+    (selectionChanged)="accountRowSelection($event)">
+    @if (hasEditPermission) {
+      <div class="row border-top mx-0" footer>
+        <div
+          class="col-sm-4 offset-sm-8 p-2 pe-3 d-flex flex-row-reverse align-items-end">
+          <soe-delete-button
+            [title]="'core.delete'"
+            (action)="deleteDims()"
+            [disabled]="isDisabled()"></soe-delete-button>
+        </div>
+      </div>
+    }
+  </soe-grid-wrapper>
+}

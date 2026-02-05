@@ -1,0 +1,187 @@
+<div class="header-container">
+    <div>
+        <div class="row">
+            <div class="col-sm-2">
+                <soe-label [labelKey]="'economy.supplier.supplier.supplier'"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label [labelKey]="'common.orgnr'"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label [labelKey]="'economy.supplier.supplier.blockpayment'"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label [labelKey]="'common.currency'"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label [labelKey]="'economy.accounting.paymentcondition.paymentcondition'"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label [labelKey]="'economy.supplier.supplier.ourreference'"></soe-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 discreet">
+                <span class="spanClickable" (click)="openSupplier();">{{supplierNumber}}&nbsp;{{supplierName}}</span>
+            </div>
+
+            <div class="col-sm-2 discreet">
+                <span>{{supplier.orgNr}}</span>
+            </div>
+            <div class="col-sm-2 discreet">
+                <span>{{supplier.blockPaymentString}}</span>
+            </div>
+            <div class="col-sm-2 discreet">
+                <span>{{supplier.currencyName}}</span>
+            </div>
+            <div class="col-sm-2 discreet">
+                <span>{{supplier.paymentConditionName}}</span>
+            </div>
+            <div class="col-sm-2 discreet">
+                <span>{{supplier.ourReference}}</span>
+            </div>
+            </div>
+            </div>
+            @if(supplier.note) {
+            <div class="mt-2">
+                <soe-instruction [text]="supplier.note"></soe-instruction>
+            </div>
+            }
+            <div class="mt-4">
+                <soe-expansion-panel [open]="true" [labelKey]="'economy.supplier.suppliercentral.totals'">
+                    <div class="information-container">
+                        <div class="row mt-2">
+                            <div class="col-sm-2">
+                                <soe-label></soe-label>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label class="pull-right"
+                                    [labelKey]="'economy.supplier.suppliercentral.unpaiedinvoices'"></soe-label>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label class="pull-right"
+                                    [labelKey]="'economy.supplier.suppliercentral.overdueinvoices'"></soe-label>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label class="pull-right"
+                                    [labelKey]="'economy.supplier.suppliercentral.paiedinvoices'"></soe-label>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-label class="pull-right"
+                                    [labelKey]="'economy.supplier.suppliercentral.totalinvoice'"></soe-label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <soe-label [labelKey]="'economy.supplier.suppliercentral.incvat'"></soe-label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="pull-right discreet">{{supplierPaymentsSupplierCentralUnpayed | number : '1.2-2'
+                                    }}</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="pull-right discreet">{{supplierInvoicesOverdue | number : '1.2-2' }}</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="pull-right discreet">{{supplierPaymentsSupplierCentralPayed | number : '1.2-2'
+                                    }}</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="pull-right discreet">{{supplierInvoicesAmountTotal | number : '1.2-2' }}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <soe-label [labelKey]="'economy.supplier.suppliercentral.exvat'"></soe-label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="pull-right discreet">{{supplierPaymentsSupplierCentralUnpayedExVat | number :
+                                    '1.2-2'
+                                    }}</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="pull-right discreet">{{supplierInvoicesOverdueExVat | number : '1.2-2' }}</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="pull-right discreet">{{supplierPaymentsSupplierCentralPayedExVat | number :
+                                    '1.2-2'
+                                    }}</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="pull-right discreet">{{supplierInvoicesAmountTotalExVat | number : '1.2-2'
+                                    }}</label>
+                            </div>
+                        </div>
+                        @if (supplierInvoiceStatusForeignPermission) {
+                        <div class="mt-2">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <soe-label></soe-label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-label class="pull-right" class="pull-right"
+                                        [labelKey]="'economy.supplier.suppliercentral.unpaiedinvoicescurrency'"></soe-label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-label class="pull-right" class="pull-right"
+                                        [labelKey]="'economy.supplier.suppliercentral.overdueinvoicescurrency'"></soe-label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-label class="pull-right" class="pull-right"
+                                        [labelKey]="'economy.supplier.suppliercentral.paiedinvoicescurrency'"></soe-label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-label class="pull-right" class="pull-right"
+                                        [labelKey]="'economy.supplier.suppliercentral.totalinvoicecurrency'"></soe-label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <soe-label [labelKey]="'economy.supplier.suppliercentral.incvat'"></soe-label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="pull-right discreet">{{supplierPaymentsSupplierCentralUnpayedForeign
+                                        | number : '1.2-2' }}</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="pull-right discreet">{{supplierInvoicesOverdueForeign | number : '1.2-2'
+                                        }}</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="pull-right discreet">{{supplierPaymentsSupplierCentralPayedForeign | number :
+                                        '1.2-2'
+                                        }}</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="pull-right discreet">{{supplierInvoicesForeignAmountTotal | number : '1.2-2'
+                                        }}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <soe-label [labelKey]="'economy.supplier.suppliercentral.exvat'"></soe-label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="pull-right discreet">{{supplierPaymentsSupplierCentralUnpayedForeignExVat
+                                        | number : '1.2-2' }}</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="pull-right discreet">{{supplierInvoicesOverdueForeignExVat | number : '1.2-2'
+                                        }}</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="pull-right discreet">{{supplierPaymentsSupplierCentralPayedForeignExVat
+                                        | number : '1.2-2' }}</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="pull-right discreet">{{supplierInvoicesForeignAmountTotalExVat | number :
+                                        '1.2-2'
+                                        }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </soe-expansion-panel>
+            </div>
+            </div>

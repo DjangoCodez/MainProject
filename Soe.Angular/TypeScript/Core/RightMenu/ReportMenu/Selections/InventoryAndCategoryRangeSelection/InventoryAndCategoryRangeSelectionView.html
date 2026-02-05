@@ -1,0 +1,31 @@
+﻿<div>
+    <div class="row">
+        <div class="col-sm-4">
+            <id-selection label-key="common.report.selection.fixedasset" user-selection-input="$ctrl.selectedFromInventory" items="$ctrl.selectableInventories" on-selected="$ctrl.inventoryFromChanged(selection)"></id-selection>
+        </div>
+        <div class="col-sm-4 margin-small-top">
+            <id-selection user-selection-input="$ctrl.selectedToInventory" items="$ctrl.selectableInventories" on-selected="$ctrl.inventoryToChanged(selection)"></id-selection>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <id-selection label-key="common.report.selection.categories" user-selection-input="$ctrl.selectedFromCategory" items="$ctrl.selectableCategories" on-selected="$ctrl.categoryFromChanged(selection)"></id-selection>
+        </div>
+        <div class="col-sm-4 margin-small-top">
+            <id-selection user-selection-input="$ctrl.selectedToCategory" items="$ctrl.selectableCategories" on-selected="$ctrl.categoryToChanged(selection)"></id-selection>
+        </div>
+    </div>
+    <div class="row" ng-if="$ctrl.canVisibleInventoryAccount">
+        <div class="col-sm-4">
+            <id-selection label-key="common.report.selection.inventories.accountnr" user-selection-input="$ctrl.selectedFromInventoryAccount" items="$ctrl.selectableInventoryAccounts" on-selected="$ctrl.inventoryAccountFromChanged(selection)"></id-selection>
+        </div>
+        <div class="col-sm-4 margin-small-top">
+            <id-selection user-selection-input="$ctrl.selectedToInventoryAccount" items="$ctrl.selectableInventoryAccounts" on-selected="$ctrl.inventoryAccountToChanged(selection)"></id-selection>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <id-selection label-key="common.report.selection.forecastinterval" user-selection-input="$ctrl.selectedPrognoseType" items="$ctrl.selectablePrognoseTypes" on-selected="$ctrl.prognoseTypeChanged(selection)"></id-selection>
+        </div>
+    </div>
+</div>

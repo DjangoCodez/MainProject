@@ -1,0 +1,43 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-if="!ctrl.executing && !ctrl.hasExecuted" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">
+            <span data-l10n-bind="'time.schedule.planning.buttonfunctions.allocateleisurecodes'" data-ng-if="!deleteMode"></span>
+            <span data-l10n-bind="'time.schedule.planning.buttonfunctions.deleteleisurecodes'" data-ng-if="deleteMode"></span>
+        </h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="info margin-small-top">
+                    <span data-ng-bind-html="ctrl.infoText | formatHtml"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <soe-label label-key="common.daterange"></soe-label>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <span><span>{{ctrl.dateFrom | date:'shortDate'}}</span> - <span>{{ctrl.dateTo | date:'shortDate'}}</span></span>
+            </div>
+        </div>
+
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <div id="employee-grid" ag-grid="ctrl.gridHandler.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                <div id="employee-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.cancel'" data-ng-if="!ctrl.hasExecuted" data-ng-disabled="ctrl.executing" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.create'" data-ng-if="!ctrl.hasExecuted && !ctrl.deleteMode" data-ng-disabled="!ctrl.isValid || ctrl.executing" data-ng-click="ctrl.create()"></button>
+        <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.delete'" data-ng-if="!ctrl.hasExecuted && ctrl.deleteMode" data-ng-disabled="!ctrl.isValid || ctrl.executing" data-ng-click="ctrl.delete()"></button>
+
+        <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind="'core.close'" data-ng-if="ctrl.hasExecuted" data-ng-click="ctrl.close()"></button>
+        <soe-checkbox class="pull-right" label-key="time.schedule.planning.evaluateworkrules" model="ctrl.evaluateWorkRules" data-ng-if="ctrl.hasExecuted && ctrl.reloadEmployeeIds.length > 0"></soe-checkbox>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿<div>
+    <soe-checkbox label-key="common.showhistory" label-value="ctrl.hiddenCount" label-value-in-parentheses="true" model="ctrl.showHistory" use-ignore-dirty="true" on-changing="ctrl.showHistoryChanged()"></soe-checkbox>
+    <table class="table table-condensed table-hover table-outer-bordered" style="table-layout: fixed;">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 20px"></th>
+                <th scope="col" data-l10n-bind="'common.accountdim'"></th>
+                <th scope="col" style="width: 20%" data-l10n-bind="'common.name'"></th>
+                <th scope="col" style="width: 10%" data-l10n-bind="'common.fromdate'"></th>
+                <th scope="col" style="width: 10%" data-l10n-bind="'common.todate'"></th>
+                <th scope="col" style="width: 15%" data-l10n-bind="'time.employee.employee.accounts'"></th>
+                <th scope="col" style="width: 15%" data-l10n-bind="'time.employee.employeeaccount.default'"></th>
+                <th scope="col" style="width: 56px" colspan="2" class="table-header-button" data-l10n-bind data-l10n-bind-title="'core.newrow'" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editEmployeeAccount(null);">
+                    <span><i class="fal fa-plus"></i></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody data-ng-repeat="employeeAccount in ctrl.filteredEmployeeAccounts">
+            <tr data-ng-class="{'table-selected-row': ctrl.selectedEmployeeAccount === employeeAccount}" data-ng-click="ctrl.selectedEmployeeAccount = employeeAccount">
+                <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedEmployeeAccount === employeeAccount"></i></td>
+                <td><span>{{employeeAccount.accountDimName}}</span></td>
+                <td><span data-ng-class="{'indiscreet': employeeAccount.mainAllocation }">{{employeeAccount.accountNumberName}}</span></td>
+                <td><span>{{employeeAccount.dateFrom | date:'shortDate'}}</span></td>
+                <td><span>{{employeeAccount.dateTo | date:'shortDate'}}</span></td>
+                <td><span data-l10n-bind="'time.employee.employeeaccount.mainallocation'" data-ng-if="employeeAccount.mainAllocation"></span></td>
+                <td>
+                    <span data-l10n-bind="'time.employee.employeeaccount.default.true'" data-ng-if="employeeAccount.default"></span>
+                    <span data-l10n-bind="'time.employee.employeeaccount.default.false'" data-ng-if="!employeeAccount.default"></span>
+                </td>
+                <td data-ng-if="!ctrl.readOnly"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-click="ctrl.editEmployeeAccount(employeeAccount);"></i></span></td>
+                <td data-ng-if="!ctrl.readOnly"><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-click="ctrl.initDeleteEmployeeAccount(employeeAccount);"></i></span></td>
+            </tr>
+            <!-- Children -->
+            <tr>
+                <td colspan="9" style="padding: 0px;">
+                    <table class="table table-condensed table-hover" style="table-layout: fixed;">
+                        <tbody data-ng-repeat="child in employeeAccount.children" data-ng-click="ctrl.selectedEmployeeAccount = employeeAccount">
+                            <tr class="italic">
+                                <td style="width: 20px"></td>
+                                <td><span>{{child.accountDimName}}</span></td>
+                                <td style="width: 20%"><span class="fal fa-level-up fa-rotate-90 smallFont" style="margin-left: 4px; margin-right: 8px"></span><span data-ng-class="{'indiscreet': child.mainAllocation }">{{child.accountNumberName}}</span></td>
+                                <td style="width: 10%"><span data-ng-if="child.dateFrom"></span><span>{{child.dateFrom | date:'shortDate'}}</span></td>
+                                <td style="width: 10%"><span data-ng-if="child.dateTo"></span><span>{{child.dateTo | date:'shortDate'}}</span></td>
+                                <td style="width: 15%"><span data-l10n-bind="'time.employee.employeeaccount.mainallocation'" data-ng-if="child.mainAllocation"></span></td>
+                                <td style="width: 15%">
+                                    <span data-l10n-bind="'time.employee.employeeaccount.default.true'" data-ng-if="child.default"></span>
+                                    <span data-l10n-bind="'time.employee.employeeaccount.default.false'" data-ng-if="!child.default"></span>
+                                </td>
+                                <td style="width: 56px" colspan="2" data-ng-if="!ctrl.readOnly"></td>
+                            </tr>
+                            <!-- Sub children -->
+                            <tr data-ng-repeat="subChild in child.children" class="italic" data-ng-click="ctrl.selectedEmployeeAccount = employeeAccount">
+                                <td></td>
+                                <td><span class="italic">{{subChild.accountDimName}}</span></td>
+                                <td><span class="fal fa-level-up fa-rotate-90 smallFont" style="margin-left: 24px; margin-right: 8px;"></span><span data-ng-class="{'indiscreet': subChild.mainAllocation }">{{subChild.accountNumberName}}</span></td>
+                                <td><span data-ng-if="subChild.dateFrom"></span><span>{{subChild.dateFrom | date:'shortDate'}}</span></td>
+                                <td><span data-ng-if="subChild.dateTo"></span><span>{{subChild.dateTo | date:'shortDate'}}</span></td>
+                                <td><span data-l10n-bind="'time.employee.employeeaccount.mainallocation'" data-ng-if="subChild.mainAllocation"></span></td>
+                                <td>
+                                    <span data-l10n-bind="'time.employee.employeeaccount.default.true'" data-ng-if="subChild.default"></span>
+                                    <span data-l10n-bind="'time.employee.employeeaccount.default.false'" data-ng-if="!subChild.default"></span>
+                                </td>
+                                <td colspan="2" data-ng-if="!ctrl.readOnly"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

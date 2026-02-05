@@ -1,0 +1,24 @@
+<form [formGroup]="form" novalidate autocomplete="off">
+  <soe-datepicker
+    [labelKey]="labelKey()"
+    (valueChanged)="addDate($event)"
+    formControlName="date"></soe-datepicker>
+  @if (form.value.dates.length > 0) {
+    <table class="table table-sm table-outer-bordered table-hover mt-3">
+      <tbody>
+        @for (date of form.value.dates | sortDates: sortByDesc(); track date) {
+          <tr>
+            <td>
+              <span>{{ date | date: 'shortDate' }}</span>
+            </td>
+            <td class="text-right link icon-delete" style="width: 16px">
+              <fa-icon
+                [icon]="['fal', 'times']"
+                (click)="removeDate(date)"></fa-icon>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</form>

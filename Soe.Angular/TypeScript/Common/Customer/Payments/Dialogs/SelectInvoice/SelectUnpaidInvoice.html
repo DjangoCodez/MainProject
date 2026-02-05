@@ -1,0 +1,29 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'common.customer.payment.searchunpaid'"></h6>
+    </div>
+    <div class="modal-body">
+        <soe-progressbar is-busy="ctrl.progressBusy"></soe-progressbar>
+        <div class="info margin-large-top" data-ng-if="ctrl.info">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-text model="ctrl.info"></soe-text>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="invoices-grid" ag-grid="ctrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                    <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'common.customer.invoices.chooseinvoice'" data-ng-click="ctrl.buttonOkClick()"></button>
+        </div>
+    </div>
+</div>
+

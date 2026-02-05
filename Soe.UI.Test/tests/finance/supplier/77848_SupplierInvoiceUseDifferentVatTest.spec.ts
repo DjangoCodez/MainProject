@@ -1,0 +1,88 @@
+import { test } from '../../fixtures/finance-fixture';
+import * as allure from "allure-js-commons";
+import { getAccountExValue, getEnvironmentValue } from '../../../utils/properties';
+import { getDateUtil } from 'utils/CommonUtil';
+
+let testCaseId: string = '77848';
+let envUrl: string;
+let invoiceNumber: string = testCaseId + Math.floor(100000 + Math.random() * 900000);
+const supplier: string = getEnvironmentValue('default_supplier') ?? '';
+const invoiceAmmount: string = '100000,00';
+const invoiceNumber_1 = 'Inv-Playwright-' + invoiceNumber + '-1';
+const invoiceNumber_2 = 'Inv-Playwright-' + invoiceNumber + '_2';
+const invoiceNumber_3 = 'Inv-Playwright-' + invoiceNumber + '_3';
+
+
+test.beforeEach(async ({ accountEx, financeBasePage }) => {
+  await allure.parentSuite("Finance");
+  await allure.suite("Supplier");
+  await allure.subSuite("Supplier");
+  await allure.link('https://dev.azure.com/softonedev/XE/_workitems/edit/' + testCaseId, "Test case : " + testCaseId);
+  envUrl = accountEx.baseUrl;
+  await financeBasePage.SetupFinance(envUrl, getAccountExValue(accountEx, 'role')?.toString() ?? 'Admin');
+});
+
+test(testCaseId + ': Supplier Invoice Use Different Vat Test : AP', { tag: ['@Finance', '@Supplier', '@Regression'] }, async ({ financeBasePage, baseAccountsPage, supplierInvoicePageJS }) => {
+  await financeBasePage.goToMenu('Settings_finance', 'Base Accounts', true, 'Accounting');
+  await baseAccountsPage.waitForLoad();
+  await baseAccountsPage.selectOutputVAT2Account('2647');
+  await baseAccountsPage.selectOutputVAT3Account('4010');
+  await baseAccountsPage.save();
+  await financeBasePage.goToMenu('Supplier', 'Invoices');
+  await supplierInvoicePageJS.waitForPageLoad();
+  await supplierInvoicePageJS.createItem();
+  await supplierInvoicePageJS.waitForNewSupplierInvoiceLoad();
+  await supplierInvoicePageJS.selectSupplier(supplier);
+  await supplierInvoicePageJS.setInvoiceNumber(invoiceNumber_1);
+  await supplierInvoicePageJS.setInvoiceDate(await getDateUtil(0));
+  await supplierInvoicePageJS.setInvoiceAmount(invoiceAmmount);
+  await supplierInvoicePageJS.setInternalText(`Test Invoice with different VAT rates - ${invoiceNumber_1}`);
+  await supplierInvoicePageJS.selectVatType('Subject to VAT');
+  await supplierInvoicePageJS.saveSupplierInvoice(true);
+  await supplierInvoicePageJS.openInvoiceByNumber(invoiceNumber_1);
+  await supplierInvoicePageJS.waitForEditInvoice();
+  await supplierInvoicePageJS.verifyAssertVatAmount('20000.00');
+  await supplierInvoicePageJS.expandProductRowsGrid();
+  await supplierInvoicePageJS.verifyCodingRowsCount(3);
+  await supplierInvoicePageJS.closeSupplierInvoice();
+  await supplierInvoicePageJS.createItem();
+  await supplierInvoicePageJS.waitForNewSupplierInvoiceLoad();
+  await supplierInvoicePageJS.selectSupplier(supplier);
+  await supplierInvoicePageJS.setInvoiceNumber(invoiceNumber_2);
+  await supplierInvoicePageJS.setInvoiceDate(await getDateUtil(0));
+  await supplierInvoicePageJS.setInvoiceAmount(invoiceAmmount);
+  await supplierInvoicePageJS.setInternalText(`Test Invoice with different VAT Construction service - ${invoiceNumber_2}`);
+  await supplierInvoicePageJS.selectVatType('Construction service');
+  await supplierInvoicePageJS.saveSupplierInvoice(true);
+  await supplierInvoicePageJS.openInvoiceByNumber(invoiceNumber_2);
+  await supplierInvoicePageJS.waitForEditInvoice();
+  await supplierInvoicePageJS.verifyAssertVatAmount('0.00', true);
+  await supplierInvoicePageJS.verifyCodingRowsCount(4);
+  await supplierInvoicePageJS.closeSupplierInvoice();
+  await supplierInvoicePageJS.createItem();
+  await supplierInvoicePageJS.waitForNewSupplierInvoiceLoad();
+  await supplierInvoicePageJS.selectSupplier(supplier);
+  await supplierInvoicePageJS.setInvoiceNumber(invoiceNumber_3);
+  await supplierInvoicePageJS.setInvoiceDate(await getDateUtil(0));
+  await supplierInvoicePageJS.setInvoiceAmount(invoiceAmmount);
+  await supplierInvoicePageJS.setInternalText(`Test Invoice with different VAT free - ${invoiceNumber_3}`);
+  await supplierInvoicePageJS.selectVatType('VAT exempt');
+  await supplierInvoicePageJS.checkPreliminaryInvoice();
+  await supplierInvoicePageJS.saveSupplierInvoice(true);
+  await supplierInvoicePageJS.openInvoiceByNumber(invoiceNumber_3);
+  await supplierInvoicePageJS.waitForEditInvoice();
+  await supplierInvoicePageJS.verifyAssertVatAmount('0.00', true);
+  await supplierInvoicePageJS.expandProductRowsGrid();
+  await supplierInvoicePageJS.verifyCodingRowsCount(2);
+  await supplierInvoicePageJS.closeSupplierInvoice();
+  await supplierInvoicePageJS.openInvoiceByNumber(invoiceNumber_3);
+  await supplierInvoicePageJS.waitForEditInvoice();
+  await supplierInvoicePageJS.selectVatType('Subject to VAT');
+  await supplierInvoicePageJS.saveSupplierInvoice(true);
+  await supplierInvoicePageJS.openInvoiceByNumber(invoiceNumber_3);
+  await supplierInvoicePageJS.waitForEditInvoice();
+  await supplierInvoicePageJS.verifyAssertVatAmount('20000.00');
+  await supplierInvoicePageJS.expandProductRowsGrid();
+  await supplierInvoicePageJS.verifyCodingRowsCount(3);
+});
+

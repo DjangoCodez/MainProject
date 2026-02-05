@@ -1,0 +1,76 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="50"
+          [autoFocus]="true"
+          formControlName="name">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-4">
+        <soe-textbox
+          [labelKey]="'manage.registry.openinghours.description'"
+          [maxLength]="100"
+          formControlName="description">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'manage.registry.openinghours.standardweekday'"
+          [selectedId]="form.value.standardWeekDay"
+          (valueChanged)="onSelectWeekday($event)"
+          [items]="this.service.performWeekDays.data || []"
+          formControlName="standardWeekDay">
+        </soe-select>
+      </div>
+      <div class="col-sm-2">
+        <soe-datepicker
+          [labelKey]="'manage.registry.openinghours.specificdate'"
+          formControlName="specificDate">
+        </soe-datepicker>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-timebox
+          [labelKey]="'manage.registry.openinghours.openingtime'"
+          placeholderKey="HH:MM"
+          formControlName="openingTime">
+        </soe-timebox>
+      </div>
+      <div class="col-sm-2">
+        <soe-timebox
+          [labelKey]="'manage.registry.openinghours.closingtime'"
+          placeholderKey="HH:MM"
+          formControlName="closingTime">
+        </soe-timebox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-datepicker
+          [labelKey]="'common.validfrom'"
+          formControlName="fromDate">
+        </soe-datepicker>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

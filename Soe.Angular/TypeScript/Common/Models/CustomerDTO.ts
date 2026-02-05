@@ -1,0 +1,104 @@
+﻿import { ICustomerUserDTO, ICustomerProductPriceSmallDTO, ICustomerDTO, IContactAddressItem, IAccountingSettingsRowDTO, IFileUploadDTO } from "../../Scripts/TypeLite.Net4";
+import { HouseholdTaxDeductionApplicantDTO } from "./HouseholdTaxDeductionApplicantDTO";
+import { SoeEntityState, TermGroup_InvoiceVatType } from "../../Util/CommonEnumerations";
+
+export class CustomerUserDTO implements ICustomerUserDTO {
+    customerUserId: number;
+    actorCustomerId: number;
+    actorCompanyId: number;
+    userId: number;
+    main: boolean;
+    created: Date;
+    createdBy: string;
+    modified: Date;
+    modifiedBy: string;
+    state: SoeEntityState;
+    loginName: string;
+    name: string;
+}
+
+export class CustomerProductDTO implements ICustomerProductPriceSmallDTO {
+    customerProductId: number;
+    productId: number;
+    number: string;
+    name: string;
+    price: number;
+}
+
+export class CustomerDTO implements ICustomerDTO {
+    actorCustomerId: number;
+    addSupplierInvoicesToEInvoice: boolean;
+    vatType: TermGroup_InvoiceVatType;
+    deliveryConditionId: number;
+    deliveryTypeId: number;
+    paymentConditionId: number;
+    priceListTypeId: number;
+    currencyId: number;
+    sysCountryId: number;
+    sysLanguageId: number;
+    sysWholeSellerId: number;
+    customerNr: string;
+    name: string;
+    orgNr: string;
+    vatNr: string;
+    invoiceReference: string;
+    gracePeriodDays: number;
+    paymentMorale: number;
+    supplierNr: string;
+    offerTemplate: number;
+    orderTemplate: number;
+    billingTemplate: number;
+    agreementTemplate: number;
+    manualAccounting: boolean;
+    discountMerchandise: number;
+    discountService: number;
+    discount2Merchandise: number;
+    discount2Service: number;
+    disableInvoiceFee: boolean;
+    note: string;
+    showNote: boolean;
+    finvoiceAddress: string;
+    finvoiceOperator: string;
+    isFinvoiceCustomer: boolean;
+    blockNote: string;
+    blockOrder: boolean;
+    blockInvoice: boolean;
+    creditLimit: number;
+    isCashCustomer: boolean;
+    isEUCountryBased: boolean;
+    isOneTimeCustomer: boolean;
+    invoiceDeliveryProvider: number;
+    invoiceDeliveryType: number;
+    invoiceLabel: string;
+    created: Date;
+    createdBy: string;
+    modified: Date;
+    modifiedBy: string;
+    state: SoeEntityState;
+    departmentNr: string;
+    payingCustomerId: number;
+    invoicePaymentService: number;
+    bankAccountNr: string;
+    addAttachementsToEInvoice: boolean;
+    contactEComId: number;
+    orderContactEComId: number;
+    contactGLNId: number;
+    active: boolean;
+    consentDate: Date;
+    consentModified: Date;
+    consentModifiedBy: string;
+    isPrivatePerson: boolean;
+    hasConsent: boolean;
+    importInvoicesDetailed: boolean;
+    triangulationSales: boolean;
+    contactAddresses: IContactAddressItem[];
+    contactPersons: number[];
+    categoryIds: number[];
+    accountingSettings: IAccountingSettingsRowDTO[];
+    customerUsers: CustomerUserDTO[];
+    customerProducts: ICustomerProductPriceSmallDTO[];
+    reminderContactEComId: number;
+    contractNr: string;
+    files: IFileUploadDTO[];
+    //householdApplicants: HouseholdTaxDeductionApplicantDTO[];
+}

@@ -1,0 +1,36 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-4">
+                <soe-select label-key="common.role" model="ctrl.role.roleId" items="ctrl.roles" options="item.roleId as item.name for item in items | orderBy:['name', 'dateFrom']" required="true" on-changing="ctrl.roleChanged();"></soe-select>
+            </div>
+            <div class="col-sm-4">
+                <soe-datepicker label-key="common.fromdate" model="ctrl.role.dateFrom" required="true"></soe-datepicker>
+            </div>
+            <div class="col-sm-4">
+                <soe-datepicker label-key="common.todate" model="ctrl.role.dateTo" required="true"></soe-datepicker>
+            </div>
+        </div>
+        <div class="info margin-large-top" data-ng-if="ctrl.sourceRole && (ctrl.sourceRole.dateFrom || ctrl.sourceRole.dateTo)">
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-label label-key="core.source"></soe-label>
+                </div>
+                <div class="col-sm-4">
+                    <soe-text model="ctrl.sourceRole.dateFrom | date:'shortDate'"></soe-text>
+                </div>
+                <div class="col-sm-4">
+                    <soe-text model="ctrl.sourceRole.dateTo | date:'shortDate'"></soe-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-disabled="!ctrl.role.roleId || !ctrl.role.dateFrom || !ctrl.role.dateTo" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

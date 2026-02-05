@@ -1,0 +1,25 @@
+<div>
+  <form [formGroup]="formSearch" novalidate autocomplete="off">
+    <div class="row">
+      <div class="d-sm-inline">
+        <soe-autocomplete
+          [labelKey]="'billing.purchase.supplier'"
+          [inline]="true"
+          [items]="suppliersDict"
+          [optionIdField]="'id'"
+          [optionNameField]="'name'"
+          [limit]="10"
+          formControlName="supplierId"
+          [placeholderKey]="'core.typetofilter'"
+          [defaultEmptyValue]="0">
+        </soe-autocomplete>
+      </div>
+      <div class="d-sm-inline">
+        <soe-button
+          [caption]="'core.search'"
+          behaviour="primary"
+          (action)="search()"></soe-button>
+      </div>
+    </div>
+  </form>
+</div>

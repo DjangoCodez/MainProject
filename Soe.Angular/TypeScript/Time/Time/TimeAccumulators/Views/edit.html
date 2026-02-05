@@ -1,0 +1,84 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+        <soe-panel label-key="time.time.timeaccumulator.timeaccumulator" is-open="true">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="common.name" model="ctrl.timeAccumulator.name" required="true" maxlength="50" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="common.description" model="ctrl.timeAccumulator.description" maxlength="256" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-select label-key="common.type" model="ctrl.timeAccumulator.type" items="ctrl.accumulatorTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-select label-key="time.time.timeperiod.timeperiodhead" model="ctrl.timeAccumulator.timePeriodHeadId" items="ctrl.timePeriodHeads" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-checkbox label-key="time.time.timeaccumulator.showintimereports" model="ctrl.timeAccumulator.showInTimeReports" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-checkbox label-key="time.time.timeaccumulator.finalsalary" model="ctrl.timeAccumulator.finalSalary" inline="true" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.showHideTimeCodes()" ;></soe-checkbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-checkbox label-key="time.time.timeaccumulator.usetimeworkaccount" model="ctrl.timeAccumulator.useTimeWorkAccount" inline="true" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.showHideTimeCodes();ctrl.onCheckboxChanged('useTimeWorkAccount')" ;></soe-checkbox>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.showTimeCodes">
+                    <soe-select label-key="time.time.timecode.timecode" required="ctrl.showHideTimeCodes" model="ctrl.timeAccumulator.timeCodeId" items="ctrl.timeCodes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.timeCodeChanged(item)"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-checkbox label-key="time.time.timeaccumulator.useTimeWorkReductionEarning" model="ctrl.useTimeWorkReductionEarning" inline="true" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.onCheckboxChanged('useTimeWorkReductionEarning')"></soe-checkbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-checkbox label-key="time.time.timeaccumulator.useTimeWorkReductionWithdrawal" model="ctrl.timeAccumulator.useTimeWorkReductionWithdrawal" inline="true" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.onCheckboxChanged('useTimeWorkReductionWithdrawal')"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.useTimeWorkReductionEarning">
+                <div class="col-sm-2">
+                    <soe-textbox label-key="time.time.timeaccumulator.minutesWeight" model="ctrl.timeAccumulator.timeWorkReductionEarning.minutesWeight" numeric="true" decimals="0" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-select hidelabel="false" label-key="time.time.timeaccumulator.periodType" model="ctrl.timeAccumulator.timeWorkReductionEarning.periodType" items="ctrl.timeWorkReductionPeriodTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.periodTypeChanged(item)"></soe-select>
+                    
+                </div>
+            </div>
+        </soe-panel>
+
+        <div class="row margin-large-top margin-large-bottom">
+            <div class="col-sm-6" data-ng-if="!ctrl.useTimeWorkReductionEarning">
+                <time-accumulator-employee-group-rules rules="ctrl.timeAccumulator.employeeGroupRules" read-only="!ctrl.modifyPermission" use-time-work-reduction-withdrawal="ctrl.timeAccumulator.useTimeWorkReductionWithdrawal" on-change="ctrl.setDirty();"></time-accumulator-employee-group-rules>
+            </div>
+            <div class="col-sm-6" data-ng-if="ctrl.useTimeWorkReductionEarning">
+                <time-accumulator-time-work-reduction-earning-group-rules rules="ctrl.timeAccumulator.timeWorkReductionEarning.timeAccumulatorTimeWorkReductionEarningEmployeeGroup" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></time-accumulator-time-work-reduction-earning-group-rules>
+            </div>
+            <div class="col-sm-6">
+                <time-accumulator-time-codes time-codes="ctrl.timeAccumulator.timeCodes" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></time-accumulator-time-codes>
+                <time-accumulator-payroll-products class="margin-large-top" payroll-products="ctrl.timeAccumulator.payrollProducts" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></time-accumulator-payroll-products>
+                <time-accumulator-invoice-products class="margin-large-top" invoice-products="ctrl.timeAccumulator.invoiceProducts" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></time-accumulator-invoice-products>
+            </div>
+        </div>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.timeAccumulator"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.timeAccumulator.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

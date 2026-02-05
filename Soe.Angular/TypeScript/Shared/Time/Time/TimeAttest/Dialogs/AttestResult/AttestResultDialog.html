@@ -1,0 +1,18 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">
+            <span>{{::ctrl.title}}</span>
+        </h6>
+    </div>
+    <div class="modal-body">
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <div data-ui-grid="ctrl.soeGridOptions.gridOptions" ui-grid-selection ui-grid-auto-resize></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.close'" data-ng-click="ctrl.buttonOkClick()"></button>
+    </div>
+</div>

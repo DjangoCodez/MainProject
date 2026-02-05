@@ -1,0 +1,40 @@
+﻿<form name="searchFilter" novalidate class="ngSoeForm form-group form-group-sm">
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div class="row form-group">
+        <div class="col-sm-4 col-md-2">
+            <soe-textbox label-key="economy.supplier.invoice.liquidityplanning.suppliernr" placeholder-key="common.from" model="ctrl.searchModel.actorNrFrom" maxlength="50" auto-focus="true"></soe-textbox>
+            <soe-textbox hidelabel="true" model="ctrl.searchModel.actorNrTo" placeholder-key="common.to"></soe-textbox>
+        </div>
+        <div class="col-sm-4 col-md-2">
+            <soe-textbox label-key="economy.supplier.invoice.liquidityplanning.sequencenr" placeholder-key="common.from" model="ctrl.searchModel.seqNrFrom"></soe-textbox>
+            <soe-textbox hidelabel="true" model="ctrl.searchModel.seqNrTo" placeholder-key="common.to"></soe-textbox>
+        </div>
+        <div class="col-sm-4 col-md-2">
+            <soe-textbox label-key="economy.supplier.invoice.liquidityplanning.invoicenr" placeholder-key="common.from" model="ctrl.searchModel.invNrFrom"></soe-textbox>
+            <soe-textbox hidelabel="true" model="ctrl.searchModel.invNrTo" placeholder-key="common.to"></soe-textbox>
+        </div>
+        <div class="col-sm-4 col-md-2">
+            <soe-datepicker label-key="economy.supplier.invoice.liquidityplanning.invoicedate" placeholder-key="common.from"  model="ctrl.searchModel.invDateFrom" form="searchFilter"></soe-datepicker>
+            <soe-datepicker hidelabel="true" placeholder-key="common.to" model="ctrl.searchModel.invDateTo"  form="searchFilter"></soe-datepicker>
+        </div>
+        <div class="col-sm-4 col-md-2">
+            <soe-datepicker label-key="economy.supplier.invoice.liquidityplanning.overduedate"   form="searchFilter" placeholder-key="common.from" model="ctrl.searchModel.expDateFrom"></soe-datepicker>
+            <soe-datepicker hidelabel="true" placeholder-key="common.to"  form="searchFilter" model="ctrl.searchModel.expDateTo"></soe-datepicker>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-4 col-md-2">
+            <soe-datepicker label-key="economy.supplier.invoice.liquidityplanning.comparedate" required="true" model="ctrl.selectedCompareDate" form="searchFilter"></soe-datepicker>
+        </div>
+        <div class="col-sm-4 col-md-2">
+            <soe-select label-key="economy.accounting.currency.currency" model="ctrl.searchModel.currencyType" items="ctrl.currencyTypes" options="item.id as item.name for item in items"></soe-select>
+        </div>
+        <div class="col-sm-12 col-md-8">
+            <div class="pull-right margin-large-top">
+                <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.clearselection'" data-l10n-bind-title="'core.clearselection'" data-ng-click="$event.stopPropagation();ctrl.resetSearchModel()"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButton" ng-disabled="searchFilter.$invalid" data-l10n-bind="'core.search'" data-l10n-bind-title="'core.search'" data-ng-click="$event.stopPropagation();ctrl.search()"></button>
+            </div>
+        </div>
+    </div>
+</form>

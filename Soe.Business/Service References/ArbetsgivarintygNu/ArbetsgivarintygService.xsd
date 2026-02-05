@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://INT036_Lonesystem.Schemas.ArbetsgivarintygService_API" xmlns:b="http://schemas.microsoft.com/BizTalk/2003" elementFormDefault="qualified" targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygService_API" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://arbetsgivarintygtest.sverigesakassor.se/HR_SystemService/ArbetsgivarintygService.svc?xsd=xsd4" namespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_API" />
+  <xs:annotation>
+    <xs:appinfo>
+      <b:references xmlns:b="http://schemas.microsoft.com/BizTalk/2003">
+        <b:reference targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_API" />
+        <b:reference targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp" />
+        <b:reference targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_Bas" />
+      </b:references>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:complexType name="ImportRequest">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_API" minOccurs="0" name="AGPVersion" nillable="true" type="q1:APIAGPVersion" />
+      <xs:element minOccurs="0" name="Autentisering" nillable="true" type="tns:ApiAuthentication" />
+      <xs:element xmlns:q2="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_API" minOccurs="0" name="Arbetsgivarintyg" nillable="true" type="q2:ArrayOfApiCertificate" />
+      <xs:element xmlns:q3="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_API" minOccurs="0" name="SoftwareInfo" nillable="true" type="q3:APISoftwareInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImportRequest" nillable="true" type="tns:ImportRequest" />
+  <xs:complexType name="ApiAuthentication">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="ApiNyckel" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30" />
+            <xs:minLength value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="1" name="ArbetsgivareId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="30" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="SkickatTidpunkt" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiAuthentication" nillable="true" type="tns:ApiAuthentication" />
+  <xs:complexType name="ImportResponse">
+    <xs:sequence>
+      <xs:element xmlns:q4="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_API" minOccurs="0" name="CertificateResults" nillable="true" type="q4:ArrayOfApiImportCertificateResult" />
+      <xs:element minOccurs="0" name="ResultCode" type="xs:int" />
+      <xs:element minOccurs="0" name="ResultMessage" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImportResponse" nillable="true" type="tns:ImportResponse" />
+</xs:schema>

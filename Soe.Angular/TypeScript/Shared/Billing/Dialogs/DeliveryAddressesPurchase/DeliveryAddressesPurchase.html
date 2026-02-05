@@ -1,0 +1,29 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'billing.purchase.deliveryaddressfromcustomer'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="info" data-ng-if="ctrl.noAddresses">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-label label-key="billing.purchase.nodeliveryaddress"></soe-label>	
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-condensed table-hover table-outer-bordered">
+                <tbody data-ng-repeat="address in ctrl.addresses">
+                    <tr>
+                        <td><span>{{address}}</span></td>
+                        <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-check iconEdit link" data-ng-click="ctrl.select(address);"></i></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.buttonCancelClick()"></button>
+    </div>
+</div>
+

@@ -1,0 +1,86 @@
+<soe-dialog>
+  <div dialog-content class="my-3 mx-2">
+    <span> {{ employeeName }} </span>
+    <span class="dialog-subheader"> {{ dateFrom | date: 'shortDate' }}</span>
+    <!-- {{ employeeName + ' ' + (dateFrom | date: 'shortDate') }} -->
+    @if (form) {
+      <form [formGroup]="form" novalidate autocomplete="off">
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'common.time.timedeviationcause'"
+              [items]="timeDeviationCauses"
+              [optionIdField]="'timeDeviationCauseId'"
+              [optionNameField]="'name'"
+              [selectedId]="form.controls.timeDeviationCauseId.value"
+              formControlName="timeDeviationCauseId">
+            </soe-select>
+          </div>
+          <div class="col-sm-4">
+            @if (showEmployeeChild()) {
+              <soe-autocomplete
+                formControlName="employeeChildId"
+                [labelKey]="'time.schedule.absencerequests.employeechild'"
+                [inline]="false"
+                [items]="employeeChilds || []"
+                [limit]="50"
+                [optionIdField]="'id'"
+                [optionNameField]="'name'">
+              </soe-autocomplete>
+            }
+          </div>
+          <div class="col-sm-4">
+            <soe-autocomplete
+              formControlName="replaceAllWithEmployeeId"
+              [labelKey]="'time.schedule.absencerequests.replacewith'"
+              [inline]="false"
+              [items]="replaceWithAllEmployees"
+              [limit]="50"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"
+              (valueChanged)="onReplaceAll($event.id)">
+            </soe-autocomplete>
+          </div>
+        </div>
+        @if (shifts.length > 0) {
+          <div class="row">
+            <soe-absence-shifts
+              [shifts]="shifts"
+              [shiftsFormArray]="form.shifts"
+              [showApprovalTypeAndReplaceWithEmployee]="false"
+              [absenceStartDate]="dateFrom"
+              [absenceStopDate]="dateTo"></soe-absence-shifts>
+          </div>
+        }
+        @if (showSkipSendXEMail()) {
+          <div class="row">
+            <soe-checkbox
+              formControlName="skipSendXEMail"
+              [labelKey]="
+                'time.schedule.absencerequests.skipxemailonshiftchanges'
+              "></soe-checkbox>
+          </div>
+        }
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    <div class="d-flex justify-content-end">
+      <soe-button
+        class="ms-3"
+        [caption]="'core.cancel'"
+        (action)="cancel()"></soe-button>
+      <soe-save-button
+        class="ms-3"
+        [caption]="'core.save'"
+        [tooltip]="'core.save'"
+        [disabled]="saveIsDisabled"
+        [invalid]="form.invalid"
+        [dirty]="form.dirty"
+        [inProgress]="performAction.inProgress()"
+        (action)="save()"
+        (validationErrorsAction)="form.openFormValidationErrors()">
+      </soe-save-button>
+    </div>
+  </div>
+</soe-dialog>

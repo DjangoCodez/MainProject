@@ -1,0 +1,162 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="'common.contactaddresses.name'"
+              formControlName="name"></soe-textbox>
+          </div>
+        </div>
+        @if (form.isAddressDelivery) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-textbox
+                [labelKey]="'common.contactaddresses.addressrow.name'"
+                formControlName="addressName"></soe-textbox>
+            </div>
+          </div>
+        }
+        @if (isAddress()) {
+          <div class="row">
+            @if (showAddress()) {
+              <div class="col-sm-6">
+                <soe-textbox
+                  [labelKey]="'common.contactaddresses.addressrow.address'"
+                  formControlName="address"></soe-textbox>
+              </div>
+            }
+            @if (showAddressCO()) {
+              <div class="col-sm-6">
+                <soe-textbox
+                  [labelKey]="'common.contactaddresses.addressrow.co'"
+                  formControlName="addressCO"></soe-textbox>
+              </div>
+            }
+          </div>
+        }
+        @if (isAddress()) {
+          <div class="row">
+            @if (showStreetAddress()) {
+              <div class="col-sm-6">
+                <soe-textbox
+                  [labelKey]="'common.contactaddresses.addressrow.street'"
+                  formControlName="streetAddress"></soe-textbox>
+              </div>
+            }
+            @if (showEntranceCode()) {
+              <div class="col-sm-6">
+                <soe-textbox
+                  [labelKey]="'common.contactaddresses.addressrow.entrancecode'"
+                  formControlName="entranceCode"></soe-textbox>
+              </div>
+            }
+          </div>
+        }
+        @if (isAddress()) {
+          <div class="row">
+            @if (showPostalCode()) {
+              <div class="col-sm-6">
+                <soe-textbox
+                  [labelKey]="'common.contactaddresses.addressrow.postalcode'"
+                  formControlName="postalCode"></soe-textbox>
+              </div>
+            }
+            @if (showPostalAddress()) {
+              <div class="col-sm-6">
+                <soe-textbox
+                  [labelKey]="
+                    'common.contactaddresses.addressrow.postaladdress'
+                  "
+                  formControlName="postalAddress"></soe-textbox>
+              </div>
+            }
+          </div>
+        }
+        @if (isAddress()) {
+          <div class="row">
+            @if (showCountry()) {
+              <div class="col-sm-12">
+                <soe-textbox
+                  [labelKey]="'common.contactaddresses.addressrow.country'"
+                  formControlName="country"></soe-textbox>
+              </div>
+            }
+          </div>
+        }
+        @if (!isAddress() && !showEmail() && !isCoordinates()) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-textbox
+                [labelKey]="'common.contactaddresses.value'"
+                formControlName="eComText"></soe-textbox>
+            </div>
+          </div>
+        }
+        @if (showEmail()) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-textbox
+                [labelKey]="'common.contactaddresses.ecommenu.email'"
+                formControlName="eComText"></soe-textbox>
+            </div>
+          </div>
+        }
+        @if (showClosestRelative()) {
+          <div class="row">
+            <div class="col-sm-6">
+              <soe-textbox
+                [labelKey]="'common.contactaddresses.ecom.closestrelative.name'"
+                formControlName="closestRelativeName"></soe-textbox>
+            </div>
+            <div class="col-sm-6">
+              <soe-textbox
+                [labelKey]="
+                  'common.contactaddresses.ecom.closestrelative.relation'
+                "
+                formControlName="closestRelativeRelation"></soe-textbox>
+            </div>
+          </div>
+        }
+        @if (isCoordinates()) {
+          <div class="row">
+            <div class="col-sm-6">
+              <soe-textbox
+                [labelKey]="'common.contactaddresses.ecom.longitude'"
+                formControlName="longitude"></soe-textbox>
+            </div>
+            <div class="col-sm-6">
+              <soe-textbox
+                [labelKey]="'common.contactaddresses.ecom.latitude'"
+                formControlName="latitude"></soe-textbox>
+            </div>
+          </div>
+        }
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    @if (form) {
+      <soe-button
+        class="ms-3"
+        [caption]="'core.cancel'"
+        typeClass="btn btn-secondary"
+        [behaviour]="'standard'"
+        (action)="cancel()"></soe-button>
+      <soe-save-button
+        class="ms-3"
+        [caption]="'core.ok'"
+        typeClass="btn btn-secondary"
+        [invalid]="form.invalid"
+        (action)="ok()"
+        (validationErrorsAction)="
+          form.openFormValidationErrors()
+        "></soe-save-button>
+    }
+  </div>
+</soe-dialog>

@@ -1,0 +1,19 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [toolbarGroups]="toolbarUtils.toolbarGroups"
+    [toolbarNoPadding]="true"
+    [toolbarNoBorder]="true"
+    [noMargin]="true"
+    [rows]="rows"
+    [parentGuid]="guid()"
+    (selectionChanged)="selectionChanged($event)"></soe-grid-wrapper>
+
+  <div class="row">
+    <div class="col-sm-3 col-sm-offset-9">
+      <soe-numberbox
+        [labelKey]="'common.customer.invoices.checkedrows'"
+        [decimals]="2"
+        [formControl]="selectedTotal"></soe-numberbox>
+    </div>
+  </div>
+}

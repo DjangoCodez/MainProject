@@ -1,0 +1,68 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+    [toolbarGroups]="toolbarUtils.toolbarGroups"
+    (selectionChanged)="rowSelectionChanged($event)">
+    @if (!isOpened) {
+      <soe-edi-grid-header
+        toolbar-content-left
+        [allItemsSelectionDict]="allItemsSelectionDict"
+        (allItemSelectionfilterChanged)="
+          setAllItemSelection($event)
+        "></soe-edi-grid-header>
+    }
+    <div class="row" footer>
+      <div class="col-sm-12 d-flex p-2 justify-content-end">
+        @if (showCreatePdf) {
+          <soe-button
+            class="ms-2"
+            [caption]="'billing.import.edi.createpdf'"
+            [behaviour]="'primary'"
+            [disabled]="!isOkToGeneratePdf"
+            (action)="createPdf()">
+          </soe-button>
+        }
+        @if (showCreateInvoice) {
+          <soe-button
+            class="mx-2"
+            [caption]="'billing.import.edi.createinvoice'"
+            [behaviour]="'primary'"
+            [disabled]="!isOkToTransferToSupplierInvoice"
+            (action)="initCreateInvoice()">
+          </soe-button>
+        }
+        @if (showTransferOrderRows) {
+          <soe-button
+            class="ms-2"
+            [caption]="'billing.import.edi.transferorderrows'"
+            [behaviour]="'primary'"
+            [disabled]="!isOkToTransferToOrder"
+            (action)="initTransferToOrder()">
+          </soe-button>
+        }
+        @if (showSave) {
+          <soe-button
+            class="ms-2"
+            [behaviour]="'primary'"
+            [caption]="'core.save'"
+            [disabled]="!isOkToSave"
+            (action)="save()">
+          </soe-button>
+        }
+        <soe-menu-button
+          class="mx-2"
+          [caption]="'core.functions'"
+          [variant]="'split'"
+          [list]="buttonFunctions"
+          [behaviour]="'primary'"
+          [dropUp]="true"
+          (itemSelected)="initChangeEdiState($event)"
+          (selectedItem)="(buttonFunctions)"
+          [disabled]="disableFunctionButton()">
+        </soe-menu-button>
+      </div>
+    </div>
+  </soe-grid-wrapper>
+}

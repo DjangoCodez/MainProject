@@ -1,0 +1,10 @@
+﻿<div class="product-row-grid">
+    <soe-progressbar is-busy="directiveCtrl.progressBusy" message="directiveCtrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-show="!directiveCtrl.progressBusy">
+        <div data-ng-repeat="extraField in directiveCtrl.extraFieldRecords" class="horizontal-list-item">
+            <div ng-attr-class="{{'div-' + extraField.extraFieldId + '-' + directiveCtrl.parentGuid}}">
+            </div>
+        </div>
+    </div>
+</div>

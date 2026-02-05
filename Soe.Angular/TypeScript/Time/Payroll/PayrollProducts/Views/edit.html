@@ -1,0 +1,87 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-panel label-key="time.payroll.payrollproduct.payrollproduct">
+                    <div class="col-sm-10">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="common.number" model="ctrl.product.number" required="true" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="common.shortname" model="ctrl.product.shortName" required="true" maxlength="10" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="common.name" model="ctrl.product.name" required="true" maxlength="256" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.payroll.payrollproduct.externalnumber" model="ctrl.product.externalNumber" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-label label-key="time.payroll.payrollproduct.payrolltype"></soe-label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3" data-ng-repeat="collection in ctrl.selectablePayrollTypes track by collection.id">
+                                    <soe-select hidelabel="true" model="collection.selected.id" items="collection.available" options="item.id as item.name for item in items" on-changing="ctrl.selectPayrollTypeAtLevel($index, item)"></soe-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.payroll.payrollproduct.factor" label-value="ctrl.factorInfo" label-value-in-parentheses="true" model="ctrl.product.factor" numeric="true" decimals="2" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.payroll.payrollproduct.resulttype" label-value="ctrl.resultTypeInfo" label-value-in-parentheses="true" model="ctrl.product.resultType" items="ctrl.resultTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 margin-large-top">
+                        <soe-checkbox label-key="time.payroll.payrollproduct.payed" model="ctrl.product.payed" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                        <soe-checkbox label-key="time.payroll.payrollproduct.excludeinworktimesummary" model="ctrl.product.excludeInWorkTimeSummary" text-class="margin-small-top" text-class-condition="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                        <soe-checkbox label-key="time.payroll.payrollproduct.averagecalculated" model="ctrl.product.averageCalculated" text-class="margin-small-top" text-class-condition="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                        <soe-checkbox label-key="time.payroll.payrollproduct.useinpayroll" model="ctrl.product.useInPayroll" text-class="margin-small-top" text-class-condition="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                        <soe-checkbox label-key="time.payroll.payrollproduct.dontusefixedaccounting" model="ctrl.product.dontUseFixedAccounting" text-class="margin-small-top" text-class-condition="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                        <soe-checkbox label-key="time.payroll.payrollproduct.export" model="ctrl.product.export" text-class="margin-small-top" text-class-condition="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                        <soe-checkbox label-key="time.payroll.payrollproduct.includeamountinexport" model="ctrl.product.includeAmountInExport" text-class="margin-small-top margin-large-left" text-class-condition="true" is-disabled="!ctrl.product.export" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    </div>
+                </soe-panel>
+            </div>
+        </div>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="time.payroll.payrollproduct.settings.payrollgroup" is-open="true">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <payroll-product-settings product="ctrl.product" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></payroll-product-settings>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.product"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.product.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

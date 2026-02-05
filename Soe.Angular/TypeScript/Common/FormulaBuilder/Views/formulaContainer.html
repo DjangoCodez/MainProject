@@ -1,0 +1,30 @@
+﻿<div>
+    <div class="formula-container">
+        <soe-label label-key="{{ctrl.labelKey}}"></soe-label>
+        <ul class="widget-list main-widget-list sortable-main droppable" data-ng-model="ctrl.frmWidgets">
+            <li data-ng-repeat="widget in ctrl.frmWidgets | orderBy:'sort'">
+                <widget widget="widget" on-remove="ctrl.removeFormulaWidget(widget, 0);" is-formula="true" is-readonly="ctrl.isReadonly"></widget>
+            </li>
+        </ul>
+        <div class="info" data-ng-if="!ctrl.formulaError">
+            <span>{{ctrl.formulaValid}}</span>
+        </div>
+        <div class="warning" data-ng-if="ctrl.formulaError">
+            <span>{{ctrl.formulaError}}</span>
+        </div>
+    </div>
+    <div class="formula-container margin-small-top" data-ng-if="ctrl.showSecondaryContainer">
+        <soe-label label-key="{{ctrl.secondaryLabelKey}}"></soe-label>
+        <ul class="widget-list secondary-widget-list sortable-secondary droppable" data-ng-model="ctrl.secondaryFrmWidgets">
+            <li data-ng-repeat="widget in ctrl.secondaryFrmWidgets | orderBy:'sort'">
+                <widget widget="widget" on-remove="ctrl.removeFormulaWidget(widget, 1);" is-formula="true" is-readonly="ctrl.isReadonly"></widget>
+            </li>
+        </ul>
+        <div class="info" data-ng-if="!ctrl.secondaryFormulaError">
+            <span>{{ctrl.secondaryFormulaValid}}</span>
+        </div>
+        <div class="warning" data-ng-if="ctrl.secondaryFormulaError">
+            <span>{{ctrl.secondaryFormulaError}}</span>
+        </div>
+    </div>
+</div>

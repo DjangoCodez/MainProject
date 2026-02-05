@@ -1,0 +1,123 @@
+@use '../right-menu-styles.scss';
+@use '../../../../shared/styles/core-styles/colors.scss';
+@use '../../../../shared/styles/core-styles/fonts.scss';
+
+.right-menu.fullscreen {
+  padding-left: 0px;
+
+  .document-menu-right-container {
+    padding-left: 0;
+  }
+}
+
+.panel-body {
+  overflow-y: hidden !important;
+
+  .document-menu-left-container {
+    .document-menu-preview {
+      height: 100%;
+      background-color: colors.$soe-background-color;
+      padding-right: 0px;
+      margin: 1rem;
+
+      soe-pdf-viewer {
+        margin-top: 1rem;
+      }
+
+      img {
+        height: 100%;
+        max-width: 100%;
+      }
+    }
+  }
+
+  .document-menu-right-container {
+    border-left: solid 1px colors.$soe-border-color;
+  }
+
+  .document-menu-tabs {
+    margin: 0px -1px 0px -1px;
+
+    ul {
+      list-style: none;
+      display: table;
+      table-layout: fixed;
+      width: calc(100% + 2px);
+      padding: 0px;
+      margin-bottom: 0px;
+
+      li {
+        display: table-cell;
+        text-align: center;
+        cursor: pointer;
+        padding: 4px 0px 4px 0px;
+        background-color: colors.$soe-header-background-color;
+        border-bottom: solid 1px colors.$soe-border-color;
+        border-right: solid 1px colors.$soe-border-color;
+      }
+
+      li:first-child {
+        border-left: solid 1px colors.$soe-border-color;
+      }
+
+      li:hover {
+        background-color: #eeeeee;
+      }
+
+      li.selected {
+        font-weight: bold;
+        background-color: colors.$soe-background-color;
+        border-bottom: 0px;
+      }
+    }
+  }
+
+  .document-menu-documents {
+    height: calc(100% - 2em);
+    padding: 0.5rem;
+
+    > ul {
+      list-style: none;
+      padding: 0px;
+      margin: 0px;
+
+      > li {
+        padding: 0.25rem 0 0 0;
+
+        > ul {
+          list-style: none;
+          padding: 0 0 0 0.75rem;
+
+          > li {
+            height: 24px;
+
+            fa-icon {
+              font-size: fonts.$soe-font-size-lg;
+            }
+          }
+
+          > li:hover {
+            background-color: colors.$soe-color-semantic-information-20;
+          }
+        }
+      }
+    }
+  }
+}
+
+#document-menu-toggle {
+  fa-icon {
+    margin-left: 9px;
+  }
+
+  fa-layers {
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+
+  fa-layers-counter {
+    position: absolute;
+    top: -8px;
+    left: 16px;
+  }
+}

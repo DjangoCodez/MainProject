@@ -1,0 +1,23 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="messagebox">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'time.time.attest.absencedetails.update'"></h6>
+        </div>
+        <div class="modal-body">
+            <div class="form-group form-group-sm">
+                <div class="row margin-large-bottom">
+                    <div class="col-sm-12">
+                        <soe-textbox label-key="time.time.attest.absencedetails.ratio" model="ctrl.ratio" numeric="true" allow-empty="true" decimals="2"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-right">
+                <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.cancel'" data-l10n-bind-title="'core.cancel'" data-ng-click="$event.stopPropagation();ctrl.cancel()"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.ok'" data-l10n-bind-title="'core.ok'" data-ng-disabled="ctrl.edit.$invalid || ctrl.okClicked || !ctrl.ratio" data-ng-click="$event.stopPropagation();ctrl.ok()"></button>
+            </div>
+        </div>
+    </div>
+</form>

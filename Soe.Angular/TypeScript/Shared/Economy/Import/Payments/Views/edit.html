@@ -1,0 +1,164 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progressBusy">
+        <soe-toolbar buttons="ctrl.buttonGroups"></soe-toolbar>
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <soe-textbox is-disabled="true" class="col-sm-4" label-key="economy.import.payment.importBatchId" model="ctrl.paymentImport.batchId"></soe-textbox>
+                <soe-select is-disabled="ctrl.paymentMethodDisabled()" class="col-sm-4" label-key="economy.import.payment.paymentmethodnew" required="true"
+                            model="ctrl.selectedPaymentMethod"
+                            items="ctrl.paymentMethodsDict"
+                            options="item as item.name for item in items"></soe-select>
+                <div class="col-sm-4">
+                    <div class="pull-right">
+                        <label data-ng-show="!ctrl.isChooseFileButtonVisible">{{ctrl.paymentImport.filename}}</label>
+                        <button type="button" class="btn btn-sm ngSoeMainButton" data-ng-show="ctrl.isChooseFileButtonVisible" data-l10n-bind="'core.chooseFile'" data-l10n-bind-title="'common.chooseFile'" data-ng-click="$event.stopPropagation();ctrl.addFile()"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <soe-datepicker is-disabled="ctrl.paymentImportId > 0" class="col-sm-4" label-value="ctrl.importDateLabel" label-value-indiscreet="true" model="ctrl.selectedImportDate" required="true"></soe-datepicker>
+                <div class="col-sm-4">
+                    <soe-textbox label-key="economy.supplier.invoice.matches.totalamount" model="ctrl.paymentImport.totalAmount" numeric="true" decimals="2" data-ng-if="ctrl.paymentImportId > 0" is-disabled="true"></soe-textbox>
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label discreet"></label>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-sm ngSoeMainButton"
+                                data-l10n-bind="'economy.import.payment.getpaymentfilebutton'"
+                                data-l10n-bind-title="'economy.import.payment.getpaymentfilebutton'"
+                                data-ng-if="ctrl.modifyPermission"
+                                data-ng-show="ctrl.edit.$valid && ctrl.isUploadFileButtonVisible"
+                                data-ng-disabled="ctrl.edit.$invalid"
+                                data-ng-click="$event.stopPropagation();ctrl.startImportFile()"></button>
+
+                        <div class="btn-group" role="group" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.edit.$invalid && ctrl.isUploadFileButtonVisible">
+                            <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'economy.import.payment.getpaymentfilebutton'" data-ng-disabled="ctrl.edit.$invalid"></button>
+                            <button type="button" class="btn btn-sm ngSoeMainButtonInvalid" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'"
+                                    data-ng-click="$event.stopPropagation();ctrl.showValidationError()">
+                                !
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.isCustomerPayment">
+                <div class="col-sm-8">
+                    <soe-textbox label-key="economy.import.payment.label" model="ctrl.paymentImport.paymentLabel" maxlength="512"></soe-textbox>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-small-top">
+            <div class="col-sm-12">
+                <uib-accordion close-others="false">
+                    <soe-accordion label-key="economy.import.payment.details" is-open="ctrl.gridAccordionIsOpen">
+                        <div class="row" ng-if="ctrl.isCustomerPayment">
+                            <div class="col-sm-12">
+                                <soe-toolbar buttons="ctrl.gridpaymentButtonGroups" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div id="payment-rows-grid" ag-grid="ctrl.gridpaymentOptions.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;" prevent-enter></div>
+                                <div id="sum-footer-grid" class="ag-theme-balham" style="height: 30px; width: 100%;" prevent-enter></div>
+                                <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-12 pull-right margin-small-top info">
+                                    <div class="col-sm-2 pull-right">
+                                        <div class="row">
+                                            <soe-label class="pull-right" label-key="common.customer.invoices.paidfiltered"></soe-label>
+                                        </div>
+                                        <div class="row">
+                                            <label class="pull-right discreet">{{ctrl.filteredPaid | amount}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 margin-small-right pull-right">
+                                        <div class="row">
+                                            <soe-label class="pull-right" label-key="common.customer.invoices.paidselected"></soe-label>
+                                        </div>
+                                        <div class="row">
+                                            <label class="pull-right discreet">{{ctrl.selectedPaid | amount}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-large-top">
+                            <div class="col-sm-12">
+                                <div class="pull-right">
+                                    <soe-splitbutton class="pull-right margin-small-right" 
+                                                     label-key="economy.import.payment.updatepaymentsbutton" 
+                                                     options="ctrl.buttonFunctions" 
+                                                     main-button="true" 
+                                                     drop-up="true" 
+                                                     is-disabled="ctrl.updateButtonDisabled" 
+                                                     option-selected="ctrl.performFunction(option)" 
+                                                     ></soe-splitbutton>
+
+                                    <!--<button type="button" class="btn btn-sm ngSoeMainButton"
+                   data-l10n-bind="'economy.import.payment.updatepaymentsbutton'"
+                   data-l10n-bind-title="'economy.import.payment.updatepaymentsbutton'"
+                   data-ng-click="$event.stopPropagation();ctrl.saveBulkPaymentImportIOInvoices()"
+                   ng-disabled="ctrl.updateButtonDisabled"></button>-->
+                                </div>
+                            </div>
+                        </div>
+                </soe-accordion>
+                    <!--<soe-accordion label-key="economy.supplier.invoice.accountingrows">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <accounting-rows data-ng-if="ctrl.accountingRows"
+                                     accounting-rows="ctrl.accountingRows"
+                                     container="6"
+                                     show-text="true"
+                                     show-balance="true"
+                                     show-amount-summary="true"
+                                     currency-date="ctrl.selectedImportDate"
+                                     allow-zero-amount="ctrl.saveAsTemplate"
+                                     is-readonly="true">
+                    </accounting-rows>
+                </div>
+            </div>
+        </div>
+    </soe-accordion>-->
+                    <soe-accordion label-key="common.tracing" data-ng-if="!ctrl.isNew">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div data-ng-if="ctrl.isCustomerPayment" class="col-sm-12">
+                                    <trace-rows trace-id="ctrl.selectedInvoiceId" page-name="'customerInvoiceEdit'"></trace-rows>
+                                </div>
+                                <div data-ng-if="ctrl.isSupplierPayment" class="col-sm-12">
+                                    <trace-rows trace-id="ctrl.selectedInvoiceId" page-name="'supplierInvoiceEdit'"></trace-rows>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </uib-accordion>
+            </div>
+        </div>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.paymentImport"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-sm ngSoeMainButton"
+                            data-l10n-bind="'core.delete'"
+                            data-ng-if="ctrl.showDeleteButton"
+                            data-ng-click="$event.stopPropagation();ctrl.delete()"></button>
+                    <button type="button" class="btn btn-sm ngSoeMainButton"
+                            data-l10n-bind="'core.save'"
+                            data-ng-if="ctrl.modifyPermission && ctrl.isCustomerPayment && ctrl.paymentImportId > 0"
+                            data-ng-disabled="!ctrl.edit.$dirty && ctrl.paymentImportId > 0"
+                            data-ng-click="$event.stopPropagation();ctrl.save()"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

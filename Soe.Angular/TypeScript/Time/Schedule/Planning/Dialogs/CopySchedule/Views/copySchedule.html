@@ -1,0 +1,72 @@
+﻿<form name="ctrl.edit" class="messagebox" novalidate autocomplete="off">
+    <div copy-schedule-validation ng-model="ctrl" source-employee-id="ctrl.sourceEmployee.employeeId" target-employee-id="ctrl.targetEmployee.employeeId" target-date-start="ctrl.targetDateStart" target-date-end="ctrl.targetDateEnd">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'time.schedule.planning.copyschedule.title'"></h6>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="info">
+                        <span data-ng-bind-html="::ctrl.infoStr"></span>
+                        <div class="margin-small-top margin-small-bottom">
+                            <span data-l10n-bind="'time.schedule.planning.copyschedule.validation.header'" class="indiscreet"></span>
+                        </div>
+                        <span data-ng-bind-html="::ctrl.validationInfoStr"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-large-top">
+                <div class="col-sm-6">
+                    <soe-panel label-key="common.from">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-typeahead label-key="time.schedule.planning.copyschedule.sourceemployee" model="ctrl.sourceEmployee" items="ctrl.employees" options="item as item.numberAndName for item in items" filter-property="numberAndName" limit="50" required="true"></soe-typeahead>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-datepicker label-key="time.schedule.planning.copyschedule.sourcedateend" model="ctrl.sourceDateEnd"></soe-datepicker>
+                            </div>
+                        </div>
+                        <div class="row margin-large-top" data-ng-if="ctrl.useAccountHierarchy">
+                            <div class="col-sm-12">
+                                <soe-radiobutton label-key="time.schedule.planning.templateschedule.useaccountingfromsourceschedule" model="ctrl.useAccountingFromSourceSchedule" group="accounting" value="true"></soe-radiobutton>
+                                <soe-radiobutton label-key="time.schedule.planning.templateschedule.useaccountingfromemployee" model="ctrl.useAccountingFromSourceSchedule" group="accounting" value="false"></soe-radiobutton>
+                            </div>
+                        </div>
+                    </soe-panel>
+                </div>
+                <div class="col-sm-6">
+                    <soe-panel label-key="common.to">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-typeahead label-key="time.schedule.planning.copyschedule.targetemployee" model="ctrl.targetEmployee" items="ctrl.employees" options="item as item.numberAndName for item in items" filter-property="numberAndName" limit="50" required="true"></soe-typeahead>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-datepicker label-key="time.schedule.planning.copyschedule.targetdatestart" model="ctrl.targetDateStart" required="true"></soe-datepicker>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-datepicker label-key="time.schedule.planning.copyschedule.targetdateend" model="ctrl.targetDateEnd"></soe-datepicker>
+                            </div>
+                        </div>
+                    </soe-panel>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-right">
+                <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.cancel'" data-l10n-bind-title="'core.cancel'" data-ng-click="$event.stopPropagation();ctrl.cancel()"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.ok'" data-l10n-bind-title="'core.ok'" data-ng-show="ctrl.edit.$valid" data-ng-disabled="ctrl.edit.$invalid || ctrl.executing" data-ng-click="$event.stopPropagation();ctrl.ok()"></button>
+                <div class="btn-group" role="group" data-ng-show="ctrl.edit.$invalid">
+                    <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.ok'" data-ng-disabled="ctrl.edit.$invalid"></button>
+                    <button type="button" class="btn btn-sm ngSoeMainButtonInvalid" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

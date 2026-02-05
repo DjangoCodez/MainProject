@@ -1,0 +1,43 @@
+﻿
+<div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <id-selection label-key="common.report.selection.stocktakinglist" on-selected="$ctrl.onStockInventorySelectionChanged(selection)" items="$ctrl.selectableStockInventoryList" user-selection-input="$ctrl.selectedStockInventoryItem" />
+        </div>
+    </div>
+
+    <div class="row">
+        <text-selection label-key="common.report.selection.productnr" class="col-sm-4" on-selected="$ctrl.articleNumberChangedFrom(selection)" user-selection-input="$ctrl.articleNumberFrom"></text-selection>
+        <text-selection class="col-sm-4 margin-small-top" on-selected="$ctrl.articleNumberChangedTo(selection)" user-selection-input="$ctrl.articleNumberTo"></text-selection>
+    </div>
+
+    <div class="row">
+        <id-selection label-key="common.report.selection.stockplace" class="col-sm-4" on-selected="$ctrl.inventoryBalanceChangedFrom(selection)" items="$ctrl.selectableInventoryBalanceList" user-selection-input="$ctrl.inventoryBalanceFrom" />
+        <id-selection class="col-sm-4 margin-small-top" on-selected="$ctrl.inventoryBalanceChangedTo(selection)" items="$ctrl.selectableInventoryBalanceList" user-selection-input="$ctrl.inventoryBalanceTo" />
+    </div>
+
+    <div class="row">
+        <id-selection label-key="common.report.selection.stockshelf" class="col-sm-4" on-selected="$ctrl.codeSeriesChangedFrom(selection)" items="$ctrl.selectableCodeList" user-selection-input="$ctrl.codeSeriesFrom" />
+        <id-selection class="col-sm-4 margin-small-top" on-selected="$ctrl.codeSeriesChangedTo(selection)" items="$ctrl.selectableCodeList" user-selection-input="$ctrl.codeSeriesTo" />
+    </div>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <product-group-selection on-product-group-selected-from="$ctrl.onProductGroupSelectedFrom(selection)" on-product-group-selected-to="$ctrl.onProductGroupSelectedTo(selection)" user-selection="$ctrl.userSelection"></product-group-selection>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <date-selection label-key="common.report.selection.stockvaluedate" show-range="false" as-range="false" on-selected="$ctrl.onDateSelected(selection)" user-selection-input="$ctrl.selectedStockValueDate" use-min-max-if-empty="true"></date-selection>            
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <id-selection label-key="common.report.selection.sorting" on-selected="$ctrl.onSortOrderSelectionChanged(selection)" items="$ctrl.selectableSorting" user-selection-input="$ctrl.selectedSortItem" />
+        </div>
+    </div>
+
+</div>

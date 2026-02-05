@@ -1,0 +1,81 @@
+﻿<div>
+    <!-- WorkTimeAccount -->
+    <div class="row">
+        <div class="col-sm-6">
+            <soe-panel label-key="time.payroll.worktimeaccount.worktimeaccount" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.editWorkTimeAccount();">
+                <div>
+                    <table class="table table-condensed table-hover horizontal-line-top">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-l10n-bind="'common.name'"></th>
+                                <th scope="col" data-l10n-bind="'common.fromdate'"></th>
+                                <th scope="col" data-l10n-bind="'common.todate'"></th>
+                                <th scope="col" style="width: 28px"></th>
+                                <th scope="col" style="width: 28px"></th>
+                            </tr>
+                        </thead>
+                        <tbody data-ng-repeat="employeeTimeWorkAccount in ctrl.employeeTimeWorkAccounts">
+                            <tr>
+                                <td><span>{{employeeTimeWorkAccount.timeWorkAccountName}}</span></td>
+                                <td><span>{{employeeTimeWorkAccount.dateFrom | date:'shortDate'}}</span></td>
+                                <td><span>{{employeeTimeWorkAccount.dateTo | date:'shortDate'}}</span></td>
+                                <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><em class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editWorkTimeAccount(employeeTimeWorkAccount);"></em></span></td>
+                                <td><span data-l10n-bind data-l10n-bind-title="'core.deleterow'"><em class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.delete(employeeTimeWorkAccount);"></em></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </soe-panel>
+        </div>
+    </div>
+    <div class="row margin-large-top">
+        <div class="col-sm-12" >
+            <soe-panel label-key="time.payroll.worktimeaccount.annualruns" condensed="true">
+                <table class="table table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" data-l10n-bind="'time.time.timeperiod.timeperiod'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'time.payroll.worktimeaccount.employee.selectedwithdrawalmethod'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'time.payroll.worktimeaccount.employee.selecteddate'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'time.payroll.worktimeaccount.employee.calculatedpaidleavetime'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'time.payroll.worktimeaccount.employee.calculatedpaidleaveamount'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'time.payroll.worktimeaccount.employee.calculatedpensiondepositamount'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'time.payroll.worktimeaccount.employee.calculateddirectpaymentamount'"></th>
+                            <th scope="col" class="right-align-cell" data-l10n-bind="'common.status'"></th>
+
+                        </tr>
+                    </thead>
+                    <tbody data-ng-repeat="twae in ctrl.timeWorkAccountYearEmployee">
+                        <tr>
+                            <td>
+                                <span>{{twae.earningStart | date:'shortDate'}} - {{twae.earningStop | date:'shortDate'}}</span>
+                            </td>
+                            <td class="right-align-cell">
+                                <span>{{twae.selectedWithdrawalMethodName}}</span>
+                            </td>
+                            <td class="right-align-cell">
+                                <span>{{twae.selectedDate | date:'shortDate'}}</span>
+                            </td>
+                            <td class="right-align-cell">
+                                <span>{{twae.calculatedPaidLeaveMinutes | minutesToTimeSpan}}</span>
+                            </td>
+                            <td class="right-align-cell">
+                                <span>{{twae.calculatedPaidLeaveAmount | amount:2:true}}</span>
+                            </td>
+                            <td class="right-align-cell">
+                                <span>{{twae.calculatedPensionDepositAmount | amount:2:true}}</span>
+                            </td>
+                            <td class="right-align-cell">
+                                <span>{{twae.calculatedDirectPaymentAmount | amount:2:true}}</span>
+                            </td>
+                            <td class="right-align-cell">
+                                <span>{{twae.statusName}}</span>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </soe-panel>
+        </div>
+    </div>
+</div>

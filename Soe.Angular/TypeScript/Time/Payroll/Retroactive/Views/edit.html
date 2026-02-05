@@ -1,0 +1,255 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal(false)" aria-hidden="true">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.payroll.retroactive.payroll'"></h6>
+    </div>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" ng-class="ctrl.isModal ? 'edit-padding': ''">
+
+        <soe-panel label-key="time.payroll.retroactive.payroll">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="time.payroll.retroactive.name" model="ctrl.retroactivePayroll.name" required="true" is-readonly="ctrl.isGuiReadOnly(true)"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.time.timeperiod.timeperiodhead" model="ctrl.retroactivePayroll.timePeriodHeadId" required="true" items="ctrl.timePeriodHeads" options="item.timePeriodHeadId as item.name for item in items" on-changing="ctrl.timePeriodHeadChanged(ctrl.retroactivePayroll.timePeriodHeadId, item)" is-readonly="ctrl.isGuiReadOnly(true)"></soe-select>
+                            </div>
+                            <div class="col-sm-6">
+                                <soe-select label-key="time.time.timeperiod.paymentdate" model="ctrl.retroactivePayroll.timePeriodId" required="true" items="ctrl.timePeriods" options="item.timePeriodId as item.paymentDateString for item in items" on-changing="ctrl.timePeriodChanged(item)" is-readonly="ctrl.isGuiReadOnly(true)"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-label label-key="time.payroll.retroactive.dates"></soe-label>
+                                    </div>
+                                </div>
+                                <div class="form-inline">
+                                    <div class="form-group form-group-sm">
+                                        <div class="input-group">
+                                            <soe-datepicker hidelabel="true" model="ctrl.retroactivePayroll.dateFrom" required="true" is-readonly="ctrl.isGuiReadOnly(true)"></soe-datepicker>
+                                        </div>
+                                    </div>
+                                    <span>-</span>
+                                    <div class="form-group form-group-sm">
+                                        <div class="input-group">
+                                            <soe-datepicker hidelabel="true" model="ctrl.retroactivePayroll.dateTo" is-readonly="ctrl.isGuiReadOnly(true)"></soe-datepicker>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-sm" style="margin-left:10px">
+                                        <div class="input-group">
+                                            <soe-checkbox label-key="time.payroll.retroactive.ignoreemploymentstopdate" model="ctrl.ignoreEmploymentStopDate" on-changing="ctrl.ignoreEmploymentStopDateChanged(ctrl.ignoreEmploymentStopDate)" is-disabled="ctrl.doShowRetroEmployeesLoading()"></soe-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <span data-l10n-bind="'common.note'" class="indiscreet"></span><br />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textarea hidelabel="true" model="ctrl.retroactivePayroll.note" rows="7" is-disabled="!ctrl.retroactivePayroll"></soe-textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="time.payroll.retroactive.selectionaccounting">
+                <div class="row" data-ng-if="ctrl.doShowRetroAccounting">
+                    <div class="col-sm-12">
+                        <div data-ng-repeat="retroAccount in ctrl.retroAccounts track by retroAccount.guid">
+                            <div class="form-group form-group-sm">
+                                <div data-ng-if="$first">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <soe-label label-key="time.payroll.retroactive.accountdim"></soe-label>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <soe-label label-key="time.payroll.retroactive.accounttype"></soe-label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" data-ng-class="{'repeater-selected-row': ctrl.selectedShift === shift}">
+                                    <div class="col-sm-1">
+                                        <span>{{retroAccount.accountDim.name}}</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-select hidelabel="true" model="retroAccount.type" items="ctrl.retroPayrollAccountTypes" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-typeahead hidelabel="true" model="retroAccount.selectedAccount" items="retroAccount.accountDim.accounts" options="item as item.numberName for item in items" ng-show="retroAccount.type === 2" filter-property="numberName" is-readonly="ctrl.isReadonly" on-selection-changed="ctrl.retroAccountChanged(retroAccount)"></soe-typeahead>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" data-ng-if="ctrl.doShowRetroAccountingLoading">
+                    <div class="col-sm-12">
+                        <span data-l10n-bind="'time.payroll.retroactive.loadingaccounts'" style="font-style:italic"></span>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="time.payroll.retroactive.selectionemployee" is-open="true">
+                <div class="row" data-ng-if="ctrl.doShowRetroEmployees()">
+                    <div class="col-sm-2">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-select label-key="time.employee.payrollgroup.payrollgroup" model="ctrl.selectedPayrollGroupId" items="ctrl.payrollGroupsFiltered" options="item.payrollGroupId as item.name for item in items" is-readonly="!ctrl.validateEmployeeFilter()" on-changing="ctrl.payrollGroupFilterChanged(item)"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="!ctrl.companyUseAccountHierarchy">
+                            <div class="col-sm-12">
+                                <soe-select label-key="common.categories.category" model="ctrl.selectedAccountOrCategoryId" items="ctrl.categories" options="item.categoryId as item.name for item in items" is-readonly="!ctrl.validateEmployeeFilter()" on-changing="ctrl.accountOrCategoryFilterChanged(item)"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="ctrl.companyUseAccountHierarchy">
+                            <div class="col-sm-12">
+                                <soe-select label-key="common.accounts" model="ctrl.selectedAccountOrCategoryId" items="ctrl.accounts" options="item.accountId as item.name for item in items" is-readonly="!ctrl.validateEmployeeFilter()" on-changing="ctrl.accountOrCategoryFilterChanged(item)"></soe-select>                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="col-sm-7">
+                            <div class="table-outer-bordered margin-large-top">
+                                <div class="table-scrollable-wrapper">
+                                    <div class="table-scrollable" style="height: 203px;">
+                                        <table class="table table-more-condensed table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" style="width: 5%;"><span class="fal link" data-ng-class="{'fa-check-square':ctrl.allFilteredEmployees, 'fa-square':!ctrl.allFilteredEmployees}" style="margin-left: 5px;" data-ng-click="ctrl.selectAllEmployees()"></span></th>
+                                                    <th scope="col" style="width: 10%;"><span data-l10n-bind="'time.employee.employee.employeenrshort'"></span></th>
+                                                    <th scope="col" style="width: 20%;"><span data-l10n-bind="'time.employee.employee.employee'"></span></th>
+                                                    <th scope="col" style="width: auto;"><span data-l10n-bind="'time.employee.payrollgroup.payrollgroup'"></span></th>
+                                                    <th scope="col" style="width: 20%;"><span data-l10n-bind="'common.categories.category'"></span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-ng-repeat="retroEmployee in ctrl.retroEmployeesFiltered track by retroEmployee.guid" style="cursor: pointer;" data-ng-click="retroEmployee.selected = !retroEmployee.selected">
+                                                    <td><span class="fal link" data-ng-class="{'fa-check-square':retroEmployee.selected, 'fa-square':!retroEmployee.selected}"></span></td>
+                                                    <td><span>{{::retroEmployee.employeeNr}}</span></td>
+                                                    <td><span>{{::retroEmployee.employeeName}}</span></td>
+                                                    <td><span>{{::ctrl.getPayrollGroupName(retroEmployee)}}</span></td>
+                                                    <td><span>{{::ctrl.getCategoryNames(retroEmployee)}}</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-1" style="margin-top:100px;text-align:center">
+                            <button type="button" class="btn btn-sm btn-default fal fa-chevron-right" data-l10n-bind data-l10n-bind-title="'time.payroll.retroactive.selectemployee'" data-ng-disabled="ctrl.isAddSelectedEmployeeDisabled()" data-ng-click="ctrl.addSelectedEmployees()" style="padding: 10px"></button>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="table-outer-bordered margin-large-top">
+                                <div class="table-scrollable-wrapper">
+                                    <div class="table-scrollable" style="height: 203px;">
+                                        <table class="table table-more-condensed table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" style="width: 80px;"><span data-l10n-bind="'time.employee.employee.employeenrshort'"></span></th>
+                                                    <th scope="col" style="width: 10px;"><span></span></th>
+                                                    <th scope="col"><span data-l10n-bind="'time.employee.employee.employee'"></span></th>
+                                                    <th scope="col"><span data-l10n-bind="'common.status'"></span></th>
+                                                    <th scope="col" style="width: 20px;"><span class="fal fa-times iconDelete link" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="ctrl.removeAllEmployeesFromDestination()" data-ng-hide="ctrl.isRemoveEmployeeFromDestinationValid()"></span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-ng-repeat="retroEmployee in ctrl.retroEmployeesDestination">
+                                                    <td><span>{{::retroEmployee.employeeNr}}</span></td>
+                                                    <td><i class="fal fa-exclamation-triangle errorColor" data-l10n-bind data-l10n-bind-title="'core.notsaved'" data-ng-show="retroEmployee.retroactivePayrollEmployeeId === 0"></i></td>
+                                                    <td><span>{{::retroEmployee.employeeName}}</span></td>
+                                                    <td><span>{{ctrl.getStatusName(retroEmployee.status) }}</span></td>
+                                                    <td><i class="fal fa-times iconDelete link" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="ctrl.removeEmployeeFromDestination(retroEmployee)" data-ng-hide="ctrl.isRemoveEmployeeFromDestinationValid()"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" data-ng-if="ctrl.doShowRetroEmployeesLoading()">
+                    <div class="col-sm-12">
+                        <span data-l10n-bind="'time.payroll.retroactive.loadingemployees'" style="font-style:italic"></span>
+                    </div>
+                </div>
+                <div class="row" data-ng-if="ctrl.doShowRetroEmployeesNotLoaded()">
+                    <div class="col-sm-12">
+                        <span data-l10n-bind="'time.payroll.retroactive.notloadedemployees'"></span>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+        <div style="margin-top:10px;margin-bottom:10px">
+            <div class="info">
+                <div class="row" style="padding:10px">
+                    <div class="col-sm-4">
+                        <span data-l10n-bind="'common.status'" class="indiscreet" data-ng-show="ctrl.retroactivePayroll && ctrl.retroactivePayroll.retroactivePayrollId > 0"></span><br />
+                        <span>{{ctrl.retroactivePayroll.statusName}}</span><br />
+                        <span data-l10n-bind="'time.payroll.retroactive.readonly'" class="invalid-cell" data-ng-if="ctrl.retroactivePayroll && ctrl.isGuiReadOnly(true)"></span><br />
+                    </div>
+                    <div class="col-sm-1 pull-right" data-ng-if="ctrl.doShowRetroEmployees()">
+                        <div>
+                            <span data-ng-if="ctrl.doShowRetroEmployees()">{{ctrl.retroEmployees.length}}</span><br />
+                            <span data-ng-if="ctrl.doShowRetroEmployees()">{{ctrl.retroEmployeesDestination.length}}</span><br />
+                            <span data-ng-if="ctrl.doShowRetroEmployees()">{{ctrl.getDestinationEmployeesWithOutcome().length}}</span><br />
+                            <span data-ng-if="ctrl.doShowRetroEmployees()" data-ng-class="{ 'invalid-cell': ctrl.getDestinationEmployeesWithErrors().length > 0 }">{{ctrl.getDestinationEmployeesWithErrors().length}}</span><br />
+                            <span data-ng-if="ctrl.doShowRetroEmployees()">{{ctrl.getDestinationEmployeesWithTransactions().length}}</span><br />
+                        </div>
+                    </div>
+                    <div class="col-sm-2 pull-right" data-ng-if="ctrl.doShowRetroEmployees()">
+                        <div>
+                            <span data-l10n-bind="'time.payroll.retroactive.totaleemployees'" class="indiscreet"></span><br />
+                            <span data-l10n-bind="'time.payroll.retroactive.selectedemployees'" class="indiscreet"></span><br />
+                            <span data-l10n-bind="'time.payroll.retroactive.calculatedemployees'" class="indiscreet"></span><br />
+                            <span data-l10n-bind="'time.payroll.retroactive.erroremployees'" class="indiscreet" data-ng-class="{ 'invalid-cell': ctrl.getDestinationEmployeesWithErrors().length > 0 }">{{ctrl.getDestinationEmployeesWithErrors().length}}></span><br />
+                            <span data-l10n-bind="'time.payroll.retroactive.transactionemployees'" class="indiscreet"></span><br />
+                        </div>
+                    </div>
+                    <div class="col-sm-4 pull-right">
+                        <div>
+                            <span data-l10n-bind="'time.payroll.retroactive.paymentdate'" class="indiscreet"></span><br />
+                            <span>{{ctrl.getPaymentDate()}}</span><br /><br />
+                            <span data-l10n-bind="'time.payroll.retroactive.total'" class="indiscreet"></span><br />
+                            <span>{{ctrl.getRetroEmployeesTotalAmount()}}</span><br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.retroactivePayroll"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col" style="margin: 0 10px 0 0;"><button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.delete'" data-ng-if="ctrl.validateDelete()" data-ng-click="$event.stopPropagation();ctrl.initDelete()"></button></div>
+                    <div class="col" style="margin: 0 10px 0 0;"><button type="button" class="btn btn-sm btn-default" data-l10n-bind="'time.payroll.retroactive.changeselection'" data-ng-disabled="!ctrl.validateDeleteOutcomes()" data-ng-click="$event.stopPropagation();ctrl.initDeleteOutcomes()"></button></div>
+                    <div class="col" style="margin: 0 10px 0 0;"><button type="button" class="btn btn-sm btn-default" data-l10n-bind="'time.payroll.retroactive.review'" data-ng-disabled="!ctrl.validateReview()" data-ng-click="$event.stopPropagation();ctrl.review()"></button></div>
+                    <div class="col" data-ng-class="{'no-border-radius-on-specified-last-button' : ctrl.edit.$invalid}">
+                        <soe-splitbutton button-name="btnSave" label-key="core.save" options="ctrl.functions" main-button="true" last-button-class="last-button" drop-up="true" is-disabled="ctrl.edit.$invalid || !ctrl.validateFunctions()" selected-option="ctrl.selectedOption" option-selected="ctrl.executeFunction(option)"></soe-splitbutton>
+                    </div>
+                    <button type="button" class="btn btn-sm ngSoeMainButtonInvalid no-left-border-radius" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.edit.$invalid" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

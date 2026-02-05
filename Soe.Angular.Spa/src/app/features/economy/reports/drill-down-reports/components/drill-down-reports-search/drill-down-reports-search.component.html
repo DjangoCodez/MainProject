@@ -1,0 +1,76 @@
+<form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+  <div class="row">
+    <div class="col-sm-3">
+      <soe-select
+        [labelKey]="'common.reports.drilldown.report'"
+        [items]="reports"
+        [optionIdField]="'reportId'"
+        [optionNameField]="'name'"
+        formControlName="reportId"
+        (valueChanged)="changeReport($event)">
+      </soe-select>
+    </div>
+    <div class="col-sm-3">
+      <soe-select
+        [labelKey]="'common.reports.drilldown.budget'"
+        [items]="budgets"
+        [optionIdField]="'id'"
+        [optionNameField]="'name'"
+        formControlName="budgetId">
+      </soe-select>
+    </div>
+
+    <div class="col-sm-3">
+      <soe-select
+        [labelKey]="'common.reports.drilldown.accountyearfrom'"
+        [items]="accountYears"
+        [optionIdField]="'accountYearId'"
+        [optionNameField]="'yearFromTo'"
+        (valueChanged)="changeAccountYearFrom($event)"
+        formControlName="accountYearFromId">
+      </soe-select>
+    </div>
+    <div class="col-sm-3">
+      <soe-select
+        [labelKey]="'common.reports.drilldown.accountyearto'"
+        [items]="accountYears"
+        [optionIdField]="'accountYearId'"
+        [optionNameField]="'yearFromTo'"
+        (valueChanged)="changeAccountYearTo($event)"
+        formControlName="accountYearToId">
+      </soe-select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset-sm-6 col-sm-3">
+      <soe-select
+        [labelKey]="'common.reports.drilldown.period'"
+        [items]="accountPeriodsFrom"
+        [optionIdField]="'accountPeriodId'"
+        [optionNameField]="'startValue'"
+        (valueChanged)="changeAccountPeriodsFrom($event)"
+        formControlName="accountPeriodFromId">
+      </soe-select>
+    </div>
+    <div class="col-sm-3">
+      <soe-select
+        [labelKey]="'common.reports.drilldown.period'"
+        [items]="accountPeriodsTo"
+        [optionIdField]="'accountPeriodId'"
+        [optionNameField]="'startValue'"
+        (valueChanged)="changeAccountPeriodsTo($event)"
+        formControlName="accountPeriodToId">
+      </soe-select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 pt-2">
+      <soe-button
+        class="pull-right"
+        [behaviour]="'primary'"
+        [caption]="'common.reports.drilldown.createDrilldown'"
+        [disabled]="false"
+        (action)="createDrillDownReport()"></soe-button>
+    </div>
+  </div>
+</form>

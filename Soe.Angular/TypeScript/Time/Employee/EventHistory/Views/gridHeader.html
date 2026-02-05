@@ -1,0 +1,37 @@
+﻿<div class="col-sm-10 padding-none-right">
+    <div class="row margin-large-top">
+        <div class="col-sm-12 padding-none-right form-inline">
+            <!-- Type -->
+            <div class="form-group form-group-sm">
+                <soe-label label-key="common.type"></soe-label>
+            </div>
+            <div class="form-group form-group-sm margin-small-left margin-large-right">
+                <soe-select hidelabel="true" model="ctrl.type" items="ctrl.types" options="item.id as item.name for item in items" input-width="150px"></soe-select>
+            </div>
+
+            <!-- Employee -->
+            <div class="form-group form-group-sm">
+                <soe-label label-key="common.employee"></soe-label>
+            </div>
+            <div class="form-group form-group-sm margin-small-left margin-large-right">
+                <soe-typeahead hidelabel="true" model="ctrl.employee" items="ctrl.employees" options="item as item.name for item in items" input-width="200px" limit="50"></soe-typeahead>
+            </div>
+
+            <!-- Date range -->
+            <div class="form-group form-group-sm">
+                <div class="form-group form-group-sm">
+                    <soe-label label-key="common.daterange" required="true"></soe-label>
+                </div>
+                <div class="form-group form-group-sm">
+                    <soe-datepicker hidelabel="true" model="ctrl.dateFrom" button-class="no-border-radius"></soe-datepicker>
+                </div>
+                <span class="indiscreet">-</span>
+                <div class="form-group form-group-sm">
+                    <soe-datepicker hidelabel="true" model="ctrl.dateTo"></soe-datepicker>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-sm ngSoeMainButton margin-large-right" data-l10n-bind="'core.search'" data-l10n-bind-title="'core.search'" data-ng-disabled="(!ctrl.type && !ctrl.employee) || !ctrl.dateFrom || !ctrl.dateTo || ctrl.dateFrom > ctrl.dateTo" data-ng-click="$event.stopPropagation();ctrl.loadGridData();"></button>
+        </div>
+    </div>
+</div>

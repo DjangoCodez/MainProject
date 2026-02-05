@@ -1,0 +1,269 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="common.general" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="common.active" model="ctrl.account.active"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="economy.accounting.accountnr" model="ctrl.account.accountNr" required="true" maxlength="50" auto-focus="true" is-disabled="ctrl.isProjectAccountDim || ctrl.isShiftTypeAccountDim" on-blur="ctrl.validateAccountNr()"></soe-textbox>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-textbox label-key="common.name" model="ctrl.account.name" required="true" maxlength="100" is-disabled="ctrl.isProjectAccountDim || ctrl.isShiftTypeAccountDim"></soe-textbox>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-textbox label-key="common.description" model="ctrl.account.description" maxlength="100"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row margin-large-top" data-ng-if="ctrl.isProjectAccountDim || ctrl.isShiftTypeAccountDim">
+                        <div class="col-sm-6">
+                            <soe-instruction label-key="economy.accounting.account.linkedtoprojectinfo" data-ng-if="ctrl.isProjectAccountDim"></soe-instruction>
+                            <soe-instruction label-key="economy.accounting.account.linkedtoshifttypeinfo" data-ng-if="ctrl.isShiftTypeAccountDim"></soe-instruction>
+                        </div>
+                    </div>
+                    <div data-ng-if="ctrl.isStdAccount">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <soe-select label-key="economy.accounting.accounttype" model="ctrl.account.accountTypeSysTermId" items="ctrl.accountTypes" options="item.id as item.name for item in items" required="true"></soe-select>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-select label-key="economy.accounting.account.sysvataccount" model="ctrl.account.sysVatAccountId" items="ctrl.sysVatAccounts" options="item.id as item.name for item in items" on-changing="ctrl.sysVatAccountChanged(item)"></soe-select>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="economy.accounting.account.sysvatrate" model="ctrl.account.sysVatRate" readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-checkbox label-key="economy.accounting.account.isaccrualaccount" model="ctrl.account.isAccrualAccount" inline="true"></soe-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-ng-if="!ctrl.isStdAccount">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="economy.accounting.account.externalcode" model="ctrl.account.externalCode" maxlength="50"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="economy.accounting.account.translations">
+                <div data-ng-repeat="translation in ctrl.translations">
+                    <div class="form-group form-group-sm">
+                        <div data-ng-if="$first">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <soe-label label-key="core.language"></soe-label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <soe-label label-key="economy.accounting.account.translation"></soe-label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-select hidelabel="true" model="translation.lang" items="ctrl.languages" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" data-ng-model="translation.name">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-default fal fa-times" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.removeTranslation(translation)"></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind="'economy.accounting.account.addtranslation'" data-ng-click="$event.stopPropagation();ctrl.addTranslation()"></button>
+                    </div>
+                </div>
+            </soe-accordion>
+            <div data-ng-if="!ctrl.isStdAccount">
+                <soe-accordion label-key="common.settings">
+                    <div class="row" data-ng-if="ctrl.account">
+                        <div class="col-sm-4">
+                            <soe-multiselect button="false" display-prop="name" search="false" options="ctrl.categories" model="ctrl.selectedCategories" label-key="common.categories" on-selection-complete="ctrl.onCategorySelectionChanged()"></soe-multiselect>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.isCostPlaceDim">
+                        <div class="col-sm-4">
+                            <soe-select label-key="economy.accounting.account.attestgroup" model="ctrl.account.attestWorkFlowHeadId" items="ctrl.attestGroups" options="item.id as item.name for item in items"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.account.useVatDeductionDim">
+                        <div class="col-sm-2">
+                            <soe-checkbox label-key="economy.accounting.account.usevatdeduction" model="ctrl.account.useVatDeduction"></soe-checkbox>
+                        </div>
+                        <div class="col-sm-2" data-ng-if="ctrl.account.useVatDeduction">
+                            <soe-textbox label-key="economy.accounting.account.vatdeduction" model="ctrl.account.vatDeduction" numeric="true" decimals="2" is-readonly="!ctrl.account.useVatDeduction"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row margin-large-top" data-ng-if="ctrl.showExternalCodes">
+                        <div class="col-sm-4">
+                            <soe-panel label-key="economy.accounting.account.payrollexport">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <soe-textbox label-key="economy.accounting.account.accounthierachypayrollexportunitexternalcode" model="ctrl.account.accountHierachyPayrollExportUnitExternalCode"></soe-textbox>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <soe-textbox label-key="economy.accounting.account.accounthierachypayrollexportexternalcode" model="ctrl.account.accountHierachyPayrollExportExternalCode"></soe-textbox>
+                                    </div>
+                                </div>
+                            </soe-panel>
+                        </div>
+                    </div>
+                </soe-accordion>
+            </div>
+            <div data-ng-if="ctrl.isStdAccount">
+                <soe-accordion label-key="economy.accounting.accountinternals">
+                    <div data-ng-repeat="accountMapping in ctrl.accountMappings">
+                        <div class="form-group form-group-sm">
+                            <div data-ng-if="$first" class="row">
+                                <soe-label class="col-sm-3" label-key="economy.accounting.accountinternal"></soe-label>
+                                <soe-label class="col-sm-4" label-key="common.standard"></soe-label>
+                                <soe-label class="col-sm-5" label-key="economy.accounting.account.mandatorylevel"></soe-label>
+                            </div>
+                            <br data-ng-if="$first" />
+                            <div class="row">
+                                <soe-text class="col-sm-3" model="accountMapping.accountDimName"></soe-text>
+                                <soe-select class="col-sm-4" hidelabel="true" model="accountMapping.defaultAccountId" items="accountMapping.accounts" options="item.accountId as item.dimNameNumberAndName for item in items"></soe-select>
+                                <soe-select class="col-sm-5" hidelabel="true" model="accountMapping.mandatoryLevel" items="accountMapping.mandatoryLevels" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="economy.accounting.account.srucodes">
+                    <div class="form-group form-group-sm">
+                        <soe-select label-key="economy.accounting.account.scrucode1" model="ctrl.account.sysAccountSruCode1Id" items="ctrl.sysAccountSruCodes" options="item.id as item.name for item in items"></soe-select>
+                        <soe-select label-key="economy.accounting.account.scrucode2" model="ctrl.account.sysAccountSruCode2Id" items="ctrl.sysAccountSruCodes" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="economy.accounting.account.voucher">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <soe-select label-key="economy.accounting.account.amountstop" model="ctrl.account.amountStop" items="ctrl.amountStopTypes" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-textbox label-key="economy.accounting.account.unit" model="ctrl.account.unit"></soe-textbox>
+                            </div>
+                        </div>
+                        <br />
+                        <soe-checkbox label-key="economy.accounting.account.unitstop" model="ctrl.account.unitStop"></soe-checkbox>
+                        <soe-checkbox label-key="economy.accounting.account.rowtextstop" model="ctrl.account.rowTextStop"></soe-checkbox>
+                    </div>
+                </soe-accordion>
+                <div data-ng-if="ctrl.accountId !== 0">
+                    <soe-accordion label-key="economy.accounting.accountbalances" is-open="ctrl.balanceExpanderInitiallyOpened">
+                        <div class="table-responsive col-sm-6">
+                            <table class="table table-condensed table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"><soe-label label-key="economy.accounting.accountyear"></soe-label></th>
+                                        <th scope="col"><soe-label label-key="economy.accounting.accountbalance"></soe-label></th>
+                                        <th scope="col"><soe-label label-key="economy.accounting.accountbalancelastmodified"></soe-label></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="accountBalance in ctrl.accountBalances">
+                                        <td><soe-text model="accountBalance.accountYearStr"></soe-text></td>
+                                        <td class="text-right"><soe-text model="accountBalance.balanceStr"></soe-text></td>
+                                        <td><soe-text model="accountBalance.modifiedCreatedStr"></soe-text></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <soe-checkbox label-key="economy.accounting.account.recalculateall" model="ctrl.calcAllAccounts"></soe-checkbox>
+                            </div>
+                            <div class="row">
+                                <soe-instruction label-key="economy.accounting.account.recalculationinfo"></soe-instruction>
+                            </div>
+                            <div class="row">
+                                <button type="button" class="btn btn-default" data-l10n-bind="'economy.accounting.account.recalculatebalances'" data-ng-click="$event.stopPropagation();ctrl.onReCalculateBalances(ctrl.account)" style="margin-top: 10px"></button>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </div>
+                <soe-accordion label-key="economy.accounting.account.vatcodes">
+                    <div class="form-group form-group-sm">
+                        <soe-checkbox label-key="economy.accounting.account.excludevatverification" model="ctrl.account.excludeVatVerification"></soe-checkbox>
+                    </div>
+                </soe-accordion>
+            </div>
+            <soe-accordion label-key="economy.accounting.account.parentaccount" data-ng-if="ctrl.accounts.length > 0 || ctrl.childrenAccounts.length > 0">
+                <div class="row" data-ng-if="ctrl.accounts.length > 0">
+                    <div class="col-sm-4">
+                        <soe-label model="ctrl.parentAccountDimName"></soe-label>
+                        <soe-select hidelabel="true" model="ctrl.account.parentAccountId" items="ctrl.accounts" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-checkbox label-key="economy.accounting.account.hierarchyOnly" model="ctrl.account.hierarchyOnly" inline="true"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row" data-ng-if="ctrl.childrenAccounts.length > 0">
+                    <div class="col-sm-4">
+                        <div class="table-outer-bordered">
+                            <div class="table-scrollable-wrapper">
+                                <div class="table-scrollable" style="height: 203px;">
+                                    <table class="table table-condensed table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"><span class="indiscreet" data-l10n-bind="'economy.accounting.account.childaccount'"></span></th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-ng-repeat="account in ctrl.childrenAccounts">
+                                                <td><span>({{::account.accountNr}}) {{::account.name}}</span></td>
+                                                <td><i class="fal fa-pencil iconEdit link pull-right" data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-click="ctrl.openEditAccount(account);"></i></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-checkbox label-key="common.hideinscheduleplanning" model="ctrl.account.hierarchyNotOnSchedule"></soe-checkbox>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.extrafields.extrafields" is-open="false" ng-if="ctrl.showExtraFieldsExpander" on-open="ctrl.onExtraFieldsExpanderOpenClose()" on-close="ctrl.onExtraFieldsExpanderOpenClose()">
+                <div class="form-group form-group-sm" ng-if="ctrl.extraFieldsExpanderRendered">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <extra-fields record-id="ctrl.accountId" entity="48" read-only="!ctrl.modifyPermission" parent-guid="ctrl.guid" extra-field-records="ctrl.extraFieldRecords" conncected-entity="66" connected-record-id="ctrl.accountDimId"></extra-fields>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.account"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,34 @@
+﻿<div class="timeattest-rowdetail-container">
+    <div class="row">
+        <div class="col-sm-12">
+            <day-schedule is-modal="ctrl.isModal" show-multiple-days="ctrl.showMultipleDays" model="ctrl.data" show-time-stamp="ctrl.showTimeStamp" show-transaction="ctrl.showTransaction" time-stamp-is-modified="ctrl.timeStampIsModified" on-time-stamp-selected="ctrl.timeStampSelected(id);" reloading-time-blocks="ctrl.reloadingTimeBlocks" validating-time-blocks="ctrl.validatingTimeBlocks" time-blocks-is-modified="ctrl.timeBlockIsModified" on-resize-needed="ctrl.setHeight();"></day-schedule>
+        </div>
+    </div>
+    <div class="row margin-small-top" data-ng-if="ctrl.showTimeStamp">
+        <div class="col-sm-12">
+            <time-stamp model="ctrl.data" is-modal="ctrl.isModal" is-dirty="ctrl.isDirty" on-change="ctrl.timeStampChanged();" on-selected-time-stamp-changed="ctrl.selectedTimeStampChanged({ timeStampEntry: timeStampEntry });" on-resize-needed="ctrl.setHeight();"></time-stamp>
+        </div>
+    </div>
+    <div class="row margin-small-top" data-ng-if="ctrl.showProjectTimeBlock">
+        <div class="col-sm-12">
+            <!--
+            <time-project-report read-only="ctrl.isLocked" rows="ctrl.projectTimeBlockRows" vat-type="ctrl.invoice.vatType" project-type="ctrl.projectType" record-type="ctrl.recordType" employee-id="ctrl.employeeId" project-id="ctrl.invoice.projectId" set-loading="ctrl.loadingTimeProjectRows" from-date="ctrl.timeProjectFrom" to-date="ctrl.timeProjectTo" invoice-id="ctrl.invoiceId" project-container="ctrl.projectContainer" parent-guid="ctrl.guid"></time-project-report>
+            -->
+        </div>
+    </div>
+    <div class="row" data-ng-if="ctrl.showTransaction">
+        <div class="col-sm-12">
+            <time-payroll-transaction model="ctrl.data" is-modal="ctrl.isModal" reloading="ctrl.reloadingTimeBlocks" validating="ctrl.validatingTimeBlocks" is-modified="ctrl.timeBlockIsModified" selected-time-Code-transaction-id="ctrl.contentEmployeeTimeCodeTransactionIdSelected" on-resize-needed="ctrl.setHeight();"></time-payroll-transaction>
+        </div>
+    </div>
+    <div class="row margin-small-top" data-ng-if="ctrl.showTransaction">
+        <div class="col-sm-12">
+            <time-code-transaction model="ctrl.data" selected-time-Code-transaction-id="ctrl.contentEmployeeTimeCodeTransactionIdSelected" on-resize-needed="ctrl.setHeight();"></time-code-transaction>
+        </div>
+    </div>
+    <div class="row margin-small-top" data-ng-if="ctrl.data.hasPayrollImportEmployeeTransactions">
+        <div class="col-sm-12">
+            <payroll-import-transaction model="ctrl.data" reloading="ctrl.reloadingTimeBlocks" validating="ctrl.validatingTimeBlocks" on-create-time-block="ctrl.createTimeBlockFromPayrollImport({ trans: trans });" on-resize-needed="ctrl.setHeight();"></payroll-import-transaction>
+        </div>
+    </div>
+</div>

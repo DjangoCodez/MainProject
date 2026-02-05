@@ -1,0 +1,76 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" >
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <div budget-validation ng-model="ctrl.budgetHead" class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-3">
+                    <soe-textbox is-disabled="ctrl.budgetHead.status == 2" label-key="common.name" model="ctrl.budgetHead.name" required="true" auto-focus="true"></soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-textbox is-disabled="ctrl.budgetHead.status == 2" label-key="economy.accounting.budget.noofperiods" model="ctrl.numberOfPeriods" required="true" auto-focus="true"></soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-select is-disabled="ctrl.budgetHead.status == 2"  label-key="economy.accounting.accountyear.accountyear" model="ctrl.budgetHead.accountYearId" items="ctrl.accountYearsDict" options="item.id as item.name for item in items" on-changing="ctrl.accountyearChanged(item)"></soe-select>
+                </div>
+                <div class="col-sm-3">
+                    <soe-select is-disabled="ctrl.budgetHead.status == 2 " label-key="economy.accounting.budget.defaultdistributioncode" model="ctrl.budgetHead.distributionCodeId" items="ctrl.distributionCodesDict" options="item.id as item.name for item in items"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <soe-checkbox is-disabled="ctrl.budgetHead.status == 2" model="ctrl.budgetHead.useDim2" inline="true" label="{{ctrl.useDim2Label}}" hidelabel="true" ng-show="ctrl.showDim2" on-changing="ctrl.dim2Changed()"></soe-checkbox>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label" ng-if="ctrl.showDim2">{{ ctrl.dim2Label }}</label>
+                    <soe-select is-disabled="ctrl.budgetHead.status == 2 || ctrl.budgetHead.useDim2 != true" model="ctrl.budgetHead.dim2Id" items="ctrl.dim2s" hidelabel="true" options="item.accountId as item.numberName for item in items" ng-if="ctrl.showDim2"></soe-select>
+                </div>
+                <div class="col-sm-3">
+                    <soe-checkbox is-disabled="ctrl.budgetHead.status == 2" model="ctrl.budgetHead.useDim3" inline="true" label="{{ctrl.useDim3Label}}" ng-show="ctrl.showDim3" on-changing="ctrl.dim3Changed(item)"></soe-checkbox>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label" ng-if="ctrl.showDim3">{{ ctrl.dim3Label }}</label>
+                    <soe-select is-disabled="ctrl.budgetHead.status == 2 || ctrl.budgetHead.useDim3 != true" model="ctrl.budgetHead.dim3Id" hidelabel="true" items="ctrl.dim3s" options="item.accountId as item.numberName for item in items" ng-if="ctrl.showDim3"></soe-select>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-12" ng-if="ctrl.budgetHead">
+                    <budget-grid is-disabled="ctrl.budgetHead.status == 2" show-passed-periods-dialog="!ctrl.ignorePassedPeriod" account-dims="ctrl.accountDims" distribution-codes="ctrl.distributionCodes" distribution-codes-dict="ctrl.distributionCodesDict" budget-head="ctrl.budgetHead" number-of-periods="ctrl._numberOfPeriods" use-dim-2="ctrl.budgetHead.useDim2" use-dim-3="ctrl.budgetHead.useDim3" distribution-code-id="ctrl.budgetHead.distributionCodeId" dim-2-id="ctrl.budgetHead.dim2Id" dim-3-id="ctrl.budgetHead.dim3Id" guid="ctrl.guid" ng-if="ctrl.budgetHead || ctrl.accountStdsDict"></budget-grid>
+                </div>
+            </div>
+        </div>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-2">
+                <created-modified model="ctrl.budgetHead"></created-modified>
+            </div>
+            <div class="col-sm-10">
+                <div class="pull-right">
+                    <div ng-if="ctrl.budgetHead.status == 1 && ctrl.modifyPermission">
+                        <div class="col">
+                            <label class="margin-small-right"><input type="checkbox" data-ng-model="ctrl.ignorePassedPeriod"><span data-l10n-bind="'economy.accounting.budget.ignorepassedperiods'"></span></label>
+                        </div>
+                        <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl"></div>
+                        <div class="col">
+                            <button type="button" class="btn btn-sm btn-default margin-large-left" data-l10n-bind="'economy.accounting.budget.clear'" ng-click="ctrl.clear()"></button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-sm btn-default margin-large-left" data-l10n-bind="'economy.accounting.budget.getresult'" ng-click="ctrl.openPreviousResultDialog()"></button>
+                        </div>
+                        <div class="col">
+                            <button type="button" ng-if="ctrl.setDefinitePersmission" class="btn btn-sm btn-default margin-large-left" data-l10n-bind="'economy.accounting.budget.lock'" ng-click="ctrl.lock()"></button>
+                        </div>
+                        <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl"></div>
+                    </div>
+                    <div ng-if="ctrl.budgetHead.status == 2 && ctrl.modifyPermission && ctrl.setDefinitePersmission">
+                        <div class="col">
+                            <button type="button" class="btn btn-sm btn-default margin-large-left" data-l10n-bind="'economy.accounting.budget.unlock'" ng-click="ctrl.unlock()"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

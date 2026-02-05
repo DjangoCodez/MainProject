@@ -1,0 +1,30 @@
+﻿<div>
+    <table class="table table-condensed table-outer-bordered table-hover horizontal-line-top">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 22px"><span class="dirtyTabIcon" data-ng-if="ctrl.userHasChanges">*</span></th>
+                <th scope="col"><span><span data-l10n-bind="'common.user.loginid'"></span><span class="required-label" data-ng-if="ctrl.isRequired">*</span></span></th>
+                <th scope="col" data-l10n-bind="'common.language'"></th>
+                <th scope="col" data-l10n-bind="'common.user.blockedfromdate'"></th>
+                <th scope="col" style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.openUserDialog();"></i></span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td><span>{{ctrl.loginName}}</span></td>
+                <td><span>{{ctrl.languageName}}</span></td>
+                <td><span>{{ctrl.blockedFromDate | date: 'shortDate'}}</span></td>
+                <td></td>
+            </tr>
+            <tr data-ng-if="ctrl.showSso">
+                <th scope="col" style="width: 22px"></th>
+                <th scope="col" colspan="4" class="indiscreet" data-l10n-bind="'common.user.externalauthid'"></th>
+            </tr>
+            <tr data-ng-if="ctrl.showSso">
+                <td></td>
+                <td colspan="4"><span>{{ctrl.externalAuthId}}</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

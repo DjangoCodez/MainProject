@@ -1,0 +1,21 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>        
+    </div>
+    <div class="modal-body">
+        <!-- Header -->
+        <div class="form-group form-group-sm">
+            
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div data-ui-grid="ctrl.soeGridOptions.gridOptions" enableCellEdit="true" ui-grid-auto-resize data-ui-grid-edit ui-grid-expandable ui-grid-cellNav></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" data-ng-if="!ctrl.progress.progressBusy">
+        <div class="pull-right">            
+            <button type="button" class="btn btn-sm btn-default margin-large-left" data-l10n-bind="'core.close'" data-l10n-bind-title="'core.close'" data-ng-click="ctrl.cancel()"></button>
+        </div>
+    </div>
+</form>

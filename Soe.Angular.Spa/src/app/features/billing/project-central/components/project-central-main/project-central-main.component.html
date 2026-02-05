@@ -1,0 +1,74 @@
+<soe-toolbar
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  [noPadding]="false"
+  [noMargin]="false"
+  [noBorder]="false">
+</soe-toolbar>
+<div class="container" header>
+  <div class="row" [formGroup]="form">
+    <div class="col-sm-12">
+      <soe-expansion-panel [labelKey]="projectInfoLabel" [open]="true">
+        @if (showBreadCrumbs) {
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-label
+                [labelKey]="'billing.projects.list.mainproject'"></soe-label>
+            </div>
+          </div>
+        }
+        <div class="mt-2">
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-label [labelKey]="'billing.project.project'"></soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                [labelKey]="'billing.projects.list.customer'"></soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                [labelKey]="'billing.projects.list.leader'"></soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                [labelKey]="'billing.projects.list.status'"></soe-label>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-2">
+            <a
+              href="#"
+              style="font-size: 0.8rem; text-decoration: none"
+              (click)="openProject()"
+              >{{ form.number.value }} {{ form.projectName.value }}</a
+            >
+          </div>
+          <div class="col-sm-2">
+            <span
+              ng-class="{ spanClickable: ctrl.hasEditCustomerPermission }"
+              data-ng-click="ctrl.openCustomer();"
+              >{{ form.customerNr.value }}&nbsp;{{
+                form.customerName.value
+              }}</span
+            >
+          </div>
+          <div class="col-sm-2">
+            <soe-label [labelValue]="form.managerName.value"> </soe-label>
+          </div>
+          <div class="col-sm-2">
+            <soe-label [labelValue]="form.statusName.value"> </soe-label>
+          </div>
+        </div>
+      </soe-expansion-panel>
+    </div>
+  </div>
+  <div class="row">
+    <soe-project-central-grid
+      [project]="project"
+      [hasEditSupplierInvoicePermission]="hasEditSupplierInvoicePermission"
+      [hasEditCustomerOrderPermission]="
+        hasEditCustomerOrderPermission
+      "></soe-project-central-grid>
+  </div>
+</div>

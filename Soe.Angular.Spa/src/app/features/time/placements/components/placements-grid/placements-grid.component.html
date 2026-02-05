@@ -1,0 +1,17 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+    [toolbarGroups]="toolbarUtils.toolbarGroups">
+    <div footer>
+      @if (flowHandler.modifyPermission()) {
+        <soe-placements-grid-footer
+          [selectedRows]="this.selectedRowsSignal() || []"
+          (activatingFinished)="
+            this.onActivationFinished($event)
+          "></soe-placements-grid-footer>
+      }
+    </div>
+  </soe-grid-wrapper>
+}

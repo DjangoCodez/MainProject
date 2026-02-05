@@ -1,0 +1,65 @@
+@if (!this.data.directExport) {
+  <soe-dialog>
+    <div dialog-content>
+      <soe-expansion-panel
+        labelKey="{{ topText }}"
+        [static]="true"
+        [noMargin]="true">
+        <div
+          class="row"
+          style="overflow-y: scroll; overflow-x: hidden; height: 300px">
+          <div class="col-sm-12">
+            <table class="table table-condensed table-hover">
+              <thead>
+                <tr>
+                  @for (header of headerItems; track header; let h = $index) {
+                    <th scope="col" style="width: auto" id="header{{ h }}">
+                      {{ header.header }}
+                    </th>
+                  }
+                </tr>
+              </thead>
+              @for (item of output; track item; let i = $index) {
+                <tbody>
+                  <tr>
+                    @for (header of headerItems; track header; let h = $index) {
+                      <td style="width: auto">
+                        <span> {{ item.text[h] }}</span>
+                      </td>
+                    }
+                  </tr>
+                </tbody>
+              }
+            </table>
+          </div>
+        </div>
+        <div style="padding-top: 10px">
+          <div
+            class="col-sm-12"
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding-left: 0;
+              padding-right: 0;
+            ">
+            <div>
+              @if (export) {
+                <soe-button
+                  [caption]="'core.exportexcel'"
+                  [behaviour]="'standard'"
+                  (action)="exportToExcel()"></soe-button>
+              }
+            </div>
+            <div>
+              <soe-button
+                [caption]="'core.close'"
+                [behaviour]="'standard'"
+                (action)="closeDialog()"></soe-button>
+            </div>
+          </div>
+        </div>
+      </soe-expansion-panel>
+    </div>
+  </soe-dialog>
+}

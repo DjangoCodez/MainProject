@@ -1,0 +1,34 @@
+@use '../../../../../shared/styles/core-styles/colors.scss';
+@use '../../../../../shared/styles/core-styles/fonts.scss';
+@use '../schedule-planning/schedule-planning-common.scss';
+
+.right-content-toolbar {
+  fa-icon {
+    font-size: fonts.$soe-font-size-xl;
+    cursor: pointer;
+  }
+}
+
+.detail-container {
+  font-size: fonts.$soe-font-size-sm;
+  padding: 0.25rem;
+
+  p {
+    font-weight: fonts.$font-weight-bold;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+  }
+
+  .group-container {
+    margin: 0.25rem 0 0.25rem 0;
+    border-top: 1px solid colors.$soe-border-color;
+
+    .item-container {
+      margin-bottom: 0.5rem;
+
+      &:nth-last-child(1) {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

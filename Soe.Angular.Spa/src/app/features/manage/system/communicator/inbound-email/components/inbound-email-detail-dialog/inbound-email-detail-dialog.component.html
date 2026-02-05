@@ -1,0 +1,185 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div>
+          <soe-expansion-panel [labelKey]="'Head'" [open]="true">
+            <div class="row">
+              <div class="col-sm-7">
+                <soe-textbox
+                  [labelKey]="'Subject'"
+                  formControlName="subject"></soe-textbox>
+              </div>
+              <div class="col-sm-3">
+                <soe-textbox
+                  [labelKey]="'From'"
+                  formControlName="from"></soe-textbox>
+              </div>
+              <div class="col-sm-2">
+                <soe-textbox
+                  [labelKey]="'Received'"
+                  formControlName="receivedText"></soe-textbox>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2">
+                <soe-numberbox
+                  [labelKey]="'Spam Score'"
+                  formControlName="spamScore"
+                  [decimals]="4"
+                  [noFormatting]="true"></soe-numberbox>
+              </div>
+              <div class="col-sm-10">
+                <soe-textbox
+                  [labelKey]="'Unique Identifier'"
+                  formControlName="uniqueIdentifier"></soe-textbox>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-textarea
+                  [labelKey]="'Text'"
+                  formControlName="text"
+                  [rows]="15"></soe-textarea>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-texteditor
+                  [labelKey]="'HTML'"
+                  formControlName="html"
+                  [minHeight]="250"
+                  [maxHeight]="500"></soe-texteditor>
+              </div>
+            </div>
+          </soe-expansion-panel>
+          <soe-expansion-panel [labelKey]="'Inbound Emails'" [static]="true">
+            <div class="table-responsive col-sm-12">
+              <table class="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: auto">
+                      <span class="fw-bold">Id</span>
+                    </th>
+                    <th scope="col" style="width: auto">
+                      <span class="fw-bold">Type</span>
+                    </th>
+                    <th scope="col" style="width: auto">
+                      <span class="fw-bold">Email</span>
+                    </th>
+                    <th scope="col" style="width: auto">
+                      <span class="fw-bold">Delivery Status</span>
+                    </th>
+                    <th scope="col" style="width: auto">
+                      <span class="fw-bold">Retries</span>
+                    </th>
+                    <th scope="col" style="width: auto">
+                      <span class="fw-bold">Last updated</span>
+                    </th>
+                    <th scope="col" style="width: auto">
+                      <span class="fw-bold">Dispatcher Id</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (row of form.inboundEmailAddresses; track $index) {
+                    <tr>
+                      <td>{{ row.id }}</td>
+                      <td>{{ row.type }}</td>
+                      <td>{{ row.emailAddress }}</td>
+                      <td>{{ row.deliveryStatus }}</td>
+                      <td>{{ row.retries }}</td>
+                      <td>
+                        {{ row.lastUpdated | date: 'yyyy-MM-dd HH:mm:ss' }}
+                      </td>
+                      <td>{{ row.dispatcherId }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </soe-expansion-panel>
+          <soe-expansion-panel [labelKey]="'Attachments'" [static]="true">
+            <div class="table-responsive col-sm-12">
+              <table class="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: auto">
+                      <span class="fw-bold">Id</span>
+                    </th>
+                    <th scope="col" style="width: auto">
+                      <span class="fw-bold">File Name</span>
+                    </th>
+                    <th scope="col" style="width: auto">
+                      <span class="fw-bold">Content Type</span>
+                    </th>
+                    <th scope="col" style="width: auto">
+                      <span class="fw-bold">Size</span>
+                    </th>
+                    <th scope="col" style="width: auto">&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (attachment of form.attachments; track $index) {
+                    <tr>
+                      <td>{{ attachment.id }}</td>
+                      <td>{{ attachment.fileName }}</td>
+                      <td>{{ attachment.contentType }}</td>
+                      <td>{{ attachment.size | byteFormatter }}</td>
+                      <td [width]="'50px'">
+                        <soe-icon-button
+                          [iconName]="'download'"
+                          (action)="
+                            downloadAttachment(attachment)
+                          "></soe-icon-button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </soe-expansion-panel>
+          <soe-expansion-panel [labelKey]="'Logs'" [static]="true">
+            <div class="table-responsive col-sm-12">
+              <table class="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: auto">
+                      <span class="fw-bold">Id</span>
+                    </th>
+                    <th scope="col" style="width: auto">
+                      <span class="fw-bold">Created On</span>
+                    </th>
+                    <th scope="col" style="width: auto">
+                      <span class="fw-bold">Message</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (log of form.logs; track $index) {
+                    <tr>
+                      <td>{{ log.id }}</td>
+                      <td>{{ log.createdOn | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+                      <td>{{ log.message }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </soe-expansion-panel>
+        </div>
+      </form>
+    }
+  </ng-container>
+  <ng-container dialog-footer>
+    <soe-button
+      [behaviour]="'standard'"
+      [caption]="'core.close'"
+      [title]="'core.close'"
+      (action)="closeDialog()"></soe-button>
+  </ng-container>
+</soe-dialog>

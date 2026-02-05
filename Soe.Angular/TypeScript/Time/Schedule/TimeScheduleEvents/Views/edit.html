@@ -1,0 +1,51 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+    <div>
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+        <soe-panel label-key="time.schedule.timescheduleevent.event">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.name" model="ctrl.timeScheduleEvent.name" required="true" maxlength="100"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.description" model="ctrl.timeScheduleEvent.description" required="true" maxlength="512"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-datepicker label-key="common.date" model="ctrl.selectedDate"></soe-datepicker>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-label label-key="time.schedule.timescheduleevent.choosegroups"></soe-label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div time-schedule-event-validation ng-model="ctrl.groupMembers" nbr-receivers="ctrl.groupMembers.length">
+                        <div class="col-sm-12">
+                            <receivers-list parent-guid="ctrl.guid" recipients="ctrl.groupMembers" only-message-group="true"></receivers-list>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.timeScheduleEvent"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

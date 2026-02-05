@@ -1,0 +1,20 @@
+﻿<div>
+    <div class="row">
+        <div class="col-sm-12">
+            <bool-selection label-key="common.report.selection.date" on-selected="$ctrl.onDateSelectionSelected(selection)" user-selection-input="$ctrl.dateIsSelectedDTO"></bool-selection>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12" data-ng-if="$ctrl.showRange">
+            <accounting-year-and-period-range-selection on-interval-from-selected="$ctrl.intervalFromChanged(selection)" on-interval-to-selected="$ctrl.intervalToChanged(selection)" selected-range-from="$ctrl.accountPeriodFrom" selected-range-to="$ctrl.accountPeriodTo"></accounting-year-and-period-range-selection>
+        </div>
+        <div class="col-sm-8" data-ng-if="!$ctrl.showRange">
+            <date-selection show-range="true" as-range="true" label-key="common.datefrom" additional-label-key="common.dateto" on-selected="$ctrl.onDateRangeSelected(selection)" user-selection-input="$ctrl.selectedDateRange"></date-selection>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <inventory-and-category-range-selection can-visible-inventory-account="true" selected-from-inventory-account="$ctrl.selectedFromInventoryAccount" selected-to-inventory-account="$ctrl.selectedToInventoryAccount" on-inventory-account-from-selected="$ctrl.onInventoryAccountFromSelected(selection)" on-inventory-account-to-selected="$ctrl.onInventoryAccountToSelected(selection)" selected-prognose-type="$ctrl.selectedPrognoseType" on-prognose-type-changed="$ctrl.onPrognoseTypeChanged(selection)" selected-from-inventory="$ctrl.selectedFromInventory" selected-to-inventory="$ctrl.selectedToInventory" on-inventory-from-selected="$ctrl.onInventoryFromSelected(selection)" on-inventory-to-selected="$ctrl.onInventoryToSelected(selection)" selected-from-category="$ctrl.selectedFromCategory" selected-to-category="$ctrl.selectedToCategory" on-category-from-selected="$ctrl.onCategoryFromSelected(selection)" on-category-to-selected="$ctrl.onCategoryToSelected(selection)"></inventory-and-category-range-selection>
+        </div>
+    </div>
+</div>

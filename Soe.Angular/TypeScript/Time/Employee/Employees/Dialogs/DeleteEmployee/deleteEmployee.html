@@ -1,0 +1,150 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.employee.employee.delete.title'"></h6>
+    </div>
+    <div class="modal-body">
+        <!-- Employee -->
+        <div class="row margin-large-bottom">
+            <div class="col-sm-12">
+                <div class="info">
+                    <span class="indiscreet">{{ctrl.employeeText}}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Validation -->
+        <div class="row margin-large-bottom" data-ng-if="ctrl.validating">
+            <div class="col-sm-12">
+                <div class="info">
+                    <span class="indiscreet" data-l10n-bind="'time.employee.employee.delete.validating'"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-bottom" data-ng-if="ctrl.validationInactivateMessages.length > 0">
+            <div class="col-sm-12">
+                <div class="warning">
+                    <span class="indiscreet" data-l10n-bind="'time.employee.employee.delete.unabletoinactivate'"></span>
+                    <div data-ng-repeat="message in ctrl.validationInactivateMessages">
+                        <span>{{message}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-bottom" data-ng-if="ctrl.validationDeleteMessages.length > 0">
+            <div class="col-sm-12">
+                <div class="warning">
+                    <span class="indiscreet" data-l10n-bind="'time.employee.employee.delete.unabletounidentify'" data-ng-if="!ctrl.onlyWarnings"></span>
+                    <div data-ng-repeat="message in ctrl.validationDeleteMessages">
+                        <span>{{message}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-bottom" data-ng-if="ctrl.validationImmediateDeleteMessages.length > 0">
+            <div class="col-sm-12">
+                <div class="warning">
+                    <span class="indiscreet" data-l10n-bind="'time.employee.employee.delete.unabletodelete'"></span>
+                    <div data-ng-repeat="message in ctrl.validationImmediateDeleteMessages">
+                        <span>{{message}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="row" data-ng-if="!ctrl.validating && ctrl.selectedAction != 0">
+            <div class="col-sm-12">
+                <soe-panel label-key="time.employee.employee.delete.actions">
+                    <div class="toggle-group">
+                        <!-- Inactivate -->
+                        <div class="row vertical-align margin-small-bottom">
+                            <div class="col-sm-3">
+                                <input type="radio" id="action_inactivate" name="action" data-ng-model="ctrl.selectedActionValue" value="1" data-ng-class="{ 'checked': ctrl.selectedAction == 1 }" data-ng-disabled="!ctrl.enableInactivate">
+                                <label class="btn btn-default btn-block" for="action_inactivate"><span data-l10n-bind="'time.employee.employee.delete.action.inactivate'"></span></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 1 }" data-l10n-bind="'time.employee.employee.delete.action.inactivate.info'"></span>
+                            </div>
+                        </div>
+                        <!-- Remove personal information -->
+                        <div class="row vertical-align margin-small-bottom">
+                            <div class="col-sm-3">
+                                <input type="radio" id="action_removeinfo" name="action" data-ng-model="ctrl.selectedActionValue" value="2" data-ng-class="{ 'checked': ctrl.selectedAction == 2 }" data-ng-disabled="!ctrl.enableRemoveInfo">
+                                <label class="btn btn-default btn-block" for="action_removeinfo"><span data-l10n-bind="'time.employee.employee.delete.action.removeinfo'"></span></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 2 }" data-l10n-bind="'time.employee.employee.delete.action.removeinfo.info'"></span>
+                            </div>
+                        </div>
+                        <!-- Unidentify -->
+                        <div class="row vertical-align margin-small-bottom">
+                            <div class="col-sm-3">
+                                <input type="radio" id="action_unidentify" name="action" data-ng-model="ctrl.selectedActionValue" value="3" data-ng-class="{ 'checked': ctrl.selectedAction == 3 }" data-ng-disabled="!ctrl.enableUnidentify">
+                                <label class="btn btn-default btn-block" for="action_unidentify"><span data-l10n-bind="'time.employee.employee.delete.action.unidentify'"></span></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 3 }" data-l10n-bind="'time.employee.employee.delete.action.unidentify.info'"></span>
+                            </div>
+                        </div>
+                        <!-- Delete -->
+                        <div class="row vertical-align margin-small-bottom">
+                            <div class="col-sm-3">
+                                <input type="radio" id="action_delete" name="action" data-ng-model="ctrl.selectedActionValue" value="4" data-ng-class="{ 'checked': ctrl.selectedAction == 4 }" data-ng-disabled="!ctrl.enableDelete">
+                                <label class="btn btn-default btn-block" for="action_delete"><span data-l10n-bind="'time.employee.employee.delete.action.delete'"></span></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 4 }" data-l10n-bind="'time.employee.employee.delete.action.delete.info'"></span>
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+            </div>
+        </div>
+
+        <!-- Removable information -->
+        <div class="row" data-ng-if="ctrl.selectedAction == 2">
+            <div class="col-sm-6">
+                <soe-panel label-key="time.employee.employee.delete.removeinfo.select.sensitive">
+                    <soe-checkbox label-key="time.employee.employee.delete.removeinfo.salarydistress" model="ctrl.removeInfoSalaryDistress"></soe-checkbox>
+                    <soe-checkbox label-key="time.employee.employee.delete.removeinfo.unionfee" model="ctrl.removeInfoUnionFee"></soe-checkbox>
+                    <soe-checkbox label-key="time.employee.employee.delete.removeinfo.absence.sick" model="ctrl.removeInfoAbsenceSick"></soe-checkbox>
+                    <soe-checkbox label-key="time.employee.employee.delete.removeinfo.absence.parentalleave" model="ctrl.removeInfoAbsenceParentalLeave"></soe-checkbox>
+                    <soe-checkbox label-key="time.employee.employee.delete.removeinfo.meeting" model="ctrl.removeInfoMeeting"></soe-checkbox>
+                    <soe-checkbox label-key="time.employee.employee.delete.removeinfo.note" model="ctrl.removeInfoNote"></soe-checkbox>
+                </soe-panel>
+            </div>
+            <div class="col-sm-6">
+                <soe-panel label-key="time.employee.employee.delete.removeinfo.select.private">
+                    <soe-checkbox label-key="time.employee.employee.delete.removeinfo.address" model="ctrl.removeInfoAddress"></soe-checkbox>
+                    <soe-checkbox label-key="time.employee.employee.delete.removeinfo.phone" model="ctrl.removeInfoPhone"></soe-checkbox>
+                    <soe-checkbox label-key="time.employee.employee.delete.removeinfo.email" model="ctrl.removeInfoEmail"></soe-checkbox>
+                    <soe-checkbox label-key="time.employee.employee.delete.removeinfo.closestrelative" model="ctrl.removeInfoClosestRelative"></soe-checkbox>
+                    <soe-checkbox label-key="time.employee.employee.delete.removeinfo.othercontactinfo" model="ctrl.removeInfoOtherContactInfo"></soe-checkbox>
+                    <soe-checkbox label-key="time.employee.employee.delete.removeinfo.image" model="ctrl.removeInfoImage"></soe-checkbox>
+                    <soe-checkbox label-key="time.employee.employee.delete.removeinfo.bankaccount" model="ctrl.removeInfoBankAccount"></soe-checkbox>
+                    <soe-checkbox label-key="time.employee.employee.delete.removeinfo.skill" model="ctrl.removeInfoSkill"></soe-checkbox>
+                </soe-panel>
+            </div>
+        </div>
+
+        <div class="row margin-large-top" data-ng-if="!ctrl.validating && ctrl.selectedAction != 0">
+            <div class="col-sm-12">
+                <div class="warning pull-left align-bottom" data-ng-if="ctrl.selectedAction == 3 || ctrl.selectedAction == 4">
+                    <span data-l10n-bind="'time.employee.employee.delete.unidentifywarning'" data-ng-if="ctrl.selectedAction == 3"></span>
+                    <span data-l10n-bind="'time.employee.employee.delete.deletewarning'" data-ng-if="ctrl.selectedAction == 4"></span>
+                </div>
+                <div class="pull-right">
+                    <soe-textbox label-key="time.employee.employee.delete.validationcode" label-value="ctrl.employeeId" label-value-in-parentheses="true" model="ctrl.validationCode" numeric="true" decimals="0" allow-empty="true"></soe-textbox>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" data-ng-if="!ctrl.progress.progressBusy">
+        <div class="pull-right">
+            <span data-ng-if="ctrl.countDownInProgress"><i class="fal fa-bomb margin-large-right" style="font-size: 20px;"></i><span class="indiscreet errorColor">{{ctrl.countDownText}}</span></span>
+            <button type="button" class="btn btn-sm btn-default margin-large-left" data-l10n-bind="'core.cancel'" data-l10n-bind-title="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-l10n-bind-title="'core.ok'" data-ng-if="ctrl.selectedAction != 0" data-ng-disabled="!ctrl.isValidCode || ctrl.countDownInProgress" data-ng-click="ctrl.ok()"></button>
+        </div>
+    </div>
+</form>

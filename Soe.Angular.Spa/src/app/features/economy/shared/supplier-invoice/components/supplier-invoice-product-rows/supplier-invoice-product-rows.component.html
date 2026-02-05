@@ -1,0 +1,35 @@
+@if (flowHandler.allowFetchGrid()) {
+  <!-- Transfer toolbar - only show with modify permission -->
+  @if (flowHandler.modifyPermission()) {
+    <div class="row">
+      <div class="col-sm-12 mb-2">
+        <form [formGroup]="transferForm">
+          <div class="float-end d-flex gap-2">
+            <soe-select
+              [labelKey]="'economy.supplier.supplier.syswholeseller'"
+              [inline]="true"
+              [width]="150"
+              [items]="wholesellers"
+              [disabled]="selectedRowCount() === 0"
+              formControlName="wholesellerId">
+            </soe-select>
+            <soe-button
+              [caption]="'core.transfertoorder'"
+              [disabled]="transferDisabled()"
+              (action)="showTransferDialog()">
+            </soe-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+  
+  <!-- Grid -->
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    [noMargin]="true"
+    [height]="250"
+    (selectionChanged)="selectionChanged($event)">
+  </soe-grid-wrapper>
+}

@@ -1,0 +1,497 @@
+﻿@import (reference) "variables.less";
+@import (reference) "../../../../node_modules/bootstrap/less/bootstrap";
+@import "../../../../node_modules/bootstrap/less/variables";
+
+// Grid
+.ui-grid {
+    position: relative;
+    z-index: 2;
+}
+
+.ngSoeGrid {
+    min-height: @gridMinHeight;
+    height: @gridHeight;
+    //The position relative and overflow visible and z-index must be set on this level,
+    //because the gridmenu dropdown needs to be on top of buttons etc below the grid on the "same" level
+    position: relative;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    z-index: 99;
+}
+
+.ngSoeGrid-dynamic {
+    height: @gridHeight;
+    //The position relative and overflow visible and z-index must be set on this level,
+    //because the gridmenu dropdown needs to be on top of buttons etc below the grid on the "same" level
+    position: relative;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    z-index: 99;
+}
+
+.ngSoeGrid-autosize {
+    .ui-grid, .ui-grid-viewport {
+        min-height: @gridMinHeight;
+        height: auto !important;
+    }
+    //The position relative and overflow visible and z-index must be set on this level,
+    //because the gridmenu dropdown needs to be on top of buttons etc below the grid on the "same" level
+    position: relative;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    z-index: 99;
+    padding-bottom: 25px;
+}
+
+// Grid columns
+.ui-grid-top-panel {
+    background: @soe-header-background-color;
+    font-weight: normal;
+    font-size: 12px;
+}
+// Grid row selection
+.ui-grid-row .ui-grid-cell.ui-grid-row-header-cell {
+    background: @soe-header-background-color;
+}
+
+.ui-grid-icon-plus-squared:before {
+    content: "+";
+    width: 80%;
+    font-weight: bold;
+    opacity: 0.5;
+}
+
+.ui-grid-icon-minus-squared:before {
+    content: "-";
+    width: 80%;
+    font-weight: bold;
+    opacity: 0.5;
+}
+// Grid menu (column)
+.ui-grid-menu {
+    font-size: 12px;
+
+    .ui-grid-menu-inner {
+        background: @soe-background-color;
+        border-radius: 4px;
+    }
+
+    .ui-grid-menu-inner ul {
+        li button {
+            padding: 5px 15px 5px 10px;
+        }
+
+        li:first-child > button {
+            padding: 15px 15px 5px 10px;
+        }
+    }
+
+    .ui-grid-menu-mid {
+        max-height: 600px;
+        border-radius: 4px;
+        overflow-y: scroll !important;
+        overflow-x: visible !important;
+    }
+}
+// Grid menu (whole grid)
+.ui-grid-menu-button {
+    border-color: transparent;
+    background-color: transparent;
+    margin-top: 1px;
+
+    .ui-grid-menu {
+        font-size: 12px;
+        padding: 0;
+
+        .ui-grid-menu-inner {
+            background: @soe-background-color;
+            border-radius: 4px;
+        }
+
+        .ui-grid-menu-inner ul {
+            li button {
+                padding: 3px 15px 3px 10px;
+            }
+        }
+
+        .ui-grid-menu-mid {
+            max-height: 600px;
+            border-radius: 4px;
+        }
+    }
+}
+
+.ui-grid-filter-container {
+    padding: 1px 5px;
+}
+
+.ui-grid-filter-container input[type="checkbox"] {
+    .center-block();
+}
+
+.ui-grid-datepicker-button {
+    .btn {
+        padding: 0px 8px !important;
+    }
+}
+
+div.ui-grid-cell input[type="checkbox"] {
+    margin: 5px 0 0 6px;
+    .center-block();
+}
+
+.input-group-sm > .form-control.dateFilter {
+    font-size: 10px;
+    padding: 0px 2px;
+    margin: 1px 0 1px 4px;
+    height: 17px;
+    border-radius: 0;
+}
+
+.input-group-sm > .input-group-btn > .btn.dateFilterButton {
+    padding: 2px 2px 0px 2px;
+    margin: 1px 4px 1px 0;
+    height: 17px;
+    border-radius: 0;
+
+    i {
+        font-size: 12px;
+        vertical-align: top;
+        padding-top: 1px;
+    }
+}
+
+.ui-grid-type-ahead-editable {
+    margin: -5px 0 0 0;
+    padding: 0 0 0 2px;
+}
+
+.ui-grid-type-ahead-editable-with-button {
+    margin: 0 0 0 0;
+}
+
+.ui-grid-type-ahead-button {
+    color: @accentColor;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    margin: 2px 2px 2px 2px;
+}
+
+.ui-grid-type-ahead-button:hover {
+    background-color: @soe-border-color;
+}
+
+// Grid header
+.ui-grid-wrap-header .ui-grid-header-cell .ui-grid-cell-contents {
+    height: 48px;
+    padding: 5px;
+    white-space: normal;
+    -ms-text-overflow: clip;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    overflow: visible;
+}
+
+input[type="text"].ui-grid-filter-input {
+    font-size: 11px;
+}
+
+select.ui-grid-filter-select {
+    width: 100%;
+}
+
+// Grid cell
+.ui-grid-cell {
+    overflow: visible;
+    z-index: 99999;
+
+    &.disabled {
+        color: #bbb;
+    }
+
+    &.deleted {
+        color: #cf1212;
+        text-decoration: line-through;
+    }
+
+    &.processed {
+        color: green;
+        text-decoration: line-through;
+    }
+
+    &.answer_no {
+        background-color: #ED8D6C !important;
+    }
+
+    &.answer_yes {
+        background-color: #98EF5D !important;
+    }
+}
+
+.ui-grid-cell-contents {
+    padding: 1px 4px 1px 4px;
+}
+
+.ui-grid-cell-contents-shape {
+    padding: 1px;
+}
+
+.ui-grid-cell-contents-shape-gradient-red-green {
+    background: linear-gradient(to right, red, green);
+}
+
+.ui-grid-cell-focus {
+    background-color: @accentColorLight;
+}
+
+.ui-grid-cell, .ui-grid-ui-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.ui-grid-ui-select {
+    .ui-select-container {
+        min-width: 100px;
+    }
+
+    .ui-select-multiple.ui-select-bootstrap {
+        margin-top: -19px;
+        font-size: @mediumFontSize;
+        padding: 1px 0 0 2px;
+        border-radius: 0;
+    }
+
+    .ui-select-multiple .ui-select-match-item {
+        font-size: @smallFontSize;
+    }
+
+    .ui-select-match .close {
+        color: @errorColor;
+    }
+}
+
+.ui-grid-cell-merged-collapsed {
+    min-width: 0px !important;
+    max-width: 0px !important;
+    width: 0px !important;
+    padding: 0;
+    margin-left: -1px;
+}
+
+.ui-grid-cell-merged-expanded {
+    min-width: 85% !important;
+    max-width: 85% !important;
+    width: 85% !important;
+}
+
+.gridCellAlignRight {
+    text-align: right;
+    margin-right: 4px;
+    margin-top: 1px;
+}
+
+.ui-grid-cell-text-right {
+    text-align: right !important;
+}
+
+.gridCellAlignCenter {
+    text-align: center;
+    margin-top: 1px;
+}
+// Grid cell
+.gridCellAlignLeft {
+    text-align: left;
+    margin-left: 4px;
+    margin-top: 1px;
+}
+
+.gridCellIcon {
+    margin: 1px;
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: @soe-text-color;
+
+    .stacked-container {
+        margin: 1px 0 0 -5px;
+    }
+
+    .stacked-primary {
+        margin: -7px 0 0 -6px;
+    }
+
+    .stacked-secondary {
+        font-size: 10px;
+        margin: -11px 0 0 -3px;
+    }
+}
+
+.gridCellIcon:hover {
+    background-color: @soe-border-color;
+}
+
+.gridCellIconAccent {
+    color: @accentColor;
+}
+
+.gridCellIconDisabled {
+    color: @soe-disabled-text-color;
+}
+
+.gridColumnIsModified {
+    color: @accentColor;
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+.modifiedCell {
+    font-weight: bold;
+}
+
+.activeRow {
+    font-weight: bold;
+}
+
+.hiddenValue {
+    visibility: hidden;
+}
+
+.closedRow {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.infoRow {
+    background-color: @informationBackgroundColor !important;
+}
+
+.successRow {
+    background-color: @successBackgroundColor !important;
+}
+
+.warningRow {
+    background-color: @warningBackgroundColor !important;
+}
+
+.errorRow {
+    background-color: @errorBackgroundColor !important;
+}
+
+.errorRowFaded {
+    background-color: @errorBackgroundColorFaded !important;
+}
+
+.scanning-cell-success {
+    background-color: #3c763d40;
+}
+
+.scanning-cell-warning {
+    background-color: #8a6d3b40;
+}
+
+.scanning-cell-error {
+    background-color: #a9444240;
+}
+
+.scanning-cell-azoraone {
+    background: linear-gradient(135deg, transparent, @successBackgroundColor); 
+    transition: background 0.5s ease-in-out;
+}
+.scanning-cell-azoraone:hover {
+    background: linear-gradient(135deg, @successBackgroundColor, @informationBackgroundColor);
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.4);
+}
+
+.underline {
+    border-bottom: 2px solid @soe-border-color;
+}
+
+.lightCoralRow {
+    background-color: @errorBackgroundColor !important;
+}
+
+.lightBlueRow {
+    background-color: @informationBackgroundColor !important;
+}
+
+.saturdayRow {
+    background-color: @saturdayBackgroundColor !important;
+}
+
+.sundayRow {
+    background-color: @sundayBackgroundColor !important;
+}
+
+// Grid footer
+.ui-grid-grid-footer {
+    color: @soe-text-color;
+    text-align: right;
+    padding-top: 3px;
+    padding-right: 20px;
+    border-top: 1px solid @soe-border-color;
+    border-bottom: 1px solid @soe-border-color;
+    background: #FFFFFF;
+}
+
+.grid-double-text-row {
+    font-size: 8px;
+    padding-left: 2px;
+}
+
+.single-row-text {
+    white-space: nowrap;
+}
+
+.ui-grid-footer-panel {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.two-row-footer .ui-grid-contents-wrapper {
+    .ui-grid-footer-aggregates-row {
+        height: 45px;
+    }
+
+    .ui-grid-footer-cell-wrapper {
+        .ui-grid-cell-contents {
+            height: 45px;
+        }
+    }
+
+    .ui-grid-grid-footer {
+        border: 1px solid #CCCCCC;
+    }
+
+    .warning-text {
+        color: @warningColor;
+    }
+}
+
+.invalid-cell {
+    color: red;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /* IE10+ CSS styles go here */
+    .two-row-footer .ui-grid-contents-wrapper .ui-grid-footer-cell-wrapper .ui-grid-cell-contents {
+        height: auto !important;
+    }
+
+    body {
+        overflow-y: scroll;
+        -ms-overflow-style: scrollbar;
+    }
+}
+
+/*this is here to make sure typeaheads and such have an actuall height so you can click to edit. without this the height is 0 and you have to doubleclick to enter edit mode.*/
+.editable-cell-height {
+    height: 22px;
+}
+
+/* Bug fix, see TFS 73140. Can be removed once we update to ag version 28 */
+.ag-body-horizontal-scroll-viewport[style*='height: 0'] {
+    display: none;
+}

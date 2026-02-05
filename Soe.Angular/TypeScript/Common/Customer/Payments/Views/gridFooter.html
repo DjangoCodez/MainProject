@@ -1,0 +1,74 @@
+﻿<div class="info" style="margin-top: 16px; margin-bottom: 8px;">
+    <div class="row">
+        <div class="col-sm-12 pull-right">
+            <div class="col-sm-2 pull-right" ng-if="ctrl.showTotals">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.totalselected"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.selectedTotal | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 pull-right" ng-if="ctrl.showTotals">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.totalfiltered"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredTotal | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 pull-right" ng-if="ctrl.showPaidTotals">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.paidselected"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.selectedPaid | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 pull-right" ng-if="ctrl.showPaidTotals">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.paidfiltered"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredPaid | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 pull-right" ng-if="ctrl.showToPayTotals">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.topayselected"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.selectedToPay | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 pull-right" ng-if="ctrl.showToPayTotals">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.topayfiltered"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredToPay | amount}}</label>
+                </div>
+            </div>
+            <div class="col pull-right">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <soe-checkbox label-key="common.customer.invoices.showsummaryinclvat" model="ctrl.showVatFree" data-ng-click="ctrl.showVatFreeChanged()"></soe-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ngSoeFormFooter">
+    <div class="row">
+        <div class="col-sm-12 pull-right">
+            <div class="col pull-right">
+                <soe-splitbutton class="pull-right margin-small-right" label-key="" options="ctrl.buttonFunctions" main-button="true" drop-up="true" data-ng-if="ctrl.showSplitButton" is-disabled="ctrl.soeGridOptions.getSelectedCount() === 0" option-selected="ctrl.executeButtonFunction(option)"></soe-splitbutton>
+            </div>
+            <soe-datepicker style="width: 150px" class="pull-right margin-small-right" hidelabel="true" label-key="" model="ctrl.selectedPayDate" data-ng-if="ctrl.showPayDate"></soe-datepicker>
+            <soe-label class="pull-right margin-small-right" label-key="common.customer.invoices.paydate" discreet="true" data-ng-if="ctrl.showPayDate"></soe-label>
+            <soe-select class="pull-right margin-small-right" hidelabel="true" model="ctrl.selectedPaymentMethod" items="ctrl.paymentMethods" options="item as item.name for item in items" data-ng-if="ctrl.showPaymentMethod"></soe-select>
+            <soe-label class="pull-right margin-small-right" label-key="common.customer.payment.paymentmethod" discreet="true" data-ng-if="ctrl.showPaymentMethod"></soe-label>
+        </div>
+    </div>
+</div>

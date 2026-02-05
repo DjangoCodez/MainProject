@@ -1,0 +1,51 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" create-from-template-validation ng-model="ctrl.employee" employment-stop-date-exists-in-template="ctrl.employmentStopDateExistsInTemplate" disbursement-account-exists-in-template="ctrl.disbursementAccountExistsInTemplate" employment-types="ctrl.employmentTypes">
+    <div class="messagebox">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel();">&times;</button>
+            <span class="modal-title" data-l10n-bind="'time.employee.createfromtemplate'" data-ng-if="ctrl.isNewEmployeeMode"></span>
+            <span data-ng-if="ctrl.isNewEmploymentMode"><span class="modal-title" data-l10n-bind="'time.employee.createemploymentfromtemplate'"></span> <span>{{ctrl.numberAndName}}</span></span>
+        </div>
+        <div class="modal-body">
+            <soe-panel label-key="">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="common.selecttemplate" model="ctrl.employeeTemplateId" items="ctrl.employeeTemplates" options="item.id as item.name for item in items" required="true" on-changing="ctrl.templateChanged();"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-datepicker label-key="common.startdate" model="ctrl.employee.employmentStartDate" required="true"></soe-datepicker>
+                    </div>
+                </div>
+                <div class="row" data-ng-if="ctrl.employeeTemplate">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="time.employee.employeegroup.employeegroup" model="ctrl.collectiveAgreement.employeeGroupName" is-readonly="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="time.employee.payrollgroup.payrollgroup" model="ctrl.collectiveAgreement.payrollGroupName" is-readonly="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="time.employee.vacationgroup.vacationgroup" model="ctrl.collectiveAgreement.vacationGroupName" is-readonly="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3" data-ng-if="ctrl.useAnnualLeave">
+                        <soe-textbox label-key="time.employee.annualleavegroup" model="ctrl.collectiveAgreement.annualLeaveGroupName" is-readonly="true"></soe-textbox>
+                    </div>
+                </div>
+            </soe-panel>
+            <template-designer employee-template="ctrl.employeeTemplate" employee="ctrl.employee" is-edit-mode="false" mode="ctrl.mode" on-model-change="ctrl.modelChanged(model, value);" on-rendered="ctrl.designerRendered();"></template-designer>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-left">
+                <button type="button" class="btn btn-default" data-l10n-bind="'time.employee.createfromscratch'" data-ng-click="ctrl.openEditPage();"></button>
+            </div>
+            <div class="pull-right">
+                <div class="col margin-large-right"><soe-checkbox label-key="time.employee.employment.printemploymentcontract" model="ctrl.printEmploymentContract"></soe-checkbox></div>
+                <div class="col margin-large-right"><soe-checkbox label-key="common.signdoc.init" model="ctrl.initSigning" is-disabled="!ctrl.printEmploymentContract"></soe-checkbox></div>
+                <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel();"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.create'" data-l10n-bind-title="'core.create'" data-ng-if="ctrl.employeeTemplate" data-ng-show="ctrl.edit.$valid" data-ng-disabled="!ctrl.edit.$dirty || ctrl.edit.$invalid || ctrl.saveInProgress" data-ng-click="$event.stopPropagation();ctrl.ok()"></button>
+                <div class="btn-group" role="group" data-ng-if="ctrl.employeeTemplate" data-ng-show="ctrl.edit.$invalid">
+                    <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.create'" data-ng-disabled="ctrl.edit.$invalid || ctrl.saveInProgress"></button>
+                    <button type="button" class="btn btn-sm ngSoeMainButtonInvalid" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

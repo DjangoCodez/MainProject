@@ -1,0 +1,175 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+<form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+  <div class="row">
+    <div class="col-sm-3">
+      <soe-timebox
+        [labelKey]="'time.schedule.timebreaktemplate.lengthincludingbreak'"
+        [autoFocus]="true"
+        [isDuration]="true"
+        [leadingZero]="true"
+        formControlName="shiftLength">
+      </soe-timebox>
+    </div>
+    <div class="col-sm-3">
+      <soe-timebox
+        [labelKey]="'time.schedule.timebreaktemplate.shiftstartfromtime'"
+        formControlName="shiftStartFromTime">
+      </soe-timebox>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <soe-numberbox
+        [labelKey]="'time.schedule.timebreaktemplate.mintimebetweenbreaks'"
+        formControlName="minTimeBetweenBreaks">
+      </soe-numberbox>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <soe-datepicker
+        [labelKey]="'common.startdate'"
+        formControlName="startDate">
+      </soe-datepicker>
+    </div>
+    <div class="col-sm-3">
+      <soe-datepicker [labelKey]="'common.stopdate'" formControlName="stopDate">
+      </soe-datepicker>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <soe-expansion-panel
+        [labelKey]="'common.shifttypes'"
+        [open]="true"
+        [static]="true"
+        [addTopMargin]="true">
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-tbt-shift-types-grid [form]="form"></soe-tbt-shift-types-grid>
+          </div>
+        </div>
+      </soe-expansion-panel>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <soe-expansion-panel
+        [labelKey]="'common.weekdays'"
+        [open]="true"
+        [static]="true"
+        [addTopMargin]="true">
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-tbt-weekdays-grid [form]="form"></soe-tbt-weekdays-grid>
+          </div>
+        </div>
+      </soe-expansion-panel>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <soe-expansion-panel
+        [labelKey]="'time.schedule.timebreaktemplate.shortbreaks'"
+        [open]="true"
+        [static]="true"
+        [addTopMargin]="true">
+        <div class="row">
+          <div class="col-sm-3">
+            <soe-numberbox
+              [labelKey]="'time.schedule.timebreaktemplate.nbrofbreaks'"
+              formControlName="minorNbrOfBreaks">
+            </soe-numberbox>
+          </div>
+          <div class="col-sm-3">
+            <soe-select
+              [labelKey]="'time.schedule.timebreaktemplate.breaktype'"
+              [items]="breakGroups || []"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"
+              formControlName="minorTimeCodeBreakGroupId">
+            </soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <soe-numberbox
+              [labelKey]="'time.schedule.timebreaktemplate.mintimeafterstart'"
+              formControlName="minorMinTimeAfterStart">
+            </soe-numberbox>
+          </div>
+          <div class="col-sm-3">
+            <soe-numberbox
+              [labelKey]="'time.schedule.timebreaktemplate.mintimebeforeend'"
+              formControlName="minorMinTimeBeforeEnd">
+            </soe-numberbox>
+          </div>
+        </div>
+      </soe-expansion-panel>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <soe-expansion-panel
+        [labelKey]="'time.schedule.timebreaktemplate.longbreaks'"
+        [open]="true"
+        [static]="true"
+        [addTopMargin]="true">
+        <div class="row">
+          <div class="col-sm-3">
+            <soe-numberbox
+              [labelKey]="'time.schedule.timebreaktemplate.majornbrofbreaks'"
+              formControlName="majorNbrOfBreaks">
+            </soe-numberbox>
+          </div>
+          <div class="col-sm-3">
+            <soe-select
+              [labelKey]="'time.schedule.timebreaktemplate.majorbreaktype'"
+              [items]="breakGroups || []"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"
+              formControlName="majorTimeCodeBreakGroupId">
+            </soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <soe-numberbox
+              [labelKey]="'time.schedule.timebreaktemplate.mintimeafterstart'"
+              formControlName="majorMinTimeAfterStart">
+            </soe-numberbox>
+          </div>
+          <div class="col-sm-3">
+            <soe-numberbox
+              [labelKey]="'time.schedule.timebreaktemplate.mintimebeforeend'"
+              formControlName="majorMinTimeBeforeEnd">
+            </soe-numberbox>
+          </div>
+        </div>
+      </soe-expansion-panel>
+    </div>
+  </div>
+
+  <soe-edit-footer
+    [form]="form"
+    [idFieldName]="idFieldName"
+    [modifyPermission]="flowHandler.modifyPermission()"
+    [inProgress]="performAction.inProgress()"
+    (saved)="performSave()"
+    (deleted)="triggerDelete()">
+  </soe-edit-footer>
+</form>
+}

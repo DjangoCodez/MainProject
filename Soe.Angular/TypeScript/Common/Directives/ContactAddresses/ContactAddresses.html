@@ -1,0 +1,23 @@
+﻿<div>
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progressBusy">
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-label label-key="common.contact.information" style="margin-top: 15px;"></soe-label>
+            </div>
+            <div class="col-sm-6 margin-small-bottom">
+                <span class="pull-right">
+                    <soe-menubutton label-key="common.contactaddresses.addressmenu.label" options="ctrl.addressTypes" option-selected="ctrl.addAddress(option,true)" pull-left="true" data-ng-if="!ctrl.readOnly"></soe-menubutton>
+                    <soe-menubutton label-key="common.contactaddresses.ecommenu.label" options="ctrl.eComTypes" option-selected="ctrl.addAddress(option,true)" pull-left="true" data-ng-if="!ctrl.readOnly"></soe-menubutton>
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div ag-grid="ctrl.gridAg.options.gridOptions" class="ag-theme-balham" height-checker style="height: 800px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</div>

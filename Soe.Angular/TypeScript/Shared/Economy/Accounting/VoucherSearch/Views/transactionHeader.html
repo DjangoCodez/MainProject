@@ -1,0 +1,16 @@
+﻿<form name="searchFilter" class="ngSoeForm form-group form-group-sm">
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div class="info">
+        <div class="form-group row">
+            <soe-typeahead class="col-sm-2" label-key="economy.accounting.account" model="ctrl.selectedAccount" items="ctrl.accountStd" options="item as item.name for item in items" limit="10"></soe-typeahead>
+            <soe-select class="col-sm-2" label-key="economy.accounting.accountyear" model="ctrl.selectedAccountYear" items="ctrl.accountYears" options="item.id as item.name for item in items" on-changing="ctrl.accountYearChanged(item)"></soe-select>
+            <soe-select class="col-sm-2" label-key="economy.accounting.vatverification.selectfromperiod" model="ctrl.selectedAccountPeriodFrom" items="ctrl.accountPeriodsFrom" options="item as item.name for item in items"></soe-select>
+            <soe-select class="col-sm-2" label-key="economy.accounting.vatverification.selecttoperiod" model="ctrl.selectedAccountPeriodTo" items="ctrl.accountPeriodsTo" options="item as item.name for item in items"></soe-select>
+            <div class="col-sm-2">
+                <soe-label></soe-label>
+                <button type="button" ng-disabled="searchFilter.$invalid" class="btn btn-sm ngSoeMainButton margin-small-top" data-l10n-bind="'core.search'" data-l10n-bind-title="'core.search'" data-ng-click="$event.stopPropagation();ctrl.getTransactions()"></button>
+            </div>
+        </div>
+    </div>
+</form>

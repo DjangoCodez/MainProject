@@ -1,0 +1,33 @@
+﻿<div>
+    <soe-progressbar style="margin-bottom: 20px;" is-busy="directiveCtrl.progressBusy" message="directiveCtrl.progressMessage"></soe-progressbar>
+    <div ng-disabled="directiveCtrl.progressBusy">
+        <div data-ng-if="directiveCtrl.isProjectParticipant">
+            <soe-toolbar buttons="directiveCtrl.buttonGroups">
+                <data-ng-include src="directiveCtrl.toolbarInclude" />
+            </soe-toolbar>
+        </div>
+        <div class="margin-large-bottom" data-ng-if="!directiveCtrl.isProjectParticipant">
+            <soe-instruction label-key="billing.project.timesheet.notprojectparticipant"></soe-instruction>
+        </div>
+        <div class="grid-container" data-ng-if="directiveCtrl.fromDate">
+            <div id="time-rows-grid" ag-grid="directiveCtrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 800px; width: 100%;" height-checker prevent-enter></div>
+            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+        </div>
+        <div class="info" style="margin-top: 30px;" data-ng-if="directiveCtrl.showFooter">
+            <div class="row">
+                <div class="col-sm-2 pull-right" data-ng-if="directiveCtrl.invoiceTimePermission">
+                    <soe-textbox label-key="common.suminvoicedtime" model="directiveCtrl.sumInvoicedTime" readonly="true"></soe-textbox>
+                </div>
+                <div class="col-sm-2 pull-right" data-ng-if="directiveCtrl.workTimePermission && directiveCtrl.showOtherTime">
+                    <soe-textbox label-key="common.sumothertime" model="directiveCtrl.sumOtherTime" readonly="true"></soe-textbox>
+                </div>
+                <div class="col-sm-2 pull-right" data-ng-if="directiveCtrl.workTimePermission">
+                    <soe-textbox label-key="common.sumworkedtime" model="directiveCtrl.sumWorkedTime" readonly="true"></soe-textbox>
+                </div>
+                <div class="col-sm-2 pull-right">
+                    <soe-select label-key="billing.project.timesheet.includetimeinreport" model="directiveCtrl.includeTimeInReport" items="directiveCtrl.includeTimeInReportItems" options="item.id as item.name for item in items"></soe-select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

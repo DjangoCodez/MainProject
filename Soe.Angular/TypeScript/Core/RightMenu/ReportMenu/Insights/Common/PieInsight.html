@@ -1,0 +1,9 @@
+﻿<div id="chart-wrapper" class="chart-wrapper">
+    <div id="chart-menu" class="form-inline toolbar margin-large-bottom">
+        <div class="form-group form-group-sm">
+            <span data-l10n-bind="'common.value'" class="indiscreet margin-small-right"></span>
+            <soe-select hidelabel="true" model="$ctrl.selectedValueType" items="$ctrl.valueTypes" options="item.id as item.name for item in items" inline-block="true" input-width="100px" on-changing="$ctrl.redraw(false);"></soe-select>
+        </div>
+    </div>
+    <div id="chart" style="" class="content-border-no-radius"></div>
+</div>

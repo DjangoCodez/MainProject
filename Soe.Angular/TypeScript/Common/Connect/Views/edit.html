@@ -1,0 +1,100 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+	<soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+	<div data-ng-if="!ctrl.progressBusy">
+		<uib-accordion close-others="false">
+
+			<soe-accordion label-key="common.connect.importdefinition" is-open="true">
+				<div class="row">
+					<div class="col-sm-3">
+						<soe-select label-key="common.connect.standardimportdefinition" model="ctrl.import.importDefinitionId" is-readonly="ctrl.batchId" items="ctrl.importDefinitions" options="item.sysImportDefinitionId as item.name for item in items" required="true" on-changing="ctrl.importDefinitionChanged(item)"></soe-select>
+					</div>
+					<div class="col-sm-3">
+						<soe-textbox label-key="common.connect.importtype" model="ctrl.import.typeText" readonly="true"></soe-textbox>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<soe-textbox label-key="common.name" model="ctrl.import.name" required="true" is-readonly="ctrl.batchId"></soe-textbox>
+					</div>
+					<div class="col-sm-9">
+						<div class="col-sm-2" data-ng-if="ctrl.isCustomerInvoice">
+							<soe-checkbox label-key="common.connect.updateexistinginvoice" model="ctrl.import.updateExistingInvoice" inline="true"></soe-checkbox>
+						</div>
+						<div class="col-sm-2" data-ng-if="ctrl.isCustomerInvoiceRow || ctrl.isVoucher">
+							<soe-checkbox label-key="common.connect.useaccountdistribution" model="ctrl.import.useAccountDistribution" inline="true"></soe-checkbox>
+						</div>
+						<div class="col-sm-2" data-ng-if="ctrl.isVoucher">
+							<soe-checkbox label-key="common.connect.useaccountdims" model="ctrl.import.useAccountDimensions" inline="true"></soe-checkbox>
+						</div>
+					</div>
+				</div>
+				<div class="row" data-ng-show="ctrl.isVoucher || ctrl.showAccountingYear">
+					<div class="col-sm-3">
+						<soe-select label-key="common.connect.accountyear" model="ctrl.accountYearId" items="ctrl.accountYears" options="item.id as item.name for item in items" on-changing="ctrl.accountYearChanged(item)"></soe-select>
+					</div>
+					<div class="col-sm-3" data-ng-show="ctrl.isVoucher">
+						<soe-select label-key="common.connect.voucherserie" model="ctrl.voucherSeriesId" items="ctrl.voucherSeries" options="item.voucherSeriesId as item.voucherSeriesTypeName for item in items" on-changing="ctrl.voucherSeriesChanged()"></soe-select>
+					</div>
+					<div class="col-sm-3" data-ng-show="ctrl.isVoucher">
+                        <soe-typeahead label-key="common.connect.diffaccount" model="ctrl.account" items="ctrl.accountStds" options="item as item.numberName for item in items" filter-property="numberName"></soe-typeahead>
+                    </div>
+				</div>
+				<div class="row" data-ng-show="ctrl.import.useAccountDimensions">
+					<div class="col-sm-12">
+						<account-dims hide-std-dim="true" account2="ctrl.import.dim2AccountId" account3="ctrl.import.dim3AccountId" account4="ctrl.import.dim4AccountId" account5="ctrl.import.dim5AccountId" account6="ctrl.import.dim6AccountId" parent-guid="ctrl.guid" add-not-used="true" on-change="ctrl.accountDimsChanged()"></account-dims>
+					</div>
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="pull-right">
+							<div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+							<div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+						</div>
+					</div>
+				</div>
+			</soe-accordion>
+
+
+			<!-- Files -->
+			<soe-accordion label-key="common.connect.import" is-open="ctrl.fileUploadInitiallyOpen">
+				<div class="row" ng-if="!ctrl.files || ctrl.files.length == 0">
+					<div class="col-sm-12">
+						<button type="button" class="btn btn-default" data-l10n-bind="'core.fileupload.choosefiletoimport'" data-ng-click="ctrl.uploadFiles()"></button>
+					</div>
+				</div>
+
+				<!-- Grid file upload used -->
+				<div class="row" ng-if="ctrl.files && ctrl.files.length > 0 && !ctrl.showImportRows">
+					<div class="col-sm-12" ng-repeat="file in ctrl.files">
+						<span>{{ file.stringValue }}</span>
+					</div>
+					<div class="col-sm-2">
+						<button type="button" class="btn btn-default" data-l10n-bind="'common.connect.importrows'" data-ng-click="ctrl.importFiles()"></button>
+					</div>
+				</div>
+				<br />
+
+				<!-- Import rows -->
+				<soe-accordion label-key="common.connect.result" data-ng-if="ctrl.showImportRows" is-open="true">
+
+					<div class="row">
+						<div class="col-sm-12">
+							<import-rows batch-id="ctrl.batchId" import-head-type="ctrl.importHeadType" use-account-distribution="ctrl.import.useAccountDistribution" use-account-dimensions="ctrl.import.useAccountDimensions" default-dim1-account="ctrl.import.dim1AccountId" default-dim2-account="ctrl.import.dim2AccountId" default-dim3-account="ctrl.import.dim3AccountId" default-dim4-account="ctrl.import.dim4AccountId" default-dim5-account="ctrl.import.dim5AccountId" default-dim6-account="ctrl.import.dim6AccountId"></>
+						</div>
+					</div>
+
+				</soe-accordion>
+			</soe-accordion>
+
+		</uib-accordion>
+
+		<div class="ngSoeFormFooter">
+			<div class="col-sm-6">
+				<created-modified model="ctrl.import"></created-modified>
+			</div>
+		</div>
+	</div>
+</form>

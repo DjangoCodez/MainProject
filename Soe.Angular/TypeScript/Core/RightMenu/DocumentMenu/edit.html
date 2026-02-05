@@ -1,0 +1,130 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" data-ng-click="ctrl.modal.close()" aria-hidden="true">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.document.new'" data-ng-if="!ctrl.dataStorageId"></h6>
+        <h6 class="modal-title" data-l10n-bind="'core.document.edit'" data-ng-if="ctrl.dataStorageId"></h6>
+    </div>
+
+    <div class="info margin-large-top margin-small-right margin-large-bottom margin-small-left" data-ng-if="ctrl.loadingDocument">
+        <span class="far fa-spinner fa-pulse fa-fw margin-small-right"></span><span data-l10n-bind="'core.loading'"></span>
+    </div>
+
+    <div class="modal-body" data-ng-if="!ctrl.loadingDocument">
+        <soe-panel label-key="core.document">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <soe-textbox label-key="common.filename" model="ctrl.document.fileName" required="true" maxlength="100" set-focus-on-button="true" is-readonly="!ctrl.modifyPermission" button-icon="fa-upload" button-tooltip-key="core.document.choosefile" on-button-click="ctrl.openUploadFileDialog();"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="core.document.extension" model="ctrl.document.extension" is-readonly="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="button" class="btn btn-sm btn-default pull-right" style="margin-top: 20px;" data-l10n-bind="'core.document.downloadfile'" data-ng-click="ctrl.downloadFile();" data-ng-if="ctrl.dataStorageId"></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <soe-textbox label-key="common.name" model="ctrl.document.name" maxlength="255" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-textbox label-key="common.description" model="ctrl.document.description" maxlength="255" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-label label-key="core.document.selectfolder"></soe-label>
+                            </div>
+                            <div class="col-sm-6">
+                                <soe-select hidelabel="true" model="ctrl.selectedFolder" items="ctrl.folders" options="item as item for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-textbox label-key="core.document.folder" model="ctrl.document.folder" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <soe-panel label-key="core.document.publication">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <soe-datepicker label-key="core.document.validfrom" model="ctrl.document.validFrom" second-model="ctrl.document.validTo" validate-date-range="true" is-start-in-range="true" is-readonly="!ctrl.modifyPermission"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-datepicker label-key="core.document.validto" model="ctrl.document.validTo" second-model="ctrl.document.validFrom" validate-date-range="true" is-readonly="!ctrl.modifyPermission"></soe-datepicker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <soe-multiselect label-key="core.document.messagegroups" options="ctrl.selectableMessageGroups" display-prop="name" model="ctrl.selectedMessageGroups" show-selected-items="true" is-readonly="!ctrl.modifyPermission" on-selection-complete="ctrl.setDirty();"></soe-multiselect>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-checkbox label-key="common.messages.needsconfirmation" model="ctrl.document.needsConfirmation" inline="true" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.needsConfirmationChanged();"></soe-checkbox>
+                    </div>
+                </div>
+            </div>
+            <uib-accordion close-others="false" is-open="false" data-ng-if="ctrl.dataStorageId">
+                <soe-accordion label-key="core.document.showread" class="soe-accordion-more-condensed" on-open="ctrl.showRecipients();">
+                    <div class="info" data-ng-if="ctrl.loadingRecipients">
+                        <span class="far fa-spinner fa-pulse fa-fw margin-small-right"></span><span data-l10n-bind="'core.loading'"></span>
+                    </div>
+                    <div class="row margin-small-top margin-small-right" data-ng-if="!ctrl.loadingRecipients">
+                        <div class="col-sm-offset-5 col-sm-1">
+                            <soe-label label-key="core.filter"></soe-label>
+                        </div>
+                        <div class="col-sm-6">
+                            <soe-select hidelabel="true" model="ctrl.recipientFilter" items="ctrl.recipientFilters" options="item.id as item.name for item in items" use-ignore-dirty="true"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="!ctrl.loadingRecipients">
+                        <div class="col-sm-12">
+                            <div class="table-scrollable-wrapper">
+                                <div class="table-scrollable" style="height: 203px; background-color: transparent; margin-top: 28px;">
+                                    <table class="table table-more-condensed table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="table-layout: fixed; min-width: 50px;"><span data-l10n-bind="'common.name'"></span></th>
+                                                <th scope="col" style="table-layout: fixed; min-width: 50px;"><span data-l10n-bind="'core.document.readdate'"></span></th>
+                                                <th scope="col" style="table-layout: fixed; min-width: 50px;" data-ng-if="ctrl.document.needsConfirmation"><span data-l10n-bind="'core.document.confirmeddate'"></span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-ng-repeat="recipient in ctrl.filteredRecipients">
+                                                <td><span data-ng-if="recipient.employeeNrAndName">{{recipient.employeeNrAndName}}</span><span data-ng-if="!recipient.employeeNrAndName">{{recipient.userName}}</span></td>
+                                                <td><span>{{recipient.readDate | date: 'shortDate'}} {{recipient.readDate | date: 'shortTime'}}</span></td>
+                                                <td data-ng-if="ctrl.document.needsConfirmation"><span>{{recipient.confirmedDate | date: 'shortDate'}} {{recipient.confirmedDate | date: 'shortTime'}}</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+            </uib-accordion>
+        </soe-panel>
+    </div>
+
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.document"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <button type="button" class="col btn btn-sm btn-default" data-l10n-bind="'core.cancel'" data-l10n-bind-title="'core.cancel'" data-ng-click="$event.stopPropagation();ctrl.modal.close()"></button>
+                    <div class="col margin-large-left" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

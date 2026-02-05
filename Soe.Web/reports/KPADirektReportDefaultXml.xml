@@ -1,0 +1,236 @@
+﻿<SOE_KPADirektReport>
+ <xs:schema id="SOE_KPADirektReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SOE_KPADirektReport">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="KPADirektReport">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportHeader">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="ReportTitle"/>
+                    <xs:element type="xs:string" name="ReportDescription"/>
+                    <xs:element type="xs:int" name="ReportNr"/>
+                    <xs:element type="xs:string" name="Company"/>
+                    <xs:element type="xs:string" name="Orgnr"/>
+                    <xs:element type="xs:string" name="LoginName"/>
+                    <xs:element type="xs:string" name="TimePeriod"/>
+                    <xs:element type="xs:string" name="SortByLevel1"/>
+                    <xs:element type="xs:string" name="SortByLevel2"/>
+                    <xs:element type="xs:string" name="SortByLevel3"/>
+                    <xs:element type="xs:string" name="SortByLevel4"/>
+                    <xs:element type="xs:string" name="IsSortAscending"/>
+                    <xs:element type="xs:string" name="GroupByLevel1"/>
+                    <xs:element type="xs:string" name="GroupByLevel2"/>
+                    <xs:element type="xs:string" name="GroupByLevel3"/>
+                    <xs:element type="xs:string" name="GroupByLevel4"/>
+                    <xs:element type="xs:string" name="Special"/>
+                    <xs:element type="xs:string" name="DateInterval"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Employee" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="EmployeeNr"/>
+                    <xs:element type="xs:string" name="FirstName"/>
+                    <xs:element type="xs:string" name="LastName"/>
+                    <xs:element type="xs:string" name="SocialSec"/>
+                    <xs:element type="xs:string" name="Note"/>
+                    <xs:element name="EmployeeKPADirekt">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="EmployeeNr"/>
+                          <xs:element type="xs:string" name="EmployeeName"/>
+                          <xs:element type="xs:string" name="Kundnummer"/>
+                          <xs:element type="xs:string" name="Forvaltningsnummer"/>
+                          <xs:element type="xs:string" name="Personnummer"/>
+                          <xs:element type="xs:int" name="PostTyp"/>
+                          <xs:element type="xs:int" name="Sekel"/>
+                          <xs:element name="EmployeeKPADirektAnstallningKAP" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="Kundnummer"/>
+                                <xs:element type="xs:string" name="Forvaltningsnummer"/>
+                                <xs:element type="xs:string" name="Personnummer"/>
+                                <xs:element type="xs:int" name="PostTyp"/>
+                                <xs:element type="xs:string" name="Anstallningsnummer"/>
+                                <xs:element type="xs:dateTime" name="FromDatum"/>
+                                <xs:element type="xs:dateTime" name="TomDatum"/>
+                                <xs:element type="xs:decimal" name="LonVidAnstallningensTilltrade"/>
+                                <xs:element type="xs:decimal" name="PensionsgrundandeTillagg"/>
+                                <xs:element type="xs:int" name="PensionAlder"/>
+                                <xs:element type="xs:int" name="Brandman"/>
+                                <xs:element type="xs:int" name="AntalArbetsdagarForTimanstalld"/>
+                                <xs:element type="xs:string" name="Tillhorighet"/>
+                              </xs:sequence>
+                              <xs:attribute type="xs:int" name="Id" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="EmployeeKPADirektAnstallningPFA" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="Kundnummer"/>
+                                <xs:element type="xs:string" name="Forvaltningsnummer"/>
+                                <xs:element type="xs:string" name="Personnummer"/>
+                                <xs:element type="xs:int" name="PostTyp"/>
+                                <xs:element type="xs:string" name="Anstallningsnummer"/>
+                                <xs:element type="xs:dateTime" name="FromDatum"/>
+                                <xs:element type="xs:dateTime" name="TomDatum"/>
+                                <xs:element type="xs:string" name="AvslutsKod"/>
+                                <xs:element type="xs:int" name="PensionAlder"/>
+                                <xs:element type="xs:int" name="Brandman"/>
+                                <xs:element type="xs:string" name="PensionAvtal"/>
+                                <xs:element type="xs:string" name="VisstidsForordnandeKod"/>
+                                <xs:element type="xs:int" name="AntalArbetsdagarForTimanstalld"/>
+                              </xs:sequence>
+                              <xs:attribute type="xs:int" name="Id" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="EmployeeKPADirektArsbelopp">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="Kundnummer"/>
+                                <xs:element type="xs:string" name="Forvaltningsnummer"/>
+                                <xs:element type="xs:string" name="Personnummer"/>
+                                <xs:element type="xs:int" name="PostTyp"/>
+                                <xs:element type="xs:string" name="Anstallningsnummer"/>
+                                <xs:element type="xs:dateTime" name="FromDatum"/>
+                                <xs:element type="xs:dateTime" name="TomDatum"/>
+                                <xs:element type="xs:int" name="PensionsgrundandeLon"/>
+                                <xs:element type="xs:int" name="ManadslonAKAP_KL"/>
+                                <xs:element type="xs:int" name="ProcentsatsForAvgiftsbaseradAlderspensionUnder7_5Inkomstbasbelopp"/>
+                                <xs:element type="xs:int" name="ProcentsatsForAvgiftsbaseradAlderspensionOver7_5Inkomstbasbelopp"/>
+                                <xs:element type="xs:string" name="VilketAvtalAnställningenTillhor"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="EmployeeKPADirektLedighetsuppgift" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="Kundnummer"/>
+                                <xs:element type="xs:string" name="Forvaltningsnummer"/>
+                                <xs:element type="xs:string" name="Personnummer"/>
+                                <xs:element type="xs:int" name="PostTyp"/>
+                                <xs:element type="xs:dateTime" name="FromDatum"/>
+                                <xs:element type="xs:dateTime" name="TomDatum"/>
+                                <xs:element type="xs:int" name="Omfattning" minOccurs="0"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:int" name="Id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:int" name="Id" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+  <KPADirektReport>
+    <ReportHeader>
+      <ReportTitle> </ReportTitle>
+      <ReportDescription />
+      <ReportNr>0</ReportNr>
+      <Company> </Company>
+      <Orgnr> </Orgnr>
+      <LoginName> </LoginName>
+      <TimePeriod></TimePeriod>
+      <SortByLevel1>Unknown</SortByLevel1>
+      <SortByLevel2>Unknown</SortByLevel2>
+      <SortByLevel3>Unknown</SortByLevel3>
+      <SortByLevel4>Unknown</SortByLevel4>
+      <IsSortAscending>false</IsSortAscending>
+      <GroupByLevel1>Unknown</GroupByLevel1>
+      <GroupByLevel2>Unknown</GroupByLevel2>
+      <GroupByLevel3>Unknown</GroupByLevel3>
+      <GroupByLevel4>Unknown</GroupByLevel4>
+      <Special />
+      <DateInterval>2019-01-01T00:00:00</DateInterval>
+    </ReportHeader>
+    <Employee Id="0">
+      <EmployeeNr></EmployeeNr>
+      <FirstName></FirstName>
+      <LastName></LastName>
+      <SocialSec></SocialSec>
+      <Note></Note>
+      <EmployeeKPADirekt Id="0">
+        <EmployeeNr></EmployeeNr>
+        <EmployeeName />
+        <Kundnummer></Kundnummer>
+        <Forvaltningsnummer />
+        <Personnummer></Personnummer>
+        <PostTyp>0</PostTyp>
+        <Sekel>19</Sekel>
+        <EmployeeKPADirektAnstallningKAP Id="0">
+          <Kundnummer></Kundnummer>
+          <Forvaltningsnummer />
+          <Personnummer></Personnummer>
+          <PostTyp>0</PostTyp>
+          <Anstallningsnummer></Anstallningsnummer>
+          <FromDatum>2019-01-01T00:00:00</FromDatum>
+          <TomDatum>2019-01-01T00:00:00</TomDatum>
+          <LonVidAnstallningensTilltrade>0</LonVidAnstallningensTilltrade>
+          <PensionsgrundandeTillagg>0</PensionsgrundandeTillagg>
+          <PensionAlder>0</PensionAlder>
+          <Brandman>0</Brandman>
+          <AntalArbetsdagarForTimanstalld>0</AntalArbetsdagarForTimanstalld>
+          <Tillhorighet></Tillhorighet>
+        </EmployeeKPADirektAnstallningKAP>
+        <EmployeeKPADirektAnstallningPFA Id="0">
+          <Kundnummer></Kundnummer>
+          <Forvaltningsnummer />
+          <Personnummer></Personnummer>
+          <PostTyp>0</PostTyp>
+          <Anstallningsnummer></Anstallningsnummer>
+          <FromDatum>2019-01-01T00:00:00</FromDatum>
+          <TomDatum>2019-01-01T00:00:00</TomDatum>
+          <AvslutsKod />
+          <PensionAlder>0</PensionAlder>
+          <Brandman>0</Brandman>
+          <PensionAvtal />
+          <VisstidsForordnandeKod />
+          <AntalArbetsdagarForTimanstalld>0</AntalArbetsdagarForTimanstalld>
+        </EmployeeKPADirektAnstallningPFA>
+        <EmployeeKPADirektArsbelopp>
+          <Kundnummer>0</Kundnummer>
+          <Forvaltningsnummer />
+          <Personnummer>0</Personnummer>
+          <PostTyp>0</PostTyp>
+          <Anstallningsnummer />
+          <FromDatum>2019-01-01T00:00:00</FromDatum>
+          <TomDatum>2019-01-01T00:00:00</TomDatum>
+          <PensionsgrundandeLon>0</PensionsgrundandeLon>
+          <ManadslonAKAP_KL>0</ManadslonAKAP_KL>
+          <ProcentsatsForAvgiftsbaseradAlderspensionUnder7_5Inkomstbasbelopp>0</ProcentsatsForAvgiftsbaseradAlderspensionUnder7_5Inkomstbasbelopp>
+          <ProcentsatsForAvgiftsbaseradAlderspensionOver7_5Inkomstbasbelopp>0</ProcentsatsForAvgiftsbaseradAlderspensionOver7_5Inkomstbasbelopp>
+          <VilketAvtalAnställningenTillhor />
+        </EmployeeKPADirektArsbelopp>
+        <EmployeeKPADirektLedighetsuppgift>
+          <Kundnummer></Kundnummer>
+          <Forvaltningsnummer />
+          <Personnummer></Personnummer>
+          <PostTyp>37</PostTyp>
+          <FromDatum>1900-01-01T00:00:00</FromDatum>
+          <TomDatum>1900-01-01T00:00:00</TomDatum>
+        </EmployeeKPADirektLedighetsuppgift>
+        <EmployeeKPADirektLedighetsuppgift>
+          <Kundnummer></Kundnummer>
+          <Forvaltningsnummer />
+          <Personnummer></Personnummer>
+          <PostTyp>0</PostTyp>
+          <FromDatum>2019-01-01T00:00:00</FromDatum>
+          <TomDatum>2019-01-01T00:00:00</TomDatum>
+          <Omfattning>0</Omfattning>
+        </EmployeeKPADirektLedighetsuppgift>
+      </EmployeeKPADirekt>
+    </Employee>
+  </KPADirektReport>
+</SOE_KPADirektReport>

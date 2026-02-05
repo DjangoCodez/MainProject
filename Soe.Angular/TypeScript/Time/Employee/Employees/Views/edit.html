@@ -1,0 +1,656 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal(false);" aria-hidden="true">&times;</button>
+        <h6 class="modal-title" data-ng-if="ctrl.employee">({{ctrl.employee.employeeNr}}) {{ctrl.employee.firstName}} {{ctrl.employee.lastName}}</h6>
+    </div>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" ng-class="ctrl.isModal ? 'edit-padding': ''" employee-validation ng-model="ctrl.employee" is-login-name-valid="ctrl.isLoginNameValid" is-social-security-number-valid="ctrl.isSocialSecurityNumberValid" is-bank-account-valid="ctrl.isBankAccountValid" dont-validate-bank-account="!ctrl.contactDisbursementAccountModifyPermission" is-accounting-settings-valid="ctrl.isAccountingSettingsValid" is-employment-price-types-valid="ctrl.isEmploymentPriceTypesValid" is-employee-vacation-valid="ctrl.isEmployeeVacationValid" is-contact-addresses-valid="ctrl.isContactAddressesValid" user-roles="ctrl.userRoles" use-payroll="ctrl.usePayroll" payroll-group-mandatory="ctrl.payrollGroupMandatory" use-accounts-hierarchy="ctrl.useAccountsHierarchy" employee-template-groups="ctrl.employee.templateGroups">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" hide-border="true" no-margin="true" style="margin-bottom: 10px;">
+            <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+        </soe-toolbar>
+
+        <uib-accordion close-others="false" data-ng-if="!ctrl.searchMode">
+            <soe-accordion label-key="time.employee.employee.personaldata" is-open="ctrl.personalDataAccordionInitiallyOpen">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.firstname" model="ctrl.employee.firstName" required="true" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="common.lastname" model="ctrl.employee.lastName" required="true" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2" data-ng-if="ctrl.socialSecReadPermission">
+                            <soe-textbox label-key="time.employee.employee.socialsec" model="ctrl.employee.socialSec" maxlength="15" placeholder-key="time.employee.employee.socialsecplaceholder" update-on="blur" is-readonly="!ctrl.socialSecModifyPermission" on-change="ctrl.socialSecChanged();" data-ng-if="!ctrl.employee.vacant && ctrl.forceSocialSecNbr" required="true"></soe-textbox>
+                            <soe-textbox label-key="time.employee.employee.socialsec" model="ctrl.employee.socialSec" maxlength="15" placeholder-key="time.employee.employee.socialsecplaceholder" update-on="blur" is-readonly="!ctrl.socialSecModifyPermission" on-change="ctrl.socialSecChanged();" data-ng-if="ctrl.employee.vacant || !ctrl.forceSocialSecNbr"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="time.employee.employee.externalcode" model="ctrl.employee.externalCode" maxlength="50"  update-on="blur" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                        <div class="col-sm-1" data-ng-if="ctrl.employmentPayrollReadPermission && ctrl.employmentPayrollSalaryReadPermission">
+                            <soe-checkbox label-key="time.employee.employee.excludefrompayroll" model="ctrl.employee.excludeFromPayroll" inline="true" is-readonly="ctrl.userIsMySelf || !ctrl.modifyPermission || !ctrl.employmentPayrollModifyPermission || !ctrl.employmentPayrollSalaryModifyPermission"></soe-checkbox>
+                        </div>
+                        <div class="col-sm-1" data-ng-if="ctrl.useVacant">
+                            <soe-checkbox label-key="time.employee.employee.vacant" model="ctrl.employee.vacant" inline="true" is-readonly="!ctrl.modifyPermission || (!ctrl.employee.vacant && ctrl.employee.employeeId)" on-changing="ctrl.vacantChanged();"></soe-checkbox>
+                        </div>
+                        <div class="col-sm-4" data-ng-if="ctrl.employee.employeeTemplateName">
+                            <soe-label></soe-label>
+                            <div class="info">
+                                <span class="fal fa-user-friends margin-small-right"></span>
+                                <span data-l10n-bind="'time.employee.employee.createdfromtemplate'"></span>: <span>{{ctrl.employee.employeeTemplateName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                <uib-accordion close-others="false">
+                    <soe-accordion label-key="time.employee.employee.contactinfo" data-ng-if="ctrl.contactReadPermission" is-open="ctrl.contactInfoAccordionInitiallyOpen" on-open="ctrl.selectContactAddress();">
+                        <div class="form-group form-group-sm">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <contact-addresses contact-type="2" address-rows="ctrl.contactAddressItems" read-only="!ctrl.contactModifyPermission" allow-show-secret="ctrl.allowSecretContactInfoPermission" is-valid="ctrl.isContactAddressesValid" validation-errors="ctrl.contactAddressesValidationErrors" data-ng-if="ctrl.employee" on-initialized="ctrl.addDefaultContactAddresRow();" on-change="ctrl.contactAddressesChanged();"></contact-addresses>
+                                    </div>
+                                    <div class="col-sm-4" data-ng-if="ctrl.contactModifyPermission || ctrl.employee.portraitConsent">
+                                        <div class="col-sm-12">
+                                            <soe-file-upload callback="ctrl.employeePortraitUploaded(result)" entity="11" image-type="2" single-file="true" show-delete="ctrl.portrait" read-only="!ctrl.contactModifyPermission" on-delete="ctrl.deleteEmployeePortrait();"></soe-file-upload>
+                                            <div class="content-border-line margin-small-top" data-ng-if="ctrl.portrait">
+                                                <img style="height: 100%; width: 100%;" data-ng-src="data:image/jpg;base64,{{ctrl.portrait.image}}" />
+                                            </div>
+                                            <soe-checkbox label-key="common.consent" label-value="ctrl.employee.portraitConsentDate | date:'shortDate'" label-value-in-parentheses="true" tooltip-key="time.employee.employee.image.consentinfo" model="ctrl.employee.portraitConsent" data-ng-if="ctrl.portrait" is-disabled="!ctrl.userIsMySelf" data-ng-click="ctrl.portraitConsentChanged();"></soe-checkbox>
+                                            <div class="margin-small-top" data-ng-if="!ctrl.portrait">
+                                                <div class="info">
+                                                    <span class="fal fa-portrait margin-small-right"></span>
+                                                    <span data-l10n-bind="'common.imagemissing'"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <soe-checkbox label-key="time.employee.employee.emailcopy" model="ctrl.employee.emailCopy" is-disabled="!ctrl.userIsMySelf" on-changing="ctrl.emailCopyChanged();" "></soe-checkbox>
+                                        <soe-checkbox label-key="time.employee.employee.usersendemailschedulechanged" model="ctrl.sendEmailScheduleChanged" is-disabled="!ctrl.userIsMySelf"></soe-checkbox>
+                                        <soe-checkbox label-key="time.employee.employee.dontnotifychangeofdeviations" model="ctrl.employee.dontNotifyChangeOfDeviations" is-disabled="!ctrl.userIsMySelf"></soe-checkbox>
+                                        <soe-checkbox label-key="time.employee.employee.dontnotifychangeofatteststate" model="ctrl.employee.dontNotifyChangeOfAttestState" is-disabled="!ctrl.userIsMySelf"></soe-checkbox>
+                                        <soe-checkbox data-ng-if="!ctrl.noExtraShiftModifyPermission" label-key="time.employee.employee.wantsextrashifts" model="ctrl.employee.wantsExtraShifts" is-disabled="!ctrl.userIsMySelf"></soe-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                    <soe-accordion label-key="time.employee.employee.bankaccount" data-ng-if="ctrl.contactDisbursementAccountReadPermission && !ctrl.employee.vacant">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.employee.paymentmethod" model="ctrl.employee.disbursementMethod" items="ctrl.disbursementPaymentMethods" options="item.id as item.name for item in items" is-disabled="!ctrl.contactDisbursementAccountModifyPermission" on-changing="ctrl.paymentMethodChanged(item)"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.employee.clearingnr" model="ctrl.employee.disbursementClearingNr" is-readonly="!ctrl.contactDisbursementAccountModifyPermission || ctrl.employee.disbursementMethod === 0 || ctrl.employee.disbursementMethod === 1" update-on="blur" on-change="ctrl.bankAccountChanged()"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.employee.bankaccountnr" model="ctrl.employee.disbursementAccountNr" is-readonly="!ctrl.contactDisbursementAccountModifyPermission || ctrl.employee.disbursementMethod === 0 || ctrl.employee.disbursementMethod === 1" update-on="blur" on-change="ctrl.bankAccountChanged()"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-checkbox label-key="time.employee.employee.dontvalidatebankaccount" model="ctrl.employee.dontValidateDisbursementAccountNr" inline="true" is-disabled="!ctrl.contactDisbursementAccountModifyPermission || ctrl.employee.disbursementMethod === 0 || ctrl.employee.disbursementMethod === 1" on-changing="ctrl.bankAccountChanged()"></soe-checkbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                </div>
+                                <div class="col-sm-1">
+                                    <soe-textbox label-key="time.employee.position.countrycode" model="ctrl.employee.disbursementCountryCode" is-readonly="!ctrl.contactDisbursementAccountModifyPermission || ctrl.employee.disbursementMethod === 0 || ctrl.employee.disbursementMethod === 1" update-on="blur" on-change="ctrl.bankAccountChanged()"></soe-textbox>
+                                </div>
+                                <div class="col-sm-1">
+                                    <soe-textbox label-key="time.employee.employee.disbursementbic" model="ctrl.employee.disbursementBIC" is-readonly="!ctrl.contactDisbursementAccountModifyPermission || ctrl.employee.disbursementMethod === 0 || ctrl.employee.disbursementMethod === 1" update-on="blur" on-change="ctrl.bankAccountChanged()"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.employee.disbursementiban" model="ctrl.employee.disbursementIBAN" is-readonly="!ctrl.contactDisbursementAccountModifyPermission || ctrl.employee.disbursementMethod === 0 || ctrl.employee.disbursementMethod === 1" update-on="blur" on-change="ctrl.bankAccountChanged()"></soe-textbox>
+                                </div>
+                            </div>
+                            </div>
+                    </soe-accordion>
+                    <soe-accordion label-key="time.employee.employee.user" data-ng-if="ctrl.userReadPermission && (ctrl.userMappingReadPermission || ctrl.userReplacementReadPermission || ctrl.attestRoleMappingReadPermission) && !ctrl.employee.vacant">
+                        <div class="col-sm-4">
+                            <div class="row" data-ng-if="ctrl.userReadPermission">
+                                <user current-user-id="ctrl.employee.userId" login-name="ctrl.employee.loginName" lang-id="ctrl.employee.langId" blocked-from-date="ctrl.employee.blockedFromDate" show-sso="ctrl.showSso" show-lifetime="ctrl.showLifetime" lifetime-seconds="ctrl.employee.lifetimeSeconds" lifetime-seconds-modified="ctrl.employee.lifetimeSecondsModified" external-auth-id="ctrl.employee.externalAuthId" external-auth-id-modified="ctrl.employee.externalAuthIdModified" user-link-connection-key="ctrl.employee.userLinkConnectionKey" is-required="false" read-only="!ctrl.userModifyPermission" hide-disconnect-employee="true" user-has-changes="ctrl.userHasChanges" on-change="ctrl.userInfoChanged({result: result});"></user>
+                            </div>
+                            <div class="row margin-large-top" data-ng-if="ctrl.userReplacementReadPermission">
+                                <soe-panel label-key="time.employee.employee.supplierinvoiceattest">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <soe-select label-key="time.employee.employee.supplierinvoiceattest.replacementuser" model="ctrl.replacementUser.replacementUserId" items="ctrl.replacementUsers" options="item.id as item.name for item in items" is-disabled="!ctrl.userReplacementModifyPermission"></soe-select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-datepicker label-key="common.fromdate" model="ctrl.replacementUser.startDate" is-disabled="!ctrl.userReplacementModifyPermission"></soe-datepicker>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-datepicker label-key="common.todate" model="ctrl.replacementUser.stopDate" is-disabled="!ctrl.userReplacementModifyPermission"></soe-datepicker>
+                                        </div>
+                                    </div>
+                                </soe-panel>
+                            </div>
+                        </div>
+                        <div class="col-sm-8" data-ng-if="ctrl.userMappingReadPermission || ctrl.attestRoleMappingReadPermission">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <user-roles user-id="ctrl.employee.userId" user-roles="ctrl.userRoles" user-roles-read-permission="ctrl.userMappingReadPermission" user-roles-modify-permission="ctrl.userMappingModifyPermission" attest-roles-read-permission="ctrl.attestRoleMappingReadPermission" attest-roles-modify-permission="ctrl.attestRoleMappingModifyPermission" user-roles-has-changes="ctrl.userRolesHasChanges" user-attest-roles-has-changes="ctrl.userAttestRolesHasChanges" on-change="ctrl.userRolesChanged();" data-ng-if="ctrl.employee.employeeId && ctrl.employee.userId"></user-roles>
+                                    <div data-ng-if="!ctrl.employee.employeeId || !ctrl.employee.userId">
+                                        <soe-instruction label-key="time.employee.employee.savetoaddroles" inline="true"></soe-instruction>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </uib-accordion>
+            </soe-accordion>
+            <soe-accordion label-key="time.employee.employee.employmentdata" data-ng-if="ctrl.employmentDataReadPermission" is-open="ctrl.employmentDataAccordionInitiallyOpen">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="time.employee.employee.employeenr" model="ctrl.employee.employeeNr" required="true" maxlength="50" input-class="text-right" input-class-condition="true" update-on="blur" is-readonly="!ctrl.employmentDataModifyPermission" on-change="ctrl.employeeNrChanged();"></soe-textbox>
+                        </div>
+                    </div>
+                </div>
+                <soe-accordion label-key="time.employee.employee.employment" data-ng-if="ctrl.employmentReadPermission" is-open="ctrl.employmentAccordionInitiallyOpen">
+                    <div class="row margin-large-bottom" data-ng-if="ctrl.employee">
+                        <div class="col-sm-12">
+                            <employments employee-id="ctrl.employeeId" number-and-name="ctrl.employee.numberAndName" employee-template-id="ctrl.employee.employeeTemplateId" employments="ctrl.employee.employments" selected-employment="ctrl.selectedEmployment" selected-date="ctrl.selectedEmploymentDate" payroll-group-price-types="ctrl.payrollGroupPriceTypes" payroll-group-vacation-groups="ctrl.payrollGroupVacationGroups" is-new="ctrl.isNew" is-manually-new="ctrl.isManuallyNew" parent-guid="ctrl.guid" read-only="!ctrl.employmentModifyPermission" on-reload="ctrl.reloadEmployments(date);"></employments>
+                        </div>
+                    </div>
+                    <soe-accordion label-key="time.employee.employee.salaryaccounting" is-open="true">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="row" data-ng-if="ctrl.employmentPayrollReadPermission && ctrl.employmentPayrollSalaryReadPermission">
+                                    <div class="col-sm-12">
+                                        <employment-price-types employment="ctrl.selectedEmployment" employment-price-types="ctrl.selectedEmployment.priceTypes" payroll-group-price-types="ctrl.payrollGroupPriceTypes" payroll-levels="ctrl.payrollLevels" read-only="!ctrl.employmentPayrollSalaryModifyPermission || !ctrl.selectedEmployment.isEditing" is-valid="ctrl.isEmploymentPriceTypesValid" change-date="ctrl.selectedEmploymentDate" on-change="ctrl.setDirty();"></employment-price-types>
+                                    </div>
+                                </div>
+                                <div class="row margin-large-top" data-ng-if="ctrl.employmentPayrollReadPermission && ctrl.employmentPayrollSalaryReadPermission">
+                                    <div class="col-sm-12">
+                                        <employment-price-formulas employment-id="ctrl.selectedEmployment.employmentId" payroll-group-id="ctrl.selectedEmployment.payrollGroupId"></employment-price-formulas>
+                                    </div>
+                                </div>
+                                <div class="row margin-large-top" data-ng-if="ctrl.employmentPayrollReadPermission">
+                                    <div class="col-sm-12">
+                                        <employment-vacation-groups vacation-groups="ctrl.selectedEmployment.employmentVacationGroup" payroll-group-vacation-groups="ctrl.payrollGroupVacationGroups" selected-employment-date="ctrl.selectedEmploymentDate" selected-vacation-group-id="ctrl.selectedVacationGroupId" read-only="!ctrl.employmentPayrollModifyPermission || !ctrl.selectedEmployment.isEditing" on-change="ctrl.setDirty();"></employment-vacation-groups>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6" data-ng-if="ctrl.employmentAccountsReadPermission && !ctrl.selectedEmployment.isSecondaryEmployment">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <accounting-settings setting-types="ctrl.settingTypes" settings="ctrl.settings" show-base-account="false" min-rows="3" read-only="!ctrl.employmentAccountsModifyPermission || !ctrl.selectedEmployment.isEditing" hide-std-dim="false" use-fixed-accounting="ctrl.usePayroll" fixed-accounting="ctrl.selectedEmployment.fixedAccounting" fixed-accounting-disabled="!ctrl.employmentAccountsModifyPermission || !ctrl.selectedEmployment.isEditing" is-modified="ctrl.isAccountingSettingsModified" is-valid="ctrl.isAccountingSettingsValid" on-fixed-accounting-changed="ctrl.setupAccountingSettings();" parent-guid="ctrl.guid"></accounting-settings>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </soe-accordion>
+                <soe-accordion label-key="time.employee.employee.additions" data-ng-if="ctrl.payrollAdditionsReadPermission">
+                    <employee-settings label-key="time.employee.employee.additions" area="30000" settings="ctrl.employee.employeeSettings" read-only="!ctrl.payrollAdditionsModifyPermission" info-header="time.employee.employee.additions.info" hide-value="true" on-change="ctrl.setDirty();"></employee-settings>
+                </soe-accordion>
+                <!-- TODO: Own permission? -->
+                <soe-accordion label-key="time.employee.employee.accounthierarchy" data-ng-if="ctrl.useAccountsHierarchy && ctrl.categoriesReadPermission">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <!-- TODO: Own permission? -->
+                                <employee-accounts employee-accounts="ctrl.employee.accounts" default-employee-account-dim-id="ctrl.defaultEmployeeAccountDimId" use-limited-employee-account-dim-levels="ctrl.useLimitedEmployeeAccountDimLevels" use-extended-employee-account-dim-levels="ctrl.useExtendedEmployeeAccountDimLevels" has-allow-to-add-other-employee-accounts="ctrl.hasAllowToAddOtherEmployeeAccounts" read-only="!ctrl.categoriesModifyPermission" on-change="ctrl.employeeAccountsChanged();"></employee-accounts>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="time.employee.employee.categoryattest" data-ng-if="!ctrl.useAccountsHierarchy && ctrl.categoriesReadPermission">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <categories category-type="6" category-record-entity="6" parent-guid="ctrl.guid" show-default="true" show-date-from="true" show-date-to="true" nbr-of-rows="10" read-only="!ctrl.categoriesModifyPermission" record-id="ctrl.employeeId" use-comp-categories="true" comp-categories="ctrl.employee.categoryRecords" on-change="ctrl.setDirty(true);"></categories>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="time.employee.employee.taxfee" data-ng-if="ctrl.taxReadPermission || ctrl.employeeUnionFeeReadPermission" is-open="ctrl.employeeTaxInitiallyOpen">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <employee-tax employee-id="ctrl.employeeId" employee-tax="ctrl.employeeTax" union-fees="ctrl.employee.unionFees" read-only="!ctrl.taxModifyPermission" enable-csr-inquiry="!ctrl.dirtyHandler.isDirty" on-change="ctrl.employeeTaxChanged();"></employee-tax>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="time.employee.employee.absencevacation" data-ng-if="(ctrl.absenceVacationAbsenceReadPermission || ctrl.employeeChildReadPermission || ctrl.absenceVacationVacationReadPermission)  && !ctrl.employee.vacant">
+                    <soe-accordion label-key="time.employee.employee.vacation" data-ng-if="ctrl.absenceVacationVacationReadPermission" is-open="true">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <employee-vacation employee-vacation="ctrl.employee.employeeVacationSE" employment="ctrl.selectedEmployment" selected-employment-date="ctrl.selectedEmploymentDate" modify-permission="ctrl.absenceVacationVacationModifyPermission" is-valid="ctrl.isEmployeeVacationValid" validation-errors="ctrl.employeeVacationValidationErrors"></employee-vacation>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                    <soe-accordion label-key="time.employee.employee.absence" is-open="true">
+                        <div class="row margin-large-bottom">
+                            <div class="col-sm-6" data-ng-if="ctrl.absenceVacationAbsenceReadPermission">
+                                <soe-panel label-key="time.employee.employee.absence.sick">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <soe-checkbox label-key="time.employee.employee.absence.highriskprotection" model="ctrl.employee.highRiskProtection" is-readonly="!ctrl.absenceVacationAbsenceModifyPermission" on-changing="ctrl.highRiskProtectionChanged();"></soe-checkbox>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-checkbox label-key="time.employee.employee.absence.medicalcertificate.reminder" model="ctrl.employee.medicalCertificateReminder" is-readonly="!ctrl.absenceVacationAbsenceModifyPermission" on-changing="ctrl.medicalCertificateReminderChanged();"></soe-checkbox>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-checkbox label-key="time.employee.employee.absence.105daysexcluded" model="ctrl.employee.absence105DaysExcluded" is-readonly="!ctrl.absenceVacationAbsenceModifyPermission" on-changing="ctrl.absence105DaysExcludedChanged();"></soe-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <soe-datepicker label-key="common.todate" model="ctrl.employee.highRiskProtectionTo" is-disabled="!ctrl.employee.highRiskProtection || !ctrl.absenceVacationAbsenceModifyPermission"></soe-datepicker>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-textbox label-key="time.employee.employee.absence.medicalcertificate.reminder.days" label-value="7" label-value-in-parentheses="true" model="ctrl.employee.medicalCertificateDays" numeric="true" allow-empty="true" no-decimals="true" no-negative="true" is-disabled="!ctrl.employee.medicalCertificateReminder || !ctrl.absenceVacationAbsenceModifyPermission" button-icon="fa-info-circle" button-class="infoColor" on-button-click="ctrl.showMedicalCertificateInfo();"></soe-textbox>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-textbox label-key="time.employee.employee.absence.105daysexcluded.days" model="ctrl.employee.absence105DaysExcludedDays" numeric="true" allow-empty="true" no-decimals="true" no-negative="true" is-disabled="!ctrl.employee.absence105DaysExcluded || !ctrl.absenceVacationAbsenceModifyPermission"></soe-textbox>
+                                        </div>
+                                    </div>
+                                </soe-panel>
+                            </div>
+                            <div class="col-sm-6">
+                                <employee-factors factors="ctrl.employee.factors" vacation-group-id="ctrl.selectedVacationGroupId" read-only="!ctrl.absenceVacationAbsenceModifyPermission && !ctrl.absenceVacationVacationModifyPermission" on-change="ctrl.setDirty();"></employee-factors>
+                            </div>
+                        </div>
+                        <div data-ng-if="ctrl.employeeChildReadPermission">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <employee-childs employee-childs="ctrl.employee.employeeChilds" child-cares="ctrl.employee.childCares" read-only="!ctrl.employeeChildModifyPermission" opening-balance-permission="ctrl.openingBalanceUsedDaysModifyPermission"></employee-childs>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </soe-accordion>
+                <soe-accordion label-key="time.payroll.worktimeaccount.worktimeaccount" data-ng-if="ctrl.workTimeAccountReadPermission" is-open="ctrl.timeWorkAccountInitiallyOpen" on-open="ctrl.expandEmployeeTimeWorkAccount();">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <employee-time-work-account employee-id="ctrl.employeeId" employee-time-work-accounts="ctrl.employee.employeeTimeWorkAccounts" read-only="!ctrl.workTimeAccountModifyPermission" on-change="ctrl.employeeTimeWorkAccountChanged();"></employee-time-work-account>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="time.schedule.planning.workrules" data-ng-if="ctrl.workRulesReadPermission">
+                    <employee-settings label-key="time.schedule.planning.workrulesdate" area="10000" settings="ctrl.employee.employeeSettings" read-only="!ctrl.workRulesModifyPermission" on-change="ctrl.setDirty();"></employee-settings>
+                </soe-accordion>
+                <soe-accordion label-key="time.employee.employee.reports" data-ng-if="ctrl.reportsReadPermission">
+                    <!--SCB OCH NÄRINGSLIV-->
+                    <soe-panel label-key="time.employee.employee.scb">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.employee.employeecategory" model="ctrl.employee.payrollReportsPersonalCategory" items="ctrl.payrollReportsPersonalCategories" options="item.id as item.name for item in items" is-readonly="!ctrl.reportsModifyPermission"></soe-select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.employee.workhourartikel" model="ctrl.employee.payrollReportsWorkTimeCategory" items="ctrl.payrollReportsWorkTimeCategories" options="item.id as item.name for item in items" is-readonly="!ctrl.reportsModifyPermission"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-select label-key="time.employee.employee.employmenttype" model="ctrl.employee.payrollReportsSalaryType" items="ctrl.payrollReportsPayrollExportSalaryTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.reportsModifyPermission"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.employee.workingplacenr" model="ctrl.employee.payrollReportsWorkPlaceNumber" input-type="number" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.employee.cfar" model="ctrl.employee.payrollReportsCFARNumber" input-type="number" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-panel>
+                    <!--KONTROLLUPPGIFT-->
+                    <soe-panel label-key="time.employee.employee.controltaskandtax">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.employee.scbworkplace" model="ctrl.employee.workPlaceSCB" maxlength="100" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-checkbox label-key="time.employee.employee.partowner" model="ctrl.employee.partnerInCloseCompany" inline="true" is-readonly="!ctrl.reportsModifyPermission"></soe-checkbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-checkbox label-key="time.employee.employee.retired" model="ctrl.employee.benefitAsPension" inline="true" is-readonly="!ctrl.reportsModifyPermission"></soe-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.employee.placeofemployment.address" model="ctrl.employee.agiPlaceOfEmploymentAddress" maxlength="50" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.employee.placeofemployment.city" model="ctrl.employee.agiPlaceOfEmploymentCity" maxlength="50" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-checkbox label-key="time.employee.employee.placeofemployment.ignore" model="ctrl.employee.agiPlaceOfEmploymentIgnore" inline="true" is-readonly="!ctrl.reportsModifyPermission"></soe-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-panel>
+                    <!--AFA FORA-->
+                    <soe-panel label-key="time.employee.employee.afafora">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.employee.afacategory" model="ctrl.employee.afaCategory" items="ctrl.payrollReportsAFACategories" options="item.id as item.name for item in items" is-readonly="!ctrl.reportsModifyPermission"></soe-select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.employee.specialgroup" model="ctrl.employee.afaSpecialAgreement" items="ctrl.payrollReportsAFASpecialAgreements" options="item.id as item.name for item in items" is-readonly="!ctrl.reportsModifyPermission"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.employee.workplacenr" model="ctrl.employee.afaWorkplaceNr" maxlength="100" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-checkbox label-key="time.employee.employee.afaparttimepensioncode" model="ctrl.employee.afaParttimePensionCode" inline="true" is-readonly="!ctrl.reportsModifyPermission"></soe-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-panel>
+                    <!--COLLECTUM-->
+                    <soe-panel label-key="time.employee.employee.collectum">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.employee.itp" model="ctrl.employee.collectumITPPlan" items="ctrl.payrollReportsCollectumITPplans" options="item.id as item.name for item in items" is-readonly="!ctrl.reportsModifyPermission"></soe-select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.employee.collectumcostplace" model="ctrl.employee.collectumCostPlace" maxlength="100" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.employee.collectumagreedonproduct" model="ctrl.employee.collectumAgreedOnProduct" maxlength="100" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-datepicker label-key="time.employee.employee.collectumcancellationdate" model="ctrl.employee.collectumCancellationDate" is-readonly="!ctrl.reportsModifyPermission"></soe-datepicker>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-checkbox label-key="time.employee.employee.collectumcancellationdateisleaveofabsence" model="ctrl.employee.collectumCancellationDateIsLeaveOfAbsence" inline="true" is-readonly="!ctrl.reportsModifyPermission"></soe-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-panel>
+                    <!--KPA-->
+                    <soe-panel label-key="time.employee.employee.kpa">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.employee.kparetirementage" model="ctrl.employee.kpaRetirementAge" numeric="true" maxlength="2" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.employee.kpabelonging" model="ctrl.employee.kpaBelonging" items="ctrl.kpaBelongings" options="item.id as item.name for item in items" is-readonly="!ctrl.reportsModifyPermission"></soe-select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.employee.kpaendcode" model="ctrl.employee.kpaEndCode" items="ctrl.kpaEndCodes" options="item.id as item.name for item in items" is-readonly="!ctrl.reportsModifyPermission"></soe-select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.employee.kpaagreementtype" model="ctrl.employee.kpaAgreementType" items="ctrl.kpaAgreementTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.reportsModifyPermission"></soe-select>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-panel>
+                    <!--Bygglösen-->
+                    <soe-panel label-key="Bygglösen">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.employee.bygglosenagreementarea" model="ctrl.employee.bygglosenAgreementArea" numeric="true" maxlength="10" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.employee.bygglosenallocationnumber" model="ctrl.employee.bygglosenAllocationNumber" maxlength="10" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.employee.bygglosenmunicipalcode" model="ctrl.employee.bygglosenMunicipalCode" is-readonly="!ctrl.reportsModifyPermission" numeric="true"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-select label-key="time.employee.employee.bygglosensalaryformula" model="ctrl.employee.bygglosenSalaryFormula" items="ctrl.payrollPriceFormulas" options="item.id as item.name for item in items" is-readonly="!ctrl.reportsModifyPermission"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.employee.bygglosenprofessioncategory" model="ctrl.employee.bygglosenProfessionCategory" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                               
+                                <div class="col-sm-2">
+                                    <soe-select label-key="time.employee.payrollgroup.statistics.bygglosensalarytype" model="ctrl.employee.bygglosenSalaryType" items="ctrl.bygglosenSalaryType" options="item.id as item.name for item in items" is-readonly="!ctrl.reportsModifyPermission"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.payrollgroup.statistics.bygglosenworkplacenr" model="ctrl.employee.bygglosenWorkPlaceNumber" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.employee.bygglosenlendedtorgnr" model="ctrl.employee.bygglosenLendedToOrgNr" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.employee.employee.bygglosenagreedhourlypaylevel" model="ctrl.employee.bygglosenAgreedHourlyPayLevel" is-readonly="!ctrl.reportsModifyPermission"  numeric="true" maxlength="10" decimals="2"></soe-textbox>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-panel>
+                    <!--Folksam-->
+                    <soe-panel label-key="Folksam">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.employee.gtpagreementnumber" model="ctrl.employee.gtpAgreementNumber" items="ctrl.gtpAgreementNumbers" options="item.id as item.name for item in items" is-readonly="!ctrl.reportsModifyPermission"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-checkbox label-key="time.employee.employee.gtpexcluded" model="ctrl.employee.gtpExcluded" inline="true" is-readonly="!ctrl.reportsModifyPermission"></soe-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-panel>
+                    <!--IF Metall-->
+                    <soe-panel label-key="IF Metall">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.employee.associationnumber" model="ctrl.employee.ifAssociationNumber" numeric="true" maxlength="10" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-textbox label-key="time.employee.employee.workplace" model="ctrl.employee.ifWorkPlace" maxlength="4" is-readonly="!ctrl.reportsModifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-select label-key="time.employee.employee.paymentcode" model="ctrl.employee.ifPaymentCode" items="ctrl.ifPaymentCodes" options="item.id as item.name for item in items" is-readonly="!ctrl.reportsModifyPermission"></soe-select>
+                                </div>
+                            </div>
+                        </div>
+                    </soe-panel>
+                    <employee-settings label-key="time.employee.employee.reports" area="20000" settings="ctrl.employee.employeeSettings" read-only="!ctrl.reportsModifyPermission" on-change="ctrl.setDirty();"></employee-settings>
+                </soe-accordion>
+                <soe-accordion label-key="core.misc" data-ng-if="ctrl.timeReadPermission || ctrl.timeCalculatedCostPerHourReadPermission || ctrl.cardNumberReadPermission" is-open="ctrl.employeeMiscIsOpen" on-open="ctrl.expandMisc();">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-2" data-ng-if="ctrl.timeReadPermission">
+                                <soe-select label-key="time.employee.employee.defaultdeviationcause" model="ctrl.employee.timeDeviationCauseId" items="ctrl.timeDeviationCauses" options="item.id as item.name for item in items" is-disabled="!ctrl.timeModifyPermission"></soe-select>
+                            </div>
+                            <div class="col-sm-2" data-ng-if="ctrl.timeReadPermission">
+                                <soe-select label-key="time.employee.employee.defaulttimecode" model="ctrl.employee.timeCodeId" items="ctrl.timeCodes" options="item.id as item.name for item in items" is-disabled="!ctrl.timeModifyPermission"></soe-select>
+                            </div>
+                            <div class="col-sm-2" data-ng-if="ctrl.cardNumberReadPermission">
+                                <soe-textbox label-key="time.employee.employee.cardnumber" label-value="'RFID'" label-value-in-parentheses="true" model="ctrl.employee.cardNumber" maxlength="50" allow-invalid="true" is-readonly="!ctrl.cardNumberModifyPermission" on-change="ctrl.cardNumberChanged();" on-blur="ctrl.checkCardNumberExists();" button-icon="fa-times" button-class="iconDelete" button-tooltip-key="time.employee.employee.cardnumber.delete" button-disabled="!ctrl.cardNumberModifyPermission || !ctrl.employee.cardNumber" on-button-click="ctrl.deleteCardNumber();"></soe-textbox>
+                            </div>
+                            <div class="col-sm-6" data-ng-if="ctrl.cardNumberModifyPermission">
+                                <soe-label></soe-label>
+                                <soe-instruction label-key="time.employee.employee.cardnumber.info"></soe-instruction>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-large-top" data-ng-if="ctrl.timeCalculatedCostPerHourReadPermission">
+                        <div class="col-sm-6">
+                            <employee-calculated-costs employee-id="ctrl.employee.employeeId" calculated-costs="ctrl.employee.calculatedCosts" read-only="!ctrl.timeCalculatedCostPerHourModifyPermission" on-change="ctrl.setDirty();"></employee-calculated-costs>
+                        </div>
+                    </div>
+                </soe-accordion>
+            </soe-accordion>
+            <soe-accordion label-key="time.employee.employee.schedule" is-open="ctrl.scheduleDataIsOpen" data-ng-if="ctrl.scheduleDataReadPermission" on-open="ctrl.expandScheduleData();">
+                <schedule employee-id="ctrl.employeeId" employee-template-groups="ctrl.employee.templateGroups" parent-guid="ctrl.guid" read-only="!ctrl.scheduleDataModifyPermission" on-change="ctrl.scheduleDataChanged();"></schedule>
+            </soe-accordion>
+            <soe-accordion label-key="time.employee.employee.hr" data-ng-if="ctrl.skillsReadPermission || ctrl.employeeMeetingReadPermission || ctrl.noteReadPermission">
+                <soe-accordion label-key="time.employee.employee.skill" data-ng-if="ctrl.skillsReadPermission">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <soe-accordion label-key="time.employee.employee.skillgap" more-condensed="true" is-open="true">
+                                <skill-matcher date="ctrl.skillMatcherDate" employee-id="ctrl.employeeId" bind-employee-skills="true" employee-skills="ctrl.employee.employeeSkills" employee-position-ids="ctrl.employeePositionIds" invalid="ctrl.skillMatcherInvalid" nbr-of-skills="ctrl.nbrOfSkills" hide-header="true"></skill-matcher>
+                            </soe-accordion>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-accordion label-key="time.employee.employee.selectpositions" condensed="true" is-open="true">
+                                <positions employee-id="ctrl.employeeId" selected-positions="ctrl.employeePositions" nbr-of-rows="5" read-only="!ctrl.skillsModifyPermission" hide-header="true"></positions>
+                            </soe-accordion>
+                        </div>
+                        <div class="col-sm-3">
+                            <soe-accordion label-key="time.employee.employee.selectskills" condensed="true" is-open="true">
+                                <skills record-entity="37" record-id="ctrl.employeeId" selected-skills="ctrl.employee.employeeSkills" nbr-of-rows="5" read-only="!ctrl.skillsModifyPermission" hide-header="true"></skills>
+                            </soe-accordion>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="time.employee.employee.conversation" is-open="ctrl.employeeMeetingIsOpen" is-disabled-binding="!ctrl.allEmployees" data-ng-if="ctrl.employeeMeetingReadPermission && !ctrl.employee.vacant" on-open="ctrl.expandMeetings();">
+                    <div class="row" data-ng-if="ctrl.employee.employeeMeetings.length > 0">
+                        <div class="col-sm-12">
+                            <div class="table-outer-bordered">
+                                <table class="table table-condensed table-striped table-hover" style="margin-bottom: 0;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 20px"></th>
+                                            <th scope="col" data-l10n-bind="'time.employee.employeeconversation.type'"></th>
+                                            <th scope="col" data-l10n-bind="'time.employee.employeeconversation.datetime'"></th>
+                                            <th scope="col" data-l10n-bind="'time.employee.employeeconversation.participants'"></th>
+                                            <th scope="col" data-l10n-bind="'time.employee.employeeconversation.completed'"></th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-ng-repeat="meeting in ctrl.employee.employeeMeetings | filter:{state:0} | orderBy:'-startTime'">
+                                        <tr data-ng-class="{'table-selected-row': ctrl.selectedEmployeeMeeting === meeting}" data-ng-click="ctrl.selectedEmployeeMeeting = meeting">
+                                            <td>
+                                                <i class="fas fa-caret-right" data-ng-if="ctrl.selectedEmployeeMeeting === meeting"></i>
+                                            </td>
+                                            <td>
+                                                <span>{{meeting.followUpTypeName}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{meeting.startTime | date:'shortDate'}} {{meeting.startTime | date:'shortTime'}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{meeting.participantNames}}</span>
+                                            </td>
+                                            <td>
+                                                <span data-l10n-bind data-l10n-bind-title="'time.employee.employeeconversation.completed'"><i class="fal fa-check-square" data-ng-if="meeting.completed"></i></span>
+                                            </td>
+                                            <td>
+                                                <span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-click="ctrl.deleteEmployeeMeeting(meeting);"></i></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-sm btn-default pull-right margin-large-top" data-ng-click="ctrl.undoMeeting();" data-ng-if="ctrl.selectedEmployeeMeeting && !ctrl.selectedEmployeeMeeting.employeeMeetingId"><i class="fal fa-undo iconDelete margin-small-right"></i><span data-l10n-bind="'core.undo'"></span></button>
+                            <button type="button" class="btn btn-sm btn-default pull-right margin-large-top" data-ng-click="ctrl.addMeeting();" data-ng-if="!ctrl.selectedEmployeeMeeting || ctrl.selectedEmployeeMeeting.employeeMeetingId"><i class="fal fa-plus margin-small-right"></i><span data-l10n-bind="'time.employee.employeeconversation.new'"></span></button>
+                        </div>
+
+                        <div class="col-sm-12" data-ng-if="ctrl.employee.employeeMeetings.length > 0 && ctrl.selectedEmployeeMeeting && ctrl.employeeMeetingModifyPermission">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <soe-select label-key="time.employee.employeeconversation.type" model="ctrl.selectedEmployeeMeeting.followUpTypeId" items="ctrl.followUpTypes" options="item.followUpTypeId as item.name for item in items" required="true" on-changing="ctrl.meetingTypeChanged();"></soe-select>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <soe-datepicker label-key="time.employee.employeeconversation.startdate" model="ctrl.selectedEmployeeMeeting.startTime" required="true" on-change="ctrl.employee.isEmployeeMeetingsChanged = true;"></soe-datepicker>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <soe-timepicker label-key="time.employee.employeeconversation.starttime" model="ctrl.selectedEmployeeMeeting.startTime" changed="ctrl.employee.isEmployeeMeetingsChanged = true;"></soe-timepicker>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <soe-label label-key="time.employee.employeeconversation.participants"></soe-label>
+                                            <select-employees selected-participant-ids="ctrl.selectedEmployeeMeeting.participantIds" all-participants="ctrl.employeesForMeeting" selected-participant-names="ctrl.selectedEmployeeMeeting.participantNames" is-readonly="!ctrl.employeeMeetingModifyPermission" on-change="ctrl.employee.isEmployeeMeetingsChanged = true;"></select-employees>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <soe-label label-key="time.employee.employeeconversation.specialfeature"></soe-label>
+                                            <select-attest-roles selected-attest-role-ids="ctrl.selectedEmployeeMeeting.attestRoleIds" all-attest-roles="ctrl.attestRolesForMeeting" is-readonly="!ctrl.employeeMeetingModifyPermission" on-change="ctrl.employee.isEmployeeMeetingsChanged = true;"></select-attest-roles>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <soe-textbox label-key="time.employee.employeeconversation.otherparticipants" model="ctrl.selectedEmployeeMeeting.otherParticipants" on-change="ctrl.employee.isEmployeeMeetingsChanged = true;"></soe-textbox>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <soe-checkbox label-key="time.employee.employeeconversation.employeecanedit" model="ctrl.selectedEmployeeMeeting.employeeCanEdit" inline="true" on-changing="ctrl.employee.isEmployeeMeetingsChanged = true;"></soe-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <soe-checkbox label-key="time.employee.employeeconversation.notify" model="ctrl.selectedEmployeeMeeting.reminder" inline="true" on-changing="ctrl.employee.isEmployeeMeetingsChanged = true;"></soe-checkbox>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <soe-checkbox label-key="time.employee.employeeconversation.completed" model="ctrl.selectedEmployeeMeeting.completed" inline="true" on-changing="ctrl.employee.isEmployeeMeetingsChanged = true;"></soe-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 margin-small-top">
+                                            <soe-textarea label-key="time.employee.employeeconversation.note" model="ctrl.selectedEmployeeMeeting.note" rows="11" on-change="ctrl.employee.isEmployeeMeetingsChanged = true;"></soe-textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="time.employee.employee.note" data-ng-if="ctrl.noteReadPermission && !ctrl.employee.vacant">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textarea data-ng-if="ctrl.employee" label-key="time.employee.employee.notelabel" model="ctrl.employee.note" rows="10" is-readonly="!ctrl.noteModifyPermission"></soe-textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-checkbox label-key="time.employee.employee.shownoteinpayslip" model="ctrl.employee.showNote" is-readonly="!ctrl.noteModifyPermission"></soe-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="common.extrafields.extrafields" is-open="false" ng-if="ctrl.showExtraFieldsExpander" on-open="ctrl.onExtraFieldsExpanderOpenClose()" on-close="ctrl.onExtraFieldsExpanderOpenClose()">
+                    <div class="form-group form-group-sm" ng-if="ctrl.extraFieldsExpanderRendered">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <extra-fields record-id="ctrl.employeeId" entity="11" read-only="!ctrl.modifyPermission" parent-guid="ctrl.guid" extra-field-records="ctrl.extraFieldRecords"></extra-fields>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+            </soe-accordion>
+            <soe-accordion label-key="core.document" label-value="ctrl.filesHelper.nbrOfFiles" label-value-in-parentheses="true" data-ng-if="(ctrl.filesReadPermission || ctrl.userIsMySelf) && ctrl.employeeId && !ctrl.employee.vacant" on-open="ctrl.documentExpanderOpened();">
+                <div class="row" data-ng-if="ctrl.filesHelper.filesRendered">
+                    <div class="col-sm-12">
+                        <soe-file-upload class="margin-large-bottom" callback="ctrl.fileUploaded(result);" entity="{{::ctrl.filesHelper.entity}}" image-type="{{::ctrl.filesHelper.type}}" record-id="ctrl.employeeId" show-roles="true" roles-mandatory="true" show-reload="true" on-reload="ctrl.reloadFiles();" data-ng-if="ctrl.filesModifyPermission"></soe-file-upload>
+                        <soe-file-display use-grid="true" use-signing="true" use-confirmation="true" change-role="true" files="ctrl.filesHelper.files" linked-to-user-id="ctrl.employee.userId" show-roles="true" roles-mandatory="true" permission="Feature.Time_Employee_Employees_Edit_OtherEmployees_Files" read-only="!ctrl.filesModifyPermission" nbr-of-files-changed="ctrl.filesHelper.nbrOfFilesChanged(nbrOfFiles)" file-name-changed="ctrl.filesHelper.fileNameChanged(file)" roles-changed="ctrl.filesHelper.loadFiles(ctrl.employeeId)" on-reload="ctrl.filesHelper.loadFiles(ctrl.employeeId)" data-ng-if="ctrl.documentAccordionOpened"></soe-file-display>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="time.employee.employee.log" data-ng-if="(ctrl.gdprLogsReadPermission || ctrl.userIsMySelf) && ctrl.employeeId">
+                <entity-log-viewer entity="11" record-id="ctrl.employee.employeeId"></entity-log-viewer>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter" data-ng-class="{'modal-margin': ctrl.isModal}" data-ng-if="!ctrl.searchMode">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.employee"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.employee.active" is-disabled="ctrl.employee.active" data-ng-if="ctrl.gdprLogsModifyPermission" data-ng-click="ctrl.employeeActiveChanged();"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

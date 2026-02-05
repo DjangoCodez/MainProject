@@ -1,0 +1,28 @@
+<form
+  [formGroup]="form"
+  [class.ms-2]="labelKey()"
+  [class.is-hidden]="hidden()"
+  novalidate
+  autocomplete="off">
+  <soe-datepicker
+    [labelKey]="labelKey()"
+    [secondaryLabelKey]="secondaryLabelKey()"
+    [secondaryLabelBold]="secondaryLabelBold()"
+    [secondaryLabelParantheses]="secondaryLabelParantheses()"
+    [secondaryLabelPrefixKey]="secondaryLabelPrefixKey()"
+    [secondaryLabelPostfixKey]="secondaryLabelPostfixKey()"
+    [inline]="true"
+    [width]="width()"
+    [view]="view()"
+    [hideToday]="hideToday()"
+    [hideClear]="hideClear()"
+    [showArrows]="showArrows()"
+    [hideCalendarButton]="hideCalendarButton()"
+    [minDate]="minDate()"
+    [maxDate]="maxDate()"
+    [initialDate]="initialDate()"
+    [manualDisabled]="disabled()"
+    (valueChanged)="valueChanged($event)"
+    formControlName="date">
+  </soe-datepicker>
+</form>

@@ -1,0 +1,45 @@
+<form [formGroup]="form">
+  <div class="row mt-2">
+    <div class="purchase-customer-invoice-rows-toolbar">
+      <div class="float-end">
+        <soe-select
+          [labelKey]="''"
+          [inline]="true"
+          [width]="250"
+          [items]="availableAttestStateOptions"
+          (valueChanged)="attestStateChanged($event)"
+          formControlName="attestStateTo">
+          <soe-icon-button
+            [disabled]="disabledsaveAttestButton()"
+            [iconName]="'play-circle'"
+            [iconClass]="'border-radius-right'"
+            [tooltip]="'billing.productrows.changeatteststate'"
+            [noBorder]="false"
+            (action)="saveAttestState()"></soe-icon-button>
+          <soe-icon-button
+            [iconName]="'filter-slash'"
+            [iconClass]="'border-radius-right'"
+            [tooltip]="'core.uigrid.gridmenu.clear_all_filters'"
+            [noBorder]="false"></soe-icon-button>
+          <soe-icon-button
+            [iconName]="'refresh'"
+            [iconClass]="'border-radius-right'"
+            [tooltip]="'core.reload_data'"
+            [noBorder]="false"
+            (action)="loadOrderGridvalues(viewType, id)"></soe-icon-button>
+        </soe-select>
+      </div>
+    </div>
+  </div>
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [noMargin]="true"
+      [parentGuid]="guid()"
+      [masterDetail]="true"
+      (editRowClicked)="edit($event)"
+      [height]="250"
+      (selectionChanged)="selectionChanged($event)">
+    </soe-grid-wrapper>
+  }
+</form>

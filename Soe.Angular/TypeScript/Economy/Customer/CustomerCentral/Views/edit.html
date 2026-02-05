@@ -1,0 +1,297 @@
+﻿<div class="ngSoeForm form-group form-group-sm">
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+    <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+    <div class="margin-small-top margin-small-bottom">
+        <div class="row">
+            <div class="col-sm-2">
+                <soe-label label-key="common.customer"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label label-key="common.contactaddresses.addressmenu.billing"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label label-key="common.contactaddresses.addressmenu.delivery"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label label-value="ctrl.phoneLabel" label-value-indiscreet="false"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label label-key="common.orgnr"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label label-key="common.customer.customer.blockorder"></soe-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="spanClickable discreet" data-ng-click="ctrl.openCustomer();">{{ctrl.customer.customerNr}}&nbsp;{{ctrl.customer.name}}</label>
+            </div>
+            <div class="col-sm-2">
+                <a href={{'https://maps.google.com/?q='+ctrl.customer.billingAddress}} target="_blank">{{ctrl.customer.billingAddress}}</a>
+            </div>
+            <div class="col-sm-2">
+                <a href={{'https://maps.google.com/?q='+ctrl.customer.deliveryAddress}} target="_blank">{{ctrl.customer.deliveryAddress}}</a>
+            </div>
+            <div class="col-sm-2">
+                <label class="discreet">{{ctrl.customer.phoneNumber}}</label>
+            </div>
+            <div class="col-sm-2">
+                <label class="discreet">{{ctrl.customer.orgNr}}</label>
+            </div>
+            <div class="col-sm-2">
+                <label class="discreet">{{ctrl.customer.blockOrderString}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <soe-label label-key="common.categories"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label label-key="common.customer.customer.invoicedeliverytype"></soe-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="discreet">{{ctrl.customer.categoryString}}</label>
+            </div>
+            <div class="col-sm-2">
+                <label class="discreet">{{ctrl.customer.invoiceDeliveryTypeString}}</label>
+            </div>
+        </div>
+    </div>
+    <div ng-if="ctrl.customer.note" class="info margin-small-top margin-small-bottom">
+        <span>{{ctrl.customer.note}}</span>
+    </div>
+    <uib-accordion class="" close-others="false">
+        <soe-accordion hidelabel="true" label-key="economy.supplier.suppliercentral.totals" is-open="false" is-disabled-binding="!ctrl.customer">
+            <div class="info margin-small-top">
+                <div class="row margin-small-top">
+                    <div class="col-sm-2">
+
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label class="pull-right" label-key="common.contract"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label class="pull-right" label-key="common.offer"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label class="pull-right" label-key="common.order"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label class="pull-right" label-key="economy.supplier.payment.totalamount"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label class="pull-right" label-key="economy.customer.customercentral.opensum"></soe-label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-label label-key="economy.customer.customercentral.incvat"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.contractsIncVat | amount}}</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.offersIncVat | amount}}</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.ordersIncVat | amount}}</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.invoicesIncVat | amount}}</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.unpaid | amount}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-label label-key="economy.customer.customercentral.exvat"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.contractsExVat | amount}}</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.offersExVat | amount}}</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.ordersExVat | amount}}</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.invoicesExVat | amount}}</label>
+                    </div>
+                    <div class="col-sm-2">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+
+                    </div>
+                    <div class="col-sm-2">
+
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label class="pull-right" label-key="economy.customer.customercentral.offercurrency"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label class="pull-right" label-key="economy.customer.customercentral.ordercurrency"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label class="pull-right" label-key="economy.customer.customercentral.invoicetotalcurrency"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label class="pull-right" label-key="economy.customer.customercentral.opensumcurrency"></soe-label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-label label-key="economy.customer.customercentral.incvat"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.offersCurrencyIncVat | amount}}</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.ordersCurrencyIncVat | amount}}</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.invoicesCurrencyIncVat | amount}}</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.unpaidCurrency | amount}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-label label-key="economy.customer.customercentral.exvat"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.offersCurrencyExVat | amount}}</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.ordersCurrencyExVat | amount}}</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet pull-right">{{ctrl.invoicesCurrencyExVat | amount}}</label>
+                    </div>
+                    <div class="col-sm-2">
+
+                    </div>
+                </div>
+            </div>
+        </soe-accordion>
+    </uib-accordion>
+    <div class="row margin-small-top">
+        <div class="row margin-large-left margin-large-right">
+            <uib-accordion close-others="false">
+                <soe-accordion label-key="common.contract" label-value="ctrl.contractExpanderLabelValue" is-open="ctrl.contractsExpanderOpen" ng-if="ctrl.contractPermission || ctrl.contractUserPermission" is-disabled-binding="!ctrl.customer" on-open="ctrl.contractExpanderOpened()">
+                    <div class="btn-toolbar">
+                        <div class="row">
+                            <div>
+                                <div class="col margin-large-left pull-left">
+                                    <soe-checkbox label-key="common.showonlyopen" model="ctrl.onlyOpenContracts"></soe-checkbox>
+                                </div>
+                                <div class="col margin-large-right pull-right">
+                                    <button type="button" class="btn btn-sm btn-default fal fa-sync" data-l10n-bind data-l10n-bind-title="'common.dashboard.reload'" data-ng-click="$event.stopPropagation();ctrl.loadContracts()"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div ag-grid="ctrl.contractGridOptions.gridOptions" class="ag-theme-balham"></div>
+                        <div id="contract-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="common.offer" label-value="ctrl.offerExpanderLabelValue" is-open="ctrl.offersExpanderOpen" ng-if="ctrl.offerPermission || ctrl.offerUserPermission" is-disabled-binding="!ctrl.customer" on-open="ctrl.offerExpanderOpened()">
+                    <div class="btn-toolbar">
+                        <div class="row">
+                            <div>
+                                <div class="col margin-large-left pull-left">
+                                    <soe-checkbox label-key="common.showonlyopen" model="ctrl.onlyOpenOffers"></soe-checkbox>
+                                </div>
+                                <div class="col margin-large-right pull-right">
+                                    <button type="button" class="btn btn-sm btn-default fal fa-sync" data-l10n-bind data-l10n-bind-title="'common.dashboard.reload'" data-ng-click="$event.stopPropagation();ctrl.loadOffers()"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div ag-grid="ctrl.offerGridOptions.gridOptions" class="ag-theme-balham"></div>
+                        <div id="offer-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                    </div>
+                    <div class="ngSoeFormFooter margin-small-top">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textbox class="pull-right margin-small-right" label-key="common.customer.invoices.totalselected" model="ctrl.offerSelectedTotal" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                                <soe-textbox class="pull-right margin-small-right" label-key="common.customer.invoices.totalfiltered" model="ctrl.offerFilteredTotal" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="common.order" label-value="ctrl.orderExpanderLabelValue" is-open="ctrl.ordersExpanderOpen" ng-if="ctrl.orderPermission || ctrl.orderUserPermission" is-disabled-binding="!ctrl.customer" on-open="ctrl.orderExpanderOpened()">
+                    <div class="btn-toolbar">
+                        <div class="row">
+                            <div>
+                                <div class="col margin-large-left pull-left">
+                                    <soe-checkbox label-key="common.showonlyopen" model="ctrl.onlyOpenOrders"></soe-checkbox>
+                                </div>
+                                <div class="col margin-large-right pull-right">
+                                    <button type="button" class="btn btn-sm btn-default fal fa-sync" data-l10n-bind data-l10n-bind-title="'common.dashboard.reload'" data-ng-click="$event.stopPropagation();ctrl.loadOrders()"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div ag-grid="ctrl.orderGridOptions.gridOptions" class="ag-theme-balham"></div>
+                        <div id="order-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                    </div>
+                    <div class="ngSoeFormFooter margin-small-top">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textbox class="pull-right margin-small-right" label-key="common.customer.invoices.checkedrows" model="ctrl.orderSelectedTotal" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                                <soe-textbox class="pull-right margin-small-right" label-key="common.customer.invoices.filteredrows" model="ctrl.orderFilteredTotal" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                                <soe-textbox class="pull-right margin-small-right" label-key="common.customer.invoices.lefttoinvoicecheckedrows" model="ctrl.orderSelectedToBeInvoicedTotal" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                                <soe-textbox class="pull-right margin-small-right" label-key="common.customer.invoices.lefttoinvoicefilteredrows" model="ctrl.orderFilteredToBeInvoicedTotal" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+                <soe-accordion label-key="common.customerinvoice" label-value="ctrl.invoiceExpanderLabelValue" is-open="ctrl.invoicesExpanderOpen" ng-if="ctrl.invoicePermission || ctrl.invoiceUserPermission" is-disabled-binding="!ctrl.customer" on-open="ctrl.invoiceExpanderOpened()">
+                    <div class="btn-toolbar">
+                        <div class="row">
+                            <div>
+                                <div class="col margin-large-left pull-left">
+                                    <soe-checkbox label-key="common.showonlyopen" model="ctrl.onlyOpenInvoices"></soe-checkbox>
+                                </div>
+                                <div class="col margin-large-right pull-right">
+                                    <button type="button" class="btn btn-sm btn-default fal fa-sync" data-l10n-bind data-l10n-bind-title="'common.dashboard.reload'" data-ng-click="$event.stopPropagation();ctrl.loadInvoices()"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div ag-grid="ctrl.invoiceGridOptions.gridOptions" class="ag-theme-balham"></div>
+                        <div id="invoice-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                    </div>
+                    <div class="ngSoeFormFooter">
+                        <div class="row">
+                            <div class="col-sm-12 margin-small-top">
+                                <soe-textbox class="pull-right margin-small-right" label-key="common.customer.invoices.totalselected" model="ctrl.invoiceSelectedTotal" numeric="true" decimals="2" ´readonly="true"></soe-textbox>
+                                <soe-textbox class="pull-right margin-small-right" label-key="common.customer.invoices.totalfiltered" model="ctrl.invoiceFilteredTotal" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                                <soe-textbox class="pull-right margin-small-right" label-key="common.customer.invoices.topayselected" model="ctrl.invoiceSelectedToPay" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                                <soe-textbox class="pull-right margin-small-right" label-key="common.customer.invoices.topayfiltered" model="ctrl.invoiceFilteredToPay" numeric="true" decimals="2" readonly="true"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+            </uib-accordion>
+        </div>
+    </div>
+</div>

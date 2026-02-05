@@ -1,0 +1,45 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonOkClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'common.status'"></h6>
+    </div>
+    <div class="modal-body">
+        <div>
+            <soe-instruction label-key="common.customer.invoices.automaticdistributioninfo"></soe-instruction>
+            <table class="table table-condensed table-hover horizontal-line-top margin-small-top">
+                <thead>
+                    <tr>
+                        <th scope="col" data-l10n-bind="'common.type'"></th>
+                        <th scope="col" data-l10n-bind="'common.status'"></th>
+                        <th scope="col" data-l10n-bind="'common.quantity'"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-l10n-bind="'common.customer.invoices.printout'"></td>
+                        <td><span class="{{ctrl.result.printResult.icon}}" title="{{ctrl.result.printResult.errorMessage}}"></span></td>
+                        <td><span>{{ctrl.result.printedCount}}</span></td>
+                    </tr>
+                    <tr>
+                        <td data-l10n-bind="'common.email'"></td>
+                        <td><span class="{{ctrl.result.emailResult.icon}}" title="{{ctrl.result.emailResult.errorMessage}}"></span></td>
+                        <td><span>{{ctrl.result.emailedCount}}</span></td>
+                    </tr>
+                    <tr>
+                        <td data-l10n-bind="'common.report.report.efaktura'"></td>
+                        <td><span class="{{ctrl.result.eInvoiceResult.icon}}" title="{{ctrl.result.eInvoiceResult.errorMessage}}"></span></td>
+                        <td><span>{{ctrl.result.eInvoicedCount}}</span></td>
+                    </tr>
+                    <tr>
+                        <td data-l10n-bind="'common.total'"></td>
+                        <td></td>
+                        <td><span>{{ctrl.result.eInvoicedCount + ctrl.result.emailedCount + ctrl.result.printedCount}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.buttonOkClick()"></button>
+    </div>
+</div>

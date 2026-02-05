@@ -1,0 +1,71 @@
+@if (form) {
+  <form [formGroup]="form" novalidate autocomplete="off">
+    @if (flowHandler.allowFetchGrid()) {
+      <soe-grid-wrapper
+        [rows]="rows"
+        [parentGuid]="guid()"
+        (editRowClicked)="edit($event)"
+        [masterDetail]="true"
+        [toolbarNoMargin]="true"
+        [toolbarNoTopBottomPadding]="true"
+        [toolbarNoBorder]="true"
+        (selectionChanged)="selectionChanged($event)"
+        [height]="250"
+        [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+        <div toolbar-content-left>
+          <soe-checkbox
+            [labelKey]="'common.showonlyopen'"
+            [inToolbar]="true"
+            [inline]="true"
+            [formControl]="isOnlyOpen"
+            (valueChanged)="showOnlyOpenChange($event)"></soe-checkbox>
+        </div>
+      </soe-grid-wrapper>
+    }
+
+    <div class="row" footer>
+      <div class="col-sm-12 d-flex justify-content-end">
+        <div class="information-container no-margin mx-2">
+          <div class="row">
+            <div class="col-sm-3">
+              <soe-numberbox
+                [labelKey]="'common.customer.invoices.topayfiltered'"
+                formControlName="invoiceFilteredToPay"
+                [disabled]="true"
+                [noMargins]="true"
+                [decimals]="2">
+              </soe-numberbox>
+            </div>
+            <div class="col-sm-3">
+              <soe-numberbox
+                [labelKey]="'common.customer.invoices.topayselected'"
+                formControlName="invoiceSelectedToPay"
+                [disabled]="true"
+                [noMargins]="true"
+                [decimals]="2">
+              </soe-numberbox>
+            </div>
+            <div class="col-sm-3">
+              <soe-numberbox
+                [labelKey]="'common.customer.invoices.totalfiltered'"
+                formControlName="invoiceFilteredTotal"
+                [disabled]="true"
+                [noMargins]="true"
+                [decimals]="2">
+              </soe-numberbox>
+            </div>
+            <div class="col-sm-3">
+              <soe-numberbox
+                [labelKey]="'common.customer.invoices.totalselected'"
+                formControlName="invoiceSelectedTotal"
+                [disabled]="true"
+                [noMargins]="true"
+                [decimals]="2">
+              </soe-numberbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+}

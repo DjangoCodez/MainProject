@@ -1,0 +1,64 @@
+@use '../../../../../shared/styles/core-styles/colors.scss';
+@use '../../../../../shared/styles/core-styles/variables.scss';
+
+.horizontal-list {
+  border: solid 1px colors.$soe-border-color;
+  background: colors.$soe-disabled-background-color;
+
+  .horizontal-list-item {
+    float: left;
+    margin-left: 5px;
+    padding: 4px;
+  }
+
+  .horizontal-list-item-separator {
+    margin-left: -4px;
+  }
+
+  > span {
+    vertical-align: top;
+  }
+
+  button {
+    margin: -1px;
+  }
+}
+
+.margin-none-left {
+  margin-left: 0 !important;
+}
+
+.padding-none-right {
+  padding-right: 0 !important;
+}
+.indiscreet {
+  font-weight: bold !important;
+}
+
+.input-group-btn {
+  .fa,
+  .fab,
+  .fad,
+  .fal,
+  .far,
+  .fas {
+    font-size: 18px;
+  }
+
+  .btn:last-of-type:not(:first-child) {
+    // restyling
+    border-radius: 0 variables.$button-border-radius
+      variables.$button-border-radius 0 !important;
+    margin-left: -1px;
+  }
+
+  .fa-times {
+    padding-right: 15px;
+    padding-left: 10px;
+  }
+
+  &:last-child > .btn {
+    /*margin-left: -2px;*/
+    height: 30px;
+  }
+}

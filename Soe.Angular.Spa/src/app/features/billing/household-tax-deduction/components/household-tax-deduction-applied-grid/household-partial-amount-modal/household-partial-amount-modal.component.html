@@ -1,0 +1,40 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-12 pull-right">
+            <soe-numberbox
+              [labelKey]="'billing.productrows.sumamount'"
+              [disallowNegative]="true"
+              [decimals]="2"
+              (valueChanged)="amountChanged($event)"
+              formControlName="amount"></soe-numberbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 pull-right">
+            <soe-checkbox
+              [labelKey]="'billing.invoices.householddeduction.createinvoice'"
+              formControlName="createInvoice"></soe-checkbox>
+          </div>
+        </div>
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    <soe-button
+      (action)="closeDialog()"
+      [caption]="'core.cancel'"
+      [behaviour]="'standard'"></soe-button>
+    <soe-button
+      class="ms-3"
+      [caption]="'core.ok'"
+      (action)="triggerOk()"
+      [disabled]="okButtonDisabled()"></soe-button>
+  </div>
+</soe-dialog>

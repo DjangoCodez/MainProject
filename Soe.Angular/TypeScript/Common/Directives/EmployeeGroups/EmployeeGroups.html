@@ -1,0 +1,16 @@
+﻿<div>
+    <table class="table table-outer-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 25px; vertical-align: middle;"><i class="fal link" data-ng-class="{'fa-square': !ctrl.allGroupsSelected, 'fa-check-square': ctrl.allGroupsSelected, 'link': !ctrl.readOnly}" data-ng-click="ctrl.selectAllGroups();"></i></th>
+                <th scope="col" data-l10n-bind="'common.employeegroups'"></th>
+            </tr>
+        </thead>
+        <tbody data-ng-repeat="group in ctrl.allEmployeeGroups">
+            <tr data-ng-class="{'link': !ctrl.readOnly}" data-ng-click="ctrl.toggleSelected(group);">
+                <td style="width: 28px;"><i class="fal " data-ng-class="{'fa-square': !group.isSelected, 'fa-check-square': group.isSelected}"></i></td>
+                <td><span>{{group.name}}</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

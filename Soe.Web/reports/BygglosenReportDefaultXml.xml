@@ -1,0 +1,154 @@
+﻿<SOE_BygglosenReport>
+  <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="SOE_BygglosenReport">
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element name="BygglosenReport">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ReportHeader">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element type="xs:string" name="ReportTitle"/>
+                      <xs:element type="xs:string" name="ReportDescription"/>
+                      <xs:element type="xs:string" name="ReportNr"/>
+                      <xs:element type="xs:string" name="Company"/>
+                      <xs:element type="xs:string" name="Orgnr"/>
+                      <xs:element type="xs:string" name="LoginName"/>
+                      <xs:element type="xs:string" name="TimePeriod"/>
+                      <xs:element type="xs:string" name="SortByLevel1"/>
+                      <xs:element type="xs:string" name="SortByLevel2"/>
+                      <xs:element type="xs:string" name="SortByLevel3"/>
+                      <xs:element type="xs:string" name="SortByLevel4"/>
+                      <xs:element type="xs:string" name="IsSortAscending"/>
+                      <xs:element type="xs:string" name="GroupByLevel1"/>
+                      <xs:element type="xs:string" name="GroupByLevel2"/>
+                      <xs:element type="xs:string" name="GroupByLevel3"/>
+                      <xs:element type="xs:string" name="GroupByLevel4"/>
+                      <xs:element type="xs:string" name="Special"/>
+                      <xs:element type="xs:string" name="DateInterval"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="Lista_lonegranskning">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element type="xs:string" name="Korrigeringskod"/>
+                      <xs:element type="xs:string" name="KorrigeringAvFil" minOccurs="0"/>
+                      <xs:element type="xs:string" name="Lonesystem"/>
+                      <xs:element name="Lonegranskning" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element type="xs:string" name="Organisationsnummer"/>
+                            <xs:element type="xs:string" name="Foretagsnamn"/>
+                            <xs:element type="xs:string" name="LoneperiodStartdatum"/>
+                            <xs:element type="xs:string" name="LoneperiodSlutdatum"/>
+                            <xs:element type="xs:int" name="Avtalsomrade"/>
+                            <xs:element type="xs:int" name="Lonetyp"/>
+                            <xs:element type="xs:int" name="LanOchKommun"/>
+                            <xs:element type="xs:string" name="Postort"/>
+                            <xs:element name="Personer">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="Person" maxOccurs="unbounded" minOccurs="0">
+                                    <xs:complexType>
+                                      <xs:sequence>
+                                        <xs:element type="xs:string" name="Arbetsplatsnr"/>
+                                        <xs:element type="xs:int" name="Anstallningsnummer"/>
+                                        <xs:element type="xs:string" name="Personnummer"/>
+                                        <xs:element type="xs:string" name="Namn"/>
+                                        <xs:element type="xs:int" name="Fordelningstal"/>
+                                        <xs:element type="xs:decimal" name="ArbetadeTimmar"/>
+                                        <xs:element type="xs:decimal" name="Lonesumma"/>
+                                        <xs:element type="xs:decimal" name="OBTillagg"/>
+                                        <xs:element type="xs:decimal" name="AvtalsenligManadslon"/>
+                                        <xs:element type="xs:decimal" name="Overtidstimmar"/>
+                                        <xs:element type="xs:decimal" name="Overtidstillagg"/>
+                                        <xs:element type="xs:int" name="Yrkeskod"/>
+                                      </xs:sequence>
+                                    </xs:complexType>
+                                  </xs:element>
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <BygglosenReport>
+    <ReportHeader>
+      <ReportTitle></ReportTitle>
+      <ReportDescription />
+      <ReportNr>0</ReportNr>
+      <Company></Company>
+      <Orgnr></Orgnr>
+      <LoginName></LoginName>
+      <TimePeriod></TimePeriod>
+      <SortByLevel1>Unknown</SortByLevel1>
+      <SortByLevel2>Unknown</SortByLevel2>
+      <SortByLevel3>Unknown</SortByLevel3>
+      <SortByLevel4>Unknown</SortByLevel4>
+      <IsSortAscending>false</IsSortAscending>
+      <GroupByLevel1>Unknown</GroupByLevel1>
+      <GroupByLevel2>Unknown</GroupByLevel2>
+      <GroupByLevel3>Unknown</GroupByLevel3>
+      <GroupByLevel4>Unknown</GroupByLevel4>
+      <Special />
+      <DateInterval> </DateInterval>
+    </ReportHeader>
+    <Lista_lonegranskning>
+      <Korrigeringskod />
+      <KorrigeringAvFil />
+      <Lonesystem>SoftOne GO</Lonesystem>
+      <Lonegranskning>
+        <Organisationsnummer></Organisationsnummer>
+        <Foretagsnamn></Foretagsnamn>
+        <LoneperiodStartdatum></LoneperiodStartdatum>
+        <LoneperiodSlutdatum></LoneperiodSlutdatum>
+        <Avtalsomrade>0</Avtalsomrade>
+        <Lonetyp>1</Lonetyp>
+        <LanOchKommun>1</LanOchKommun>
+        <Postort />
+        <Personer>
+          <Person>
+            <Arbetsplatsnr />
+            <Anstallningsnummer>0</Anstallningsnummer>
+            <Personnummer></Personnummer>
+            <Namn></Namn>
+            <Fordelningstal>100</Fordelningstal>
+            <ArbetadeTimmar>0</ArbetadeTimmar>
+            <Lonesumma>0</Lonesumma>
+            <OBTillagg>0</OBTillagg>
+            <AvtalsenligManadslon>0</AvtalsenligManadslon>
+            <Overtidstimmar>0</Overtidstimmar>
+            <Overtidstillagg>0</Overtidstillagg>
+            <Yrkeskod>0</Yrkeskod>
+          </Person>
+          <Person>
+            <Arbetsplatsnr />
+            <Anstallningsnummer>0</Anstallningsnummer>
+            <Personnummer></Personnummer>
+            <Namn></Namn>
+            <Fordelningstal>100</Fordelningstal>
+            <ArbetadeTimmar>0</ArbetadeTimmar>
+            <Lonesumma>0</Lonesumma>
+            <OBTillagg>0</OBTillagg>
+            <AvtalsenligManadslon>0</AvtalsenligManadslon>
+            <Overtidstimmar>0</Overtidstimmar>
+            <Overtidstillagg>0</Overtidstillagg>
+            <Yrkeskod>0</Yrkeskod>
+          </Person>
+        </Personer>
+      </Lonegranskning>
+    </Lista_lonegranskning>
+  </BygglosenReport>
+</SOE_BygglosenReport>

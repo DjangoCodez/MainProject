@@ -1,0 +1,18 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <time-project-report read-only="ctrl.isLocked" rows="ctrl.projectTimeBlockRows" vat-type="ctrl.invoice.vatType" project-type="ctrl.projectType" record-type="ctrl.recordType" employee-id="ctrl.employeeId" project-id="ctrl.projectId" set-loading="ctrl.loadingTimeProjectRows" from-date="ctrl.timeProjectFrom" to-date="ctrl.timeProjectTo" group-by-date="ctrl.groupByDate" invoice-id="ctrl.invoiceId" project-container="ctrl.projectContainer" parent-guid="ctrl.guid" has-selected-rows="ctrl.hasSelectedRows" grid-options="ctrl.soeGridOptions" load-attest-states-callback="ctrl.loadAttestStates(employeeGroupId)" include-child-projects="ctrl.includeChildProjects"></time-project-report>
+    <div class="ngSoeFormFooter top-margin">
+        <div class="pull-right margin-large-right">
+            <div>
+                <div class="btn-group pull-right" ng-if="ctrl.useExtendedTimeRegistration">
+                    <soe-menubutton label-key="billing.project.atteststate" options="ctrl.userValidPayrollAttestStatesOptions" option-selected="ctrl.saveAttest(option)" is-disabled="ctrl.isAttestDisabled()" main-button="true" drop-up="true"></soe-menubutton>
+                </div>
+                <div class="btn-group pull-right" ng-if="ctrl.modifyOtherEmployeesPermission && ctrl.useExtendedTimeRegistration && ctrl.projectContainer != 4">
+                    <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'billing.project.timesheet.recalulatework'" data-l10n-bind-title="'billing.project.timesheet.recalulatework'" data-ng-disabled="!ctrl.hasSelectedRows || ctrl.groupByDate" data-ng-click="$event.stopPropagation();ctrl.recalculateWorkTime()"></button>
+                </div>
+                <div class="btn-group pull-right" ng-if="ctrl.showMigrateButton">
+                    <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'billing.project.timesheet.converttimes'" data-l10n-bind-title="'billing.project.timesheet.converttimes'" data-ng-click="$event.stopPropagation();ctrl.runMigrateTimesJob()"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

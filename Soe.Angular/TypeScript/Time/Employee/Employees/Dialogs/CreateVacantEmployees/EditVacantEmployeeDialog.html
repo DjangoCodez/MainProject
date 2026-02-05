@@ -1,0 +1,55 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="messagebox">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></h6>
+            <h6 class="modal-title" data-l10n-bind="'core.edit'" data-ng-if="!ctrl.isNew"></h6>
+        </div>
+        <div class="modal-body">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="time.employee.employee.employeenr" model="ctrl.employee.employeeNr" required="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="time.employee.employee.firstname" model="ctrl.employee.firstName" required="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="time.employee.employee.lastname" model="ctrl.employee.lastName" required="true"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-datepicker label-key="common.startdate" model="ctrl.employee.employmentDateFrom" required="true"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-select label-key="time.employee.employeegroup.employeegroup" model="ctrl.employeeGroup" items="ctrl.employeeGroups" options="item as item.name for item in items" required="true" on-changing="ctrl.employeeGroupChanged();"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="time.schedule.planning.worktimeweek" label-prefix-value="ctrl.employeeGroupLabel" label-value="ctrl.employeeGroup.ruleWorkTimeWeek | minutesToTimeSpan" label-value-in-parentheses="true" model="ctrl.employee.workTimeWeekFormatted" update-on="blur" is-time="true" on-change="ctrl.workTimeWeekChanged();"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="time.employee.employee.percent" label-value="'%'" label-value-in-parentheses="true" model="ctrl.employee.percent" numeric="true" decimals="2"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class=" col-sm-12" data-ng-if="ctrl.useAccountsHierarchy">
+                        <soe-label label-key="time.employee.employee.accounthierarchy"></soe-label>
+                        <employee-accounts employee-accounts="ctrl.employee.accounts" default-employee-account-dim-id="ctrl.defaultEmployeeAccountDimId"></employee-accounts>
+                    </div>
+                    <div class=" col-sm-12" data-ng-if="!ctrl.useAccountsHierarchy">
+                        <categories category-type="6" category-record-entity="6" show-default="true" show-date-from="true" show-date-to="true" nbr-of-rows="5" use-comp-categories="true" comp-categories="ctrl.employee.categories"></categories>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+        </div>
+    </div>
+</form>

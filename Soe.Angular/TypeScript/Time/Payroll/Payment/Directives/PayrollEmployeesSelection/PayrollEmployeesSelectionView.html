@@ -1,0 +1,13 @@
+﻿<div>
+    <div class="row">
+        <div class="col-sm-6">
+            <soe-select label-key="time.employee.payrollgroup.payrollgroup" model="$ctrl.selectedPayrollGroupId" items="$ctrl.payrollGroups" options="item.payrollGroupId as item.name for item in items" on-changing="$ctrl.onPayrollGroupSelected()"></soe-select>
+        </div>
+        <div class="col-sm-5">
+            <soe-multiselect label-key="common.employees" model="$ctrl.selectedEmployees" options="$ctrl.employees" id-prop="employeeId" display-prop="nrAndName" show-selected="true" is-disabled="!$ctrl.employees || $ctrl.employees.length===0" on-item-select="$ctrl.propagateEmployeeSelection()" on-item-deselect="$ctrl.propagateEmployeeSelection()"></soe-multiselect>
+        </div>
+        <div class="col-sm-1 padding-none-left padding-none-right" style="margin-left: -10px; margin-top: 26px;">
+            <span class="far fa-spinner fa-pulse fa-fw extraLargeFont" data-ng-if="$ctrl.populating"></span>
+        </div>
+    </div>
+</div>

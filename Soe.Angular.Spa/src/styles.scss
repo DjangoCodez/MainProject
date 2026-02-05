@@ -1,0 +1,269 @@
+/* You can add global styles to this file, and also import other style files */
+
+// Angular Material
+@use '@angular/material' as mat;
+@include mat.elevation-classes();
+@include mat.app-background();
+
+$soe-mat-dark-primary-text: #1e1e1e; //colors.$soe-text-color
+$soe-mat-light-primary-text: #ffffff; //colors.$soe-inverted-text-color
+
+$soe-mat-primary-palette: (
+  50: #e5f0fd,
+  100: #c1d9fb,
+  200: #9cc3f8,
+  300: #7aabf3,
+  400: #6899ef,
+  500: #5e88ea,
+  600: #5b7adb,
+  700: #5568c7,
+  800: #4f56b4,
+  900: #453792,
+  contrast: (
+    50: $soe-mat-dark-primary-text,
+    100: $soe-mat-dark-primary-text,
+    200: $soe-mat-dark-primary-text,
+    300: $soe-mat-dark-primary-text,
+    400: $soe-mat-dark-primary-text,
+    500: $soe-mat-dark-primary-text,
+    600: $soe-mat-light-primary-text,
+    700: $soe-mat-light-primary-text,
+    800: $soe-mat-light-primary-text,
+    900: $soe-mat-light-primary-text,
+  ),
+);
+
+$soe-mat-accent-palette: (
+  50: #ffeaee,
+  100: #ffcad3,
+  200: #f89499,
+  300: #f16870,
+  400: #fd3d4d,
+  500: #ff2232,
+  600: #f20f32,
+  700: #e0002c,
+  800: #d30025,
+  900: #c30018,
+  contrast: (
+    50: $soe-mat-dark-primary-text,
+    100: $soe-mat-dark-primary-text,
+    200: $soe-mat-dark-primary-text,
+    300: $soe-mat-dark-primary-text,
+    400: $soe-mat-dark-primary-text,
+    500: $soe-mat-dark-primary-text,
+    600: $soe-mat-light-primary-text,
+    700: $soe-mat-light-primary-text,
+    800: $soe-mat-light-primary-text,
+    900: $soe-mat-light-primary-text,
+  ),
+);
+
+$soe-mat-primary: mat.m2-define-palette(
+  $soe-mat-primary-palette,
+  200,
+  100,
+  300,
+  900
+);
+$soe-mat-accent: mat.m2-define-palette(
+  $soe-mat-accent-palette,
+  300,
+  100,
+  500,
+  900
+);
+
+// The "warn" palette is optional and defaults to red if not specified.
+$soe-mat-warn: mat.m2-define-palette(mat.$m2-orange-palette);
+
+$soe-mat-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $soe-mat-primary,
+      accent: $soe-mat-accent,
+      warn: $soe-mat-warn,
+    ),
+    typography: mat.m2-define-typography-config(),
+    density: 0,
+  )
+);
+
+@include mat.elevation-classes();
+@include mat.app-background();
+@include mat.datepicker-theme($soe-mat-theme);
+//@include mat.all-component-themes($soe-mat-theme);
+
+// Bootstrap
+// https://getbootstrap.com/docs/5.3/customize/sass/
+
+//@import 'bootstrap/dist/css/bootstrap.min.css';
+//@import 'node_modules/bootstrap/scss/bootstrap.scss';
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import '../node_modules/bootstrap/scss/functions';
+
+// 2. Include any default variable overrides here
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import '../node_modules/bootstrap/scss/variables';
+$enable-dark-mode: false;
+//@import '../node_modules/bootstrap/scss/variables-dark';
+@import '../node_modules/bootstrap/scss/mixins';
+
+// 4. Include any optional Bootstrap components as you like
+@import '../node_modules/bootstrap/scss/maps';
+@import '../node_modules/bootstrap/scss/utilities';
+@import '../node_modules/bootstrap/scss/utilities/api';
+@import '../node_modules/bootstrap/scss/root';
+@import '../node_modules/bootstrap/scss/reboot';
+@import '../node_modules/bootstrap/scss/type';
+@import '../node_modules/bootstrap/scss/images';
+@import '../node_modules/bootstrap/scss/containers';
+@import '../node_modules/bootstrap/scss/forms';
+@import '../node_modules/bootstrap/scss/grid';
+@import '../node_modules/bootstrap/scss/helpers';
+
+@import '../node_modules/bootstrap/scss/accordion';
+@import '../node_modules/bootstrap/scss/alert';
+//@import '../node_modules/bootstrap/scss/badge';
+//@import '../node_modules/bootstrap/scss/breadcrumb';
+@import '../node_modules/bootstrap/scss/button-group';
+@import '../node_modules/bootstrap/scss/buttons';
+@import '../node_modules/bootstrap/scss/card';
+//@import '../node_modules/bootstrap/scss/carousel';
+@import '../node_modules/bootstrap/scss/close';
+@import '../node_modules/bootstrap/scss/dropdown';
+//@import '../node_modules/bootstrap/scss/list-group';
+@import '../node_modules/bootstrap/scss/modal';
+@import '../node_modules/bootstrap/scss/nav';
+@import '../node_modules/bootstrap/scss/navbar';
+//@import '../node_modules/bootstrap/scss/offcanvas';
+//@import '../node_modules/bootstrap/scss/pagination';
+//@import '../node_modules/bootstrap/scss/placeholders';
+//@import '../node_modules/bootstrap/scss/popover';
+//@import '../node_modules/bootstrap/scss/progress';
+//@import '../node_modules/bootstrap/scss/spinners';
+@import '../node_modules/bootstrap/scss/tables';
+//@import '../node_modules/bootstrap/scss/tooltip';
+//@import '../node_modules/bootstrap/scss/transitions';
+
+// ngx-toastr
+
+// Regular style toast
+//@import 'ngx-toastr/toastr';
+// Boostrap 5 style toast
+@import 'ngx-toastr/toastr-bs5-alert';
+
+.bootstrap-master-nx.container-fluid {
+  --bs-gutter-x: 1rem;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+}
+
+.bootstrap-master-nx .main-content {
+  /*height: 100vh;*/
+  position: absolute;
+  top: 48px;
+  bottom: 16px;
+  left: 200px;
+  right: 25px;
+  padding: 0;
+  -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+
+  .container-fluid {
+    padding: 0;
+  }
+}
+
+.bootstrap-master-nx #wrapper {
+  padding-left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+html {
+  font-size: 100%;
+}
+
+// Row
+.row {
+  --bs-gutter-x: 1rem;
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(-0.5 * var(--bs-gutter-x));
+
+  .g-0,
+  .gx-0 {
+    --bs-gutter-x: 0;
+    margin-right: calc(-0.5 * var(--bs-gutter-x));
+    margin-left: calc(-0.5 * var(--bs-gutter-x));
+  }
+}
+
+.row > * {
+  --bs-gutter-x: 1rem;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+}
+
+soe-root {
+  position: relative;
+  height: auto;
+  overflow: hidden;
+}
+
+soe-root .container {
+  margin-top: 1rem;
+  width: auto;
+  max-width: inherit;
+
+  ng-component {
+    position: relative;
+    display: grid;
+    width: auto;
+  }
+}
+
+// Material overrides
+.cdk-overlay-pane {
+  &.mat-mdc-dialog-panel {
+    max-width: unset;
+  }
+
+  &.size-fullscreen {
+    mat-dialog-container,
+    .mdc-dialog__container {
+      margin: auto;
+      min-width: 100% !important;
+    }
+  }
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  overflow: visible;
+}
+
+// Custom cursors during drag operations in schedule planning
+.cdk-cursor-copy,
+.cdk-cursor-copy * {
+  cursor: copy !important;
+}
+.cdk-cursor-alias,
+.cdk-cursor-alias * {
+  cursor: alias !important;
+}
+.cdk-cursor-grabbing,
+.cdk-cursor-grabbing * {
+  cursor: grabbing !important;
+}
+
+body .fa-unlock,
+.fa-lock,
+.fa-lock-keyhole,
+.fa-lock-open {
+  overflow: visible !important;
+}

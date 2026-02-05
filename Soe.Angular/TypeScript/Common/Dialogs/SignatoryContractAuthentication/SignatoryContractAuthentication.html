@@ -1,0 +1,60 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">
+            <span data-l10n-bind="'common.signatorycontract.authentication'"></span>
+            <span>{{ ctrl.permissionLabel }}</span>
+        </h6>
+    </div>
+    <soe-progressbar is-busy="ctrl.isBusy"></soe-progressbar>
+    <div class="modal-body" ng-if="!ctrl.isBusy">
+        <div class="row">
+            <div class="col-sm-12" ng-if="!ctrl.hasPermission">
+                <soe-instruction label-key="common.signatorycontract.nopermission"></soe-instruction>
+            </div>
+            <div class="col-sm-12" ng-if="ctrl.hasPermission && !ctrl.couldNotAuth">
+                <soe-instruction label-key="common.signatorycontract.authrequired"></soe-instruction>
+            </div>
+        </div>
+        <div class="row" ng-if="ctrl.showPassword">
+            <div class="col-sm-6">
+                <soe-textbox label-key="common.username"
+                             model="ctrl.username"></soe-textbox>
+            </div>
+            <div class="col-sm-6">
+                <soe-textbox input-type="password"
+                             label-key="common.password"
+                             model="ctrl.password"></soe-textbox>
+            </div>
+        </div>
+        <div class="row" ng-if="ctrl.showCode">
+            <div class="col-sm-12">
+                <soe-instruction label-key="common.signatorycontract.codesenttophone"></soe-instruction>
+            </div>
+        </div>
+        <div class="row" ng-if="ctrl.showCode">
+            <div class="col-sm-6">
+                <soe-textbox label-key="common.code"
+                             model="ctrl.code"></soe-textbox>
+            </div>
+        </div>
+        <div class="row" ng-if="ctrl.message">
+            <div class="col-sm-12">
+                <soe-instruction is-warning="true"
+                                 model="ctrl.message"></soe-instruction>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" 
+                class="btn btn-default" 
+                data-l10n-bind="'core.cancel'" 
+                data-ng-click="ctrl.cancel()"></button>
+        <button type="button" 
+                ng-if="ctrl.hasPermission && !ctrl.couldNotAuth"
+                class="btn btn-primary" 
+                data-l10n-bind="'core.ok'" 
+                data-ng-click="ctrl.submit()"></button>
+    </div>
+</div>
+

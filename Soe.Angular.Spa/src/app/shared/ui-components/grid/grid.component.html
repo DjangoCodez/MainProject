@@ -1,0 +1,90 @@
+<soe-ag-styles>
+  <ag-grid-angular
+    #agGrid
+    [attr.data-testid]="gridName"
+    style="margin: -1px"
+    [class]="[
+      'ag-theme-balham',
+      headerHeight() === 0 ? 'hide-header' : 'show-header',
+      floatingFiltersHeight() === 0 ? 'hide-filters' : 'show-filters'
+    ]"
+    [ngStyle]="height() > 0 ? { 'height.px': height() } : {}"
+    [soeAutoHeight]="height() > 0 ? 'ignore' : 'content'"
+    [rowSelection]="selection"
+    [selectionColumnDef]="selectionColumnDef"
+    [gridOptions]="options"
+    [context]="context"
+    [headerHeight]="headerHeight()"
+    [floatingFiltersHeight]="floatingFiltersHeight()"
+    [columnDefs]="columns"
+    [rowData]="rows | async"
+    [excelStyles]="excelStyles"
+    [icons]="icons"
+    [components]="components"
+    [masterDetail]="masterDetail()"
+    [rowGroupPanelShow]="rowGroupPanelShow() ? 'always' : 'never'"
+    [groupDisplayType]="groupDisplayType"
+    [suppressContextMenu]="suppressContextMenu()"
+    [allowContextMenuWithControlKey]="!suppressContextMenu()"
+    [getContextMenuItems]="contextMenuCallback()"
+    [getRowClass]="rowClassCallback()"
+    (cellClicked)="onCellClicked($event)"
+    (cellKeyDown)="onCellKeyDown($event)"
+    (cellValueChanged)="onCellValueChanged($event)"
+    (filterModified)="onFilterModified()"
+    (gridReady)="onGridReady($event)"
+    (rowSelected)="onRowSelected($event)"
+    (selectionChanged)="onSelectionChanged($event)"
+    (rowDoubleClicked)="onRowDoubleClicked($event)"
+    (modelUpdated)="onModelUpdated($event)"
+    (displayedColumnsChanged)="onDisplayedColumnsChanged($event)">
+  </ag-grid-angular>
+  @if (aggregationResult) {
+    <ag-grid-angular
+      #totalsGrid
+      style="margin: -1px; height: 28px"
+      [ngStyle]="
+        aggregationResult.length > 0
+          ? { 'height.px': aggregationResult.length * 28 }
+          : {}
+      "
+      class="totals-grid ag-theme-balham hide-header hide-filters hide-gridmenu hide-vertical-scroll"
+      [context]="{ aggregation: true }"
+      [gridOptions]="aggregationGridOptions"
+      [headerHeight]="0"
+      [columnDefs]="aggregationGridColumns"
+      [rowData]="aggregationResult"
+      [getRowClass]="rowTotalGridClassCallback()"
+      (gridReady)="onTotalsGridReady($event)">
+    </ag-grid-angular>
+  }
+  @if (!context.countInfo?.hidden) {
+    <div class="soe-grid-totals ag-cell-value" data-testid="grid-totals">
+      @if (context.countInfo?.pinnedLeftText !== '') {
+        <div class="float-start">
+          {{ context.countInfo?.pinnedLeftText }}
+        </div>
+      }
+      <div class="float-end" [title]="context.countInfo?.tooltip">
+        @if (context.countInfo?.prefixText !== '') {
+          <span style="margin-right: 4px">
+            {{ context.countInfo?.prefixText }}
+          </span>
+        }
+        <span data-testid="total">
+          {{ context.countInfo?.termTotal }} {{ totalRowsCountStr() }}
+        </span>
+        @if (filteredRowsCount() !== totalRowsCount()) {
+          <span style="margin-left: 4px" data-testid="filtered">
+            ({{ context.countInfo?.termFiltered }} {{ filteredRowsCountStr() }})
+          </span>
+        }
+        @if (selectedRowsCount() > 0) {
+          <span style="margin-left: 4px" data-testid="selected">
+            ({{ context.countInfo?.termSelected }} {{ selectedRowsCountStr() }})
+          </span>
+        }
+      </div>
+    </div>
+  }
+</soe-ag-styles>

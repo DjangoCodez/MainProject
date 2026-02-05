@@ -1,0 +1,52 @@
+<div class="row">
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [rows]="rows"
+      [noMargin]="true"
+      [parentGuid]="guid()"
+      (selectionChanged)="onGridSelectionChanged($event)"
+      [height]="300"
+      [toolbarGroups]="toolbarUtils.toolbarGroups"></soe-grid-wrapper>
+  }
+</div>
+<div class="row info">
+  <div class="col-sm-8"></div>
+  <div class="col-sm-2">
+    <div class="row">
+      <div class="col-sm-12 d-flex flex-row-reverse align-items-end">
+        <soe-label
+          [labelKey]="'common.customer.invoices.paidselected'"></soe-label>
+      </div>
+      <div class="col-sm-12 d-flex flex-row-reverse align-items-end">
+        <span>{{ selectedPaid() | number: '1.2-2' }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="row">
+      <div class="col-sm-12 d-flex flex-row-reverse align-items-end">
+        <soe-label
+          [labelKey]="'common.customer.invoices.paidfiltered'"></soe-label>
+      </div>
+      <div class="col-sm-12 d-flex flex-row-reverse align-items-end">
+        <span>{{ filteredPaid() | number: '1.2-2' }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row row-top-margin">
+  <div class="col-sm-12 d-flex flex-row-reverse align-items-end">
+    <soe-menu-button
+      class="me-2"
+      [caption]="'economy.import.payment.updatepaymentsbutton'"
+      [list]="menuList"
+      [variant]="'split'"
+      [selectedItem]="menuList[0]"
+      [disabled]="disabledUpdatePaymentButton()"
+      [behaviour]="'primary'"
+      [dropUp]="true"
+      (itemSelected)="peformAction($event)"
+      (selectedItem)="(menuList)">
+    </soe-menu-button>
+  </div>
+</div>

@@ -1,0 +1,199 @@
+﻿.layoutwrapper {
+    width: 100%;
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.layoutcentered {
+    height: 100%;
+    width: 1000px;
+    margin: 0 auto 0 auto;
+    display: block;
+    text-align: left;
+    overflow: hidden;
+}
+
+.layoutcenteredextended {
+    height: 100%;
+    width: 1000px;
+    margin: 0 auto 0 auto;
+    display: block;
+    text-align: left;
+    overflow: hidden;
+}
+
+/* Container */
+#LayoutContainer {
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: var(--soe-background-color);
+}
+
+#LayoutMain {
+    padding-bottom: 50px;
+    background-color: var(--soe-background-color);
+}
+
+/* BaseHeader */
+#LayoutBaseHeader {
+    height: 30px;
+    background-color: #2E2E2E;
+    z-index: -1;
+}
+
+    #LayoutBaseHeader .toolbar {
+        padding: 0 10px 0 0;
+        margin: 4px 0 0 0;
+        float: right;
+    }
+
+        #LayoutBaseHeader .toolbar div.selector {
+            height: 20px;
+            margin: 0;
+            padding: 3px 0 0 25px;
+            float: left;
+        }
+
+        #LayoutBaseHeader .toolbar .year-not-open {
+            color: Red;
+        }
+
+    #LayoutBaseHeader span, #LayoutBaseHeader a {
+        color: var(--soe-text-color);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        text-align: left;
+    }
+
+        #LayoutBaseHeader a:hover {
+            color: #FFFFFF;
+        }
+
+/*RemoteLogin*/
+#RemoteLogin {
+    height: 20px;
+    margin: 4px 0 0 0;
+    padding: 3px 0 0 0;
+    float: left;
+    border-left: 1px solid var(--soe-border-color);
+    border-right: 1px solid var(--soe-border-color);
+}
+
+    #RemoteLogin span, #RemoteLogin a {
+        padding: 0 5px 0 5px;
+    }
+
+    #RemoteLogin .tagline {
+        color: var(--soe-color-primary);
+    }
+
+/* Header */
+#LayoutHeader {
+    height: 80px;
+    background: url(merge/layout/header-bg.png) repeat-x;
+    z-index: -1;
+}
+
+    #LayoutHeader .logo {
+        height: 100%;
+        width: 200px;
+        position: relative;
+        float: left;
+        background: url(/cssjs/merge/layout/header-logo.png) no-repeat;
+    }
+
+        #LayoutHeader .logo a {
+            height: 100%;
+            width: 200px;
+            top: 0;
+            left: 0;
+            position: absolute;
+        }
+
+            #LayoutHeader .logo a h1 {
+                display: none;
+            }
+
+    #LayoutHeader .icon {
+        height: 100%;
+        width: 50px;
+        margin-left: 73px;
+        float: left;
+    }
+
+        #LayoutHeader .icon img {
+            padding: 15px 10px 12px 10px;
+        }
+
+    #LayoutHeader .selector {
+        height: 100%;
+        float: left;
+    }
+
+        #LayoutHeader .selector div {
+            padding: 25px 0 0 0;
+        }
+
+/* Navigation */
+#LayoutNavigation {
+    height: 30px;
+    background: transparent url(merge/menu/menu-inactive.jpg) repeat-x;
+}
+
+/* Content */
+#LayoutContentWrapper {
+    background-color: var(--soe-background-color);
+}
+
+#LayoutMainContent {
+    min-height: 650px;
+    width: 970px; /*Padding add's extra 30px */
+    margin: 0 auto 0 auto;
+    padding: 15px;
+    display: block;
+}
+
+#LayoutLeftContent {
+}
+/* Footer */
+#LayoutBaseFooter {
+    position: relative;
+    margin-top: -50px; /* negative value of footer height */
+    height: 50px;
+    clear: both;
+    background-color: #2E2E2E;
+    z-index: 1;
+}
+
+    #LayoutBaseFooter .info {
+        margin: 15px 0 0 30px;
+        float: left;
+    }
+
+    #LayoutBaseFooter .breadcrumb {
+        margin: 15px 30px 0 0;
+        float: right;
+        /* for IE */
+        filter: alpha(opacity=0);
+        /* CSS3 standard */
+        opacity: 0;
+    }
+
+        #LayoutBaseFooter .breadcrumb a {
+            text-decoration: underline;
+            color: White;
+        }
+
+    #LayoutBaseFooter span {
+        color: #FFFFFF;
+        font-size: 11px;
+    }
+
+        #LayoutBaseFooter span .TM {
+            margin-left: -0.25em;
+            margin-right: -0.25em;
+        }

@@ -1,0 +1,66 @@
+﻿<div>
+    <soe-panel label-key="time.payroll.payrollpricetype.payrollpricetypes" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly || ctrl.selectedPriceType.readOnly || !ctrl.selectedPriceType" on-button-click="$event.stopPropagation();ctrl.editPeriod();">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 20px"></th>
+                    <th scope="col" data-ng-if="ctrl.priceTypes.length>0 && !ctrl.allPeriodsExpanded"><span data-l10n-bind data-l10n-bind-title="'time.employee.employmentpricetype.expandperiods'"><i class="link" data-ng-click="ctrl.expandAllPeriods();">+</i></span></th>
+                    <th scope="col" data-ng-if="ctrl.priceTypes.length>0 && ctrl.allPeriodsExpanded"><span data-l10n-bind data-l10n-bind-title="'time.employee.employmentpricetype.collapseperiods'"><i class="link" data-ng-click="ctrl.collapseAllPeriods();">-</i></span></th>
+                    <th scope="col" data-l10n-bind="'common.name'"></th>
+                    <th scope="col" class="right-align-cell"><span data-l10n-bind="'time.employee.employmentpricetype.currentamount'"></span> <span>({{ctrl.changeDate | date:'shortDate'}})</span></th>
+                    <th scope="col" class="right-align-cell" data-l10n-bind="'time.employee.employmentpricetype.payrollgroupamount'"></th>
+                    <th scope="col" style="width: 28px"></th>
+                    <th scope="col" style="width: 28px"></th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="priceType in ctrl.priceTypes | orderBy:'sort' track by $index">
+                <tr data-ng-class="{'table-selected-row': ctrl.selectedPriceType === priceType}" data-ng-click="ctrl.selectedPriceType = priceType">
+                    <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedPriceType === priceType"></i></td>
+                    <td>
+                        <span data-l10n-bind data-l10n-bind-title="'time.employee.employmentpricetype.expandperiod'" data-ng-if="priceType.periods.length>0 && !priceType.expanded"><i class="link" data-ng-click="priceType.expanded=true">+</i></span>
+                        <span data-l10n-bind data-l10n-bind-title="'time.employee.employmentpricetype.collapseperiod'" data-ng-if="priceType.periods.length>0 && priceType.expanded"><i class="link" data-ng-click="priceType.expanded=false">-</i></span>
+                    </td>
+                    <td><span data-ng-class="{'errorColor': priceType.levelIsMandatory}">{{priceType.name}} ({{priceType.code}})</span></td>
+                    <td class="right-align-cell"><span>{{priceType.currentAmount | amount:2:true}}</span></td>
+                    <td class="right-align-cell"><span>{{priceType.payrollGroupAmount | amount:2:true}}</span></td>
+                    <td><span><i class="fal fa-lock-alt" data-ng-if="priceType.readOnly"></i></span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'time.employee.employmentpricetype.showhistory'"><i class="fal fa-history link" data-ng-if="priceType.employmentPriceTypeId && !priceType.isPayrollGroupPriceType" data-ng-click="ctrl.showHistory(priceType);"></i></span></td>
+                </tr>
+                <tr data-ng-if="priceType.periods.length>0 && priceType.expanded">
+                    <td colspan="7">
+                        <div class="table-outer-bordered">
+                            <table class="table table-condensed table-striped table-hover" style="margin-bottom: 0;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" data-l10n-bind="'common.fromdate'"></th>
+                                        <th scope="col" data-l10n-bind="'time.employee.payrolllevel.payrolllevel'"></th>
+                                        <th scope="col" class="right-align-cell" data-l10n-bind="'common.amount'"></th>
+                                        <th scope="col" style="width: 30%"><!-- Placeholder to shorten distance between date and amount --></th>
+                                        <th scope="col" data-ng-if="ctrl.readOnly"></th><!-- Placeholder for history if read only -->
+                                        <th scope="col" class="table-header-button" style="width: 84px;" colspan="3" data-ng-if="!ctrl.readOnly">
+                                            <span data-l10n-bind data-l10n-bind-title="'common.newrow'" data-ng-click="ctrl.editPeriod(null);"><i class="fal fa-plus"></i><span data-l10n-bind="'core.newrow'"></span></span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="period in priceType.periods | orderBy:'-fromDate' track by $index">
+                                        <td><span>{{period.fromDate | date:'shortDate'}}</span></td>
+                                        <td><span>{{period.payrollLevelName}}</span></td>
+                                        <td class="right-align-cell">
+                                            <span data-ng-if="!period.hidden">{{period.amount | amount}}</span>
+                                            <span data-ng-if="period.hidden">********</span>
+                                        </td>
+                                        <td></td>
+                                        <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'time.employee.employmentpricetype.showhistory'" data-ng-if="!period.hidden"><i class="fal fa-history link" data-ng-click="ctrl.showPeriodHistory(period);"></i></span></td>
+                                        <td style="width: 28px" data-ng-if="!ctrl.readOnly"><span data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-if="!period.hidden"><i class="fal fa-pencil iconEdit link" data-ng-click="ctrl.editPeriod(period);"></i></span></td>
+                                        <td style="width: 28px" data-ng-if="!ctrl.readOnly"><span data-l10n-bind data-l10n-bind-title="'core.deleterow'" data-ng-if="!period.hidden"><i class="fal fa-times iconDelete link" data-ng-click="ctrl.deletePeriod(priceType, period);"></i></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </soe-panel>
+</div>

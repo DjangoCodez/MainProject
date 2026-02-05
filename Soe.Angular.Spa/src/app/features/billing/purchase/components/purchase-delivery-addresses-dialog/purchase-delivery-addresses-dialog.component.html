@@ -1,0 +1,57 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    <div class="soe-edit-form">
+      @if (noAddresses()) {
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-label
+              label-key="billing.purchase.nodeliveryaddress"></soe-label>
+          </div>
+        </div>
+      }
+      <div class="row">
+        <div class="col-sm-12">
+          @for (address of addresses; track address) {
+            <div class="d-flex input-group">
+              <div
+                class="form-control ng-pristine no-border-right-radius ng-valid ng-touched"
+                style="height: auto">
+                <span style="font-weight: fw-normal; padding: 0px 5px">{{
+                  address.address
+                }}</span>
+              </div>
+              <div
+                class="d-flex align-center soe-button-group"
+                style="margin-left: 0px">
+                <soe-icon-button
+                  [iconName]="address.checked ? 'check-square' : 'square'"
+                  [tooltip]="'core.select'"
+                  (action)="selectAddresses(address)">
+                </soe-icon-button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+    <div dialog-footer class="soe-form-footer" style="margin: 0">
+      <div class="col-sm-12">
+        <div class="float-end noMargin">
+          <soe-button
+            class="ms-3"
+            [caption]="'core.cancel'"
+            typeClass="btn btn-secondary"
+            [behaviour]="'standard'"
+            (action)="cancel()"></soe-button>
+          <soe-button
+            [disabled]="!isAddressSelected()"
+            class="ms-3"
+            [caption]="'core.ok'"
+            typeClass="btn btn-secondary"
+            [behaviour]="'primary'"
+            (action)="ok()"></soe-button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</soe-dialog>

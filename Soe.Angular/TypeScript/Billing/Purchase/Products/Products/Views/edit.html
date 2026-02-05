@@ -1,0 +1,98 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal()" aria-hidden="true">&times;</button>
+        <h6 class="modal-title">{{ctrl.modalTitle}}</h6>
+    </div>
+    <div purchase-validation ng-class="ctrl.isModal ? 'edit-padding': ''" ng-model="ctrl.supplierProject" edit-permission="ctrl.modifyPermission" data-ng-if="!ctrl.progressBusy">
+        <div class="row btn-toolbar">
+            <div class="col-sm-6">
+                <div class="pull-left">
+                    <soe-toolbar buttons="ctrl.toolbar.navigationMenuButtons" hide-border="true" no-margin="true" ng-if="ctrl.showNavigationButtons"></soe-toolbar>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <soe-toolbar buttons="ctrl.toolbar.buttonGroups" hide-border="true" no-margin="true"></soe-toolbar>
+            </div>
+        </div>
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="common.general" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <soe-typeahead is-disabled="!ctrl.isNew" label-key="billing.purchase.supplier" model="ctrl.supplierHelper.selectedSupplier" items="ctrl.supplierHelper.suppliers" options="item as item.name for item in items" on-edit="ctrl.supplierHelper.openSupplier()" edit-tooltip-key="core.edit" edit-disabled="!ctrl.supplierHelper.editSupplierPermission" use-only-edit-disabled="true" required="true"></soe-typeahead>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <soe-textbox label-key="billing.purchase.product.supplieritemno" model="ctrl.supplierProduct.supplierProductNr" required="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-3">
+                            <soe-textbox label-key="billing.purchase.product.supplieritemname" model="ctrl.supplierProduct.supplierProductName" required="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-3">
+                            <soe-select label-key="billing.purchase.product.supplierunit" model="ctrl.supplierProduct.supplierProductUnitId" items="ctrl.productUnits" options="item.productUnitId as item.name for item in items" required="true"></soe-select>
+                        </div>
+                        <div class="col-sm-3">
+                            <soe-textbox label-key="common.code" model="ctrl.supplierProduct.supplierProductCode"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <soe-textbox label-key="billing.purchase.product.packetsize" model="ctrl.supplierProduct.packSize" input-type="number"></soe-textbox>
+                        </div>
+                        <div class="col-sm-3">
+                            <soe-textbox label-key="billing.purchase.product.leadtime" model="ctrl.supplierProduct.deliveryLeadTimeDays" input-type="number" min="0" on-input="validity.valid||(value='')"></soe-textbox>
+                        </div>
+                        <div class="col-sm-3">
+                            <!--<soe-select label-key="common.countryoforigin" model="ctrl.supplierProduct.sysCountryId" items="ctrl.countries" options="item.id as item.name for item in items"></soe-select>-->
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <soe-typeahead is-disabled="false"
+                                           label-key="billing.product.number"
+                                           model="ctrl.selectedProduct"
+                                           items="ctrl.invoiceProducts"
+                                           options="item.number as item.numberName for item in items"
+                                           filter-property="numberName"
+                                           on-selection-changed="ctrl.selectProduct(item)"
+                                           on-edit="ctrl.editProduct()"
+                                           edit-tooltip-key="core.edit"
+                                           edit-icon="fa-pen"
+                                           edit-disabled="!ctrl.editInvoiceProductPermission" />
+                        </div>
+                        <div class="col-sm-3">
+                            <soe-textbox label-key="common.customer.invoices.articlename" model="ctrl.selectedProduct.name" is-readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-3">
+                            <soe-select label-key="billing.product.productunit" model="ctrl.selectedProduct.productUnitId" items="ctrl.productUnits" options="item.productUnitId as item.name for item in items" is-readonly="true"></soe-select>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="billing.product.purchaseprice" is-open="ctrl.priceRowsExpanderIsOpen" on-open="ctrl.openPriceRowsExpander()">
+                <div class="row" data-ng-if="ctrl.priceRowsRendered">
+                    <div class="col-sm-12">
+                        <supplier-product-prices parent-guid="ctrl.guid"
+                                                 supplier-product-id="ctrl.supplierProductId"
+                                                 price-rows="ctrl.priceRows">
+                        </supplier-product-prices>
+                    </div>
+                </div>
+        </uib-accordion>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.customer"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

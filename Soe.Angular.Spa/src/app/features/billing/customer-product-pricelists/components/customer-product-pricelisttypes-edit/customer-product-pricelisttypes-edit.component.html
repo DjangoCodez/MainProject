@@ -1,0 +1,69 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'billing.products.pricelists.pricelist'"
+      [static]="true">
+      <div class="row">
+        <div class="col-sm-4">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [autoFocus]="true"
+            formControlName="name">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-4">
+          <soe-textbox
+            [labelKey]="'common.description'"
+            formControlName="description">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-4">
+          <soe-select
+            [labelKey]="'common.currency'"
+            [selectedId]="form.value.currencyId"
+            [items]="performCurrencies.data || []"
+            formControlName="currencyId"></soe-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <soe-checkbox
+            [labelKey]="'common.customer.invoices.projectpricelist'"
+            formControlName="isProjectPriceList">
+          </soe-checkbox>
+        </div>
+        <div class="col-sm-4">
+          <soe-checkbox
+            [labelKey]="'common.incvat'"
+            formControlName="inclusiveVat">
+          </soe-checkbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      class="mt-2"
+      [labelKey]="'billing.purchase.product.prices'"
+      [noPadding]="true"
+      [static]="true">
+      <soe-customer-product-pricelists
+        [parentForm]="form"
+        [showPriceListTypeSelection]="false"
+        [showProductSelection]="true"></soe-customer-product-pricelists>
+    </soe-expansion-panel>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

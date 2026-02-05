@@ -1,0 +1,68 @@
+﻿<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>Google Maps</title>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript">
+        var geocoder;
+        var map;
+        function initialize() {
+            geocoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(-34.397, 150.644);
+            var myOptions = {
+                zoom: 16,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+            var args = getArgs();
+            if (args.address)
+                document.getElementById("address").value = unescape(args.address);
+
+            codeAddress();
+        }
+
+        function codeAddress() {
+            var address = document.getElementById("address").value;
+            if (geocoder) {
+                geocoder.geocode({ 'address': address }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results[0].geometry.location);
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location
+                        });
+                    } else {
+                        alert("Adressen kunde ej hittas");
+                    }
+                });
+            }
+        }
+
+        function getArgs() {
+            var args = new Object();
+            var query = location.search.substring(1);
+            var pairs = query.split("&");
+            for (var i = 0; i < pairs.length; i++) {
+                var pos = pairs[i].indexOf('=');
+                if (pos == -1) continue;
+                var argname = pairs[i].substring(0, pos);
+                var value = pairs[i].substring(pos + 1);
+                args[argname] = unescape(value);
+            }
+            return args;
+        } 
+
+    </script>
+</head>
+<body style="margin: 0px; padding: 0px;" onload="initialize()">
+    <div>
+        <input id="address" type="textbox" value="" style="width: 300px">
+        <input type="button" value="Sök adress" onclick="codeAddress()">
+    </div>
+    <div id="map_canvas" style="width: 100%; height: 90%">
+    </div>
+</body>
+</html>

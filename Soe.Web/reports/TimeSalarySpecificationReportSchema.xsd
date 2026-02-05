@@ -1,0 +1,625 @@
+﻿<xs:schema id="SOE_TimeSalarySpecificationReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SOE_TimeSalarySpecificationReport" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="lonespec_export">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="company">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="c_phone_type_1" type="xs:string"/>
+                    <xs:element name="c_phone_type_2" type="xs:string"/>
+                    <xs:element name="c_phone_type_3" type="xs:string"/>
+                    <xs:element name="c_phone_type_4" type="xs:string"/>
+                    <xs:element name="c_phone_number_1" type="xs:string"/>
+                    <xs:element name="c_phone_number_2" type="xs:string"/>
+                    <xs:element name="c_phone_number_3" type="xs:string"/>
+                    <xs:element name="c_phone_number_4" type="xs:string"/>
+                    <xs:element name="comp_name" type="xs:string"/>
+                    <xs:element name="c_adress" type="xs:string"/>
+                    <xs:element name="c_postcode" type="xs:string"/>
+                    <xs:element name="c_city" type="xs:string"/>
+                    <xs:element name="c_country" type="xs:string"/>
+                    <xs:element name="c_email" type="xs:string"/>
+                  </xs:sequence>
+                  <xs:attribute name="c_id" type="xs:string"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="period">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="w_period_used" type="xs:string"/>
+                    <xs:element name="w_period_count_from" type="xs:string"/>
+                    <xs:element name="w_period_count_to" type="xs:string"/>
+                    <xs:element name="w_period_payed_date" type="xs:string"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="lonespecar">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="person">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="person_period">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="sn_type" type="xs:string"/>
+                                <xs:element name="sn_id" type="xs:string"/>
+                                <xs:element name="sn_pay_account_1" type="xs:string"/>
+                                <xs:element name="sn_pay_account_1_sum" type="xs:string"/>
+                                <xs:element name="sn_pay_account_2" type="xs:string"/>
+                                <xs:element name="sn_pay_account_2_sum" type="xs:string"/>
+                                <xs:element name="w_tax_desc" type="xs:string"/>
+                                <xs:element name="sn_letter_win" type="xs:string"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="person_info">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="p_pnum" type="xs:string"/>
+                                <xs:element name="p_fname" type="xs:string"/>
+                                <xs:element name="p_ename" type="xs:string"/>
+                                <xs:element name="p_name" type="xs:string"/>
+                                <xs:element name="p_adress" type="xs:string"/>
+                                <xs:element name="p_coadress" type="xs:string"/>
+                                <xs:element name="p_postcode" type="xs:string"/>
+                                <xs:element name="p_city" type="xs:string"/>
+                                <xs:element name="p_country" type="xs:string"/>
+                                <xs:element name="p_email" type="xs:string"/>
+                                <xs:element name="p_dep" type="xs:string"/>
+                                <xs:element name="p_title" type="xs:string"/>
+                                <xs:element name="p_tel_home" type="xs:string"/>
+                                <xs:element name="p_tel_work" type="xs:string"/>
+                                <xs:element name="p_tel_mob" type="xs:string"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="employee">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="e_id" type="xs:string"/>
+                                <xs:element name="e_enum" type="xs:string"/>
+                                <xs:element name="e_agr_code" type="xs:string"/>
+                                <xs:element name="e_agr_desc" type="xs:string"/>
+                                <xs:element name="e_agr_id" type="xs:string"/>
+                                <xs:element name="e_vac_profile_name" type="xs:string"/>
+                                <xs:element name="e_vac_type_name" type="xs:string"/>
+                                <xs:element name="e_vac_name" type="xs:string"/>
+                                <xs:element name="e_vac_id" type="xs:string"/>
+                                <xs:element name="e_pos_code" type="xs:string"/>
+                                <xs:element name="e_pos_id" type="xs:string"/>
+                                <xs:element name="e_work_scb" type="xs:string"/>
+                                <xs:element name="e_work_type" type="xs:string"/>
+                                <xs:element name="e_work_time_type" type="xs:string"/>
+                                <xs:element name="e_union" type="xs:string"/>
+                                <xs:element name="e_duty_city" type="xs:string"/>
+                                <xs:element name="e_federal" type="xs:string"/>
+                                <xs:element name="e_wages_saf_type" type="xs:string"/>
+                                <xs:element name="e_condition" type="xs:string"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="holiday">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="holiday_1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_holiday_amount_period_1" type="xs:string"/>
+                                      <xs:element name="sn_holiday_amount_year_1" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_period_1" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_year_1" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_period_1" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_year_1" type="xs:string"/>
+                                      <xs:element name="sn_holiday_code_1" type="xs:string"/>
+                                      <xs:element name="sn_holiday_desc_1" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="holiday_2">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_holiday_amount_period_2" type="xs:string"/>
+                                      <xs:element name="sn_holiday_amount_year_2" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_period_2" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_year_2" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_period_2" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_year_2" type="xs:string"/>
+                                      <xs:element name="sn_holiday_code_2" type="xs:string"/>
+                                      <xs:element name="sn_holiday_desc_2" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="holiday_3">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_holiday_amount_period_3" type="xs:string"/>
+                                      <xs:element name="sn_holiday_amount_year_3" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_period_3" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_year_3" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_period_3" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_year_3" type="xs:string"/>
+                                      <xs:element name="sn_holiday_code_3" type="xs:string"/>
+                                      <xs:element name="sn_holiday_desc_3" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="holiday_4">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_holiday_amount_period_4" type="xs:string"/>
+                                      <xs:element name="sn_holiday_amount_year_4" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_period_4" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_year_4" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_period_4" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_year_4" type="xs:string"/>
+                                      <xs:element name="sn_holiday_code_4" type="xs:string"/>
+                                      <xs:element name="sn_holiday_desc_4" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="holiday_5">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_holiday_amount_period_5" type="xs:string"/>
+                                      <xs:element name="sn_holiday_amount_year_5" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_period_5" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_year_5" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_period_5" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_year_5" type="xs:string"/>
+                                      <xs:element name="sn_holiday_code_5" type="xs:string"/>
+                                      <xs:element name="sn_holiday_desc_5" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="holiday_6">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_holiday_amount_period_6" type="xs:string"/>
+                                      <xs:element name="sn_holiday_amount_year_6" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_period_6" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_year_6" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_period_6" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_year_6" type="xs:string"/>
+                                      <xs:element name="sn_holiday_code_6" type="xs:string"/>
+                                      <xs:element name="sn_holiday_desc_6" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="holiday_7">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_holiday_amount_period_7" type="xs:string"/>
+                                      <xs:element name="sn_holiday_amount_year_7" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_period_7" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_year_7" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_period_7" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_year_7" type="xs:string"/>
+                                      <xs:element name="sn_holiday_code_7" type="xs:string"/>
+                                      <xs:element name="sn_holiday_desc_7" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="holiday_8">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_holiday_amount_period_8" type="xs:string"/>
+                                      <xs:element name="sn_holiday_amount_year_8" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_period_8" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_year_8" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_period_8" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_year_8" type="xs:string"/>
+                                      <xs:element name="sn_holiday_code_8" type="xs:string"/>
+                                      <xs:element name="sn_holiday_desc_8" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="holiday_9">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_holiday_amount_period_9" type="xs:string"/>
+                                      <xs:element name="sn_holiday_amount_year_9" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_period_9" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_year_9" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_period_9" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_year_9" type="xs:string"/>
+                                      <xs:element name="sn_holiday_code_9" type="xs:string"/>
+                                      <xs:element name="sn_holiday_desc_9" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="holiday_10">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_holiday_amount_period_10" type="xs:string"/>
+                                      <xs:element name="sn_holiday_amount_year_10" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_period_10" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_year_10" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_period_10" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_year_10" type="xs:string"/>
+                                      <xs:element name="sn_holiday_code_10" type="xs:string"/>
+                                      <xs:element name="sn_holiday_desc_10" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="holiday_11">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_holiday_amount_period_11" type="xs:string"/>
+                                      <xs:element name="sn_holiday_amount_year_11" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_period_11" type="xs:string"/>
+                                      <xs:element name="sn_holiday_sum_year_11" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_period_11" type="xs:string"/>
+                                      <xs:element name="sn_holiday_factor_year_11" type="xs:string"/>
+                                      <xs:element name="sn_holiday_code_11" type="xs:string"/>
+                                      <xs:element name="sn_holiday_desc_11" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="benefit">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="benefit_1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_benefit_amount_period_1" type="xs:string"/>
+                                      <xs:element name="sn_benefit_amount_year_1" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_period_1" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_year_1" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_period_1" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_year_1" type="xs:string"/>
+                                      <xs:element name="sn_benefit_code_1" type="xs:string"/>
+                                      <xs:element name="sn_benefit_desc_1" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="benefit_2">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_benefit_amount_period_2" type="xs:string"/>
+                                      <xs:element name="sn_benefit_amount_year_2" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_period_2" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_year_2" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_period_2" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_year_2" type="xs:string"/>
+                                      <xs:element name="sn_benefit_code_2" type="xs:string"/>
+                                      <xs:element name="sn_benefit_desc_2" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="benefit_3">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_benefit_amount_period_3" type="xs:string"/>
+                                      <xs:element name="sn_benefit_amount_year_3" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_period_3" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_year_3" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_period_3" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_year_3" type="xs:string"/>
+                                      <xs:element name="sn_benefit_code_3" type="xs:string"/>
+                                      <xs:element name="sn_benefit_desc_3" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="benefit_4">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_benefit_amount_period_4" type="xs:string"/>
+                                      <xs:element name="sn_benefit_amount_year_4" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_period_4" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_year_4" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_period_4" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_year_4" type="xs:string"/>
+                                      <xs:element name="sn_benefit_code_4" type="xs:string"/>
+                                      <xs:element name="sn_benefit_desc_4" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="benefit_5">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_benefit_amount_period_5" type="xs:string"/>
+                                      <xs:element name="sn_benefit_amount_year_5" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_period_5" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_year_5" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_period_5" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_year_5" type="xs:string"/>
+                                      <xs:element name="sn_benefit_code_5" type="xs:string"/>
+                                      <xs:element name="sn_benefit_desc_5" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="benefit_6">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_benefit_amount_period_6" type="xs:string"/>
+                                      <xs:element name="sn_benefit_amount_year_6" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_period_6" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_year_6" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_period_6" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_year_6" type="xs:string"/>
+                                      <xs:element name="sn_benefit_code_6" type="xs:string"/>
+                                      <xs:element name="sn_benefit_desc_6" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="benefit_7">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_benefit_amount_period_7" type="xs:string"/>
+                                      <xs:element name="sn_benefit_amount_year_7" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_period_7" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_year_7" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_period_7" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_year_7" type="xs:string"/>
+                                      <xs:element name="sn_benefit_code_7" type="xs:string"/>
+                                      <xs:element name="sn_benefit_desc_7" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="benefit_8">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_benefit_amount_period_8" type="xs:string"/>
+                                      <xs:element name="sn_benefit_amount_year_8" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_period_8" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_year_8" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_period_8" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_year_8" type="xs:string"/>
+                                      <xs:element name="sn_benefit_code_8" type="xs:string"/>
+                                      <xs:element name="sn_benefit_desc_8" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="benefit_9">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_benefit_amount_period_9" type="xs:string"/>
+                                      <xs:element name="sn_benefit_amount_year_9" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_period_9" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_year_9" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_period_9" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_year_9" type="xs:string"/>
+                                      <xs:element name="sn_benefit_code_9" type="xs:string"/>
+                                      <xs:element name="sn_benefit_desc_9" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="benefit_10">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_benefit_amount_period_10" type="xs:string"/>
+                                      <xs:element name="sn_benefit_amount_year_10" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_period_10" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_year_10" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_period_10" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_year_10" type="xs:string"/>
+                                      <xs:element name="sn_benefit_code_10" type="xs:string"/>
+                                      <xs:element name="sn_benefit_desc_10" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="benefit_11">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_benefit_amount_period_11" type="xs:string"/>
+                                      <xs:element name="sn_benefit_amount_year_11" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_period_11" type="xs:string"/>
+                                      <xs:element name="sn_benefit_sum_year_11" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_period_11" type="xs:string"/>
+                                      <xs:element name="sn_benefit_factor_year_11" type="xs:string"/>
+                                      <xs:element name="sn_benefit_code_11" type="xs:string"/>
+                                      <xs:element name="sn_benefit_desc_11" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="summary">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="summary_1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_summary_amount_period_1" type="xs:string"/>
+                                      <xs:element name="sn_summary_amount_year_1" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_period_1" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_year_1" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_period_1" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_year_1" type="xs:string"/>
+                                      <xs:element name="sn_summary_code_1" type="xs:string"/>
+                                      <xs:element name="sn_summary_desc_1" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="summary_2">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_summary_amount_period_2" type="xs:string"/>
+                                      <xs:element name="sn_summary_amount_year_2" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_period_2" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_year_2" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_period_2" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_year_2" type="xs:string"/>
+                                      <xs:element name="sn_summary_code_2" type="xs:string"/>
+                                      <xs:element name="sn_summary_desc_2" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="summary_3">
+                                  <xs:complexType>
+                                    <xs:sequence>
+
+                                      <xs:element name="sn_summary_amount_period_3" type="xs:string"/>
+                                      <xs:element name="sn_summary_amount_year_3" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_period_3" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_year_3" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_period_3" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_year_3" type="xs:string"/>
+                                      <xs:element name="sn_summary_code_3" type="xs:string"/>
+                                      <xs:element name="sn_summary_desc_3" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="summary_4">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_summary_amount_period_4" type="xs:string"/>
+                                      <xs:element name="sn_summary_amount_year_4" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_period_4" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_year_4" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_period_4" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_year_4" type="xs:string"/>
+                                      <xs:element name="sn_summary_code_4" type="xs:string"/>
+                                      <xs:element name="sn_summary_desc_4" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="summary_5">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_summary_amount_period_5" type="xs:string"/>
+                                      <xs:element name="sn_summary_amount_year_5" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_period_5" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_year_5" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_period_5" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_year_5" type="xs:string"/>
+                                      <xs:element name="sn_summary_code_5" type="xs:string"/>
+                                      <xs:element name="sn_summary_desc_5" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="summary_6">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_summary_amount_period_6" type="xs:string"/>
+                                      <xs:element name="sn_summary_amount_year_6" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_period_6" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_year_6" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_period_6" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_year_6" type="xs:string"/>
+                                      <xs:element name="sn_summary_code_6" type="xs:string"/>
+                                      <xs:element name="sn_summary_desc_6" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="summary_7">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_summary_amount_period_7" type="xs:string"/>
+                                      <xs:element name="sn_summary_amount_year_7" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_period_7" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_year_7" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_period_7" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_year_7" type="xs:string"/>
+                                      <xs:element name="sn_summary_code_7" type="xs:string"/>
+                                      <xs:element name="sn_summary_desc_7" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="summary_8">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_summary_amount_period_8" type="xs:string"/>
+                                      <xs:element name="sn_summary_amount_year_8" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_period_8" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_year_8" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_period_8" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_year_8" type="xs:string"/>
+                                      <xs:element name="sn_summary_code_8" type="xs:string"/>
+                                      <xs:element name="sn_summary_desc_8" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="summary_9">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_summary_amount_period_9" type="xs:string"/>
+                                      <xs:element name="sn_summary_amount_year_9" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_period_9" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_year_9" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_period_9" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_year_9" type="xs:string"/>
+                                      <xs:element name="sn_summary_code_9" type="xs:string"/>
+                                      <xs:element name="sn_summary_desc_9" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="summary_10">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_summary_amount_period_10" type="xs:string"/>
+                                      <xs:element name="sn_summary_amount_year_10" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_period_10" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_year_10" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_period_10" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_year_10" type="xs:string"/>
+                                      <xs:element name="sn_summary_code_10" type="xs:string"/>
+                                      <xs:element name="sn_summary_desc_10" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="summary_11">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_summary_amount_period_11" type="xs:string"/>
+                                      <xs:element name="sn_summary_amount_year_11" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_period_11" type="xs:string"/>
+                                      <xs:element name="sn_summary_sum_year_11" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_period_11" type="xs:string"/>
+                                      <xs:element name="sn_summary_factor_year_11" type="xs:string"/>
+                                      <xs:element name="sn_summary_code_11" type="xs:string"/>
+                                      <xs:element name="sn_summary_desc_11" type="xs:string"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="rows">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="row" minOccurs="0" maxOccurs="unbounded">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sn_row_type" type="xs:string"/>
+                                      <xs:element name="t_from_date" type="xs:string"/>
+                                      <xs:element name="t_tom_date" type="xs:string"/>
+                                      <xs:element name="sn_amount_period" type="xs:string"/>
+                                      <xs:element name="sn_amount_year" type="xs:string"/>
+                                      <xs:element name="sn_sum_period" type="xs:string"/>
+                                      <xs:element name="sn_sum_year" type="xs:string"/>
+                                      <xs:element name="sn_factor_period" type="xs:string"/>
+                                      <xs:element name="sn_factor_year" type="xs:string"/>
+                                      <xs:element name="sn_note" type="xs:string"/>
+                                      <xs:element name="sn_note_location" type="xs:string"/>
+                                      <xs:element name="sn_code" type="xs:string"/>
+                                      <xs:element name="sn_desc" type="xs:string"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="id" type="xs:string"/>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,72 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-3">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          [autoFocus]="true"
+          formControlName="name"></soe-textbox>
+      </div>
+      <div class="col-sm-3">
+        <soe-textbox
+          [labelKey]="'common.description'"
+          [maxLength]="255"
+          formControlName="description"></soe-textbox>
+      </div>
+      <div class="col-sm-3">
+        <soe-select
+          [labelKey]="'economy.inventory.inventorywriteoffmethod.type'"
+          [selectedId]="form.value.type"
+          [items]="writeoffMethodTypes"
+          (valueChanged)="writeOffTypeChanged($event)"
+          formControlName="type">
+        </soe-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <soe-select
+          [labelKey]="'economy.inventory.inventorywriteoffmethod.periodtype'"
+          [selectedId]="form.value.periodType"
+          [items]="periodTypes"
+          formControlName="periodType">
+        </soe-select>
+      </div>
+      <div class="col-sm-3">
+        @if (isIteration()) {
+          <soe-numberbox
+            [labelKey]="'economy.inventory.inventorywriteoffmethod.periodvalue'"
+            formControlName="periodValue"
+            maxlength="100">
+          </soe-numberbox>
+        }
+      </div>
+      <div class="col-sm-3">
+        @if (!isIteration()) {
+          <soe-numberbox
+            [decimals]="2"
+            [maxlength]="10"
+            [labelKey]="'economy.inventory.inventorywriteoffmethod.yearpercent'"
+            formControlName="yearPercent"
+            maxlength="100">
+          </soe-numberbox>
+        }
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

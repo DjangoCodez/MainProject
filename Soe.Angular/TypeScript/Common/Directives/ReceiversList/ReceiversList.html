@@ -1,0 +1,144 @@
+﻿<div class="form-group form-group-sm">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row" data-ng-if="!ctrl.onlyEmployee && !ctrl.onlyMessageGroup">
+                <div data-ng-class="{'col-sm-6': ctrl.recipientType === 6, 'col-sm-12': ctrl.recipientType !== 6}">
+                    <soe-label label-key="common.receiverslist.selecttype"></soe-label>
+                </div>
+                <div class="col-sm-6" data-ng-if="ctrl.recipientType === 6">
+                    <soe-label label-key="common.accountdim"></soe-label>
+                </div>
+            </div>
+            <div class="row" data-ng-if="!ctrl.onlyEmployee && !ctrl.onlyMessageGroup">
+                <div data-ng-class="{'col-sm-6': ctrl.recipientType === 6, 'col-sm-12': ctrl.recipientType !== 6}">
+                    <soe-select hidelabel="true" model="ctrl.recipientType" items="ctrl.recipientTypes" options="item.id as item.name for item in items" use-ignore-dirty="true" on-changing="ctrl.recipientTypeChanged(item)"></soe-select>
+                </div>
+                <div class="col-sm-6" data-ng-if="ctrl.recipientType === 6">
+                    <soe-label label-key="core.loading" data-ng-if="ctrl.loadingAccountDims"></soe-label>
+                    <soe-select hidelabel="true" model="ctrl.selectedAccountDim" items="ctrl.accountDims" options="item as item.name for item in items" data-ng-if="!ctrl.loadingAccountDims" on-changing="ctrl.accountDimChanged();"></soe-select>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.showAvailableEmployees && ctrl.recipientType == 5">
+                <div class="col-sm-12 margin-large-top margin-large-left">
+                    <available-employees employee-ids="ctrl.employeeListFilterEmployeeIds" shift-ids="ctrl.shiftIds" message-groups="ctrl.messageGroups" edit-message-group-permission="ctrl.editMessageGroupPermission" show-availability="ctrl.showAvailability" auto-filter="false" is-filtered="ctrl.isEmployeeListFiltered" filtering="ctrl.filteringEmployees" filtering-done="ctrl.filteringEmployeesDone(employees);"></available-employees>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-large-top">
+        <div class="col-sm-6">
+            <soe-textbox hidelabel="true" placeholder-key="core.filter" model="ctrl.searchString" on-change="ctrl.searchChanged();"></soe-textbox>
+        </div>
+        <div class="col-sm-6">
+            <button type="button" class="btn btn-sm btn-default" data-ng-click="$event.stopPropagation();ctrl.addRecipients();"><i class="fal fa-plus margin-small-right"></i><span data-l10n-bind="'common.receiverslist.move'"></span></button>
+        </div>
+    </div>
+
+    <div class="row margin-large-top">
+        <div class="col-sm-6">
+            <div class="table-outer-bordered">
+                <div class="table-scrollable-wrapper">
+                    <div class="table-scrollable" style="height: 203px;">
+                        <table class="table table-more-condensed table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width: 20px;"><span class="fal link" data-ng-class="{'fa-check-square':ctrl.allItemsSelected, 'fa-square':!ctrl.allItemsSelected}" data-ng-click="ctrl.selectAllItems()"></span></th>
+                                    <th scope="col" class="column-sortable" data-ng-click="ctrl.availSort('username');" data-ng-if="ctrl.recipientType === 0"><i class="fas" data-ng-class="{'fa-caret-down':ctrl.availSortBy==='username' && !ctrl.availSortByReverse, 'fa-caret-up':ctrl.availSortBy==='username' && ctrl.availSortByReverse}" data-ng-if="ctrl.availSortBy==='username'"></i><span data-ng-class="{'margin-large-left':ctrl.availSortBy==='username'}" data-l10n-bind="'common.receiverslist.username'"></span></th>
+                                    <th scope="col" class="column-sortable" data-ng-click="ctrl.availSort('name');"><i class="fas" data-ng-class="{'fa-caret-down':ctrl.availSortBy==='name' && !ctrl.availSortByReverse, 'fa-caret-up':ctrl.availSortBy==='name' && ctrl.availSortByReverse}" data-ng-if="ctrl.availSortBy==='name'"></i><span data-ng-class="{'margin-large-left':ctrl.availSortBy==='name'}" data-l10n-bind="'common.name'"></span></th>
+                                    <th scope="col" style="width: 20px;" data-ng-if="ctrl.recipientType === 1 || ctrl.recipientType === 2 || ctrl.recipientType === 3 || ctrl.recipientType === 6"></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr data-ng-if="ctrl.filteringEmployees || ctrl.loadingRecipients">
+                                    <td colspan="3">
+                                        <span><i class="far fa-spinner fa-pulse fa-fw"></i> <span data-l10n-bind="'time.schedule.planning.filteringemployees'" data-ng-if="ctrl.filteringEmployees"></span><span data-l10n-bind="'core.loading'" data-ng-if="ctrl.loadingRecipients"></span></span>
+                                    </td>
+                                </tr>
+
+                                <tr data-ng-if="ctrl.recipientType === 5 && !ctrl.filteringEmployees && ctrl.employeesWantsExtraShifts">
+                                    <td colspan="2">
+                                        <span class="indiscreet" data-l10n-bind="'time.availableemployees.wantsextrashifts'"></span>
+                                    </td>
+                                </tr>
+                                <tr data-ng-if="ctrl.recipientType === 5 && !ctrl.filteringEmployees && ctrl.employeesWantsExtraShifts" data-ng-repeat="recipient in ctrl.filteredRecipients | filter:{wantsExtraShifts:'true'} | orderBy:ctrl.availSortBy:ctrl.availSortByReverse" style="cursor: pointer;" data-ng-click="$evalAsync(recipient.selected = !recipient.selected)" data-ng-dblclick="recipient.selected = true; ctrl.addRecipients();">
+                                    <td data-ng-class="{'planning-day-available':recipient.isFullyAvailable, 'planning-day-partly-available':recipient.isPartlyAvailable, 'planning-day-mixed-available':recipient.isMixedAvailable, 'planning-day-partly-unavailable':recipient.isPartlyUnavailable, 'planning-day-unavailable':recipient.isFullyUnavailable}">
+                                        <span class="fal link" data-ng-class="{'fa-check-square':recipient.selected, 'fa-square':!recipient.selected}"></span>
+                                    </td>
+                                    <td title="{{recipient.toolTip}}" data-ng-class="{'planning-day-available':recipient.isFullyAvailable, 'planning-day-partly-available':recipient.isPartlyAvailable, 'planning-day-mixed-available':recipient.isMixedAvailable, 'planning-day-partly-unavailable':recipient.isPartlyUnavailable, 'planning-day-unavailable':recipient.isFullyUnavailable}">
+                                        <span>{{recipient.name}}</span>
+                                    </td>
+                                </tr>
+                                <tr data-ng-if="ctrl.recipientType === 5 && !ctrl.filteringEmployees && ctrl.employeesWantsExtraShifts">
+                                    <td colspan="2">
+                                        <span class="indiscreet" data-l10n-bind="'time.availableemployees.dontwantextrashifts'"></span>
+                                    </td>
+                                </tr>
+
+                                <tr data-ng-if="!ctrl.filteringEmployees" data-ng-repeat="recipient in ctrl.filteredRecipients | filter:{wantsExtraShifts:'false'} | orderBy:ctrl.availSortBy:ctrl.availSortByReverse" style="cursor: pointer;" data-ng-dblclick="recipient.selected = true; ctrl.addRecipients();">
+                                    <td data-ng-class="{'planning-day-available':recipient.isFullyAvailable, 'planning-day-partly-available':recipient.isPartlyAvailable, 'planning-day-mixed-available':recipient.isMixedAvailable, 'planning-day-partly-unavailable':recipient.isPartlyUnavailable, 'planning-day-unavailable':recipient.isFullyUnavailable}" data-ng-click="$evalAsync(recipient.selected = !recipient.selected)">
+                                        <span class="fal link" data-ng-class="{'fa-check-square':recipient.selected, 'fa-square':!recipient.selected}"></span>
+                                    </td>
+                                    <td data-ng-if="ctrl.recipientType === 0" data-ng-click="$evalAsync(recipient.selected = !recipient.selected)">
+                                        <span>{{recipient.username}}</span>
+                                    </td>
+                                    <td title="{{recipient.toolTip}}" data-ng-class="{'planning-day-available':recipient.isFullyAvailable, 'planning-day-partly-available':recipient.isPartlyAvailable, 'planning-day-mixed-available':recipient.isMixedAvailable, 'planning-day-partly-unavailable':recipient.isPartlyUnavailable, 'planning-day-unavailable':recipient.isFullyUnavailable}" data-ng-click="$evalAsync(recipient.selected = !recipient.selected)">
+                                        <span>{{recipient.name}}</span>
+                                    </td>
+                                    <td data-l10n-bind data-l10n-bind-title="'common.showusers'" data-ng-if="ctrl.recipientType === 1 || ctrl.recipientType === 2 || ctrl.recipientType === 3 || ctrl.recipientType === 6" data-ng-click="ctrl.showUsersInGroup(recipient);">
+                                        <span class="fal fa-users link"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="table-outer-bordered">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col" style="padding: 4px;"><span data-l10n-bind="'core.aggrid.totals.total'"></span> <span>{{ctrl.availableRecipients.length}}</span>, <span class="lowercase" data-l10n-bind="'core.aggrid.totals.filtered'"></span> <span>{{ctrl.filteredRecipients.length}}</span></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="table-outer-bordered">
+                <div class="table-scrollable-wrapper">
+                    <div class="table-scrollable" style="height: 203px;">
+                        <table class="table table-more-condensed table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="column-sortable" data-ng-click="ctrl.recSort('type');" style="width: 120px;"><i class="fas" data-ng-class="{'fa-caret-down':ctrl.recSortBy==='type' && !ctrl.recSortByReverse, 'fa-caret-up':ctrl.recSortBy==='type' && ctrl.recSortByReverse}" data-ng-if="ctrl.recSortBy==='type'"></i><span data-ng-class="{'margin-large-left':ctrl.recSortBy==='type'}" data-l10n-bind="'common.type'"></span></th>
+                                    <th scope="col" class="column-sortable" data-ng-click="ctrl.recSort('name');"><i class="fas" data-ng-class="{'fa-caret-down':ctrl.recSortBy==='name' && !ctrl.recSortByReverse, 'fa-caret-up':ctrl.recSortBy==='name' && ctrl.recSortByReverse}" data-ng-if="ctrl.recSortBy==='name'"></i><span data-ng-class="{'margin-large-left':ctrl.recSortBy==='name'}" data-l10n-bind="'common.name'"></span></th>
+                                    <th scope="col" style="width: 20px;"><span class="fal fa-times iconDelete link" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="ctrl.removeAllRecipients()"></span></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr data-ng-repeat="recipient in ctrl.recipients | orderBy:ctrl.recSortBy:ctrl.recSortByReverse">
+                                    <td><span>{{recipient.type}}</span></td>
+                                    <td><span>{{recipient.name}}</span></td>
+                                    <td><i class="fal fa-times iconDelete link" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="ctrl.removeRecipient(recipient)" data-ng-disabled="ctrl.readOnly"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="table-outer-bordered">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col" style="padding: 4px;"><span data-l10n-bind="'core.aggrid.totals.total'"></span> <span>{{ctrl.recipients.length}}</span></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

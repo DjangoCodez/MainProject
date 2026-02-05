@@ -1,0 +1,11 @@
+﻿<div>
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progressBusy">
+        <div class="col-sm-12">
+            <div class="row">
+                <div data-ui-grid="ctrl.soeGridOptions.gridOptions" ui-grid-auto-resize data-ui-grid-edit ui-grid-cellNav grid-keypress="ctrl.handleKeyPressInEditCell"></div>
+            </div>
+        </div>
+    </div>
+</div>

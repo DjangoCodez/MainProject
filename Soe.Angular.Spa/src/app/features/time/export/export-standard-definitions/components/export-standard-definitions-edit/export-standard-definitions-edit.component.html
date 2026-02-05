@@ -1,0 +1,218 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form
+    [formGroup]="form"
+    name=""
+    class="soe-edit-form"
+    novalidate
+    autocomplete="off">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="'common.name'"
+              [maxLength]="100"
+              [maxLength]="100"
+              [autoFocus]="true"
+              formControlName="name"></soe-textbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'common.type'"
+              [selectedId]="selectedType"
+              [items]="performDefinitions.data || []"
+              formControlName="type"></soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="'time.export.special'"
+              [maxLength]="100"
+              [autoFocus]="true"
+              formControlName="specialFunctionality"></soe-textbox>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="row">
+          <div class="col-sm-12">
+            @if (form.type.value === '0') {
+              <soe-textbox
+                [labelKey]="'time.export.xmlrootname'"
+                [maxLength]="100"
+                [autoFocus]="true"
+                formControlName="xmlTagHead"></soe-textbox>
+            }
+            @if (form.type.value === '1') {
+              <soe-textbox
+                [labelKey]="'time.export.separator'"
+                [maxLength]="5"
+                [autoFocus]="true"
+                formControlName="separator"></soe-textbox>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row margin-large-right margin-large-top">
+          <soe-expansion-panel
+            [labelKey]="'time.export.standarddefinitionlevels'"
+            [static]="true"
+            [noPadding]="true">
+            <soe-toolbar [itemGroups]="levelsToolbarService.toolbarItemGroups">
+            </soe-toolbar>
+            <div class="table-responsive">
+              <table class="table table-sm table-hover">
+                <tbody>
+                  @for (
+                    onelevel of form.exportDefinitionLevels.controls;
+                    track onelevel
+                  ) {
+                    <tr
+                      [ngClass]="{
+                        'table-active':
+                          onelevel.value?.xml ===
+                          form.selectedLevelForm?.xml?.value
+                      }">
+                      <td (click)="selectLevel(onelevel)">
+                        <span>{{ onelevel.value?.xml }}</span>
+                      </td>
+                      <td style="width: 28px">
+                        <span
+                          ><em
+                            class="fal fa-pen icon-edit link"
+                            (click)="editLevel(onelevel)"></em
+                        ></span>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </soe-expansion-panel>
+        </div>
+      </div>
+    </div>
+
+    @if (form.selectedLevelForm) {
+      <soe-expansion-panel
+        [labelKey]="'time.export.standarddefinitionlevelcolumns'"
+        [static]="true"
+        [noPadding]="true">
+        <soe-toolbar
+          [itemGroups]="levelColumnsToolbarService.toolbarItemGroups">
+        </soe-toolbar>
+        <div class="row p-3">
+          <div class="col-sm-12">
+            @for (
+              columnForm of form.getSelectedLevelColumns();
+              track columnForm;
+              let i = $index;
+              let last = $last
+            ) {
+              <soe-expansion-panel
+                [labelKey]="getColumnHeadName(columnForm)"
+                [open]="
+                  columnForm.controls.exportDefinitionLevelColumnId.value == 0
+                "
+                [doPadding]="true">
+                <div [formGroup]="columnForm">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="row">
+                        <div class="col-sm-2">
+                          <soe-textbox
+                            [labelKey]="'common.name'"
+                            [maxLength]="100"
+                            [autoFocus]="true"
+                            formControlName="name"></soe-textbox>
+                        </div>
+                        <div class="col-sm-4">
+                          <soe-textbox
+                            [labelKey]="'common.description'"
+                            [maxLength]="100"
+                            [autoFocus]="true"
+                            formControlName="description"></soe-textbox>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="float-end">
+                            @if (flowHandler.modifyPermission()) {
+                              <soe-delete-button
+                                (action)="
+                                  deleteLevelColumn(i)
+                                "></soe-delete-button>
+                            }
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-2">
+                          <soe-textbox
+                            [labelKey]="'time.export.standarddefinition.key'"
+                            [maxLength]="100"
+                            [autoFocus]="true"
+                            formControlName="key"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                          <soe-textbox
+                            [labelKey]="
+                              'time.export.standarddefinition.defaultvalue'
+                            "
+                            [maxLength]="100"
+                            [autoFocus]="true"
+                            formControlName="defaultValue"></soe-textbox>
+                        </div>
+                        <div class="col-sm-2">
+                          <soe-numberbox
+                            [labelKey]="
+                              'time.export.standarddefinition.position'
+                            "
+                            [autoFocus]="true"
+                            formControlName="position"></soe-numberbox>
+                        </div>
+                        <div class="col-sm-2">
+                          <soe-numberbox
+                            [labelKey]="'time.export.standarddefinition.length'"
+                            [autoFocus]="true"
+                            formControlName="columnLength"></soe-numberbox>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <soe-textbox
+                            [labelKey]="
+                              'time.export.standarddefinition.convert'
+                            "
+                            [maxLength]="150"
+                            [autoFocus]="true"
+                            formControlName="convertValue"></soe-textbox>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </soe-expansion-panel>
+            }
+          </div>
+        </div>
+      </soe-expansion-panel>
+    }
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

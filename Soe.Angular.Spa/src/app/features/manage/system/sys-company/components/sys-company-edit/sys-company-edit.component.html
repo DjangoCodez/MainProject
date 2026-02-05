@@ -1,0 +1,115 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [open]="true"
+      [static]="true"
+      [labelKey]="'manage.system.syscompany.syscompany'">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [maxLength]="100"
+            [autoFocus]="true"
+            formControlName="name">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.licensenr'"
+            [maxLength]="100"
+            formControlName="licenseNumber">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.licensnamefull'"
+            [maxLength]="100"
+            formControlName="licenseName">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'manage.system.syscompany.verifiedorgnr'"
+            [maxLength]="128"
+            formControlName="verifiedOrgNr">
+          </soe-textbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.server'"
+            [maxLength]="100"
+            formControlName="serverName">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'manage.system.syscompany.syscompdb'"
+            [maxLength]="100"
+            formControlName="dbName">
+          </soe-textbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-checkbox
+            [labelKey]="'SoftOne Professional'"
+            formControlName="isSOP"></soe-checkbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-checkbox
+            [labelKey]="'manage.system.syscompany.usesbankintegration'"
+            formControlName="usesBankIntegration"></soe-checkbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [labelKey]="'common.settings'"
+      [noPadding]="true"
+      [open]="true"
+      [static]="true">
+      <soe-sys-company-settings-grid
+        [form]="form"
+        [settingRows]="settingRows"></soe-sys-company-settings-grid>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [labelKey]="'manage.system.syscompany.bankaccounts'"
+      [noPadding]="true"
+      [open]="true"
+      [static]="true">
+      <soe-sys-company-bank-accounts-grid
+        [form]="form"
+        [bankAccounts]="bankAccounts"></soe-sys-company-bank-accounts-grid>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [labelKey]="'manage.system.syscompany.uniquevalues'"
+      [noPadding]="true"
+      [open]="true"
+      [static]="true">
+      <div class="row">
+        <div class="col-sm-12 mb-3">
+          <soe-instruction
+            text="manage.system.syscompany.uniquevaluedescription"></soe-instruction>
+        </div>
+      </div>
+      <soe-sys-company-unique-values-grid
+        [form]="form"
+        [uniqueValues]="uniqueValues"></soe-sys-company-unique-values-grid>
+    </soe-expansion-panel>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

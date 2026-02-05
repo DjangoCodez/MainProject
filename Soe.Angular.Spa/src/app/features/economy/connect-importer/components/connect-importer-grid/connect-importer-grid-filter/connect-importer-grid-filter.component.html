@@ -1,0 +1,27 @@
+<div>
+  <form [formGroup]="formFilter" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-6">
+        <soe-select
+          [labelKey]="''"
+          [items]="iOImportHeadTypes || []"
+          [optionIdField]="'id'"
+          [optionNameField]="'name'"
+          (valueChange)="onFilter()"
+          formControlName="iOImportHeadType"
+          [inline]="true"></soe-select>
+      </div>
+
+      <div class="col-sm-6">
+        <soe-select
+          [labelKey]="''"
+          [items]="dateSelections || []"
+          [optionIdField]="'id'"
+          [optionNameField]="'name'"
+          (valueChange)="onFilter()"
+          formControlName="dateSelectionId"
+          [inline]="true"></soe-select>
+      </div>
+    </div>
+  </form>
+</div>

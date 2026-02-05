@@ -1,0 +1,164 @@
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel [static]="true" [labelKey]="'common.general'">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-autocomplete
+            #invoiceProductId
+            [labelKey]="'billing.stock.stocksaldo.productnumber'"
+            [items]="products || []"
+            [optionIdField]="'id'"
+            [optionNameField]="'name'"
+            [limit]="20"
+            (valueChanged)="productSelectionChanged($event)"
+            formControlName="invoiceProductId"
+            tabIndex="1">
+          </soe-autocomplete>
+        </div>
+        <div class="col-sm-3">
+          <soe-autocomplete
+            [labelKey]="'billing.stock.stocks.stock'"
+            [items]="productStocksDict || []"
+            [limit]="20"
+            [optionIdField]="'id'"
+            [optionNameField]="'name'"
+            (valueChanged)="productStockChanged($event)"
+            formControlName="stockProductId"
+            tabIndex="2">
+          </soe-autocomplete>
+        </div>
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'billing.stock.stockplaces.stockplace'"
+            [maxLength]="100"
+            formControlName="stockShelfName">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'billing.stock.stocksaldo.primaryunit'"
+            [maxLength]="100"
+            formControlName="productUnit">
+          </soe-textbox>
+        </div>
+      </div>
+      <div class="row" [formGroup]="form.transaction">
+        <div class="col-sm-3">
+          <soe-select
+            #actionType
+            [labelKey]="'billing.stock.stocksaldo.actiontype'"
+            [selectedId]="form.transaction.value.actionType"
+            [items]="actionTypes"
+            formControlName="actionType"
+            tabIndex="3">
+          </soe-select>
+        </div>
+        <div class="col-sm-3">
+          <soe-numberbox
+            [labelKey]="'billing.stock.stocksaldo.actionquantity'"
+            [secondaryLabelKey]="productUnitLabel"
+            formControlName="quantity"
+            tabIndex="4">
+          </soe-numberbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-numberbox
+            [labelKey]="'billing.stock.stocksaldo.actionprice'"
+            [secondaryLabelKey]="productUnitLabel"
+            formControlName="price"
+            [decimals]="2"
+            tabIndex="5"></soe-numberbox>
+        </div>
+        @if (useProductUnitConvert()) {
+          <div class="col-sm-3">
+            <soe-select
+              [labelKey]="'billing.stock.stocksaldo.deliveryunit'"
+              [items]="productUnitConverts"
+              (valueChanged)="onProductUnitConvertChange($event)"
+              formControlName="productUnitConvertId"
+              tabIndex="6">
+            </soe-select>
+          </div>
+        }
+      </div>
+      <div class="row" [formGroup]="form.transaction">
+        @if (form.transaction.actionType.value === 7) {
+          <div class="col-sm-3">
+            <soe-autocomplete
+              [labelKey]="'billing.stock.stocksaldo.stockplaceto'"
+              [items]="targetStocks() || []"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"
+              [limit]="20"
+              formControlName="targetStockId"
+              tabIndex="7">
+            </soe-autocomplete>
+          </div>
+        }
+        <div class="col-sm-6">
+          <soe-textbox
+            [labelKey]="'billing.stock.stocksaldo.actionnote'"
+            formControlName="note"
+            tabIndex="7">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-2">
+          <soe-datepicker
+            [labelKey]="'billing.stock.stocksaldo.actioncreated'"
+            formControlName="transactionDate"
+            tabIndex="9"></soe-datepicker>
+        </div>
+      </div>
+      <div class="row" [formGroup]="form.transaction">
+        @if (form.isNew) {
+          <div class="col-sm-12">
+            <soe-save-button
+              tabIndex="20"
+              class="ms-3 float-end"
+              [caption]="'core.add'"
+              [invalid]="form.invalid"
+              [dirty]="form.dirty"
+              (action)="addStockTransaction()"
+              (validationErrorsAction)="
+                form.openFormValidationErrors()
+              "></soe-save-button>
+          </div>
+        }
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [static]="true"
+      [labelKey]="'billing.stock.stocksaldo.transactions'"
+      [noPadding]="true">
+      <div class="row" tabindex="-1">
+        @if (stockTransactions && showVoucherColumn !== undefined) {
+          <soe-stock-balance-edit-stock-transaction
+            [transactions]="stockTransactions"
+            [editMode]="form.isNew"
+            [showVoucherColumn]="showVoucherColumn === true"
+            (openEditInNewTab)="
+              openEditInNewTab($event)
+            "></soe-stock-balance-edit-stock-transaction>
+        }
+      </div>
+    </soe-expansion-panel>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      [hideSave]="form.isNew"
+      [hideDelete]="true">
+      <ng-container pageButtons>
+        @if (form.isNew) {
+          <soe-save-button
+            tabIndex="20"
+            class="ms-3"
+            [disabled]="stockTransactions.length === 0"
+            (action)="performSave()"></soe-save-button>
+        }
+      </ng-container>
+    </soe-edit-footer>
+  </form>
+}

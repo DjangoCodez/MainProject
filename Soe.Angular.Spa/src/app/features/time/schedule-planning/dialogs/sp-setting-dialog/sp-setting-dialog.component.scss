@@ -1,0 +1,15 @@
+@use '@angular/material' as mat;
+@use '../../../../../shared/styles/core-styles/colors.scss';
+
+:host {
+  @include mat.tabs-overrides(
+    (
+      container-height: 2rem,
+      divider-color: colors.$soe-border-color,
+      divider-height: 1px,
+      active-indicator-color: colors.$soe-color-secondary-blue,
+      active-focus-indicator-color: colors.$soe-color-secondary-blue,
+      active-indicator-height: 2px,
+    )
+  );
+}

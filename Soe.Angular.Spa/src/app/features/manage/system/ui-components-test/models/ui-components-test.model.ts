@@ -1,0 +1,57 @@
+import { TimeRangeValue } from '@ui/forms/timebox/timerange/timerange.component';
+import { EditableGridTestDataDTO } from '../components/grid-test-components/editable-grid.component';
+
+export class UiComponentsTestDTO {
+  id!: number;
+  check!: boolean;
+  color!: string;
+  date!: Date;
+  dates!: Date[];
+  daterange!: [Date, Date] | [undefined, undefined];
+  daterange2!: [Date, Date] | [undefined, undefined];
+  daterange3!: [Date, Date] | [undefined, undefined];
+  daterange4!: [Date, Date] | [undefined, undefined];
+  filename!: string;
+  menuSelectId!: number;
+  menu2SelectId!: number;
+  splitSelectId!: number;
+  num!: number;
+  num2!: number;
+  numberrange!: [number, number] | [undefined, undefined];
+  radio!: string;
+  radio2!: string;
+  radio3!: string;
+  radio4!: string;
+  selectId!: number;
+  multiSelectIds!: number[];
+  multiSelectIds2!: number[];
+  multiSelectIds3!: number[];
+  multiSelectIds4!: number[];
+  multiSelectIds5!: number[];
+  multiSelectIds6!: number[];
+  multiSelectIds7!: number[];
+  sliderShowActiveTrack = false;
+  sliderShowTicks = true;
+  sliderShowThumbLabel = true;
+  sliderShowMinMax = false;
+  sliderDisabled = false;
+  swtch!: boolean;
+  text!: string;
+  text2!: string;
+  text3?: string;
+  textarea!: string;
+  textedit!: string;
+  time!: Date;
+  timerange!: TimeRangeValue;
+  timerange2!: TimeRangeValue;
+  duration!: number;
+  autocompleteId!: number;
+  onlyCsvFiles: boolean = false;
+
+  created?: Date;
+  createdBy?: string;
+  modified?: Date;
+  modifiedBy?: string;
+  state?: number;
+  rows?: EditableGridTestDataDTO[];
+}

@@ -1,0 +1,17 @@
+<span class="autocomplete-button-container">
+  @if (params.data && show) {
+    <button
+      (click)="params.buttonConfiguration.onClick(params.data)"
+      class="autocomplete-button"
+      [ngClass]="{ 'no-border': true }"
+      [title]="tooltip | translate">
+      <fa-icon
+        [icon]="params.buttonConfiguration.icon"
+        [class]="iconClass"
+        [fixedWidth]="true"></fa-icon>
+    </button>
+  }
+  <span>
+    {{ displayValue }}
+  </span>
+</span>

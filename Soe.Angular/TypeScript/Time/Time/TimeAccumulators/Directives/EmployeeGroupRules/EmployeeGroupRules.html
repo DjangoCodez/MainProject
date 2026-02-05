@@ -1,0 +1,52 @@
+﻿<div>
+    <soe-panel label-key="time.time.timeaccumulator.employeegrouprules" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.editRule();">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 20px"></th>
+                    <th scope="col" data-l10n-bind="'time.employee.employeegroup.employeegroup'"></th>
+                    <th scope="col" data-l10n-bind="'time.time.timeaccumulator.employeegrouprule.type'"></th>
+                    <th scope="col" data-l10n-bind="'time.time.timeaccumulator.employeegrouprule.minminuteswarning'"></th>
+                    <th scope="col" data-l10n-bind="'time.time.timeaccumulator.employeegrouprule.minminutes'"></th>
+                    <!--<th scope="col" data-l10n-bind="'time.time.timeaccumulator.employeegrouprule.timecode'"></th>-->
+                    <th scope="col" data-l10n-bind="'time.time.timeaccumulator.employeegrouprule.maxminuteswarning'"></th>
+                    <th scope="col" data-l10n-bind="'time.time.timeaccumulator.employeegrouprule.maxminutes'"></th>
+                    <!--<th scope="col" data-l10n-bind="'time.time.timeaccumulator.employeegrouprule.timecode'"></th>-->
+                    <th scope="col" data-l10n-bind="'time.time.timeaccumulator.employeegrouprule.showonpayrollslip'"></th>
+                    <th data-ng-if="ctrl.useTimeWorkReductionWithdrawal" scope="col" data-l10n-bind="'time.time.timeaccumulator.employeegrouprule.thresholdMinutes'"></th>
+                    <th data-ng-if="!ctrl.useTimeWorkReductionWithdrawal" scope="col"></th>
+                    <th scope="col" style="width: 28px"></th>
+                    <th scope="col" style="width: 28px"></th>
+                    <th scope="col" style="width: 28px"></th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="rule in ctrl.rules | orderBy:'employeeGroupName'">
+                <tr data-ng-class="{'table-selected-row': ctrl.selectedRule === rule}" data-ng-click="ctrl.selectedRule = rule">
+                    <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedRule === rule"></i></td>
+                    <td><span>{{rule.employeeGroupName}}</span></td>
+                    <td><span>{{rule.typeName}}</span></td>
+                    <td><span>{{rule.minMinutesWarningFormatted}}</span></td>
+                    <td>
+                        <span data-ng-if="!rule.isTypePlanningPeriod || rule.minMinutesFormatted != null">{{rule.minMinutesFormatted}}</span>
+                        <span data-ng-if="rule.isTypePlanningPeriod && rule.minMinutesFormatted == null" data-l10n-bind="'time.time.timeaccumulator.employeegrouprule.minmaxfromplanningperiod'"></span>
+                    </td>
+                    <!--<td><span>{{rule.minTimeCodeName}}</span></td>-->
+                    <td><span>{{rule.maxMinutesWarningFormatted}}</span></td>
+                    <td>
+                        <span data-ng-if="!rule.isTypePlanningPeriod || rule.maxMinutesFormatted != null">{{rule.maxMinutesFormatted}}</span>
+                        <span data-ng-if="rule.isTypePlanningPeriod && rule.maxMinutesFormatted == null" data-l10n-bind="'time.time.timeaccumulator.employeegrouprule.minmaxfromplanningperiod'"></span>
+                    </td>
+                    <!--<td><span>{{rule.maxTimeCodeName}}</span></td>-->
+                    <td><span data-ng-if="rule.showOnPayrollSlip"><i class="fal fa-check"></i></span></td>
+                    <td>
+                        <span data-ng-if="ctrl.useTimeWorkReductionWithdrawal">{{rule.thresholdMinutesFormatted}}</span>
+                        <span data-ng-if="!ctrl.useTimeWorkReductionWithdrawal" style="width: 28px"></span>
+                    </td>
+                    <td><span class="fal fa-clock" data-l10n-bind data-l10n-bind-title="'time.time.timeaccumulator.employeegrouprule.scheduled'" data-ng-if="rule.scheduledJobHeadId"></span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editRule(rule);"></i></span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteRule(rule);"></i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </soe-panel>
+</div>

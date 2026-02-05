@@ -1,0 +1,85 @@
+<form [formGroup]="form" novalidate autocomplete="off">
+  <div class="row">
+    <div class="d-sm-inline">
+      <soe-daterangepicker
+        [view]="'day'"
+        [inline]="true"
+        inputIdFrom=""
+        [separatorDash]="true"
+        [autoAdjustRange]="false"
+        [showArrows]="true"
+        labelKeyFrom=" "
+        labelKeyTo=" "
+        formControlName="dateRange">
+      </soe-daterangepicker>
+    </div>
+    <div class="d-sm-inline ps-0">
+      <soe-multi-select
+        [placeholderKey]="'common.order'"
+        [items]="orders"
+        [inline]="true"
+        [limit]="30"
+        [width]="150"
+        [dropdownWidth]="300"
+        formControlName="selectedOrders"></soe-multi-select>
+    </div>
+    <div class="d-sm-inline ps-0">
+      <soe-multi-select
+        [placeholderKey]="'billing.project.project'"
+        [items]="projects"
+        [inline]="true"
+        [limit]="30"
+        [width]="150"
+        [dropdownWidth]="300"
+        formControlName="selectedProjects"></soe-multi-select>
+    </div>
+    <div class="d-sm-inline ps-0">
+      <soe-multi-select
+        [placeholderKey]="'common.customer'"
+        [items]="customers"
+        [inline]="true"
+        [limit]="30"
+        [width]="150"
+        [dropdownWidth]="300"
+        formControlName="selectedCustomers"></soe-multi-select>
+    </div>
+    <div class="d-sm-inline ps-0">
+      <soe-multi-select
+        [placeholderKey]="'common.customer.invoices.ordertype'"
+        [items]="orderTypes"
+        [inline]="true"
+        [limit]="30"
+        [width]="150"
+        [dropdownWidth]="300"
+        formControlName="selectedOrderTypes"></soe-multi-select>
+    </div>
+    <div class="d-sm-inline ps-0">
+      <soe-multi-select
+        [placeholderKey]="'common.customer.invoices.fixedpriceordertype'"
+        [items]="orderContractTypes"
+        [inline]="true"
+        [limit]="30"
+        [width]="150"
+        [dropdownWidth]="300"
+        formControlName="selectedOrderContractTypes"></soe-multi-select>
+    </div>
+    <div class="d-sm-inline">
+      <soe-checkbox
+        [labelKey]="'common.customer.invoices.showmine'"
+        [inToolbar]="true"
+        formControlName="onlyMine" />
+    </div>
+    <div class="d-sm-inline">
+      <soe-checkbox
+        [labelKey]="'billing.order.handlebilling.onlyready'"
+        [inToolbar]="true"
+        formControlName="onlyValidToTransfer" />
+    </div>
+    <div class="d-sm-inline">
+      <soe-button
+        [caption]="'core.search'"
+        [behaviour]="'primary'"
+        (action)="search()" />
+    </div>
+  </div>
+</form>

@@ -1,0 +1,14 @@
+﻿<div class="row">
+    <div class="col-sm-3">
+        <soe-select label-key="time.employee.employee.paymentmethod" model="ctrl.method" items="ctrl.disbursementPaymentMethods" options="item.id as item.name for item in items" is-required="true" on-changing="ctrl.paymentMethodChanged(item)"></soe-select>
+    </div>
+    <div class="col-sm-2">
+        <soe-textbox label-key="time.employee.employee.clearingnr" model="ctrl.clearingNr" is-readonly="ctrl.method === 0 || ctrl.method === 1" update-on="blur" on-change="ctrl.bankAccountChanged()"></soe-textbox>
+    </div>
+    <div class="col-sm-4">
+        <soe-textbox label-key="time.employee.employee.bankaccountnr" model="ctrl.accountNr" is-readonly="ctrl.method === 0 || ctrl.method === 1" update-on="blur" on-change="ctrl.bankAccountChanged()"></soe-textbox>
+    </div>
+    <div class="col-sm-2">
+        <soe-checkbox label-key="time.employee.employee.dontvalidatebankaccount" model="ctrl.dontValidateAccountNr" inline="true" is-disabled="ctrl.method === 0 || ctrl.method === 1" on-changing="ctrl.bankAccountChanged()"></soe-checkbox>
+    </div>
+</div>

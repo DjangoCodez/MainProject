@@ -1,0 +1,40 @@
+﻿<div style="margin-bottom: 25px;">
+    <div class="row form-inline">
+        <div class="col-sm-12">
+            <div class="form-group form-group-sm">
+                <div class="form-group form-group-sm">
+                    <soe-select label-key="manage.logs.changelogs.search.entity" inline="true" model="ctrl.selectedEntity" items="ctrl.entities" options="item.id as item.name for item in items" is-disabled="ctrl.loadingLookups"></soe-select>
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-sm btn-default fal fa-chevron-left" data-l10n-bind data-l10n-bind-title="'common.from'" data-ng-click="ctrl.decreaseDate()"></button>
+                    </span>
+                    <soe-datepicker style="width: 130px;" hidelabel="true" model="ctrl.dateFrom" button-class="no-border-radius" use-ignore-dirty="true"></soe-datepicker>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="input-group">
+                    <soe-datepicker style="width: 130px;" hidelabel="true" model="ctrl.dateTo" button-class="no-border-radius" use-ignore-dirty="true"></soe-datepicker>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-sm btn-default fal fa-chevron-right border-radius-right" data-l10n-bind data-l10n-bind-title="'common.to'" data-ng-click="ctrl.increaseDate()"></button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <div class="form-group form-group-sm">
+                    <soe-multiselect label-key="common.users" hidelabel="true" options="ctrl.users" model="ctrl.selectedUsers" limit-to="20" id-prop="loginName" display-prop="displayName" is-disabled="ctrl.loadingLookups"></soe-multiselect>
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm margin-large-left">
+                <button type="button" class="btn btn-sm btn-primary" data-l10n-bind data-l10n-bind-title="'core.search'" data-ng-disabled="ctrl.disableSearch;" data-ng-click="ctrl.search();">
+                    <span><span data-l10n-bind="'core.search'"></span><i class="fal fa-sync link margin-small-left" data-ng-class="{'fa-spin': ctrl.searching}"></i></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

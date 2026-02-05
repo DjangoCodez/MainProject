@@ -1,0 +1,148 @@
+﻿<div class="row">
+    <div class="col-sm-4 padding-none-right">
+        <soe-panel label-key="time.employee.employee.placements" condensed="true" button-icon="fa-plus" button-label-key="time.employee.employee.placement.new" button-hidden="ctrl.readOnly || !ctrl.employeeId || !ctrl.editPlacementPermission || ctrl.loadingPlacements" on-button-click="$event.stopPropagation();ctrl.newPlacement();">
+            <div class="table-scrollable-wrapper" style="margin-top: -25px;">
+                <div class="table-scrollable" style="max-height: 302px;">
+                    <table class="table table-outer-bordered table-more-condensed table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 28px;"></th>
+                                <th scope="col" data-l10n-bind="'time.employee.employee.templateheads'"></th>
+                                <th scope="col" style="width: 80px;" data-l10n-bind="'time.schedule.activate.startday'"></th>
+                                <th scope="col" style="width: 100px;" data-l10n-bind="'common.startdate'"></th>
+                                <th scope="col" style="width: 100px;" data-l10n-bind="'common.stopdate'"></th>
+                                <th scope="col" style="width: 28px;" data-ng-if="!ctrl.readOnly && ctrl.editPlacementPermission"></th>
+                                <th scope="col" style="width: 28px;" data-ng-if="!ctrl.readOnly && ctrl.editPlacementPermission"></th>
+                                <th scope="col" style="width: 28px;" data-ng-if="!ctrl.readOnly && ctrl.editPlacementPermission"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-if="ctrl.loadingPlacements">
+                                <td colspan="7"><span data-l10n-bind="'core.loading'"></span></td>
+                            </tr>
+                            <tr data-ng-repeat="placement in ctrl.placements" data-ng-if="!ctrl.loadingPlacements">
+                                <td>
+                                    <span class="fal fa-fw fa-user" data-l10n-bind data-l10n-bind-title="'time.employee.employee.placement.templates.ispersonal'" data-ng-if="placement.simpleSchedule && placement.templateEmployeeId"></span>
+                                    <span class="fal fa-fw fa-users" data-l10n-bind data-l10n-bind-title="'time.employee.employee.placement.templates.ispublic'" data-ng-if="placement.simpleSchedule && !placement.templateEmployeeId"></span>
+                                    <span class="fal fa-fw fa-calendar-week" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.templateschedule'" data-ng-if="!placement.simpleSchedule"></span>
+                                </td>
+                                <td><span>{{placement.timeScheduleTemplateHeadName}}</span></td>
+                                <td class="right-align-cell-more-padding"><span>{{placement.employeeScheduleStartDayNumber}}</span></td>
+                                <td><span>{{placement.employeeScheduleStartDate | date:'shortDate'}}</span></td>
+                                <td><span>{{placement.employeeScheduleStopDate | date:'shortDate'}}</span></td>
+                                <td colspan="3" data-ng-if="!$first && !ctrl.readOnly && ctrl.editPlacementPermission"></td>
+                                <td data-ng-if="$first && !ctrl.readOnly && ctrl.editPlacementPermission" data-ng-click="ctrl.shortenPlacement(placement);"><span class="fal fa-arrow-to-left link" data-l10n-bind data-l10n-bind-title="'time.employee.employee.placement.shorten'"></span></td>
+                                <td data-ng-if="$first && !ctrl.readOnly && ctrl.editPlacementPermission" data-ng-click="ctrl.extendPlacement(placement);"><span class="fal fa-arrow-from-left link" data-l10n-bind data-l10n-bind-title="'time.employee.employee.placement.extend'"></span></td>
+                                <td data-ng-if="$first && !ctrl.readOnly && ctrl.editPlacementPermission" data-ng-click="ctrl.initDeletePlacement(placement);"><span class="fal fa-times iconDelete link" data-l10n-bind data-l10n-bind-title="'time.employee.employee.placement.delete'"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </soe-panel>
+    </div>
+    <div class="col-sm-4 padding-none-right">
+        <soe-panel label-key="time.employee.employee.templateheads" condensed="true">
+            <div class="row">
+                <div class="col-sm-8 margin-large-top margin-small-left">
+                    <soe-select hidelabel="true" model="ctrl.selectedTemplateHead" items="ctrl.templateSchedules" options="item as item.description for item in items" use-ignore-dirty="true" button-icon="'fa-calendar-plus'" button-tooltip-key="time.schedule.template.new" button-class="no-border-radius" button-disabled="ctrl.readOnly || !ctrl.employeeId || !ctrl.editTemplatePermission" on-button-click="ctrl.openEditTemplateSchedule(null);" edit-icon="fa-calendar-edit" edit-tooltip-key="core.edit" edit-disabled="ctrl.readOnly || !ctrl.employeeId || !ctrl.editTemplatePermission || !ctrl.selectedTemplateHead || !ctrl.selectedTemplateHead.employeeId" edit-button-class="border-radius-right" on-edit-click="ctrl.openEditTemplateSchedule(ctrl.selectedTemplateHead.timeScheduleTemplateHeadId);"></soe-select>
+                </div>
+            </div>
+            <div class="table-scrollable-wrapper" style="margin-top: -15px;">
+                <div class="table-scrollable" style="max-height: 302px;">
+                    <table class="table table-outer-bordered table-more-condensed table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 50px;" data-l10n-bind="'core.time.week'"></th>
+                                <th scope="col" data-l10n-bind="'core.time.day'"></th>
+                                <th scope="col" data-l10n-bind="'common.shifttype'"></th>
+                                <th scope="col" style="width: 50px;" data-l10n-bind="'common.from'"></th>
+                                <th scope="col" style="width: 50px;" data-l10n-bind="'common.to'"></th>
+                                <th scope="col" style="width: 50px;" data-l10n-bind="'time.schedule.planning.break'"></th>
+                                <th scope="col" style="width: 50px;" data-l10n-bind="'common.length'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-if="ctrl.loadingTemplates || ctrl.loadingTemplate">
+                                <td colspan="7"><span data-l10n-bind="'core.loading'"></span></td>
+                            </tr>
+                            <tr data-ng-repeat="shift in ctrl.templateShifts" data-ng-if="!ctrl.loadingTemplates && !ctrl.loadingTemplate">
+                                <td class="right-align-cell-more-padding"><span>{{shift.weekNbr}}</span></td>
+                                <td><span>{{shift.dayOfWeek | getDayName | toUpperCaseFirstLetter}}</span></td>
+                                <td><span>{{shift.shiftTypeName}}</span></td>
+                                <td class="right-align-cell"><span>{{shift.startTime | date:'shortTime'}}</span></td>
+                                <td class="right-align-cell"><span>{{shift.stopTime | date:'shortTime'}}</span></td>
+                                <td class="right-align-cell"><span>{{shift.breakLength | minutesToTimeSpan}}</span></td>
+                                <td class="right-align-cell"><span>{{shift.duration | minutesToTimeSpan}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </soe-panel>
+    </div>
+    <div class="col-sm-4" data-ng-if="ctrl.templateGroups.length > 1">
+        <soe-panel label-key="time.schedule.templategroup.templategroups" condensed="true">
+            <div class="row">
+                <div class="col-sm-8 margin-large-top margin-small-left">
+                    <soe-select hidelabel="true" model="ctrl.selectedTemplateGroupId" items="ctrl.templateGroups" options="item.id as item.name for item in items" use-ignore-dirty="true" button-icon="'fa-arrow-down'" button-tooltip-key="core.add" button-disabled="ctrl.readOnly || !ctrl.employeeId || !ctrl.selectedTemplateGroupId" on-button-click="ctrl.addTemplateGroup();"></soe-select>
+                </div>
+            </div>
+            <div class="table-scrollable-wrapper" style="margin-top: -15px;">
+                <div class="table-scrollable" style="max-height: 302px;">
+                    <table class="table table-outer-bordered table-more-condensed table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-l10n-bind="'time.schedule.templategroup.templategroup'"></th>
+                                <th scope="col" data-l10n-bind="'time.schedule.template.templates'"></th>
+                                <th scope="col" style="width: 80px;" data-l10n-bind="'common.datefrom'"></th>
+                                <th scope="col" style="width: 80px;" data-l10n-bind="'common.dateto'"></th>
+                                <th scope="col" style="width: 28px;" data-ng-if="!ctrl.readOnly"></th>
+                                <th scope="col" style="width: 28px;" data-ng-if="!ctrl.readOnly"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="empGroup in ctrl.employeeTemplateGroups">
+                                <td><span>{{empGroup.group.name}}</span></td>
+                                <td><span>{{empGroup.group.templateNames}}</span></td>
+                                <td><span>{{empGroup.fromDate | date:'shortDate'}}</span></td>
+                                <td><span>{{empGroup.toDate | date:'shortDate'}}</span></td>
+                                <td data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.openEditTemplateGroup(empGroup);"><span class="fal fa-pencil iconEdit link" data-l10n-bind data-l10n-bind-title="'core.edit'"></span></td>
+                                <td data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteTemplateGroup(empGroup);"><span class="fal fa-times iconDelete link" data-l10n-bind data-l10n-bind-title="'core.delete'"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </soe-panel>
+        <div class="row margin-large-top" data-ng-if="!ctrl.templateGroupsModified">
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-sm btn-default" data-ng-click="$event.stopPropagation();ctrl.simulate();"><span class="fal fa-fast-forward margin-small-right"></span><span data-l10n-bind="'time.schedule.templategroup.simulate'"></span></button>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.simulatedHeads.length > 0">
+            <div class="col-sm-12">
+                <div class="table-scrollable-wrapper" style="margin-top: -15px;">
+                    <div class="table-scrollable" style="max-height: 302px;">
+                        <table class="table table-outer-bordered table-more-condensed table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" data-l10n-bind="'time.schedule.template.template'"></th>
+                                    <th scope="col" style="width: 80px;" data-l10n-bind="'common.startdate'"></th>
+                                    <th scope="col" style="width: 80px;" data-l10n-bind="'common.stopdate'"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="head in ctrl.simulatedHeads">
+                                    <td><span>{{head.templateName}}</span></td>
+                                    <td><span>{{head.startDate | date:'shortDate'}}</span></td>
+                                    <td><span>{{head.stopDate | date:'shortDate'}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

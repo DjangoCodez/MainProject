@@ -1,0 +1,24 @@
+﻿<div class="widget-container" data-ng-class="ctrl.widget.cssClasses">
+    <div class="widget panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title mediumFont">
+                <span class="indiscreet">{{ctrl.widget.title}}</span> <span data-ng-if="ctrl.widget.hasRecordCount">({{ctrl.widget.recordCount}})</span>
+                 
+                <span class="widget-toolbar pull-right">
+                    <i data-ng-if="ctrl.widget.hasSettings" class="fal fa-cog" data-l10n-bind data-l10n-bind-title="'common.dashboard.editsettings'" data-ng-click="ctrl.toggleSettings()"></i>
+                    <i class="fal fa-sync" data-ng-class="{'fa-spin': ctrl.widget.isLoading}" data-l10n-bind data-l10n-bind-title="'common.dashboard.reload'" data-ng-click="ctrl.reload()"></i>
+                    <i class="fal fa-times" data-l10n-bind data-l10n-bind-title="'common.dashboard.remove'" data-ng-click="ctrl.remove()"></i>
+                </span>
+            </div>
+        </div>
+        <div class="panel-body" data-ng-class="{'widget-show-settings': ctrl.showSettings, 'widget-hide-settings': !ctrl.showSettings}">
+            <!-- Widget will be placed here -->
+        </div>
+        <div class="panel-footer" data-ng-if="ctrl.showSettings">
+            <div class="pull-right">
+                <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.cancel'" data-l10n-bind-title="'core.cancel'" data-ng-click="$event.stopPropagation();ctrl.cancelSettings()"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.save'" data-l10n-bind-title="'core.save'" data-ng-disabled="!ctrl.widget.settingsValid" data-ng-click="$event.stopPropagation();ctrl.saveSettings()"></button>
+            </div>
+        </div>
+    </div>
+</div>

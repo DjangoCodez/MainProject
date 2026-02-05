@@ -1,0 +1,166 @@
+﻿<SOE_CustomerInterestRateCalculation>
+  <xs:schema id="SOE_CustomerInterestRateCalculation" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="SOE_CustomerInterestRateCalculation" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="CustomerInterestRateCalculation">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="TimeLabel" type="xs:string" minOccurs="0" />                      
+                      <xs:element name="DateIntervalLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportTitleLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportDescriptionLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="CompanyNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OrgNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="InterestRateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportSumLabel" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateInterval" type="xs:string" minOccurs="0" />                      
+                      <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="Company" type="xs:string" minOccurs="0" />
+                      <xs:element name="Orgnr" type="xs:string" minOccurs="0" />                                            
+                      <xs:element name="InterestRate" type="xs:decimal" minOccurs="0" />                      
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="InvoiceNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="InvoiceDateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="DueDateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="InvoiceTotalAmountLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="InvoiceVATAmountLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PaymentNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PaymentDateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PaymentAmountLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="BalanceLabel" type="xs:string" minOccurs="0" />                                                                  
+                      <xs:element name="RateDaysLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="RateAmountLabel" type="xs:string" minOccurs="0" />                      
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="Customer" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>                      
+                      <xs:element name="CustomerNr" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                      <xs:element name="CustomerName" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                      <xs:element name="CustomerAddress" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                      <xs:element name="CustomerAddressCO" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                      <xs:element name="CustomerPostalCode" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                      <xs:element name="CustomerPostalAddress" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+                      <xs:element name="Invoice" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="InvoiceNr" type="xs:string" minOccurs="0" msdata:Ordinal="0" />                            
+                            <xs:element name="InvoiceDate" type="xs:dateTime" minOccurs="0" msdata:Ordinal="1" />
+                            <xs:element name="InvoiceDueDate" type="xs:dateTime" minOccurs="0" msdata:Ordinal="2" />                            
+                            <xs:element name="InvoiceTotalAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="3" />
+                            <xs:element name="InvoiceTotalVATAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="4" />                                        
+                            <xs:element name="Payment" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="PaymentSeqNr" type="xs:int" minOccurs="0" msdata:Ordinal="0" />
+                                  <xs:element name="PaymentDate" type="xs:dateTime" minOccurs="0" msdata:Ordinal="1" />
+                                  <xs:element name="PaymentAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="2" />
+                                  <xs:element name="PaymentRateDays" type="xs:int" minOccurs="0" msdata:Ordinal="3" />
+                                  <xs:element name="PaymentRateAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="4" />
+                                </xs:sequence>
+                                <xs:attribute name="id" type="xs:string" />
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                          <xs:attribute name="id" type="xs:string" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="id" type="xs:string" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <CustomerInterestRateCalculation>
+    <ReportHeaderLabels>
+      <LoginNameLabel>Användare:</LoginNameLabel>
+      <PageLabel>Sida:</PageLabel>
+      <DateLabel>Datum:</DateLabel>
+      <TimeLabel>Tid:</TimeLabel>      
+      <DateIntervalLabel>Datumintervall:</DateIntervalLabel>
+      <ReportTitleLabel>Title</ReportTitleLabel>      
+      <ReportDescriptionLabel>Description</ReportDescriptionLabel>
+      <ReportNrLabel>ReportNr</ReportNrLabel>
+      <CompanyNameLabel>CompanyName</CompanyNameLabel>
+      <OrgNrLabel>OrgNr</OrgNrLabel>
+      <InterestRateLabel>InterestRate</InterestRateLabel>
+      <ReportSumLabel>Total</ReportSumLabel>
+    </ReportHeaderLabels>
+    <ReportHeader>      
+      <LoginName>LoginName</LoginName>
+      <DateInterval>DateFrom - DateTo</DateInterval>
+      <ReportTitle>InterestRateCalculation</ReportTitle>
+      <ReportDescription>ReportDescription</ReportDescription>
+      <ReportNr>100</ReportNr>
+      <Company>Company</Company>
+      <Orgnr>123465</Orgnr>
+      <InterestRate>10</InterestRate>
+    </ReportHeader>
+    <PageHeaderLabels>
+      <InvoiceNrLabel>InvoiceNr</InvoiceNrLabel>
+      <InvoiceDateLabel>InvoiceDate</InvoiceDateLabel>
+      <DueDateLabel>DueDate</DueDateLabel>      
+      <InvoiceTotalAmountLabel>TotalAmount</InvoiceTotalAmountLabel>
+      <InvoiceVATAmountLabel>VATAmount</InvoiceVATAmountLabel>      
+      <PaymentNrLabel>PaymentNr</PaymentNrLabel>
+      <PaymentDateLabel>PaymentDate</PaymentDateLabel>      
+      <PaymentAmountLabel>PaymentAmount</PaymentAmountLabel>
+      <BalanceLabel>Saldo</BalanceLabel>
+      <RateDaysLabel>RateDays</RateDaysLabel>
+      <RateAmountLabel>RateAmount</RateAmountLabel>      
+    </PageHeaderLabels>
+    <Customer id="1">
+      <CustomerNr>100</CustomerNr>
+      <CustomerName>Customer 100</CustomerName>
+      <CustomerAddress>Address</CustomerAddress>
+      <CustomerAddressCO>Address CO</CustomerAddressCO>
+      <CustomerPostalCode>00000</CustomerPostalCode>
+      <CustomerPostalAddress>PostalAddress</CustomerPostalAddress>
+      <Invoice id="1">
+        <InvoiceNr>1000</InvoiceNr>
+        <InvoiceDate>2019-01-01T00:00:00+00:00</InvoiceDate>
+        <InvoiceDueDate>2019-01-01T00:00:00+00:00</InvoiceDueDate>
+        <InvoiceTotalAmount>124.00</InvoiceTotalAmount>
+        <InvoiceTotalVATAmount>24.00</InvoiceTotalVATAmount>
+        <InvoiceBalance>0</InvoiceBalance>
+        <InvoiceRateDays>90</InvoiceRateDays>
+        <InvoiceRateAmount>6.15</InvoiceRateAmount>        
+        <Payment id="1">
+          <PaymentSeqNr>200</PaymentSeqNr>
+          <PaymentDate>2019-04-01T00:00:00+00:00</PaymentDate>
+          <PaymentAmount>124.00</PaymentAmount>
+          <PaymentRateDays>90</PaymentRateDays>
+          <PaymentRateAmount>6.15</PaymentRateAmount>
+        </Payment>
+      </Invoice>
+    </Customer>
+  </CustomerInterestRateCalculation>
+</SOE_CustomerInterestRateCalculation>

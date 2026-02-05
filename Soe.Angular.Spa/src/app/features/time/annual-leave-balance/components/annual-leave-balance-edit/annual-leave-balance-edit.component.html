@@ -1,0 +1,81 @@
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'common.type'"
+          [items]="types"
+          [selectedItem]="form.value.type"
+          [required]="true"
+          formControlName="type">
+        </soe-select>
+      </div>
+      <div class="col-sm-2">
+        @if (manuallyEarnedChosen()) {
+          <soe-datepicker
+            [labelKey]="'common.date'"
+            [required]="true"
+            formControlName="dateEarned">
+          </soe-datepicker>
+        } @else if (
+          manuallySpentChosen() || isCalculatedTypeWithManuallySpentFlag()
+        ) {
+          <soe-datepicker
+            [labelKey]="'common.date'"
+            [required]="true"
+            formControlName="dateSpent">
+          </soe-datepicker>
+        }
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'time.employee.employee.employee'"
+          [items]="employees"
+          [selectedItem]="form.value.employeeId"
+          [required]="true"
+          formControlName="employeeId">
+        </soe-select>
+      </div>
+      <div class="col-sm-2">
+        @if (manuallyEarnedChosen()) {
+          <soe-timebox
+            [labelKey]="'time.annualleave.accumulated'"
+            [required]="true"
+            [isDuration]="true"
+            formControlName="accumulatedMinutes">
+          </soe-timebox>
+        } @else if (
+          manuallySpentChosen() || isCalculatedTypeWithManuallySpentFlag()
+        ) {
+          <soe-timebox
+            [labelKey]="'time.annualleave.minutesspent'"
+            [required]="true"
+            [isDuration]="true"
+            formControlName="minutesSpent">
+          </soe-timebox>
+        }
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-sm-4">
+        <soe-instruction
+          [text]="
+            'time.employee.annualleavebalance.transaction.edit.instruction'
+              | translate
+          ">
+        </soe-instruction>
+      </div>
+    </div>
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      [hideDelete]="!permittedToDelete()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

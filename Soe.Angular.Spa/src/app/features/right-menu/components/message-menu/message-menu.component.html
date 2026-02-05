@@ -1,0 +1,23 @@
+<div
+  id="message-menu-toggle"
+  class="right-menu-toggle"
+  [style.top.px]="topPosition"
+  [title]="toggleTooltip"
+  (click)="openLegacyMenu()">
+  <a>
+    @if (nbrOfUnreadMessages === 0) {
+      <fa-icon
+        [icon]="['fal', 'envelope']"
+      ></fa-icon>
+    }
+    @if (nbrOfUnreadMessages > 0) {
+      <fa-layers [fixedWidth]="true">
+        <fa-icon [icon]="['fal', 'envelope']"></fa-icon>
+        <fa-layers-counter
+        content="{{
+          nbrOfUnreadMessages > 99 ? '99+' : nbrOfUnreadMessages
+        }}"></fa-layers-counter>
+      </fa-layers>
+    }
+  </a>
+</div>

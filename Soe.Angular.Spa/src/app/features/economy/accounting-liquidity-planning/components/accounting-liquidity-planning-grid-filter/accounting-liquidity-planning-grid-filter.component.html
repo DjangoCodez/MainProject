@@ -1,0 +1,50 @@
+<div class="row m-2 mb-0">
+  <form [formGroup]="formFilter" novalidate autocomplete="off">
+    <div class="row">
+      <div class="d-sm-inline">
+        <soe-datepicker
+          [labelKey]="'common.fromdate'"
+          [width]="150"
+          [inline]="true"
+          formControlName="from" />
+      </div>
+      <div class="d-sm-inline">
+        <soe-datepicker
+          [labelKey]="'common.todate'"
+          [width]="150"
+          [inline]="true"
+          formControlName="to" />
+      </div>
+      <div class="d-sm-inline">
+        <soe-datepicker
+          [labelKey]="'economy.accounting.liquidityplanning.exclusionfrom'"
+          [width]="150"
+          [inline]="true"
+          formControlName="exclusion" />
+      </div>
+      <div class="d-sm-inline">
+        <soe-numberbox
+          [decimals]="2"
+          [labelKey]="'economy.accounting.liquidityplanning.openingbalance'"
+          [width]="150"
+          [inline]="true"
+          formControlName="balance" />
+      </div>
+      <div class="d-sm-inline ps-0">
+        <soe-multi-select
+          [placeholderKey]="'economy.supplier.invoice.paymentstatuses'"
+          [items]="paymentStatuses()"
+          [inline]="true"
+          [dropdownWidth]="200"
+          formControlName="selectedPaymentStatuses"
+          (onSelectionComplete)="saveSelection()"></soe-multi-select>
+      </div>
+      <div class="d-sm-inline">
+        <soe-button
+          [caption]="'core.search'"
+          [behaviour]="'primary'"
+          (action)="search()" />
+      </div>
+    </div>
+  </form>
+</div>

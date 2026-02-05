@@ -1,0 +1,107 @@
+﻿<div>
+    <uib-accordion close-others="false">
+        <soe-accordion label-key="common.selection" is-open="ctrl.selectionIsOpen">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <soe-select label-key="billing.stock.purchase.suggestionbase"
+                                    model="ctrl.generationModel.purchaseGenerationType"
+                                    items="ctrl.generationTypes"
+                                    options="item.id as item.name for item in items"
+                                    required="true" />
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="billing.stock.purchase.triggerquantitypercentage"
+                                     model="ctrl.generationModel.triggerQuantityPercent"
+                                     numeric="true"
+                                     label-value="'%'"
+                                     label-value-in-parentheses="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <soe-multiselect label-key="billing.stock.stocks.stocks"
+                                         options="ctrl.stockPlaces"
+                                         model="ctrl.selectedStockPlaces"
+                                         limit-to="20"
+                                         id-prop="stockId"
+                                         display-prop="name" />
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="billing.stock.purchase.productnrfrom"
+                                     model="ctrl.generationModel.productNrFrom" />
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="billing.stock.purchase.productnrto"
+                                     model="ctrl.generationModel.productNrTo" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="billing.stock.purchase.purchaser"
+                                     model="ctrl.generationModel.purchaser" />
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-checkbox label-key="billing.stock.purchase.excludewithouttriggerquantity"
+                                      model="ctrl.generationModel.excludeMissingTriggerQuantity"
+                                      inline="true" />
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-checkbox label-key="billing.stock.purchase.excluderowswithnopurchasequantity"
+                                      model="ctrl.generationModel.excludeMissingPurchaseQuantity"
+                                      inline="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <soe-textarea label-key="billing.order.deliveryaddress"
+                                      rows="2"
+                                      readonly="true"
+                                      model="ctrl.generationModel.defaultDeliveryAddress"
+                                      button-icon="fa-pen"
+                                      on-button-click="ctrl.editDefaultDeliveryAddress()" />
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button"
+                                class="btn btn-sm ngSoeMainButton"
+                                style="margin-top:30px;"
+                                data-l10n-bind="'billing.stock.purchase.generatesuggestion'"
+                                data-l10n-bind-title="'core.search'"
+                                ng-disabled="!ctrl.performButtonEnabled"
+                                data-ng-click="$event.stopPropagation();ctrl.loadGridData()" />
+                    </div>
+                </div>
+            </div>
+        </soe-accordion>
+    </uib-accordion>
+    <div class="row">
+        <div class="col-sm-12">
+            <div ag-grid="ctrl.gridAg.options.gridOptions" height-checker class="ag-theme-balham" style="height: 800px; width: 100%;"></div>
+            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+        </div>
+    </div>
+    <div class="ngSoeFormFooter" style="margin: 8px -16px 0px -16px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col pull-right">
+                    <button type="button"
+                            class="btn btn-sm btn-default pull-right margin-small-right ngSoeMainButton"
+                            data-l10n-bind="'billing.stock.purchase.createpurchase'"
+                            data-l10n-bind-title="'billing.stock.purchase.createpurchase'"
+                            data-ng-click="$event.stopPropagation();ctrl.purchaseGeneration()" />
+                </div>
+                <div class="col pull-right">
+                    <soe-checkbox label-key="billing.stock.purchase.excluderowswithnoquantity"
+                                  model="ctrl.generationModel.excludePurchaseQuantityZero"
+                                  on-changing="ctrl.setGridData(ctrl.generationModel.excludePurchaseQuantityZero) " />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

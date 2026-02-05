@@ -1,0 +1,130 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'common.checkdistribution'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="info margin-large-top" data-ng-if="ctrl.info">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-text model="ctrl.info"></soe-text>
+                </div>
+            </div>
+        </div>
+        <div class="info margin-small-top margin-small-bottom" data-ng-if="!ctrl.defaultEmailTemplateId">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-label label-key="common.defaultemailtemplatemissing" medium-font="true" discreet="true"></soe-label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm" ng-if="ctrl.showReportSelection">
+            <div class="row margin-small-bottom">
+                <div class="col-sm-4">
+                    <soe-select label-key="common.language" model="ctrl.selectedLanguageId" items="ctrl.languages" options="item.id as item.name for item in items"></soe-select>
+                </div>
+                <div class="col-sm-4">
+                    <soe-select label-key="common.report.report.report" model="ctrl.selectedReportId" items="ctrl.reports" options="item.id as item.name for item in items"></soe-select>
+                </div>
+                <!--<div class="col-sm-1" data-ng-if="ctrl.showCopy">
+                    <soe-checkbox label-key="core.copy2" model="ctrl.isCopy" inline="true"></soe-checkbox>
+                </div>
+                <div class="col-sm-1" data-ng-if="ctrl.showReminder">
+                    <soe-checkbox label-key="common.customer.invoices.reminder" model="ctrl.isReminder" inline="true"></soe-checkbox>
+                </div>-->
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-more-condensed table-hover" style="overflow-y: clip;">
+                <thead>
+                    <tr>
+                        <th scope="col" class="indiscreet" data-l10n-bind="'common.name'"></th>
+                        <th scope="col" class="indiscreet" data-l10n-bind="'core.xemail.subject'"></th>
+                        <th scope="col" class="indiscreet" data-l10n-bind="'common.type'"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="template in ctrl.emailTemplates">
+                        <td style="vertical-align: middle"><span>{{::template.name}}</span></td>
+                        <td style="vertical-align: middle"><span>{{::template.subject}}</span></td>
+                        <td style="vertical-align: middle"><span>{{::template.typename}}</span></td>
+                        <td style="width: 32px;">
+                            <soe-radiobutton model="ctrl.selectedTemplateId" group="emailTemplates" value="template.emailTemplateId"></soe-radiobutton>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-responsive margin-small-top" ng-if="!ctrl.grid">
+            <table class="table table-bordered table-more-condensed table-hover" style="overflow-y: clip;">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="2" class="indiscreet" data-l10n-bind="'core.xemail.receivers'"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="recipient in ctrl.recipients" ng-if="recipient.name && recipient.name !== ' '" class="horizontal-list-item">
+                        <td style="vertical-align: middle">
+                            <span>{{::recipient.name}}</span>
+                        </td>
+                        <td style="width: 32px;">
+                            <soe-checkbox hidelabel="true" model="recipient.isSelected"></soe-checkbox>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-responsive margin-small-top" data-ng-if="ctrl.attachments && ctrl.attachments.length > 0 && !ctrl.grid">
+            <table class="table table-bordered table-more-condensed table-hover" style="overflow-y: clip;">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="2" class="indiscreet" data-l10n-bind="'core.attachments'"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="attachment in ctrl.attachments" class="horizontal-list-item">
+                        <td style="vertical-align: middle">
+                            <span>{{::attachment.description}}</span>
+                        </td>
+                        <td style="width: 32px;">
+                            <soe-checkbox hidelabel="true" model="attachment.isSelected"></soe-checkbox>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-responsive margin-small-top" data-ng-if="ctrl.checklists && ctrl.checklists.length > 0 && !ctrl.grid">
+            <table class="table table-bordered table-more-condensed table-hover" style="overflow-y: clip;">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="2" class="indiscreet" data-l10n-bind="'common.checklists'"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="checklist in ctrl.checklists" class="horizontal-list-item">
+                        <td style="vertical-align: middle">
+                            <span>{{::checklist.checklistHeadName}} ( {{::checklist.created | date : 'shortDate'}} )</span>
+                        </td>
+                        <td style="width: 32px;">
+                            <soe-checkbox hidelabel="true" model="checklist.isSelected"></soe-checkbox>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row margin-small-top">
+            <div class="col-sm-12">
+                <soe-checkbox label-key="common.report.mergepdfs" model="ctrl.mergePdfs"></soe-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.send'" data-ng-disabled="ctrl.buttonSendDisabled()" data-ng-click="ctrl.buttonSendClick()"></button>
+    </div>
+</div>
+

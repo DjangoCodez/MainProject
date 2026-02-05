@@ -1,0 +1,25 @@
+﻿<div>
+    <table class="table table-condensed table-hover table-outer-bordered">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 20px"></th>
+                <th scope="col" data-l10n-bind="'common.accountdim'"></th>
+                <th scope="col" data-l10n-bind="'common.name'"></th>
+                <th scope="col" data-l10n-bind="'core.permission'"></th>
+                <th scope="col" style="width: 56px" colspan="2" class="table-header-button" data-l10n-bind data-l10n-bind-title="'core.newrow'" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editHierarchyAccount(null);">
+                    <span><i class="fal fa-plus"></i></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody data-ng-repeat="hierarchyAccount in ctrl.hierarchyAccounts">
+            <tr data-ng-class="{'table-selected-row': ctrl.selectedHierarchyAccount === hierarchyAccount}" data-ng-click="ctrl.selectedHierarchyAccount = hierarchyAccount">
+                <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedHierarchyAccount === hierarchyAccount"></i></td>
+                <td><span>{{hierarchyAccount.accountDimName}}</span></td>
+                <td><span>{{hierarchyAccount.accountName}}</span></td>
+                <td><span>{{hierarchyAccount.accountPermissionTypeName}}</span></td>
+                <td style="width: 28px" data-ng-if="!ctrl.readOnly"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-click="ctrl.editHierarchyAccount(hierarchyAccount);"></i></span></td>
+                <td style="width: 28px" data-ng-if="!ctrl.readOnly"><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-click="ctrl.deleteHierarchyAccount(hierarchyAccount);"></i></span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

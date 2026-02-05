@@ -1,0 +1,21 @@
+import { DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
+import { tap } from 'rxjs';
+
+@Injectable()
+export class ProjectUrlParamsService {
+  private readonly route = inject(ActivatedRoute);
+  private readonly destroyRef = inject(DestroyRef);
+
+  projectId = signal<number>(this.route.snapshot.queryParams['projectid'] || 0);
+
+  readonly params$ = this.route.queryParamMap
+    .pipe(
+      takeUntilDestroyed(this.destroyRef),
+      tap(params => {
+        this.projectId.set(Number(params.get('projectid')));
+      })
+    )
+    .subscribe();
+}

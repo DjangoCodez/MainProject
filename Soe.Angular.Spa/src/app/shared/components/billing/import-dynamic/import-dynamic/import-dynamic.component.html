@@ -1,0 +1,201 @@
+<soe-dialog>
+  <div dialog-content>
+    <div class="row mt-4 m-0">
+      <div class="col-sm-12 import-dynamic">
+        <mat-horizontal-stepper #stepper [linear]="true" [@.disabled]="true">
+          <mat-step-header role="tab"></mat-step-header>
+          <ng-template matStepperIcon="edit">
+            <fa-icon [icon]="['fal', 'pen']"></fa-icon>
+          </ng-template>
+          <ng-template matStepperIcon="done">
+            <fa-icon [icon]="['fal', 'check']"></fa-icon>
+          </ng-template>
+          <mat-step
+            ><!--Start File Upload-->
+            <ng-template matStepLabel>
+              <span>{{
+                'common.importdynamic.tabchoosefile' | translate
+              }}</span>
+            </ng-template>
+            <div [formGroup]="mainForm.fileUploadTab">
+              <div class="row">
+                <div class="col-sm-4">
+                  <soe-select
+                    [labelKey]="'common.report.selection.exportfiletype'"
+                    [items]="fileTypes"
+                    [selectedId]="mainForm.value.fileUploadTab.fileType"
+                    formControlName="fileType"></soe-select>
+                </div>
+                <div class="col-sm-4">
+                  <soe-textbox
+                    [labelKey]="'core.filename'"
+                    formControlName="fileName">
+                    <soe-icon-button
+                      [iconPrefix]="'fal'"
+                      [iconName]="'file-arrow-up'"
+                      (action)="addFile($event)"
+                      [disabled]="
+                        mainForm.value.fileUploadTab.fileType <= 0
+                      "></soe-icon-button>
+                  </soe-textbox>
+                </div>
+              </div>
+              @if (showFileUploadError()) {
+                <div class="row mt-2">
+                  <div class="col-sm-8">
+                    <soe-instruction
+                      [type]="'warning'"
+                      [showIcon]="true"
+                      [text]="
+                        'common.importdynamic.invalidupload'
+                      "></soe-instruction>
+                  </div>
+                </div>
+              }
+              @if (showFileContentGrid()) {
+                <div class="row mt-2">
+                  <div class="col-sm-12">
+                    <soe-label
+                      [labelKey]="'common.importdynamic.previewrows'"
+                      [secondaryLabelKey]="fileContentRows.length.toString()"
+                      [secondaryLabelParantheses]="true"></soe-label>
+                    @if (showImportDynamicGrid()) {
+                      <soe-dynamic-grid
+                        [gridName]="'billing.purchase.importdynamic.peek'"
+                        [exportFilenameKey]="
+                          'billing.purchase.importdynamic.peek'
+                        "
+                        [height]="180"
+                        [minRowsToShow]="5"
+                        [maxRowsToShow]="5"
+                        [gridData]="importDynamicGridRows"
+                        [columns]="importDynamicGridColumns"
+                        [suppressFiltering]="true"
+                        [suppressGridMenu]="true"
+                        [suppressHeader]="true"
+                        [suppressRowCount]="true"
+                        [fitColumnsToWidth]="false"></soe-dynamic-grid>
+                    }
+                  </div>
+                </div>
+              }
+            </div> </mat-step
+          ><!--End File Upload-->
+          <mat-step>
+            <ng-template matStepLabel>
+              <span>{{
+                'common.importdynamic.tablinkfields' | translate
+              }}</span>
+            </ng-template>
+            <div>
+              <div class="row">
+                <soe-column-mapper
+                  [columns]="draggableColumns || []"
+                  [fields]="data.importDTO.fields"
+                  [fileRows]="fileContentRows"
+                  [skipFirstRow]="importDynamicForm.options.skipFirstRow.value"
+                  (allRequiredFieldsSet)="allRequiredFieldsSet($event)"
+                  [importDynamicForm]="importDynamicForm"></soe-column-mapper>
+              </div>
+            </div>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>
+              <span>{{ 'common.importdynamic.tabpreview' | translate }}</span>
+            </ng-template>
+            <div class="row mt-2">
+              <div class="col-12">
+                @if (showPreviewGrid()) {
+                  <soe-dynamic-grid
+                    [gridName]="'billing.purchase.importdynamic.preview'"
+                    [exportFilenameKey]="
+                      'billing.purchase.importdynamic.preview'
+                    "
+                    [height]="800"
+                    [minRowsToShow]="20"
+                    [maxRowsToShow]="20"
+                    [gridData]="previewGridRows"
+                    [columns]="previewGridColumns"
+                    [suppressGridMenu]="true"></soe-dynamic-grid>
+                }
+              </div>
+            </div>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepperIcon="edit">
+              <fa-icon [icon]="['fal', 'check']"></fa-icon>
+            </ng-template>
+            <ng-template matStepLabel>
+              <span>{{
+                'common.importdynamic.tabseeoutcome' | translate
+              }}</span>
+            </ng-template>
+            <div class="my-2">
+              <div class="row" [formGroup]="resultForm">
+                <div class="col-4">
+                  <soe-textbox
+                    [labelKey]="'common.importdynamic.newrows'"
+                    formControlName="newCount"></soe-textbox>
+                </div>
+                <div class="col-4">
+                  <soe-textbox
+                    [labelKey]="'common.importdynamic.updatedrows'"
+                    formControlName="newCount"></soe-textbox>
+                </div>
+              </div>
+              @if (showResultGrid()) {
+                <div class="row mt-3">
+                  <soe-label
+                    [labelKey]="'common.dashboard.syslog.title'"></soe-label>
+                  <div class="col-12 mt-2">
+                    <soe-dynamic-grid
+                      [gridName]="'billing.purchase.importdynamic.result'"
+                      [exportFilenameKey]="
+                        'billing.purchase.importdynamic.result'
+                      "
+                      [height]="450"
+                      [minRowsToShow]="15"
+                      [maxRowsToShow]="15"
+                      [gridData]="resultGridRows"
+                      [columns]="resultGridColumns"
+                      [suppressGridMenu]="true"></soe-dynamic-grid>
+                  </div>
+                </div>
+              }
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+      </div>
+    </div>
+  </div>
+  <div dialog-footer>
+    @if (stepper.selectedIndex !== 3) {
+      <soe-button
+        (action)="close(false)"
+        [caption]="'core.cancel'"
+        [behaviour]="'standard'"></soe-button>
+    }
+    @if (stepper.selectedIndex !== 0 && stepper.selectedIndex !== 3) {
+      <soe-button
+        (action)="goBack()"
+        [caption]="'core.previous'"
+        [behaviour]="'standard'"
+        [disabled]="stepper.selectedIndex === 0"></soe-button>
+    }
+    @if (stepper.selectedIndex !== 3) {
+      <soe-button
+        (action)="goForward()"
+        [caption]="'core.next'"
+        [behaviour]="'primary'"
+        [disabled]="
+          isNextDisabled() || stepper.selectedIndex === totalSteps - 1
+        "></soe-button>
+    }
+    @if (stepper.selectedIndex === 3) {
+      <soe-button
+        (action)="close(true)"
+        [caption]="'core.close'"
+        [behaviour]="'standard'"></soe-button>
+    }
+  </div>
+</soe-dialog>

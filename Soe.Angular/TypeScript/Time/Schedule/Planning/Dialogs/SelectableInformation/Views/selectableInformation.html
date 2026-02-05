@@ -1,0 +1,257 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">
+            <span data-l10n-bind="'time.schedule.planning.showselectableinformation'"></span>
+        </h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div data-ng-class="{'col-sm-4': ctrl.nbrOfColumns === 2, 'col-sm-12': ctrl.nbrOfColumns === 1}" data-ng-if="ctrl.showColumn1">
+                <soe-panel label-key="time.schedule.planning.selectableinformation.filter" condensed="true" data-ng-if="!ctrl.isCalendarView && ctrl.isSchedulePlanningMode">
+                    <div class="margin-small-top margin-small-left margin-small-right">
+                        <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.donotsearchonfilter" model="ctrl.settings.doNotSearchOnFilter"></soe-checkbox>
+                        <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.showhiddenshifts" model="ctrl.settings.showHiddenShifts"></soe-checkbox>
+                        <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.selectableinformation.showfullylendedemployees" model="ctrl.settings.showFullyLendedEmployees" data-ng-if="ctrl.useAccountHierarchy"></soe-checkbox>
+                        <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.selectableinformation.showinactiveemployees" model="ctrl.settings.showInactiveEmployees"></soe-checkbox>
+                        <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.selectableinformation.showunemployedemployees" model="ctrl.settings.showUnemployedEmployees"></soe-checkbox>
+                        <soe-select class="margin-large-bottom" label-key="time.schedule.planning.defaultuserselection" model="ctrl.settings.defaultUserSelectionId" items="ctrl.userSelections" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                </soe-panel>
+                <soe-panel label-key="time.schedule.planning.selectableinformation.timecost" condensed="true" data-ng-if="ctrl.isSchedulePlanningMode">
+                    <div class="margin-small-top margin-small-left margin-small-right">
+                        <soe-checkbox class="margin-small-bottom" label-key="time.employee.employeegroup.employeegroup" model="ctrl.settings.showEmployeeGroup" data-ng-if="ctrl.isCommonDayView || ctrl.isCommonScheduleView"></soe-checkbox>
+                        <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.showcycleplannedtime" model="ctrl.settings.showCyclePlannedTime" data-ng-if="ctrl.isScheduleView"></soe-checkbox>
+                        <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.showscheduletypefactortime" model="ctrl.settings.showScheduleTypeFactorTime" data-ng-if="!ctrl.isCalendarView"></soe-checkbox>
+                        <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.showgrosstime" model="ctrl.settings.showGrossTime" data-ng-if="ctrl.showGrossTimeSetting"></soe-checkbox>
+                        <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.showtotalcost" model="ctrl.settings.showTotalCost" data-ng-if="ctrl.showTotalCostPermission" on-changing="ctrl.toggleShowTotalCost()"></soe-checkbox>
+                        <soe-checkbox class="margin-small-bottom margin-large-left" label-key="time.schedule.planning.includeemptaxandsuppcharge" model="ctrl.settings.showTotalCostIncEmpTaxAndSuppCharge" data-ng-if="ctrl.showTotalCostPermission" on-changing="ctrl.toggleShowTotalCostIncEmpTaxAndSuppCharge()"></soe-checkbox>
+                        <soe-checkbox class="margin-small-bottom margin-large-left" label-key="time.schedule.planning.includeweekendsalary" model="ctrl.settings.showWeekendSalary" data-ng-if="ctrl.showWeekendSalary && (ctrl.isScheduleView || ctrl.isCalendarView || ctrl.isDayView)" on-changing="ctrl.toggleShowWeekendSalary()"></soe-checkbox>
+                        <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.includelendedshiftsintimecalculations" model="ctrl.settings.includeLendedShiftsInTimeCalculations" data-ng-if="ctrl.useAccountHierarchy && !ctrl.isCalendarView"></soe-checkbox>
+                        <div class="margin-small-bottom" data-ng-if="(ctrl.isScheduleView || ctrl.isTemplateScheduleView) && ctrl.calculatePlanningPeriodScheduledTime">
+                            <soe-checkbox label-key="time.schedule.planning.showannualsummary" model="ctrl.settings.showPlanningPeriodSummary"></soe-checkbox>
+                            <soe-select class="margin-large-left margin-large-bottom" label-key="time.time.planningperiod.planningperiod" model="ctrl.settings.planningPeriodHeadId" items="ctrl.planningPeriodHeads" options="item.id as item.name for item in items" data-ng-if="ctrl.settings.showPlanningPeriodSummary"></soe-select>
+                        </div>
+                        <div class="margin-small-bottom" data-ng-if="ctrl.useAnnualLeave && (ctrl.isScheduleView || ctrl.isDayView)">
+                            <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.annualleave.balance" model="ctrl.settings.showAnnualLeaveBalance"></soe-checkbox>
+                            <soe-select class="margin-large-left margin-large-bottom" label-key="core.format" model="ctrl.settings.showAnnualLeaveBalanceFormat" items="ctrl.annualLeaveBalanceFormats" options="item.id as item.name for item in items" data-ng-if="ctrl.settings.showAnnualLeaveBalance"></soe-select>
+                        </div>
+                    </div>
+                </soe-panel>
+                <soe-panel label-key="time.schedule.planning.selectableinformation.availability" condensed="true" data-ng-if="(ctrl.isDayView || ctrl.isScheduleView) && ctrl.isSchedulePlanningMode">
+                    <div class="margin-small-top margin-small-left margin-small-right">
+                        <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.showavailability" model="ctrl.settings.showAvailability"></soe-checkbox>
+                    </div>
+                </soe-panel>
+                <soe-panel label-key="common.absence" condensed="true" data-ng-if="ctrl.isScenarioView">
+                    <div class="margin-small-top margin-small-left margin-small-right">
+                        <soe-checkbox class="margin-small-bottom" label-key="time.schedule.absencerequests.absencerequests" model="ctrl.settings.showAbsenceRequests"></soe-checkbox>
+                    </div>
+                </soe-panel>
+            </div>
+            <div data-ng-class="{'col-sm-8': ctrl.nbrOfColumns === 2, 'col-sm-12': ctrl.nbrOfColumns === 1}" data-ng-if="ctrl.showColumn2">
+                <soe-panel label-key="time.schedule.planning.selectableinformation.followup" condensed="true" data-ng-if="ctrl.showFollowUp">
+                    <div class="row" data-ng-if="ctrl.showSavedAccountingUnavailable">
+                        <div class="col-sm-12">
+                            <soe-instruction class="margin-small-top margin-small-bottom margin-small-left margin-small-right" label-key="time.schedule.planning.selectableinformation.savedaccountingunavailable" is-warning="true" full-width="true"></soe-instruction>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.showSavedAccountingMismatch">
+                        <div class="col-sm-12">
+                            <soe-instruction class="margin-small-top margin-small-bottom margin-small-left margin-small-right" label-key="time.schedule.planning.selectableinformation.savedaccountingmismatch" is-warning="true" full-width="true"></soe-instruction>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <soe-label class="margin-small-left" label-key="common.accounting"></soe-label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 padding-small-right">
+                            <soe-select class="margin-small-left" hidelabel="true" model="ctrl.settings.followUpAccountDimId" items="ctrl.accountDims" options="item.accountDimId as item.name for item in items" on-changing="ctrl.accountDimChanged(true);"></soe-select>
+                        </div>
+                        <div class="col-sm-6 padding-none-left">
+                            <soe-select class="margin-small-right" hidelabel="true" model="ctrl.settings.followUpAccountId" items="ctrl.followUpAccounts" options="item.accountId as item.name for item in items" on-changing="ctrl.accountChanged();"></soe-select>
+                        </div>
+                    </div>
+
+                    <div class="margin-small-left margin-small-right">
+                        <uib-accordion close-others="false">
+                            <div class="row margin-large-top">
+                                <div class="col-sm-12">
+                                    <soe-accordion label-key="core.chart" condensed="true" is-open="ctrl.chartAccordionInitiallyOpen">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <soe-select label-key="time.schedule.planning.selectableinformation.followup.calculationtype" model="ctrl.settings.followUpCalculationType" items="ctrl.followUpCalculationTypes" options="item.id as item.name for item in items"></soe-select>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="margin-small-left margin-small-right">
+                                                    <soe-label label-key="core.calculate"></soe-label>
+                                                    <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.selectableinformation.followup.budget" model="ctrl.settings.followUpOnBudget" data-ng-if="ctrl.showBudgetPermission"></soe-checkbox>
+                                                    <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.selectableinformation.followup.forecast" model="ctrl.settings.followUpOnForecast" data-ng-if="ctrl.showForecastPermission"></soe-checkbox>
+                                                    <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.selectableinformation.followup.templateschedule" model="ctrl.settings.followUpOnTemplateSchedule"></soe-checkbox>
+                                                    <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.selectableinformation.followup.templatescheduleforemployeepost" model="ctrl.settings.followUpOnTemplateScheduleForEmployeePost" data-ng-if="ctrl.isEmployeePostView"></soe-checkbox>
+                                                    <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.selectableinformation.followup.schedule" model="ctrl.settings.followUpOnSchedule"></soe-checkbox>
+                                                    <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.selectableinformation.followup.time" model="ctrl.settings.followUpOnTime"></soe-checkbox>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4" data-ng-if="ctrl.showStaffingNeedsPermission">
+                                                <soe-label label-key="core.show" text-class="warning full-width" text-class-condition="!ctrl.settings.followUpOnNeed && !ctrl.settings.followUpOnNeedFrequency && !ctrl.settings.followUpOnNeedRowFrequency"></soe-label>
+                                                <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.showstaffingneed" model="ctrl.settings.followUpOnNeed"></soe-checkbox>
+                                                <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.showstaffingneedfrequency" model="ctrl.settings.followUpOnNeedRowFrequency"></soe-checkbox>
+                                                <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.showstaffingneedfrequencyrounded" model="ctrl.settings.followUpOnNeedFrequency" data-ng-if="ctrl.isDayView"></soe-checkbox>
+                                            </div>
+                                        </div>
+                                    </soe-accordion>
+                                </div>
+                            </div>
+                            <div class="row" data-ng-if="ctrl.isScheduleView || ctrl.isTemplateScheduleView || ctrl.isScenarioScheduleView">
+                                <div class="col-sm-12">
+                                    <soe-accordion label-key="core.table" condensed="true" is-open="ctrl.tableAccordionInitiallyOpen">
+                                        <soe-label label-key="core.show" text-class="warning full-width" text-class-condition="!ctrl.settings.showBudget && !ctrl.settings.showForecast && !ctrl.settings.showTemplateSchedule && !ctrl.settings.showSchedule && !ctrl.settings.showTime"></soe-label>
+                                        <soe-checkbox label="{{ctrl.followUpCalculationTypes[0].name}}" model="ctrl.settings.followUpShowCalculationTypeSales"></soe-checkbox>
+                                        <div class="row margin-small-left">
+                                            <div class="col-sm-2" data-ng-if="ctrl.showBudgetPermission">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.budget" model="ctrl.settings.followUpShowCalculationTypeSalesBudget"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2" data-ng-if="ctrl.showForecastPermission">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.forecast" model="ctrl.settings.followUpShowCalculationTypeSalesForecast"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.time" model="ctrl.settings.followUpShowCalculationTypeSalesTime"></soe-checkbox>
+                                            </div>
+                                        </div>
+                                        <soe-checkbox label="{{ctrl.followUpCalculationTypes[1].name}}" model="ctrl.settings.followUpShowCalculationTypeHours"></soe-checkbox>
+                                        <div class="row margin-small-left">
+                                            <div class="col-sm-2" data-ng-if="ctrl.showBudgetPermission">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.budget" model="ctrl.settings.followUpShowCalculationTypeHoursBudget"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2" data-ng-if="ctrl.showForecastPermission">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.forecast" model="ctrl.settings.followUpShowCalculationTypeHoursForecast"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.templateschedule" model="ctrl.settings.followUpShowCalculationTypeHoursTemplateSchedule"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.schedule" model="ctrl.settings.followUpShowCalculationTypeHoursSchedule"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.time" model="ctrl.settings.followUpShowCalculationTypeHoursTime"></soe-checkbox>
+                                            </div>
+                                        </div>
+                                        <soe-checkbox label="{{ctrl.followUpCalculationTypes[2].name}}" model="ctrl.settings.followUpShowCalculationTypePersonelCost"></soe-checkbox>
+                                        <div class="row margin-small-left">
+                                            <div class="col-sm-2" data-ng-if="ctrl.showBudgetPermission">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.budget" model="ctrl.settings.followUpShowCalculationTypePersonelCostBudget"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2" data-ng-if="ctrl.showForecastPermission">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.forecast" model="ctrl.settings.followUpShowCalculationTypePersonelCostForecast"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.templateschedule" model="ctrl.settings.followUpShowCalculationTypePersonelCostTemplateSchedule"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.schedule" model="ctrl.settings.followUpShowCalculationTypePersonelCostSchedule"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.time" model="ctrl.settings.followUpShowCalculationTypePersonelCostTime"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.scheduleandtime" model="ctrl.settings.followUpShowCalculationTypePersonelCostScheduleAndTime"></soe-checkbox>
+                                            </div>
+                                        </div>
+                                        <soe-checkbox label="{{ctrl.followUpCalculationTypes[3].name}}" model="ctrl.settings.followUpShowCalculationTypeSalaryPercent"></soe-checkbox>
+                                        <div class="row margin-small-left">
+                                            <div class="col-sm-2" data-ng-if="ctrl.showBudgetPermission">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.budget" model="ctrl.settings.followUpShowCalculationTypeSalaryPercentBudget"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2" data-ng-if="ctrl.showForecastPermission">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.forecast" model="ctrl.settings.followUpShowCalculationTypeSalaryPercentForecast"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.templateschedule" model="ctrl.settings.followUpShowCalculationTypeSalaryPercentTemplateSchedule"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.schedule" model="ctrl.settings.followUpShowCalculationTypeSalaryPercentSchedule"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.time" model="ctrl.settings.followUpShowCalculationTypeSalaryPercentTime"></soe-checkbox>
+                                            </div>
+                                        </div>
+                                        <soe-checkbox label="{{ctrl.followUpCalculationTypes[4].name}}" model="ctrl.settings.followUpShowCalculationTypeLPAT"></soe-checkbox>
+                                        <div class="row margin-small-left">
+                                            <div class="col-sm-2" data-ng-if="ctrl.showBudgetPermission">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.budget" model="ctrl.settings.followUpShowCalculationTypeLPATBudget"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2" data-ng-if="ctrl.showForecastPermission">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.forecast" model="ctrl.settings.followUpShowCalculationTypeLPATForecast"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.templateschedule" model="ctrl.settings.followUpShowCalculationTypeLPATTemplateSchedule"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.schedule" model="ctrl.settings.followUpShowCalculationTypeLPATSchedule"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.time" model="ctrl.settings.followUpShowCalculationTypeLPATTime"></soe-checkbox>
+                                            </div>
+                                        </div>
+                                        <soe-checkbox label="{{ctrl.followUpCalculationTypes[5].name}}" model="ctrl.settings.followUpShowCalculationTypeFPAT"></soe-checkbox>
+                                        <div class="row margin-small-left">
+                                            <div class="col-sm-2" data-ng-if="ctrl.showBudgetPermission">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.budget" model="ctrl.settings.followUpShowCalculationTypeFPATBudget"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2" data-ng-if="ctrl.showForecastPermission">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.forecast" model="ctrl.settings.followUpShowCalculationTypeFPATForecast"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.templateschedule" model="ctrl.settings.followUpShowCalculationTypeFPATTemplateSchedule"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.schedule" model="ctrl.settings.followUpShowCalculationTypeFPATSchedule"></soe-checkbox>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <soe-checkbox label-key="time.schedule.planning.selectableinformation.followup.time" model="ctrl.settings.followUpShowCalculationTypeFPATTime"></soe-checkbox>
+                                            </div>
+                                        </div>
+                                    </soe-accordion>
+                                </div>
+                            </div>
+                        </uib-accordion>
+                    </div>
+                </soe-panel>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <soe-panel label-key="time.schedule.planning.shifts" condensed="true" data-ng-if="ctrl.isSchedulePlanningMode">
+                            <div class="margin-small-top margin-small-left margin-small-right">
+                                <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.showselectableinformation.useshifttypecode" model="ctrl.settings.useShiftTypeCode" data-ng-if="ctrl.isCommonDayView"></soe-checkbox>
+                                <soe-checkbox class="margin-small-bottom" label-key="core.time.weeknumber" model="ctrl.settings.showWeekNumber"></soe-checkbox>
+                                <soe-select class="margin-small-bottom" label-key="time.schedule.planning.showselectableinformation.shifttypeposition" model="ctrl.settings.shiftTypePosition" items="ctrl.shiftTypePositions" options="item.id as item.name for item in items" data-ng-if="ctrl.isCommonDayView"></soe-select>
+                                <soe-select class="margin-small-bottom" label-key="time.schedule.planning.showselectableinformation.timeposition" model="ctrl.settings.timePosition" items="ctrl.timePositions" options="item.id as item.name for item in items" data-ng-if="ctrl.isCommonDayView"></soe-select>
+                                <soe-textbox label-key="time.schedule.planning.showselectableinformation.hidetimeonshortshifts" label-value="ctrl.minutesLabel" label-value-in-parentheses="true" model="ctrl.settings.hideTimeOnShiftShorterThanMinutes" numeric="true" decimals="0" data-ng-if="ctrl.isCommonDayView"></soe-textbox>
+                                <soe-select class="margin-large-bottom" label-key="time.schedule.planning.showselectableinformation.breakvisibility" model="ctrl.settings.breakVisibility" items="ctrl.breakVisibilities" options="item.id as item.name for item in items" data-ng-if="ctrl.isCommonDayView"></soe-select>
+                            </div>
+                        </soe-panel>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-panel label-key="time.schedule.planning.selectableinformation.communication" condensed="true" data-ng-if="ctrl.modifyPermission && ctrl.sendXEMailOnChange && (ctrl.isDayView || ctrl.isScheduleView || ctrl.isTemplateView)">
+                            <div class="margin-small-top margin-small-left margin-small-right">
+                                <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.skipxemailonchanges" model="ctrl.settings.skipXEMailOnChanges" mark-checked="true"></soe-checkbox>
+                            </div>
+                        </soe-panel>
+                        <soe-panel label-key="time.schedule.planning.selectableinformation.validations" condensed="true" data-ng-if="ctrl.modifyPermission && !ctrl.isCalendarView">
+                            <div class="margin-small-top margin-small-left margin-small-right">
+                                <soe-checkbox class="margin-small-bottom" label-key="time.schedule.planning.skipworkrules" model="ctrl.settings.skipWorkRules" mark-checked="true"></soe-checkbox>
+                            </div>
+                        </soe-panel>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-l10n-bind-title="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-default" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.selectableinformation.save.tooltip'" data-ng-click="ctrl.ok(true)"><span><i class="fal fa-save margin-small-right"></i><span data-l10n-bind="'time.schedule.planning.selectableinformation.save'"></span></span></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-l10n-bind-title="'core.ok'" data-ng-click="ctrl.ok(false)"></button>
+    </div>
+</div>

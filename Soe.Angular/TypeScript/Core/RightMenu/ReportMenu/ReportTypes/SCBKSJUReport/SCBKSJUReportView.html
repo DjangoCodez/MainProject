@@ -1,0 +1,16 @@
+﻿<div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-6">
+                <date-time-interval-selection on-selected="$ctrl.onDateRangeSelectionUpdated(selection)" label-key="common.period" selected-interval="month" user-selection-input="$ctrl.userSelectionInputDate"/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-12">
+                <employees-selection on-selected="$ctrl.onEmployeeSelectionUpdated(employeeSelection)" report-template-type="83" label-key="common.employees" enable-filters="true" show-inactive="true" show-only-inactive="true" show-vacant="true" show-hidden="true" time-period-Ids="$ctrl.timePeriodIds" user-selection-input="$ctrl.userSelectionInputEmployee"/>
+            </div>
+        </div>
+    </div>
+</div>

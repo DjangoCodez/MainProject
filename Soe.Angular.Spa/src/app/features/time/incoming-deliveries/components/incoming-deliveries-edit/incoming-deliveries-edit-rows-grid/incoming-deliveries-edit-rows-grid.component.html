@@ -1,0 +1,57 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [parentGuid]="guid()"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+    [toolbarNoMargin]="true"
+    [toolbarNoBorder]="true"
+    [toolbarNoPadding]="true"
+    [noMargin]="true"
+    [rows]="rows"
+    [height]="300">
+    <div toolbar-content-right>
+      <div class="instruction-container">
+        @if (showLedger()) {
+          <soe-instruction
+            [type]="'info'"
+            [text]="'time.schedule.incomingdelivery.row.minsplitlength'"
+            [fitToContent]="true"
+            [showIcon]="true"
+            [iconPrefix]="'far'"
+            [iconName]="'cut'"></soe-instruction>
+          <soe-instruction
+            [type]="'info'"
+            [text]="'time.schedule.incomingdelivery.row.onlyoneemployee'"
+            [fitToContent]="true"
+            [showIcon]="true"
+            [iconPrefix]="'far'"
+            [iconName]="'user'"></soe-instruction>
+          <soe-instruction
+            [type]="'info'"
+            [text]="'time.schedule.incomingdelivery.row.allowoverlapping'"
+            [fitToContent]="true"
+            [showIcon]="true"
+            [iconPrefix]="'far'"
+            [iconName]="'user-group'"></soe-instruction>
+          <soe-instruction
+            [type]="'info'"
+            [text]="
+              'time.schedule.incomingdelivery.row.dontassignbreakleftovers'
+            "
+            [fitToContent]="true"
+            [showIcon]="true"
+            [iconPrefix]="'far'"
+            [iconName]="'user-slash'"></soe-instruction>
+        }
+        <div class="ms-1">
+          <soe-icon-button
+            [iconPrefix]="'far'"
+            [iconName]="'question'"
+            [iconClass]="'information-color'"
+            [outsideGroup]="true"
+            (action)="showLedger.set(!showLedger())">
+          </soe-icon-button>
+        </div>
+      </div>
+    </div>
+  </soe-grid-wrapper>
+}

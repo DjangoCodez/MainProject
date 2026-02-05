@@ -1,0 +1,58 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'"></h6>
+    </div>
+    <div class="modal-body">
+        <soe-panel label-key="core.functions" data-ng-if="(!ctrl.currentUserId && !ctrl.hideConnectUser) || (ctrl.currentUserId && !ctrl.hideDisconnectUser) || (ctrl.currentUserId && !ctrl.hideDisconnectEmployee)">
+            <div class="row">
+                <div class="col-sm-8" data-ng-if="!ctrl.currentUserId && !ctrl.hideConnectUser">
+                    <soe-radiobutton label-key="common.user.createnewuser" model="ctrl.function" group="function" value="0"></soe-radiobutton>
+                    <soe-radiobutton label-key="common.user.connectuser" model="ctrl.function" group="function" value="1"></soe-radiobutton>
+                    <div class="row" data-ng-if="ctrl.function==1">
+                        <div class="col-sm-8">
+                            <soe-select hidelabel="true" model="ctrl.connectUserId" items="ctrl.usersWithoutEmployees" options="item.id as item.name for item in items" on-changing="ctrl.loadUser();"></soe-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8" data-ng-if="ctrl.currentUserId && (!ctrl.hideDisconnectUser || !ctrl.hideDisconnectEmployee)">
+                    <soe-radiobutton label-key="common.user.modifyuser" model="ctrl.function" group="function" value="2"></soe-radiobutton>
+                    <soe-radiobutton label-key="common.user.disconnectuser" model="ctrl.function" group="function" value="3" data-ng-if="!ctrl.hideDisconnectUser"></soe-radiobutton>
+                    <soe-radiobutton label-key="common.user.disconnectemployee" model="ctrl.function" group="function" value="4" data-ng-if="!ctrl.hideDisconnectEmployee"></soe-radiobutton>
+                </div>
+            </div>
+        </soe-panel>
+        <soe-panel label-key="common.user.userinfo" data-ng-if="ctrl.function != 3 && ctrl.function != 4">
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-textbox label-key="common.user.loginid" model="ctrl.loginName" required="true" auto-focus="true"></soe-textbox>
+                </div>
+                <div class="col-sm-4">
+                    <soe-select label-key="common.language" model="ctrl.langId" items="ctrl.languages" options="item.id as item.name for item in items"></soe-select>
+                </div>
+                <div class="col-sm-4" data-ng-if="ctrl.showLifetime">
+                    <soe-textbox label-key="common.user.lifetimeseconds" model="ctrl.lifetimeSeconds" numeric="true" decimals="0" on-change="ctrl.lifetimeSecondsModified=true"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.showSso">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.user.externalauthid" model="ctrl.externalAuthId" on-change="ctrl.externalAuthIdModified=true"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.user.userlinkconnectionkey" model="ctrl.userLinkConnectionKey"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-datepicker label-key="common.user.blockedfromdate" model="ctrl.blockedFromDate"></soe-datepicker>
+                </div>
+            </div>
+        </soe-panel>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()" data-ng-disabled="!ctrl.loginName"></button>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+﻿<div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-6">
+                <date-time-interval-selection on-selected="$ctrl.onDateRangeSelectionUpdated(selection)" label-key="common.period" selected-interval="date" user-selection-input="$ctrl.userSelectionInputDate" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-4">
+                <shift-type-selection on-selected="$ctrl.onShiftTypeSelectionUpdated(selection)" label-key="common.shifttype" user-selection-input="$ctrl.userSelectionInputShiftType" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-12">
+                <employees-selection on-selected="$ctrl.onEmployeeSelectionUpdated(employeeSelection)" label-key="common.employees" enable-filters="true" show-inactive="true" show-only-inactive="true" show-ended="false" show-vacant="true" show-hidden="true" show-secondary="true" from-date="$ctrl.fromDate" to-date="$ctrl.toDate" selectable-accounting-types="0,1,2,3,4" user-selection-input="$ctrl.userSelectionInputEmployee" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-4">
+                <bool-selection on-selected="$ctrl.onBoolSelectionFilterOnAccountingUpdated(selection)" label-key="common.accountingtype.filterschedule" user-selection-input="$ctrl.userSelectionInputFilterOnAccounting" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-12">
+                <bool-selection on-selected="$ctrl.onBoolSelectionIncludeAbsenceUpdated(selection)" label-key="common.includeabsence" user-selection-input="$ctrl.userSelectionInputIncludeAbsence" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-2">
+                <id-selection on-selected="$ctrl.onIdSelectionGroupByUpdated(selection)" label-key="core.groupon" items="$ctrl.groupByItems" selected="2" user-selection-input="$ctrl.userSelectionInputGroupBy" />
+            </div>
+            <div class="col-sm-2">
+                <id-selection on-selected="$ctrl.onIdSelectionSortByUpdated(selection)" label-key="core.sortingon" items="$ctrl.sortByItems" selected="3" user-selection-input="$ctrl.userSelectionInputSortBy" />
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div
+  class="alert show"
+  [class.inline]="inline()"
+  [class.fit-content]="fitToContent()"
+  [class.alert-success]="type() === 'success'"
+  [class.alert-info]="type() === 'info'"
+  [class.alert-warning]="type() === 'warning'"
+  [class.alert-danger]="type() === 'error'"
+  [class.alert-secondary]="type() === 'plain'"
+  [class.alert-dismissible]="showClose()"
+  role="alert">
+  @if (icon && showIcon()) {
+    <fa-icon [icon]="icon" [animation]="animation"></fa-icon>
+  }
+  <span
+    class="alert-text"
+    [innerHTML]="text() | translate | linebreak"
+    [ngStyle]="textStyles()"
+  ></span>
+  @if (showClose()) {
+    <button
+      type="button"
+      class="btn-close"
+      data-dismiss="alert"
+      aria-label="Close"></button>
+  }
+</div>

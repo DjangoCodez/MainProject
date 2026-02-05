@@ -1,0 +1,315 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal()" aria-hidden="true">&times;</button>
+        <h6 class="modal-title">{{ctrl.modalTitle}}</h6>
+    </div>
+
+    <div purchase-validation ng-class="ctrl.isModal ? 'edit-padding': ''" ng-model="ctrl.purchase" edit-permission="ctrl.modifyPermission" data-ng-if="!ctrl.progressBusy">
+        <div class="form-inline btn-toolbar">
+            <div class="col">
+                <div class="pull-left">
+                    <soe-toolbar buttons="ctrl.toolbar.navigationMenuButtons" hide-border="true" no-margin="true" ng-if="ctrl.showNavigationButtons" />
+                </div>
+            </div>
+            <div class="col pull-right">
+                <soe-toolbar buttons="ctrl.toolbar.buttonGroups" hide-border="true" no-margin="true" />
+            </div>
+            <div class="form-group form-group-sm pull-right" ng-if="!ctrl.isReadonly('accepted')">
+                <div class="col pull-right">
+                    <soe-splitbutton class="margin-large-left"
+                                     selected-option="ctrl.currentStatusOption"
+                                     options="ctrl.allowedStatusFunctions"
+                                     option-selected="ctrl.executeStatusFunction(option)"
+                                     first-option-as-label="true"
+                                     is-disabled="ctrl.edit.$invalid || ctrl.dirtyHandler.isDirty" />
+                </div>
+            </div>
+        </div>
+        <uib-accordion close-others="false">
+            <soe-accordion hidelabel="true" label-value="ctrl.headExpanderLabel" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-typeahead label-key="billing.purchase.supplier"
+                                           model="ctrl.supplierHelper.selectedSupplier"
+                                           items="ctrl.supplierHelper.suppliers"
+                                           options="item as item.name for item in items"
+                                           required="true"
+                                           is-readonly="ctrl.isReadonly('origin')"
+                                           on-edit="ctrl.supplierHelper.openSupplier(ctrl.shouldUpdateSupplierOnChange())"
+                                           edit-tooltip-key="core.edit"
+                                           edit-disabled="false"
+                                           use-only-edit-disabled="true"
+                                           on-search="ctrl.supplierHelper.searchSupplier(false)"
+                                           search-tooltip-key="economy.supplier.suppliercentral.seeksupplierbutton"
+                                           search-disabled="ctrl.isReadonly('origin')" />
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="billing.purchase.purchasenr"
+                                         model="ctrl.purchase.purchaseNr"
+                                         readonly="true" />
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="billing.purchase.purchasestatus"
+                                         model="ctrl.purchase.statusName"
+                                         readonly="true" />
+                        </div>
+                        <div class="col-sm-2">
+                            <!-- Remove project button is hidden in SL, seems it's not functional either -->
+                            <soe-textbox label-key="billing.project.projectnr"
+                                         model="ctrl.purchase.projectNr"
+                                         readonly="true"
+                                         button-icon="fa-exchange"
+                                         button-tooltip-key="billing.order.project.changeproject"
+                                         on-button-click="$event.stopPropagation(); ctrl.projectHelper.executeProjectFunction({ id: 3, actorId: ctrl.purchase.supplierId })"
+                                         button-disabled="ctrl.isReadonly('origin')"
+                                         second-button-icon="fa-calculator-alt"
+                                         second-button-tooltip-key="billing.order.project.showprojectcentral"
+                                         link="ctrl.projectHelper.projectCentralLink" />
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="billing.order.ordernr"
+                                         model="ctrl.purchase.orderNr"
+                                         readonly="true"
+                                         button-icon="fa-search"
+                                         button-tooltip-key="billing.order.connectmainorder"
+                                         on-button-click="$event.stopPropagation(); ctrl.orderSelectHelper.openOrderSearch()"
+                                         button-disabled="ctrl.isReadonly('origin')" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8 form-group">
+                            <soe-label label-key="billing.order.users"></soe-label>
+                            <div class="input-group horizontal-list" style="border-radius: 4px 15px 15px 4px;">
+                                <div class="horizontal-list-item margin-none-left padding-none-right" data-ng-repeat="user in ctrl.originUserHelper.originUsers | orderBy:['-main', 'name']">
+                                    <span data-ng-if="!$last" data-ng-class="user.main ? 'indiscreet' : ''">{{user.name}},</span>
+                                    <span data-ng-if="$last" data-ng-class="user.main ? 'indiscreet' : ''">{{user.name}}</span>
+                                </div>
+                                <span class="input-group-btn">
+                                    <button type="button"
+                                            class="btn btn-sm btn-default fal fa-pencil iconEdit border-radius-right pull-right"
+                                            data-l10n-bind data-l10n-bind-title="'billing.order.users.select'"
+                                            data-ng-click="$event.stopPropagation();ctrl.selectUsers()"
+                                            ng-disabled="ctrl.isReadonly('partlyDelivered')" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="economy.supplier.supplier.ourcustomernr"
+                                         model="ctrl.purchase.supplierCustomerNr"
+                                         readonly="true" />
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-typeahead label-key="billing.order.ourreference"
+                                           model="ctrl.purchase.referenceOur"
+                                           items="ctrl.ourReferences"
+                                           options="item.name as item.name for item in items"
+                                           editable="true"
+                                           is-disabled="ctrl.isReadonly('accepted')" />
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-typeahead label-key="common.customer.invoices.yourreference"
+                                           model="ctrl.purchase.referenceYour"
+                                           items="ctrl.supplierHelper.supplierReferences"
+                                           options="item.name as item.name for item in items"
+                                           editable="true"
+                                           is-disabled="ctrl.isReadonly('accepted')"
+                                           on-info="$event.stopPropagation();ctrl.showYourReferenceInfo()"
+                                           info-disabled="!ctrl.purchase.referenceYour" />
+                        </div>
+                        <div class="col-sm-2">
+                            <!--<div class="input-group">-->
+                            <soe-select label-key="common.contactaddresses.ecommenu.email"
+                                        model="ctrl.purchase.contactEComId"
+                                        items="ctrl.supplierHelper.supplierEmails"
+                                        options="item.id as item.name for item in items"
+                                        button-icon="'fa-pencil'"
+                                        is-disabled="ctrl.isReadonly('sent')"
+                                        on-changing="ctrl.emailChanging()"
+                                        button-class="border-radius-right"
+                                        button-tooltip-key="core.edit"
+                                        on-button-click="$event.stopPropagation();ctrl.editEmail()" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <soe-textbox label-key="billing.order.invoicelabel"
+                                         model="ctrl.purchase.purchaseLabel"
+                                         maxlength="1024"
+                                         is-disabled="ctrl.isReadonly('accepted')" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <soe-textbox label-key="billing.purchase.origindescription"
+                                         model="ctrl.purchase.origindescription"
+                                         maxlength="1024"
+                                         is-disabled="ctrl.isReadonly('accepted')" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-datepicker label-key="billing.purchase.purchasedate"
+                                            model="ctrl.purchase.purchaseDate"
+                                            required="true"
+                                            is-disabled="ctrl.isReadonly('done')" />
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-datepicker label-key="billing.purchaserows.wanteddeliverydate"
+                                            model="ctrl.selectedWantedDeliveryDate"
+                                            is-disabled="ctrl.isReadonly('sent')" />
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-label label-key="billing.purchaserows.accdeliverydate" />
+                            <div class="input-group">
+                                <soe-datepicker hidelabel="true" model="ctrl.purchase.confirmedDeliveryDate"
+                                                is-disabled="true" button-class="no-border-radius" />
+                                <span class="input-group-btn">
+                                    <button type="button"
+                                            class="btn btn-sm btn-default fal fa-exchange border-radius-right"
+                                            data-l10n-bind data-l10n-bind-title="'billing.purchaserows.accdeliverydate'"
+                                            data-ng-click="ctrl.statusChanged(72)"
+                                            ng-disabled="ctrl.isReadonly('partlyDeliveredNonOrigin')" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-select label-key="common.customer.customer.deliverytype"
+                                        model="ctrl.purchase.deliveryTypeId"
+                                        items="ctrl.deliveryTypes"
+                                        options="item.id as item.name for item in items"
+                                        is-disabled="ctrl.isReadonly('sent')" />
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-select label-key="common.customer.customer.deliverycondition"
+                                        model="ctrl.purchase.deliveryConditionId"
+                                        items="ctrl.deliveryConditions"
+                                        options="item.id as item.name for item in items"
+                                        is-disabled="ctrl.isReadonly('sent')" />
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-label label-key="billing.order.deliveryaddress" />
+                            <div class="input-group">
+                                <soe-select model="ctrl.purchase.deliveryAddressId"
+                                            items="ctrl.deliveryAddresses"
+                                            options="item.contactAddressId as item.address for item in items"
+                                            button-icon="'fa-pencil'" is-disabled="ctrl.isReadonly('done')" />
+
+                                <span class="input-group-btn">
+                                    <button type="button"
+                                            class="btn btn-sm btn-default fal fa-pencil iconEdit no-border-radius"
+                                            data-l10n-bind data-l10n-bind-title="'billing.order.deliveryaddress.edit'"
+                                            data-ng-click="$event.stopPropagation();ctrl.editDeliveryAddress();" ng-disabled="ctrl.isReadonly('accepted')" />
+                                </span>
+                                <span class="input-group-btn" ng-if="ctrl.purchase.orderId">
+                                    <button type="button"
+                                            ng-class="{ 'border-radius-right' : ctrl.purchase.deliveryAddressId }"
+                                            class="btn btn-sm btn-default fal fa-address-book iconEdit border-radius-right"
+                                            data-l10n-bind data-l10n-bind-title="'billing.purchase.deliveryaddressfromcustomer'"
+                                            data-ng-click="$event.stopPropagation();ctrl.getDeliveryAddresses();" ng-disabled="ctrl.isReadonly('accepted')" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-select label-key="common.customer.invoices.paymentcondition"
+                                        model="ctrl.purchase.paymentConditionId"
+                                        items="ctrl.supplierHelper.paymentConditions"
+                                        options="item.paymentConditionId as item.name for item in items"
+                                        is-disabled="ctrl.isReadonly('sent')" />
+                        </div>
+                        <div class="col-sm-2" data-ng-if="ctrl.useCurrency">
+                            <soe-select label-key="common.currency"
+                                        model="ctrl.amountHelper.currencyId"
+                                        items="ctrl.amountHelper.currencies"
+                                        options="item.currencyId as item.name for item in items"
+                                        is-disabled="ctrl.isReadonly('origin')" />
+                        </div>
+                        <div class="col-sm-2" data-ng-if="!ctrl.amountHelper.isBaseCurrency">
+                            <soe-textbox label-key="common.customer.invoices.currencyrate"
+                                         label-value="ctrl.purchase.currencyDate | date: 'shortDate'"
+                                         label-value-in-parentheses="true"
+                                         model="ctrl.purchase.currencyRate"
+                                         input-type="number"
+                                         readonly="true" />
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+
+            <soe-accordion label-key="billing.purchase.rows" label-value="ctrl.purchaseRowsExpanderLabel" is-open="ctrl.purchaseRowsExpanderIsOpen" on-open="ctrl.openPurchaseRowExpander()" is-disabled-binding="!ctrl.purchase.supplierId">
+                <div class="row" data-ng-if="ctrl.purchaseRowsRendered">
+                    <div class="col-sm-12">
+                        <purchase-rows parent-guid="ctrl.guid"
+                                       purchase-id="ctrl.purchaseId"
+                                       purchase-rows="ctrl.purchaseRows"
+                                       amount-helper="ctrl.amountHelper"
+                                       on-add-row="ctrl.setRowDefaultValues"
+                                       total-amount-ex-vat-currency="ctrl.purchase.totalAmountExVatCurrency"
+                                       use-cent-rounding="ctrl.useCentRounding"
+                                       vat-type="ctrl.purchase.vatType"
+                                       wanted-delivery-date="ctrl.selectedWantedDeliveryDate"
+                                       get-project="ctrl.getProject" ,
+                                       purchase-status="ctrl.purchase.originStatus"
+                                       is-eu-based="ctrl.supplierHelper.supplier.isEUCountryBased"
+                                       intrastat-code-id="ctrl.supplierHelper.supplier.intrastatCodeId"
+                                       sys-country-id="ctrl.supplierHelper.supplier.sysCountryId" />
+                    </div>
+                </div>
+            </soe-accordion>
+
+            <soe-accordion label-key="billing.purchase.delivery.deliveries" data-ng-if="ctrl.deliveryPermission && !ctrl.isNew" on-open="ctrl.openDeliveryRowsExpander()">
+                <div class="row" ng-if="ctrl.deliveryRowsRendered">
+                    <div class="col-sm-12">
+                        <delivery-rows purchase-id="ctrl.purchaseId" delivery-rows="ctrl.purchaseDelivaryRows"></delivery-rows>
+                    </div>
+                </div>
+            </soe-accordion>
+
+            <soe-accordion label-key="billing.purchase.orderrows" ng-if="ctrl.orderRowsPermission && ctrl.purchaseId" is-open="ctrl.customerInvoiceRowsRendered">
+                <purchase-customer-invoice-rows purchase-id="ctrl.purchaseId" ng-if="ctrl.customerInvoiceRowsRendered" />
+            </soe-accordion>
+
+            <soe-accordion label-key="common.tracing" data-ng-if="ctrl.tracingPermission && !ctrl.isNew" is-open="ctrl.traceRowsRendered">
+                <div class="row" ng-if="ctrl.traceRowsRendered">
+                    <div class="col-sm-12">
+                        <trace-rows trace-id="ctrl.purchaseId" page-name="'purchaseEdit'"></trace-rows>
+                    </div>
+                </div>
+            </soe-accordion>
+
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="margin-large-left pull-left">
+                <div class="col">
+                    <created-modified model="ctrl.purchase"></created-modified>
+                </div>
+            </div>
+            <div class="pull-right margin-large-right">
+                <div>
+                    <div class="col" data-ng-if="ctrl.modifyPermission && ctrl.purchase && !ctrl.isNew">
+                        <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.delete'" data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.delete()"></button>
+                    </div>
+                    <div class="col" data-ng-if="ctrl.modifyPermission && !ctrl.isNew">
+                        <soe-splitbutton label-key="common.report.report.print" options="ctrl.printFunctions" drop-up="true" is-disabled="ctrl.disablePrint" option-selected="ctrl.executePrintFunction(option)"></soe-splitbutton>
+                    </div>
+                    <div class="col" data-ng-if="ctrl.modifyPermission" data-ng-class="{'no-border-radius-on-specified-last-button' : ctrl.edit.$invalid}">
+                        <soe-splitbutton label-key="core.save" last-button-class="last-button" options="ctrl.saveFunctions" main-button="true" drop-up="true" is-disabled="ctrl.isDisabled()" option-selected="ctrl.executeSaveFunction(option)"></soe-splitbutton>
+                    </div>
+                    <button type="button" class="btn btn-sm ngSoeMainButtonInvalid no-left-border-radius" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.edit.$invalid" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

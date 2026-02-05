@@ -1,0 +1,167 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form [formGroup]="form" novalidate autocomplete="off">
+        <soe-toolbar>
+          <div toolbar-content-left select="[toolbar-content-left]">
+            <sp-toolbar-employee-date
+              [employeeName]="form.controls.employeeName.value"
+              [dateFrom]="form.controls.firstDate.value"
+              [dateTo]="form.controls.lastDate.value"
+              [showWeekdayColor]="true"></sp-toolbar-employee-date>
+          </div>
+        </soe-toolbar>
+        <div class="row my-3 mx-2">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-6">
+                @if (form.shifts.length > 0) {
+                  @if (form.shifts.length + form.onDutyShifts.length > 1) {
+                    <div class="row mb-2 font-md">
+                      <div class="col-sm-12">
+                        <span>{{ selectInfo() }}</span>
+                      </div>
+                    </div>
+                  }
+                  @for (shiftCtrl of form.shiftForms.controls; track $index) {
+                    <div [formGroup]="shiftCtrl">
+                      <div class="shift-row-container">
+                        @if (
+                          form.shifts.length + form.onDutyShifts.length > 1
+                        ) {
+                          <soe-checkbox
+                            class="me-2"
+                            [noMargin]="true"
+                            (valueChanged)="shiftSelected()"
+                            formControlName="selected"></soe-checkbox>
+                        }
+                        <sp-shift-simple
+                          [shift]="form.shifts[$index]"
+                          [dayShifts]="!multipleDates() ? form.shifts : []"
+                          [showDate]="multipleDates()"
+                          [isClickable]="true"
+                          (onClick)="selectShift(shiftCtrl)"></sp-shift-simple>
+                      </div>
+                    </div>
+                  }
+                }
+                @if (form.controls.includeOnDutyShifts.value) {
+                  <div class="row my-2 font-md">
+                    <div class="col-sm-12">
+                      <span>{{
+                        'time.schedule.planning.blocktype.onduty' | translate
+                      }}</span>
+                    </div>
+                  </div>
+                  @for (
+                    shiftCtrl of form.onDutyShiftForms.controls;
+                    track $index
+                  ) {
+                    <div [formGroup]="shiftCtrl">
+                      <div class="row shift-row-container">
+                        <div
+                          class="col-sm-12 font-lg d-flex align-items-center"
+                          [class.font-bold]="shiftCtrl.controls.selected.value">
+                          @if (
+                            form.shifts.length + form.onDutyShifts.length > 1
+                          ) {
+                            <soe-checkbox
+                              class="me-2"
+                              [noMargin]="true"
+                              (valueChanged)="shiftSelected()"
+                              formControlName="selected"></soe-checkbox>
+                          }
+                          @if (multipleDates()) {
+                            <span class="me-2">{{
+                              shiftCtrl.controls.actualStartDate.value
+                                | date: 'shortDate'
+                            }}</span>
+                          }
+                          <span class="me-2"
+                            >{{
+                              shiftCtrl.controls.startTime.value
+                                | date: 'shortTime'
+                            }}-{{
+                              shiftCtrl.controls.stopTime.value
+                                | date: 'shortTime'
+                            }}</span
+                          >
+                          <span>{{
+                            shiftCtrl.controls.shiftTypeName.value
+                          }}</span>
+                          <span class="ms-1 font-normal"
+                            >({{
+                              'time.schedule.planning.blocktype.onduty'
+                                | translate
+                                | lowercase
+                            }})</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  }
+                }
+              </div>
+              <div class="col-sm-6">
+                @if (onlyAbsence()) {
+                  <div class="float-end">
+                    <soe-instruction
+                      [type]="'warning'"
+                      [text]="
+                        'time.schedule.planning.deleteshift.cantdeleteabsence'
+                      "
+                      [fitToContent]="true"></soe-instruction>
+                  </div>
+                } @else {
+                  <div class="float-end">
+                    <soe-instruction
+                      [type]="'warning'"
+                      [text]="'time.schedule.planning.deleteshift.warning'"
+                      [fitToContent]="true"></soe-instruction>
+                  </div>
+                  <div class="float-end mt-2">
+                    <soe-instruction
+                      [type]="'warning'"
+                      [text]="
+                        'time.schedule.planning.deleteshift.deleteshifttask.warning'
+                      "
+                      [fitToContent]="true"></soe-instruction>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    }
+  </ng-container>
+  <div dialog-footer>
+    <div class="footer-container">
+      @if (form) {
+        <form [formGroup]="form">
+          @if (
+            settingService.onDutyShiftsModifyPermission() &&
+            filterService.isScheduleView() &&
+            form.onDutyShifts.length > 0
+          ) {
+            <soe-checkbox
+              [labelKey]="
+                'time.schedule.planning.deleteshift.includeondutyshifts'
+              "
+              [noMargin]="true"
+              formControlName="includeOnDutyShifts"></soe-checkbox>
+          }
+        </form>
+      }
+
+      <soe-button
+        [caption]="'core.cancel'"
+        [disabled]="executing()"
+        (action)="cancel()"></soe-button>
+      <soe-button
+        [caption]="'core.ok'"
+        [behaviour]="'primary'"
+        [disabled]="executing() || nbrOfSelectedShifts() === 0"
+        (action)="ok()"></soe-button>
+    </div></div
+></soe-dialog>

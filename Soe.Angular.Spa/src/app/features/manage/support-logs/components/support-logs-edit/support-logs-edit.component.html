@@ -1,0 +1,144 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [labelKey]="'manage.support.logs.eventinfo'"
+      [open]="true">
+      <div class="row">
+        <div class="col-sm-1 col-xs-2">
+          <soe-textbox
+            [labelKey]="'manage.support.logs.syslogid'"
+            formControlName="sysLogId">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-1 col-xs-2">
+          <soe-textbox
+            [labelKey]="'manage.support.logs.level'"
+            formControlName="level">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-2 col-xs-2">
+          <soe-textbox [labelKey]="'common.date'" formControlName="dateStr">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-4 col-xs-3">
+          <soe-textbox
+            [labelKey]="'manage.support.logs.requesturi'"
+            formControlName="requestUri">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-4 col-xs-3">
+          <soe-textbox
+            [labelKey]="'manage.support.logs.refereruri'"
+            formControlName="referUri">
+          </soe-textbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-xs-12">
+          <soe-textarea
+            [labelKey]="'common.message'"
+            [rows]="8"
+            formControlName="message">
+          </soe-textarea>
+        </div>
+        <div class="col-sm-12 col-xs-12">
+          <soe-textarea
+            [labelKey]="'manage.support.logs.exception'"
+            [rows]="12"
+            formControlName="exception">
+          </soe-textarea>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel [labelKey]="'manage.support.logs.taskwatchlog'">
+      <div class="row">
+        <div class="col-sm-1 col-xs-2">
+          <soe-textbox
+            [labelKey]="'common.id'"
+            formControlName="taskWatchLogId">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-1 col-xs-2">
+          <soe-textbox
+            [labelKey]="'common.start'"
+            formControlName="taskWatchLogStart">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-1 col-xs-2">
+          <soe-textbox
+            [labelKey]="'common.stop'"
+            formControlName="taskWatchLogStop">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3 col-xs-2">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            formControlName="taskWatchLogName">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-4 col-xs-4">
+          <soe-textbox
+            [labelKey]="'manage.support.logs.taskwatchlog.parameters'"
+            formControlName="taskWatchLogParameters">
+          </soe-textbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel [labelKey]="'manage.support.logs.userinfo'">
+      <div class="row">
+        <div class="col-sm-1">
+          <soe-textbox
+            [labelKey]="'common.licenseid'"
+            formControlName="licenseId">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-2">
+          <soe-textbox
+            [labelKey]="'common.licensenr'"
+            formControlName="licenseNr">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-1">
+          <soe-textbox
+            [labelKey]="'common.actorcompanyid'"
+            formControlName="actorCompanyId">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-2">
+          <soe-textbox
+            [labelKey]="'common.companyname'"
+            formControlName="companyName">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-1">
+          <soe-textbox [labelKey]="'common.roleid'" formControlName="roleId">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-2">
+          <soe-textbox
+            [labelKey]="'common.rolename'"
+            formControlName="roleName">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-1">
+          <soe-textbox [labelKey]="'common.userid'" formControlName="userId">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-2">
+          <soe-textbox
+            [labelKey]="'common.username'"
+            formControlName="loginName">
+          </soe-textbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+  </form>
+}

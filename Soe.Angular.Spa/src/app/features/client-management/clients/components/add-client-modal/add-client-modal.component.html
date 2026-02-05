@@ -1,0 +1,86 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (data.connectionRequest) {
+      <form
+        [formGroup]="connectionRequest"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row mb-3">
+          <soe-instruction
+            [text]="
+              'clientmanagement.clients.add.instruction'
+            "></soe-instruction>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              formControlName="code"
+              [labelKey]="'clientmanagement.clients.add.code'">
+              <soe-icon-button
+                [iconName]="'copy'"
+                [tooltip]="'core.copy'"
+                (action)="copyCode()"></soe-icon-button>
+            </soe-textbox>
+          </div>
+        </div>
+
+        <!-- Expiration Information -->
+        @if (expirationText() && !isConnected()) {
+          <div class="row mt-2">
+            <div class="col-sm-12">
+              <small class="text-muted">
+                <i class="fa fa-clock me-1"></i>
+                {{
+                  'clientmanagement.clients.add.expires'
+                    | translate: { time: expirationText() }
+                }}
+              </small>
+            </div>
+          </div>
+        }
+
+        <!-- Polling Status -->
+        @if (isPolling() && !isConnected()) {
+          <div class="row mt-4">
+            <div class="col-sm-12 text-center">
+              <div
+                class="d-flex align-items-center justify-content-center gap-2">
+                <i class="fa fa-spinner fa-spin text-primary"></i>
+                <span class="text-muted">
+                  {{ 'clientmanagement.clients.add.polling' | translate }}
+                </span>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Connection Success -->
+        @if (isConnected()) {
+          <div class="row mt-4">
+            <div class="col-sm-12 text-center">
+              <div class="d-flex flex-column align-items-center gap-3">
+                <i
+                  class="fa fa-check-circle text-success"
+                  style="font-size: 4rem"></i>
+                <div class="text-success fs-5 fw-bold">
+                  {{
+                    'clientmanagement.clients.add.connected'
+                      | translate: { name: connectedCompanyName() }
+                  }}
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    <soe-button
+      [behaviour]="'standard'"
+      [caption]="'core.close'"
+      (action)="ok()"></soe-button>
+  </div>
+</soe-dialog>

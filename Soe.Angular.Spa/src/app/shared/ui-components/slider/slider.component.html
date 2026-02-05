@@ -1,0 +1,36 @@
+<div class="slider-flex-row">
+  @if (showMin()) {
+    <span class="slider-label min-label">{{ formatSliderValue(min()) }}</span>
+  }
+  <mat-slider
+    class="slider-flex"
+    [class.show-active-track]="showActiveTrack()"
+    [min]="min()"
+    [max]="max()"
+    [step]="step()"
+    [disableRipple]="true"
+    [discrete]="showThumbLabel()"
+    [showTickMarks]="showTicks()"
+    [displayWith]="formatSliderValue"
+    [disabled]="disabled()">
+    @if (useRange()) {
+      <input
+        matSliderStartThumb
+        [value]="valueStart()"
+        (valueChange)="onSliderStartChange($event)" />
+      <input
+        matSliderEndThumb
+        [value]="valueEnd()"
+        (valueChange)="onSliderEndChange($event)" />
+    } @else {
+      <input
+        #slider
+        matSliderThumb
+        [value]="value()"
+        (valueChange)="onSliderChange($event)" />
+    }
+  </mat-slider>
+  @if (showMax()) {
+    <span class="slider-label max-label">{{ formatSliderValue(max()) }}</span>
+  }
+</div>

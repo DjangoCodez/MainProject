@@ -1,0 +1,21 @@
+﻿<div>
+    <div class="row">
+        <id-selection label-key="common.report.selection.invoices" class="col-sm-4" on-selected="$ctrl.onInvoiceSelectionChanged(selection)" items="$ctrl.selectableInvoiceSelection" user-selection-input="$ctrl.userSelectionInputInvoiceSelection" />
+    </div>
+    <div class="row">
+        <soe-textbox label-key="common.report.selection.customernr" class="col-sm-4" model="$ctrl.customerNrFrom" on-blur="onActorNumberFromChanged()"></soe-textbox>
+        <soe-textbox class="col-sm-4 margin-small-top" model="$ctrl.customerNrTo" on-blur="onActorNumberToChanged()"></soe-textbox>
+    </div>
+    <div class="row">
+        <date-selection label-key="common.report.selection.date" class="col-sm-8" show-range="true" as-range="true" on-selected="$ctrl.onDateRangeSelected(selection)" user-selection-input="$ctrl.selectedDateRange"></date-selection>
+    </div>
+    <div class="row">
+        <id-selection label-key="common.report.selection.datefor" class="col-sm-4" items="$ctrl.selectableDateRegard" user-selection-input="$ctrl.userSelectionInputDateRegard" on-selected="$ctrl.onDateRegardChanged(selection)" />
+    </div>
+    <div class="row">
+        <id-selection label-key="common.report.selection.sorting" class="col-sm-4" items="$ctrl.selectableSortOrder" user-selection-input="$ctrl.userSelectionInputSortOrder" on-selected="$ctrl.onSortOrderChanged(selection)" />
+    </div>
+    <div class="row">
+        <bool-selection class="col-sm-4" label-key="common.report.selection.includecashpayments" on-selected="$ctrl.onBoolSelectionIncludeCashSalesInvoices(selection)" user-selection-input="$ctrl.includeCashInvoices"></bool-selection>
+    </div>
+</div>

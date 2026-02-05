@@ -1,0 +1,32 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    <div class="soe-edit-form" style="padding-top: unset">
+      <div class="row dialog-row-top-padding">
+        <soe-select-users
+          [selectedUsers]="selectedUsers"
+          [showMain]="showMain"
+          [showParticipant]="showParticipant"
+          (usersChange)="onUsersChange($event)"></soe-select-users>
+      </div>
+      <div class="soe-form-footer">
+        <div class="col-sm-12">
+          <div class="float-end">
+            <soe-button
+              class="ms-3"
+              [caption]="'core.cancel'"
+              typeClass="btn btn-secondary"
+              [behaviour]="'standard'"
+              (action)="cancel()"></soe-button>
+
+            <soe-button
+              class="ms-3"
+              [caption]="'core.select'"
+              typeClass="btn btn-secondary"
+              [behaviour]="'standard'"
+              (action)="selectUsers()"></soe-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</soe-dialog>

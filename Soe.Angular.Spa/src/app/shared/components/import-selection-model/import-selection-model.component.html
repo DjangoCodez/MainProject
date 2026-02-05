@@ -1,0 +1,18 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-dialog>
+    <div class="m-3" dialog-content>
+      <soe-grid [height]="400" [rows]="rows"></soe-grid>
+    </div>
+
+    <div dialog-footer>
+      <soe-button
+        (action)="closeDialog()"
+        [caption]="'core.cancel'"
+        [behaviour]="'standard'"></soe-button>
+      <soe-button
+        (action)="ok()"
+        [caption]="'core.ok'"
+        [behaviour]="'primary'"></soe-button>
+    </div>
+  </soe-dialog>
+}

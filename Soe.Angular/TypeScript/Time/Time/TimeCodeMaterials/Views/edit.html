@@ -1,0 +1,49 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups">
+            <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+        </soe-toolbar>
+
+        <soe-panel label-key="common.timecode" is-open="true">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="common.code" model="ctrl.timeCode.code" required="true" maxlength="20" set-focus="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="common.name" model="ctrl.timeCode.name" required="true" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-textbox label-key="common.description" model="ctrl.timeCode.description" maxlength="512" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-textbox label-key="common.note" model="ctrl.timeCode.note" maxlength="50" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                </div>
+            </div>            
+        </soe-panel>
+
+        <div class="row margin-large-top margin-large-bottom">
+            <div class="col-sm-6">
+                <time-code-invoice-products time-code-products="ctrl.timeCode.invoiceProducts" time-code-type="ctrl.timeCode.type" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></time-code-invoice-products>
+            </div>
+        </div>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.timeCode"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.timeCode.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,1475 @@
+﻿@import (reference) "../variables.less";
+
+// Filters
+
+.planning-filter-header {
+    border: solid 1px @soe-border-color;
+    background-color: @soe-header-background-color;
+    padding: 5px;
+    margin-bottom: 5px;
+
+    .btn-default {
+        height: 30px;
+    }
+
+    .dropdown-toggle {
+        padding: 4px 5px;
+        line-height: 22px;
+    }
+
+    .dropdown-toggle.only-icon {
+        padding: 4px 12px;
+    }
+
+    .dropdown-toggle:active,
+    .dropdown-toggle.active {
+        color: @accentColor;
+    }
+
+    li a:hover {
+        color: @accentColor;
+    }
+
+    li a.selected {
+        color: white;
+        background-color: @accentColorFaded;
+    }
+
+    .ngSoeDatePicker {
+        width: 130px;
+    }
+
+    select {
+        min-width: 75px;
+    }
+}
+
+@keyframes planning-filter-loader-blink {
+    0% {
+        color: transparent;
+    }
+
+    50% {
+        color: @warningColor;
+    }
+
+    100% {
+        color: transparent;
+    }
+}
+
+.planning-filter-loader-blink {
+    font-size: 18px;
+    font-weight: bold;
+    -moz-animation: planning-filter-loader-blink 1s linear infinite;
+    -o-animation: planning-filter-loader-blink 1s linear infinite;
+    -webkit-animation: planning-filter-loader-blink 1s linear infinite;
+    animation: planning-filter-loader-blink 1s linear infinite;
+}
+
+.planning-view-definition-selector {
+    list-style-type: none;
+    line-height: unset !important;
+    border: solid 1px @soe-border-color;
+    border-radius: @button-border-radius 0 0 @button-border-radius !important;
+    background: @soe-background-color;
+    margin: 0px;
+    cursor: pointer;
+
+    .dropdown-menu {
+        padding: 3px;
+    }
+
+    .dropdown-header {
+        color: @soe-text-color;
+        font-size: @largeFontSize;
+        border-top: 1px solid #AFAFAF;
+    }
+
+    .caret {
+        color: @soe-text-color;
+        margin-left: 5px;
+    }
+}
+
+.planning-view-definition-range-selector {
+    margin-left: -4px;
+
+    button {
+        padding: 4px 10px 4px 10px;
+
+        i {
+            font-size: 18px;
+        }
+    }
+}
+
+.planning-filter-account-dim {
+    margin-right: 4px;
+}
+
+.planning-filter-account-dim-hidden {
+    border: solid 1px @soe-border-color;
+    background-color: @soe-disabled-background-color;
+    background-color: rgba(245,245,245,0.6);
+    display: inline-block;
+    height: 30px;
+    padding: 4px 6px;
+    margin-right: 4px;
+    font-size: @largeFontSize;
+}
+
+.planning-filter-account-dim-hidden-last {
+    margin-right: 0px;
+}
+
+.planning-horizontal-separator {
+    border-bottom-width: 2px !important;
+    border-collapse: unset;
+    box-sizing: unset;
+}
+
+.planning-vertical-separator {
+    border-right-width: 2px !important;
+    border-collapse: unset;
+    box-sizing: unset;
+}
+
+// Schedule view
+
+.planning-scheduleview {
+    .template-schedule-warning {
+        text-align: center;
+        cursor: pointer;
+        margin: 0px 0px 4px 0px;
+
+        .template-schedule-warning-title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .template-schedule-warning-row {
+            font-size: 14px;
+        }
+
+        .template-schedule-warning-close {
+            font-size: 10px;
+        }
+    }
+
+    .autoload-info {
+        text-align: center;
+        cursor: pointer;
+        margin: 0px 0px 4px 0px;
+
+        .autoload-info-row1 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .autoload-info-row2 {
+            font-size: 14px;
+        }
+    }
+
+    table {
+        width: 100% !important; /*this actually is important since the drag-and-drop will ruin the styling otherwise if you move a multicolumn item with a single column item above it in a multimove.*/
+        table-layout: fixed;
+    }
+}
+
+.scheduleview-header {
+    background-color: @successBackgroundColor !important;
+}
+
+.scheduleview-header.read-only-header {
+    background: repeating-linear-gradient( -45deg, @successBackgroundColor, @successBackgroundColor 2px, @successBackgroundColorFaded 2px, @successBackgroundColorFaded 4px ) !important;
+}
+
+.templateview-header {
+    background-color: @soe-color-neutral-light-grey !important;
+}
+
+.templateview-header.read-only-header {
+    background: repeating-linear-gradient( -45deg, @soe-color-neutral-light-grey, @soe-color-neutral-light-grey 2px, @soe-color-neutral-white 2px, @soe-color-neutral-white 4px ) !important;
+}
+
+.employeepostview-header {
+    background-color: @informationBackgroundColor !important;
+}
+
+.employeepostview-header.read-only-header {
+    background: repeating-linear-gradient( -45deg, @informationBackgroundColor, @informationBackgroundColor 2px, @informationBackgroundColorFaded 2px, @informationBackgroundColorFaded 4px ) !important;
+}
+
+.scenarioview-header {
+    background-color: @errorBackgroundColor !important;
+}
+
+.standbyview-header {
+    background-color: @shiftStandby !important;
+}
+
+.standbyview-header.read-only-header {
+    background: repeating-linear-gradient( -45deg, @shiftStandby, @shiftStandby 2px, @warningBackgroundColorFaded 2px, @warningBackgroundColorFaded 4px ) !important;
+}
+
+.tasksanddeliveriesview-header {
+    background-color: @accentColorFaded !important;
+}
+
+.tasksanddeliveriesview-header.read-only-header {
+    background: repeating-linear-gradient( -45deg, @accentColorFaded, @accentColorFaded 2px, @accentColorLightFaded 2px, @accentColorLightFaded 4px ) !important;
+}
+
+.staffingneedsview-header {
+    background-color: @soe-color-primary-tone-75 !important;
+}
+
+.staffingneedsview-header.read-only-header {
+    background: repeating-linear-gradient( -45deg, @soe-color-primary-tone-75, @soe-color-primary-tone-75 2px, @soe-color-primary-tone-35 2px, @soe-color-primary-tone-35 4px ) !important;
+}
+
+.template-breaks-header {
+    background-color: @informationBackgroundColor !important;
+    border-color: @informationBorderColor !important;
+}
+
+// Calendar
+.planning-calendar-top-left {
+    width: 20px;
+    border: solid 1px @soe-border-color;
+    background-color: @soe-header-background-color;
+}
+
+.planning-calendar-week {
+    border: solid 1px @soe-border-color;
+    background: none;
+    text-align: center;
+    font-size: 10px;
+    text-transform: lowercase;
+    transform: rotate(-90.0deg);
+    padding: 2px;
+    cursor: pointer;
+}
+
+.planning-calendar-week-row {
+    background-color: @soe-header-background-color;
+}
+
+.planning-calendar-day-header {
+    border: solid 1px @soe-border-color;
+    background-color: @soe-header-background-color;
+    text-align: center;
+    font-size: 10px;
+    padding: 2px;
+    margin-top: -1px;
+}
+
+.planning-calendar-day {
+    border: solid 1px @soe-border-color;
+    background-color: @soe-background-color;
+    text-align: center;
+    font-size: 10px;
+    padding: 2px;
+    margin-top: -1px;
+    vertical-align: top;
+    position: relative;
+    height: 100px;
+    cursor: pointer;
+
+    .day-number {
+        font-size: 20px;
+    }
+
+    .calendar-event {
+        font-size: 16px;
+        margin-left: 3px;
+    }
+}
+
+.planning-calendar-day:hover {
+    background-color: @accentColorFaded;
+}
+
+.left-periods {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+}
+
+.right-periods {
+    position: absolute;
+    top: 2px;
+    right: 24px;
+}
+
+.left-periods div,
+.right-periods div {
+    position: absolute;
+    width: 22px;
+    border: 1px solid @soe-border-color;
+    border-radius: 3px;
+    margin-bottom: 1px;
+}
+
+.shift-absence-approved-background {
+    background-color: @shiftAbsenceBackgroundColor !important;
+}
+
+.shift-absence-requested-background {
+    background: @shiftAbsenceRequestedBackground !important;
+}
+
+.shift-assigned-background {
+    background-color: @shiftAssignedBackgroundColor !important;
+}
+
+.shift-open-background {
+    background-color: @shiftOpenBackgroundColor !important;
+}
+
+.shift-standby-background {
+    background: @shiftStandbyBackground !important;
+    height: 100%;
+}
+
+.shift-onduty-background {
+    background: @shiftOnDutyBackground !important;
+    height: 100%;
+}
+
+.shift-striped-background {
+    background: @shiftStripedBackground !important;
+    height: 100%;
+}
+
+.shift-swap-request-background {
+    background-color: @shiftSwapRequestBackgroundColor !important;
+}
+
+.shift-unwanted-background {
+    background-color: @shiftUnwantedBackgroundColor !important;
+}
+
+.shift-wanted-background {
+    background-color: @shiftWantedBackgroundColor !important;
+}
+
+.period-open {
+    top: 0;
+    background-color: @shiftOpenBackgroundColor;
+}
+
+.period-assigned {
+    top: 17px;
+    background-color: @shiftAssignedBackgroundColor;
+}
+
+.period-wanted {
+    top: 34px;
+    background-color: @shiftWantedBackgroundColor;
+}
+
+.period-unwanted {
+    top: 51px;
+    background-color: @shiftUnwantedBackgroundColor;
+}
+
+.period-absence-requested {
+    top: 0;
+    background: @shiftAbsenceRequestedBackground;
+}
+
+.period-absence-approved {
+    top: 17px;
+    background-color: @shiftAbsenceBackgroundColor;
+}
+
+.period-preliminary {
+    top: 34px;
+    background: @shiftPreliminaryBackground;
+}
+
+.period-details {
+    top: 78px;
+    background-color: @informationBackgroundColor;
+    border-color: @informationBorderColor !important;
+    color: @soe-text-color;
+    font-weight: bold;
+    cursor: pointer;
+}
+// Day/schedule view
+.planning-top-left {
+    width: 200px;
+    border: solid 1px @soe-border-color;
+    background-color: @soe-header-background-color;
+
+    .ngSoeCheckBox {
+        margin-left: 10px;
+    }
+}
+
+.planning-daterange {
+    border: solid 1px @soe-border-color;
+    text-align: center;
+    font-size: 12px;
+    padding: 2px;
+    width: 100%;
+
+    .day-event, .day-unscheduled-task {
+        margin-left: 10px;
+    }
+
+    .saturday {
+        color: @saturdayColor;
+    }
+
+    .sunday {
+        color: @sundayColor;
+    }
+}
+
+.planning-summary-row {
+    border: solid 1px @soe-border-color;
+    height: 20px;
+}
+
+.planning-showallemployees {
+    margin: 2px 10px;
+}
+
+.planning-nbrofemployees {
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.planning-tr-account,
+.planning-tr-category,
+.planning-tr-shifttype,
+.planning-tr-department {
+    height: 20px;
+}
+
+.planning-tr-compressed {
+    height: 20px;
+}
+
+.planning-employee {
+    width: 200px;
+    border: solid 1px @soe-border-color;
+    background-color: @soe-header-background-color;
+    font-size: 12px;
+    padding: 2px 2px 2px 5px;
+    margin-top: -1px;
+    vertical-align: top;
+    cursor: pointer;
+
+    .employee-group {
+        display: block;
+        position: absolute;
+        white-space: nowrap;
+        overflow-x: hidden;
+        font-size: @smallFontSize;
+    }
+
+    .time,
+    .outer-cycle-time,
+    .outer-annual-leave-balance {
+        display: block;
+        font-weight: bold;
+        text-align: right;
+        margin-right: 5px;
+
+        i {
+            margin-left: 8px;
+            margin-right: 5px;
+        }
+
+        &.use-top-margin {
+            margin-top: 16px;
+        }
+    }
+
+    .overtime,
+    .balance-negative {
+        color: @soe-color-semantic-error;
+    }
+
+    .undertime,
+    .balance-positive {
+        color: @soe-color-semantic-information;
+    }
+
+    .undertime-light {
+        color: @soe-color-neutral-white;
+    }
+
+    .contact-info {
+        list-style: none;
+        cursor: default;
+        font-size: @smallFontSize;
+        background-color: @informationBackgroundColor;
+        border: 1px solid @soe-border-color;
+        padding: 2px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
+
+.planning-employee.inactive {
+    background-color: @errorBackgroundColor;
+}
+
+.planning-employee-annual-time {
+    cursor: pointer;
+}
+
+.planning-employee-balance-parent,
+.planning-employee-balance-child {
+    display: block;
+    text-align: right;
+    width: 35px;
+    margin-left: -2px
+}
+
+.planning-employee-account,
+.planning-employee-category,
+.planning-employee-shifttype {
+    font-size: 14px;
+    font-weight: bold;
+    color: blue;
+}
+
+.planning-employee-post {
+    .employee-name {
+        text-align: left;
+        color: #339933;
+    }
+}
+
+.planning-employee-post.locked {
+    background-color: #E0E0E0;
+}
+
+.employee-list {
+    .assigned-employee-post {
+        color: #339933;
+    }
+
+    .overtime {
+        color: @errorColor;
+    }
+
+    .undertime {
+        color: @informationColor;
+    }
+}
+
+.planning-day-header {
+    border: solid 1px @soe-border-color;
+    background-color: @soe-header-background-color;
+    text-align: center;
+    font-size: 10px;
+    padding: 2px;
+    margin-top: -1px;
+    cursor: pointer;
+
+    .saturday {
+        color: @saturdayColor;
+    }
+
+    .sunday {
+        color: @sundayColor;
+    }
+
+    .schedule-event {
+        margin-left: 2px;
+    }
+
+    .schedule-unscheduled-task {
+        margin-right: 2px;
+    }
+}
+
+.planning-day,
+.planning-day-summary {
+    border: solid 1px @soe-border-color;
+    text-align: center;
+    font-size: 10px;
+    padding: 2px;
+    margin-top: -1px;
+    vertical-align: top;
+    position: relative;
+    height: 1px; // Will be ignored, but needed to make the height of the divs correct
+
+    .shift-day {
+        height: 100%;
+    }
+
+    .shift-right-icon,
+    .shift-compressed-right-icon {
+        position: absolute;
+        bottom: 3px;
+        right: 5px;
+        text-align: right;
+        color: @soe-text-color;
+        z-index: 101;
+    }
+}
+
+.planning-day-header.whole-hour,
+.planning-day.whole-hour,
+.planning-day-summary.whole-hour {
+    box-shadow: 1px 0px 0px #AAAAAA inset;
+}
+
+.planning-day-summary-total {
+    text-align: left;
+    padding-left: 4px;
+}
+
+.planning-day:hover {
+    background-color: @accentColorFaded;
+}
+
+.current-time {
+    background-color: @accentColor;
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 24px;
+    z-index: 101;
+}
+
+.planning-day-today {
+    background-color: @todayBackgroundColor;
+}
+
+.planning-day-saturday {
+    background-color: @saturdayBackgroundColor;
+    color: @saturdayColor;
+}
+
+.planning-day-saturday-passed {
+    background-color: @saturdayPassedBackgroundColor !important;
+    color: @saturdayColor;
+}
+
+.planning-day-sunday {
+    background-color: @sundayBackgroundColor;
+    color: @sundayColor;
+}
+
+.planning-day-sunday-passed {
+    background-color: @sundayPassedBackgroundColor !important;
+    color: @sundayColor;
+}
+
+.planning-day-passed {
+    background-color: @passedDayBackgroundColor !important;
+}
+
+.planning-day-account,
+.planning-day-category,
+.planning-day-shifttype,
+.planning-day-department,
+.planning-day-no-template {
+    background-color: @soe-disabled-background-color;
+}
+
+.planning-day-first-day-of-template,
+.planning-day-last-day-of-template,
+.planning-day-first-day-of-template-group,
+.planning-day-last-day-of-template-group,
+.planning-day-no-employment,
+.planning-day-outside-scenario,
+.planning-day-repeating-template {
+    i {
+        font-size: @extraLargeFontSize;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 101;
+    }
+}
+
+.planning-day-no-employment,
+.planning-day-outside-scenario,
+.planning-day-repeating-template {
+    background-color: @soe-disabled-background-color;
+
+    i {
+        opacity: 0.25;
+    }
+}
+
+.planning-day-first-day-of-template-group {
+    i {
+        left: calc(~'50% + 12px');
+    }
+
+    i.fa-layer-group {
+        left: calc(~'50% - 12px');
+    }
+}
+
+.planning-day-last-day-of-template-group {
+    i {
+        left: calc(~'50% - 12px');
+    }
+
+    i.fa-layer-group {
+        left: calc(~'50% + 12px');
+    }
+}
+
+.planning-day-has-employee-schedule {
+    border: 2px solid rgba(170, 212, 43, 0.75);
+    background-color: rgba(170, 212, 43, 0.25);
+}
+
+.planning-day-available {
+    background-color: @availableBackgroundColor !important;
+}
+
+.planning-day-unavailable {
+    background-color: @unavailableBackgroundColor !important;
+}
+
+.planning-day-partly-available {
+    background: @partlyAvailableBackground !important;
+}
+
+.planning-day-partly-unavailable {
+    background: @partlyUnavailableBackground !important;
+}
+
+.planning-day-mixed-available {
+    background: @mixedAvailableBackground !important;
+}
+
+div.planning-shift + div.planning-shift {
+    margin-top: 1px;
+}
+
+.day-view div.planning-shift + div.planning-shift {
+    margin-top: 0;
+}
+
+.actual-time div.planning-shift + div.planning-shift {
+    margin-top: 0;
+}
+
+.planning-shift {
+    height: 38px;
+    cursor: pointer;
+    position: absolute;
+    z-index: 100;
+
+    .shift-split-container {
+        height: 100%;
+        border: solid 1px @soe-border-color;
+        position: absolute;
+    }
+
+    span {
+        display: block;
+        text-align: left;
+        font-size: 10px;
+        padding: 2px 4px;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .shift-left-text {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .shift-center-text {
+        position: absolute;
+        top: 0;
+        text-align: center;
+    }
+
+    .shift-right-text {
+        position: absolute;
+        top: 0;
+        right: 0;
+        text-align: right;
+    }
+
+    .shift-prev-day-icon {
+        position: absolute;
+        top: 1px;
+    }
+
+    .shift-time {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .shift-time-for-tooltip {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .shift-time-tooltip {
+        display: block;
+        border: 1px solid @soe-border-color;
+        border-radius: 3px;
+        background-color: @soe-background-color;
+        font-weight: bold;
+        overflow: inherit;
+        width: auto;
+        top: -23px;
+        font-size: 12px;
+        color: @soe-text-color;
+    }
+
+    .shift-title {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    .shift-week-number {
+        position: absolute;
+        top: 0;
+        right: 0;
+        text-align: right;
+    }
+
+    .shift-right-icon {
+        position: absolute;
+        bottom: 3px;
+        text-align: right;
+        color: @soe-text-color;
+        z-index: 101;
+    }
+
+    .shift-right-icon.lended,
+    .shift-compressed-right-icon.lended {
+        color: #990000;
+    }
+
+    .shift-compressed-right-icon {
+        position: absolute;
+        bottom: 2px;
+        text-align: right;
+        color: @soe-text-color;
+        z-index: 101;
+    }
+
+    .shift-break {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        padding: 0;
+        background: white;
+        opacity: 0.5;
+    }
+
+    .task-actual-length {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        padding: 1px 3px;
+        border: solid 1px @soe-border-color;
+    }
+}
+
+.planning-shift.is-lended {
+    cursor: default;
+}
+
+.planning-shift-compressed {
+    height: 22px;
+}
+
+.planning-shift.is-leisurecode {
+    border: 1px solid @informationBorderColor;
+
+    span {
+        height: 100%;
+        font-size: @extraLargeFontSize;
+        color: @soe-color-neutral-dark-grey;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        &.dayview {
+            justify-content: start;
+        }
+    }
+}
+
+.shift-day {
+    .shift-drop-zone {
+        min-height: 38px;
+        margin-top: -3px;
+        margin-bottom: -2px;
+    }
+
+    .shift-drop-zone-compressed {
+        min-height: 20px;
+    }
+}
+
+.shift-break-mode {
+    .shift-break {
+        opacity: 1;
+        position: absolute !important;
+    }
+
+    .shift-time,
+    .shift-title {
+        opacity: 0.5;
+    }
+}
+
+.shift-unwanted.shift-wanted {
+    background: linear-gradient(180deg, @shiftWantedBackgroundColor 50%, @shiftUnwantedBackgroundColor 50%);
+}
+
+.shift-swap-request {
+    background-color: @shiftSwapRequestBackgroundColor;
+    border-right: 1px solid @soe-border-color;
+    width: 8px;
+    height: 100%;
+}
+
+.shift-unwanted {
+    background-color: @shiftUnwantedBackgroundColor;
+    border-right: 1px solid @soe-border-color;
+    width: 8px;
+    height: 100%;
+}
+
+.shift-wanted {
+    background-color: @shiftWantedBackgroundColor;
+    color: @soe-color-neutral-white;
+    border-right: 1px solid @soe-border-color;
+    width: 8px;
+    height: 100%;
+
+    .shift-queue {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 2px 0;
+    }
+}
+
+.shift-absence-requested {
+    background: @shiftAbsenceRequestedBackground;
+    border-right: 1px solid @soe-border-color;
+    width: 8px;
+    height: 100%;
+}
+
+.shift-absence-approved {
+    background-color: @shiftAbsenceBackgroundColor;
+    border-right: 1px solid @soe-border-color;
+    position: absolute;
+    top: 0px;
+    width: 8px;
+    height: 100%;
+}
+
+.shift-planning-empty {
+    border-right: 1px solid @soe-border-color;
+    width: 8px;
+    height: 100%;
+}
+
+.shift-planning-gradient {
+    background-image: linear-gradient(green, red);
+    border-right: 1px solid @soe-border-color;
+    width: 8px;
+    height: 100%;
+}
+
+.selected-shift,
+.selected-slot,
+.selected-employeepost {
+    border: 2px solid @accentColor;
+    background: @slotStripedBackground;
+}
+
+.highlighted-shift {
+    border: 2px dashed @soe-text-color;
+    background: @shiftHighlightedBackground;
+}
+// Select
+.prevent-select {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+// Drag n drop
+tr.drop-target > td:first-child {
+    // Employee
+    background-color: @accentColorFaded;
+}
+
+td.drop-target {
+    background-color: @accentColorFaded;
+}
+
+div.planning-shift.drop-target {
+    background-color: @accentColorFaded !important;
+}
+
+div.shift-drop-zone.drop-target {
+    background-color: @accentColorFaded !important;
+}
+
+div.planning-employee-post.drop-target {
+    background-color: @accentColorFaded !important;
+}
+
+.ui-resizable-handle {
+    position: absolute;
+    top: 0;
+    height: 80%;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    width: 6px;
+    font-size: 0.1px;
+    display: block;
+    -ms-touch-action: none;
+    touch-action: none;
+    border: 2px solid #808080;
+    border-radius: 2px;
+    background-color: white;
+}
+
+.ui-resizable-e {
+    cursor: e-resize;
+    right: 1px;
+}
+
+.ui-resizable-w {
+    cursor: w-resize;
+    left: 1px;
+}
+
+.planning-shift.ui-state-disabled {
+    cursor: auto;
+}
+
+.planning-shift.ui-state-disabled.blurred {
+    opacity: 0.6;
+}
+// Employee list
+.employee-list-filter-header,
+.unscheduledorder-list-filter-header {
+    margin: 0 0 5px -25px;
+    padding: 5px;
+    border-radius: 0px;
+}
+
+.employee-list,
+.workrule-list,
+.unscheduledtask-list,
+.unscheduledorder-list {
+    border: 1px solid @soe-border-color;
+    list-style: none;
+
+    li:nth-of-type(odd) {
+        border-top: 1px solid @soe-border-color;
+        border-bottom: 1px solid @soe-border-color;
+        background-color: #F9F9F9;
+    }
+
+    li:first-child {
+        border-top: 0;
+    }
+
+    li:last-child {
+        border-bottom: 0;
+    }
+
+    li {
+        list-style: none;
+        cursor: pointer;
+        padding: 1px 1px 1px 3px;
+    }
+}
+
+.unscheduledtaskdate-list,
+.unscheduledorderdate-list {
+    border: 1px solid @soe-border-color;
+    list-style: none;
+    margin: 0 0 0 -25px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .panel-group {
+        margin: 0;
+    }
+
+    .panel {
+        margin: -1px;
+        border-radius: 0px;
+    }
+
+    .panel-body {
+        padding: 0;
+    }
+}
+
+.unscheduledtask-list {
+    border: 1px solid @soe-border-color;
+    list-style: none;
+    margin: 0 -1px 0 -1px;
+
+    li {
+        list-style: none;
+        cursor: pointer;
+        border: 1px solid @soe-border-color;
+        padding: 3px;
+        margin: 2px 2px 2px 2px;
+    }
+}
+
+.unscheduledorder-list {
+    border: 1px solid @soe-border-color;
+    list-style: none;
+    margin: 0 0 0 -25px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    li {
+        list-style: none;
+        cursor: pointer;
+        border: 1px solid @soe-border-color;
+        padding: 3px;
+        margin: 2px 2px 2px 2px;
+
+        div {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    li.selected {
+        border-color: @accentColor;
+        background: @slotStripedBackground;
+    }
+
+    .times {
+        padding-right: 7px;
+    }
+
+    .overdue {
+        font-weight: bold;
+        margin: 1px 3px 0 0;
+    }
+
+    .overdue.notoverdue {
+        opacity: 0;
+    }
+}
+
+.unscheduledtaskdate-list-separator {
+    border-top: solid 2px @soe-border-color;
+    border-top-color: @accentColor;
+}
+
+.ui-draggable-dragging {
+    list-style: none;
+    border: 1px solid @soe-border-color;
+    border-radius: 3px;
+    background-color: @accentColorFaded;
+    padding: 2px 5px;
+    z-index: 999;
+}
+// Edit shift
+.edit-shift-wanted,
+.edit-shift-unwanted {
+    position: absolute;
+    margin: 0 0 0 -2px;
+    height: 30px;
+    width: 8px;
+    border: 1px solid @soe-border-color;
+}
+
+.edit-shift-wanted.edit-shift-unwanted {
+    background: linear-gradient(180deg, @shiftWantedBackgroundColor 50%, @shiftUnwantedBackgroundColor 50%) !important;
+}
+
+.edit-shift-wanted {
+    background-color: @shiftWantedBackgroundColor;
+}
+
+.edit-shift-unwanted {
+    background-color: @shiftUnwantedBackgroundColor;
+}
+
+.edit-shift-standby {
+    background-color: @shiftStandby !important;
+    height: 38px;
+    margin: -4px -25px -34px -31px;
+}
+
+.edit-shift-standby-first-row {
+    margin: 20px -25px -58px -31px;
+}
+
+.edit-shift-standby-button {
+    background-color: @shiftStandby !important;
+}
+
+.edit-shift-onduty {
+    background-color: @shiftOnDuty !important;
+    height: 38px;
+    margin: -4px -25px -34px -31px;
+}
+
+.edit-shift-onduty-first-row {
+    margin: 20px -25px -58px -31px;
+}
+
+.edit-shift-onduty-button {
+    background-color: @shiftOnDuty !important;
+}
+
+.edit-shift-overlapping {
+    background-color: @shiftAbsenceBackgroundColor !important;
+    height: 38px;
+    margin: -4px 0px -34px 0px;
+}
+// Staffing needs
+.staffing-needs-scheduleview {
+    .autoload-info {
+        text-align: center;
+        cursor: pointer;
+        margin: 5px 0px 10px 0px;
+
+        .autoload-info-row1 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .autoload-info-row2 {
+            font-size: 14px;
+        }
+    }
+
+    table {
+        width: 100% !important; /*this actually is important since the drag-and-drop will ruin the styling otherwise if you move a multicolumn item with a single column item above it in a multimove.*/
+        table-layout: fixed;
+    }
+}
+
+.staffing-needs-head-info {
+    white-space: nowrap;
+
+    span {
+        display: inline-block;
+    }
+}
+
+.staffing-needs-row {
+    .planning-day {
+        padding: 0;
+    }
+}
+
+.staffing-needs-row-identifier {
+    border: solid 1px @soe-border-color;
+    background-color: @soe-header-background-color;
+    font-size: 12px;
+    padding: 0px 2px 0px 5px;
+    margin-top: -1px;
+    vertical-align: top;
+
+    i {
+        font-size: @smallFontSize;
+        margin: 2px 0 0 10px;
+        cursor: pointer;
+    }
+}
+
+.staffing-needs-row-sum {
+    border: solid 1px @soe-border-color;
+    background-color: @soe-header-background-color;
+    font-size: 12px;
+    padding: 0px 5px 0px 5px;
+    margin-top: -1px;
+    vertical-align: top;
+    text-align: right;
+}
+
+.staffing-needs-day {
+    .staffing-needs-drop-zone {
+        min-height: 18px;
+    }
+}
+
+.staffing-needs-period {
+    text-align: left;
+    padding-left: 3px;
+    height: 18px;
+    cursor: pointer;
+    position: absolute;
+    z-index: 100;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.staffing-needs-period-break {
+    background: white;
+    opacity: 0.5;
+}
+
+.planning-followup-table {
+    vertical-align: top;
+    border: solid 1px @soe-border-color;
+
+    td {
+        border: solid 1px @soe-border-color;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    thead {
+        tr {
+            font-size: 10px;
+        }
+
+        tr:first-child {
+            font-weight: bold;
+            font-size: 12px;
+
+            i {
+                font-size: @smallFontSize;
+                margin: 2px 0 0 10px;
+                cursor: pointer;
+            }
+        }
+
+        tr td:first-child {
+            width: 100px;
+            white-space: nowrap;
+        }
+
+        td {
+            text-overflow: ellipsis;
+            overflow-x: hidden;
+            padding-top: 2px;
+        }
+    }
+
+    tbody {
+        td {
+            text-align: right;
+            font-size: 10px;
+        }
+
+        tr td:first-child {
+            width: 100px;
+            font-weight: bold;
+            white-space: nowrap;
+            text-align: left;
+        }
+
+        tr.summary-row {
+            font-weight: bold;
+            background-color: @soe-disabled-background-color;
+            height: 23px;
+        }
+    }
+}
+
+.staffing-needs-task {
+    width: 200px;
+    border: solid 1px @soe-border-color;
+    background-color: @soe-header-background-color;
+    font-size: 12px;
+    padding: 2px 2px 2px 5px;
+    margin-top: -1px;
+    vertical-align: top;
+
+    i {
+        margin-right: 5px;
+    }
+
+    .recurring {
+        color: blue;
+        font-weight: bold;
+    }
+}
+
+.staffing-needs-task-department,
+.staffing-needs-task-shifttype {
+    font-size: 14px;
+    font-weight: bold;
+    color: blue;
+}
+
+.staffing-needs-table.table > thead > tr > th,
+.staffing-needs-table.table > tbody > tr > th,
+.staffing-needs-table.table > tfoot > tr > th,
+.staffing-needs-table.table > thead > tr > td,
+.staffing-needs-table.table > tbody > tr > td,
+.staffing-needs-table.table > tfoot > tr > td {
+    padding: 0px;
+}
+
+table.table-that-is-max-100-percent-at-any-cost {
+    table-layout: fixed;
+
+    td {
+        overflow: hidden;
+        word-break: break-all;
+    }
+}
+// Dashboard
+.planning-dashboard {
+    border: solid 1px @soe-border-color;
+    margin: 0 0 0 -25px;
+
+    span {
+        font-size: 20px !important;
+        margin-top: -8px;
+    }
+
+    u {
+        font-size: 16px !important;
+    }
+
+    b {
+        font-size: 10px !important;
+        margin-top: -10px;
+    }
+}
+
+.planning-dashboard > div {
+    margin-top: 5px;
+}
+
+.dragging-shift-helper {
+    border: 0;
+    border-radius: 0px;
+    background-color: transparent;
+    padding: 0;
+}
+
+.dragging-shift {
+    opacity: 0.2;
+}

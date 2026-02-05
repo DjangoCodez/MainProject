@@ -1,0 +1,30 @@
+﻿<div class="file-display">
+    <soe-progressbar is-busy="directiveCtrl.progress.progressBusy" message="directiveCtrl.progress.progressMessage"></soe-progressbar>
+    <div class="filescontainer">
+        <div class="row filessort margin-large-bottom" data-ng-if="!directiveCtrl.useGrid && directiveCtrl.files.length">
+            <div class="col-sm-12">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default dropdown-toggle only-icon" data-toggle="dropdown" data-l10n-bind data-l10n-bind-title="'core.sorting'"><i class="fal fa-sort-amount-down-alt"></i></button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header"><span data-l10n-bind="'core.sortingon'"></span></li>
+                        <li data-ng-class="{'selected': directiveCtrl.sortBy === 1}" data-ng-click="$event.preventDefault();directiveCtrl.setSortBy(1)"><a href="#" x><span data-l10n-bind="'common.description'"></span></a></li>
+                        <li data-ng-class="{'selected': directiveCtrl.sortBy === 2}" data-ng-click="$event.preventDefault();directiveCtrl.setSortBy(2)"><a href="#" x><span data-l10n-bind="'common.date'"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-ng-if="!directiveCtrl.useGrid">
+            <div class="col-sm-12">
+                <div class="filesrepeater" data-ng-repeat="file in directiveCtrl.activeFiles">
+                    <soe-file-item-display file="file" on-delete="directiveCtrl.deleteFile(file)" on-name-changed="directiveCtrl.editFilename(file);" on-edit-roles="directiveCtrl.editRoles(file);" show-roles="directiveCtrl.showRoles" read-only="directiveCtrl.readOnly"></soe-file-item-display>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-ng-if="directiveCtrl.useGrid">
+            <div class="col-sm-12 pull-right">
+                <div ag-grid="directiveCtrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+            </div>
+        </div>
+    </div>
+</div>

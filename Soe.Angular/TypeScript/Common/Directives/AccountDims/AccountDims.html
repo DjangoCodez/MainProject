@@ -1,0 +1,28 @@
+﻿<div>
+    <div account-dims-validation ng-model="ctrl.validationModel" dim-account1="ctrl.account1" dim-account2="ctrl.account2" dim-account3="ctrl.account3" dim-account4="ctrl.account4" dim-account5="ctrl.account5" dim-account6="ctrl.account6"
+         dim1-mandatory="ctrl.dim1Mandatory" dim2-mandatory="ctrl.dim2Mandatory" dim3-mandatory="ctrl.dim3Mandatory" dim4-mandatory="ctrl.dim4Mandatory" dim5-mandatory="ctrl.dim5Mandatory" dim6-mandatory="ctrl.dim6Mandatory"
+         dim1-label="ctrl.dim1label" dim2-label="ctrl.dim2label" dim3-label="ctrl.dim3label" dim4-label="ctrl.dim4label" dim5-label="ctrl.dim5label" dim6-label="ctrl.dim6label">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2" data-ng-if="ctrl.dim1label.length > 0">
+                    <soe-typeahead label-value="ctrl.dim1label" not-discreet="true" model="ctrl.selectedAccount1" items="ctrl.dim1accounts" options="item as item.numberName for item in items" filter-property="numberName" is-readonly="ctrl.isReadonly" on-selection-changed="ctrl.selectionChanged(item,1)" is-required="ctrl.dim1Mandatory"></soe-typeahead>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.dim2label.length > 0">
+                    <soe-typeahead label-value="ctrl.dim2label" not-discreet="true" model="ctrl.selectedAccount2" items="ctrl.dim2accounts" options="item as item.numberName for item in items" filter-property="numberName" is-readonly="ctrl.isReadonly" on-selection-changed="ctrl.selectionChanged(item,2)" is-required="ctrl.dim2Mandatory"></soe-typeahead>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.dim3label.length > 0">
+                    <soe-typeahead label-value="ctrl.dim3label" not-discreet="true" model="ctrl.selectedAccount3" items="ctrl.dim3accounts" options="item as item.numberName for item in items" filter-property="numberName" is-readonly="ctrl.isReadonly" on-selection-changed="ctrl.selectionChanged(item,3)" is-required="ctrl.dim3Mandatory"></soe-typeahead>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.dim4label.length > 0">
+                    <soe-typeahead label-value="ctrl.dim4label" not-discreet="true" model="ctrl.selectedAccount4" items="ctrl.dim4accounts" options="item as item.numberName for item in items" filter-property="numberName" is-readonly="ctrl.isReadonly" on-selection-changed="ctrl.selectionChanged(item,4)" is-required="ctrl.dim4Mandatory"></soe-typeahead>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.dim5label.length > 0">
+                    <soe-typeahead label-value="ctrl.dim5label" not-discreet="true" model="ctrl.selectedAccount5" items="ctrl.dim5accounts" options="item as item.numberName for item in items" filter-property="numberName" is-readonly="ctrl.isReadonly" on-selection-changed="ctrl.selectionChanged(item,5)" is-required="ctrl.dim5Mandatory"></soe-typeahead>
+                </div>
+                <div class="col-sm-2" data-ng-if="ctrl.dim6label.length > 0">
+                    <soe-typeahead label-value="ctrl.dim6label" not-discreet="true" model="ctrl.selectedAccount6" items="ctrl.dim6accounts" options="item as item.numberName for item in items" filter-property="numberName" is-readonly="ctrl.isReadonly" on-selection-changed="ctrl.selectionChanged(item,6)" is-required="ctrl.dim6Mandatory"></soe-typeahead>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

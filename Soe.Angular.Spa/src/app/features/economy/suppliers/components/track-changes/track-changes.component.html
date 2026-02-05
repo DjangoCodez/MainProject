@@ -1,0 +1,34 @@
+<div [formGroup]="form">
+  <div class="d-flex align-items-end">
+    <soe-icon-button
+      [iconName]="'chevron-left'"
+      [attachedToTextbox]="true"
+      [firstInGroup]="true"
+      (action)="moveDatesBackward()"
+      [attachedToTextbox]="true"></soe-icon-button>
+    <soe-datepicker
+      [labelKey]="'core.document.validfrom'"
+      (valueChanged)="loadGridData()"
+      formControlName="from"></soe-datepicker>
+    <soe-datepicker
+      [labelKey]="'core.document.validto'"
+      (valueChanged)="loadGridData()"
+      formControlName="to"></soe-datepicker>
+    <soe-icon-button
+      [iconName]="'chevron-right'"
+      [lastInGroup]="true"
+      (action)="moveDatesForward()"
+      [attachedToTextbox]="false"></soe-icon-button>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      @if (flowHandler.allowFetchGrid()) {
+        <soe-grid-wrapper
+          [toolbarGroups]="[]"
+          [rows]="rowData"
+          [height]="250"
+          [parentGuid]="guid()"></soe-grid-wrapper>
+      }
+    </div>
+  </div>
+</div>

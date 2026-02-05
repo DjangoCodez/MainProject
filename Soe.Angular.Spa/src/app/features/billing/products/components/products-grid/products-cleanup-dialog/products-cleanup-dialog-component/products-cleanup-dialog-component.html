@@ -1,0 +1,55 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+    <div class="soe-edit-form" [formGroup]="form" novalidate autocomplete="off">
+      <div class="row mb-3 align-items-end">
+        <div class="col-sm-4">
+          <soe-datepicker
+            [labelKey]="'billing.products.cleanup.lastuseddate'"
+            formControlName="lastUsedDate"></soe-datepicker>
+        </div>
+        <div class="col-sm-2">
+          <soe-button
+            [caption]="'core.search'"
+            [disabled]="false"
+            [behaviour]="'primary'"
+            (action)="doSearch()">
+          </soe-button>
+        </div>
+      </div>
+
+      <div class="row">
+        <soe-products-cleanup-dialog-grid
+          [rows]="productsRowData"
+          (changeSelection)="onSelectionChanged($event)"></soe-products-cleanup-dialog-grid>
+      </div>
+
+      <div class="soe-form-footer">
+        <div class="col-sm-12">
+          <div class="float-end">
+            <soe-button
+              class="ms-3"
+              [caption]="'core.cancel'"
+              [behaviour]="'standard'"
+              (action)="closeDialog()">
+            </soe-button>
+            <soe-button
+              class="ms-3"
+              [caption]="'billing.products.cleanup.deactivate'"
+              [disabled]="selectedRowData.length === 0"
+              (action)="onDeactivate()">
+            </soe-button>
+            <soe-button
+              class="ms-3"
+              [caption]="'core.delete'"
+              [behaviour]="'danger'"
+              [disabled]="selectedRowData.length === 0"
+              (action)="onDelete()">
+            </soe-button>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </ng-container>
+</soe-dialog>

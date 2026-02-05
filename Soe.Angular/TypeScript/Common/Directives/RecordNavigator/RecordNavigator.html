@@ -1,0 +1,36 @@
+﻿<div>
+    <div class="btn-group" role="group" data-ng-if="directiveCtrl.showAlways || directiveCtrl.records.length > 1">
+        <button type="button" class="btn btn-sm btn-default" data-l10n-bind data-l10n-bind-title="'core.navigatefirst'" data-ng-disabled="directiveCtrl.index < 1" data-ng-click="$event.stopPropagation();$event.preventDefault();directiveCtrl.moveFirst();"><i class="fal fa-chevron-double-left"></i></button>
+        <button type="button" class="btn btn-sm btn-default" data-l10n-bind data-l10n-bind-title="'core.navigateleft'" data-ng-disabled="directiveCtrl.index < 1" data-ng-click="$event.stopPropagation();$event.preventDefault();directiveCtrl.movePrev();"><i class="fal fa-chevron-left"></i></button>
+        <button type="button" class="btn btn-sm btn-default nolink" data-ng-if="directiveCtrl.showPosition && !directiveCtrl.showDropdown">
+            <span class="padding-small-left padding-small-right" data-ng-if="!directiveCtrl.showRecordName">
+                <span>{{directiveCtrl.index + 1}}</span> <span data-l10n-bind="'common.of'"></span> <span>{{directiveCtrl.records.length}}</span>
+            </span>
+            <span class="padding-small-left padding-small-right" data-ng-if="directiveCtrl.showRecordName">
+                <span data-ng-if="!directiveCtrl.isDate">{{directiveCtrl.selectedRecord[directiveCtrl.dropdownTextProperty]}}</span>
+                <span data-ng-if="directiveCtrl.isDate">{{directiveCtrl.selectedRecord.toFormattedDate()}}</span>
+            </span>
+        </button>
+        <div class="btn-group" role="group" data-ng-if="directiveCtrl.showDropdown">
+            <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-l10n-bind data-l10n-bind-title="'core.select'" data-toggle="dropdown">
+                <span data-ng-if="!directiveCtrl.showRecordName">
+                    <span>{{directiveCtrl.index + 1}}</span> <span data-l10n-bind="'common.of'"></span> <span>{{directiveCtrl.records.length}}</span>
+                </span>
+                <span data-ng-if="directiveCtrl.showRecordName">
+                    <span data-ng-if="!directiveCtrl.isDate">{{directiveCtrl.selectedRecord[directiveCtrl.dropdownTextProperty]}}</span>
+                    <span data-ng-if="directiveCtrl.isDate">{{directiveCtrl.selectedRecord.toFormattedDate()}}</span>
+                </span>
+            </button>
+            <ul class="dropdown-menu" data-ng-class="{'dropdown-menu-right': directiveCtrl.dropdownAlignRight}" style="max-height: 530px; overflow-x: hidden; overflow-y: auto;">
+                <li data-ng-repeat="record in directiveCtrl.records" data-ng-class="{'selected': record === directiveCtrl.selectedRecord}" data-ng-click="$event.preventDefault();directiveCtrl.selectRecord(record);">
+                    <a href="#">
+                        <span data-ng-if="!directiveCtrl.isDate">{{record[directiveCtrl.dropdownTextProperty]}}</span>
+                        <span data-ng-if="directiveCtrl.isDate">{{record.toFormattedDate()}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <button type="button" class="btn btn-sm btn-default" data-l10n-bind data-l10n-bind-title="'core.navigateright'" data-ng-disabled="directiveCtrl.index === directiveCtrl.records.length-1" data-ng-click="$event.stopPropagation();$event.preventDefault();directiveCtrl.moveNext();"><i class="fal fa-chevron-right"></i></button>
+        <button type="button" class="btn btn-sm btn-default" data-l10n-bind data-l10n-bind-title="'core.navigatelast'" data-ng-disabled="directiveCtrl.index === directiveCtrl.records.length-1" data-ng-click="$event.stopPropagation();$event.preventDefault();directiveCtrl.moveLast();"><i class="fal fa-chevron-double-right"></i></button>
+    </div>
+</div>

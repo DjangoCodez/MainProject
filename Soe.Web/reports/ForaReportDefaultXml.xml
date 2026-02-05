@@ -1,0 +1,129 @@
+<?xml version="1.0" standalone="yes"?>
+<SOE_ForaReport>
+  <xs:schema id="SOE_ForaReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="SOE_ForaReport" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element name="ForaReport">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="Company" type="xs:string" minOccurs="0" />
+                      <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                      <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                      <xs:element name="TimePeriod" type="xs:string" minOccurs="0" />
+                      <xs:element name="SortByLevel1" type="xs:string" minOccurs="0" />
+                      <xs:element name="SortByLevel2" type="xs:string" minOccurs="0" />
+                      <xs:element name="SortByLevel3" type="xs:string" minOccurs="0" />
+                      <xs:element name="SortByLevel4" type="xs:string" minOccurs="0" />
+                      <xs:element name="IsSortAscending" type="xs:string" minOccurs="0" />
+                      <xs:element name="GroupByLevel1" type="xs:string" minOccurs="0" />
+                      <xs:element name="GroupByLevel2" type="xs:string" minOccurs="0" />
+                      <xs:element name="GroupByLevel3" type="xs:string" minOccurs="0" />
+                      <xs:element name="GroupByLevel4" type="xs:string" minOccurs="0" />
+                      <xs:element name="Special" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateInterval" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="Employee" maxOccurs="unbounded" minOccurs="0">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element type="xs:string" name="EmployeeNr"/>
+                      <xs:element type="xs:string" name="FirstName"/>
+                      <xs:element type="xs:string" name="LastName"/>
+                      <xs:element type="xs:string" name="SocialSec"/>
+                      <xs:element type="xs:string" name="Note"/>
+                      <xs:element name="EmployeeFora">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element type="xs:int" name="Rapporteringar"/>
+                            <xs:element type="xs:string" name="Avtalsnummer"/>
+                            <xs:element type="xs:string" name="Personnummer"/>
+                            <xs:element type="xs:string" name="Namn"/>
+                            <xs:element type="xs:int" name="LonforRapporteringsAret"/>
+                            <xs:element type="xs:int" name="LonforRapporteringsAretTjm"/>
+                            <xs:element type="xs:int" name="LonforRapporteringsAretEjFora"/>
+                            <xs:element type="xs:int" name="LonforRapporteringsAretEjForaTjm"/>
+                            <xs:element type="xs:string" name="SlutatUnderRapporterinsgAret"/>
+                            <xs:element type="xs:string" name="KollektivAvtal"/>
+                            <xs:element type="xs:string" name="AfaKategori"/>
+                            <xs:element type="xs:dateTime" name="StartDatum"/>
+                            <xs:element type="xs:dateTime" name="SlutDatum"/>
+                            <xs:element name="EmployeeTransactionFora" maxOccurs="unbounded" minOccurs="0">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element type="xs:string" name="Type"/>
+                                  <xs:element type="xs:string" name="PayrollProductNumber"/>
+                                  <xs:element type="xs:string" name="Name"/>
+                                  <xs:element type="xs:decimal" name="Quantity"/>
+                                  <xs:element type="xs:decimal" name="Amount"/>
+                                </xs:sequence>
+                                <xs:attribute type="xs:short" name="Id" use="optional"/>
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                          <xs:attribute type="xs:int" name="Id" use="optional"/>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute type="xs:int" name="Id" use="optional"/>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <ForaReport>
+    <ReportHeader>
+      <ReportTitle>0</ReportTitle>
+      <ReportDescription></ReportDescription>
+      <ReportNr>0</ReportNr>
+      <Company>0</Company>
+      <Orgnr>0</Orgnr>
+      <LoginName>0</LoginName>
+      <TimePeriod></TimePeriod>
+      <SortByLevel1>Unknown</SortByLevel1>
+      <SortByLevel2>Unknown</SortByLevel2>
+      <SortByLevel3>Unknown</SortByLevel3>
+      <SortByLevel4>Unknown</SortByLevel4>
+      <IsSortAscending>false</IsSortAscending>
+      <GroupByLevel1>Unknown</GroupByLevel1>
+      <GroupByLevel2>Unknown</GroupByLevel2>
+      <GroupByLevel3>Unknown</GroupByLevel3>
+      <GroupByLevel4>Unknown</GroupByLevel4>
+      <Special />
+      <DateInterval>1900-01-01T00:00:00</DateInterval>
+    </ReportHeader>
+    <Employee Id="1">
+      <EmployeeNr>0</EmployeeNr>
+      <FirstName>0</FirstName>
+      <LastName></LastName>
+      <SocialSec>196602135037</SocialSec>
+      <Note>0</Note>
+      <EmployeeFora>
+        <Rapporteringar>0</Rapporteringar>
+        <Avtalsnummer></Avtalsnummer>
+        <Personnummer></Personnummer>
+        <Namn></Namn>
+        <LonforRapporteringsAret>0</LonforRapporteringsAret>
+        <LonforRapporteringsAretTjm>0</LonforRapporteringsAretTjm>
+        <LonforRapporteringsAretEjFora>0</LonforRapporteringsAretEjFora>
+        <LonforRapporteringsAretEjForaTjm>0</LonforRapporteringsAretEjForaTjm>
+        <SlutatUnderRapporterinsgAret></SlutatUnderRapporterinsgAret>
+        <KollektivAvtal></KollektivAvtal>
+        <AfaKategori></AfaKategori>
+        <StartDatum>1900-01-01T00:00:00</StartDatum>
+        <SlutDatum>1900-01-01T00:00:00</SlutDatum>
+      </EmployeeFora>
+    </Employee>    
+  </ForaReport>
+</SOE_ForaReport>

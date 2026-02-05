@@ -1,0 +1,4 @@
+﻿<div data-ng-style="{'color': ctrl.setColorByBackground(o.shiftTypeColor)}">
+    <div><span class="fal fa-file-alt"></span> <span>{{o.orderNr}}</span><span class="overdue fal fa-clock pull-right" data-ng-class="{'notoverdue':!ctrl.isOrderOverdue(o)}"> !</span><span class="times pull-right">{{o.remainingTime | minutesToTimeSpan}}/{{o.estimatedTime | minutesToTimeSpan}}</span></div>
+    <div><span class="fal fa-user-alt"></span> <span>{{o.customerName}}</span> <span data-ng-if="o.deliveryAddress"><span class="fal fa-truck"></span> {{o.deliveryAddress}}</span></div>
+</div>

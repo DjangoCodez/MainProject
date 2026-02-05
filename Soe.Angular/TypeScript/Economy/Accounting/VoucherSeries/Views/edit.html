@@ -1,0 +1,57 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <div class="row margin-large-top margin-none-left margin-large-bottom margin-none-right">
+            <div class="col-sm-6">
+                <div class="pull-left">
+                    <soe-toolbar buttons="ctrl.toolbar.navigationMenuButtons" hide-border="true" style="margin-bottom:0px;" ng-if="ctrl.showNavigationButtons"></soe-toolbar>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <soe-toolbar buttons="ctrl.toolbar.buttonGroups" hide-border="true" style="margin-bottom:0px;"></soe-toolbar>
+            </div>
+        </div>
+        <soe-panel label-key="economy.accounting.voucherseriestype">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox input-type="number" label-key="economy.accounting.voucherseriestype.voucherseriestypenr" model="ctrl.voucherSeriesType.voucherSeriesTypeNr" required="true" auto-focus="true" max="2147483647" max-length="9"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="economy.accounting.voucherseriestype.name" model="ctrl.voucherSeriesType.name" required="true"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox input-type="number" label-key="economy.accounting.voucherseriestype.startnr" model="ctrl.voucherSeriesType.startNr" required="true" max-length="18"></soe-textbox>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <soe-checkbox label-key="economy.accounting.voucherseriestype.yearendserie" model="ctrl.voucherSeriesType.yearEndSerie"></soe-checkbox>
+                    </div>
+                    <div class="row">
+                        <soe-checkbox label-key="economy.accounting.voucherseriestype.externalserie" model="ctrl.voucherSeriesType.externalSerie"></soe-checkbox>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.voucherSeriesType"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

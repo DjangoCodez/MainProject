@@ -1,0 +1,293 @@
+<soe-dialog>
+  <div dialog-content>
+    <div class="modal-body-panel">
+      <div class="panel-content" style="margin: 10px">
+        @if (timeStampEntry) {
+        <div class="row soe-text-value">
+          <div class="col-sm-6">
+            <div class="row">
+              <div class="col-sm-2">
+                <soe-label [labelKey]="'common.time'"></soe-label>
+              </div>
+              <div class="col-sm-2">
+                <soe-label
+                  [labelKey]="'time.time.attest.timestamps.originaltime'"></soe-label>
+              </div>
+              <div class="col-sm-4">
+                <soe-label [labelKey]="'core.source'"></soe-label>
+              </div>
+              <div class="col-sm-4">
+                <soe-label [labelKey]="'common.status'"></soe-label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2">
+                {{ timeStampEntry.time | date: 'shortTime' }}
+              </div>
+              <div class="col-sm-2">
+                {{ timeStampEntry.originalTime | date: 'shortTime' }}
+              </div>
+              <div class="col-sm-4">{{ timeStampEntry.originTypeText }}</div>
+              <div class="col-sm-4">{{ timeStampEntry.statusText }}</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4 indiscreet warningColor">
+                @if (timeStampEntry.manuallyAdjusted) { {{
+                manualAdjustedInfoText }} }
+              </div>
+              <div class="col-sm-4 indiscreet">
+                @if (timeStampEntry.timeTerminalId &&
+                timeStampEntry.timeTerminalId > 0) { {{
+                timeStampEntry.terminalInfo }} } @else { {{notTerminalInfoText}}
+                }
+              </div>
+            </div>
+          </div>
+          @if (timeStampEntry.note && timeStampEntry.note.length > 0) {
+          <div class="col-sm-6">
+            <div class="row">
+              <div class="col-sm-12">
+                <soe-label [labelKey]="'common.comment'"></soe-label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <span>{{ timeStampEntry.note }}</span>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <form [formGroup]="form" class="d-flex">
+            <div class="col-sm-2">
+              <soe-datepicker
+                formControlName="selectedDateFrom"
+                labelKey="common.fromdate">
+              </soe-datepicker>
+            </div>
+
+            <div class="col-sm-2">
+              <soe-datepicker
+                formControlName="selectedDateTo"
+                labelKey="common.todate">
+              </soe-datepicker>
+            </div>
+            <div class="col-sm-2 d-flex align-items-end">
+              <soe-button
+                [behaviour]="'primary'"
+                [caption]="'core.search'"
+                [title]="'core.search'"
+                [disabled]="!checkSelectedDates()"
+                (action)="search()">
+              </soe-button>
+            </div>
+          </form>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <soe-expansion-panel
+            [labelKey]="'common.entitylogviewer.changelog'"
+            [open]="isChangeLogOpen">
+            <div class="row" style="margin-top: 10px">
+              <div class="col-sm-12">
+                <div class="table-scrollable-wrapper">
+                  <div class="table-scrollable" style="height: 203px">
+                    <table class="table table-more-condensed table-hover">
+                      <thead>
+                        <tr style="margin-top: 5px">
+                          <th scope="col" style="width: 50px" colspan="2">
+                            <span style="margin-left: 5px; margin-right: 10px">
+                              {{ 'common.entitylogviewer.changelog.batchnbr' |
+                              translate }}
+                            </span>
+                          </th>
+                          <th scope="col" style="min-width: 50px">
+                            <span
+                              >{{
+                              'common.entitylogviewer.changelog.actionmethod' |
+                              translate }}</span
+                            >
+                          </th>
+                          <th scope="col" style="min-width: 50px">
+                            <span
+                              >{{ 'common.entitylogviewer.changelog.entity' |
+                              translate }}</span
+                            >
+                          </th>
+                          <th scope="col" style="min-width: 50px">
+                            <span>{{ 'common.name' | translate }}</span>
+                          </th>
+                          <th scope="col" style="min-width: 50px">
+                            <span
+                              >{{ 'common.entitylogviewer.changelog.columnname'
+                              | translate }}</span
+                            >
+                          </th>
+                          <th scope="col" style="width: 100px">
+                            <span
+                              >{{ 'common.entitylogviewer.changelog.action' |
+                              translate }}</span
+                            >
+                          </th>
+                          <th scope="col" style="min-width: 50px">
+                            <span>{{ 'common.from' | translate }}</span>
+                          </th>
+                          <th scope="col" style="min-width: 50px">
+                            <span>{{ 'common.to' | translate }}</span>
+                          </th>
+                          <th scope="col" style="min-width: 50px">
+                            <span>{{ 'common.modified' | translate }}</span>
+                          </th>
+                          <th scope="col" style="min-width: 50px">
+                            <span>{{ 'common.modifiedby' | translate }}</span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @if (changes.length === 0) {
+                        <tr>
+                          <td colspan="10">
+                            @if (!searching) {
+                            <soe-label
+                              class="margin-small-left"
+                              [labelKey]="'common.entitylogviewer.nologs'">
+                            </soe-label>
+                            } @if (searching) {
+                            <soe-label
+                              class="margin-small-left"
+                              [labelKey]="'core.searching'">
+                            </soe-label>
+                            }
+                          </td>
+                        </tr>
+                        } @if (changes.length > 0) { @for (change of changes;
+                        track i; let i = $index) {
+                        <tr
+                          class="link"
+                          [ngClass]="{'table-selected-row': selectedChange === change}"
+                          class="link"
+                          (click)="selectChange(change)"
+                          [class.table-selected-row]="selectedChange === change">
+                          <td>
+                            @if (selectedChange === change) {
+                            <i
+                              style="margin-left: 5px"
+                              class="fas fa-caret-right"></i>
+                            }
+                          </td>
+                          <td class="right-align-cell">
+                            <span style="margin-right: 10px"
+                              >{{ change.batchNbr }}</span
+                            >
+                          </td>
+                          <td><span>{{ change.actionMethodText }}</span></td>
+                          <td><span>{{ change.entityText }}</span></td>
+                          <td><span>{{ change.recordName }}</span></td>
+                          <td><span>{{ change.columnText }}</span></td>
+                          <td><span>{{ change.actionText }}</span></td>
+                          <td><span>{{ change.fromValueText }}</span></td>
+                          <td><span>{{ change.toValueText }}</span></td>
+                          <td>
+                            <span
+                              >{{ change.created | date:'shortDate' }} {{
+                              change.created | date:'shortTime' }}</span
+                            >
+                          </td>
+                          <td>
+                            <span>{{ change.createdBy }}</span>
+                            @if (change.role) {
+                            <span>({{ change.role }})</span>
+                            }
+                          </td>
+                        </tr>
+                        } }
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </soe-expansion-panel>
+        </div>
+        @if (isSupportAdmin && clientInfoLoaded) {
+        <div class="row margin-large-top">
+          <soe-expansion-panel
+            [labelKey]="'time.time.attest.timestamps.clientinfo'">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <soe-label
+                    [labelKey]="'time.time.attest.timestamps.clientinfo.os'"></soe-label>
+                  <div class="soe-text-value">{{ osString }}</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <soe-label
+                    [labelKey]="'time.time.attest.timestamps.clientinfo.ua'"></soe-label>
+                  <div class="soe-text-value">{{ uaString }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 5px">
+              <div class="col-sm-4">
+                <soe-label
+                  [labelKey]="'time.time.attest.timestamps.clientinfo.device'"></soe-label>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 5px">
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <soe-label
+                    [labelKey]="'time.time.attest.timestamps.clientinfo.device.brand'"></soe-label>
+                  <div class="soe-text-value">{{ deviceBrand }}</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <soe-label
+                    [labelKey]="'time.time.attest.timestamps.clientinfo.device.family'"></soe-label>
+                  <div class="soe-text-value">{{ deviceFamily }}</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <soe-label
+                    [labelKey]="'time.time.attest.timestamps.clientinfo.device.model'"></soe-label>
+                  <div class="soe-text-value">{{ deviceModel }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-large-top">
+              <div class="col-sm-12">
+                <div class="mb-3">
+                  <soe-label
+                    [labelKey]="'time.time.attest.timestamps.clientinfo.data'"></soe-label>
+                  <div class="d-block soe-textarea-value">{{ clientData }}</div>
+                </div>
+              </div>
+            </div>
+          </soe-expansion-panel>
+        </div>
+        } }
+        <div
+          class="soe-form-footer"
+          style="margin-bottom: 10px; margin-right: 5px">
+          <div class="col-sm-6 d-flex flex-row align-items-start">
+            <created-modified
+              [model]="timeStampEntry"
+              class="ps-2"></created-modified>
+          </div>
+          <div class="col-sm-6 d-flex flex-row-reverse align-items-end">
+            <div class="me-2">
+              <soe-button
+                [caption]="'core.close'"
+                [behaviour]="'standard'"
+                (action)="close()"></soe-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</soe-dialog>

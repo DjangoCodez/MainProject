@@ -1,0 +1,48 @@
+﻿<div>
+    <div>
+        <div class="row margin-small-bottom" data-ng-if="!ctrl.isReadonly">
+            <div class="col-sm-3">
+                <soe-progressbar class="margin-large-top margin-small-bottom" custom-class="progress-in-toolbar" is-busy="ctrl.executing" message="ctrl.progressMessage" data-ng-if="ctrl.executing"></soe-progressbar>
+            </div>
+            <div class="col-sm-9" data-ng-if="ctrl.isModified">
+                <button type="button" class="btn btn-sm pull-right margin-large-top margin-small-bottom ngSoeMainButton" data-l10n-bind="'core.save'" data-l10n-bind-title="'time.time.attest.timeblocks.save.tooltip'" data-ng-disabled="ctrl.executing" data-ng-click="$event.stopPropagation();ctrl.save();"></button>
+                <button type="button" class="btn btn-sm pull-right margin-large-top margin-small-bottom btn-default" data-l10n-bind data-l10n-bind-title="'time.time.attest.timeblocks.reload'" data-ng-disabled="ctrl.executing" data-ng-click="$event.stopPropagation();ctrl.reload();"><i class="fal fa-sync"></i></button>
+            </div>
+        </div>
+        <table class="table table-more-condensed table-outer-bordered table-hover strikeable" data-ng-if="ctrl.showTimePayrollTransactionsPermission">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 20px"><span style="margin-left: 2px;"><i class="fal fa-fw link" data-ng-class="{'fa-chevron-down': ctrl.expanded, 'fa-chevron-right': !ctrl.expanded}" data-ng-click="ctrl.toggleExpanded();"></i></span></th>
+                    <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('payrollProductName');"><span><span data-l10n-bind="'time.payrollproduct.payrollproduct'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='payrollProductName' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='payrollProductName' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='payrollProductName'"></i></span></th>
+                    <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('attestStateName');"><span><span data-l10n-bind="'time.time.attest.atteststate'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='attestStateName' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='attestStateName' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='attestStateName'"></i></span></th>
+                    <th scope="col" class="column-sortable right-align-cell" data-ng-click="ctrl.sort('startTimeString');"><span><span data-l10n-bind="'common.start'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='startTimeString' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='startTimeString' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='startTimeString'"></i></span></th>
+                    <th scope="col" class="column-sortable right-align-cell" data-ng-click="ctrl.sort('stopTimeString');"><span><span data-l10n-bind="'common.end'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='stopTimeString' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='stopTimeString' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='stopTimeString'"></i></span></th>
+                    <th scope="col" class="column-sortable right-align-cell" data-ng-click="ctrl.sort('quantityString');"><span><span data-l10n-bind="'common.quantity'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='quantityString' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='quantityString' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='quantityString'"></i></span></th>
+                    <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('accountingShortString');"><span><span data-l10n-bind="'common.accounting'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='accountingShortString' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='accountingShortString' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='accountingShortString'"></i></span></th>
+                    <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('employeeChildName');"><span><span data-l10n-bind="'time.schedule.absencerequests.employeechild'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='employeeChildName' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='employeeChildName' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='employeeChildName'"></i></span></th>
+                    <th scope="col" class="column-sortable" data-ng-click="ctrl.sort('comment');"><span><span data-l10n-bind="'common.comment'"></span><i class="fas" data-ng-class="{'fa-caret-down':ctrl.sortBy==='comment' && !ctrl.sortByReverse, 'fa-caret-up':ctrl.sortBy==='comment' && ctrl.sortByReverse}" data-ng-if="ctrl.sortBy==='comment'"></i></span></th>
+                    <th scope="col" style="width: 56px" colspan="2" data-ng-if="ctrl.isReadonly || !ctrl.editTransactionsPermission"></th>
+                    <th scope="col" style="width: 84px; text-align: right;" colspan="3" class="table-header-button" data-l10n-bind data-l10n-bind-title="'time.payroll.payrollcalculation.addtransaction'" data-ng-if="!ctrl.isReadonly && ctrl.editTransactionsPermission" data-ng-click="ctrl.initEditTransaction(null);">
+                        <span><i class="fal fa-plus" data-ng-class="{'disabled-icon': ctrl.isGenerated}"></i></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="trans in ctrl.model.attestPayrollTransactions | orderBy:ctrl.sortBy:ctrl.sortByReverse track by $index" data-ng-if="ctrl.expanded">
+                <tr data-ng-class="{'table-selected-row': ctrl.selectedTransaction === trans, 'strikeout': trans.isReversed, 'marked': trans.timeCodeTransactionId > 0 && trans.timeCodeTransactionId === ctrl.selectedTimeCodeTransactionId}" data-ng-click="ctrl.transactionSelected(trans)">
+                    <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedTransaction === trans"></i></td>
+                    <td data-ng-class="{'strikeout': trans.isReversed}"><span>{{trans.payrollProductNumber}} {{trans.payrollProductName}}</span></td>
+                    <td data-ng-class="{'strikeout': trans.isReversed}"><span data-ng-if="!trans.isScheduleTransaction"><span><svg height="16px" width="16px" style="margin-bottom: -2px;"><circle class="shape" cx="8" cy="8" r="8" data-ng-style="{'fill': trans.attestStateColor}" data-ng-if="trans.attestStateColor"></circle></svg></span><span class="shape-text">{{trans.attestStateName}}</span></span></td>
+                    <td class="timeattest-transaction right-align-cell" data-ng-class="{'strikeout': trans.isReversed, 'absence': trans.isAbsence, 'presence': trans.isPresence}"><span data-ng-if="!trans.isTimeZero">{{trans.startTimeString}}</span></td>
+                    <td class="timeattest-transaction right-align-cell" data-ng-class="{'strikeout': trans.isReversed, 'absence': trans.isAbsence, 'presence': trans.isPresence}"><span data-ng-if="!trans.isTimeZero">{{trans.stopTimeString}}</span></td>
+                    <td class="timeattest-transaction right-align-cell" data-ng-class="{'strikeout': trans.isReversed, 'absence': trans.isAbsence, 'presence': trans.isPresence}"><span>{{trans.quantityString}}</span></td>
+                    <td data-ng-class="{'strikeout': trans.isReversed}" title="{{trans.accountingLongString}}"><span>{{trans.accountingShortString}}</span></td>
+                    <td data-ng-class="{'strikeout': trans.isReversed}"><span>{{trans.employeeChildName}}</span></td>
+                    <td data-ng-class="{'strikeout': trans.isReversed}"><span>{{trans.comment}}</span></td>
+                    <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.showinfo'"><i class="fal fa-info-circle infoColor link" style="margin-left: 3px;" data-ng-click="ctrl.showInfo(trans);"></i></span></td>
+                    <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'common.showcomment'"><i class="fal fa-comment-dots link" style="margin-left: 3px;" data-ng-if="trans.comment" data-ng-click="ctrl.showComment(trans);"></i></span></td>
+                    <td style="width: 28px" data-ng-if="!ctrl.isReadonly && ctrl.editTransactionsPermission"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-class="{'disabled-icon': !ctrl.canEditTransaction(trans)}" style="margin-left: 3px;" data-ng-click="ctrl.initEditTransaction(trans);"></i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

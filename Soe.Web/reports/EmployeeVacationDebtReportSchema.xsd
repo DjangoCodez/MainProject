@@ -1,0 +1,506 @@
+﻿<xs:schema id="SOE_EmployeeVacationDebtReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="SOE_EmployeeVacationDebtReport" msdata:IsDataSet="true" msdata:Locale="en-US">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="EmployeeVacationDebtReport">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="TimeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="TimePeriodLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="DateIntervalLabel" type="xs:string" minOccurs="0" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+										<xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+										<xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+										<xs:element name="Company" type="xs:string" minOccurs="0" />
+										<xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+										<xs:element name="LoginName" type="xs:string" minOccurs="0" />
+										<xs:element name="TimePeriod" type="xs:string" minOccurs="0" />
+										<xs:element name="SortByLevel1" type="xs:string" minOccurs="0" />
+										<xs:element name="SortByLevel2" type="xs:string" minOccurs="0" />
+										<xs:element name="SortByLevel3" type="xs:string" minOccurs="0" />
+										<xs:element name="SortByLevel4" type="xs:string" minOccurs="0" />
+										<xs:element name="IsSortAscending" type="xs:string" minOccurs="0" />
+										<xs:element name="GroupByLevel1" type="xs:string" minOccurs="0" />
+										<xs:element name="GroupByLevel2" type="xs:string" minOccurs="0" />
+										<xs:element name="GroupByLevel3" type="xs:string" minOccurs="0" />
+										<xs:element name="GroupByLevel4" type="xs:string" minOccurs="0" />
+										<xs:element name="Special" type="xs:string" minOccurs="0" />
+										<xs:element name="DateInterval" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr1Name" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr1ShortName" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr1SieDimNr" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr2Name" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr2ShortName" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr2SieDimNr" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr3Name" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr3ShortName" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr3SieDimNr" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr4Name" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr4ShortName" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr4SieDimNr" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr5Name" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr5ShortName" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr5SieDimNr" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr6Name" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr6ShortName" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountDimNr6SieDimNr" type="xs:string" minOccurs="0" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="EmployeeNrLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="EmployeeNameLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="EarnedDaysLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="PaidDaysLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="UnpaidDaysLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="AdvanceLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="SavedDaysLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="SavedDaysYear1Label" type="xs:string" minOccurs="0"/>
+										<xs:element name="SavedDaysYear2Label" type="xs:string" minOccurs="0" />
+										<xs:element name="SavedDaysYear3Label" type="xs:string" minOccurs="0" />
+										<xs:element name="SavedDaysYear4Label" type="xs:string" minOccurs="0"  />
+										<xs:element name="SavedDaysYear5Label" type="xs:string" minOccurs="0" />
+										<xs:element name="SavedDaysOverdueLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="UsedDaysLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="RemainingDaysLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="EmploymentRateLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="DebtInAdvanceLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="AmountLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="DueDateLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="PrelUsedDaysLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="DeleteLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="FactorsLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="TypeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="FromLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="CreatedLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="CreatedByLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ModifiedLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ModifiedByLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="PriceLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="QuantityLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="VacationRightLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="VacationOwedLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="VacationAgreementLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="EarningYearLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="VacationOwedCalcToLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="TotalLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="VacationSalaryOwedLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="SumVacationSalaryOwedLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="MissingLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="SumLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="SettingCountDaysLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcTypeLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcTypeLabel1" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcTypeLabel2" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcTypeLabel11" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcTypeLabel13" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcTypeLabel14" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcTypeLabel21" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcTypeLabel22" type="xs:string" minOccurs="0"/>
+										<xs:element name="IncreasdvacRightLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="DaysLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="HoursLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="LaborpassLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcPeriodEarningAmountLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="DateOfEmploymentLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcOfVacationPurposeLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcOfVacationRule1Label" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcOfVacationRule2Label" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcOfVacationRule3Label" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcOfVacationGaranteeAmountLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcOfVacGarAmountHandelsLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="JanuariLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="februariLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="marsLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="aprilLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="majLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="juniLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="juliLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="augustiLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="septemberLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="oktoberLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="novemberLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="decemberLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="VacationRightLongLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="VacationBaseAlterLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="VacationBaseLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="IfLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="UseLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="ElseUseLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="PercentBaseLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="VacationSalaryLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="VacationAddsLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="VacationHandeldByLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="VacationSalaryPaidLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcMoveableVacLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcMoveableAddLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="PerDayLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="IfCalcAmountLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcGarAmountLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcAmountLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcDaysLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="SettingCalcVacSalaryLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="IncreasedVacRightLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="TotalDebptLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="CalcVatSalaryLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="DetCalcLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="VacationDateLabel" type="xs:string" minOccurs="0"/>
+										<xs:element name="DimensionStandardNameLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionStandardShortNameLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternalName1Label" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternalShortName1Label" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternal1SieType" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternalName2Label" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternalShortName2Label" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternal2SieType" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternalName3Label" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternalShortName3Label" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternal3SieType" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternalName4Label" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternalShortName4Label" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternal4SieType" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternalName5Label" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternalShortName5Label" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternal5SieType" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternalName6Label" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternalShortName6Label" type="xs:string" minOccurs="0" />
+										<xs:element name="DimensionInternal6SieType" type="xs:string" minOccurs="0" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="VacationGroup" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="VacationGroupId" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+										<xs:element name="VacationGroupName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+										<xs:element name="VacationGroupType" type="xs:int" minOccurs="0" msdata:Ordinal="2" />
+										<xs:element name="VacationGroupTypeName" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+										<xs:element name="VacationGroupFromDate" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+										<xs:element name="VacationDaysPaidByLaw" type="xs:int" minOccurs="0" msdata:Ordinal="5" />
+										<xs:element name="VacationDayCalculationType" type="xs:int" minOccurs="0" msdata:Ordinal="6" />
+										<xs:element name="UseAdditionalVacationDays" type="xs:int" minOccurs="0" msdata:Ordinal="7" />
+										<xs:element name="NbrOfAdditionalVacationDays" type="xs:int" minOccurs="0" msdata:Ordinal="8" />
+										<xs:element name="AdditionalVacationDaysFromAge1" type="xs:int" minOccurs="0" msdata:Ordinal="9" />
+										<xs:element name="AdditionalVacationDays1" type="xs:int" minOccurs="0" msdata:Ordinal="10" />
+										<xs:element name="AdditionalVacationDaysFromAge2" type="xs:int" minOccurs="0" msdata:Ordinal="11" />
+										<xs:element name="AdditionalVacationDays2" type="xs:int" minOccurs="0" msdata:Ordinal="12" />
+										<xs:element name="AdditionalVacationDaysFromAge3" type="xs:int" minOccurs="0" msdata:Ordinal="13" />
+										<xs:element name="AdditionalVacationDays3" type="xs:int" minOccurs="0" msdata:Ordinal="14" />
+										<xs:element name="VacationHandleRule" type="xs:int" minOccurs="0" msdata:Ordinal="15" />
+										<xs:element name="VacationDaysHandleRule" type="xs:int" minOccurs="0" msdata:Ordinal="16" />
+										<xs:element name="VacationDaysGrossUseFiveDaysPerWeek" type="xs:int" minOccurs="0" msdata:Ordinal="17" />
+										<xs:element name="RemainingDaysRule" type="xs:int" minOccurs="0" msdata:Ordinal="18" />
+										<xs:element name="UseMaxRemainingDays" type="xs:int" minOccurs="0" msdata:Ordinal="19" />
+										<xs:element name="MaxRemainingDays" type="xs:int" minOccurs="0" msdata:Ordinal="20" />
+										<xs:element name="RemainingDaysPayoutMonth" type="xs:int" minOccurs="0" msdata:Ordinal="21" />
+										<xs:element name="EarningYearAmountFromDate" type="xs:string" minOccurs="0" msdata:Ordinal="22" />
+										<xs:element name="EarningYearVariableAmountFromDate" type="xs:string" minOccurs="0" msdata:Ordinal="23" />
+										<xs:element name="VacationDayPercent" type="xs:decimal" minOccurs="0" msdata:Ordinal="24" />
+										<xs:element name="VacationDayAdditionPercent" type="xs:decimal" minOccurs="0" msdata:Ordinal="25" />
+										<xs:element name="VacationVariablePercent" type="xs:decimal" minOccurs="0" msdata:Ordinal="26" />
+										<xs:element name="UseGuaranteeAmount" type="xs:int" minOccurs="0" msdata:Ordinal="27" />
+										<xs:element name="GuaranteeAmountAccordingToHandels" type="xs:int" minOccurs="0" msdata:Ordinal="28" />
+										<xs:element name="GuaranteeAmountMaxNbrOfDaysRule" type="xs:int" minOccurs="0" msdata:Ordinal="29" />
+										<xs:element name="GuaranteeAmountEmployedNbrOfYears" type="xs:int" minOccurs="0" msdata:Ordinal="30" />
+										<xs:element name="GuaranteeAmountJuvenile" type="xs:int" minOccurs="0" msdata:Ordinal="31" />
+										<xs:element name="GuaranteeAmountJuvenileAgeLimit" type="xs:int" minOccurs="0" msdata:Ordinal="32" />
+										<xs:element name="VacationAbsenceCalculationRule" type="xs:int" minOccurs="0" msdata:Ordinal="33" />
+										<xs:element name="VacationSalaryPayoutRule" type="xs:int" minOccurs="0" msdata:Ordinal="34" />
+										<xs:element name="VacationSalaryPayoutDays" type="xs:int" minOccurs="0" msdata:Ordinal="35" />
+										<xs:element name="VacationSalaryPayoutMonth" type="xs:int" minOccurs="0" msdata:Ordinal="36" />
+										<xs:element name="YearEndRemainingDaysRule" type="xs:int" minOccurs="0" msdata:Ordinal="37" />
+										<xs:element name="YearEndOverdueDaysRule" type="xs:int" minOccurs="0" msdata:Ordinal="38" />
+										<xs:element name="YearEndVacationVariableRule" type="xs:int" minOccurs="0" msdata:Ordinal="39" />
+										<xs:element name="FormulaParam" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="FormulaParamCode" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+													<xs:element name="FormulaParamName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+												</xs:sequence>
+												<xs:attribute name="Id" type="xs:string" />
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="Employee" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="EmployeeId" type="xs:int" minOccurs="0" msdata:Ordinal="0" />
+													<xs:element name="EmployeeNr" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+													<xs:element name="EmployeeName" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+													<xs:element name="Employment" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="EmploymentDateFrom" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+																<xs:element name="EmploymentDateTo" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+																<xs:element name="BaseWorkTimeWeek" type="xs:int" minOccurs="0" msdata:Ordinal="2" />
+																<xs:element name="WorkTimeWeek" type="xs:int" minOccurs="0" msdata:Ordinal="3" />
+																<xs:element name="WorkPercentage" type="xs:decimal" minOccurs="0" msdata:Ordinal="4" />
+																<xs:element name="ExperienceMonths" type="xs:int" minOccurs="0" msdata:Ordinal="5" />
+																<xs:element name="ExperienceAgreedOrEstablished" type="xs:int" minOccurs="0" msdata:Ordinal="6" />
+																<xs:element name="VacationDaysPayed" type="xs:decimal" minOccurs="0" msdata:Ordinal="7" />
+																<xs:element name="VacationDaysUnpayed" type="xs:decimal" minOccurs="0" msdata:Ordinal="8" />
+																<xs:element name="SpecialConditions" type="xs:string" minOccurs="0" msdata:Ordinal="9" />
+																<xs:element name="WorkPlace" type="xs:string" minOccurs="0" msdata:Ordinal="10" />
+																<xs:element name="SubstituteFor" type="xs:string" minOccurs="0" msdata:Ordinal="11" />
+																<xs:element name="EndReason" type="xs:int" minOccurs="0" msdata:Ordinal="12" />
+																<xs:element name="EndReasonName" type="xs:string" minOccurs="0" msdata:Ordinal="13" />
+																<xs:element name="AccountDimNr1Nr" type="xs:string" minOccurs="0" msdata:Ordinal="50" />
+																<xs:element name="AccountDimNr1Name" type="xs:string" minOccurs="0" msdata:Ordinal="51" />
+																<xs:element name="AccountDimNr2Nr" type="xs:string" minOccurs="0" msdata:Ordinal="52" />
+																<xs:element name="AccountDimNr2Name" type="xs:string" minOccurs="0" msdata:Ordinal="53" />
+																<xs:element name="AccountDimNr3Nr" type="xs:string" minOccurs="0" msdata:Ordinal="54" />
+																<xs:element name="AccountDimNr3Name" type="xs:string" minOccurs="0" msdata:Ordinal="55" />
+																<xs:element name="AccountDimNr4Nr" type="xs:string" minOccurs="0" msdata:Ordinal="56" />
+																<xs:element name="AccountDimNr4Name" type="xs:string" minOccurs="0" msdata:Ordinal="57" />
+																<xs:element name="AccountDimNr5Nr" type="xs:string" minOccurs="0" msdata:Ordinal="58" />
+																<xs:element name="AccountDimNr5Name" type="xs:string" minOccurs="0" msdata:Ordinal="59" />
+																<xs:element name="AccountDimNr6Nr" type="xs:string" minOccurs="0" msdata:Ordinal="60" />
+																<xs:element name="AccountDimNr6Name" type="xs:string" minOccurs="0" msdata:Ordinal="61" />
+															</xs:sequence>
+															<xs:attribute name="Id" type="xs:string" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="FormulaSum" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="FormulaSum_AD" type="xs:decimal" minOccurs="0" msdata:Ordinal="10" />
+																<xs:element name="FormulaSum_ARB" type="xs:decimal" minOccurs="0" msdata:Ordinal="20" />
+																<xs:element name="FormulaSum_ARBP" type="xs:decimal" minOccurs="0" msdata:Ordinal="30" />
+																<xs:element name="FormulaSum_ARBT" type="xs:decimal" minOccurs="0" msdata:Ordinal="40" />
+																<xs:element name="FormulaSum_BARB" type="xs:decimal" minOccurs="0" msdata:Ordinal="50" />
+																<xs:element name="FormulaSum_BV" type="xs:decimal" minOccurs="0" msdata:Ordinal="60" />
+																<xs:element name="FormulaSum_ESGF" type="xs:decimal" minOccurs="0" msdata:Ordinal="70" />
+																<xs:element name="FormulaSum_ESGFKH" type="xs:decimal" minOccurs="0" msdata:Ordinal="80" />
+																<xs:element name="FormulaSum_GB" type="xs:decimal" minOccurs="0" msdata:Ordinal="90" />
+																<xs:element name="FormulaSum_GBU" type="xs:decimal" minOccurs="0" msdata:Ordinal="100" />
+																<xs:element name="FormulaSum_GS" type="xs:decimal" minOccurs="0" msdata:Ordinal="110" />
+																<xs:element name="FormulaSum_ML" type="xs:decimal" minOccurs="0" msdata:Ordinal="120" />
+																<xs:element name="FormulaSum_NF" type="xs:decimal" minOccurs="0" msdata:Ordinal="130" />
+																<xs:element name="FormulaSum_SB" type="xs:decimal" minOccurs="0" msdata:Ordinal="140" />
+																<xs:element name="FormulaSum_SB_NETTO" type="xs:decimal" minOccurs="0" msdata:Ordinal="150" />
+																<xs:element name="FormulaSum_SBU" type="xs:decimal" minOccurs="0" msdata:Ordinal="160" />
+																<xs:element name="FormulaSum_SBURT" type="xs:decimal" minOccurs="0" msdata:Ordinal="170" />
+																<xs:element name="FormulaSum_SBUT" type="xs:decimal" minOccurs="0" msdata:Ordinal="180" />
+																<xs:element name="FormulaSum_SEMOP" type="xs:decimal" minOccurs="0" msdata:Ordinal="190" />
+																<xs:element name="FormulaSum_SEMP" type="xs:decimal" minOccurs="0" msdata:Ordinal="200" />
+																<xs:element name="FormulaSum_SEMPU" type="xs:decimal" minOccurs="0" msdata:Ordinal="205" />
+																<xs:element name="FormulaSum_SEMROP" type="xs:decimal" minOccurs="0" msdata:Ordinal="210" />
+																<xs:element name="FormulaSum_SEMRP" type="xs:decimal" minOccurs="0" msdata:Ordinal="220" />
+																<xs:element name="FormulaSum_SEMTP" type="xs:decimal" minOccurs="0" msdata:Ordinal="230" />
+																<xs:element name="FormulaSum_SEMTOP" type="xs:decimal" minOccurs="0" msdata:Ordinal="240" />
+																<xs:element name="FormulaSum_SF" type="xs:decimal" minOccurs="0" msdata:Ordinal="250" />
+																<xs:element name="FormulaSum_SGD" type="xs:decimal" minOccurs="0" msdata:Ordinal="260" />
+																<xs:element name="FormulaSum_SGF" type="xs:decimal" minOccurs="0" msdata:Ordinal="270" />
+																<xs:element name="FormulaSum_SGFD" type="xs:decimal" minOccurs="0" msdata:Ordinal="280" />
+																<xs:element name="FormulaSum_SGFDH" type="xs:decimal" minOccurs="0" msdata:Ordinal="290" />
+																<xs:element name="FormulaSum_SGFV" type="xs:decimal" minOccurs="0" msdata:Ordinal="300" />
+																<xs:element name="FormulaSum_SGL" type="xs:decimal" minOccurs="0" msdata:Ordinal="310" />
+																<xs:element name="FormulaSum_SGR" type="xs:decimal" minOccurs="0" msdata:Ordinal="320" />
+																<xs:element name="FormulaSum_SGT" type="xs:decimal" minOccurs="0" msdata:Ordinal="330" />
+																<xs:element name="FormulaSum_SL" type="xs:decimal" minOccurs="0" msdata:Ordinal="340" />
+																<xs:element name="FormulaSum_SLB" type="xs:decimal" minOccurs="0" msdata:Ordinal="350" />
+																<xs:element name="FormulaSum_SLD" type="xs:decimal" minOccurs="0" msdata:Ordinal="360" />
+																<xs:element name="FormulaSum_SLDB" type="xs:decimal" minOccurs="0" msdata:Ordinal="361" />
+																<xs:element name="FormulaSum_SLDS1" type="xs:decimal" minOccurs="0" msdata:Ordinal="362" />
+																<xs:element name="FormulaSum_SLDS2" type="xs:decimal" minOccurs="0" msdata:Ordinal="363" />
+																<xs:element name="FormulaSum_SLDS3" type="xs:decimal" minOccurs="0" msdata:Ordinal="364" />
+																<xs:element name="FormulaSum_SLDS4" type="xs:decimal" minOccurs="0" msdata:Ordinal="365" />
+																<xs:element name="FormulaSum_SLDS5" type="xs:decimal" minOccurs="0" msdata:Ordinal="366" />
+																<xs:element name="FormulaSum_SLDSF" type="xs:decimal" minOccurs="0" msdata:Ordinal="367" />
+																<xs:element name="FormulaSum_SLDU" type="xs:decimal" minOccurs="0" msdata:Ordinal="368" />
+																<xs:element name="FormulaSum_SN" type="xs:decimal" minOccurs="0" msdata:Ordinal="370" />
+																<xs:element name="FormulaSum_SO" type="xs:decimal" minOccurs="0" msdata:Ordinal="380" />
+																<xs:element name="FormulaSum_SR" type="xs:decimal" minOccurs="0" msdata:Ordinal="390" />
+																<xs:element name="FormulaSum_SSG" type="xs:decimal" minOccurs="0" msdata:Ordinal="400" />
+																<xs:element name="FormulaSum_SSGA" type="xs:decimal" minOccurs="0" msdata:Ordinal="410" />
+																<xs:element name="FormulaSum_SSGB" type="xs:decimal" minOccurs="0" msdata:Ordinal="420" />
+																<xs:element name="FormulaSum_ST" type="xs:decimal" minOccurs="0" msdata:Ordinal="430" />
+																<xs:element name="FormulaSum_STR" type="xs:decimal" minOccurs="0" msdata:Ordinal="440" />
+																<xs:element name="FormulaSum_STRD" type="xs:decimal" minOccurs="0" msdata:Ordinal="450" />
+																<xs:element name="FormulaSum_TL" type="xs:decimal" minOccurs="0" msdata:Ordinal="460" />
+																<xs:element name="FormulaSum_ABD" type="xs:decimal" minOccurs="0" msdata:Ordinal="470" />
+																<xs:element name="FormulaSum_ASD" type="xs:decimal" minOccurs="0" msdata:Ordinal="480" />
+																<xs:element name="FormulaSum_VBD" type="xs:decimal" minOccurs="0" msdata:Ordinal="490" />
+																<xs:element name="FormulaSum_VSD" type="xs:decimal" minOccurs="0" msdata:Ordinal="500" />
+																<xs:element name="FormulaSum_VID" type="xs:decimal" minOccurs="0" msdata:Ordinal="510" />
+																<xs:element name="FormulaSum_VBSTR" type="xs:decimal" minOccurs="0" msdata:Ordinal="515" />
+																<xs:element name="FormulaSum_BSTRA" type="xs:decimal" minOccurs="0" msdata:Ordinal="516" />
+																<xs:element name="FormulaSum_VSSTR" type="xs:decimal" minOccurs="0" msdata:Ordinal="517" />
+																<xs:element name="FormulaSum_SSTRA" type="xs:decimal" minOccurs="0" msdata:Ordinal="518" />
+																<xs:element name="FormulaSum_VISTR" type="xs:decimal" minOccurs="0" msdata:Ordinal="519" />
+																<xs:element name="FormulaSum_VFD" type="xs:decimal" minOccurs="0" msdata:Ordinal="520" />
+																<xs:element name="FormulaSum_TABD" type="xs:decimal" minOccurs="0" msdata:Ordinal="521" />
+																<xs:element name="FormulaSum_TASD" type="xs:decimal" minOccurs="0" msdata:Ordinal="530" />
+																<xs:element name="FormulaSum_TVBD" type="xs:decimal" minOccurs="0" msdata:Ordinal="540" />
+																<xs:element name="FormulaSum_TVSD" type="xs:decimal" minOccurs="0" msdata:Ordinal="550" />
+																<xs:element name="FormulaSum_TVID" type="xs:decimal" minOccurs="0" msdata:Ordinal="560" />
+															</xs:sequence>
+															<xs:attribute name="Id" type="xs:string" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="EmployeeVacationSE" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="EmployeeVacationSEId" type="xs:int" minOccurs="0" msdata:Ordinal="0" />
+																<xs:element name="EarnedDaysPaid" type="xs:decimal" minOccurs="0" msdata:Ordinal="1" />
+																<xs:element name="EarnedDaysUnpaid" type="xs:decimal" minOccurs="0" msdata:Ordinal="2" />
+																<xs:element name="EarnedDaysAdvance" type="xs:decimal" minOccurs="0" msdata:Ordinal="3" />
+																<xs:element name="SavedDaysYear1" type="xs:decimal" minOccurs="0" msdata:Ordinal="4" />
+																<xs:element name="SavedDaysYear2" type="xs:decimal" minOccurs="0" msdata:Ordinal="5" />
+																<xs:element name="SavedDaysYear3" type="xs:decimal" minOccurs="0" msdata:Ordinal="6" />
+																<xs:element name="SavedDaysYear4" type="xs:decimal" minOccurs="0" msdata:Ordinal="7" />
+																<xs:element name="SavedDaysYear5" type="xs:decimal" minOccurs="0" msdata:Ordinal="8" />
+																<xs:element name="SavedDaysOverdue" type="xs:decimal" minOccurs="0" msdata:Ordinal="9" />
+																<xs:element name="UsedDaysPaid" type="xs:decimal" minOccurs="0" msdata:Ordinal="10" />
+																<xs:element name="PaidVacationAllowance" type="xs:decimal" minOccurs="0" msdata:Ordinal="11" />
+																<xs:element name="PaidVacationVariableAllowance" type="xs:decimal" minOccurs="0" msdata:Ordinal="20" />
+																<xs:element name="UsedDaysUnpaid" type="xs:decimal" minOccurs="0" msdata:Ordinal="25" />
+																<xs:element name="UsedDaysAdvance" type="xs:decimal" minOccurs="0" msdata:Ordinal="30" />
+																<xs:element name="UsedDaysYear1" type="xs:decimal" minOccurs="0" msdata:Ordinal="35" />
+																<xs:element name="UsedDaysYear2" type="xs:decimal" minOccurs="0" msdata:Ordinal="40" />
+																<xs:element name="UsedDaysYear3" type="xs:decimal" minOccurs="0" msdata:Ordinal="45" />
+																<xs:element name="UsedDaysYear4" type="xs:decimal" minOccurs="0" msdata:Ordinal="50" />
+																<xs:element name="UsedDaysYear5" type="xs:decimal" minOccurs="0" msdata:Ordinal="55" />
+																<xs:element name="UsedDaysOverdue" type="xs:decimal" minOccurs="0" msdata:Ordinal="60" />
+																<xs:element name="RemainingDaysPaid" type="xs:decimal" minOccurs="0" msdata:Ordinal="65" />
+																<xs:element name="RemainingDaysUnpaid" type="xs:decimal" minOccurs="0" msdata:Ordinal="70" />
+																<xs:element name="RemainingDaysAdvance" type="xs:decimal" minOccurs="0" msdata:Ordinal="75" />
+																<xs:element name="RemainingDaysYear1" type="xs:decimal" minOccurs="0" msdata:Ordinal="80" />
+																<xs:element name="RemainingDaysYear2" type="xs:decimal" minOccurs="0" msdata:Ordinal="85" />
+																<xs:element name="RemainingDaysYear3" type="xs:decimal" minOccurs="0" msdata:Ordinal="86" />
+																<xs:element name="RemainingDaysYear4" type="xs:decimal" minOccurs="0" msdata:Ordinal="87" />
+																<xs:element name="RemainingDaysYear5" type="xs:decimal" minOccurs="0" msdata:Ordinal="88" />
+																<xs:element name="RemainingDaysOverdue" type="xs:decimal" minOccurs="0" msdata:Ordinal="90" />
+																<xs:element name="EarnedDaysRemainingHoursPaid" type="xs:decimal" minOccurs="0" msdata:Ordinal="95" />
+																<xs:element name="EarnedDaysRemainingHoursUnpaid" type="xs:decimal" minOccurs="0" msdata:Ordinal="97" />
+																<xs:element name="EarnedDaysRemainingHoursAdvance" type="xs:decimal" minOccurs="0" msdata:Ordinal="99" />
+																<xs:element name="EarnedDaysRemainingHoursYear1" type="xs:decimal" minOccurs="0" msdata:Ordinal="100" />
+																<xs:element name="EarnedDaysRemainingHoursYear2" type="xs:decimal" minOccurs="0" msdata:Ordinal="101" />
+																<xs:element name="EarnedDaysRemainingHoursYear3" type="xs:decimal" minOccurs="0" msdata:Ordinal="102" />
+																<xs:element name="EarnedDaysRemainingHoursYear4" type="xs:decimal" minOccurs="0" msdata:Ordinal="103" />
+																<xs:element name="EarnedDaysRemainingHoursYear5" type="xs:decimal" minOccurs="0" msdata:Ordinal="110" />
+																<xs:element name="EarnedDaysRemainingHoursOverdue" type="xs:decimal" minOccurs="0" msdata:Ordinal="115" />
+																<xs:element name="EmploymentRatePaid" type="xs:decimal" minOccurs="0" msdata:Ordinal="120" />
+																<xs:element name="EmploymentRateYear1" type="xs:decimal" minOccurs="0" msdata:Ordinal="121" />
+																<xs:element name="EmploymentRateYear2" type="xs:decimal" minOccurs="0" msdata:Ordinal="122" />
+																<xs:element name="EmploymentRateYear3" type="xs:decimal" minOccurs="0" msdata:Ordinal="123" />
+																<xs:element name="EmploymentRateYear4" type="xs:decimal" minOccurs="0" msdata:Ordinal="124" />
+																<xs:element name="EmploymentRateYear5" type="xs:decimal" minOccurs="0" msdata:Ordinal="125" />
+																<xs:element name="EmploymentRateOverdue" type="xs:decimal" minOccurs="0" msdata:Ordinal="126" />
+																<xs:element name="DebtInAdvanceAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="127" />
+																<xs:element name="DebtInAdvanceDueDate" type="xs:string" minOccurs="0" msdata:Ordinal="128" />
+																<xs:element name="DebtInAdvanceDelete" type="xs:int" minOccurs="0" msdata:Ordinal="129" />
+																<xs:element name="PrelUsedDays" type="xs:decimal" minOccurs="0" msdata:Ordinal="130" />
+																<xs:element name="EmployeeVacationSECreated" type="xs:string" minOccurs="0" msdata:Ordinal="131" />
+																<xs:element name="EmployeeVacationSECreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="132" />
+																<xs:element name="EmployeeVacationSEModified" type="xs:string" minOccurs="0" msdata:Ordinal="133" />
+																<xs:element name="EmployeeVacationSEModifiedBy" type="xs:string" minOccurs="0" msdata:Ordinal="134" />
+															</xs:sequence>
+															<xs:attribute name="Id" type="xs:string" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="EmployeeFactor" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="Type" type="xs:int" minOccurs="0" msdata:Ordinal="0" />
+																<xs:element name="TypeName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+																<xs:element name="FromDate" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+																<xs:element name="Factor" type="xs:decimal" minOccurs="0" msdata:Ordinal="4" />
+															</xs:sequence>
+															<xs:attribute name="Id" type="xs:string" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="Categories" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="CategoryCode" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+																<xs:element name="CategoryName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+																<xs:element name="CategoryIsDefault" type="xs:int" minOccurs="0" msdata:Ordinal="2" />
+																<xs:element name="CategoryDateFrom" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+																<xs:element name="CategoryDateTo" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+															</xs:sequence>
+															<xs:attribute name="Id" type="xs:string" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="CostAccount" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="CostAccountNr" type="xs:string"  minOccurs="0" msdata:Ordinal="0" />
+																<xs:element name="CostAccountName" type="xs:string"  minOccurs="0" msdata:Ordinal="1" />
+																<xs:element name="InternalCostAccounts" minOccurs="0" maxOccurs="unbounded">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="CostInternalAccountNr" type="xs:string"  minOccurs="0" msdata:Ordinal="0" />
+																			<xs:element name="CostInternalAccountName" type="xs:string"  minOccurs="0" msdata:Ordinal="1" />
+																			<xs:element name="CostSieDimNr" type="xs:string"  minOccurs="0" msdata:Ordinal="2" />
+																			<xs:element name="CostDimNr" type="xs:string"  minOccurs="0" msdata:Ordinal="3" />
+																		</xs:sequence>
+																		<xs:attribute name="Id" type="xs:string" />
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+															<xs:attribute name="Id" type="xs:string" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="RevenueAccount" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="RevenueAccountNr" type="xs:string"  minOccurs="0" msdata:Ordinal="0" />
+																<xs:element name="RevenueAccountName" type="xs:string"  minOccurs="0" msdata:Ordinal="1" />
+																<xs:element name="InternalRevenueAccounts" minOccurs="0" maxOccurs="unbounded">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="RevenueInternalAccountNr" type="xs:string"  minOccurs="0" msdata:Ordinal="0" />
+																			<xs:element name="RevenueInternalAccountName" type="xs:string"  minOccurs="0" msdata:Ordinal="1" />
+																			<xs:element name="RevenueSieDimNr" type="xs:string"  minOccurs="0" msdata:Ordinal="2" />
+																			<xs:element name="RevenueDimNr" type="xs:string"  minOccurs="0" msdata:Ordinal="3" />
+																		</xs:sequence>
+																		<xs:attribute name="Id" type="xs:string" />
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+															<xs:attribute name="Id" type="xs:string" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="Formula" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="FormulaName" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+																<xs:element name="FormulaPlain" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+																<xs:element name="FormulaExtracted" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+																<xs:element name="FormulaNames" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+																<xs:element name="FormulaValue" type="xs:decimal" minOccurs="0" msdata:Ordinal="4" />
+																<xs:element name="FormulaError" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+																<xs:element name="FormulaOrigin" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+															</xs:sequence>
+															<xs:attribute name="Id" type="xs:string" />
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="Id" type="xs:string" />
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="Id" type="xs:string" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

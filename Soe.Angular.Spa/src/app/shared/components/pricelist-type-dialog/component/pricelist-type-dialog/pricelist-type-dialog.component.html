@@ -1,0 +1,57 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="'common.name'"
+              formControlName="name"></soe-textbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="'common.description'"
+              formControlName="description"></soe-textbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'common.customer.invoices.currency'"
+              formControlName="currencyId"
+              [items]="currencies"></soe-select>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-3">
+            <soe-checkbox
+              [labelKey]="'common.incvat'"
+              formControlName="inclusiveVat"></soe-checkbox>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-3">
+            <soe-checkbox
+              [labelKey]="'common.customer.invoices.projectpricelist'"
+              formControlName="isProjectPriceList"></soe-checkbox>
+          </div>
+        </div>
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    <soe-delete-button (action)="closeDialog()"> </soe-delete-button>
+    <soe-save-button
+      [behaviour]="'standard'"
+      [caption]="'core.save'"
+      (action)="ok()"
+      [invalid]="form.invalid">
+    </soe-save-button>
+  </div>
+</soe-dialog>

@@ -1,0 +1,39 @@
+﻿<div class="messagebox">
+    <div class="modal-header" data-ng-if="!ctrl.progress.progressBusy">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.payroll.payment.createextendedfilenorway'"></h6>
+    </div>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+    <div class="modal-body" data-ng-if="!ctrl.progress.progressBusy">
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-textbox label-key="time.time.timeperiod.timeperiod" readonly="true" model="ctrl.selection.timePeriodName" "></soe-textbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <soe-textbox label-key="common.customer.contracts.contractnumber" model="ctrl.agreementNumber" readonly="true"></soe-textbox>
+            </div>
+            <div class="col-sm-2">
+                <soe-textbox label-key="common.customer.customer.customernr" readonly="true" model="ctrl.senderIdentification"></soe-textbox>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <soe-textbox label-key="common.customer.invoices.currencyrate" model="ctrl.currencyRate" set-focus="true" numeric="true" maxlength="15" decimals="4"></soe-textbox>
+            </div>
+            <div class="col-sm-2">
+                <soe-datepicker label-key="time.payroll.payment.currencydate" model="ctrl.currencyDate"></soe-datepicker>
+            </div>
+            <div class="col-sm-2">
+                <soe-textbox label-key="common.currency" readonly="true" model="ctrl.currencyType.name"></soe-textbox>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer" data-ng-if="!ctrl.progress.progressBusy">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.create'" data-ng-disabled="!ctrl.currencyRate || ctrl.currencyRate < 0.0001 || ctrl.exporting || !ctrl.currencyDate" data-ng-click="ctrl.create()"></button>
+    </div>
+</div>    

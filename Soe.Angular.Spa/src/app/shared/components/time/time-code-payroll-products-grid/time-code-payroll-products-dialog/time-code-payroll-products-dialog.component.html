@@ -1,0 +1,38 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    <form [formGroup]="form" class="soe-edit-form">
+      <div class="row">
+        <div class="col-8">
+          <soe-select
+            [labelKey]="'time.payroll.payrollproduct.payrollproduct'"
+            [items]="this.data.payrollProducts"
+            [autoFocus]="!initialFocusOnFactor()"
+            formControlName="payrollProductId">
+          </soe-select>
+        </div>
+        <div class="col-4">
+          <soe-numberbox
+            [labelKey]="'time.time.timecode.factor'"
+            [autoFocus]="initialFocusOnFactor()"
+            [noFormatting]="true"
+            [updateInstantly]="true"
+            [decimals]="this.data.factorDecimals"
+            formControlName="factor">
+          </soe-numberbox>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+  <div dialog-footer>
+    <soe-button
+      [caption]="'core.cancel'"
+      [behaviour]="'standard'"
+      (action)="cancel()"></soe-button>
+    <soe-save-button
+      [caption]="'core.ok'"
+      [invalid]="form.invalid"
+      [dirty]="form.dirty"
+      (validationErrorsAction)="openFormValidationErrors()"
+      (action)="ok()"></soe-save-button>
+  </div>
+</soe-dialog>

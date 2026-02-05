@@ -1,0 +1,78 @@
+@if (
+  (!recordConfig().hideRecordNavigator && form()) ||
+  itemGroups().length > 0 ||
+  toolbarGroups().length > 0 ||
+  hasLeftContent() ||
+  hasRightContent()
+) {
+  <div
+    class="toolbar-container"
+    [class.no-padding]="noPadding()"
+    [class.no-top-bottom-padding]="noTopBottomPadding()"
+    [class.no-margin]="noMargin()"
+    [class.no-border]="noBorder()">
+    <div class="float-start">
+      @if (
+        !recordConfig().hideRecordNavigator &&
+        form() &&
+        form()?.value[form()!.getIdFieldName()]
+      ) {
+        <soe-record-navigator
+          class="me-2"
+          [hideIfEmpty]="recordConfig().hideIfEmpty"
+          [hidePosition]="recordConfig().hidePosition"
+          [showRecordName]="recordConfig().showRecordName"
+          [hideDropdown]="recordConfig().hideDropdown"
+          [dropdownTextProperty]="recordConfig().dropdownTextProperty"
+          [isDate]="recordConfig().isDate"
+          [records]="form()?.records || []"
+          [selectedId]="form()?.value[form()!.getIdFieldName()]"
+          [formDirty]="form()?.dirty || false"
+          (recordChanged)="recordChanged($event)"></soe-record-navigator>
+      }
+      <div #leftContent>
+        <ng-content select="[toolbar-content-left]"></ng-content>
+      </div>
+    </div>
+    @for (group of itemGroups(); track $index) {
+      <soe-toolbar-item-group
+        [alignLeft]="group.alignLeft"
+        [items]="group.items">
+      </soe-toolbar-item-group>
+    }
+    @for (toolbarGroup of toolbarGroups(); track $index) {
+      <div
+        class="btn-group {{
+          toolbarGroup.alignmentRight ? 'float-end' : 'float-start'
+        }}">
+        @for (button of toolbarGroup.buttons; track $index) {
+          <button
+            type="button"
+            class="btn btn-default"
+            [attr.data-testid]="button.title || button.icon"
+            [class.is-disabled]="button.disabled()"
+            [title]="button.title || '' | translate"
+            [hidden]="button.hidden()"
+            (click)="!button.disabled() ? button.onClick() : null">
+            @if (button.icon) {
+              <fa-icon
+                [icon]="button.icon"
+                [style.margin-right]="
+                  button.label && button.label !== '' ? '5px' : ''
+                "></fa-icon>
+            }
+            @if (button.label) {
+              {{ button.label | translate }}
+            }
+          </button>
+        }
+      </div>
+    }
+    <div class="float-end">
+      <div #rightContent>
+        <ng-content select="[toolbar-content-right]"></ng-content>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+}

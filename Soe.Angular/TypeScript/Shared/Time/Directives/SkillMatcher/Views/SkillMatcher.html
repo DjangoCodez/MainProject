@@ -1,0 +1,70 @@
+﻿<div>
+    <soe-label class="margin-small-left" label-key="time.skillmatcher.noskills" data-ng-if="ctrl.skills.length === 0 && !ctrl.hideHeader"></soe-label>
+    <soe-label class="margin-small-left" label-key="time.skillmatcher.allok" data-ng-if="ctrl.skills.length > 0 && !ctrl.invalid"></soe-label>
+    <div data-ng-if="ctrl.skills.length > 0 && (!ctrl.employeePositionIds || ctrl.employeePositionIds.length === 0)">
+        <soe-checkbox class="margin-small-left margin-small-bottom" label-key="time.skillmatcher.showall" model="ctrl.showAll" data-ng-click="ctrl.showAllChanged()"></soe-checkbox>
+        <table class="table table-condensed table-hover horizontal-line-top" data-ng-if="ctrl.invalid || ctrl.showAll">
+            <thead style="border-left: 0px; border-right: 0px;">
+                <tr>
+                    <th scope="col" data-l10n-bind="'common.shifttype'" data-ng-if="ctrl.shiftTypeIds.length > 1"></th>
+                    <th scope="col" data-l10n-bind="'time.skillmatcher.name'"></th>
+                    <th scope="col" data-l10n-bind="'time.skillmatcher.level'" data-ng-if="ctrl.nbrOfSkillLevels > 1"></th>
+                    <th scope="col" data-l10n-bind="'time.skillmatcher.dateto'" data-ng-if="ctrl.showDateTo"></th>
+                    <th scope="col" data-l10n-bind="'time.skillmatcher.note'"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="skill in ctrl.skills | filter:{visible:'true'}">
+                    <td data-ng-if="ctrl.shiftTypeIds.length > 1">
+                        <span>{{::skill.shiftTypeName}}</span>
+                    </td>
+                    <td>
+                        <span data-ng-class="{'errorColor indiscreet':skill.missing}">{{::skill.skillName}}</span>
+                    </td>
+                    <td data-ng-if="ctrl.nbrOfSkillLevels > 1">
+                        <span data-ng-class="{'errorColor indiscreet':skill.skillLevelUnreached}">{{skill.employeeSkillRating}}/{{::skill.skillRating}}</span>
+                    </td>
+                    <td data-ng-if="ctrl.showDateTo">
+                        <span data-ng-class="{'errorColor indiscreet':skill.dateToPassed}">{{::skill.dateTo|date:'shortDate'}}</span>
+                    </td>
+                    <td>
+                        <span data-ng-class="{'okColor':skill.ok, 'errorColor':!skill.ok}">{{::skill.note}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div data-ng-if="ctrl.employeePositionIds && ctrl.employeePositionIds.length > 0">
+        <soe-checkbox class="margin-small-left margin-small-bottom" label-key="time.skillmatcher.showall" model="ctrl.showAll" data-ng-click="ctrl.showAllPositionsChanged()"></soe-checkbox>
+        <table class="table table-condensed table-hover horizontal-line-top" data-ng-if="ctrl.invalid || ctrl.showAll">
+            <thead style="border-left: 0px; border-right: 0px;">
+                <tr>
+                    <th scope="col" data-l10n-bind="'time.employee.position.position'" data-ng-if="ctrl.employeePositionIds.length > 1"></th>
+                    <th scope="col" data-l10n-bind="'time.skillmatcher.name'"></th>
+                    <th scope="col" data-l10n-bind="'time.skillmatcher.level'" data-ng-if="ctrl.nbrOfSkillLevels > 1"></th>
+                    <th scope="col" data-l10n-bind="'time.skillmatcher.dateto'" data-ng-if="ctrl.showDateTo"></th>
+                    <th scope="col" data-l10n-bind="'time.skillmatcher.note'"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="skill in ctrl.skills | filter:{visible:'true'}">
+                    <td data-ng-if="ctrl.employeePositionIds.length > 1">
+                        <span>{{::skill.shiftTypeName}}</span>
+                    </td>
+                    <td>
+                        <span data-ng-class="{'errorColor indiscreet':skill.missing}">{{skill.skillName}}</span>
+                    </td>
+                    <td data-ng-if="ctrl.nbrOfSkillLevels > 1">
+                        <span data-ng-class="{'errorColor indiscreet':skill.skillLevelUnreached}">{{skill.employeeSkillRating}}/{{::skill.skillRating}}</span>
+                    </td>
+                    <td data-ng-if="ctrl.showDateTo">
+                        <span data-ng-class="{'errorColor indiscreet':skill.dateToPassed}">{{skill.dateTo|date:'shortDate'}}</span>
+                    </td>
+                    <td>
+                        <span data-ng-class="{'okColor':skill.ok, 'errorColor':!skill.ok}">{{skill.note}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

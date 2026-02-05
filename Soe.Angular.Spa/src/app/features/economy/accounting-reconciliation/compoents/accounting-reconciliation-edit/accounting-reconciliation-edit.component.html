@@ -1,0 +1,19 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [itemGroups]="toolbarService.toolbarItemGroups">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+    <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+        <soe-expansion-panel [noMargin]="true" [noPadding]="true" [labelKey]="form.account.value" [static]="true">
+            @if (flowHandler.allowFetchGrid()) {
+                <div class="grid-container">
+                    <soe-grid
+                    [parentGuid]="ref()"
+                    [rows]="gridRows"></soe-grid>
+                </div>
+              }
+        </soe-expansion-panel>
+    </form>
+}

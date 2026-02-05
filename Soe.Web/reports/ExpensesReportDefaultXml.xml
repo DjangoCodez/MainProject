@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SOE_ExpensesReport>
+  <xs:schema id="SOE_ExpensesReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="SOE_ExpensesReport" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="ExpensesReport">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="TimeLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="TimePeriodLabel" type="xs:string" minOccurs="0" />                      
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="Company" type="xs:string" minOccurs="0" />
+                      <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                      <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+					  <xs:element name="ShowStartStop" type="xs:string" minOccurs="0" />
+					  <xs:element name="DateInterval" type="xs:string" minOccurs="0" />					
+					<xs:element name="EmployeeInterval" type="xs:string" minOccurs="0" />
+					<xs:element name="ProjectInterval" type="xs:string" minOccurs="0" />
+					<xs:element name="CustomerInterval" type="xs:string" minOccurs="0" />		
+                    
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ProjectNumberLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjectNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjectDescriptionLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CreatedLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CreatedByLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjecStateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="EmployeeNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="EmployeeNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="QuantityLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ExportedLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProductNumberLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProductNumberShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProductNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProductNameShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProductDescriptionLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProductDescriptionShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="NoteLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="WeekLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="OrderNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="WeekDayLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="OrderLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CauseLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoicingTypeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ExternalNoteLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="WorkTimeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoicedTimeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="AllLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="TotalLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceNrLabel" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+				<xs:element name="Expenses" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                      <xs:sequence>
+						<xs:element name="Invoices" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+							<xs:sequence>
+                        <xs:element name="InvoiceNr" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                        <xs:element name="InvoiceCreated" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                        <xs:element name="InvoiceCreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                        <xs:element name="InvoiceCustomerNr" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                        <xs:element name="InvoiceCustomerName" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                        <xs:element name="CustomerInvoiceExpenseRow" minOccurs="0" maxOccurs="unbounded">
+                          <xs:complexType>
+                            <xs:sequence>
+							  <xs:element name="InvoiceNr" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+							  <xs:element name="InvoiceCustomerName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                              <xs:element name="InvoiceExpenseRowEmployeeName" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                              <xs:element name="InvoiceExpenseRowTimeCodeName" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                              <xs:element name="InvoiceExpenseRowPayrollAttestStateName" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                              <xs:element name="InvoiceExpenseRowQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="5" />
+							  <xs:element name="InvoiceExpenseRowQuantityType" type="xs:decimal" minOccurs="0" msdata:Ordinal="6" />
+							  <xs:element name="InvoiceExpenseRowUnitPrice" type="xs:decimal" minOccurs="0" msdata:Ordinal="7" />
+                              <xs:element name="InvoiceExpenseRowAmountExVat" type="xs:decimal" minOccurs="0" msdata:Ordinal="8" />
+                              <xs:element name="InvoiceExpenseRowVat" type="xs:decimal" minOccurs="0" msdata:Ordinal="9" />
+                              <xs:element name="InvoiceExpenseRowAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="10" />
+                              <xs:element name="InvoiceExpenseRowInvoicedAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="11" />
+                              <xs:element name="InvoiceExpenseRowComment" type="xs:string" minOccurs="0" msdata:Ordinal="12" />
+                              <xs:element name="InvoiceExpenseRowExternalComment" type="xs:string" minOccurs="0" msdata:Ordinal="13" />
+                              <xs:element name="InvoiceExpenseRowDate" type="xs:string" minOccurs="0" msdata:Ordinal="14" />
+                            </xs:sequence>
+                            <xs:attribute name="id" type="xs:string" />
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                      <xs:attribute name="id" type="xs:string" />
+                    </xs:complexType>
+					</xs:element>
+					</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+		  </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema> 
+  <ExpensesReport>
+   <ReportHeaderLabels>
+    <LoginNameLabel>Användare:</LoginNameLabel>
+    <PageLabel>Sida:</PageLabel>
+    <DateLabel>Datum:</DateLabel>
+    <TimeLabel>Tid:</TimeLabel>
+    <TimePeriodLabel>Period:</TimePeriodLabel>  
+   </ReportHeaderLabels>
+   <ReportHeader>
+     <ReportTitle />
+     <ReportDescription />
+     <ReportNr />
+     <Company />
+     <Orgnr />
+     <LoginName />
+	 <ShowStartStop></ShowStartStop>
+     <ExtendedTimeRegistration></ExtendedTimeRegistration>
+     <DateInterval></DateInterval>
+	 <EmployeeInterval></EmployeeInterval>
+	 <ProjectInterval></ProjectInterval>
+	 <CustomerInterval></CustomerInterval>
+   </ReportHeader>
+   <PageHeaderLabels>
+     <ProjectNumberLabel>Nummer:</ProjectNumberLabel>
+     <ProjectNameLabel>Projekt:</ProjectNameLabel>
+     <ProjectDescriptionLabel>Beskrivning:</ProjectDescriptionLabel>
+	 <CreatedLabel />
+	 <CreatedByLabel />
+	 <ProjecStateLabel>Aktiv:</ProjecStateLabel>
+	 <EmployeeNrLabel>Anst.nr:</EmployeeNrLabel>
+     <EmployeeNameLabel>Namn:</EmployeeNameLabel>   
+	 <CustomerNrLabel>Anst.nr:</CustomerNrLabel>
+     <CustomerNameLabel>Namn:</CustomerNameLabel>   
+     <ProjectInvoiceNrLabel>FakturaNr:</ProjectInvoiceNrLabel>
+     <DateLabel>Datum:</DateLabel>
+    </PageHeaderLabels>
+	<Expenses>
+		<Invoices id="1">
+			<InvoiceNr />        
+			<InvoiceCreated>1900-01-01T00:00:00+00:00</InvoiceCreated>
+			<InvoiceCreatedBy />      
+			 <CustomerInvoiceExpenseRow id="1">		
+			  <InvoiceNr />   
+			  <InvoiceCustomerName />   		  
+			  <InvoiceExpenseRowEmployeeName />
+			  <InvoiceExpenseRowTimeCodeName />
+			  <InvoiceExpenseRowPayrollAttestStateName />
+			  <InvoiceExpenseRowQuantity>0</InvoiceExpenseRowQuantity>
+			  <InvoiceExpenseRowQuantityType>0</InvoiceExpenseRowQuantityType>
+			  <InvoiceExpenseRowUnitPrice>0</InvoiceExpenseRowUnitPrice>
+         <InvoiceExpenseRowAmountExVat>0</InvoiceExpenseRowAmountExVat>
+         <InvoiceExpenseRowVat>0</InvoiceExpenseRowVat>
+			  <InvoiceExpenseRowAmount>0</InvoiceExpenseRowAmount>
+			   <InvoiceExpenseRowInvoicedAmount>0</InvoiceExpenseRowInvoicedAmount>         
+         <InvoiceExpenseRowComment />
+         <InvoiceExpenseRowExternalComment />
+			  <InvoiceExpenseRowDate>1900-01-01T00:00:00+00:00</InvoiceExpenseRowDate>
+			 </CustomerInvoiceExpenseRow>
+		</Invoices>
+	</Expenses>
+ </ExpensesReport>
+</SOE_ExpensesReport>

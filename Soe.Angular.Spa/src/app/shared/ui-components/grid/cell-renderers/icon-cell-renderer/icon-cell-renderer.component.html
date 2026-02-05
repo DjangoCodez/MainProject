@@ -1,0 +1,37 @@
+<!-- <span class="stacked-container fa fa-stack"> -->
+@if (params.isFilter && !isIconInFilter()) {
+  <span class="icon-filter-row">{{ params.value }}</span>
+} @else {
+  @if (showIcon && params.data && params.icon) {
+    <span
+      (click)="
+        !params.isFilter && params.onClick && params.onClick(params.data)
+      "
+      [title]="params.isFilter ? '' : params.tooltip || ''"
+      ><fa-icon
+        [icon]="params.icon"
+        [class]="
+          filterClass != ''
+            ? filterClass
+            : params.iconClassField
+              ? params.data[params.iconClassField!]
+              : params.iconClass
+                ? params.iconClass
+                : ''
+        "
+        [animation]="
+          params.iconAnimationField
+            ? params.data[params.iconAnimationField!]
+            : params.iconAnimation
+              ? params.iconAnimation
+              : ''
+        "
+        [class.link]="!noLink"
+        [fixedWidth]="true"></fa-icon
+    ></span>
+    @if (params.isFilter) {
+      <span class="p-1">{{ filterText }}</span>
+    }
+  }
+}
+<!-- </span> -->

@@ -1,0 +1,72 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <soe-checkbox
+            [labelKey]="'billing.dialogs.editdeliveryaddress.showasaddress'"
+            [noMargin]="true"
+            [checked]="showAddress()"
+            (valueChanged)="showAddressChanged($event)">
+          </soe-checkbox>
+          @if (showAddress()) {
+            <div class="col">
+              <soe-textbox
+                [labelKey]="'common.contactaddresses.addressrow.name'"
+                [autoFocus]="true"
+                formControlName="name">
+              </soe-textbox>
+              <soe-textbox
+                [labelKey]="'common.contactaddresses.addressrow.address'"
+                [autoFocus]="true"
+                formControlName="address">
+              </soe-textbox>
+              <soe-textbox
+                [labelKey]="'common.contactaddresses.addressrow.postalcode'"
+                [autoFocus]="true"
+                formControlName="postalCode">
+              </soe-textbox>
+              <soe-textbox
+                [labelKey]="'common.contactaddresses.addressrow.postaladdress'"
+                [autoFocus]="true"
+                formControlName="postalAddress">
+              </soe-textbox>
+              <soe-textbox
+                [labelKey]="'common.country'"
+                [autoFocus]="true"
+                formControlName="country">
+              </soe-textbox>
+            </div>
+          }
+          @if (!showAddress()) {
+            <div class="col">
+              <soe-textarea
+                [labelKey]="''"
+                [rows]="3"
+                [maxLength]="1000"
+                [showLength]="true"
+                [resizeable]="true"
+                formControlName="deliveryAddress">
+              </soe-textarea>
+            </div>
+          }
+        </div>
+      </form>
+    }
+  </div>
+
+  <div dialog-footer>
+    <soe-button
+      [behaviour]="'standard'"
+      [caption]="'core.cancel'"
+      (action)="closeDialog()"></soe-button>
+    <soe-save-button
+      [caption]="'core.ok'"
+      [dirty]="true"
+      (action)="buttonOkClick()"></soe-save-button>
+  </div>
+</soe-dialog>

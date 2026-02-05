@@ -1,0 +1,50 @@
+﻿<div class="form-group form-group-sm">
+	<div class="row">
+		<div class="col-sm-6">
+			<date-selection label-key="common.date" set-first-and-last-date="true"
+				hide-today-button="false" option="{'minMode': 'month'}" use-min-max-if-empty="true" show-range="false"
+				as-range="false" on-selected="$ctrl.onDateSelected(selection)"
+				user-selection-input="$ctrl.selectedDate" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4 col-lg-3">
+			<prognose-type-selection selected-prognose-type="$ctrl.selectedPrognoseType"
+				on-selected="$ctrl.onPrognoseTypeSelected(selection)" />
+		</div>
+		<div class="col-sm-4 col-lg-3">
+			<div class="row">
+				<id-selection label-key="time.time.timeperiod.periods"
+							  user-selection-input="$ctrl.selectedPeriods"
+							  items="$ctrl.availablePeriods"
+							  options="item.id as item.name for item in items"
+							  on-selected="$ctrl.onPeriodsSelected(selection)">
+				</id-selection>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 col-lg-6">
+			<inventory-status-selection 
+				selected-statuses="$ctrl.selectedStatuses"
+				on-selected="$ctrl.onStatusSelected(selection)" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<div class="col-sm-12 col-lg-6">
+			<inventory-category-selection 
+				selected-categories="$ctrl.selectedCategories"
+				on-selected="$ctrl.onCategoriesSelected(selection) " />
+		</div>
+	</div>
+	<div class="form-group form-group-sm">
+		<div class="row">
+			<div class="col-sm-12">
+				<matrix-column-selection on-selected="$ctrl.onMatrixColumnSelectionUpdated(selection)"
+					module="$ctrl.module" sys-report-template-type-id="$ctrl.sysReportTemplateTypeId"
+					report-id="$ctrl.reportId" user-selection-input="$ctrl.selectionInputColumns"
+					selections="$ctrl.selections" show-insights="true" />
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,48 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'billing.projects.list.budgetheader'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row" style="margin-bottom: 5px;" ng-if="ctrl.allowTimeCode">
+                <div class="col-sm-12" ng-if="ctrl.row.type == 13">
+                    <soe-select label-key="common.timecode" model="ctrl.row.timeCodeId" items="ctrl.timecodes" options="item.timeCodeId as item.name for item in items" is-readonly="ctrl.row.budgetRowId && ctrl.row.budgetRowId > 0"></soe-select>
+                </div>
+                <div class="col-sm-12" ng-if="ctrl.row.type == 14">
+                    <soe-select label-key="billing.product.materialcode" model="ctrl.row.timeCodeId" items="ctrl.timecodes" options="item.timeCodeId as item.name for item in items" is-readonly="ctrl.row.budgetRowId && ctrl.row.budgetRowId > 0"></soe-select>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5px;" ng-if="!ctrl.allowTimeCode">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.name" model="ctrl.row.name" is-readonly="true"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5px;">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="billing.projects.list.budgetheader" model="ctrl.row.totalAmount" numeric="true" decimals="2"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5px;" ng-if="ctrl.allowQuantity">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="billing.projects.list.budgethours" model="ctrl.row.hours" numeric="true" decimals="2"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5px;" ng-if="ctrl.showIbAmount">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="billing.projects.list.ib" model="ctrl.row.ib" numeric="true" decimals="2"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5px;" ng-if="ctrl.showIbQuantity">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="billing.projects.list.ibhours" model="ctrl.row.ibHours" numeric="true" decimals="2"></soe-textbox>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.delete'" data-ng-click="ctrl.buttonDeleteClick()" ng-if="ctrl.allowTimeCode"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.buttonOkClick()" data-ng-disabled="!ctrl.buttonEnabled()"></button>
+    </div>
+</div>

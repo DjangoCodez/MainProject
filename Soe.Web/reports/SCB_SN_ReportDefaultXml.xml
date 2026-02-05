@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SOE_SCB_SN_Report>
+  <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="SOE_SCB_SN_Report">
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element name="SCB_SN_Report">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ReportHeader">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element type="xs:string" name="ReportTitle" minOccurs="0" />
+                      <xs:element type="xs:string" name="ReportDescription" minOccurs="0" />
+                      <xs:element type="xs:string" name="ReportNr" minOccurs="0" />
+                      <xs:element type="xs:string" name="Company" minOccurs="0" />
+                      <xs:element type="xs:string" name="Orgnr" minOccurs="0" />
+                      <xs:element type="xs:string" name="LoginName" minOccurs="0" />
+                      <xs:element type="xs:string" name="TimePeriod" minOccurs="0" />
+                      <xs:element type="xs:string" name="SortByLevel1" minOccurs="0" />
+                      <xs:element type="xs:string" name="SortByLevel2" minOccurs="0" />
+                      <xs:element type="xs:string" name="SortByLevel3" minOccurs="0" />
+                      <xs:element type="xs:string" name="SortByLevel4" minOccurs="0" />
+                      <xs:element type="xs:string" name="IsSortAscending" minOccurs="0" />
+                      <xs:element type="xs:string" name="GroupByLevel1" minOccurs="0" />
+                      <xs:element type="xs:string" name="GroupByLevel2" minOccurs="0" />
+                      <xs:element type="xs:string" name="GroupByLevel3" minOccurs="0" />
+                      <xs:element type="xs:string" name="GroupByLevel4" minOccurs="0" />
+                      <xs:element type="xs:string" name="Special" minOccurs="0" />
+                      <xs:element type="xs:string" name="DateInterval" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="Head">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element type="xs:string" name="NumberOfEmployees" minOccurs="0" />
+                      <xs:element type="xs:dateTime" name="Date" minOccurs="0" />
+                      <xs:element name="Row"  maxOccurs="unbounded" minOccurs="0">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element type="xs:string" name="Period" minOccurs="0" />
+                            <xs:element type="xs:string" name="Delagarnummer" minOccurs="0" />
+                            <xs:element type="xs:string" name="Arbetsplatsnummer" minOccurs="0" />
+                            <xs:element type="xs:string" name="Organisationsnummer" minOccurs="0" />
+                            <xs:element type="xs:string" name="Forbundsnummer" minOccurs="0" />
+                            <xs:element type="xs:string" name="Avtalskod" minOccurs="0" />
+                            <xs:element type="xs:string" name="Personnummer" minOccurs="0" />
+                            <xs:element type="xs:string" name="Anstnummer" minOccurs="0" />
+                            <xs:element type="xs:string" name="Namn" minOccurs="0" />
+                            <xs:element type="xs:string" name="Personalkategori" minOccurs="0" />
+                            <xs:element type="xs:string" name="Arbetstidsart" minOccurs="0" />
+                            <xs:element type="xs:string" name="Yrkeskod" minOccurs="0" />
+                            <xs:element type="xs:string" name="Forbundsspecifikkod" minOccurs="0" />
+                            <xs:element type="xs:string" name="Loneform" minOccurs="0" />
+                            <xs:element type="xs:string" name="AntalanstalldaCFARnr" minOccurs="0" />
+                            <xs:element type="xs:string" name="CFARnummer" minOccurs="0" />
+                            <xs:element type="xs:string" name="Helglon" minOccurs="0" />
+                            <xs:element type="xs:string" name="Reserv" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt1a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt1b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt2a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt2b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt3a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt3b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt4a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt4b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt5a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt5b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt6a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt6b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt7a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt7b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt8a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt8b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt9a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt9b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt10aa" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt10ab" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt10ba" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt10bb" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt10ca" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt10cb" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt10c" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt11a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt11b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt12a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt12b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt13a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt13b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt14a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt14b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt15aa" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt15ab" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt15ba" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt15bb" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt16a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt16b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt17a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt17b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt18a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt18b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt19a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt19b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt20a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt20b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt21a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt21b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt22a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt22b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt23a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt23b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt24a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt24b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt25a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt25b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt26a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt26b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt27a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt27b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt28a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt28b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt29a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt29b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt30a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt30b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt31a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt31b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt32a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt32b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt33a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt33b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt34a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt34b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt35a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt35b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt36a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt36b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt37a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt37b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt38a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt38b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt39a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt39b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt40a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt40b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt41a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt41b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt42a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt42b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt43a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt43b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt44a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt44b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt45a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt45b" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt46a" minOccurs="0" />
+                            <xs:element type="xs:string" name="Falt46b" minOccurs="0" />
+                            <xs:element name="Transactions" maxOccurs="unbounded" minOccurs="0">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element type="xs:string" name="Type" minOccurs="0" />
+                                  <xs:element type="xs:string" name="EmployeeNr" minOccurs="0" />
+                                  <xs:element type="xs:string" name="PayrollProductNumber" minOccurs="0" />
+                                  <xs:element type="xs:decimal" name="Quantity" minOccurs="0" />
+                                  <xs:element type="xs:decimal" name="Amount" minOccurs="0" />
+                                </xs:sequence>
+                                <xs:attribute type="xs:byte" name="Id" use="optional" />
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                          <xs:attribute type="xs:byte" name="Id" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute type="xs:byte" name="Id" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <SCB_SN_Report>
+    <ReportHeader>
+      <ReportTitle></ReportTitle>
+      <ReportDescription></ReportDescription>
+      <ReportNr></ReportNr>
+      <Company></Company>
+      <Orgnr></Orgnr>
+      <LoginName></LoginName>
+      <TimePeriod></TimePeriod>
+      <SortByLevel1></SortByLevel1>
+      <SortByLevel2></SortByLevel2>
+      <SortByLevel3></SortByLevel3>
+      <SortByLevel4></SortByLevel4>
+      <IsSortAscending></IsSortAscending>
+      <GroupByLevel1></GroupByLevel1>
+      <GroupByLevel2></GroupByLevel2>
+      <GroupByLevel3></GroupByLevel3>
+      <GroupByLevel4></GroupByLevel4>
+      <Special></Special>
+      <DateInterval></DateInterval>
+    </ReportHeader>
+    <Head Id="1">
+      <NumberOfEmployees></NumberOfEmployees>
+      <Date>1900-01-01T00:00:00</Date>
+      <Row Id="1">
+        <Period></Period>
+        <Delagarnummer></Delagarnummer>
+        <Arbetsplatsnummer></Arbetsplatsnummer>
+        <Organisationsnummer></Organisationsnummer>
+        <Forbundsnummer></Forbundsnummer>
+        <Avtalskod></Avtalskod>
+        <Personnummer></Personnummer>
+        <Anstnummer>0</Anstnummer>
+        <Namn></Namn>
+        <Personalkategori></Personalkategori>
+        <Arbetstidsart></Arbetstidsart>
+        <Yrkeskod></Yrkeskod>
+        <Forbundsspecifikkod></Forbundsspecifikkod>
+        <Loneform></Loneform>
+        <AntalanstalldaCFARnr></AntalanstalldaCFARnr>
+        <CFARnummer></CFARnummer>
+        <Helglon></Helglon>
+        <Reserv></Reserv>
+        <Falt1a></Falt1a>
+        <Falt1b></Falt1b>
+        <Falt2a></Falt2a>
+        <Falt2b></Falt2b>
+        <Falt3a></Falt3a>
+        <Falt3b></Falt3b>
+        <Falt4a></Falt4a>
+        <Falt4b></Falt4b>
+        <Falt5a></Falt5a>
+        <Falt5b></Falt5b>
+        <Falt6a></Falt6a>
+        <Falt6b></Falt6b>
+        <Falt7a></Falt7a>
+        <Falt7b></Falt7b>
+        <Falt8a></Falt8a>
+        <Falt8b></Falt8b>
+        <Falt9a></Falt9a>
+        <Falt9b></Falt9b>
+        <Falt10aa></Falt10aa>
+        <Falt10ab></Falt10ab>
+        <Falt10ba></Falt10ba>
+        <Falt10bb></Falt10bb>
+        <Falt10ca></Falt10ca>
+        <Falt10cb></Falt10cb>
+        <Falt10c></Falt10c>
+        <Falt11a></Falt11a>
+        <Falt11b></Falt11b>
+        <Falt12a></Falt12a>
+        <Falt12b></Falt12b>
+        <Falt13a></Falt13a>
+        <Falt13b></Falt13b>
+        <Falt14a></Falt14a>
+        <Falt14b></Falt14b>
+        <Falt15aa></Falt15aa>
+        <Falt15ab></Falt15ab>
+        <Falt15ba></Falt15ba>
+        <Falt15bb></Falt15bb>
+        <Falt16a></Falt16a>
+        <Falt16b></Falt16b>
+        <Falt17a></Falt17a>
+        <Falt17b></Falt17b>
+        <Falt18a></Falt18a>
+        <Falt18b></Falt18b>
+        <Falt19a></Falt19a>
+        <Falt19b></Falt19b>
+        <Falt20a></Falt20a>
+        <Falt20b></Falt20b>
+        <Falt21a></Falt21a>
+        <Falt21b></Falt21b>
+        <Falt22a></Falt22a>
+        <Falt22b></Falt22b>
+        <Falt23a></Falt23a>
+        <Falt23b></Falt23b>
+        <Falt24a></Falt24a>
+        <Falt24b></Falt24b>
+        <Falt25a></Falt25a>
+        <Falt25b></Falt25b>
+        <Falt26a></Falt26a>
+        <Falt26b></Falt26b>
+        <Falt27a></Falt27a>
+        <Falt27b></Falt27b>
+        <Falt28a></Falt28a>
+        <Falt28b></Falt28b>
+        <Falt29a></Falt29a>
+        <Falt29b></Falt29b>
+        <Falt30a></Falt30a>
+        <Falt30b></Falt30b>
+        <Falt31a></Falt31a>
+        <Falt31b></Falt31b>
+        <Falt32a></Falt32a>
+        <Falt32b></Falt32b>
+        <Falt33a></Falt33a>
+        <Falt33b></Falt33b>
+        <Falt34a></Falt34a>
+        <Falt34b></Falt34b>
+        <Falt35a></Falt35a>
+        <Falt35b></Falt35b>
+        <Falt36a></Falt36a>
+        <Falt36b></Falt36b>
+        <Falt37a></Falt37a>
+        <Falt37b></Falt37b>
+        <Falt38a></Falt38a>
+        <Falt38b></Falt38b>
+        <Falt39a></Falt39a>
+        <Falt39b></Falt39b>
+        <Falt40a></Falt40a>
+        <Falt40b></Falt40b>
+        <Falt41a></Falt41a>
+        <Falt41b></Falt41b>
+        <Falt42a></Falt42a>
+        <Falt42b></Falt42b>
+        <Falt43a></Falt43a>
+        <Falt43b></Falt43b>
+        <Falt44a></Falt44a>
+        <Falt44b></Falt44b>
+        <Falt45a></Falt45a>
+        <Falt45b></Falt45b>
+        <Falt46a></Falt46a>
+        <Falt46b></Falt46b>
+        <Transactions Id="1">
+          <Type></Type>
+          <EmployeeNr></EmployeeNr>
+          <PayrollProductNumber></PayrollProductNumber>
+          <Quantity>0</Quantity>
+          <Amount>0</Amount>
+        </Transactions>
+      </Row>
+    </Head>
+  </SCB_SN_Report>
+</SOE_SCB_SN_Report>

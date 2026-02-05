@@ -1,0 +1,57 @@
+﻿<div class="info" style="margin-top: 16px; margin-bottom: 8px;">
+    <div class="row">
+        <div class="col-sm-12 pull-right">
+            <div class="col-sm-2 pull-right">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.lefttoinvoicefilteredrows"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredToBeInvoicedTotal | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 margin-small-right pull-right">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.lefttoinvoicecheckedrows"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.selectedToBeInvoicedTotal | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 margin-small-right pull-right">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.filteredrows"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredTotal | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 margin-small-right pull-right">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.checkedrows"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.selectedTotal | amount}}</label>
+                </div>
+            </div>
+            <div class="col pull-right">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <soe-checkbox label-key="common.customer.invoices.includeinternalorders" model="ctrl.includeInternalOrders" data-ng-click="ctrl.includeInternalOrdersChanged()"></soe-checkbox>
+                    </div>
+                    <div class="row">
+                        <soe-checkbox label-key="common.customer.invoices.showsummaryinclvat" model="ctrl.showVatFree" data-ng-click="ctrl.showVatFreeChanged()"></soe-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ngSoeFormFooter">
+    <div class="row">
+        <div class="col-sm-12 pull-right">
+            <div class="col pull-right">
+                <soe-splitbutton class="pull-right margin-small-right" label-key="core.transfertopreliminaryinvoice" options="ctrl.buttonFunctions" main-button="true" drop-up="true" is-disabled="ctrl.soeGridOptions.getSelectedCount() === 0" option-selected="ctrl.executeButtonFunction(option)" data-ng-if="!ctrl.isProjectCentral"></soe-splitbutton>
+            </div>
+        </div>
+    </div>
+</div>

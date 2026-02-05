@@ -1,0 +1,63 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        name=""
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-3">
+            <soe-numberbox
+              [labelKey]="'time.export.standarddefinitionlevel'"
+              [autoFocus]="true"
+              formControlName="level"></soe-numberbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-textbox
+              [labelKey]="'time.export.standarddefinitionlevel.xmlname'"
+              [maxLength]="50"
+              formControlName="xml"></soe-textbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-checkbox
+              [labelKey]="
+                'time.export.standarddefinitionlevel.usecolumnheaders'
+              "
+              formControlName="useColumnHeaders"></soe-checkbox>
+          </div>
+        </div>
+        <div class="soe-form-footer">
+          <div class="col-sm-12">
+            <div class="float-end">
+              @if (form.value[idFieldName] > 0) {
+                <soe-delete-button
+                  class="me-3"
+                  (action)="performDelete()"
+                  [disabled]="
+                    !flowHandler.modifyPermission()
+                  "></soe-delete-button>
+              }
+              <soe-save-button
+                [caption]="
+                  form.exportDefinitionLevelId.value > 0
+                    ? 'core.edit'
+                    : 'core.add'
+                "
+                (action)="performAdd()"
+                (validationErrorsAction)="form.openFormValidationErrors()"
+                [invalid]="form.invalid"
+                [dirty]="form.dirty"
+                [inProgress]="inProgress()"></soe-save-button>
+            </div>
+          </div>
+        </div>
+      </form>
+    }
+  </ng-container>
+</soe-dialog>

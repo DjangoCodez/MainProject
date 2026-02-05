@@ -1,0 +1,88 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal(false)" aria-hidden="true">&times;</button>
+    </div>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" ng-class="ctrl.isModal ? 'edit-padding': ''">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" data-ng-if="!ctrl.isModal">
+            <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+        </soe-toolbar>
+
+        <soe-panel label-key="time.schedule.employeepost.employeepost">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="common.name" model="ctrl.employeePost.name" required="true" maxlength="100" auto-focus="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-8">
+                        <soe-textbox label-key="common.description" model="ctrl.employeePost.description" maxlength="500"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-datepicker label-key="time.schedule.employeepost.datefrom" model="ctrl.employeePost.dateFrom"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-datepicker label-key="time.schedule.employeepost.dateto" model="ctrl.employeePost.dateTo"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-checkbox label-key="time.schedule.employeepost.locked" model="ctrl.employeePost.isLocked" style="margin: 20px 0 0 0;"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-select label-key="time.schedule.employeepost.employeegroupname" model="ctrl.employeePost.employeeGroupId" items="ctrl.employeeGroups" options="item.id as item.name for item in items" on-changing="ctrl.groupChanged()" required="true"></soe-select>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="time.schedule.employeepost.worktimeweek" model="ctrl.employeePost.workTimeWeekFormatted" update-on="blur" label-value="ctrl.ruleWorkTimeWeek | minutesToTimeSpan" label-value-in-parentheses="true" on-change="ctrl.workTimeWeekChanged()" is-time="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="time.schedule.employeepost.worktimepercent" model="ctrl.employeePost.workTimePercent" numeric="true" decimals="2" on-change="ctrl.workTimePercentChanged()" is-readonly="!ctrl.allowEditEmploymentPercent"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-select label-key="time.schedule.employeepost.nbrofdaysinweek" model="ctrl.employeePost.workDaysWeek" items="ctrl.daysInWeek" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-select label-key="time.schedule.employeepost.schedulecycle" model="ctrl.employeePost.scheduleCycleId" items="ctrl.scheduleCycles" options="item.id as item.name for item in items" required="true"></soe-select>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-select label-key="time.schedule.employeepost.weekendtype" model="ctrl.employeePost.employeePostWeekendType" items="ctrl.employeePostWeekendTypes" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-multiselect label-key="time.schedule.employeepost.vacationweekdays" button="false" search="false" options="ctrl.dayOfWeeks" model="ctrl.selectedDayOfWeeks" on-selection-complete="ctrl.selectionChanged()"></soe-multiselect>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-label></soe-label>
+                        <soe-label model="ctrl.selectedDaysString" discreet="true" class="margin-large-top"></soe-label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2" data-ng-if="ctrl.useAccountsHierarchy">
+                        <soe-select label-key="common.user.attestrole.accounthierarchy" model="ctrl.selectedAccount" items="ctrl.accounts" options="item as item.name for item in items"></soe-select>
+                    </div>
+                </div>
+                <div class="row margin-large-top">
+                    <div class="col-sm-4">
+                        <skills record-entity="37" selected-skills="ctrl.employeePostSkills" nbr-of-rows="5" hide-date="true" read-only="!ctrl.modifyPermission"></skills>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+
+        <div class="ngSoeFormFooter" data-ng-class="{'modal-margin': ctrl.isModal}">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.employeePost"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

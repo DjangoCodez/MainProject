@@ -1,0 +1,27 @@
+﻿<div>
+    <div class="row">
+        <div class="col-sm-6">
+            <soe-datepicker hide-today-button="$ctrl.hideTodayButton" options="$ctrl.option" label-key="{{$ctrl.labelKey}}" hidelabel="$ctrl.hideLabel" model="$ctrl.selected" on-change="$ctrl.onDateChange(date)" is-required="$ctrl.isFromDateMandatory"></soe-datepicker>
+
+            <div class="row margin-large-top" ng-if="$ctrl.isFromDateMandatory && $ctrl.fromDateInvalid">
+                <div class="col-sm-12">
+                    <span class="warning" data-l10n-bind="'common.report.selection.fromdate.mandatory'"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6" data-ng-if="$ctrl.showRange">
+            <soe-datepicker hide-today-button="$ctrl.hideTodayButton" options="$ctrl.option"  label-key="{{$ctrl.additionalLabelKey || $ctrl.labelKey}}" hidelabel="$ctrl.hideLabel" model="$ctrl.selectedAdditional" on-change="$ctrl.onAdditionalDateChange(date)" is-required="$ctrl.isToDateMandatory"></soe-datepicker>
+
+            <div class="row margin-large-top" ng-if="$ctrl.isToDateMandatory && $ctrl.toDateInvalid">
+                <div class="col-sm-12">
+                    <span class="warning" data-l10n-bind="'common.report.selection.todate.mandatory'"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-large-top" data-ng-if="$ctrl.showRange && $ctrl.invalidateFromTo">
+        <div class="col-sm-12">
+            <span class="warning" data-l10n-bind="'common.fromdatecantbeaftertodate'"></span>
+        </div>
+    </div>
+</div>

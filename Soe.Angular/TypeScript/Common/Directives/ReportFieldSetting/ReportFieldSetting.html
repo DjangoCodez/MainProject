@@ -1,0 +1,14 @@
+﻿<div class="row" style="display: flex; align-items: flex-end; padding-top: 5px;" data-ng-if="!ctrl.hideField">
+    <div class="col" style="padding-left: 15px; padding-right: 15px;" data-ng-if="ctrl.showButton">
+        <button type="button" class="btn-sm btn-default" data-ng-click="ctrl.showSettingDialog()">
+            <i class="fal fa-cogs"></i>
+        </button>
+    </div>
+    <div class="col" style="padding-right: 5px; align-self: flex-start;" data-ng-show="ctrl.showAsterisk">
+        <label class="required-label">*</label>
+    </div>
+    <div class="col" ng-style="ctrl.setDisabled">
+        <ng-transclude>
+        </ng-transclude>
+    </div>
+</div>

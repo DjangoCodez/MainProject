@@ -1,0 +1,9 @@
+﻿<div class="row">
+    <div class="col-sm-6">
+        <soe-typeahead label-key="{{$ctrl.labelKey}}" hidelabel="$ctrl.hideLabel" model="$ctrl.projectNrFrom" items="$ctrl.projectsDict" options="item as item.name for item in items" editable="true" on-selection-changed="$ctrl.loadProjectFrom(item)"></soe-typeahead>
+    </div>
+
+    <div class="col-sm-6">
+        <soe-typeahead label-key="" class="margin-small-top" model="$ctrl.projectNrTo" items="$ctrl.projectsDict" options="item as item.name for item in items" editable="true" on-selection-changed="$ctrl.loadProjectTo(item)"></soe-typeahead>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [height]="200"
+    [parentGuid]="guid()"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+    [toolbarNoPadding]="true"
+    [noMargin]="true"
+    [rows]="hierarchyAccounts">
+    <div toolbar-content-left>
+      <soe-label
+        [labelKey]="'time.schedule.shifttype.hierarchyaccounts'"></soe-label>
+    </div>
+  </soe-grid-wrapper>
+}

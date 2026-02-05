@@ -1,0 +1,248 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form [formGroup]="form" novalidate autocomplete="off">
+        <div class="content-container">
+          <div class="row">
+            <!-- Source-->
+            <div class="col-sm-6">
+              <soe-expansion-panel
+                class="panel-fill"
+                [labelKey]="'Från'"
+                [static]="true">
+                <div class="row employee-row-container">
+                  <div class="col-sm-12">
+                    @if (!multipleSourceDates()) {
+                      <span class="me-2">{{
+                        form.sourceDate | date: 'shortDate'
+                      }}</span>
+                    }
+                    <span>{{ form.sourceEmployeeName }}</span>
+                  </div>
+                </div>
+                @for (shift of form.sourceShifts; track $index) {
+                  <sp-shift-simple
+                    [shift]="shift"
+                    [dayShifts]="
+                      !multipleSourceDates() ? form.sourceShifts : []
+                    "
+                    [showDate]="multipleSourceDates()"></sp-shift-simple>
+                }
+                <!-- On duty source shifts -->
+                @if (form.controls.includeOnDutyShifts.value) {
+                  @for (shift of form.onDutyShifts; track $index) {
+                    <sp-shift-simple
+                      [shift]="shift"
+                      [dayShifts]="
+                        !multipleSourceDates() ? form.sourceShifts : []
+                      "
+                      [showDate]="multipleSourceDates()"></sp-shift-simple>
+                  }
+                }
+              </soe-expansion-panel>
+            </div>
+            <!-- Target -->
+            <div class="col-sm-6">
+              <soe-expansion-panel
+                class="panel-fill"
+                [labelKey]="'Till'"
+                [static]="true">
+                <div class="row employee-row-container">
+                  <div class="col-sm-12">
+                    <span class="me-1">{{
+                      form.targetDate | date: 'shortDate'
+                    }}</span>
+                    <span>{{ form.targetEmployeeName }}</span>
+                  </div>
+                </div>
+                @for (shift of form.targetShifts; track $index) {
+                  <sp-shift-simple
+                    [shift]="shift"
+                    [dayShifts]="
+                      !multipleSourceDates() ? form.targetShifts : []
+                    "></sp-shift-simple>
+                }
+                @if (
+                  form.targetEmployeeIsFullyUnavailable() ||
+                  form.targetEmployeeIsPartiallyUnavailable()
+                ) {
+                  <div class="mt-2">
+                    <soe-instruction
+                      [type]="'warning'"
+                      [text]="
+                        targetEmployeeUnavailableText()
+                      "></soe-instruction>
+                  </div>
+                }
+              </soe-expansion-panel>
+            </div>
+          </div>
+          <!-- Actions -->
+          @if (showMove()) {
+            <div class="row">
+              <div class="col-sm-2">
+                <soe-radio
+                  [labelKey]="'time.schedule.planning.dragshift.action.move'"
+                  [styleAsButton]="true"
+                  [group]="'action'"
+                  [value]="DragShiftAction.Move"
+                  formControlName="action"></soe-radio>
+              </div>
+              <div class="col-sm-10 action-info-container">
+                <span class="action-info">{{ informationMove() }}</span>
+              </div>
+            </div>
+          }
+          @if (showCopy()) {
+            <div class="row">
+              <div class="col-sm-2">
+                <soe-radio
+                  [labelKey]="'time.schedule.planning.dragshift.action.copy'"
+                  [styleAsButton]="true"
+                  [group]="'action'"
+                  [value]="DragShiftAction.Copy"
+                  formControlName="action"></soe-radio>
+              </div>
+              <div class="col-sm-10 action-info-container">
+                <span class="action-info">{{ informationCopy() }}</span>
+              </div>
+            </div>
+          }
+          @if (showReplace()) {
+            <div class="row">
+              <div class="col-sm-2">
+                <soe-radio
+                  [labelKey]="'time.schedule.planning.dragshift.action.replace'"
+                  [styleAsButton]="true"
+                  [group]="'action'"
+                  [value]="DragShiftAction.Replace"
+                  formControlName="action"></soe-radio>
+              </div>
+              <div class="col-sm-10 action-info-container">
+                <span class="action-info">{{ informationReplace() }}</span>
+              </div>
+            </div>
+          }
+          @if (showReplaceAndFree()) {
+            <div class="row">
+              <div class="col-sm-2">
+                <soe-radio
+                  [labelKey]="
+                    'time.schedule.planning.dragshift.action.replaceandfree'
+                  "
+                  [styleAsButton]="true"
+                  [group]="'action'"
+                  [value]="DragShiftAction.ReplaceAndFree"
+                  formControlName="action"></soe-radio>
+              </div>
+              <div class="col-sm-10 action-info-container">
+                <span class="action-info">{{
+                  informationReplaceAndFree()
+                }}</span>
+              </div>
+            </div>
+          }
+          @if (showSwapEmployee()) {
+            <div class="row">
+              <div class="col-sm-2">
+                <soe-radio
+                  [labelKey]="
+                    'time.schedule.planning.dragshift.action.swapemployee'
+                  "
+                  [styleAsButton]="true"
+                  [group]="'action'"
+                  [value]="DragShiftAction.SwapEmployee"
+                  formControlName="action"></soe-radio>
+              </div>
+              <div class="col-sm-10 action-info-container">
+                <span class="action-info">{{ informationSwapEmployee() }}</span>
+              </div>
+            </div>
+          }
+          @if (showAbsence()) {
+            <div class="row">
+              <div class="col-sm-2">
+                <soe-radio
+                  [labelKey]="'time.schedule.planning.dragshift.action.absence'"
+                  [styleAsButton]="true"
+                  [group]="'action'"
+                  [value]="DragShiftAction.Absence"
+                  formControlName="action"></soe-radio>
+              </div>
+              <div class="col-sm-10 action-info-container">
+                <span class="action-info">{{ informationAbsence() }}</span>
+              </div>
+            </div>
+            @if (selectedActionIsAbsence()) {
+              <div class="row">
+                <div class="col-sm-2">
+                  <soe-select
+                    [labelKey]="
+                      'time.schedule.planning.dragshift.information.selectdeviationcause'
+                    "
+                    [items]="timeDeviationCauses"
+                    [optionIdField]="'timeDeviationCauseId'"
+                    [optionNameField]="'name'"
+                    formControlName="timeDeviationCauseId">
+                  </soe-select>
+                </div>
+                @if (selectedDeviationCauseRequiresChild()) {
+                  <div class="col-sm-2">
+                    <soe-select
+                      [labelKey]="
+                        'time.schedule.planning.dragshift.information.selectchild'
+                      "
+                      [items]="employeeChilds"
+                      formControlName="employeeChildId">
+                    </soe-select>
+                  </div>
+                }
+              </div>
+              <div class="row">
+                <div class="col-sm-2">
+                  <soe-checkbox
+                    [labelKey]="
+                      'time.schedule.planning.dragshift.action.wholedayabsence'
+                    "
+                    formControlName="isWholeDayAbsence">
+                  </soe-checkbox>
+                </div>
+              </div>
+            }
+          }
+          @if (form.sourceShiftIsExtra() || form.sourceShiftIsSubstitute()) {
+            <div class="mt-2 mb-3">
+              <soe-instruction
+                [type]="'info'"
+                [text]="sourceShiftExtraAndSubstituteText()"></soe-instruction>
+            </div>
+          }
+        </div>
+      </form>
+    }
+  </ng-container>
+  <div dialog-footer>
+    <div class="footer-container">
+      @if (form) {
+        <form [formGroup]="form">
+          @if (showOnDutyShifts()) {
+            <soe-checkbox
+              [labelKey]="
+                'time.schedule.planning.dragshift.includeondutyshifts'
+              "
+              [noMargin]="true"
+              formControlName="includeOnDutyShifts"></soe-checkbox>
+          }
+        </form>
+      }
+
+      <soe-button [caption]="'core.cancel'" (action)="cancel()"></soe-button>
+      <soe-save-button
+        (action)="initSave()"
+        (validationErrorsAction)="form.openFormValidationErrors()"
+        [invalid]="form.invalid"
+        [dirty]="form.dirty"
+        [inProgress]="executing()"></soe-save-button>
+    </div>
+  </div>
+</soe-dialog>

@@ -1,0 +1,37 @@
+@use '../../../../../../shared/styles/core-styles/colors.scss';
+@use '../../../../../../shared/styles/core-styles/fonts.scss';
+@use '../../schedule-planning/schedule-planning-common.scss' as sp-common;
+
+:host {
+  display: block;
+  font-size: fonts.$soe-font-size-sm;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .shift {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .shift-main {
+      flex: 1;
+    }
+  }
+
+  .select-shift-icon {
+    flex: 0 0 auto;
+    font-size: fonts.$soe-font-size-xxl;
+  }
+
+  .modified-icon {
+    flex: 0 0 auto;
+    font-size: fonts.$soe-font-size-sm;
+    color: colors.$soe-color-semantic-warning;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+}

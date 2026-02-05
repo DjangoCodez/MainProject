@@ -1,0 +1,21 @@
+<button
+  type="button"
+  [attr.data-testid]="key()"
+  [attr.button-key]="key()"
+  [ngClass]="typeClass()"
+  [class.is-hidden]="hidden()"
+  [class.is-disabled]="disabled()"
+  (click)="!disabled() ? onClick($event) : null"
+  [title]="tooltip() | translate">
+  @if (icon()) {
+    <fa-icon
+      [ngClass]="iconClass()"
+      [icon]="icon()!"
+      [fixedWidth]="true"></fa-icon>
+  }
+  @if (caption()) {
+    <span class="button-caption" [class.with-icon]="icon()">{{
+      caption() | translate
+    }}</span>
+  }
+</button>

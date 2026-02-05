@@ -1,0 +1,73 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+
+        <soe-panel label-key="time.schedule.staffingneedsrule.staffingneedsrule">
+            <div class="form-group form-group-sm">
+                <div class="col-sm-4" style="margin-top:10px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-textbox label-key="common.name" model="ctrl.rule.name" required="true" maxlength="100" auto-focus="true"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.useAccountsHierarchy">
+                        <div class="col-sm-12">
+                            <soe-select label-key="common.user.attestrole.accounthierarchy" model="ctrl.rule.accountId" items="ctrl.accounts" options="item.accountId as item.name for item in items"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-select label-key="common.group" model="ctrl.rule.staffingNeedsLocationGroupId" items="ctrl.locationGroups" options="item.id as item.name for item in items" required="true"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-select label-key="common.unit" model="ctrl.rule.unit" items="ctrl.units" options="item.id as item.name for item in items" required="true"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-textbox label-key="time.schedule.staffingneedsrule.maxquantity" model="ctrl.rule.maxQuantity" numeric="true" decimals="0"></soe-textbox>
+                        </div>
+                    </div>
+                </div>
+
+                <div data-ng-if="!ctrl.progress.progressBusy">
+                    <div class="col-sm-8">
+                        <div class="row margin-large-top">
+                            <soe-toolbar buttons="ctrl.sortMenuButtons" hide-border="true" class="pull-left" style="margin-left: 10px;"></soe-toolbar>
+                            <soe-toolbar buttons="ctrl.gridButtonGroups" hide-border="true" class="pull-right" style="margin-right: 15px;"></soe-toolbar>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div data-ui-grid="ctrl.rowGridOptions.gridOptions" ui-grid-auto-resize data-ui-grid-edit ui-grid-cellNav></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-instruction label-key="time.schedule.staffingneedsrule.rowsgridinstruction"></soe-instruction>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.rule"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

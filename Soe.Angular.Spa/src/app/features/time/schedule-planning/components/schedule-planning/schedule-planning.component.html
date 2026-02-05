@@ -1,0 +1,40 @@
+<soe-core-styles>
+  <div
+    class="schedule-planning-container"
+    [class.is-day-view]="filterService.isCommonDayView()">
+    <sp-header
+      [hasScrollbar]="hasScrollbar()"
+      (filterChanged)="onFilterChanged()"
+      (settingsChanged)="onSettingsChanged($event)"
+      (loadEmployeesClicked)="loadEmployees()"
+      (loadShiftsClicked)="loadShifts()"></sp-header>
+    <soe-split-container
+      [ratio]="0.9"
+      [minRatio]="0"
+      [maxRatio]="1"
+      [dividerWidth]="16"
+      [handlePosition]="'top'"
+      [handleTopMargin]="30"
+      [hideRightContent]="!settingService.showRightContent()"
+      (ratioChanged)="onRightContentWidthChanged($event)">
+      <div #contentContainer left>
+        <sp-time-slot-header
+          [hasScrollbar]="hasScrollbar()"></sp-time-slot-header>
+        @if (!settingService.summaryInFooter()) {
+          <sp-time-slot-sum [hasScrollbar]="hasScrollbar()"></sp-time-slot-sum>
+        }
+        <sp-content
+          #spContent
+          [ngStyle]="{ height: contentHeight }"
+          [hasScrollbar]="hasScrollbar()"
+          cdkScrollable></sp-content>
+        @if (settingService.summaryInFooter()) {
+          <sp-footer [hasScrollbar]="hasScrollbar()"></sp-footer>
+        }
+      </div>
+      <div right>
+        <sp-right-content></sp-right-content>
+      </div>
+    </soe-split-container>
+  </div>
+</soe-core-styles>

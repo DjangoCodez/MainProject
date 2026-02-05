@@ -1,0 +1,105 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="manage.system.test.testgroup">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="common.type" model="ctrl.testCase.testCaseType" items="ctrl.testTypes" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.name" model="ctrl.testCase.name"></soe-textbox>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-textbox label-key="manage.system.scheduler.interval" model="ctrl.recurrenceInterval" button-icon="fa-pencil" button-tooltip-key="manage.system.scheduler.editinterval" on-button-click="ctrl.editRecurrence();"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-textarea label-key="common.description" model="ctrl.testCase.description"></soe-textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="margin-large-top">
+                            <soe-panel label-key="common.settings" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.editTestCaseSetting();">
+                                <table class="table table-condensed table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 28px"></th>
+                                            <th scope="col" data-l10n-bind="'common.name'"></th>
+                                            <th scope="col" data-l10n-bind="'common.value'"></th>
+                                            <th scope="col" style="width: 28px"></th>
+                                            <th scope="col" style="width: 28px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-ng-repeat="setting in ctrl.testCase.testCaseSettingDTOs | filter: ctrl.settingFilter">
+                                        <tr>
+                                            <td><i class="{{setting.icon}}"></i></td>
+                                            <td><span>{{setting.name}}</span></td>
+                                            <td><span>{{setting.value}}</span></td>
+                                            <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editTestCaseSetting(setting);"></i></span></td>
+                                            <td><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteTestCaseSetting(setting);"></i></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </soe-panel>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="margin-large-top">
+                            <soe-panel label-key="manage.system.test.setting_capabilities" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.editCapability();">
+                                <table class="table table-condensed table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" data-l10n-bind="'common.name'"></th>
+                                            <th scope="col" data-l10n-bind="'common.value'"></th>
+                                            <th scope="col" style="width: 28px"></th>
+                                            <th scope="col" style="width: 28px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-ng-repeat="(key, value) in ctrl.capabilities">
+                                        <tr>
+                                            <td><span>{{key}}</span></td>
+                                            <td><span>{{value}}</span></td>
+                                            <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" ng-click="ctrl.editCapability(key);"></i></span></td>
+                                            <td><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" ng-click="ctrl.deleteCapability(key);"></i></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </soe-panel>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="manage.system.test.testcaseresults" is-open="false" on-open="ctrl.getTestCaseResults()">
+                <div class="form-group form-group-sm">
+                    <soe-progressbar is-busy="ctrl.loadingLog" message="ctrl.progressMessage"></soe-progressbar>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div ag-grid="ctrl.testCaseResultsGrid.gridOptions" class="ag-theme-balham" style="height: 250px; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.testGroup"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" ng-if="ctrl.testCase.testCaseId > 0">
+                        <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.delete'" data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.delete()"></button>
+                    </div>
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

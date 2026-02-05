@@ -1,0 +1,2305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FC32BADF-A856-4F04-AA75-E9C5B949DCD8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SoftOne.Soe.Business</RootNamespace>
+    <AssemblyName>SoftOne.Soe.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRules>
+    </CodeAnalysisRules>
+    <CodeAnalysisRuleSet>Soe.Business.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Soe.Business.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>Soe.Business.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>Soe.Business.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AngleSharp, Version=0.17.1.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.17.1\lib\net472\AngleSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="AngleSharp.Css, Version=0.17.0.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.Css.0.17.0\lib\net472\AngleSharp.Css.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Core, Version=1.49.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Core.1.49.0\lib\net472\Azure.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Core.Amqp, Version=1.3.1.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Core.Amqp.1.3.1\lib\netstandard2.0\Azure.Core.Amqp.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Identity, Version=1.17.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Identity.1.17.0\lib\netstandard2.0\Azure.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Messaging.ServiceBus, Version=7.20.1.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Messaging.ServiceBus.7.20.1\lib\netstandard2.0\Azure.Messaging.ServiceBus.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Storage.Blobs, Version=12.26.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Storage.Blobs.12.26.0\lib\netstandard2.0\Azure.Storage.Blobs.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Storage.Common, Version=12.25.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Storage.Common.12.25.0\lib\netstandard2.0\Azure.Storage.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Banker.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Banker.Shared.2025.11.28.2\lib\Banker.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="BitMiracle.LibTiff.NET, Version=2.4.560.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BitMiracle.LibTiff.1.0.0\lib\BitMiracle.LibTiff.NET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Bridge.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bridge.Shared.2026.1.28.1\lib\netstandard2.0\Bridge.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="CachingFramework.Redis, Version=16.0.0.0, Culture=neutral, PublicKeyToken=3982df00cecbd320, processorArchitecture=MSIL">
+      <HintPath>..\packages\CachingFramework.Redis.16.0.0\lib\net462\CachingFramework.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\softoneid.common.2025.11.4.1\lib\Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Converter.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Converter.Shared.2026.1.9.1232\lib\netstandard2.0\Converter.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\S1.CrystalDecisions.CrystalReports.Engine.13.0.2000.0\lib\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\S1.CrystalDecisions.Shared.13.0.2000.0\lib\CrystalDecisions.Shared.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.Extended, Version=6.0.0.0, Culture=neutral, PublicKeyToken=05b7e29bdd433584, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.Extended.6.1.0.168\lib\net45\EntityFramework.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.Utilities, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EFUtilities.1.0.2\lib\EntityFramework.Utilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.3.3, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3.3\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Evonizer.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Evonizer.Shared.2025.8.19.1430\lib\netstandard2.0\Evonizer.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDataReader, Version=3.8.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.3.8.0\lib\net462\ExcelDataReader.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDataReader.DataSet, Version=3.8.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.DataSet.3.8.0\lib\net462\ExcelDataReader.DataSet.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleTranslateAPI, Version=0.3.1.107, Culture=neutral, PublicKeyToken=37a8e65b17fcdcbb, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Translate.api.0.3.1\lib\net40\GoogleTranslateAPI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlSanitizer, Version=9.0.0.0, Culture=neutral, PublicKeyToken=61c49a1a9e79cc28, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlSanitizer.9.0.886\lib\net47\HtmlSanitizer.dll</HintPath>
+    </Reference>
+    <Reference Include="Ical.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=65c0446cd019ea53, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ical.Net.5.1.1\lib\netstandard2.0\Ical.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.4.2\lib\netstandard2.0\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IdentityModel, Version=6.1.0.0, Culture=neutral, PublicKeyToken=e7877f4675df049f, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityModel.6.1.0\lib\net472\IdentityModel.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=3.2.0.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.3.2.0\lib\net462\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MessagePack, Version=3.1.4.0, Culture=neutral, PublicKeyToken=b4a0369545f0a1be, processorArchitecture=MSIL">
+      <HintPath>..\packages\MessagePack.3.1.4\lib\net472\MessagePack.dll</HintPath>
+    </Reference>
+    <Reference Include="MessagePack.Annotations, Version=3.1.4.0, Culture=neutral, PublicKeyToken=b4a0369545f0a1be, processorArchitecture=MSIL">
+      <HintPath>..\packages\MessagePack.Annotations.3.1.4\lib\netstandard2.0\MessagePack.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.23.0.29, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.23.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authorization, Version=9.0.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authorization.9.0.10\lib\net462\Microsoft.AspNetCore.Authorization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cryptography.Internal, Version=9.0.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Cryptography.Internal.9.0.10\lib\net462\Microsoft.AspNetCore.Cryptography.Internal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.DataProtection, Version=9.0.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.DataProtection.9.0.10\lib\net462\Microsoft.AspNetCore.DataProtection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.DataProtection.Abstractions, Version=9.0.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.DataProtection.Abstractions.9.0.10\lib\net462\Microsoft.AspNetCore.DataProtection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.DataProtection.Extensions, Version=9.0.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.DataProtection.Extensions.9.0.10\lib\net462\Microsoft.AspNetCore.DataProtection.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=2.3.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Abstractions.2.3.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions, Version=2.3.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.2.3.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.3.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.3.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=5.0.17.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.5.0.17\lib\net461\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Metadata, Version=9.0.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Metadata.9.0.10\lib\net462\Microsoft.AspNetCore.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Abstractions, Version=2.3.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.Abstractions.2.3.0\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Routing.Abstractions, Version=2.3.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Routing.Abstractions.2.3.0\lib\netstandard2.0\Microsoft.AspNetCore.Routing.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Amqp, Version=2.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Amqp.2.7.0\lib\net45\Microsoft.Azure.Amqp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=3.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.3.0.5\lib\net461\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.ServiceBus, Version=5.2.0.0, Culture=neutral, PublicKeyToken=7e34167dcc6d6d8c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.ServiceBus.5.2.0\lib\netstandard2.0\Microsoft.Azure.ServiceBus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Services.AppAuthentication, Version=1.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Services.AppAuthentication.1.6.2\lib\net472\Microsoft.Azure.Services.AppAuthentication.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.10\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.Cryptography, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Cryptography.9.0.10\lib\net462\Microsoft.Bcl.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.TimeProvider, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.TimeProvider.9.0.10\lib\net462\Microsoft.Bcl.TimeProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.8.5\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.8.5\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.5\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.9.0.10\lib\net462\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.9.0.10\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.9.0.10\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Diagnostics.Abstractions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Diagnostics.Abstractions.9.0.10\lib\net462\Microsoft.Extensions.Diagnostics.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.9.0.10\lib\net462\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Hosting.Abstractions.9.0.10\lib\net462\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Http, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Http.9.0.10\lib\net462\Microsoft.Extensions.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.9.0.10\lib\net462\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.9.0.10\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.9.0.10\lib\net462\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.9.0.10\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client, Version=4.78.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.4.78.0\lib\net472\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client.Extensions.Msal, Version=4.78.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.Extensions.Msal.4.78.0\lib\netstandard2.0\Microsoft.Identity.Client.Extensions.Msal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.8.14.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.5.3.0\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.8.14.0\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.8.14.0\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.8.14.0\lib\net472\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.8.14.0\lib\net472\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.8.14.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.3.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.3.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.NET.StringTools, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.NET.StringTools.17.14.28\lib\net472\Microsoft.NET.StringTools.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.3\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.2.3\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.3\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.2.3\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Interop, Version=2.3.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Interop.2.3.0\lib\net462\Microsoft.Owin.Security.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OpenIdConnect, Version=4.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OpenIdConnect.4.2.3\lib\net45\Microsoft.Owin.Security.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.24\lib\net461\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime.Azure, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.3.3.19\lib\net461\Microsoft.Rest.ClientRuntime.Azure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.5.0.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
+    <Reference Include="MimeKit, Version=4.14.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.4.14.0\lib\net48\MimeKit.dll</HintPath>
+    </Reference>
+    <Reference Include="MiniExcel, Version=1.41.4.0, Culture=neutral, PublicKeyToken=e7310002a53eac39, processorArchitecture=MSIL">
+      <HintPath>..\packages\MiniExcel.1.41.4\lib\net45\MiniExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="MQTTnet, Version=4.3.3.952, Culture=neutral, PublicKeyToken=fdb7629f2e364a63, processorArchitecture=MSIL">
+      <HintPath>..\packages\MQTTnet.4.3.3.952\lib\net48\MQTTnet.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.Bson.1.0.3\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="NodaTime, Version=3.2.2.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NodaTime.3.2.2\lib\netstandard2.0\NodaTime.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Pipelines.Sockets.Unofficial, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42ea0a778e13fbe2, processorArchitecture=MSIL">
+      <HintPath>..\packages\Pipelines.Sockets.Unofficial.2.2.8\lib\net472\Pipelines.Sockets.Unofficial.dll</HintPath>
+    </Reference>
+    <Reference Include="Portable.System.DateTimeOnly, Version=9.0.1.0, Culture=neutral, PublicKeyToken=16fb7a27ac3b9689, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.System.DateTimeOnly.9.0.1\lib\net462\Portable.System.DateTimeOnly.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="ReadSoft.Services.Client, Version=7.1.0.2362, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\S1.ReadSoft.7.1\lib\ReadSoft.Services.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ReadSoft.Services.Client.Core, Version=7.1.0.2362, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\S1.ReadSoft.7.1\lib\ReadSoft.Services.Client.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ReadSoft.Services.Entities, Version=7.1.0.2362, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\S1.ReadSoft.7.1\lib\ReadSoft.Services.Entities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Renci.SshNet, Version=2025.1.0.1, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2025.1.0\lib\net462\Renci.SshNet.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=112.1.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.112.1.0\lib\net48\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.Serializers.NewtonsoftJson, Version=112.1.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.Serializers.NewtonsoftJson.112.1.0\lib\net48\RestSharp.Serializers.NewtonsoftJson.dll</HintPath>
+    </Reference>
+    <Reference Include="RS.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReportingService.Shared.2023.11.15.8\lib\netstandard2.0\RS.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="SO.Internal.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SO.Internal.Shared.2025.11.10.1445\lib\netstandard2.0\SO.Internal.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="Soe.CrGen.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Soe.CrGen.Common.2019.9.3.1\lib\net472\Soe.CrGen.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Soe.Edi.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Soe.Edi.Common.2025.12.9.1\lib\net48\Soe.Edi.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Soe.Sys.Common, Version=2025.12.29.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\sys.common.2025.12.29.1\lib\Soe.Sys.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="SoftOne.Communicator.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\communicator.shared.2025.11.6.1\lib\SoftOne.Communicator.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="SoftOne.Status.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SoftOne.Status.Shared.2025.11.4.2\lib\netstandard2.0\SoftOne.Status.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="SoftOne.Status.Shared.DTO, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SoftOne.Status.Shared.2025.11.4.2\lib\netstandard2.0\SoftOne.Status.Shared.DTO.dll</HintPath>
+    </Reference>
+    <Reference Include="SoftOneAI.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SoftOneAI.Shared.2025.10.22.947\lib\netstandard2.0\SoftOneAI.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.2.9.32\lib\net472\StackExchange.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ClientModel, Version=1.8.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ClientModel.1.8.0\lib\netstandard2.0\System.ClientModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=9.0.0.10, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.9.0.10\lib\net462\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.9.0.10\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.PerformanceCounter, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.PerformanceCounter.9.0.10\lib\net462\System.Diagnostics.PerformanceCounter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Formats.Asn1, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Formats.Asn1.9.0.10\lib\net462\System.Formats.Asn1.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.8.14.0\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.AccessControl.5.0.0\lib\net461\System.IO.FileSystem.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Hashing, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Hashing.9.0.10\lib\net462\System.IO.Hashing.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipelines, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.9.0.10\lib\net462\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory.Data, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.Data.9.0.10\lib\net462\System.Memory.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.6.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Net.WebSockets, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.WebSockets.4.3.0\lib\net46\System.Net.WebSockets.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.WebSockets.Client, Version=4.0.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.WebSockets.Client.4.3.2\lib\net46\System.Net.WebSockets.Client.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reflection.TypeExtensions, Version=4.1.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.TypeExtensions.4.7.0\lib\net461\System.Reflection.TypeExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Primitives, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Serialization.Primitives.4.3.0\lib\net46\System.Runtime.Serialization.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.1\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.ProtectedData, Version=9.0.0.10, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.ProtectedData.9.0.10\lib\net462\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Xml, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.9.0.10\lib\net462\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.9.0.10\lib\net462\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Duplex, Version=8.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ServiceModel.Primitives.8.1.2\lib\net462\System.ServiceModel.Duplex.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Primitives, Version=8.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ServiceModel.Primitives.8.1.2\lib\net462\System.ServiceModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Security, Version=8.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ServiceModel.Primitives.8.1.2\lib\net462\System.ServiceModel.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Spatial, Version=5.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.8.5\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=9.0.0.10, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.9.0.10\lib\net462\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.9.0.10\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.9.0.10\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Channels, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Channels.9.0.10\lib\net462\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.3.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.3.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TypeLite, Version=1.8.2.0, Culture=neutral, PublicKeyToken=8cd4b9c9ac23d744, processorArchitecture=MSIL">
+      <HintPath>..\packages\TypeLite.Lib.1.8.4\lib\net4\TypeLite.dll</HintPath>
+    </Reference>
+    <Reference Include="TypeLite.Net4, Version=1.8.2.0, Culture=neutral, PublicKeyToken=8cd4b9c9ac23d744, processorArchitecture=MSIL">
+      <HintPath>..\packages\TypeLite.Lib.1.8.4\lib\net4\TypeLite.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="TypeLitePlus.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TypeLitePlus.Core.2.1.0\lib\net461\TypeLitePlus.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="UAParser, Version=3.1.47.0, Culture=neutral, PublicKeyToken=f7377bf021646069, processorArchitecture=MSIL">
+      <HintPath>..\packages\UAParser.3.1.47\lib\net45\UAParser.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="Z.EntityFramework.Extensions, Version=3.11.12.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Z.EntityFramework.Extensions.3.11.12\lib\net45\Z.EntityFramework.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Zayko.Finance.CurrencyConverter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8f022aab11e98fcc, processorArchitecture=MSIL">
+      <HintPath>..\packages\S1.Zayko.Finance.CurrencyConverter.1.0.0\lib\Zayko.Finance.CurrencyConverter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="zxing, Version=0.16.11.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.11\lib\net48\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.11.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.11\lib\net48\zxing.presentation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\AccountBalanceManager.cs" />
+    <Compile Include="Core\AccountDistributionManager.cs" />
+    <Compile Include="Core\AccountDistribution\AccountDistributionUtility.cs" />
+    <Compile Include="Core\AccountDistribution\Accrual\AccrualCalculator.cs" />
+    <Compile Include="Core\AccountDistribution\Accrual\AccrualEntryBuilder.cs" />
+    <Compile Include="Core\AccountDistribution\Accrual\AccrualConverter.cs" />
+    <Compile Include="Core\AccountDistribution\Accrual\AccrualUpdater.cs" />
+    <Compile Include="Core\AccountDistribution\Accrual\Models.cs" />
+    <Compile Include="Core\AccountDistribution\Accrual\PeriodicAccrualGenerator.cs" />
+    <Compile Include="Core\AccountDistribution\Accrual\AccrualQueryService.cs" />
+    <Compile Include="Core\AccountDistribution\Accrual\AccountingRowAccrualGenerator.cs" />
+    <Compile Include="Core\AccountManager.cs" />
+    <Compile Include="Core\AnnualLeaveManager.cs" />
+    <Compile Include="Core\Invoice\FinvoiceHelper.cs" />
+    <Compile Include="Providers\CompEntitiesProvider.cs" />
+    <Compile Include="Providers\SysEntitiesProvider.cs" />
+    <Compile Include="ScheduleJobs\MigrateProjectBudgetsJob.cs" />
+    <Compile Include="Util\PulseManager.cs" />
+    <Compile Include="Util\RequestScopeHandler.cs" />
+    <Compile Include="Core\BlobStorage\EvoDataStorageConnector.cs" />
+    <Compile Include="Core\BlobStorage\EvoBlobStorageConnector.cs" />
+    <Compile Include="Core\Bridge\Visma\VismaHrPlusAbsence.cs" />
+    <Compile Include="Core\ClientManagement\Aggregators\AggregatorBase.cs" />
+    <Compile Include="Core\ClientManagement\ClientCompanyManager.cs" />
+    <Compile Include="Core\ClientManagement\Aggregators\SupplierInvoiceSummaryAggregator.cs" />
+    <Compile Include="Core\ClientManagement\ClientManagementAggregatorManager.cs" />
+    <Compile Include="Core\ClientManagement\ClientManagementApiManager.cs" />
+    <Compile Include="Core\ClientManagement\ClientManagementManager.cs" />
+    <Compile Include="Core\ClientManagement\Aggregators\SupplierInvoiceAggregator.cs" />
+    <Compile Include="Core\ClientManagement\IMultiCompanyAggregator.cs" />
+    <Compile Include="Core\ConditionRule\Models\ConditionRuleRow.cs" />
+    <Compile Include="Core\DepreciationManager.cs" />
+    <Compile Include="Core\Export\SieFileUtil.cs" />
+    <Compile Include="Core\ExternamCompanySearch\ExternalCompanySearchManager.cs" />
+    <Compile Include="Core\ExternamCompanySearch\PRHCompanySearchManager.cs" />
+    <Compile Include="Core\ImportExport\Constants.cs" />
+    <Compile Include="Core\ImportExport\AccountIOService.cs" />
+    <Compile Include="Core\ManagerFacades\ILoggerService.cs" />
+    <Compile Include="Core\ManagerFacades\ITextService.cs" />
+    <Compile Include="Core\ManagerFacades\LoggerService.cs" />
+    <Compile Include="Core\ManagerFacades\TextService.cs" />
+    <Compile Include="Core\Invoice\CustomerInvoiceRowImportUtility.cs" />
+    <Compile Include="Core\InboundEmailManager.cs" />
+    <Compile Include="Core\ManagerWrappers\AccountService.cs" />
+    <Compile Include="Core\ManagerWrappers\CurrencySetter.cs" />
+    <Compile Include="Core\ManagerWrappers\DBBulkService.cs" />
+    <Compile Include="Core\ManagerWrappers\DBStateUtility.cs" />
+    <Compile Include="Core\PaymentIO\BBS\BBSFile.cs" />
+    <Compile Include="Core\PaymentIO\BBS\BBSPaymentManager.cs" />
+    <Compile Include="Core\PaymentIO\BBS\BBSRow.cs" />
+    <Compile Include="Core\PaymentIO\SEPAV3\PaymentExportSettings.cs" />
+    <Compile Include="Core\Product\ProductGroupManager.cs" />
+    <Compile Include="Core\Project\ProjectBudgetManager.cs" />
+    <Compile Include="Core\Purchase\PriceOptimizationManager.cs" />
+    <Compile Include="Core\Reporting\Billing\TimeProjectDataReportGenerator.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\AbsenceRequestMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\AnnualLeaveTransactionMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\Bridge\VismaPayrollChangesMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\AgiAbsenceMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\SwapShiftMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\DepreciationMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeePayrollAdditionsMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeeChildMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\InventoryMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\HorizontalTimeTrackerMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\InvoiceProductUnitConvertMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\SoftOneStatus\LicenseInformationMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\VerticalTimeTrackerMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\ShiftRequestMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\ShiftHistoryMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\ShiftQueueMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\TimeStampHistoryMatrix.cs" />
+    <Compile Include="Core\Reporting\Models\Billing\InvoiceProductUnitConvertReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Billing\Models\InvoiceProductUnitConvertionItem.cs" />
+    <Compile Include="Core\Reporting\Models\Economy\DepreciationReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Economy\InventoryReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Economy\Models\Accruals.cs" />
+    <Compile Include="Core\Reporting\Models\Economy\Models\DepreciationInventoryDTO.cs" />
+    <Compile Include="Core\Reporting\Models\Economy\Models\InventoryItem.cs" />
+    <Compile Include="Core\Reporting\Models\Status\Models\LicenseInformationItem.cs" />
+    <Compile Include="Core\Reporting\Models\Status\Models\SoftOneStatusEventItem.cs" />
+    <Compile Include="Core\Reporting\Models\Status\SoftOneStatusEventReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Status\LicenseInformationReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\AnnualLeaveTransactionReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\AgiAbsenceReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeePayrollAdditionsReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeeChildReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\HorizontalTimeTrackerReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\AnnualLeaveTransactionItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\AgiAbsenceItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\SwapShiftItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeePayrollAdditionsItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeeChildItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\ShiftHistoryItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\AbsenceRequestItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\ShiftRequestItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\ShiftQueueItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\AbsenceRequestReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\GenericTrackChangesItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\TimeTransactionMatrixItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\VerticalTimeTrackerItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\SwapShiftReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\VerticalTimeTrackerReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\ShiftRequestReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\ShiftHistoryReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\ShiftQueueReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\TimeStampHistoryReportData.cs" />
+    <Compile Include="Core\Reports\RequestReportManager.cs" />
+    <Compile Include="Core\RSK\RSKManager.cs" />
+    <Compile Include="Core\RSK\RSKConnector.cs" />
+    <Compile Include="Core\SignatoryContractManager.cs" />
+    <Compile Include="Core\SoftOneAI\AIManager.cs" />
+    <Compile Include="Core\SysService\SysMultiCompanyConnector.cs" />
+    <Compile Include="Core\Template\CompanyTemplateManager.cs" />
+    <Compile Include="Core\Template\Managers\AttestTemplateManager.cs" />
+    <Compile Include="Core\Template\Managers\TimeTemplateManager.cs" />
+    <Compile Include="Core\Template\Managers\BillingTemplateManager.cs" />
+    <Compile Include="Core\Template\Managers\CoreTemplateManager.cs" />
+    <Compile Include="Core\Template\Managers\EconomyTemplateManager.cs" />
+    <Compile Include="Core\Template\Models\Attest\AttestRoleCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Billing\BillingInvoiceProductCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Billing\ChecklistCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Billing\ProjectSettingsCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Billing\PriceRuleCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Billing\CompanyWholesellerPriceListCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Billing\EmailTemplateCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Billing\PriceListCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Billing\SupplierAgreementCopyItem.cs" />
+    <Compile Include="Core\Template\Models\ChildCopyItemRequest.cs" />
+    <Compile Include="Core\Template\Models\Core\CompanyFieldSettingCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Core\ExternalCodeCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Core\ImportCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Core\LicenseCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Core\ReportCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Core\RoleFeatureCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Core\CompanySettingCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Core\UserCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\AccountDimCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\SupplierCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\DistributionCodesCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\AccountInternalCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\AccountStdCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\AttestYearCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\GrossProfitCodeCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\InventoryCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\PaymentConditionCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\PaymentMethodCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\AccountDistribitionCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\VatCodeCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\VoucherTemplateRowCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\ResidualCodeCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\VoucherTemplatesCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Economy\VoucherSeriesTypeCopyItem.cs" />
+    <Compile Include="Core\Template\Models\TemplateCompanyDataItem.cs" />
+    <Compile Include="Core\Template\Models\TemplateCompanyItem.cs" />
+    <Compile Include="Core\Template\Models\TemplateResult.cs" />
+    <Compile Include="Core\Template\Models\Time\EmployeeCollectiveAgreementCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\EmployeeGroupCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\EmployeeTemplateCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\EmploymentTypeCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\FollowUpTypeCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\PayrollGroupCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\PayrollPriceFormulaCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\DayTypeCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\PayrollPriceTypeCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\PayrollProductCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\PositionCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\ScheduleCycleCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\ShiftTypeCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\SkillCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\TimeAbsenceRuleCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\TimeAccumulatorCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\TimeAttestRuleCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\TimeBreakTemplateCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\TimeCodeCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\TimeDeviationCauseCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\TimePeriodHeadCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\TimeRuleCopytItem.cs" />
+    <Compile Include="Core\Template\Models\Time\TimeScheduleTypeCopyItem.cs" />
+    <Compile Include="Core\Template\Models\Time\VacationGroupCopyItem.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineActiveScheduleImport.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineActiveScheduleImport.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineTimeWorkReduction.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineTimeWorkAccount.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineTimeWorkAccount.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineTimeWorkReduction.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineTransactions.cs" />
+    <Compile Include="Core\TimerConvert\Enum\TimerGOConvertType.cs" />
+    <Compile Include="Core\TimerConvert\TimerDTO\Tbl2AnstArkiv.cs" />
+    <Compile Include="Core\TimerConvert\TimerDTO\Tbl2Koder.cs" />
+    <Compile Include="Core\TimerConvert\TimerDTO\Tbl2Avtal.cs" />
+    <Compile Include="Core\TimerConvert\TimerDTO\Tbl2Oppettider.cs" />
+    <Compile Include="Core\TimerConvert\TimerDTO\Tbl2Schema.cs" />
+    <Compile Include="Core\TimerConvert\TimerDTO\TblPersonal.cs" />
+    <Compile Include="Core\TimerConvert\TimerDTO\TblButik.cs" />
+    <Compile Include="Core\TimerConvert\TimerDTO\TimerFactoryBase.cs" />
+    <Compile Include="Core\TimeWorkAccountManager.cs" />
+    <Compile Include="Core\TimeWorkReductionManager.cs" />
+    <Compile Include="Core\Voucher\VoucherHeadDTOCache.cs" />
+    <Compile Include="Core\ActorManager.cs" />
+    <Compile Include="Core\AnalysisManager.cs" />
+    <Compile Include="Core\API\ApiDataManager.cs" />
+    <Compile Include="Core\API\ApiManager.cs" />
+    <Compile Include="Core\AttestManager.cs" />
+    <Compile Include="Core\Banker\BankerConnector.cs" />
+    <Compile Include="Core\BatchUpdateManager.cs" />
+    <Compile Include="Core\Bridge\BridgeManager.cs" />
+    <Compile Include="Core\Common\ExtraFieldManager.cs" />
+    <Compile Include="Core\CrGen\CompressionUtil.cs" />
+    <Compile Include="Core\ExpenseManager.cs" />
+    <Compile Include="Core\Export\SAFTManager.cs" />
+    <Compile Include="Core\ImportDynamicManager.cs" />
+    <Compile Include="Core\ImportExport\ImportCustomerInvoiceCache.cs" />
+    <Compile Include="Core\Invoice\ElectronicInvoiceMananger.cs" />
+    <Compile Include="Core\Invoice\HouseholdTaxDeductionManager.cs" />
+    <Compile Include="Core\Invoice\InvoiceAttachmentManager.cs" />
+    <Compile Include="Core\Invoice\EUSalesManager.cs" />
+    <Compile Include="Core\Invoice\InvoiceAttestStates.cs" />
+    <Compile Include="Core\Invoice\InvoiceDistributionManager.cs" />
+    <Compile Include="Core\BudgetManager.cs" />
+    <Compile Include="Core\CalendarManager.cs" />
+    <Compile Include="Core\CategoryManager.cs" />
+    <Compile Include="Core\ChecklistManager.cs" />
+    <Compile Include="Core\CommentManager.cs" />
+    <Compile Include="Core\CompanyManager.cs" />
+    <Compile Include="Core\ContactManager.cs" />
+    <Compile Include="Core\ContractManager.cs" />
+    <Compile Include="Core\Invoice\InvoiceUtility.cs" />
+    <Compile Include="Core\Invoice\LiquidityPlanningManager.cs" />
+    <Compile Include="Core\Invoice\SupplierInvoiceManager.cs" />
+    <Compile Include="Core\Logger\LoggerManager.cs" />
+    <Compile Include="Core\Logger\LoggerConnector.cs" />
+    <Compile Include="Core\Mobile\MobileManagerUtil.cs" />
+    <Compile Include="Core\Mobile\MobileManangerTexts.cs" />
+    <Compile Include="Core\PaymentIO\Intrum\IntrumPaymentManager.cs" />
+    <Compile Include="Core\PaymentIO\Intrum\IntrumPaymentFile.cs" />
+    <Compile Include="Core\PaymentIO\SEPAV3\SEPAModelFiles.cs" />
+    <Compile Include="Core\PaymentIO\SEPA\SEPAFile.cs" />
+    <Compile Include="Core\PaymentIO\TotalIn\TotalInFile.cs" />
+    <Compile Include="Core\PaymentIO\TotalIn\TotalInManager.cs" />
+    <Compile Include="Core\PaymentIO\SEPAV3\CreditTransferTransactionInformationNode.cs" />
+    <Compile Include="Core\PaymentIO\SEPAV3\GroupHeaderNode.cs" />
+    <Compile Include="Core\PaymentIO\SEPAV3\ParticipantNode.cs" />
+    <Compile Include="Core\PaymentIO\SEPAV3\PaymentInformationNode.cs" />
+    <Compile Include="Core\PaymentIO\SEPAV3\SEPAV3Manager.cs" />
+    <Compile Include="Core\PaymentIO\SEPAV3\ConvertSupplierStreamResult.cs" />
+    <Compile Include="Core\PaymentIO\SEPAV3\ISupplierPaymentDataAccess.cs" />
+    <Compile Include="Core\PaymentIO\SEPAV3\SupplierPaymentDataAccess.cs" />
+    <Compile Include="Core\PaymentIO\SEPAV3\SEPAModel.cs" />
+    <Compile Include="Core\PaymentIO\SEPAV3\SEPAUtility.cs" />
+    <Compile Include="Core\CrGen\CrGenConnector.cs" />
+    <Compile Include="Core\Product\CommodityCodeManager.cs" />
+    <Compile Include="Core\Product\ProductPricelistManager.cs" />
+    <Compile Include="Core\Project\ProjectCentralManager.cs" />
+    <Compile Include="Core\Purchase\PurchaseDeliveryManager.cs" />
+    <Compile Include="Core\Purchase\PurchaseManager.cs" />
+    <Compile Include="Core\Purchase\SupplierProductManager.cs" />
+    <Compile Include="Core\Reporting\BaseReportDataManager.cs" />
+    <Compile Include="Core\Reporting\BillingReportDataManager.cs" />
+    <Compile Include="Core\Reporting\Matrix\BaseMatrixDataManager.cs" />
+    <Compile Include="Core\Reporting\Matrix\BillingMatrixDataManager.cs" />
+    <Compile Include="Core\Reporting\Matrix\ManageMatrixDataManager.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\BaseMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\EconomyMatrixDataManager.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\CustomerMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeeAccountMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeeEndReasonsMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeeExperienceMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeeDocumentMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeeFixedPayLinesMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeeMeetingMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeeSalaryDistressMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\VacationBalanceMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeeSalaryUnionFeesMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeeSkillMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\AggregatedTimeStatisticsMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmploymentDaysMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\ApiMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\FileExportMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\InvoiceMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\OrderMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\PayrollProductsMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmploymentHistoryMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\AccountHierachyMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\ReportStatisticsMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\ScheduledTimeSummaryMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\SoftOneStatus\SoftOneStatusUpTimeMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\SoftOneStatus\SoftOneStatusEventMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\SoftOneStatus\SoftOneStatusResultMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\StaffingStatisticsMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeeTimePeriodMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\ShiftTypeSkillMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\SupplierMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\InvoiceProductMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\StaffingneedsFrequencyMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\OrganisationHrMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeeSalaryMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\Time\LongtermAbsenceMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\Time\AnnualProgressMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\UserMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\Generic\GenericPlanningDay.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\TimeStampEntryMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeeDateMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\ExcelMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\InputMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\Interface\IMatrixModel.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\EmployeeListMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\PayrollTransactionMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\ScheduleTransactionMatrix.cs" />
+    <Compile Include="Core\Reporting\Matrix\TimeMatrixDataManager.cs" />
+    <Compile Include="Core\Reporting\Matrix\Models\TimeTransactionMatrix.cs" />
+    <Compile Include="Core\Reporting\Models\Billing\Models\InvoiceItem.cs" />
+    <Compile Include="Core\Reporting\Models\Billing\Models\OrderItem.cs" />
+    <Compile Include="Core\Reporting\Models\Billing\InvoiceReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Billing\OrderReportData.cs" />
+    <Compile Include="Core\Reporting\Models\AccountAnalysisField.cs" />
+    <Compile Include="Core\Reporting\Models\ExtraFieldAnalysisField.cs" />
+    <Compile Include="Core\Reporting\Models\Manage\AccountHierarchyReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Manage\Models\AccountHierachyItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\VacationBalanceItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\VacationBalanceReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\LongtermAbsenceReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\AnnualProgressReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeeSalaryDistressReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeeSalaryUnionFeesReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmploymentDaysReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmploymentHistoryReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\LongtermAbsenceItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeeSalaryDistressItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeeSalaryUnionFeesItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmploymentDaysItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmploymentHistoryItem.cs" />
+    <Compile Include="Core\Reporting\Models\Economy\CustomerReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Economy\Models\CustomerItem.cs" />
+    <Compile Include="Core\Reporting\Models\Economy\Models\SupplierItem.cs" />
+    <Compile Include="Core\Reporting\Models\Economy\SupplierReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Billing\InvoiceProductReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Billing\Models\InvoiceProductItem.cs" />
+    <Compile Include="Core\Reporting\Models\Interface\IReportDataModel.cs" />
+    <Compile Include="Core\Reporting\Models\Interface\IReportDataOutput.cs" />
+    <Compile Include="Core\Reporting\Models\Manage\Models\OrganisationHrItem.cs" />
+    <Compile Include="Core\Reporting\Models\Manage\Models\ReportStatisticsItem.cs" />
+    <Compile Include="Core\Reporting\Models\Manage\Models\UserItem.cs" />
+    <Compile Include="Core\Reporting\Models\Manage\OrganisationHrReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Manage\ReportStatisticsReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Manage\UserReportData.cs" />
+    <Compile Include="Core\Reporting\Models\ReportDataField.cs" />
+    <Compile Include="Core\Reporting\Models\ReportDataModel.cs" />
+    <Compile Include="Core\Reporting\Models\Bridge\Models\VismaPayrollChangesItem.cs" />
+    <Compile Include="Core\Reporting\Models\Status\Models\SoftOneStatusResultItem.cs" />
+    <Compile Include="Core\Reporting\Models\Status\Models\SoftOneStatusUpTimeItem.cs" />
+    <Compile Include="Core\Reporting\Models\Status\SoftOneStatusUpTimeReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Bridge\VismaPayrollChangesReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Status\SoftOneStatusResultReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\AggregatedTimeStatisticsReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeeAccountReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeeFixedPayLines.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmploymentDynamicContractReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeeExperienceReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeeDocumentReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeeMeetingReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeeAccountItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeeExperienceItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeeDocumentItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeeFixedPayLinesItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmploymentDynamicContractItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\PayrollProductsItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\ScheduledTimeSummaryItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\AnnualProgressItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\TimeScheduleTransactionItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\PayrollProductsReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\ScheduledTimeSummaryReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeeMeetingItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\StaffingStatisticsReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeeTimePeriodReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeeEndReasonReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeeSkillReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\AggregatedTimeStatisticsItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeeEndReasonsItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeeSalaryItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeeSkillItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeeDateItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeeTimePeriodItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\ShiftTypeSkillItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\StaffingneedsFrequencyItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\StaffingStatisticsItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\TimeStampEntryItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\ShiftTypeSkillReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\TimeStampEntryReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeeDateReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeeListReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\Models\EmployeeListItem.cs" />
+    <Compile Include="Core\Reporting\Models\Time\PayrollTransactionReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\ScheduleTransactionReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\TimeTransactionReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\StaffingneedsFrequencyReportData.cs" />
+    <Compile Include="Core\Reporting\Models\Time\EmployeeSalaryReportData.cs" />
+    <Compile Include="Core\Reporting\ReportGenManager.cs" />
+    <Compile Include="Core\Reporting\TimeReportDataManager.cs" />
+    <Compile Include="Core\RptGen\CrGenConnector.cs" />
+    <Compile Include="Core\RptGen\DevExpressGenConnector.cs" />
+    <Compile Include="Core\RptGen\RptGenConnectorBase.cs" />
+    <Compile Include="Core\ScheduledJobManager.cs" />
+    <Compile Include="Core\SoftOneId\SoftOneIdConnector.cs" />
+    <Compile Include="Core\StatusManager.cs" />
+    <Compile Include="Core\Status\SoftOneStatusConnector.cs" />
+    <Compile Include="Core\SuperOfficeManager.cs" />
+    <Compile Include="Core\SysServiceManager.cs" />
+    <Compile Include="Core\SysService\SysCompanyConnector.cs" />
+    <Compile Include="Core\SysService\SysEdiConnector.cs" />
+    <Compile Include="Core\SysService\SysConnectorBase.cs" />
+    <Compile Include="Core\SysService\SysPayrollConnector.cs" />
+    <Compile Include="Core\SysService\SysLoginConnector.cs" />
+    <Compile Include="Core\SysService\SysMiscConnector.cs" />
+    <Compile Include="Core\SysService\SysLogConnector.cs" />
+    <Compile Include="Core\SysService\SysProductConnector.cs" />
+    <Compile Include="Core\SysService\SysHolidayConnector.cs" />
+    <Compile Include="Core\SysService\SysWholesellerConnector.cs" />
+    <Compile Include="Core\TimeHibernatingManager.cs" />
+    <Compile Include="Core\TimeEngine\Cache\TimeEngineCompanyCache.cs" />
+    <Compile Include="Core\TimeEngine\Cache\TimeEngineEmployeeCache.cs" />
+    <Compile Include="Core\TimeEngine\Objects\Init.cs" />
+    <Compile Include="Core\TimeEngine\Objects\TimeEngineCache.cs" />
+    <Compile Include="Core\TimeEngine\Objects\Input.cs" />
+    <Compile Include="Core\TimeEngine\Objects\Output.cs" />
+    <Compile Include="Core\TimeEngine\Objects\TimeEngineCore.cs" />
+    <Compile Include="Core\TimeEngine\Objects\TimeEngineData.cs" />
+    <Compile Include="Core\TimeEngine\Objects\TimeEngineMiddleware.cs" />
+    <Compile Include="Core\TimeEngine\Objects\TimeEngineObjects.cs" />
+    <Compile Include="Core\TimeEngine\Objects\TimeEngineRepository.cs" />
+    <Compile Include="Core\TimeEngine\Objects\TimeEngineRuleEvaluation.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineAccounting.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineAccounting.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineAttest.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineAttest.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineWorkRules.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineWorkRules.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineProject.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineProject.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineSchedule.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineSchedule.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineCalendar.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineCalendar.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineConversions.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineExpense.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineExpense.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEnginePayrollFunctions.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEnginePayrollFunctions.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEnginePayrollEnd.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEnginePayrollEnd.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEnginePayrollRetro.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEnginePayrollRetro.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineDeviations.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineDeviations.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineDayFunctions.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineDayFunctions.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineMessages.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineMobile.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEnginePayrollImport.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEnginePayrollImport.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEnginePayrollStartValue.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEnginePayrollStartValue.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineMobile.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineStamping.IO.cs" />
+    <Compile Include="Core\TimeEngine\Regions\TimeEngineStamping.cs" />
+    <Compile Include="Core\TimeSpotManager.cs" />
+    <Compile Include="Core\GoTimeStampManager.cs" />
+    <Compile Include="Core\TimeTree\TimeTreeAttestManager.cs" />
+    <Compile Include="Core\TimeTree\TimeTreeBaseManager.cs" />
+    <Compile Include="Core\TimeTree\TimeTreeObjects.cs" />
+    <Compile Include="Core\TimeTree\TimeTreePayrollManager.cs" />
+    <Compile Include="Core\Voucher\VoucherNumberLock.cs" />
+    <Compile Include="Core\Voucher\VoucherRowProjections.cs" />
+    <Compile Include="Core\WebTimeStampManager.cs" />
+    <Compile Include="Core\TimerConvert\TimerConvertManager.cs" />
+    <Compile Include="Core\WholsellerNetPriceManager.cs" />
+    <Compile Include="DataCache\BusinessCache.cs" />
+    <Compile Include="DTO\ChangesRepositoryDTO.cs" />
+    <Compile Include="DTO\EmployeeTemplateDTO.cs" />
+    <Compile Include="DTO\FileExportResult.cs" />
+    <Compile Include="DTO\RptGenResultDTO.cs" />
+    <Compile Include="Evo\Connectors\Cache\EvoDistributionCacheConnector.cs" />
+    <Compile Include="Evo\Connectors\Cache\EvoDistributionCacheStatus.cs" />
+    <Compile Include="Evo\Connectors\Cache\EvoSettingCacheInvalidationConnector.cs" />
+    <Compile Include="Evo\Connectors\Cache\EvoFeatureCacheInvalidationConnector.cs" />
+    <Compile Include="Evo\Connectors\EvoConnectorBase.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Interfaces\IAccountManager.cs" />
+    <Compile Include="Core\PaymentIO\Cfp\CfpFile.cs" />
+    <Compile Include="Core\PaymentIO\Cfp\CfpManager.cs" />
+    <Compile Include="Core\QueryManager.cs" />
+    <Compile Include="Core\Invoice\InvoiceManager.cs" />
+    <Compile Include="Core\StockManager.cs" />
+    <Compile Include="Core\TrackChangesManager.cs" />
+    <Compile Include="Core\GrossProfitManager.cs" />
+    <Compile Include="Core\FI_TaxDeclarationManager.cs" />
+    <Compile Include="Core\GeneralManager.cs" />
+    <Compile Include="Core\ImportExport\ImportExportCacheManager.cs" />
+    <Compile Include="Core\ImportExport\ImportExportManager.cs" />
+    <Compile Include="Core\Mobile\MobileManager.cs" />
+    <Compile Include="Core\Mobile\Objects.cs" />
+    <Compile Include="Core\PaymentIO\Nets\NetsFile.cs" />
+    <Compile Include="Core\PaymentIO\Nets\NetsManager.cs" />
+    <Compile Include="Core\PaymentIO\SOP\SOPManager.cs" />
+    <Compile Include="Core\PayrollManager.cs" />
+    <Compile Include="Core\TimeRuleCopyManager.cs" />
+    <Compile Include="Core\DashboardManager.cs" />
+    <Compile Include="Core\GraphicsManager.cs" />
+    <Compile Include="Core\InventoryManager.cs" />
+    <Compile Include="Core\EdiManager.cs" />
+    <Compile Include="Core\HelpManager.cs" />
+    <Compile Include="Core\MarkupManager.cs" />
+    <Compile Include="Core\PaymentIO\PaymentIOManager.cs" />
+    <Compile Include="Core\PaymentIO\SEPA\CreditTransferTransactionInformationNode.cs" />
+    <Compile Include="Core\PaymentIO\SEPA\ParticipantNode.cs" />
+    <Compile Include="Core\PaymentIO\SEPA\PaymentInformationNode.cs" />
+    <Compile Include="Core\PaymentIO\SEPA\SEPAUtility.cs" />
+    <Compile Include="Core\PaymentIO\SEPA\GroupHeaderNode.cs" />
+    <Compile Include="Core\PaymentIO\SEPA\SEPAManager.cs" />
+    <Compile Include="Core\ReportDataManager.cs" />
+    <Compile Include="Core\TimeEngine\TimeEngineManager.cs" />
+    <Compile Include="Core\TimeStampManager.cs" />
+    <Compile Include="Core\SysScheduledJobManager.cs" />
+    <Compile Include="Core\TimeUniqueDayManager.cs" />
+    <Compile Include="Core\DeviationManager.cs" />
+    <Compile Include="Core\TimePeriodManager.cs" />
+    <Compile Include="Core\TimeSalaryManager.cs" />
+    <Compile Include="Core\TimeHalfdayManager.cs" />
+    <Compile Include="Core\TimeAccumulatorManager.cs" />
+    <Compile Include="Core\TimeBlockManager.cs" />
+    <Compile Include="Core\TimeDeviationCauseManager.cs" />
+    <Compile Include="Core\TimeRuleManager.cs" />
+    <Compile Include="Core\TimeScheduleManager.cs" />
+    <Compile Include="Core\EmployeeManager.cs" />
+    <Compile Include="Core\Project\ProjectManager.cs" />
+    <Compile Include="Core\ExcelImportManager.cs" />
+    <Compile Include="Core\PriceRuleManager.cs" />
+    <Compile Include="Core\SupplierAgreementManager.cs" />
+    <Compile Include="Core\CommunicationManager.cs" />
+    <Compile Include="Core\WtConvertManager.cs" />
+    <Compile Include="DTO\BalanceItemDTO.cs" />
+    <Compile Include="DTO\EmployeeGroupHolidayDTO.cs" />
+    <Compile Include="ScheduleJobs\AnnualLeaveTransactionJob.cs" />
+    <Compile Include="ScheduleJobs\AutoAttestJob.cs" />
+    <Compile Include="ScheduleJobs\AutoStampOutJob.cs" />
+    <Compile Include="ScheduleJobs\FortnoxAuthJob.cs" />
+    <Compile Include="ScheduleJobs\RSKUpdateCreateProductGroupsJob.cs" />
+    <Compile Include="ScheduleJobs\RSKUpdateSysProductsJob.cs" />
+    <Compile Include="ScheduleJobs\BankerDownloadEndOfDayJob.cs" />
+    <Compile Include="ScheduleJobs\BridgeJob.cs" />
+    <Compile Include="ScheduleJobs\CleanDuplicateTimeBlockDateJob.cs" />
+    <Compile Include="ScheduleJobs\CompanyScheduledJobHeadJob.cs" />
+    <Compile Include="ScheduleJobs\BankerDownloadIntraDayJob.cs" />
+    <Compile Include="ScheduleJobs\PayrollSlipJob.cs" />
+    <Compile Include="ScheduleJobs\CreateAbsenceDetailsJob.cs" />
+    <Compile Include="ScheduleJobs\IntrumInvoiceExportJob.cs" />
+    <Compile Include="ScheduleJobs\ChangeSysServerJob.cs" />
+    <Compile Include="ScheduleJobs\SysInformationSendPushNotificationJob.cs" />
+    <Compile Include="ScheduleJobs\ExempleDataJob.cs" />
+    <Compile Include="ScheduleJobs\BlockedFromDateJob.cs" />
+    <Compile Include="ScheduleJobs\AxfoodJobs.cs" />
+    <Compile Include="ScheduleJobs\AzureSearchJob.cs" />
+    <Compile Include="ScheduleJobs\AutoTransferAutogiroSupplierPaymentsJob.cs" />
+    <Compile Include="ScheduleJobs\RemoveEmployeeSystemInfoJob.cs" />
+    <Compile Include="ScheduleJobs\CreateExpenseRows.cs" />
+    <Compile Include="ScheduleJobs\CompanyInformationSendPushNotificationJob.cs" />
+    <Compile Include="ScheduleJobs\SetupAnnualSchedule.cs" />
+    <Compile Include="ScheduleJobs\CompressDataStorage.cs" />
+    <Compile Include="ScheduleJobs\EdiTransfer.cs" />
+    <Compile Include="ScheduleJobs\SysEdiImportEdiMessageHeadsJob.cs" />
+    <Compile Include="ScheduleJobs\SysEdiImportFtpJob.cs" />
+    <Compile Include="ScheduleJobs\GridStateJob.cs" />
+    <Compile Include="ScheduleJobs\UseStaffingJob.cs" />
+    <Compile Include="ScheduleJobs\UnidentifyEmployees.cs" />
+    <Compile Include="ScheduleJobs\SetTemplateScheduleAccounting.cs" />
+    <Compile Include="ScheduleJobs\MigrateToEmployeeGroupTimeDeviationCauses.cs" />
+    <Compile Include="ScheduleJobs\SendMessageToUsersWithoutEmailJob.cs" />
+    <Compile Include="Security\IAppBuilderExtensions.cs" />
+    <Compile Include="Security\IDataProtectionBuilderExtensions.cs" />
+    <Compile Include="Security\SysDbXmlRepository.cs" />
+    <Compile Include="Security\TimeOutOwinHelper.cs" />
+    <Compile Include="Service References\ArbetsgivarintygNu\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Util\AnnualLeave\PreFlight\AnnualLeaveCalculation.cs" />
+    <Compile Include="Util\API\AvionData\AvionConnector.cs" />
+    <Compile Include="Util\API\AvionData\Enum\CompanyFormType.cs" />
+    <Compile Include="Util\API\AvionData\Models\AvionException.cs" />
+    <Compile Include="Util\API\AvionData\Models\AvionResponse.cs" />
+    <Compile Include="Util\API\AvionData\Models\CompanySearchFilter.cs" />
+    <Compile Include="Util\API\AvionData\Models\ResponseModels.cs" />
+    <Compile Include="Util\API\AzoraOne\AzoraOneHelper.cs" />
+    <Compile Include="Util\API\AzoraOne\AzoraOneManager.cs" />
+    <Compile Include="Util\API\AzoraOne\Connectors\CompanyConnector.cs" />
+    <Compile Include="Util\API\AzoraOne\Connectors\BaseConnector.cs" />
+    <Compile Include="Util\API\AzoraOne\Connectors\FileConnector.cs" />
+    <Compile Include="Util\API\AzoraOne\DocumentUploader.cs" />
+    <Compile Include="Util\API\AzoraOne\Models\Company.cs" />
+    <Compile Include="Util\API\AzoraOne\Models\File.cs" />
+    <Compile Include="Util\API\AzoraOne\Models\Receipt.cs" />
+    <Compile Include="Util\API\AzoraOne\Models\Response.cs" />
+    <Compile Include="Util\API\AzoraOne\Models\SupplierInvoice.cs" />
+    <Compile Include="Util\API\AzoraOne\Models\Supplier.cs" />
+    <Compile Include="Util\API\AzoraOne\Connectors\SupplierConnector.cs" />
+    <Compile Include="Util\API\AzoraOne\Connectors\SupplierInvoiceConnector.cs" />
+    <Compile Include="Util\API\CalabrioConnector.cs" />
+    <Compile Include="Util\API\FortnoxConnector.cs" />
+    <Compile Include="Util\API\IntrumConnector.cs" />
+    <Compile Include="Util\API\Models\Calabrio.cs" />
+    <Compile Include="Util\API\OAuthConnectorBase.cs" />
+    <Compile Include="Util\API\Shared\ExternalCustomerLedgerSystem.cs" />
+    <Compile Include="Util\API\SkatteverketConnector.cs" />
+    <Compile Include="Util\API\Utility\RateLimitChecker.cs" />
+    <Compile Include="Util\API\VismaEAccounting\VismaEAccountingManager.cs" />
+    <Compile Include="Util\API\VismaEAccounting\Models.cs" />
+    <Compile Include="Util\API\VismaEAccounting\VismaEAccountingConnector.cs" />
+    <Compile Include="Util\API\VismaEAccounting\Utility.cs" />
+    <Compile Include="Util\API\ZetesConnector.cs" />
+    <Compile Include="Util\AppInsightUtil.cs" />
+    <Compile Include="DataCache\BusinessMemoryCache.cs" />
+    <Compile Include="Util\Bridge\BridgeConnector.cs" />
+    <Compile Include="Util\CleanerUtil.cs" />
+    <Compile Include="Util\Communicator\CommunicatorConnector.cs" />
+    <Compile Include="Util\Communicator\Kivra\KivraUtil.cs" />
+    <Compile Include="Util\Converter\PdfConvertConnector.cs" />
+    <Compile Include="Util\CryptographyUtility.cs" />
+    <Compile Include="Util\DBQueryBatch\BatchHelper.cs" />
+    <Compile Include="Util\DefenderUtil.cs" />
+    <Compile Include="Util\EmployeeTemplateUtil.cs" />
+    <Compile Include="Util\ExportFiles\PayrollAccountSAP.cs" />
+    <Compile Include="Util\ExportFiles\SEF.cs" />
+    <Compile Include="Util\ExportFiles\ForaMonthly.cs" />
+    <Compile Include="Util\ExportFiles\SkandiaPension.cs" />
+    <Compile Include="Util\ExportFiles\IFMetall.cs" />
+    <Compile Include="Util\ExportFiles\Folksam.cs" />
+    <Compile Include="Util\ExportFiles\Intrastat.cs" />
+    <Compile Include="Util\ExportFiles\ICACustomer.cs" />
+    <Compile Include="Util\ExportFiles\PayrollAccountEKS.cs" />
+    <Compile Include="Util\GetDataInBatchesModel.cs" />
+    <Compile Include="Util\EmployeeAuthModel.cs" />
+    <Compile Include="Util\EmployeeAuthModelRepository.cs" />
+    <Compile Include="Util\EmployeeSchedulePlacementItem.cs" />
+    <Compile Include="Util\EMS\EMSSuperOfficeConnector.cs" />
+    <Compile Include="Util\ExcelHelper.cs" />
+    <Compile Include="Util\ExportFiles\ArbetsgivarintygPunktNu.cs" />
+    <Compile Include="Util\ExportFiles\Bygglosen.cs" />
+    <Compile Include="Util\ExportFiles\CertificateOfEmployment.cs" />
+    <Compile Include="Util\ExportFiles\PIRATVoucher.cs" />
+    <Compile Include="Util\ExportFiles\Kronofogden.cs" />
+    <Compile Include="Util\ExportFiles\ICACustomerBalance.cs" />
+    <Compile Include="Util\FeaturePermissionCacheItem.cs" />
+    <Compile Include="Util\FileDataItem.cs" />
+    <Compile Include="Util\FileUtil.cs" />
+    <Compile Include="Util\FinvoiceAttachmentItem.cs" />
+    <Compile Include="Util\GoRestClient.cs" />
+    <Compile Include="Util\ImportSpecials\ArosVoucher.cs" />
+    <Compile Include="Util\ImportSpecials\ICADepartmentMapping.cs" />
+    <Compile Include="Util\ImportSpecials\HsbOrderRow.cs" />
+    <Compile Include="Util\ImportSpecials\SafiloVoucher.cs" />
+    <Compile Include="Util\ImportSpecials\Interfaces\IPayrollImportable.cs" />
+    <Compile Include="Util\ImportSpecials\InvitePeople.cs" />
+    <Compile Include="Util\ImportSpecials\Nalen.cs" />
+    <Compile Include="Util\ImportSpecials\PirateAccountProject.cs" />
+    <Compile Include="Util\ImportSpecials\PirateAccountCostPlace.cs" />
+    <Compile Include="Util\ImportSpecials\PirateInvoiceProduct.cs" />
+    <Compile Include="Util\ImportSpecials\PirateCustomerInvoice.cs" />
+    <Compile Include="Util\ImportSpecials\Ksab.cs" />
+    <Compile Include="Util\ImportSpecials\HotSoftVoucher.cs" />
+    <Compile Include="Util\ImportSpecials\ICACustomer2.cs" />
+    <Compile Include="Util\ImportSpecials\ICAOnline2.cs" />
+    <Compile Include="Util\ImportSpecials\ICASupplierInvoice2.cs" />
+    <Compile Include="Util\ImportSpecials\KGMPhNew.cs" />
+    <Compile Include="Util\ImportSpecials\KGMPhOld.cs" />
+    <Compile Include="Util\ImportSpecials\Models\paxml.cs" />
+    <Compile Include="Util\ImportSpecials\PaXml2.cs" />
+    <Compile Include="Util\ImportSpecials\OperaCustomerInvoice.cs" />
+    <Compile Include="Util\ImportSpecials\SOPCustomerInvoice.cs" />
+    <Compile Include="Util\ImportSpecials\SAPSupplierInvoice.cs" />
+    <Compile Include="Util\ImportSpecials\ScheduleTimer.cs" />
+    <Compile Include="Util\ImportSpecials\SoftOneLonClassic.cs" />
+    <Compile Include="Util\ImportSpecials\SAPCustomerInvoice.cs" />
+    <Compile Include="Util\ImportSpecials\Spectra.cs" />
+    <Compile Include="Util\ImportSpecials\COOPCashVoucher.cs" />
+    <Compile Include="Util\ImportSpecials\COOPSupplierInvoice.cs" />
+    <Compile Include="Util\ImportSpecials\COOPCustomerInvoice.cs" />
+    <Compile Include="Util\API\Models\InExchangeApiIncomingDocument.cs" />
+    <Compile Include="Util\ImportSpecials\SEBACustomerInvoice.cs" />
+    <Compile Include="Util\IO\AxfoodExportItem.cs" />
+    <Compile Include="Util\IO\TimeBalanceIOItem.cs" />
+    <Compile Include="Util\IO\TimeCodeTransactionSimpleIOItem.cs" />
+    <Compile Include="Util\IO\TimeMigrationItem.cs" />
+    <Compile Include="Util\Leisure\PreFlight\AutomaticAllocation\AutomaticAllocationRunner.cs" />
+    <Compile Include="Util\Leisure\PreFlight\AutomaticAllocation\Models\AutomaticAllocationEmployeeDays.cs" />
+    <Compile Include="Util\Leisure\PreFlight\AutomaticAllocation\Models\AutomaticAllocationLeisureCode.cs" />
+    <Compile Include="Util\Leisure\PreFlight\AutomaticAllocation\Models\AutomaticAllocationOutput.cs" />
+    <Compile Include="Util\LogCollector\LogCollector.cs" />
+    <Compile Include="Util\PerformanceMeasurer.cs" />
+    <Compile Include="Util\PricelistProvider\Alcadon.cs" />
+    <Compile Include="Util\PricelistProvider\Comfort.cs" />
+    <Compile Include="Util\PricelistProvider\CurrentumExcel.cs" />
+    <Compile Include="Util\PricelistProvider\RexelNetto.cs" />
+    <Compile Include="Util\PricelistProvider\SoneparNetto.cs" />
+    <Compile Include="Util\PricelistProvider\Thermotech.cs" />
+    <Compile Include="Util\PricelistProvider\ElkedjanNetto.cs" />
+    <Compile Include="Util\PricelistProvider\GeliaNetto.cs" />
+    <Compile Include="Util\PricelistProvider\BadVarme.cs" />
+    <Compile Include="Util\ReportDataSelectionDTOJsonConverter.cs" />
+    <Compile Include="Util\ReportGroupServiceFactory.cs" />
+    <Compile Include="Util\RunLocally\DatabaseRestorer.cs" />
+    <Compile Include="Util\SalaryAdapters\BaseSalaryAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\LessorAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\SDWorxAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\PolAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\PAxmalAdapter2_1.cs" />
+    <Compile Include="Util\SalaryAdapters\HLAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\NetvisorAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\Models\SalaryExportCompany.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\Models\SalaryExportCostAllocation.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\Models\SalaryExportEmployee.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\Models\SalaryExportEmployeeChild.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\Models\SalaryExportSchedule.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\Models\SalaryExportTransaction.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\POL\Models\PolAbsenceTransaction.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\POL\Models\PolCompensationTransaction.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\POL\Models\PolEmployeeChildTransaction.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\POL\Models\PolEmployeeTransaction.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\POL\Models\PolScheduleTransaction.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\POL\Models\PolTransactionBase.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\SalaryAdapterInterfaces.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\ISalaryAdapterResult.cs" />
+    <Compile Include="Util\SalaryAdapters\PreFlight\POL\PolSalaryAdapter.cs" />
+    <Compile Include="Util\SalaryPaymentAdapters\ISO20022Adapter.cs" />
+    <Compile Include="Util\ServiceBus\ServiceBusUtil.cs" />
+    <Compile Include="Util\SessionCache.cs" />
+    <Compile Include="Util\SoftOneIdUtil.cs" />
+    <Compile Include="Util\SqlCommandUtil.cs" />
+    <Compile Include="Util\SupplierAgreement\Thermotech.cs" />
+    <Compile Include="Util\SupplierAgreement\ExcelProviderBase.cs" />
+    <Compile Include="Util\SupplierAgreement\ISupplierAgreementWithNetPrices.cs" />
+    <Compile Include="Util\PeppolBilling.cs" />
+    <Compile Include="Util\Svefaktura\SFTI-BasicInvoice-1.0.cs">
+      <DependentUpon>SFTI-BasicInvoice-1.0.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Util\Svefaktura\SFTI-ObjectEnvelope-1.0.cs">
+      <DependentUpon>SFTI-ObjectEnvelope-1.0.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Util\Svefaktura\SFTI_StandardBusinessDocumentHeader.cs">
+      <DependentUpon>SFTI_StandardBusinessDocumentHeader.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Util\IO\EmployeeChangeIOItem.cs" />
+    <Compile Include="Util\ManagerInput.cs" />
+    <Compile Include="ScheduleJobs\MigrateProjectInvoiceDayToProjectTimeBlockJob.cs" />
+    <Compile Include="ScheduleJobs\SetLevelOnTransactionsFromPayrollProductionJob.cs" />
+    <Compile Include="ScheduleJobs\ValidateDeviationCauseFromProjectInvoiceDayJob.cs" />
+    <Compile Include="ScheduleJobs\CalculateTimeAccumulatorBalanceJob.cs" />
+    <Compile Include="ScheduleJobs\CleanReportPrintoutJob.cs" />
+    <Compile Include="ScheduleJobs\DataStorageFilenameJob.cs" />
+    <Compile Include="ScheduleJobs\EdiAdmin.cs" />
+    <Compile Include="ScheduleJobs\EdiFromFtpJob.cs" />
+    <Compile Include="ScheduleJobs\FixSharedProducts.cs" />
+    <Compile Include="ScheduleJobs\FlexForceSyncJob.cs" />
+    <Compile Include="ScheduleJobs\InExchangeJob.cs" />
+    <Compile Include="ScheduleJobs\PublishPreliminarySchedulesJob.cs" />
+    <Compile Include="ScheduleJobs\PurgeDeletedRecordsJob.cs" />
+    <Compile Include="ScheduleJobs\QlikViewJob.cs" />
+    <Compile Include="ScheduleJobs\ReCalculatePayrollDaysJob.cs" />
+    <Compile Include="ScheduleJobs\SaveEmployeeSchedulePlacementFromJob.cs" />
+    <Compile Include="ScheduleJobs\ScheduledJobBase.cs" />
+    <Compile Include="ScheduleJobs\SendAttestReminderJob.cs" />
+    <Compile Include="ScheduleJobs\SendEmployeeReminderJob.cs" />
+    <Compile Include="ScheduleJobs\SendSupplierInvoiceAttestReminderJob.cs" />
+    <Compile Include="ScheduleJobs\SoftOneStageSyncJob.cs" />
+    <Compile Include="ScheduleJobs\SuperOfficeSyncJob.cs" />
+    <Compile Include="ScheduleJobs\SysCompanyJob.cs" />
+    <Compile Include="ScheduleJobs\FetchStoreDataJob.cs" />
+    <Compile Include="ScheduleJobs\SysEdiJob.cs" />
+    <Compile Include="ScheduleJobs\SystemInfoJob.cs" />
+    <Compile Include="ScheduleJobs\TemporaryFixesJob.cs" />
+    <Compile Include="ScheduleJobs\TestJob.cs" />
+    <Compile Include="ScheduleJobs\TimeStampConversionJob.cs" />
+    <Compile Include="ScheduleJobs\UpdateAccountBalanceJob.cs" />
+    <Compile Include="ScheduleJobs\UpdateCurrencyJob.cs" />
+    <Compile Include="ScheduleJobs\UpdateScheduledTimeSummaryJob.cs" />
+    <Compile Include="ScheduleJobs\WTConversionJob.cs" />
+    <Compile Include="Service References\SolidusAgentFeed\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Util\AccountHierachyItem.cs" />
+    <Compile Include="Interfaces\IPriceListValidator.cs" />
+    <Compile Include="Interfaces\IScheduledService.cs" />
+    <Compile Include="Interfaces\ISoeImportItem.cs" />
+    <Compile Include="Interfaces\IScheduledJob.cs" />
+    <Compile Include="Core\TimeTransactionManager.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Altinn.IntermediaryInboundBasic\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Altinn.PreFillEUSExternalBasic\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Altinn.ReceiptExternalBasic\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Altinn.ServiceMetaDataExternalBasic\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Altinn.ServiceMetaDataExternal\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Altinn.SystemAuthentication\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Util\AccountDistributionIOItem.cs" />
+    <Compile Include="Util\AccountDistributionRowIOItem.cs" />
+    <Compile Include="Util\AccountYearIOItem.cs" />
+    <Compile Include="Util\AccountPeriodIOItem.cs" />
+    <Compile Include="Util\AccountIOItem.cs" />
+    <Compile Include="Util\AccountYearBalanceIOItem.cs" />
+    <Compile Include="Util\AutogiroExport.cs" />
+    <Compile Include="Util\Azure\BlobUtil.cs" />
+    <Compile Include="Util\CacheUtil.cs" />
+    <Compile Include="Util\ConnectUtil.cs" />
+    <Compile Include="Util\DnBNorExport.cs" />
+    <Compile Include="Util\ExportFiles\Collectum.cs" />
+    <Compile Include="Util\ExportFiles\ExportFilesHelper.cs" />
+    <Compile Include="Util\ExportFiles\eSDKUpload.cs" />
+    <Compile Include="Util\ExportFiles\ExportFilesBase.cs" />
+    <Compile Include="Util\ExportFiles\Kpa.cs" />
+    <Compile Include="Util\ExportFiles\Fora.cs" />
+    <Compile Include="Util\ExportFiles\KU10.cs" />
+    <Compile Include="Util\ExportFiles\QlikviewType1.cs" />
+    <Compile Include="Util\ImportSpecials\Ansjo.cs" />
+    <Compile Include="Util\ImportSpecials\Momentum.cs" />
+    <Compile Include="Util\ImportSpecials\ICABudget.cs" />
+    <Compile Include="Util\ImportSpecials\ICAFreq.cs" />
+    <Compile Include="Util\ImportSpecials\ScheduleTilTid.cs" />
+    <Compile Include="Util\ImportSpecials\Lime.cs" />
+    <Compile Include="Util\ImportSpecials\Cask.cs" />
+    <Compile Include="Util\ImportSpecials\FastNet.cs" />
+    <Compile Include="Util\ImportSpecials\ICACustomerInvoice.cs" />
+    <Compile Include="Util\ImportSpecials\ICAOnline.cs" />
+    <Compile Include="Util\ImportSpecials\ICASupplierInvoice.cs" />
+    <Compile Include="Util\ImportSpecials\ImportSpecial.cs" />
+    <Compile Include="Util\ImportSpecials\SOPPP.cs" />
+    <Compile Include="Util\API\InExchangeConnector.cs" />
+    <Compile Include="Util\IO\BudgetIOItem.cs" />
+    <Compile Include="Util\IO\CompanyInformationIOItem.cs" />
+    <Compile Include="Util\IO\ChecklistIOItem.cs" />
+    <Compile Include="Util\IO\ContactIOItem.cs" />
+    <Compile Include="Util\IO\EdiMessageItem.cs" />
+    <Compile Include="Util\IO\EmployeeVacationSEIOItem.cs" />
+    <Compile Include="Util\IO\FixedPayrollRowIOItem.cs" />
+    <Compile Include="Util\IO\TextBlockOItem.cs" />
+    <Compile Include="Util\IO\DistributionCodeIOItem.cs" />
+    <Compile Include="Util\IO\EmploymentIOItem.cs" />
+    <Compile Include="Util\IO\TimeCodeTransactionIOItem.cs" />
+    <Compile Include="Util\IO\TimeScheduleBlockItem.cs" />
+    <Compile Include="Util\IO\UserCompanySettingIOItem.cs" />
+    <Compile Include="Util\IO\GrossProfitCodeIOItem.cs" />
+    <Compile Include="Util\IO\InventoryIOItem.cs" />
+    <Compile Include="Util\IO\EmployeeIOItem.cs" />
+    <Compile Include="Util\IO\InvoiceProductIOItem.cs" />
+    <Compile Include="Util\ExportFiles\PayrollAccountVisma.cs" />
+    <Compile Include="Util\ExportFiles\SCBStatisticsFiles.cs" />
+    <Compile Include="Util\ExportFiles\PayrollAccountSIE.cs" />
+    <Compile Include="Util\IO\SideDictionaryIOItem.cs" />
+    <Compile Include="Util\IO\PaymentIOItem.cs" />
+    <Compile Include="Util\PricelistProvider\ExcelProviderBase.cs" />
+    <Compile Include="Util\PricelistProvider\GenericCSVProvider.cs" />
+    <Compile Include="Util\PricelistProvider\Etman.cs" />
+    <Compile Include="Util\PricelistProvider\MalmBergFI.cs" />
+    <Compile Include="Util\PricelistProvider\VSProdukter.cs" />
+    <Compile Include="Core\Reporting\EconomyReportDataManager.cs" />
+    <Compile Include="Util\PricelistProvider\ByggOle.cs" />
+    <Compile Include="Util\PricelistProvider\E2Teknik.cs" />
+    <Compile Include="Util\QR\Class1.cs" />
+    <Compile Include="Util\QR\QRCode.cs" />
+    <Compile Include="Util\SalaryAdapters\AdritoLAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\DLPrime3000Adapter.cs" />
+    <Compile Include="Util\SalaryAdapters\BlueGardenAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\OrklaAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\FivaldiAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\TikonCSVAdapter.cs" />
+    <Compile Include="Util\SalaryPaymentAdapters\BGCKIAdapter.cs" />
+    <Compile Include="Util\SalaryPaymentAdapters\BGCLBAdapter.cs" />
+    <Compile Include="Util\SalaryPaymentAdapters\NordeaAdapter.cs" />
+    <Compile Include="Util\SalaryPaymentAdapters\SalaryPaymentBaseAdapter.cs" />
+    <Compile Include="Util\SalaryPaymentAdapters\SUSAdapter.cs" />
+    <Compile Include="Util\SoftOne Server Utility\TFS\BuildDefinition.cs" />
+    <Compile Include="Util\SoftOne Server Utility\UtilityStatisticUtil.cs" />
+    <Compile Include="Util\SoftOne Stage\SoftOneStageUtil.cs" />
+    <Compile Include="Util\SoftOne Stage\StageSyncDTO.cs" />
+    <Compile Include="Util\SshUtil.cs" />
+    <Compile Include="Util\StaffingStatisticsEngine.cs" />
+    <Compile Include="Util\StaffingNeedsCalculationEngine.cs" />
+    <Compile Include="Util\SupplierAgreement\E2Elteknik.cs" />
+    <Compile Include="Util\SupplierAgreement\GenericCSVProvider.cs" />
+    <Compile Include="Util\SysVehicleXMLUtility.cs" />
+    <Compile Include="Util\TimeBreakTemplateEvaluation.cs" />
+    <Compile Include="Util\UseForwardedHeadersExtension.cs" />
+    <Compile Include="Util\UserAgentUtility.cs" />
+    <Compile Include="Util\VoucherSeriesIOItem.cs" />
+    <Compile Include="Util\ICA\ICACustomerBalanceItem.cs" />
+    <Compile Include="Util\TimeScheduleTemplateBlockReference.cs" />
+    <Compile Include="Util\AccumulatorSaveItem.cs" />
+    <Compile Include="Util\AltInn\AltInn.cs" />
+    <Compile Include="Util\AltInn\RF002.cs">
+      <DependentUpon>RF002.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Util\AltInn\RF002_VatDeclaration.cs" />
+    <Compile Include="Util\ApplyBreakDTO.cs" />
+    <Compile Include="Util\ChangeStatusGridViewParams.cs" />
+    <Compile Include="Util\Config\ConfigSettings.cs" />
+    <Compile Include="Core\PaymentIO\SEPA\SEPAModel.cs" />
+    <Compile Include="Util\PricelistProvider\DelimiterProviderBase.cs" />
+    <Compile Include="Util\PricelistProvider\SolarCSV.cs" />
+    <Compile Include="Util\ProjectIOItem.cs" />
+    <Compile Include="Util\SupplierAgreement\SolarCSV.cs" />
+    <Compile Include="Util\VoucherRowIOItem.cs" />
+    <Compile Include="Util\VoucherHeadIOItem.cs" />
+    <Compile Include="Util\CurrencyItem.cs" />
+    <Compile Include="Util\CustomerInvoiceIOItem.cs" />
+    <Compile Include="Util\CustomerInvoiceRowIOItem.cs" />
+    <Compile Include="Util\CustomerIOItem.cs" />
+    <Compile Include="Util\DIRegnskapExport.cs" />
+    <Compile Include="Util\DownloadFiTaxItem.cs" />
+    <Compile Include="Util\ECBCurrencyItem.cs" />
+    <Compile Include="Util\EHFinvoiceItem.cs" />
+    <Compile Include="Util\NorwegianExportBase.cs" />
+    <Compile Include="Util\ImportCreateInput.cs" />
+    <Compile Include="Util\ImportExportItem.cs" />
+    <Compile Include="Util\BusinessExportUtil.cs" />
+    <Compile Include="Util\FinvoiceEdiItem.cs" />
+    <Compile Include="Util\GenerateRuleEvaluationOutcomeDTO.cs" />
+    <Compile Include="Util\CompanyRestoreItem.cs" />
+    <Compile Include="Interfaces\ISalaryAdapter.cs" />
+    <Compile Include="DataCache\CompDbCache.cs" />
+    <Compile Include="Util\NavigationHistoryItem.cs" />
+    <Compile Include="Util\PricelistProvider\Ahlsell.cs" />
+    <Compile Include="Util\PricelistProvider\Bevego.cs" />
+    <Compile Include="Util\PricelistProvider\Bragross.cs" />
+    <Compile Include="Util\PricelistProvider\Carpings.cs" />
+    <Compile Include="Util\PricelistProvider\CSVProviderBase.cs" />
+    <Compile Include="Util\PricelistProvider\Elkedjan.cs" />
+    <Compile Include="Util\PricelistProvider\FinnishProvider.cs" />
+    <Compile Include="Util\PricelistProvider\Gelia.cs" />
+    <Compile Include="Util\PricelistProvider\RobHolmqvistVVS.cs" />
+    <Compile Include="Util\PricelistProvider\RowBasedProviderBase.cs" />
+    <Compile Include="Util\PricelistProvider\Malmbergs.cs" />
+    <Compile Include="Util\PricelistProvider\SthlmElgross.cs" />
+    <Compile Include="Util\PricelistProvider\TBEl.cs" />
+    <Compile Include="Util\PricelistProvider\Trebolit.cs" />
+    <Compile Include="Util\PricelistProvider\VVScentrum.cs" />
+    <Compile Include="Util\PushNotifications\SoePushNotification.cs" />
+    <Compile Include="Util\PushNotifications\TXLPushNotification.cs" />
+    <Compile Include="Util\ReadSoftAPI.cs" />
+    <Compile Include="Util\ReadSoftMessage.cs" />
+    <Compile Include="Util\ReadSoftScanningItem.cs" />
+    <Compile Include="Util\SalaryAdapters\AgdaLonAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\TikonAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\DiLonnAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\FlexLonAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\PAxmlAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\Hogia214007Adapter.cs" />
+    <Compile Include="Util\SalaryAdapters\Hogia214002Adapter.cs" />
+    <Compile Include="Util\SalaryAdapters\PersonecAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\SaumaAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\Visma600Adapter.cs" />
+    <Compile Include="Util\SalaryAdapters\SvenskLonAdapter.cs" />
+    <Compile Include="Util\ShiftHistoryLogProperties.cs" />
+    <Compile Include="Util\SOPExport.cs" />
+    <Compile Include="Util\StaffingNeedsFrequencyIOItem.cs" />
+    <Compile Include="Util\SupplierAgreement\Bragross.cs" />
+    <Compile Include="Util\SupplierAgreement\Carpings.cs" />
+    <Compile Include="Util\SupplierAgreement\CSVProviderBase.cs" />
+    <Compile Include="Util\SupplierAgreement\Elkedjan.cs" />
+    <Compile Include="Util\SupplierAgreement\JohnFredrik.cs" />
+    <Compile Include="Util\SupplierAgreement\FinnishAgreement.cs" />
+    <Compile Include="Util\SupplierAgreement\RobHolmqvistVVS.cs" />
+    <Compile Include="Util\SupplierAgreement\RowBasedSupplierAgreementBase.cs" />
+    <Compile Include="Util\SupplierAgreement\SthlmElgross.cs" />
+    <Compile Include="Util\SupplierAgreement\VVScentrum.cs" />
+    <Compile Include="Util\SupplierInvoiceIOItem.cs" />
+    <Compile Include="Util\SupplierIOItem.cs" />
+    <Compile Include="Util\SvefakturaItem.cs" />
+    <Compile Include="Util\SymbrioEdiItem.cs" />
+    <Compile Include="DTO\TimeStampSyncDTOs.cs" />
+    <Compile Include="Util\SalaryAdapters\SoftOneAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\KontekAdapter.cs" />
+    <Compile Include="Util\SalaryAdapters\SoeXeAdapter.cs" />
+    <Compile Include="Util\SalaryExportResult.cs" />
+    <Compile Include="Util\SalaryExportUtil.cs" />
+    <Compile Include="Util\PricelistProvider\Lunda.cs" />
+    <Compile Include="DataCache\SysDbCache.cs" />
+    <Compile Include="Core\SysNewsManager.cs" />
+    <Compile Include="Core\SysPriceListManager.cs" />
+    <Compile Include="Core\EmailManager.cs" />
+    <Compile Include="Core\LogoManager.cs" />
+    <Compile Include="Core\Product\ProductManager.cs" />
+    <Compile Include="Core\CountryCurrencyManager.cs" />
+    <Compile Include="Core\CustomerManager.cs" />
+    <Compile Include="Core\PaymentIO\BgMax\BgMaxManager.cs" />
+    <Compile Include="Core\PaymentIO\Enumerations.cs" />
+    <Compile Include="Core\LicenseCacheManager.cs" />
+    <Compile Include="Core\OriginManager.cs" />
+    <Compile Include="Core\PaymentIOManager.cs" />
+    <Compile Include="Core\PaymentIO\Lb\LbManager.cs" />
+    <Compile Include="Core\PaymentIO\Pg\PgFile.cs" />
+    <Compile Include="Core\PaymentIO\Pg\PgManager.cs" />
+    <Compile Include="Core\PaymentIO\Utilities.cs" />
+    <Compile Include="Core\PaymentManager.cs" />
+    <Compile Include="Core\ReportManager.cs" />
+    <Compile Include="Core\SequenceNumberManager.cs" />
+    <Compile Include="Core\SettingCacheManager.cs" />
+    <Compile Include="Core\SettingManager.cs" />
+    <Compile Include="Core\FeatureManager.cs" />
+    <Compile Include="Core\LicenseManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\RoleManager.cs" />
+    <Compile Include="Core\Export\SieManager.cs" />
+    <Compile Include="Core\SupplierManager.cs" />
+    <Compile Include="Core\TermCacheManager.cs" />
+    <Compile Include="Core\TimeCodeManager.cs" />
+    <Compile Include="Core\UserManager.cs" />
+    <Compile Include="Core\Voucher\VoucherManager.cs" />
+    <Compile Include="Core\WholeSellerManager.cs" />
+    <Compile Include="Interfaces\ISupplierAgreement.cs" />
+    <Compile Include="Interfaces\IPriceListProvider.cs" />
+    <Compile Include="Interfaces\IRssItem.cs" />
+    <Compile Include="Service References\CurrencyConvertorService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Util\BalanceItemList.cs" />
+    <Compile Include="Core\PaymentIO\BgMax\BgMaxFile.cs" />
+    <Compile Include="Util\FeatureTemplate.cs" />
+    <Compile Include="Util\SysImportDefinitionColumnParser.cs" />
+    <Compile Include="Util\SysImportHeadColumnParser.cs" />
+    <Compile Include="Util\TimeChunk.cs" />
+    <Compile Include="Util\Email.cs" />
+    <Compile Include="Util\FeatureTrackItem.cs" />
+    <Compile Include="Util\DownloadLbItem.cs" />
+    <Compile Include="Core\PaymentIO\Lb\LbFile.cs" />
+    <Compile Include="Util\FeaturePermissionItem.cs" />
+    <Compile Include="Util\FormIntervalEntryItem.cs" />
+    <Compile Include="Util\PredicateExtensions.cs" />
+    <Compile Include="Util\PricelistProvider\SolarVVS.cs" />
+    <Compile Include="Util\PricelistProvider\Elgrossen.cs" />
+    <Compile Include="Util\PricelistProvider\Moel.cs" />
+    <Compile Include="Util\PricelistProvider\Onninen.cs" />
+    <Compile Include="Util\PricelistProvider\Dahl.cs" />
+    <Compile Include="Util\PricelistProvider\Rexel.cs" />
+    <Compile Include="Util\PricelistProvider\Solar.cs" />
+    <Compile Include="Util\PricelistProvider\Sonepar.cs" />
+    <Compile Include="Util\PricelistProvider\Eios.cs" />
+    <Compile Include="Util\PricelistProvider\GenericProvider.cs" />
+    <Compile Include="Util\PriceRule.cs" />
+    <Compile Include="Util\RssItem.cs" />
+    <Compile Include="Util\DownloadSieItem.cs" />
+    <Compile Include="Util\SoeFormObject.cs" />
+    <Compile Include="Util\Settings.cs" />
+    <Compile Include="Core\LanguageManager.cs" />
+    <Compile Include="Core\LoginManager.cs" />
+    <Compile Include="Core\ManagerBase.cs" />
+    <Compile Include="Core\SysLogManager.cs" />
+    <Compile Include="Core\TermManager.cs" />
+    <Compile Include="Core\FieldSettingManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\LicenseObject.cs" />
+    <Compile Include="Util\FeaturePermissionCache.cs" />
+    <Compile Include="Util\Sie.cs" />
+    <Compile Include="Util\SiteMapNode.cs" />
+    <Compile Include="Util\SupplierAgreement\Ahlsell.cs" />
+    <Compile Include="Util\SupplierAgreement\SolarVVS.cs" />
+    <Compile Include="Util\SupplierAgreement\Storel.cs" />
+    <Compile Include="Util\SupplierAgreement\Dahl.cs" />
+    <Compile Include="Util\SupplierAgreement\Elektroskandia.cs" />
+    <Compile Include="Util\SupplierAgreement\Solar.cs" />
+    <Compile Include="Util\SupplierAgreement\Elgrossen.cs" />
+    <Compile Include="Util\SupplierAgreement\Onninen.cs" />
+    <Compile Include="Util\SupplierAgreement\Rexel.cs" />
+    <Compile Include="Util\SupplierAgreement\GenericProvider.cs" />
+    <Compile Include="Util\TermObject.cs" />
+    <Compile Include="Util\FavoriteItem.cs" />
+    <Compile Include="Util\UniMicroExport.cs" />
+    <Compile Include="Util\ValidationItem.cs" />
+    <Compile Include="Util\WebApiInternal\ClientManagementConnector.cs" />
+    <Compile Include="Util\WebApiInternal\ConnectorBase.cs" />
+    <Compile Include="Util\WebApiInternal\InternalLicenseConnector.cs" />
+    <Compile Include="Util\WebApiInternal\ReportConnector.cs" />
+    <Compile Include="Util\WebApiInternal\Template\AttestTemplateConnector.cs" />
+    <Compile Include="Util\WebApiInternal\Template\TimeTemplateConnector.cs" />
+    <Compile Include="Util\WebApiInternal\Template\BillingTemplateConnector.cs" />
+    <Compile Include="Util\WebApiInternal\Template\EconomyTemplateConnector.cs" />
+    <Compile Include="Util\WebApiInternal\Template\CoreTemplateConnector.cs" />
+    <Compile Include="Util\XEConnectDataBaseMethods.cs" />
+    <Compile Include="Util\ConfigurationSetupUtil.cs" />
+    <Compile Include="Web References\FlexForceService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web\Middleware\CorrelationIdMiddleware.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Soe.Common\Soe.Common.csproj">
+      <Project>{c82aaefc-9763-4b3a-9e05-d51086468194}</Project>
+      <Name>Soe.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Soe.Data\Soe.Data.csproj">
+      <Project>{AAFBB9F1-A726-4D50-BEEE-ADE46D1F98CE}</Project>
+      <Name>Soe.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Soe.Shared\Soe.Shared.csproj">
+      <Project>{2e13e0a9-c3c1-40fb-856b-655e06549d7e}</Project>
+      <Name>Soe.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Soe.Util\Soe.Util.csproj">
+      <Project>{c6a383fd-cd0c-4745-820c-9478cdf16c61}</Project>
+      <Name>Soe.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="CustomDictionary.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Migrated rules for Soe.Business.ruleset" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\SoftOne.Soe.Common.DTO.EmployeeChildDTO.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Altinn.IntermediaryInboundBasic\IntermediaryInboundBasicSF.wsdl" />
+    <None Include="Service References\Altinn.IntermediaryInboundBasic\SoftOne.Soe.Business.Altinn.IntermediaryInboundBasic.GetAltinnSubmissionStatusBasicResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.IntermediaryInboundBasic\SoftOne.Soe.Business.Altinn.IntermediaryInboundBasic.SubmitFormTaskBasicResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.IntermediaryInboundBasic\SoftOne.Soe.Business.Altinn.IntermediaryInboundBasic.TestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.PreFillEUSExternalBasic\PreFillEUSExternalBasic.wsdl" />
+    <None Include="Service References\Altinn.PreFillEUSExternalBasic\SoftOne.Soe.Business.Altinn.PreFillEUSExternalBasic.GetPrefillDataBasicResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.PreFillEUSExternalBasic\SoftOne.Soe.Business.Altinn.PreFillEUSExternalBasic.GetPrefillDataBasicV2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.PreFillEUSExternalBasic\SoftOne.Soe.Business.Altinn.PreFillEUSExternalBasic.TestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ReceiptExternalBasic\ReceiptExternalBasicSF.wsdl" />
+    <None Include="Service References\Altinn.ReceiptExternalBasic\SoftOne.Soe.Business.Altinn.ReceiptExternalBasic.GetReceiptBasicResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ReceiptExternalBasic\SoftOne.Soe.Business.Altinn.ReceiptExternalBasic.GetReceiptListBasicResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ReceiptExternalBasic\SoftOne.Soe.Business.Altinn.ReceiptExternalBasic.SaveReceiptBasicResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ReceiptExternalBasic\SoftOne.Soe.Business.Altinn.ReceiptExternalBasic.TestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ServiceMetaDataExternalBasic\ServiceMetaDataExternalBasicSF.wsdl" />
+    <None Include="Service References\Altinn.ServiceMetaDataExternalBasic\SoftOne.Soe.Business.Altinn.ServiceMetaDataExternalBasic.GetAvailableServicesBasicResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ServiceMetaDataExternalBasic\SoftOne.Soe.Business.Altinn.ServiceMetaDataExternalBasic.GetAvailableServicesBasicV2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ServiceMetaDataExternalBasic\SoftOne.Soe.Business.Altinn.ServiceMetaDataExternalBasic.GetCodeListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ServiceMetaDataExternalBasic\SoftOne.Soe.Business.Altinn.ServiceMetaDataExternalBasic.GetFilteredCodeListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ServiceMetaDataExternalBasic\SoftOne.Soe.Business.Altinn.ServiceMetaDataExternalBasic.GetFormTaskSchemaDefinitionsBasicResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ServiceMetaDataExternalBasic\SoftOne.Soe.Business.Altinn.ServiceMetaDataExternalBasic.TestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ServiceMetaDataExternal\ServiceMetaDataExternalSF1.wsdl" />
+    <None Include="Service References\Altinn.ServiceMetaDataExternal\SoftOne.Soe.Business.Altinn.ServiceMetaDataExternal.GetAvailableServicesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ServiceMetaDataExternal\SoftOne.Soe.Business.Altinn.ServiceMetaDataExternal.GetAvailableServicesV2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ServiceMetaDataExternal\SoftOne.Soe.Business.Altinn.ServiceMetaDataExternal.GetCodeListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ServiceMetaDataExternal\SoftOne.Soe.Business.Altinn.ServiceMetaDataExternal.GetFilteredCodeListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ServiceMetaDataExternal\SoftOne.Soe.Business.Altinn.ServiceMetaDataExternal.GetSchemaDefinitionsForFormTaskResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.ServiceMetaDataExternal\SoftOne.Soe.Business.Altinn.ServiceMetaDataExternal.TestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.SystemAuthentication\SoftOne.Soe.Business.Altinn.SystemAuthentication.GetAuthenticationChallengeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Altinn.SystemAuthentication\SoftOne.Soe.Business.Altinn.SystemAuthentication.TestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ArbetsgivarintygNu\ArbetsgivarintygService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ArbetsgivarintygNu\ArbetsgivarintygService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ArbetsgivarintygNu\ArbetsgivarintygService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ArbetsgivarintygNu\ArbetsgivarintygService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ArbetsgivarintygNu\ArbetsgivarintygService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ArbetsgivarintygNu\BizTalkServiceInstance.wsdl" />
+    <None Include="Service References\ArbetsgivarintygNu\SoftOne.Soe.Business.ArbetsgivarintygNu.ArbetsgivarintygServiceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ArbetsgivarintygNu\SoftOne.Soe.Business.ArbetsgivarintygNu.SaveArbetsgivarintygServiceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CurrencyConvertorService\CurrencyConvertor.wsdl" />
+    <None Include="Service References\Altinn.SystemAuthentication\SystemAuthenticationSI.wsdl" />
+    <None Include="Service References\SolidusAgentFeed\AgentFeedWS.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SolidusAgentFeed\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SolidusAgentFeed\service.wsdl" />
+    <None Include="Service References\SolidusAgentFeed\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SolidusAgentFeed\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SolidusAgentFeed\SoftOne.Soe.Business.SolidusAgentFeed.ResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="soe.business.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Soe.Business.ruleset" />
+    <None Include="Util\AltInn\RF002.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ArbetsgivarintygNu\ArbetsgivarintygService.disco" />
+    <None Include="Service References\ArbetsgivarintygNu\configuration91.svcinfo" />
+    <None Include="Service References\ArbetsgivarintygNu\configuration.svcinfo" />
+    <None Include="Service References\ArbetsgivarintygNu\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Core\New Bitmap image.bmp" />
+    <Content Include="Util\IO\XSD\Axfood\Schedule.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Util\IO\XSD\Axfood\Transactions.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Util\Svefaktura\SFTI-BasicInvoice-1.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Util\Svefaktura\SFTI-ObjectEnvelope-1.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Util\Svefaktura\SFTI_StandardBusinessDocumentHeader.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\FlexForceService\Agreement.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\AgreementTemplate.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\Category.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\Customer.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\District.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\Employee.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\FlexForceWebServices.wsdl" />
+    <None Include="Web References\FlexForceService\Forecast.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\Group.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\LeaveApplication.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\LeaveReason.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\MonthlyView.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\Payroll.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\PayrollRaw.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\Portrait.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\Project.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\FlexForceService\Restaurant.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\Role.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\SalesData.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\Schedule.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\ScheduleTask.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\Section.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\ShiftCategory.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\TextItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\TimeRecord.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\UpdateAgreement.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\UpdateEmployee.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\UpdateForecast.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\UpdateShiftType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\UpdateTimePunch.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FlexForceService\VariableType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Altinn.IntermediaryInboundBasic\" />
+    <WCFMetadataStorage Include="Service References\Altinn.PreFillEUSExternalBasic\" />
+    <WCFMetadataStorage Include="Service References\Altinn.ReceiptExternalBasic\" />
+    <WCFMetadataStorage Include="Service References\Altinn.ServiceMetaDataExternalBasic\" />
+    <WCFMetadataStorage Include="Service References\Altinn.ServiceMetaDataExternal\" />
+    <WCFMetadataStorage Include="Service References\ArbetsgivarintygNu\" />
+    <WCFMetadataStorage Include="Service References\CurrencyConvertorService\" />
+    <WCFMetadataStorage Include="Service References\Altinn.SystemAuthentication\" />
+    <WCFMetadataStorage Include="Service References\SolidusAgentFeed\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CurrencyConvertorService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CurrencyConvertorService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CurrencyConvertorService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://apiftp.quinyx.com/FlexForceWebServices.php%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\FlexForceService\</RelPath>
+      <UpdateFromURL>http://apiftp.quinyx.com/FlexForceWebServices.php%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>SoftOne_Soe_Business_FlexForceService_FlexForce</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.SystemAuthentication\SystemAuthentication.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.SystemAuthentication\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.SystemAuthentication\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.SystemAuthentication\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.ServiceMetaDataExternal\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.ServiceMetaDataExternal\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.ServiceMetaDataExternal\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.ServiceMetaDataExternal\ServiceMetaDataExternal1.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.ServiceMetaDataExternalBasic\ServiceMetaDataExternalBasic.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.ServiceMetaDataExternalBasic\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.ServiceMetaDataExternalBasic\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.ServiceMetaDataExternalBasic\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.PreFillEUSExternalBasic\PreFillEUSExternalBasic.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.PreFillEUSExternalBasic\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.PreFillEUSExternalBasic\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.PreFillEUSExternalBasic\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.IntermediaryInboundBasic\IntermediaryInboundBasic.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.IntermediaryInboundBasic\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.IntermediaryInboundBasic\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.IntermediaryInboundBasic\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.ReceiptExternalBasic\ReceiptExternalBasic.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.ReceiptExternalBasic\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.ReceiptExternalBasic\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Altinn.ReceiptExternalBasic\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SolidusAgentFeed\configuration91.svcinfo" />
+    <None Include="Service References\SolidusAgentFeed\configuration.svcinfo" />
+    <None Include="Service References\SolidusAgentFeed\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Util\AltInn\ExampleFile.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\Edi\" />
+    <Folder Include="Core\Template\Core\NewFolder1\" />
+    <Folder Include="Util\InExchange\" />
+    <Folder Include="Util\Reports\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets'))" />
+    <Error Condition="!Exists('..\packages\Selenium.WebDriver.ChromeDriver.141.0.7390.7800\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.ChromeDriver.141.0.7390.7800\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+    <Error Condition="!Exists('..\packages\MessagePackAnalyzer.3.1.4\build\MessagePackAnalyzer.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MessagePackAnalyzer.3.1.4\build\MessagePackAnalyzer.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+  <Import Project="..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />
+  <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.141.0.7390.7800\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.141.0.7390.7800\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="..\packages\MessagePackAnalyzer.3.1.4\build\MessagePackAnalyzer.targets" Condition="Exists('..\packages\MessagePackAnalyzer.3.1.4\build\MessagePackAnalyzer.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

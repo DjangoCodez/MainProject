@@ -1,0 +1,61 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          [autoFocus]="true"
+          formControlName="name">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-4">
+        <soe-textbox
+          [labelKey]="'common.description'"
+          [maxLength]="512"
+          formControlName="description">
+        </soe-textbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'time.schedule.daytype.fromdaytype'"
+          [selectedId]="form.value.standardWeekdayFrom"
+          [items]="performWeekDays.data || []"
+          formControlName="standardWeekdayFrom">
+        </soe-select>
+      </div>
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'time.schedule.daytype.todaytype'"
+          [selectedId]="form.value.standardWeekdayTo"
+          [items]="performWeekDays.data || []"
+          formControlName="standardWeekdayTo">
+        </soe-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-checkbox
+          [labelKey]="'time.schedule.daytype.weekendsalary'"
+          [checked]="form.value.weekendSalary"
+          formControlName="weekendSalary"></soe-checkbox>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

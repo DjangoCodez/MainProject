@@ -1,0 +1,11 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (editRowClicked)="edit($event)"
+    [toolbarGroups]="toolbarUtils.toolbarGroups">
+    <soe-stock-balance-grid-filter
+      toolbar-content-left
+      (filter)="doFilter($event)"></soe-stock-balance-grid-filter>
+  </soe-grid-wrapper>
+}

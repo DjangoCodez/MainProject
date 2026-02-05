@@ -1,0 +1,169 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">
+            <span data-l10n-bind="'time.schedule.planning.followuptable.adjust'"></span>
+        </h6>
+    </div>
+    <div class="modal-body margin-large-right">
+        <div class="row">
+            <div class="col-sm-12 padding-none-right">
+                <div class="info">
+                    <span data-l10n-bind="'time.schedule.planning.followuptable.adjust.info'"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-4"></div>
+            <div class="padding-none-right center-text largeFont" data-ng-class="{'col-sm-4': ctrl.showForecast, 'col-sm-8': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-label label-key="time.schedule.planning.followuptable.budget"></soe-label>
+            </div>
+            <div class="padding-none-right center-text largeFont" data-ng-class="{'col-sm-4': ctrl.showBudget, 'col-sm-8': !ctrl.showBudget}" data-ng-if="ctrl.showForecast">
+                <soe-label label-key="time.schedule.planning.followuptable.forecast"></soe-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-1">
+                <soe-label label-key="core.calculate" style="margin-left: -12px;"></soe-label>
+            </div>
+            <div data-ng-class="{'col-sm-2': ctrl.showForecast, 'col-sm-4': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-label label-key="time.schedule.planning.followuptable.adjustment"></soe-label>
+            </div>
+            <div data-ng-class="{'col-sm-2': ctrl.showForecast, 'col-sm-4': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-label label-key="time.schedule.planning.followuptable.imported"></soe-label>
+            </div>
+            <div data-ng-class="{'col-sm-2': ctrl.showBudget, 'col-sm-4': !ctrl.showBudget}" data-ng-if="ctrl.showForecast">
+                <soe-label label-key="time.schedule.planning.followuptable.adjustment"></soe-label>
+            </div>
+            <div data-ng-class="{'col-sm-2': ctrl.showBudget, 'col-sm-4': !ctrl.showBudget}" data-ng-if="ctrl.showForecast">
+                <soe-label label-key="time.schedule.planning.followuptable.imported"></soe-label>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeSalesBudget || ctrl.selectableInformationSettings.followUpShowCalculationTypeSalesForecast">
+            <div class="col-sm-3">
+                <soe-label data-ng-class="{'accentColor italic': ctrl.isSalesIncluded}" model="ctrl.followUpCalculationTypes[0].name"></soe-label>
+            </div>
+            <div class="col-sm-1">
+                <soe-radiobutton model="ctrl.row.targetCalculationType" group="target" value="1" inline="true" on-changing="ctrl.typeModified();"></soe-radiobutton>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showForecast, 'col-sm-4': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-textbox hidelabel="true" model="ctrl.row.budget.sales" numeric="true" decimals="0" set-focus="true" update-on="blur" on-change="ctrl.valueModified(1);" is-disabled="ctrl.row.targetCalculationType==1" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeSalesBudget"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showForecast, 'col-sm-4': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-textbox hidelabel="true" model="ctrl.originalRow.budget.sales" numeric="true" decimals="0" readonly="true" tabindex="-1" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeSalesBudget"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showBudget, 'col-sm-4': !ctrl.showBudget}" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeSalesForecast">
+                <soe-textbox hidelabel="true" model="ctrl.row.forecast.sales" numeric="true" decimals="0" update-on="blur" on-change="ctrl.valueModified(1);" is-disabled="ctrl.row.targetCalculationType==1"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showBudget, 'col-sm-4': !ctrl.showBudget}" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeSalesForecast">
+                <soe-textbox hidelabel="true" model="ctrl.originalRow.forecast.sales" numeric="true" decimals="0" readonly="true" tabindex="-1"></soe-textbox>
+            </div>
+        </div>
+        <div class="row margin-small-top" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeHoursBudget || ctrl.selectableInformationSettings.followUpShowCalculationTypeHoursForecast">
+            <div class="col-sm-3">
+                <soe-label data-ng-class="{'accentColor italic': ctrl.isHoursIncluded}" model="ctrl.followUpCalculationTypes[1].name"></soe-label>
+            </div>
+            <div class="col-sm-1">
+                <soe-radiobutton model="ctrl.row.targetCalculationType" group="target" value="2" inline="true" on-changing="ctrl.typeModified();"></soe-radiobutton>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showForecast, 'col-sm-4': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-textbox hidelabel="true" model="ctrl.row.budgetHoursFormatted" is-time="true" update-on="blur" on-change="ctrl.valueModified(2);" is-disabled="ctrl.row.targetCalculationType==2" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeHoursBudget"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showForecast, 'col-sm-4': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-textbox hidelabel="true" model="ctrl.originalRow.budget.hours | minutesToTimeSpan" is-time="true" readonly="true" tabindex="-1" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeHoursBudget"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showBudget, 'col-sm-4': !ctrl.showBudget}" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeHoursForecast">
+                <soe-textbox hidelabel="true" model="ctrl.row.forecastHoursFormatted" is-time="true" update-on="blur" on-change="ctrl.valueModified(2);" is-disabled="ctrl.row.targetCalculationType==2"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showBudget, 'col-sm-4': !ctrl.showBudget}" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeHoursForecast">
+                <soe-textbox hidelabel="true" model="ctrl.originalRow.forecast.hours | minutesToTimeSpan" is-time="true" readonly="true" tabindex="-1"></soe-textbox>
+            </div>
+        </div>
+        <div class="row margin-small-top" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypePersonelCostBudget || ctrl.selectableInformationSettings.followUpShowCalculationTypePersonelCostForecast">
+            <div class="col-sm-3">
+                <soe-label data-ng-class="{'accentColor italic': ctrl.isPersonelCostIncluded}" model="ctrl.followUpCalculationTypes[2].name"></soe-label>
+            </div>
+            <div class="col-sm-1">
+                <soe-radiobutton model="ctrl.row.targetCalculationType" group="target" value="3" inline="true" on-changing="ctrl.typeModified();"></soe-radiobutton>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showForecast, 'col-sm-4': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-textbox hidelabel="true" model="ctrl.row.budget.personelCost" numeric="true" decimals="0" update-on="blur" on-change="ctrl.valueModified(3);" is-disabled="ctrl.row.targetCalculationType==3" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypePersonelCostBudget"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showForecast, 'col-sm-4': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-textbox hidelabel="true" model="ctrl.originalRow.budget.personelCost" numeric="true" decimals="0" readonly="true" tabindex="-1" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypePersonelCostBudget"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showBudget, 'col-sm-4': !ctrl.showBudget}" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypePersonelCostForecast">
+                <soe-textbox hidelabel="true" model="ctrl.row.forecast.personelCost" numeric="true" decimals="0" update-on="blur" on-change="ctrl.valueModified(3);" is-disabled="ctrl.row.targetCalculationType==3"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showBudget, 'col-sm-4': !ctrl.showBudget}" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypePersonelCostForecast">
+                <soe-textbox hidelabel="true" model="ctrl.originalRow.forecast.personelCost" numeric="true" decimals="0" readonly="true" tabindex="-1"></soe-textbox>
+            </div>
+        </div>
+        <div class="row margin-small-top" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeSalaryPercentBudget || ctrl.selectableInformationSettings.followUpShowCalculationTypeSalaryPercentForecast">
+            <div class="col-sm-3">
+                <soe-label data-ng-class="{'accentColor italic': ctrl.isSalaryPercentIncluded}" model="ctrl.followUpCalculationTypes[3].name"></soe-label>
+            </div>
+            <div class="col-sm-1">
+                <soe-radiobutton model="ctrl.row.targetCalculationType" group="target" value="7" inline="true" on-changing="ctrl.typeModified();"></soe-radiobutton>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showForecast, 'col-sm-4': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-textbox hidelabel="true" model="ctrl.row.budget.salaryPercent" numeric="true" decimals="2" update-on="blur" on-change="ctrl.valueModified(7);" is-disabled="ctrl.row.targetCalculationType==7" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeSalaryPercentBudget"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showForecast, 'col-sm-4': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-textbox hidelabel="true" model="ctrl.originalRow.budget.salaryPercent" numeric="true" decimals="2" readonly="true" tabindex="-1" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeSalaryPercentBudget"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showBudget, 'col-sm-4': !ctrl.showBudget}" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeSalaryPercentForecast">
+                <soe-textbox hidelabel="true" model="ctrl.row.forecast.salaryPercent" numeric="true" decimals="2" update-on="blur" on-change="ctrl.valueModified(7);" is-disabled="ctrl.row.targetCalculationType==7"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showBudget, 'col-sm-4': !ctrl.showBudget}" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeSalaryPercentForecast">
+                <soe-textbox hidelabel="true" model="ctrl.originalRow.forecast.salaryPercent" numeric="true" decimals="2" readonly="true" tabindex="-1"></soe-textbox>
+            </div>
+        </div>
+        <div class="row margin-small-top" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeLPATBudget || ctrl.selectableInformationSettings.followUpShowCalculationTypeLPATForecast">
+            <div class="col-sm-3">
+                <soe-label data-ng-class="{'accentColor italic': ctrl.isLPATIncluded}" model="ctrl.followUpCalculationTypes[4].name"></soe-label>
+            </div>
+            <div class="col-sm-1">
+                <soe-radiobutton model="ctrl.row.targetCalculationType" group="target" value="4" inline="true" on-changing="ctrl.typeModified();"></soe-radiobutton>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showForecast, 'col-sm-4': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-textbox hidelabel="true" model="ctrl.row.budget.lpat" numeric="true" decimals="0" update-on="blur" on-change="ctrl.valueModified(4);" is-disabled="ctrl.row.targetCalculationType==4" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeLPATBudget"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showForecast, 'col-sm-4': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-textbox hidelabel="true" model="ctrl.originalRow.budget.lpat" numeric="true" decimals="0" readonly="true" tabindex="-1" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeLPATBudget"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showBudget, 'col-sm-4': !ctrl.showBudget}" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeLPATForecast">
+                <soe-textbox hidelabel="true" model="ctrl.row.forecast.lpat" numeric="true" decimals="0" update-on="blur" on-change="ctrl.valueModified(4);" is-disabled="ctrl.row.targetCalculationType==4"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showBudget, 'col-sm-4': !ctrl.showBudget}" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeLPATForecast">
+                <soe-textbox hidelabel="true" model="ctrl.originalRow.forecast.lpat" numeric="true" decimals="0" readonly="true" tabindex="-1"></soe-textbox>
+            </div>
+        </div>
+        <div class="row margin-small-top" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeFPATBudget || ctrl.selectableInformationSettings.followUpShowCalculationTypeFPATForecast">
+            <div class="col-sm-3">
+                <soe-label data-ng-class="{'accentColor italic': ctrl.isFPATIncluded}" model="ctrl.followUpCalculationTypes[5].name"></soe-label>
+            </div>
+            <div class="col-sm-1">
+                <soe-radiobutton model="ctrl.row.targetCalculationType" group="target" value="5" inline="true" on-changing="ctrl.typeModified();"></soe-radiobutton>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showForecast, 'col-sm-4': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-textbox hidelabel="true" model="ctrl.row.budget.fpat" numeric="true" decimals="0" update-on="blur" on-change="ctrl.valueModified(5);" is-disabled="ctrl.row.targetCalculationType==5" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeFPATBudget"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showForecast, 'col-sm-4': !ctrl.showForecast}" data-ng-if="ctrl.showBudget">
+                <soe-textbox hidelabel="true" model="ctrl.originalRow.budget.fpat" numeric="true" decimals="0" readonly="true" tabindex="-1" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeFPATBudget"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showBudget, 'col-sm-4': !ctrl.showBudget}" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeFPATForecast">
+                <soe-textbox hidelabel="true" model="ctrl.row.forecast.fpat" numeric="true" decimals="0" update-on="blur" on-change="ctrl.valueModified(5);" is-disabled="ctrl.row.targetCalculationType==5"></soe-textbox>
+            </div>
+            <div class="padding-none-right" data-ng-class="{'col-sm-2': ctrl.showBudget, 'col-sm-4': !ctrl.showBudget}" data-ng-if="ctrl.selectableInformationSettings.followUpShowCalculationTypeFPATForecast">
+                <soe-textbox hidelabel="true" model="ctrl.originalRow.forecast.fpat" numeric="true" decimals="0" readonly="true" tabindex="-1"></soe-textbox>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.restore'" data-ng-click="ctrl.restore()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+    </div>
+</div>

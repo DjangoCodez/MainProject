@@ -1,0 +1,24 @@
+﻿<div>
+    <div class="row">
+        <div class="col-sm-12 widget-setting-container">
+            <div class="has-feedback">
+                <div class="row">
+                    <div class="col-sm-5 padding-none-right">
+                        <soe-select hidelabel="true" model="ctrl.widget.data.leftValueId" items="ctrl.timeCodesLeft" options="item.id as item.name for item in items" is-readonly="ctrl.widget.isReadonly"></soe-select>
+                    </div>
+                    <div class="col-sm-2 padding-none-left padding-none-right select-borderless">
+                        <soe-select hidelabel="true" model="ctrl.widget.data.comparisonOperator" items="ctrl.comparisonOperators" options="item.id as item.name for item in items" is-readonly="ctrl.widget.isReadonly"></soe-select>
+                    </div>
+                    <div class="col-sm-5 padding-none-left">
+                        <soe-select hidelabel="true" model="ctrl.widget.data.rightValueId" items="ctrl.timeCodesRight" options="item.id as item.name for item in items" is-readonly="ctrl.widget.isReadonly"></soe-select>
+                    </div>
+                </div>
+                <div class="row margin-large-top">
+                    <div class="col-sm-offset-7 col-sm-5 padding-none-left">
+                        <soe-textbox hidelabel="true" model="ctrl.minutes" ng-model-options="{updateOn: 'blur'}" is-time="true" is-readonly="ctrl.widget.isReadonly"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

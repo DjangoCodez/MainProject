@@ -1,0 +1,24 @@
+﻿<div>
+    <soe-panel label-key="common.settings" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.editSetting();">
+        <table class="table table-condensed table-hover" style="table-layout: fixed;">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 28px"></th>
+                    <th scope="col" style="width: 25%" data-l10n-bind="'common.name'"></th>
+                    <th scope="col" data-l10n-bind="'common.value'"></th>
+                    <th scope="col" style="width: 28px"></th>
+                    <th scope="col" style="width: 28px"></th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="setting in ctrl.settings">
+                <tr>
+                    <td data-ng-dblclick="ctrl.editSetting(setting);"><i class="{{setting.icon}}"></i></td>
+                    <td style="overflow: hidden;" data-ng-dblclick="ctrl.editSetting(setting);"><span>{{setting.name}}</span></td>
+                    <td style="overflow: hidden;" data-ng-dblclick="ctrl.editSetting(setting);"><span>{{setting.value}}</span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editSetting(setting);"></i></span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteSetting(setting);"></i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </soe-panel>
+</div>

@@ -1,0 +1,67 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">
+            <span data-l10n-bind="'time.schedule.planning.contextmenu.newtemplate'"></span>
+        </h6>
+    </div>
+    <div class="modal-body">
+        <div class="row margin-large-bottom">
+            <div class="col-sm-12">
+                <div class="info">
+                    <div><span data-l10n-bind="'time.schedule.planning.createtemplateschedules.inforow1'"></span></div>
+                    <div><span data-l10n-bind="'time.schedule.planning.createtemplateschedules.inforow2'"></span></div>
+                    <div class="margin-large-top"><span data-l10n-bind="'time.schedule.planning.createtemplateschedules.inforow3'"></span></div>
+                    <div><span data-l10n-bind="'time.schedule.planning.createtemplateschedules.inforow4'"></span></div>
+                    <div class="margin-large-top"><span data-l10n-bind="'time.schedule.planning.createtemplateschedules.inforow5'"></span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-if="ctrl.useAccountHierarchy">
+            <div class="col-sm-6 padding-none-left padding-none-right col-sm-offset-6">
+                <div class="col-sm-offset-6 col-sm-6">
+                    <soe-radiobutton label-key="time.schedule.planning.templateschedule.useaccountingfromsourceschedule" model="ctrl.useAccountingFromSourceSchedule" group="accounting" value="true" inline="true" on-changing="ctrl.useAccountingFromSourceScheduleChanged();"></soe-radiobutton>
+                    <soe-radiobutton label-key="time.schedule.planning.templateschedule.useaccountingfromemployee" model="ctrl.useAccountingFromSourceSchedule" group="accounting" value="false" inline="true" on-changing="ctrl.useAccountingFromSourceScheduleChanged();"></soe-radiobutton>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <soe-datepicker label-key="common.startdate" model="ctrl.dateFrom" on-change="ctrl.dateFromChanged();"></soe-datepicker>
+            </div>
+            <div class="col-sm-2" data-ng-if="ctrl.useStopDate">
+                <soe-datepicker label-key="common.stopdate" model="ctrl.dateTo" on-change="ctrl.dateToChanged();"></soe-datepicker>
+            </div>
+            <div class="col-sm-1">
+                <soe-textbox label-key="core.time.weeks" model="ctrl.nbrOfWeeks" on-change="ctrl.nbrOfWeeksChanged();"></soe-textbox>
+            </div>
+            <div class="col-sm-6 padding-none-left padding-none-right" data-ng-class="{'col-sm-offset-1':ctrl.useStopDate, 'col-sm-offset-3':!ctrl.useStopDate}">
+                <div class="col-sm-6">
+                    <soe-typeahead placeholder-key="core.typetofilter" label-key="time.schedule.planning.templateschedule.copyfrom.employee" model="ctrl.copyFromEmployeeId" items="ctrl.allEmployees" options="item.employeeId as item.numberAndName for item in items" edit-class="border-radius-right" on-edit="ctrl.setSourceEmployeeId()" edit-icon="fa-caret-down" edit-tooltip-key="core.edit" filter-property="numberAndName" limit="1000"></soe-typeahead>
+                </div>
+                <div class="col-sm-6">
+                    <soe-select label-key="time.schedule.planning.templateschedule.copyfrom.schedule" model="ctrl.copyFromTemplateHeadId" items="ctrl.employeeTemplates" options="item.timeScheduleTemplateHeadId as item.description for item in items"></soe-select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-large-top" data-ng-if="ctrl.loadingTemplates">
+            <div class="col-sm-12">
+                <div class="warning">
+                    <div><span data-l10n-bind="'core.loading'"></span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <div data-ui-grid="ctrl.soeGridOptions.gridOptions" enableCellEdit="true" ui-grid-selection ui-grid-auto-resize data-ui-grid-edit ui-grid-cellNav></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.save'" data-ng-disabled="ctrl.soeGridOptions.getSelectedCount() === 0 || ctrl.executing" data-ng-click="ctrl.initSave()"></button>
+    </div>
+</div>

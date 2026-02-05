@@ -1,0 +1,23 @@
+<form [formGroup]="form" novalidate autocomplete="off">
+  <div class="row">
+    <div class="d-sm-inline">
+      <soe-multi-select
+        [items]="projectStatuses"
+        [width]="200"
+        [inline]="true"
+        [placeholderKey]="'core.select'"
+        [dropdownWidth]="300"
+        formControlName="selectedProjectStatusIds"
+        (onSelectionComplete)="projectStatusSelectionComplete()">
+      </soe-multi-select>
+    </div>
+    <div class="d-sm-inline">
+      <soe-checkbox
+        [labelKey]="'common.customer.invoices.showmine'"
+        [inToolbar]="true"
+        [inline]="true"
+        formControlName="loadMine"
+        (valueChanged)="showMineChanged.emit($event)"></soe-checkbox>
+    </div>
+  </div>
+</form>

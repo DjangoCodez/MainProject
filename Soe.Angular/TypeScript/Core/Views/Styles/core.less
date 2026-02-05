@@ -1,0 +1,1925 @@
+﻿@import (reference) "variables.less";
+@import (reference) "../../../../node_modules/bootstrap/less/bootstrap";
+@import "../../../../node_modules/bootstrap/less/variables";
+
+body {
+    font-family: @font;
+    font-size: @mediumFontSize;
+}
+
+.bootstrap-master .top {
+    margin: 0;
+}
+
+.bootstrap-master .content {
+    margin: 0;
+}
+
+.form-control {
+    border-color: @soe-border-color !important;
+    border-radius: @border-radius;
+    padding: 4px 4px !important;
+    font-size: @mediumFontSize !important;
+    font-weight: normal !important;
+    color: @soe-text-color !important;
+    box-shadow: unset;
+}
+
+// Get rid of Chromes black focus ring that appears when tabbing into an element
+*:focus-visible {
+    outline: none;
+}
+
+.form-control:focus {
+    box-shadow: @accentColor -1px -1px, @accentColor 1px -1px, @accentColor 1px 1px, @accentColor -1px 1px;
+}
+
+.btn {
+    border-radius: @button-border-radius;
+    outline-style: none !important;
+    font-size: @mediumFontSize;
+}
+
+.submit {
+    border-radius: @button-border-radius;
+}
+
+a {
+    color: @accentColor;
+}
+
+.main-content, .modal-dialog {
+    // Container
+    .container, .container-fluid {
+        min-height: @containerMinHeight;
+    }
+    // Accordion
+    .soe-accordion {
+        .collapsing {
+            transition: height 0.2s;
+        }
+
+        .soe-accordion-heading {
+            label {
+                font-size: @mediumFontSize;
+                margin: 5px 5px 5px 0px;
+            }
+
+            .value-label {
+                font-weight: normal;
+                margin: 5px 0px 5px 0px;
+            }
+
+            .toggle {
+                border: 0px;
+            }
+
+            .toggle:hover {
+                background-color: unset;
+            }
+        }
+
+        .panel-title {
+            background-color: @soe-header-background-color;
+        }
+
+        .panel-default > .panel-heading + .panel-collapse > .panel-body {
+            border-top: 1px solid @soe-border-color;
+        }
+
+        .soe-accordion-progressbar {
+            margin: 0px -10px -5px -15px;
+        }
+    }
+
+    .soe-accordion-heading {
+        label {
+            cursor: pointer;
+        }
+    }
+
+    .soe-accordion-condensed {
+        .panel-collapse > .panel-body {
+            padding: 5px 10px;
+        }
+    }
+
+    .soe-accordion-more-condensed {
+        .panel-collapse > .panel-body {
+            padding: 0;
+        }
+    }
+    // Button
+    .btn-group {
+        .dropdown-toggle {
+            min-width: 20px;
+        }
+    }
+
+    .input-group-btn {
+        .fa, .fab, .fad, .fal, .far, .fas {
+            font-size: 18px;
+        }
+
+        .btn:last-of-type:not(:first-child) { // restyling
+            border-radius: 0 @button-border-radius @button-border-radius 0 !important;
+            margin-left: -1px
+        }
+
+        .fa-times {
+            padding-right: 15px;
+            padding-left: 10px;
+        }
+
+        &:last-child > .btn {
+            /*margin-left: -2px;*/
+            height: 30px;
+        }
+    }
+
+    .btn-default {
+        height: 30px;
+        color: @soe-text-color;
+        border-color: @soe-border-color;
+        background: @soe-background-color;
+    }
+
+    .btn-default:hover {
+        color: @soe-text-color;
+        border-color: @accentColor;
+        background-color: @soe-color-secondary-light-beige;
+    }
+
+    .btn-default:active, .btn-default:focus {
+        color: @soe-text-color;
+        border-color: @accentColor;
+        background: @soe-background-color;
+    }
+
+    .btn-default:disabled, .btn-default.disabled.focus, .btn-default.disabled:focus, .btn-default.disabled:hover, .btn-default[disabled].focus, .btn-default[disabled]:focus, .btn-default[disabled]:hover, fieldset[disabled] .btn-default.focus, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:hover {
+        color: @soe-disabled-text-color !important;
+        background-color: @soe-disabled-background-color;
+        border-color: @soe-disabled-border-color;
+        opacity: 1;
+    }
+
+    .multiselect-selected.btn-default:disabled {
+        color: @soe-color-neutral-dark-grey !important;
+    }
+
+    .btn-primary {
+        height: 30px;
+        color: @soe-text-color;
+        border-color: @accentColor;
+        background: @accentColorFaded;
+    }
+
+    .btn-primary:hover, .ngSoeMainButton:hover {
+        color: @soe-text-color;
+        border-color: @accentColor;
+        background-color: @accentColorLight;
+    }
+
+    .btn-primary:active, .btn-primary:focus, .ngSoeMainButton:active, .ngSoeMainButton:focus {
+        color: @soe-text-color;
+        border-color: @accentColor;
+        background-color: @accentColorLight;
+    }
+
+    .btn-primary:disabled, .btn-primary.disabled.focus, .btn-primary.disabled:focus, .btn-primary.disabled:hover, .btn-primary[disabled].focus, .btn-primary[disabled]:focus, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:hover {
+        color: @soe-disabled-text-color;
+        background-color: @soe-disabled-background-color;
+        border-color: @soe-disabled-border-color;
+        opacity: 1;
+    }
+
+    .btn-info {
+        height: 30px;
+        color: @soe-text-color;
+        background-color: @informationBackgroundColor;
+        border-color: @informationBorderColor;
+    }
+
+    .btn-info:hover {
+        color: @soe-text-color;
+        background-color: @informationBackgroundColorFaded;
+    }
+
+    .btn-info:active {
+        background-color: @informationColor;
+    }
+
+    .btn-danger {
+        height: 30px;
+        color: @soe-text-color;
+        background-color: @errorBackgroundColor;
+        border-color: @errorBorderColor;
+    }
+
+    .btn-danger:hover {
+        color: @soe-text-color;
+        background-color: @errorBackgroundColorFaded;
+    }
+
+    .btn-danger:active {
+        background-color: @errorColor;
+    }
+
+    .btn-warning {
+        height: 30px;
+        color: @soe-text-color;
+        background-color: @warningBackgroundColor;
+        border-color: @warningBorderColor;
+    }
+
+    .btn-warning:hover {
+        color: @soe-text-color;
+        background-color: @warningBackgroundColorFaded;
+    }
+
+    .btn-warning:active {
+        background-color: @warningColor;
+    }
+
+    .btn-success {
+        height: 30px;
+        color: @soe-text-color;
+        background-color: @successBackgroundColor;
+        border-color: @successBorderColor;
+    }
+
+    .btn-success:hover {
+        color: @soe-text-color;
+        background-color: @successBackgroundColorFaded;
+    }
+
+    .btn-success:active {
+        background-color: @successColor;
+    }
+    // Toggle button (label)
+    label.btn-default.active, label.btn-default:focus {
+        color: @soe-text-color;
+        border-color: @accentColor;
+        background: @accentColorLightFaded;
+    }
+
+    .btn-toolbar {
+        border-bottom: solid 1px @soe-border-color;
+        padding: 8px;
+        margin: -16px -16px 8px -16px;
+
+        .btn-group {
+            > i, > a {
+                font-size: 16px;
+                text-align: center;
+                display: table;
+                padding: 6px 12px;
+
+                span {
+                    font-family: @font;
+                    font-size: @mediumFontSize;
+                    padding-left: 5px;
+                    display: table-cell;
+                    vertical-align: middle;
+                    z-index: 1;
+                }
+            }
+
+            i:last-of-type, a:last-of-type {
+                border-top-right-radius: @button-border-radius !important;
+                border-bottom-right-radius: @button-border-radius !important;
+            }
+         
+        }
+    }
+
+    .btn-toolbar-no-border {
+        border: 0;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    .btn-toolbar-no-margin {
+        margin: 0;
+    }
+
+    .btn-toolbar-modal-margin {
+        margin: -10px -10px 8px -10px;
+    }
+
+    .toolbar-label {
+        margin: 7px;
+    }
+
+    .toolbar-spinner {
+        font-size: 20px;
+    }
+    // Checkbox, Radio, Switch
+    .form-check {
+        padding-left: 16px !important;
+        margin-bottom: 0px !important;
+    }
+
+    .form-check-input {
+        margin-top: 0px !important;
+        width: 16px !important;
+        height: 16px !important;
+        border-color: @soe-border-color !important;
+    }
+
+    .form-check-input[type='checkbox'] {
+        border-radius: 2px;
+    }
+
+    .form-check-input:checked {
+        border-color: @accentColor !important;
+        background-color: @accentColor !important;
+    }
+
+    .form-check-input:disabled {
+        border-color: @soe-border-color !important;
+        background-color: @soe-disabled-background-color !important;
+        pointer-events: all !important;
+    }
+
+    .form-check-input:checked.form-check-input:disabled {
+        border-color: @soe-color-neutral-dark-grey !important;
+        background-color: @soe-color-neutral-grey !important;
+    }
+
+    .form-check-input[disabled] ~ .form-check-label,
+    .form-check-input:disabled ~ .form-check-label {
+        color: @soe-disabled-text-color;
+        opacity: 1 !important;
+    }
+    // Panel
+    .panel-group, .panel {
+        margin-bottom: 10px;
+        border-color: @soe-border-color;
+        border-radius: @border-radius;
+    }
+
+    .panel-heading {
+        min-height: 23px;
+        padding: 0;
+        border-radius: 0;
+
+        a {
+            display: block;
+            width: 100%;
+            padding: 0px 0px 0px 10px;
+        }
+
+        label {
+            margin: 3px 5px 2px 10px;
+            font-weight: bold;
+        }
+
+        .value-label {
+            font-weight: normal;
+            margin: 3px 0px 2px 0px;
+        }
+
+        .panel-button {
+            cursor: pointer;
+            border-left: 1px solid @soe-border-color;
+            border-right: 1px solid @soe-border-color;
+            padding: 0px 5px 0px 5px;
+
+            i {
+                margin: 5px 5px 4px 5px;
+            }
+
+            label {
+                margin: 3px 5px 0px 0px;
+            }
+        }
+
+        .panel-button:hover {
+            background-color: @soe-background-color;
+        }
+
+        .panel-icon {
+            margin-bottom: 1px;
+            padding: 0px 5px 0px 5px;
+
+            i {
+                margin: 7px 5px 4px 5px;
+            }
+        }
+    }
+
+    .panel-default > .panel-heading {
+        background-color: @soe-header-background-color;
+    }
+
+    .panel-body {
+        border-top: 1px solid @soe-border-color;
+    }
+
+    .panel-body-condensed {
+        padding: 0;
+    }
+    // Select
+    .form-group-sm select.form-control, select.form-control {
+        padding: 4px 4px !important; // Changed horizontal value to align selected value with text in textboxes
+    }
+    // SOE CSS //
+    // Form
+    .ngSoeForm {
+        fieldset {
+            padding: 10px 8px 5px 7px;
+            border: 1px solid @soe-border-color;
+        }
+
+        hr {
+            border-top: 1px solid @soe-border-color;
+        }
+    }
+
+    .ngSoeFormFooter {
+        min-height: @formFooterHeight;
+        height: auto;
+        border-top: solid 1px @soe-border-color;
+        margin: 0px -16px -8px -16px;
+        padding: 8px 0 8px 0;
+        // Split/Menu(Dropdown) button
+        .btn-group {
+            .btn:first-child {
+                margin-left: 15px;
+            }
+        }
+
+        .btn {
+            height: 30px;
+            min-width: 100px;
+            padding: 4px 8px;
+        }
+
+        .ngSoeSplitButton {
+            height: 30px;
+        }
+
+        .ngSoeSplitButton.dropdown-toggle {
+            min-width: 20px;
+        }
+
+        .ngSoeDatePicker {
+            .btn {
+                min-width: 20px;
+            }
+
+            .uib-day button, .uib-month button, .uib-year button {
+                min-width: 100%;
+            }
+        }
+    }
+
+    .ngSoeFormFooter.top-margin {
+        margin: 16px -16px -16px -16px;
+    }
+
+    .ngSoeFormFooter.modal-margin {
+        margin: 0px -10px -10px -10px;
+    }
+
+    .ngSoeFormFooter.no-margin {
+        margin: 0px;
+    }
+
+    .createdModified {
+        text-align: left;
+        margin: -5px 0 0 0;
+
+        label {
+            font-size: @smallFontSize;
+            margin: 0;
+        }
+    }
+    // Buttons
+    .ngSoeMainButton {
+        margin-left: 15px;
+        min-width: 100px;
+        height: 30px;
+        font-size: @mediumFontSize;
+        color: @soe-text-color;
+        border-color: @accentColor;
+        background: @accentColorFaded;
+    }
+
+    .ngSoeMainButton:disabled, .ngSoeMainButton.disabled.focus, .ngSoeMainButton.disabled:focus, .ngSoeMainButton.disabled:hover, .ngSoeMainButton[disabled].focus, .ngSoeMainButton[disabled]:focus, .ngSoeMainButton[disabled]:hover, fieldset[disabled] .ngSoeMainButton.focus, fieldset[disabled] .ngSoeMainButton:focus, fieldset[disabled] .ngSoeMainButton:hover {
+        color: @soe-disabled-text-color;
+        background-color: @soe-disabled-background-color;
+        border-color: @soe-disabled-border-color;
+        opacity: 1;
+    }
+
+    .ngSoeMainButtonInvalid {
+        min-width: 0px !important;
+        height: 30px;
+        color: white;
+        font-weight: bold;
+        border-color: @soe-disabled-border-color;
+        background: @soe-color-primary-tone-75;
+    }
+
+    .ngSoeMenuButton {
+        margin-left: 15px;
+        height: 30px;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+
+        .caret {
+            margin-left: 10px;
+        }
+    }
+}
+
+.modal.no-toolbar-margin {
+    .btn-toolbar {
+        margin: -10px -10px 8px -10px;
+    }
+}
+
+.ngSoeMainDropdownMenu {
+    float: right;
+    margin-left: 15px;
+    min-width: 100px;
+    border-color: @soe-border-color;
+    background: @soe-background-color;
+    margin-top: 0px;
+
+    i {
+        display: inline-block;
+    }
+
+    a {
+        color: @soe-text-color;
+        padding: 3px 15px 3px 5px;
+    }
+
+    a:hover {
+        background-color: #F5F5F5;
+        color: @accentColor;
+        cursor: pointer;
+    }
+
+    a.disabled-link,
+    a.disabled-link:visited,
+    a.disabled-link:active,
+    a.disabled-link:hover {
+        color: @soe-disabled-text-color;
+        cursor: default;
+
+        i {
+            color: @soe-disabled-text-color;
+        }
+    }
+}
+
+.uib-datepicker-popup {
+    table {
+        margin: 0 5px;
+    }
+
+    thead {
+        .btn.uib-left {
+            border-radius: @button-border-radius 0 0 @button-border-radius;
+        }
+
+        .btn.uib-title {
+            border-radius: 0 !important;
+        }
+
+        .btn.uib-right {
+            border-radius: 0 @button-border-radius @button-border-radius 0;
+        }
+    }
+
+    tbody {
+        .btn {
+            border-radius: 0;
+        }
+    }
+
+    .uib-datepicker {
+        &:focus {
+            border: none !important;
+        }
+    }
+
+    .btn-info {
+        color: @soe-text-color;
+        background-color: @informationBackgroundColor;
+        border-color: @informationBorderColor;
+    }
+
+    .btn-info:hover {
+        color: @soe-text-color;
+        background-color: @informationBackgroundColorFaded;
+    }
+
+    .btn-info:active {
+        background-color: @informationColor;
+    }
+
+    .btn-danger {
+        color: @soe-text-color;
+        background-color: @errorBackgroundColor;
+        border-color: @errorBorderColor;
+    }
+
+    .btn-danger:hover {
+        color: @soe-text-color;
+        background-color: @errorBackgroundColorFaded;
+    }
+
+    .btn-danger:active {
+        background-color: @errorColor;
+    }
+
+    .btn-success {
+        color: @soe-text-color;
+        background-color: @successBackgroundColor;
+        border-color: @successBorderColor;
+    }
+
+    .btn-success:hover {
+        color: @soe-text-color;
+        background-color: @successBackgroundColorFaded;
+    }
+
+    .btn-success:active {
+        background-color: @successColor;
+    }
+}
+
+.uib-datepicker-popup.dropdown-menu {
+    z-index: 10000;
+}
+
+.employee {
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.dropdown-menu:not(.uib-datepicker-popup) > li.selected > a {
+    color: @accentColor;
+    font-weight: bold;
+}
+
+.dropdown-menu {
+    .dropdown-header {
+        padding-left: 8px;
+    }
+}
+// Context menu
+.dropdown-menu:not(.uib-datepicker-popup) {
+    li > a {
+        padding-left: 8px;
+    }
+
+    li input[type="checkbox"] {
+        margin-top: 0px;
+    }
+
+    i {
+        margin-right: 8px;
+    }
+
+    li:hover {
+        background-color: #F5F5F5;
+
+        span {
+            color: @accentColor;
+        }
+    }
+
+    .disabled {
+        span {
+            color: @soe-disabled-text-color;
+        }
+
+        i {
+            color: @soe-disabled-text-color;
+        }
+    }
+}
+// Common input
+.form-group-sm .form-control {
+    line-height: 30px;
+    border-radius: 4px;
+}
+
+.input-group-sm > .form-control {
+    padding: 5px;
+}
+
+.form-group-sm .form-control.borderless {
+    padding: 0;
+}
+
+.borderless {
+    border: none;
+    border-width: 0;
+    box-shadow: none;
+    background: transparent !important;
+    padding: 0;
+}
+
+.borderless:focus {
+    border: none;
+    border-width: 0;
+    box-shadow: none;
+    background: transparent;
+    padding: 0;
+}
+
+.has-feedback .form-control {
+    padding-right: 5px;
+}
+// CheckBox/Radio
+input[type="checkbox"] {
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    height: 16px;
+    width: 16px;
+    margin-top: 0px;
+}
+
+.form-inline .radio input[type="radio"], .form-inline .checkbox input[type="checkbox"] {
+    margin-right: 5px;
+
+    + span {
+        margin-right: @padding-small-horizontal;
+        vertical-align: top;
+    }
+}
+
+.form-inline {
+    .form-group {
+        margin-right: 5px;
+    }
+}
+
+.checkbox input[type="checkbox"]:checked {
+    + span.mark-checked {
+        color: @errorColor;
+        font-weight: bold;
+    }
+}
+
+.text-toggle-button input[type="radio"] {
+    display: none;
+}
+
+.toggle-group input[type="radio"] {
+    display: none;
+}
+
+.toggle-group input[type="radio"]:checked + label {
+    color: @soe-text-color;
+    border-color: @accentColor;
+    background: @accentColorFaded;
+}
+
+.radio[inline="true"] {
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+input[type="radio"]:disabled ~ label {
+    background: @soe-disabled-text-color;
+    cursor: default;
+}
+
+input[type="radio"]:disabled:active ~ label {
+    background: @soe-disabled-text-color;
+}
+
+input[type="radio"]:disabled ~ .btn-default:hover {
+    border-color: #CCCCCC;
+}
+
+.ngSoeCheckBox {
+    margin: 5px 10px 5px 0px;
+
+    label {
+        padding-top: 2px;
+    }
+
+    label.inline {
+        margin-top: 21px;
+    }
+}
+
+.ngSoeCheckBox.condensed {
+    margin: 0;
+
+    input[type="checkbox"] {
+        margin-right: 4px;
+    }
+}
+
+.checkbox + .checkbox, .radio + .radio {
+    margin-top: unset;
+}
+
+.form-inline .checkbox, .form-inline .radio {
+    margin-top: 5px;
+}
+
+// Date/time picker
+.datepicker-button {
+    .btn {
+        padding: 5px 8px !important;
+        border-radius: 0 @button-border-radius @button-border-radius 0 !important;
+    }
+
+    .fal {
+        font-size: 17px;
+    }
+
+    .no-border-radius {
+        border-radius: 0 !important;
+    }
+}
+
+.no-border-radius-on-specified-last-button {
+    .last-button {
+        border-radius: 0 !important;
+    }
+}
+
+
+.no-border-radius-on-last-button {
+    .datepicker-button {
+        .btn {
+            border-radius: 0 !important;
+        }
+    }
+}
+
+.ngSoeDatePickerForm {
+    .hide-today-button {
+        .uib-datepicker-current {
+            display: none;
+        }
+    }
+
+    .hide-clear-button {
+        .uib-clear {
+            display: none;
+        }
+    }
+}
+
+
+.ngSoeDatePicker {
+    input {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+
+    .description {
+        border: 1px solid @soe-border-color;
+        padding: 4px 5px 4px 5px;
+        min-width: 75px;
+        max-width: 110px;
+        display: table-cell;
+        position: relative;
+        white-space: nowrap;
+        font-size: 14px;
+        font-weight: bold;
+        overflow-x: hidden;
+        z-index: 1;
+        background-color: @soe-background-color;
+    }
+}
+
+.disabledDate button {
+    color: @soe-disabled-text-color;
+    background-color: @soe-disabled-background-color;
+}
+
+.uib-time input {
+    width: 32px !important;
+    height: 30px !important;
+    padding: 5px !important;
+    font-size: 12px;
+}
+// Debug
+.debug-icon {
+    opacity: 0;
+    transition: opacity .5s ease-out;
+    -moz-transition: opacity .5s ease-out;
+    -webkit-transition: opacity .5s ease-out;
+    -o-transition: opacity .5s ease-out;
+}
+
+.debug-icon:hover {
+    opacity: 1;
+}
+// Information
+.ngSoeInstructionLabel {
+    width: auto;
+    font-size: @mediumFontSize;
+    font-weight: normal;
+    padding: 5px 10px;
+    background-color: @informationBackgroundColor;
+    border: 1px solid @informationColor;
+    border-radius: @border-radius;
+    margin-bottom: 5px;
+}
+
+.ngSoeInstructionLabel.full-width {
+    width: 100%;
+}
+
+.success {
+    border: 1px solid @successColor;
+    background-color: @successBackgroundColor;
+    border-radius: @border-radius;
+    padding: 5px 10px;
+    min-height: 30px;
+}
+
+.info {
+    border: 1px solid @informationColor;
+    background-color: @informationBackgroundColor;
+    border-radius: @border-radius;
+    padding: 5px 10px;
+    min-height: 30px;
+}
+
+.warning {
+    border: 1px solid @warningColor;
+    background-color: @warningBackgroundColor;
+    border-radius: @border-radius;
+    padding: 5px 10px;
+    min-height: 30px;
+}
+
+.success.condensed, .info.condensed, .warning.condensed {
+    padding: 3px;
+    min-height: unset;
+}
+
+// Input
+input[type=number] {
+    text-align: right;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-margin-start: 4px;
+    //-webkit-appearance: none;
+}
+
+input.numeric {
+    text-align: right;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+input[parse-time], input[parse-timebox] {
+    text-align: right;
+}
+// Label
+.control-label {
+    text-align: left;
+    margin: 5px 0 0 0;
+}
+
+.has-error .checkbox, .has-error .checkbox-inline, .has-error .control-label, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.checkbox label, .has-error.checkbox-inline label, .has-error.radio label, .has-error.radio-inline label {
+    color: @soe-text-color;
+}
+
+.required-label {
+    font-size: @mediumFontSize;
+    color: @soe-color-primary;
+    margin: 0 0 0 3px;
+}
+
+.ngSoeLabel {
+    width: 100%;
+}
+// Link
+.btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    color: @accentColor;
+}
+// List
+.horizontal-list {
+    border: solid 1px @soe-border-color;
+    background: @soe-disabled-background-color;
+
+    .horizontal-list-item {
+        float: left;
+        margin-left: 5px;
+        padding: 4px;
+    }
+
+    .horizontal-list-item-separator {
+        margin-left: -4px;
+    }
+
+    > span {
+        vertical-align: top;
+    }
+
+    button {
+        margin: -1px;
+    }
+}
+// Multiselect
+.ngSoeMultiselect {
+    &.has-error {
+        button {
+            border-color: @errorColor;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        }
+    }
+
+    button {
+        text-align: left;
+        padding: 5px 5px 5px 10px;
+        width: 100%;
+        font-size: @mediumFontSize;
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
+        border-radius: 0;
+    }
+
+    .caret {
+        .pull-right();
+        margin: 8px 2px 0 10px;
+    }
+
+    ul {
+        max-height: 500px;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+
+        li {
+            cursor: pointer;
+
+            a.disabled {
+                cursor: not-allowed;
+
+                label {
+                    cursor: not-allowed;
+                }
+            }
+        }
+
+        .checkbox {
+            margin: 0px;
+
+            .checkboxInput {
+                margin-top: 4px !important;
+            }
+        }
+    }
+
+    .dropdown-menu .divider {
+        margin: 2px 0;
+    }
+}
+
+.multiselect-parent {
+    width: 100%;
+}
+
+.multiselect-selected {
+    background-color: @accentColorFaded !important;
+}
+
+.multiselect-small {
+    ul {
+        max-height: 368px;
+    }
+}
+// ProgressBar
+.progress-bar {
+    transition: width 0s;
+}
+
+.progress {
+    height: 22px;
+    margin: 0 0 5px 0;
+    border: 1px solid @informationColor;
+    background-color: @soe-background-color;
+
+    span {
+        height: 22px;
+        margin: 0;
+        color: @soe-text-color;
+        vertical-align: middle;
+        display: table-cell;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: @progressBarFontSize;
+    }
+}
+
+.progress-bar-info {
+    background-color: @informationBackgroundColor;
+}
+
+.progress-in-toolbar {
+    height: 30px;
+    margin: 1px 0 0 0;
+
+    span {
+        height: 30px;
+        margin: 0;
+        font-size: @largeFontSize;
+    }
+}
+// Repeater
+.repeater-selected-row {
+    .fa-caret-right {
+        position: absolute;
+        margin: 8px 0 0 -8px;
+        color: @accentColor;
+    }
+}
+
+.repeater-condensed {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .form-group {
+        margin-bottom: 2px;
+    }
+
+    .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+        padding-left: 1px;
+        padding-right: 1px;
+    }
+
+    .form-group-sm .form-control, .input-group-sm > .form-control, .form-group-sm select.form-control {
+        height: 22px;
+        padding: 0px 5px !important;
+    }
+
+    .input-group-sm > .form-control, .input-group-sm > .input-group-addon, .input-group-sm > .input-group-btn > .btn {
+        height: 22px;
+        padding: 3px 5px;
+    }
+
+    .btn-sm {
+        height: 22px;
+        padding: 1px 5px;
+    }
+
+    .full-height {
+        .btn-sm {
+            height: 32px;
+            padding: 5px 10px;
+        }
+    }
+
+    .ngSoeCheckBox {
+        margin: 1px 0 0 3px;
+    }
+
+    .datepicker-button .fal {
+        font-size: 14px;
+        vertical-align: top;
+        margin-top: -2px;
+    }
+
+    .uib-time input {
+        width: 32px !important;
+        height: 22px !important;
+        padding: 5px !important;
+        font-size: 12px;
+    }
+
+    .repeater-selected-row {
+        .fa-caret-right {
+            position: absolute;
+            margin: 4px 0 0 -8px;
+            color: @accentColor;
+        }
+    }
+}
+
+.repeater-semi-condensed {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .form-group {
+        margin-bottom: 5px;
+    }
+
+    .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .input-group-sm > .form-control, .input-group-sm > .input-group-addon, .input-group-sm > .input-group-btn > .btn {
+        padding: 3px 5px;
+    }
+}
+// Select
+.ngSoeMainSelect {
+    min-width: 80px !important;
+    font-size: @mediumFontSize !important;
+    border-color: @accentColor !important;
+    background: @accentColorFaded !important;
+
+    option {
+        background-color: white;
+    }
+}
+
+.ngSoeMainSelectButton {
+    font-size: @mediumFontSize !important;
+    border-color: @accentColor !important;
+    background: @accentColorFaded !important;
+}
+
+.ngSoeMainSelect[disabled], .ngSoeMainSelectButton[disabled] {
+    background-color: @soe-disabled-background-color !important;
+    border-color: @soe-disabled-border-color !important;
+}
+
+.text-toggle-button {
+    a {
+        text-decoration: none;
+        color: @soe-text-color;
+    }
+}
+// Shapes
+.shape-svg {
+    margin-bottom: -2px;
+    height: 12px;
+}
+// Table
+.table {
+    margin-bottom: 0;
+
+    thead {
+        border-left: 1px solid @soe-border-color;
+        border-right: 1px solid @soe-border-color;
+    }
+
+    th {
+        background-color: @soe-header-background-color;
+        font-weight: normal;
+    }
+
+    th.right-align-cell {
+        padding-right: 10px;
+
+        span {
+            padding-right: 0px;
+        }
+    }
+
+    .right-align-cell {
+        text-align: right;
+
+        span {
+            padding-right: 5px;
+        }
+    }
+
+    .right-align-cell-more-padding {
+        text-align: right;
+
+        span {
+            padding-right: 15px;
+        }
+    }
+
+    .table-header-button {
+        text-align: right;
+        cursor: pointer;
+        border-left: 1px solid @soe-border-color;
+
+        span {
+            text-align: right;
+            font-weight: normal;
+            padding: 0px 5px 0px 0px;
+        }
+
+        i {
+            margin: 0px 5px 0px 5px;
+        }
+    }
+
+    .table-header-button:hover {
+        background-color: #E5E5E5;
+    }
+
+    .table-header-button-scrollable {
+        span {
+            top: 0px;
+            right: 27px;
+        }
+    }
+
+    .column-sortable {
+        span {
+            cursor: pointer;
+        }
+
+        i {
+            margin-left: 5px;
+        }
+    }
+
+    td.fit-to-content {
+        width: 1%;
+        white-space: nowrap
+    }
+
+    td {
+        .checkbox {
+            margin: 2px 0px -4px 0px;
+
+            label {
+                padding-left: 0px;
+            }
+        }
+
+        .radio {
+            margin: 4px 0px -4px 0px;
+
+            label {
+                padding-left: 24px;
+            }
+        }
+    }
+
+    .cell-selected {
+        background-color: @accentColorLightFaded !important;
+    }
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td {
+    background-color: @soe-color-neutral-white;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td {
+    background-color: @soe-color-neutral-ag-white;
+}
+
+.small-table {
+
+    th, td {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.table-more-condensed {
+    margin-bottom: 0px;
+}
+
+.table-more-condensed > thead > tr > th, .table-more-condensed > tbody > tr > th, .table-more-condensed > tfoot > tr > th, .table-more-condensed > thead > tr > td, .table-more-condensed > tbody > tr > td, .table-more-condensed > tfoot > tr > td {
+    padding: 1px 1px 1px 3px;
+    vertical-align: middle;
+
+    input[type="checkbox"] {
+        margin: 3px 0 0 5px;
+    }
+}
+
+.table-more-condensed > tbody > tr > td {
+    i {
+        margin-top: 3px;
+    }
+}
+
+.table-outer-bordered {
+    border: 1px solid @soe-border-color;
+}
+
+.table-borderless tbody tr td, .table-borderless tbody tr th, .table-borderless thead tr th {
+    border: none;
+}
+
+.table-scrollable-wrapper {
+    position: relative;
+}
+
+.table-scrollable-wrapper table {
+    width: 100%;
+}
+
+.table-scrollable-wrapper table thead th span {
+    position: absolute;
+    top: -20px;
+    z-index: 2;
+    height: 20px;
+}
+
+.table-scrollable-wrapper table thead th i {
+    position: absolute;
+    top: -18px;
+    z-index: 2;
+    height: 20px;
+}
+
+.table-scrollable {
+    overflow: auto;
+    margin-top: 25px;
+
+    table {
+        border-top: 1px solid @soe-border-color;
+    }
+
+    table.table-more-condensed {
+        margin-top: -4px;
+    }
+}
+
+.table-selected-row {
+    background-color: @accentColorLightFaded;
+
+    .fa-caret-right {
+        color: @accentColor;
+    }
+}
+
+.table-blue-row {
+    background-color: @saturdayBackgroundColor;
+}
+
+.table-checklist {
+    border: solid 1px;
+    border-color: dimgrey;
+}
+//datepicker inside table
+.noBorder table thead {
+    border: 0;
+}
+
+
+.table-checklist tr:nth-child(even) {
+    background-color: lavender;
+}
+
+.table-checklist th {
+    background-color: gainsboro;
+    color: black;
+}
+
+.hide {
+    display: none;
+}
+
+.pdf-holder {
+    overflow: auto;
+    max-width: 100%;
+    text-align: center;
+    padding: 15px;
+}
+
+.pdf-canvas {
+    box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.75);
+    display: block;
+    margin: 2px;
+}
+
+.scanning-success input, .scanning-success select {
+    background-color: #3c763d20;
+}
+
+.scanning-warning input, .scanning-warning select {
+    background-color: #8a6d3b20;
+}
+
+.scanning-error input, .scanning-error select {
+    background-color: #a9444220;
+}
+
+.tabRemoveMinHeight > div > div {
+    min-height: 0 !important;
+}
+
+table.strikeable {
+    border-collapse: collapse;
+}
+
+table.strikeable tr td {
+    position: relative;
+}
+
+table.strikeable tr th {
+    position: relative;
+}
+
+table.strikeable tr.strikeout td.strikeout:before {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    border-bottom: 1px solid @soe-text-color;
+    width: 100%;
+}
+
+table tr.marked {
+    background-color: @accentColorLight;
+}
+// Textarea
+textarea {
+    font-family: @font !important;
+    font-size: @mediumFontSize !important;
+    resize: vertical;
+}
+
+textarea ~ .input-group-addon {
+    background: @soe-background-color;
+    cursor: pointer;
+
+    i {
+        cursor: pointer;
+    }
+}
+
+textarea ~ .input-group-addon.disabled {
+    background: @soe-disabled-background-color;
+    cursor: default;
+
+    i {
+        cursor: default;
+        color: @soe-disabled-text-color;
+    }
+}
+// ToolTip
+.ui-tooltip {
+    padding: 5px;
+    font-weight: bold;
+    background-color: @informationBackgroundColor;
+    border: solid 1px @informationBorderColor;
+    border-radius: @border-radius;
+}
+
+.nvtooltip {
+    z-index: 1000;
+}
+// Typeahead
+.ngSoeTypeahead[disabled], .ngSoeTypeahead[readonly] {
+    background-color: @soe-disabled-background-color !important;
+}
+// Typeahead fix in dialog
+[uib-typeahead-popup].dropdown-menu {
+    z-index: 9999;
+    max-height: 300px;
+    min-width: 200px;
+    overflow-y: auto;
+}
+
+ul.typeahead.dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
+}
+// UL
+.checkable-list {
+    border: 1px solid @soe-border-color;
+    margin: 0;
+    list-style: none;
+
+    li:nth-of-type(odd) {
+        border-top: 1px solid @soe-border-color;
+        border-bottom: 1px solid @soe-border-color;
+        background-color: #F9F9F9;
+    }
+
+    li:first-child {
+        border-top: 0;
+    }
+
+    li:last-child {
+        border-bottom: 0;
+    }
+
+    li {
+        list-style: none;
+        cursor: pointer;
+        padding: 1px 1px 1px 3px;
+    }
+}
+// Modal
+.modal-wide > .modal-dialog {
+    width: 95%;
+    height: 90vh;
+    margin: 5vh auto;
+}
+
+.modal-dialog {
+    margin-top: 100px;
+
+    .modal-header {
+        background-color: @soe-header-background-color;
+        border-radius: @border-radius @border-radius 0 0;
+        padding: 6px 6px 10px 6px;
+        cursor: move;
+
+        button {
+            margin-top: -5px;
+        }
+
+        .print {
+            cursor: pointer;
+            margin-top: -3px;
+
+            i {
+                font-size: 15px;
+            }
+        }
+
+        .modal-title {
+            height: 8px;
+            font-weight: bold;
+        }
+    }
+
+    .modal-body {
+        min-height: 100px;
+    }
+
+    .modal-footer {
+        border-radius: 0 0 @border-radius @border-radius;
+        padding: 10px;
+
+        .btn {
+            min-width: 100px;
+            padding: 4px 8px;
+        }
+
+        .btn + .btn {
+            margin-left: 15px;
+        }
+
+        .btn-group {
+            .btn:first-child {
+                margin-left: 15px;
+            }
+
+            .btn + .btn {
+                margin-left: -1px;
+            }
+        }
+
+        .ngSoeSplitButton.dropdown-toggle {
+            min-width: 20px;
+        }
+    }
+
+    .modal-footer.no-border {
+        border-top: 0;
+    }
+
+    .modal-footer.no-margin {
+        padding: 0;
+    }
+
+    .edit-padding {
+        padding: 10px;
+    }
+}
+
+.fullsize-modal {
+    .modal-lg {
+        width: 95%;
+        max-width: 1200px;
+    }
+
+    .modal-xl {
+        width: 95%;
+    }
+}
+
+.fullsize-modal-top {
+    .modal-lg {
+        width: 95%;
+        max-width: 1200px;
+        margin-top: 10px;
+    }
+}
+
+// MessageBox
+.messagebox {
+    background-color: @soe-color-neutral-white;
+    border-radius: @border-radius;
+
+    .messagebox-icon {
+        font-size: 28px;
+    }
+
+    .datepicker-button {
+        .fal {
+            font-size: 17px;
+        }
+    }
+
+    .soe-accordion-heading {
+        .fal {
+            font-size: 14px;
+        }
+    }
+
+    .repeater-condensed {
+        .datepicker-button {
+            .fal {
+                font-size: 14px;
+                vertical-align: top;
+                margin-top: -2px;
+            }
+        }
+    }
+}
+// FileDisplay
+.filescontainer {
+    margin-bottom: @padding-small-vertical;
+}
+
+.filessort {
+    .dropdown-toggle {
+        padding: 4px 5px;
+    }
+
+    .dropdown-toggle.only-icon {
+        padding: 4px 12px;
+    }
+
+    li a:hover {
+        color: @accentColor;
+    }
+
+    li a.selected {
+        color: white;
+        background-color: @accentColorFaded;
+    }
+}
+
+.filesrepeater {
+    display: inline-block;
+    border: solid 1px @soe-border-color;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
+.fileitemtoolbar {
+    background-color: @soe-header-background-color;
+    border-bottom: 1px solid @soe-border-color;
+}
+
+.fileitem {
+    text-align: center;
+    width: 100px;
+    height: 76px;
+    padding: 5px 5px 0px 5px;
+}
+
+.fileitemimage {
+    height: 50px;
+    cursor: pointer;
+
+    i {
+        font-size: 50px;
+    }
+
+    img {
+        max-height: 50px;
+        max-width: 90px;
+    }
+}
+
+.fileitemheader {
+    color: @soe-text-color;
+    font-size: @smallFontSize;
+    width: 90px;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-top: 3px;
+
+    span {
+        white-space: nowrap;
+    }
+
+    input {
+        font-size: @smallFontSize;
+        height: 20px;
+        padding: 3px;
+    }
+}
+
+.fileitemcreated {
+    display: block;
+    background-color: @informationBackgroundColor;
+    border-top: 1px solid @soe-border-color;
+    text-align: center;
+    font-size: @smallFontSize;
+    padding-top: 1px;
+
+    .fal {
+        font-size: @smallFontSize;
+    }
+}
+// FileUpload
+.file-upload {
+    .drop-zone {
+        text-align: center;
+        border: 1px solid @soe-border-color;
+        background-color: @soe-background-color;
+    }
+
+    .nv-file-over {
+        border: 1px solid @accentColor;
+    }
+}
+// Google Maps
+.angular-google-map-container {
+    height: 85vh;
+}
+//gridheader typeahead sizing
+.inputMinSize > div > input {
+    min-width: 20em;
+}
+
+.spanClickable {
+    cursor: pointer;
+    color: @accentColor;
+}
+
+.spanClickable:hover {
+    text-decoration: underline;
+}
+
+.noresult {
+    margin: 10px;
+    border: 1px solid @warningColor;
+    background-color: @warningBackgroundColor;
+    border-radius: @border-radius;
+    padding: 5px 10px;
+}
+
+.tutorial-tab {
+    overflow: hidden;
+    background-color: @accentColorLightFaded;
+    border-bottom: 1px solid #cccc;
+
+    button {
+        background-color: @accentColorLightFaded;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 1.2em;
+    }
+    /* Change background color of buttons on hover */
+    button:hover {
+        background-color: @accentColorLightFaded;
+    }
+
+    button.previous {
+        background-color: @accentColorFaded;
+    }
+    /* Create an active/currentink class */
+    button.active {
+        background-color: @accentColor;
+    }
+}
+
+.hide-ag-grid-col-header .ag-header {
+    height: 0px !important;
+    min-height: 0px !important;
+}
+
+.chart-wrapper {
+    height: 100%;
+
+    #chart {
+        height: calc(100% - 3em);
+    }
+}
+
+.img-div {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding-top: 20%;
+}
+
+.img-div:hover {
+    transform: scale(1.3);
+}

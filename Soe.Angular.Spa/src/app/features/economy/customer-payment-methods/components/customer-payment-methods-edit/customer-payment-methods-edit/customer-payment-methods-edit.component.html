@@ -1,0 +1,82 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-3">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          [autoFocus]="true"
+          formControlName="name">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-3">
+        <soe-select
+          [labelKey]="'economy.common.paymentmethods.importtype'"
+          [selectedId]="form.value.sysPaymentMethodId"
+          [items]="sysPaymentMethods"
+          (valueChanged)="sysPaymentMethodChanged($event)"
+          formControlName="sysPaymentMethodId">
+        </soe-select>
+      </div>
+      <div class="col-sm-3">
+        @if (canVisibleTransactionCode()) {
+          <soe-numberbox
+            [labelKey]="'common.code'"
+            [maxLength]="2"
+            formControlName="transactionCode">
+          </soe-numberbox>
+        }
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <soe-select
+          [labelKey]="'economy.common.paymentmethods.paymentnr'"
+          [selectedId]="form.value.paymentInformationRowId"
+          [items]="paymentInformation"
+          formControlName="paymentInformationRowId">
+        </soe-select>
+      </div>
+      <div class="col-sm-3">
+        <soe-select
+          [labelKey]="'economy.common.paymentmethods.accountnr'"
+          [selectedId]="form.value.accountId"
+          [items]="accountStds"
+          [optionIdField]="'accountId'"
+          [optionNameField]="'numberName'"
+          formControlName="accountId">
+        </soe-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <soe-checkbox
+          [labelKey]="'economy.common.paymentmethods.useincashsales'"
+          [checked]="form.value.useInCashSales"
+          formControlName="useInCashSales"></soe-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <soe-checkbox
+          [labelKey]="'economy.common.paymentmethods.useroundingincashsales'"
+          [checked]="form.value.useRoundingInCashSales"
+          formControlName="useRoundingInCashSales"></soe-checkbox>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

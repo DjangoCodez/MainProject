@@ -1,0 +1,106 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    [height]="600"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups"></soe-grid-wrapper>
+}
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="information-container mx-2">
+      <div class="row mt-2">
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelKey]="'economy.supplier.invoice.linkedtoproject'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelKey]="
+              'economy.supplier.invoice.sumlinkedtoordercost'
+            "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelKey]="'economy.supplier.invoice.sumcost'"></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelKey]="
+              'economy.supplier.invoice.sumlinkedtoordersale'
+            "></soe-label>
+        </div>
+
+        <div class="col-sm-2 offset-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelKey]="'economy.supplier.invoice.amountexvat'"></soe-label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelValue]="
+              (filteredTotalLinkedToProject || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+            "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelValue]="
+              (filteredTotalLinkedToOrder || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+            "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelValue]="
+              (filteredTotalLinkedCost || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+            "></soe-label>
+        </div>
+        <div class="col-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelValue]="
+              (filteredTotalLinkedToOrderSale || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              }) +
+              ' (' +
+              (surchargePercentage || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              }) +
+              '%)'
+            ">
+          </soe-label>
+        </div>
+
+        <div class="col-sm-2 offset-sm-2">
+          <soe-label
+            class="pull-right"
+            [labelValue]="
+              (filteredTotal || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+            "></soe-label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

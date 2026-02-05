@@ -1,0 +1,284 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Note! If you wish to generate export file KU10 to TaxOfficials, check Soe.Business->Util->ExportFiles->KU10.cs  -->
+<!-- This xml is for Crystal Reports, for creating a report containing identical data as KU10 export file -->
+<SOE_KU10Report>
+<xs:schema id="SOE_KU10Report" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:ku="http://xmls.skatteverket.se/se/skatteverket/ai/komponent/infoForBeskattning/">
+  <xs:element name="SOE_KU10Report" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="KU10Report">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="TimeLabel" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="Company" type="xs:string" minOccurs="0" />
+                    <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                    <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                    <xs:element name="TimePeriod" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateInterval" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="EmployeeNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="EmployeeNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="OrganisationsnummerLabel"  type="xs:string" minOccurs="0" />
+                    <xs:element name="SkapadLabel"  type="xs:string" minOccurs="0" />
+                    <xs:element name="KontantBruttolonMmLabel" minOccurs="0" />
+                    <xs:element name="TimePerionLabel" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Skatteverket" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Avsandare">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Programnamn" minOccurs="1" maxOccurs="1" type="xs:string" />
+                          <xs:element name="Organisationsnummer" minOccurs="1" maxOccurs="1" type="xs:string" />
+                          <xs:element name="TekniskKontaktperson">
+                            <xs:complexType>
+                              <xs:all>
+                                <xs:element name="Namn" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                                <xs:element name="Telefon" minOccurs="1" maxOccurs="1" type="xs:string" />
+                                <xs:element name="Epostadress" minOccurs="1" maxOccurs="1" type="xs:string" />
+                                <xs:element name="Utdelningsadress1" minOccurs="0" maxOccurs="1" type="xs:string" />
+                                <xs:element name="Utdelningsadress2" minOccurs="0" maxOccurs="1" type="xs:string" />
+                                <xs:element name="Postnummer" minOccurs="0" maxOccurs="1" type="xs:string" />
+                                <xs:element name="Postort" minOccurs="0" maxOccurs="1" type="xs:string"/>
+                              </xs:all>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Skapad" minOccurs="1" maxOccurs="1" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Blankettgemensamt">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Uppgiftslamnare">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="UppgiftslamnarePersOrgnr" type="xs:string" />
+                                <xs:element name="Kontaktperson">
+                                  <xs:complexType>
+                                    <xs:all>
+                                      <xs:element name="Namn" minOccurs="1" maxOccurs="1" type="xs:string"  />
+                                      <xs:element name="Telefon" minOccurs="1" maxOccurs="1" type="xs:string"   />
+                                      <xs:element name="Epostadress" minOccurs="1" maxOccurs="1" type="xs:string"  />
+                                      <xs:element name="Sakomrade" minOccurs="0" maxOccurs="1" type="xs:string"  />
+                                    </xs:all>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Blankett">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Arendeinformation">
+                            <xs:complexType>
+                              <xs:all>
+                                <xs:element name="Arendeagare" minOccurs="1" maxOccurs="1" type="xs:string" />
+                                <xs:element name="Period" minOccurs="1" maxOccurs="1" type="xs:string" />
+                                <xs:element name="Arendenummer" minOccurs="0" maxOccurs="1" type="xs:string"/>
+                              </xs:all>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Blankettinnehall">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="KU10"  minOccurs="0" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="AvdragenSkatt" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="AnstalldFrom" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="AnstalldTom" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="KontantBruttolonMm" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="FormanUtomBilDrivmedel" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="BilformanUtomDrivmedel" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="KodForFormansbil" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="AntalManBilforman" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="KmBilersVidBilforman" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="BetaltForBilforman" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="DrivmedelVidBilforman" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="AndraKostnadsers" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="UnderlagRutarbete" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="UnderlagRotarbete" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="ErsMEgenavgifter" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="Tjanstepension" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="ErsEjSocAvg" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="ErsEjSocAvgEjJobbavd" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="Forskarskattenamnden" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="VissaAvdrag" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="Hyresersattning" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="BostadSmahus" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="Kost" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="BostadEjSmahus" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="Ranta" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="Parkering" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="AnnanForman" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="FormanHarJusterats" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="FormanSomPension" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="Bilersattning" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="TraktamenteInomRiket" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="TraktamenteUtomRiket" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="TjansteresaOver3MInrikes" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="TjansteresaOver3MUtrikes" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="Resekostnader" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="Logi" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="Arbetsstallenummer" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="Delagare" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="SpecAvAnnanForman" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="SpecVissaAvdrag" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="SocialAvgiftsAvtal" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="Inkomstar" minOccurs="1" maxOccurs="1"/>
+                                      <xs:element name="Borttag" minOccurs="0" maxOccurs="1"/>
+                                      <xs:element name="Specifikationsnummer" minOccurs="1" maxOccurs="1"/>
+                                      <xs:element name="InkomsttagareKU10" minOccurs="1" maxOccurs="1">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="LandskodTIN" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="Inkomsttagare" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="Fornamn" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="Efternamn" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="Gatuadress" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="Postnummer" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="Postort" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="LandskodPostort" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="Fodelsetid" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="AnnatIDNr" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="OrgNamn" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="TIN" minOccurs="0" maxOccurs="1" />
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="UppgiftslamnareKU10"  minOccurs="1" maxOccurs="1">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="UppgiftslamnarId" minOccurs="1" maxOccurs="1" />
+                                            <xs:element name="NamnUppgiftslamnare" minOccurs="0" maxOccurs="1" />
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="nummer" type="xs:string" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+<KU10Report>
+  <ReportHeaderLabels>
+    <LoginNameLabel>NameLabel</LoginNameLabel>
+    <PageLabel>Page</PageLabel>
+    <DateLabel>Date</DateLabel>
+    <TimeLabel>Time</TimeLabel>
+  </ReportHeaderLabels>
+  <ReportHeader>
+    <ReportTitle>KU10</ReportTitle>
+    <ReportDescription>Data for Tax officials</ReportDescription>
+    <ReportNr>100</ReportNr>
+    <Company>12345</Company>
+    <Orgnr>12345</Orgnr>
+    <LoginName>Jukka</LoginName>
+    <TimePeriod></TimePeriod>
+    <DateInterval></DateInterval>
+  </ReportHeader>
+  <PageHeaderLabels>
+    <EmployeeNrLabel>Employee Nr</EmployeeNrLabel>
+    <EmployeeNameLabel>Employee Name</EmployeeNameLabel>
+    <OrganisationsnummerLabel>Org. Nro</OrganisationsnummerLabel>
+    <SkapadLabel>Data fetched</SkapadLabel>
+    <KontantBruttolonMmLabel>Brutto salary</KontantBruttolonMmLabel>
+    <TimePerionLabel>Time period</TimePerionLabel>
+  </PageHeaderLabels>
+  <Skatteverket>
+    <Avsandare>
+        <Programnamn>KUfilsprogrammet</Programnamn>
+        <Organisationsnummer>162234567895</Organisationsnummer>
+        <TekniskKontaktperson>
+           <Namn>John Doe</Namn>
+           <Telefon>+46881234567</Telefon>
+           <Epostadress>siv.karlsson@aktiebolagetab.se</Epostadress>
+           <Utdelningsadress1>Artellerigatan11</Utdelningsadress1>
+           <Utdelningsadress2/>
+           <Postnummer>62145</Postnummer>
+           <Postort>Visby</Postort>
+        </TekniskKontaktperson>
+        <Skapad>2014-06-07T21:32:52</Skapad>
+    </Avsandare>
+    <Blankettgemensamt>
+      <Uppgiftslamnare>
+      <UppgiftslamnarePersOrgnr>165599990602</UppgiftslamnarePersOrgnr>
+        <Kontaktperson>
+        <Namn>John Doe</Namn>
+        <Telefon>+46812345678</Telefon>
+        <Epostadress>siv.karlsson@sonjasfrohandel.se</Epostadress>
+        <Sakomrade>Skatteverket</Sakomrade>
+        </Kontaktperson>
+     </Uppgiftslamnare>
+    </Blankettgemensamt>
+
+    <!--Kontrolluppgift 1 -->
+    <Blankett nummer="2300">
+    <Arendeinformation>
+      <Arendeagare>165599990602</Arendeagare>
+      <Period>2015</Period>
+    </Arendeinformation>
+    <Blankettinnehall>
+           <KU10>
+                 <KontantBruttolonMm faltkod="011">335000</KontantBruttolonMm>
+                 <FormanUtomBilDrivmedel faltkod="012">2000</FormanUtomBilDrivmedel>
+                 <AnnanForman faltkod="047">1</AnnanForman>
+                 <SpecAvAnnanForman faltkod="065">Tidning</SpecAvAnnanForman>
+                 <Inkomstar faltkod="203">2015</Inkomstar>
+                 <Specifikationsnummer faltkod="570">01</Specifikationsnummer>
+                 <InkomsttagareKU10>
+                    <Inkomsttagare faltkod="215">195111232079</Inkomsttagare>
+                 </InkomsttagareKU10>
+                 <UppgiftslamnareKU10>
+                    <UppgiftslamnarId faltkod="201">165599990602</UppgiftslamnarId>
+                 </UppgiftslamnareKU10>
+           </KU10>
+  </Blankettinnehall>
+ </Blankett>
+ </Skatteverket>
+
+</KU10Report>
+
+
+</SOE_KU10Report>

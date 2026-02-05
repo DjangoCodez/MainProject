@@ -1,0 +1,128 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy && !ctrl.authorizedForEdit">
+        <div class="info margin-small-top">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-label label-key="manage.company.nopermission"></soe-label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div data-ng-if="!ctrl.progress.progressBusy && ctrl.authorizedForEdit">
+        <!--<div class="btn-toolbar">-->
+        <div class="row margin-large-top margin-none-right">
+            <div class="col-sm-3">
+                <div class="pull-left">
+                    <soe-toolbar buttons="ctrl.toolbar.navigationMenuButtons" hide-border="true" style="margin-bottom:0px;" ng-if="ctrl.showNavigationButtons"></soe-toolbar>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <soe-toolbar buttons="ctrl.toolbar.buttonGroups" hide-border="true" style="margin-bottom:0px;"></soe-toolbar>
+            </div>
+            <!--</div>-->
+        </div>
+
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <soe-panel label-key="manage.company.companyinfo">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <soe-textbox label-key="common.companyname" model="ctrl.company.name" is-disabled="ctrl.isLocked || ctrl.company.demo" required="true" maxlength="100"></soe-textbox>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-textbox label-key="common.shortname" model="ctrl.company.shortName" is-disabled="ctrl.isLocked || ctrl.company.demo" required="true" maxlength="10"></soe-textbox>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-textbox label-key="manage.company.companynr" model="ctrl.company.number" is-disabled="ctrl.isLocked"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <soe-select label-key="common.country" model="ctrl.company.sysCountryId" items="ctrl.countries" options="item.id as item.name for item in items" required="true"></soe-select>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-textbox label-key="common.orgnrshort" model="ctrl.company.orgNr" is-disabled="ctrl.isLocked || ctrl.company.demo" required="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-textbox label-key="common.customer.customer.vatnr" model="ctrl.company.vatNr" is-disabled="ctrl.isLocked"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <soe-select label-key="manage.company.basecurrency" model="ctrl.company.baseSysCurrencyId" items="ctrl.currencies" options="item.id as item.name for item in items" is-disabled="ctrl.isLocked || (ctrl.company.baseSysCurrencyId > 0 && !ctrl.isNew)"></soe-select>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-select label-key="manage.company.entcurrency" model="ctrl.company.baseEntCurrencyId" items="ctrl.currencies" options="item.id as item.name for item in items" is-disabled="ctrl.isLocked || (ctrl.company.baseEntCurrencyId > 0 && !ctrl.isNew)"></soe-select>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-textbox label-key="manage.company.maxsms" model="ctrl.company.maxNrOfSMS" is-disabled="!ctrl.isNew"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <soe-textbox label-key="manage.company.apikey" model="ctrl.company.companyApiKey" is-disabled="true"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <soe-checkbox label-key="manage.company.softoneedi" model="ctrl.company.isEdiGOActivated" is-disabled="ctrl.isLocked" inline="true"></soe-checkbox>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-checkbox label-key="manage.company.support" model="ctrl.company.companyTaxSupport" is-disabled="ctrl.isLocked" inline="true"></soe-checkbox>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-checkbox label-key="manage.company.demo" model="ctrl.company.demo" is-disabled="ctrl.isLocked || !ctrl.isNew" inline="true" on-changing="ctrl.demoChanged()"></soe-checkbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <soe-checkbox label-key="manage.company.templatecompanywithin" model="ctrl.company.template" is-disabled="ctrl.isLocked" inline="true" tooltip-key="manage.company.templateinfo"></soe-checkbox>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-checkbox label-key="manage.company.global" model="ctrl.company.global" is-disabled="ctrl.isLocked" inline="true" ng-if="ctrl.licenseSupport"></soe-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+            </div>
+        </div>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="manage.company.paymentdetails" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <payment-information payment-information="ctrl.company.paymentInformation" is-locked="ctrl.isLocked"></payment-information>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="manage.company.contactdetails" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <contact-addresses contact-type="1" address-rows="ctrl.company.contactAddresses" read-only="!ctrl.modifyPermission || ctrl.isLocked" allow-show-secret="ctrl.modifyPermission" is-valid="ctrl.isContactAddressesValid" validation-errors="ctrl.contactAddressesValidationErrors" ignore-sys="false"></contact-addresses>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.company"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

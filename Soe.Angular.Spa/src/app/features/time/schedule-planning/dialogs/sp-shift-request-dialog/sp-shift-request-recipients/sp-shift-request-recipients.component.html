@@ -1,0 +1,62 @@
+<form [formGroup]="form" novalidate autocomplete="off">
+  <div class="filter-container information-background-color">
+    <div class="filter-row">
+      <span class="filter-label">
+        {{ 'time.availableemployees.filterheader' | translate }}
+      </span>
+
+      <soe-checkbox
+        [labelKey]="'time.schedule.shifttype.shifttype'"
+        [noMargin]="true"
+        formControlName="filterOnShiftType">
+      </soe-checkbox>
+
+      <soe-checkbox
+        [labelKey]="'time.schedule.skill.skills'"
+        [noMargin]="true"
+        formControlName="filterOnSkills">
+      </soe-checkbox>
+
+      <soe-checkbox
+        [labelKey]="'time.schedule.planning.workrules'"
+        [noMargin]="true"
+        formControlName="filterOnWorkRules">
+      </soe-checkbox>
+
+      @if (settingService.showAvailability()) {
+        <soe-checkbox
+          [labelKey]="'time.schedule.planning.availability'"
+          [noMargin]="true"
+          formControlName="filterOnAvailability">
+        </soe-checkbox>
+      }
+    </div>
+
+    <div class="filter-row mt-2">
+      <soe-select
+        [labelKey]="'common.receiverslist.messagegroup'"
+        [items]="messageGroups"
+        [inline]="true"
+        formControlName="filterOnMessageGroupId">
+        <soe-icon-button [iconName]="'pen'"></soe-icon-button>
+      </soe-select>
+
+      <soe-button
+        [caption]="'Sök mottagare'"
+        [iconName]="'user-magnifying-glass'"
+        [behaviour]="'primary'"
+        (action)="getAvailableEmployees()"></soe-button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <sp-shift-request-recipients-available
+        [form]="form"></sp-shift-request-recipients-available>
+    </div>
+    <div class="col-sm-6">
+      <sp-shift-request-recipients-selected
+        [form]="form"></sp-shift-request-recipients-selected>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,19 @@
+﻿<form class="form-inline">
+    <div>
+        <div class="form-group form-group-sm">
+            <soe-checkbox label-key="economy.supplier.invoice.nocost" model="ctrl.notLinked"></soe-checkbox>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-checkbox label-key="economy.supplier.invoice.partialcost" model="ctrl.partiallyLinked"></soe-checkbox>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-checkbox label-key="economy.supplier.invoice.fullcost" model="ctrl.fullyLinked"></soe-checkbox>
+        </div>
+        <div class="form-group form-group-sm">
+            <soe-select model="ctrl.allItemsSelection" items="ctrl.allItemsSelectionDict" options="item.id as item.name for item in items"></soe-select>
+        </div>
+        <div class="form-group form-group-sm">
+            <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.search'" data-l10n-bind-title="'economy.supplier.invoice.searchinvoices'" data-ng-click="ctrl.search()" data-ng-if="ctrl.showSearchButton"></button>
+        </div>
+    </div>
+</form>

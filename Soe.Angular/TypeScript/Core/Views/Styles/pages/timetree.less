@@ -1,0 +1,159 @@
+﻿@import (reference) "../variables.less";
+
+.timetree-container {
+    border: 1px solid @soe-border-color;
+}
+
+.timetree-container ul {
+    list-style: none;
+}
+
+.timetree-header {
+    height: auto;
+    padding: 0 10px 0 10px;
+    border-bottom: 1px solid @soe-border-color;
+    background: @soe-header-background-color;
+}
+
+.timetree-header-toolbar-buttons {
+    .btn-group {
+        i.btn:last-of-type {
+            border-top-right-radius: @button-border-radius !important;
+            border-bottom-right-radius: @button-border-radius !important;
+        }
+    }
+}
+
+.timetree-header-toolbar-buttons-left {
+    margin-top: 5px;
+    padding: 0 10px 0 0;
+}
+
+.timetree-header-toolbar-buttons-right {
+    margin-top: 5px;
+    padding: 0;
+}
+
+.timetree-header-toolbar-box {
+    padding: 10px;
+    background: @soe-background-color;
+    border: 1px solid @soe-border-color;
+}
+
+.timetree-header-toolbar i {
+    font-size: 16px;
+    text-align: center;
+}
+
+.timetree-header-input {
+    margin: 0 0 5px 0;
+}
+
+.timetree-header-input-selection {
+    margin: 0 0 0 0;
+}
+
+.timetree-header-input-search{
+    margin: 5px 0 0 0;
+}
+
+.timetree-progress {
+    min-height: 480px;
+    padding: 10px;
+}
+
+.timetree-progress-disabled-message {
+    padding: 10px;
+}
+
+.timetree-filter {
+    padding: 10px 10px 5px 10px
+}
+
+.timetree-view {
+    min-height: 480px;
+    border-bottom: 1px solid @soe-border-color;
+}
+
+.timetree-view i.fal {
+    font-size: 10px;
+    width: 10px;
+}
+
+.timetree-view i.fa-chevron-right, .timetree-view i.fa-chevron-down {
+    padding: 5px 10px 5px 5px;
+}
+
+.timetree-view i.fa-chevron-right:hover, .timetree-view i.fa-chevron-down:hover {
+    color: #72acf8;
+}
+
+.timetree-view li {
+    margin: 2px 0 2px 10px;
+    cursor: pointer;
+}
+
+.timetree-view li ul li {
+    margin: 2px 0 2px 44px;
+}
+
+.timetree-view ul li div.treeNode {
+    padding: 0px;
+}
+
+.timetree-view ul li div.treeGroup:hover, .timetree-view ul li div.treeNode:hover, .timetree-view ul li div.active, .timetree-view ul li.active {
+    background: #E6E6E6;
+}
+
+.timetree-view ul li div.circle {
+    width: 18px;
+    height: 18px;
+    background: @soe-background-color;
+    -moz-border-radius: 9px;
+    -webkit-border-radius: 9px;
+    border-radius: 9px;
+    border: 1px solid @soe-border-color;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+}
+
+.timetree-view ul li div.far {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.timetree-view ul li div.circle span.fal, .timetree-view ul li div.circle span.fas {
+    margin: 2px 0 0 7px;
+    font-size: 12px;
+    vertical-align: text-top;
+}
+
+.timetree-view ul li div.warningsloaded {
+    background: @warningColor;
+    color: white;
+    border-width: 0px;
+}
+
+.timetree-view ul li div.warningsnotloaded {
+    cursor: progress;
+    background: @soe-header-background-color;
+    color: @soe-disabled-text-color;
+}
+
+.timeattest-header-toolbar i.active {
+    color: @accentColor;
+}
+
+.timetree-applyfinalsalary {
+    color: red;
+    font-weight: bold;
+}
+
+.timetree-appliedfinalsalary {
+    color: green;
+    font-weight: bold;
+}

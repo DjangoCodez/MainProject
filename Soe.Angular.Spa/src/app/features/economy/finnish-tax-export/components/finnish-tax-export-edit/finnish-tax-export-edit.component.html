@@ -1,0 +1,73 @@
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <soe-expansion-panel [static]="true" [labelKey]="'common.general'">
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="
+                'economy.export.finnishtax.periodtaxreturn.lengthoftaxperiod'
+              "
+              [items]="periodLengths"
+              formControlName="lengthOfTaxPeriod"></soe-select>
+          </div>
+          <div class="col-sm-2">
+            <soe-checkbox
+              [labelKey]="
+                'economy.export.finnishtax.periodtaxreturn.noactivity'
+              "
+              [inline]="true"
+              formControlName="noActivity"></soe-checkbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-numberbox
+              [labelKey]="'economy.export.finnishtax.periodtaxreturn.taxperiod'"
+              [decimals]="0"
+              [noFormatting]="true"
+              formControlName="taxPeriod"></soe-numberbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-checkbox
+              [labelKey]="
+                'economy.export.finnishtax.periodtaxreturn.correction'
+              "
+              [inline]="true"
+              formControlName="correction"></soe-checkbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-numberbox
+              [labelKey]="
+                'economy.export.finnishtax.periodtaxreturn.taxperiodyear'
+              "
+              [decimals]="0"
+              [maxLength]="4"
+              [noFormatting]="true"
+              formControlName="taxPeriodYear"></soe-numberbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'economy.export.finnishtax.periodtaxreturn.cause'"
+              [items]="correctionReasons"
+              formControlName="cause"></soe-select>
+          </div>
+        </div>
+      </soe-expansion-panel>
+    </div>
+    <soe-edit-footer [form]="form" [hideDelete]="true" [hideSave]="true">
+      <soe-save-button
+        class="ms-3 me-2"
+        [caption]="'core.export'"
+        [invalid]="form.invalid"
+        [dirty]="form.dirty"
+        [inProgress]="performAction.inProgress()"
+        (action)="export()"
+        (validationErrorsAction)="
+          form.openFormValidationErrors()
+        "></soe-save-button>
+    </soe-edit-footer>
+  </form>
+}

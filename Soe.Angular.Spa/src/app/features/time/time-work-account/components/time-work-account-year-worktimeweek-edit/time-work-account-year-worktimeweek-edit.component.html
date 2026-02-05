@@ -1,0 +1,60 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        name=""
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <soe-expansion-panel
+          labelKey="time.payroll.worktimeaccount.employee.worktimeweek.interval"
+          [static]="true">
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="'common.from'"
+                formControlName="workTimeWeekFrom">
+              </soe-numberbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="'common.to'"
+                formControlName="workTimeWeekTo">
+              </soe-numberbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="
+                  'time.payroll.worktimeaccount.employee.worktimeweek.maxhours'
+                "
+                formControlName="paidLeaveTime"
+                [autoFocus]="true"
+                [decimals]="2">
+              </soe-numberbox>
+            </div>
+          </div>
+        </soe-expansion-panel>
+        <div class="soe-form-footer">
+          <div class="d-flex align-items-center float-end">
+            <soe-button
+              class="me-2"
+              [caption]="'core.cancel'"
+              [behaviour]="'standard'"
+              (action)="performCancel()"></soe-button>
+            <soe-save-button
+              class="me-2"
+              [caption]="'core.ok'"
+              [dirty]="true"
+              [inProgress]="performAction.inProgress()"
+              [disabled]="!handler.modifyPermission()"
+              (action)="performSave()"
+              (validationErrorsAction)="
+                form.openFormValidationErrors()
+              "></soe-save-button>
+          </div>
+        </div>
+      </form>
+    }
+  </ng-container>
+</soe-dialog>

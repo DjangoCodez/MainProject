@@ -1,0 +1,13 @@
+<form [formGroup]="form" autocomplete="off">
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [parentGuid]="guid()"
+      (editRowClicked)="edit($event)"
+      [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+      <soe-inventories-grid-header
+        toolbar-content-left
+        (filterChange)="filterOnChange($event)"></soe-inventories-grid-header>
+    </soe-grid-wrapper>
+  }
+</form>

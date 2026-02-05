@@ -1,0 +1,59 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div distribution-code-validation ng-model="ctrl.distributionCode" data-ng-if="!ctrl.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-3">
+                    <soe-textbox label-key="common.name" model="ctrl.distributionCode.name" required="true" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-select label-key="common.type" model="ctrl.distributionCode.typeId" items="ctrl.types" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.typeChanged(item)"></soe-select>
+                </div>
+                <div class="col-sm-3">
+                    <soe-textbox label-key="economy.accounting.distributioncode.numberofperiods" input-type="number" model="ctrl.numberOfPeriods" is-readonly="!ctrl.modifyPermission" data-ng-if="!ctrl.hideToolbar"></soe-textbox>
+                    <soe-select label-key="economy.accounting.distributioncode.subtype" model="ctrl.distributionCode.subType" items="ctrl.subTypes" options="item.id as item.name for item in items" on-changing="ctrl.subTypeChanged();" data-ng-hide="!ctrl.hideToolbar" is-readonly="!ctrl.modifyPermission || !ctrl.distributionCode.typeId"></soe-select>
+                </div>
+                <div class="col-sm-3">
+                    <soe-datepicker label-key="common.validfrom" model="ctrl.distributionCode.fromDate" is-readonly="!ctrl.modifyPermission" on-change="ctrl.dateChanged();"></soe-datepicker>
+                </div>
+            </div>
+            <div class="row margin-small-bottom">
+                <div class="col-sm-3" data-ng-hide="ctrl.distributionCode.subType == 14">
+                    <soe-select label-key="economy.accounting.salesbudget.subtyperowstandard" model="ctrl.distributionCode.parentId" items="ctrl.distributionCodesDict" options="item.id as item.name for item in items" data-ng-hide="!ctrl.hideToolbar" is-readonly="!ctrl.modifyPermission || !ctrl.distributionCode.typeId" on-changing="ctrl.standardDistributionCodeChanged(item)"></soe-select>
+                </div>
+                <div class="col-sm-3" data-ng-class="{'col-sm-offset-3': ctrl.distributionCode.subType == 14}" data-ng-hide="!ctrl.hideToolbar">
+                    <soe-select label-key="common.accountdim" model="ctrl.distributionCode.accountDimId" items="ctrl.accountDims" options="item.accountDimId as item.name for item in items" is-readonly="!ctrl.modifyPermission || !ctrl.distributionCode.typeId"></soe-select>
+                </div>
+                <div class="col-sm-3">
+                    <soe-select label-key="economy.accounting.distributioncode.openinghours" model="ctrl.distributionCode.openingHoursId" items="ctrl.openingHours" options="item.id as item.name for item in items" data-ng-if="ctrl.showOpeningHours" on-changing="ctrl.openingHoursChanged();" is-readonly="!ctrl.modifyPermission || !ctrl.distributionCode.typeId"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-toolbar class="margin-small-bottom" buttons="ctrl.gridButtonGroups" ng-if="!ctrl.hideToolbar"></soe-toolbar>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" sum-validation ng-model="ctrl.periods">
+                    <div id="codes-grid" ag-grid="ctrl.distributioncodePeriodGridOptions.gridOptions" class="ag-theme-balham" height-checker style="height: 800px; width: 100%;" prevent-enter></div>
+                </div>
+            </div>
+        </div>
+        <div class="ngSoeForm form-group form-group-sm info">
+            <div class="row">
+                <data-ng-include src="ctrl.gridFooterComponentUrl" />
+            </div>
+        </div>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl"></div>
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

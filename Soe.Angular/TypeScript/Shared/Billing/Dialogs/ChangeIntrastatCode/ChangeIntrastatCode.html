@@ -1,0 +1,62 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'common.commoditycodes.changeintrastatdata'" />
+    </div>
+    <div class="modal-body">
+        <div class="info margin-large-top" data-ng-if="ctrl.info">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-text model="ctrl.info"></soe-text>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-small-bottom">
+            <div class="col-sm-3">
+                <soe-select label-key="common.commoditycodes.code" model="ctrl.selectedIntrastatCode" items="ctrl.codeDict" options="item.id as item.name for item in items"></soe-select>
+            </div>
+            <div class="col-sm-3">
+                <soe-select label-key="economy.accounting.liquidityplanning.transactiontype" model="ctrl.selectedTransactionType" items="ctrl.transactionDict" options="item.id as item.name for item in items"></soe-select>
+            </div>
+            <div class="col-sm-3">
+                <soe-select label-key="common.countryoforigin" model="ctrl.selectedCountry" items="ctrl.countryDict" options="item.id as item.name for item in items" ng-if="ctrl.isOrder"></soe-select>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <soe-panel on-button-click="ctrl.addRow()" button-label-key="common.newrow" button-icon="fa-plus" condensed="true" button-hidden="!ctrl.isSupplierInvoice()" button-disabled="ctrl.buttonNewRowDisabled()">
+                    <div ag-grid="ctrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+                    <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                </soe-panel>
+            </div>
+        </div>
+    </div>
+    <div class="info margin-large-left margin-large-right margin-large-bottom" ng-if="ctrl.isSupplierInvoice()">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-3 pull-right">
+                    <div class="row">
+                        <soe-label class="pull-right" label-key="common.customer.invoices.payableamount"></soe-label>
+                    </div>
+                    <div class="row">
+                        <label class="pull-right discreet">{{ctrl.restAmount | amount}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3 margin-small-right pull-right">
+                    <div class="row">
+                        <soe-label class="pull-right" label-key="common.customer.invoices.invoiceamount"></soe-label>
+                    </div>
+                    <div class="row">
+                        <label class="pull-right discreet">{{ctrl.totalAmount | amount}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer margin-small-top">
+        <label class="control-label" ng-if="ctrl.workingMessage">{{ ctrl.workingMessage }}</label>
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.save'" data-ng-click="ctrl.buttonOkClick()" data-ng-disabled="!ctrl.buttonEnabled()"></button>
+    </div>
+</div>
+

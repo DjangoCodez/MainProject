@@ -1,0 +1,40 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title"><span data-l10n-bind="'time.schedule.planning.scenario.activate'"></span> <span>{{ctrl.scenarioHead.name}}</span>: <span>{{ctrl.scenarioHead.dateFrom | date:'shortDate'}}</span> - <span>{{ctrl.scenarioHead.dateTo | date:'shortDate'}}</span></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="info">
+                    <div>
+                        <span>{{ctrl.infoLabel}}</span>
+                    </div>
+                    <div class="margin-small-top">
+                        <span data-l10n-bind="'time.schedule.planning.scenario.activate.verify.inforow2'"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <div class="warning">
+                    <span class="indiscreet" data-l10n-bind="'time.schedule.planning.scenario.activate.verify.warning'"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <soe-textbox label-key="time.schedule.planning.scenario.activate.verifycode" label-value="ctrl.scenarioHead.timeScheduleScenarioHeadId" label-value-in-parentheses="true" model="ctrl.validationCode" numeric="true" decimals="0" allow-empty="true"></soe-textbox>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="pull-right">
+            <button type="button" class="btn btn-sm btn-default margin-large-left" data-l10n-bind="'core.cancel'" data-l10n-bind-title="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-l10n-bind-title="'core.ok'" data-ng-disabled="!ctrl.isValidCode || ctrl.activating" data-ng-click="ctrl.ok()"></button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,145 @@
+<soe-split-container [ratio]="0.4" [minRatio]="0.3" [dividerNoMargins]="true">
+  <soe-dynamic-container-styles left>
+    <soe-toolbar
+      [recordConfig]="recordConfig"
+      [form]="form"
+      [itemGroups]="toolbarService.toolbarItemGroups"
+      [recordConfig]="recordConfig"
+      (navigatorRecordChanged)="navigatorRecordChanged($event)">
+      <ng-content
+        toolbar-content-left
+        select="[toolbar-content-left]"></ng-content>
+    </soe-toolbar>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        name=""
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div
+          class="container-fluid position-relative"
+          [soeAutoHeight]="'content'"
+          [style.overflow-y]="'auto'"
+          [style.overflow-x]="'hidden'">
+          <div class="row">
+            <div class="col-10">
+              <soe-page-header
+                [title]="headerTitle()"
+                [description]="headerDescription()">
+              </soe-page-header>
+            </div>
+            <div class="col-2">
+              <soe-button
+                class="pull-right lock-button"
+                [iconName]="lockIcon()"
+                [behaviour]="'standard'"
+                (action)="toggleLocked()">
+              </soe-button>
+            </div>
+          </div>
+          <soe-supplier-invoice-edit-head
+            [form]="form"
+            [fieldClasses]="headFieldClasses()"
+            [isLocked]="isLocked()"
+            [invoiceIdsText]="invoiceIdField()"
+            (supplierChanged)="supplier.set($event)"
+            (generateAccountingRows)="
+              generateAccountingRows()
+            "></soe-supplier-invoice-edit-head>
+          <soe-expansion-panel
+            [open]="true"
+            [labelKey]="'economy.supplier.invoice.accountingrows'"
+            [noPadding]="true">
+            <soe-supplier-invoice-accounting-rows
+              [form]="form"
+              [isLocked]="!flowHandler.modifyPermission()"></soe-supplier-invoice-accounting-rows>
+          </soe-expansion-panel>
+          <soe-expansion-panel
+            [open]="false"
+            [labelKey]="'economy.supplier.invoice.cost.allocation'"
+            [noPadding]="true"
+            (isOpened)="costAllocationOpened($event)">
+            @if (isCostAllocationOpen()) {
+              <soe-cost-allocation
+                [form]="form"
+                [isCostAllocationRowsDataLoaded]="isCostAllocationDataLoaded()">
+              </soe-cost-allocation>
+            }
+          </soe-expansion-panel>
+          <soe-expansion-panel
+            [open]="true"
+            [labelKey]="'economy.supplier.invoice.history'"
+            [noPadding]="true">
+            <soe-supplier-invoice-history-grid
+              [supplierId]="form.actorId.getRawValue()"
+              (accountingRowsChosen)="accountingRowsReturned($event)">
+            </soe-supplier-invoice-history-grid>
+          </soe-expansion-panel>
+          @if (supplierInvoiceId()) {
+            <soe-expansion-panel
+              [open]="false"
+              [labelKey]="'core.document'"
+              [secondaryLabelKey]="filesHelper.nbrOfFilesStr()"
+              [secondaryLabelParantheses]="true"
+              (isOpened)="fileListOpened($event)">
+              @if (isFileDisplayAccordionOpen()) {
+                <soe-file-display
+                  [gridHeight]="250"
+                  [helper]="filesHelper"></soe-file-display>
+              }
+            </soe-expansion-panel>
+          }
+
+          @if (
+            featureService.hasProductRows() &&
+            supplierInvoiceId() &&
+            !form.isNew &&
+            !form.isCopy
+          ) {
+            <soe-expansion-panel
+              [open]="false"
+              [labelKey]="'economy.supplier.invoice.productrows'"
+              (isOpened)="toggleProductRowsOpened($event)">
+              @if (productRowsRendered()) {
+                <soe-supplier-invoice-product-rows
+                  [supplierInvoiceId]="supplierInvoiceId()">
+                </soe-supplier-invoice-product-rows>
+              }
+            </soe-expansion-panel>
+          }
+
+          @if (supplierInvoiceId() && !form.isNew && !form.isCopy) {
+            <soe-expansion-panel
+              [open]="false"
+              [labelKey]="'common.tracing'"
+              (isOpened)="toggleTracingOpened($event)">
+              @if (traceRowsRendered()) {
+                <div class="row">
+                  <div class="col-sm-12">
+                    <soe-trace-rows
+                      [traceId]="supplierInvoiceId()"
+                      [pageName]="traceRowPageName"></soe-trace-rows>
+                  </div>
+                </div>
+              }
+            </soe-expansion-panel>
+          }
+        </div>
+        <soe-edit-footer
+          [form]="form"
+          [soeAutoHeight]="'bottom'"
+          [idFieldName]="idFieldName"
+          [modifyPermission]="flowHandler.modifyPermission()"
+          [inProgress]="performAction.inProgress()"
+          (saved)="performSave()"
+          (deleted)="triggerDelete()"></soe-edit-footer>
+      </form>
+    }
+  </soe-dynamic-container-styles>
+  <div right>
+    <soe-supplier-invoice-edit-image-preview
+      [invoiceIds]="ids()"
+      [isReadOnly]="!flowHandler.modifyPermission()"></soe-supplier-invoice-edit-image-preview>
+  </div>
+</soe-split-container>

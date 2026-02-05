@@ -1,0 +1,18 @@
+﻿<div>
+    <div data-ng-if="!ctrl.progressBusy">
+        <data-ng-include src="ctrl.gridHeaderComponentUrl" />
+    </div>
+
+    <soe-toolbar buttons="ctrl.buttonGroups">
+        <data-ng-include src="ctrl.toolbarInclude" />
+    </soe-toolbar>
+
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+    
+    <div ag-grid="ctrl.soeGridOptions.gridOptions" data-ng-if="!ctrl.progress.progressBusy" style="height: 779px; width: 100%;"></div>
+    <div id="totals-grid" style="height: 25px; width: 100%;" prevent-enter></div>
+
+    <div data-ng-if="!ctrl.progressBusy">
+        <data-ng-include src="ctrl.gridFooterComponentUrl" />
+    </div>
+</div>

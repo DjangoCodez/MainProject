@@ -1,0 +1,46 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <bool-selection label-key="common.report.selection.date" on-selected="$ctrl.onDateSelectionSelected(selection)" user-selection-input="$ctrl.dateIsSelectedDTO"></bool-selection>
+    </div>
+    <div class="col-sm-12" data-ng-if="$ctrl.showRange">
+        <accounting-year-and-period-range-selection on-interval-from-selected="$ctrl.intervalFromChanged(selection)" on-interval-to-selected="$ctrl.intervalToChanged(selection)" selected-range-from="$ctrl.accountPeriodFrom" selected-range-to="$ctrl.accountPeriodTo"></accounting-year-and-period-range-selection>
+    </div>
+    <div class="col-sm-8" data-ng-if="!$ctrl.showRange">
+        <date-selection show-range="true" as-range="true" label-key="common.datefrom" additional-label-key="common.dateto" on-selected="$ctrl.onDateRangeSelected(selection)" user-selection-input="$ctrl.selectedDateRange"></date-selection>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <id-selection label-key="common.report.selection.postingdim" on-selected="$ctrl.onPostingDimensionSelectionChanged(selection)" items="$ctrl.selectableRangeNamesWithoutAccount" user-selection-input="$ctrl.selectedPostdim" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <bool-selection label-key="common.report.selection.postingdimismissing" on-selected="$ctrl.onProjectSelected(selection)" user-selection-input="$ctrl.projectSelected"></bool-selection>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <bool-selection label-key="common.report.selection.separateaccountdim" on-selected="$ctrl.onSeparateAccountDimSelected(selection)" user-selection-input="$ctrl.separateAccountDimSelected"></bool-selection>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <bool-selection label-key="common.report.selection.includeyearendvouchers" on-selected="$ctrl.onBoolSelectionInclncludeYearEndVoucherSeries(selection)" user-selection-input="$ctrl.includeyearendvouchers"></bool-selection>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <bool-selection label-key="common.report.selection.includeexternalvouchers" on-selected="$ctrl.onBoolSelectionIncludeExternalVoucherSeries(selection)" user-selection-input="$ctrl.includeexternalvouchers"></bool-selection>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <bool-selection label-key="common.report.reporttemplate.showrowsbyaccount" on-selected="$ctrl.onBoolSelectionShowRowsByAccount(selection)" user-selection-input="$ctrl.showRowsByAccount"></bool-selection>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <account-range-selection filter-ranges="$ctrl.rangeFilters" selectable-range-names="$ctrl.selectableRangeNames"></account-range-selection>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+@if (flowHandler.allowFetchGrid() && form) {
+  <form [formGroup]="form">
+    <div class="row header" style="padding: 10px; align-items: center">
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'time.time.timeperiod.timeperiodhead'"
+          [items]="timePeriodHeads"
+          [selectedId]="0"
+          formControlName="timePeriodHeadId"
+          (valueChanged)="timePeriodHeadSelected($event)"></soe-select>
+      </div>
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'time.time.timeperiod.timeperiod'"
+          [items]="timePeriods"
+          [selectedId]="0"
+          formControlName="timePeriodId"
+          (valueChanged)="timePeriodSelected($event)"></soe-select>
+      </div>
+    </div>
+    @if (showGrid) {
+      <soe-grid-wrapper
+        [rows]="rowData"
+        [parentGuid]="guid()"
+        (selectedItemsChanged)="selectedItemsChanged($event)"
+        [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+        [toolbarGroups]="toolbarUtils.toolbarGroups"
+        [height]="600">
+      </soe-grid-wrapper>
+    }
+    @if (
+      this.form.value.timePeriodHeadId !== 0 &&
+      this.form.value.timePeriodId !== 0
+    ) {
+      <div class="p-2 d-flex justify-content-end gap-2">
+        <soe-menu-button
+          [caption]="'time.atteststate.state'"
+          [list]="menuList"
+          [variant]="'menu'"
+          [disabled]="!flowHandler.modifyPermission() || !hasSelectedRows()"
+          [behaviour]="'secondary'"
+          [dropUp]="true"
+          (itemSelected)="peformAction($event)"
+          (selectedItem)="(menuList)">
+        </soe-menu-button>
+
+        <soe-button
+          [behaviour]="'primary'"
+          [caption]="'core.save'"
+          [disabled]="!this.hasChanged()"
+          (action)="save()"></soe-button>
+      </div>
+    }
+  </form>
+}

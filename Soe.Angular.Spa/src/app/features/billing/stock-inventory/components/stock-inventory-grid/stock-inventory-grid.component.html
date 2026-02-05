@@ -1,0 +1,17 @@
+<form>
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [parentGuid]="guid()"
+      (editRowClicked)="edit($event)"
+      [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+      <div class="row" toolbar-content-left>
+        <soe-checkbox
+          [labelKey]="'billing.stock.stockinventory.showcompleted'"
+          [inline]="false"
+          (valueChanged)="showCompleted($event)">
+        </soe-checkbox>
+      </div>
+    </soe-grid-wrapper>
+  }
+</form>

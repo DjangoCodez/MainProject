@@ -1,0 +1,177 @@
+﻿@import (reference) "../variables.less";
+
+.time-calendar-selections {
+    min-height: 110px;
+
+    .aliged-label {
+        width: 100px;
+    }
+
+    .ngSoeTypeahead {
+        width: 200px;
+    }
+
+    .ngSoeDatePicker {
+        width: 130px;
+    }
+
+    .content-border-no-radius {
+        height: 30px;
+
+        span {
+            line-height: 30px;
+            padding: 10px;
+        }
+    }
+}
+
+.time-calendar-summary {
+    table {
+        min-height: 110px;
+    }
+}
+
+.time-calendar {
+    table {
+        width: 100% !important;
+        table-layout: fixed;
+    }
+
+    .time-calendar-horizontal-separator {
+        border-bottom-width: 2px !important;
+        border-collapse: unset;
+        box-sizing: unset;
+    }
+
+    .time-calendar-top-left {
+        width: 20px;
+        border: solid 1px @soe-border-color;
+        background-color: @soe-header-background-color;
+    }
+
+    .time-calendar-week {
+        border: solid 1px @soe-border-color;
+        background: none;
+        text-align: center;
+        font-size: 10px;
+        text-transform: lowercase;
+        transform: rotate(-90.0deg);
+        padding: 2px;
+    }
+
+    .time-calendar-week-row {
+        background-color: @soe-header-background-color;
+    }
+
+    .time-calendar-daterange {
+        border: solid 1px @soe-border-color;
+        text-align: center;
+        font-size: 12px;
+        padding: 2px;
+        width: 100%;
+
+        .saturday {
+            color: @saturdayColor;
+        }
+
+        .sunday {
+            color: @sundayColor;
+        }
+    }
+
+    .time-calendar-day-header {
+        border: solid 1px @soe-border-color;
+        background-color: @soe-header-background-color;
+        text-align: center;
+        font-size: 10px;
+        padding: 2px;
+        margin-top: -1px;
+    }
+
+    .time-calendar-day {
+        border: solid 1px @soe-border-color;
+        background-color: @soe-background-color;
+        text-align: center;
+        font-size: 10px;
+        padding: 2px;
+        margin-top: -1px;
+        vertical-align: top;
+        position: relative;
+        height: 50px;
+
+        .day-number {
+            font-size: 20px;
+        }
+    }
+
+    .time-calendar-day:hover {
+        background-color: @accentColorFaded;
+    }
+
+    .time-calendar-day-today {
+        background-color: @accentColorFaded;
+    }
+
+    .time-calendar-day-saturday {
+        background-color: @saturdayBackgroundColor;
+        color: @saturdayColor;
+    }
+
+    .time-calendar-day-saturday-passed {
+        background-color: @saturdayPassedBackgroundColor !important;
+        color: @saturdayColor;
+    }
+
+    .time-calendar-day-sunday {
+        background-color: @sundayBackgroundColor;
+        color: @sundayColor;
+    }
+
+    .time-calendar-day-sunday-passed {
+        background-color: @sundayPassedBackgroundColor !important;
+        color: @sundayColor;
+    }
+
+    .time-calendar-day-passed {
+        background-color: @passedDayBackgroundColor !important;
+    }
+
+    .time-calendar-day-out-of-range {
+        background-color: @soe-header-background-color !important;
+    }
+
+    .time-calendar-periods {
+        position: absolute;
+        top: 2px;
+
+        div {
+            position: absolute;
+            height: 22px;
+            width: 50px;
+            border: 1px solid @soe-border-color;
+            border-radius: 3px;
+
+            span {
+                float: right;
+                padding: 2px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .time-calendar-periods-left {
+        left: 2px;
+    }
+
+    .time-calendar-periods-right {
+        right: 52px;
+    }
+
+    .period-type1, .period-type3, .period-types {
+        top: 0;
+    }
+
+    .period-type2, .period-type4 {
+        top: 23px;
+    }
+}

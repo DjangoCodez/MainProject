@@ -1,0 +1,44 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.import.payrollstartvalue.new'" data-ng-if="ctrl.isNew"></h6>
+        <h6 class="modal-title" data-l10n-bind="'time.import.payrollstartvalue.import'" data-ng-if="!ctrl.isNew"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row" data-ng-if="ctrl.isNew">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <soe-datepicker label-key="common.datefrom" model="ctrl.payrollStartValueHead.dateFrom" required="true"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-datepicker label-key="common.dateto" model="ctrl.payrollStartValueHead.dateTo" required="true"></soe-datepicker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-textbox label-key="time.import.payrollstartvalue.importedfrom" model="ctrl.payrollStartValueHead.importedFrom" required="true" maxlength="512"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-ng-if="!ctrl.isNew">
+            <div class="col-sm-12 form-inline">
+                <soe-radiobutton label-key="time.import.payrollstartvalue.insert" model="ctrl.selectedUpdateType" group="updateType" value="1"></soe-radiobutton>
+                <soe-radiobutton label-key="time.import.payrollstartvalue.overwrite" model="ctrl.selectedUpdateType" group="updateType" value="2"></soe-radiobutton>
+            </div>
+        </div>
+        <div class="row margin-large-top" data-ng-if="!ctrl.isNew">
+            <div class="col-sm-12">
+                <div class="info">
+                    <span data-ng-bind-html="ctrl.insertInfo | formatHtml" data-ng-if="ctrl.selectedUpdateType == 1"></span>
+                    <span data-ng-bind-html="ctrl.overwriteInfo | formatHtml" data-ng-if="ctrl.selectedUpdateType == 2"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.chooseFile'" data-ng-disabled="!ctrl.payrollStartValueHead.dateFrom || !ctrl.payrollStartValueHead.dateTo || !ctrl.payrollStartValueHead.importedFrom" data-ng-click="ctrl.selectFile()"></button>
+    </div>
+</div>

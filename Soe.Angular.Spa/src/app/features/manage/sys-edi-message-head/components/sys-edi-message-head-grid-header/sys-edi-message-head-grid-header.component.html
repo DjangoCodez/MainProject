@@ -1,0 +1,25 @@
+<form [formGroup]="form" novalidate autocomplete="off">
+  <div class="row">
+    <div class="d-sm-inline">
+      <soe-checkbox
+        [labelKey]="'common.showopen'"
+        [inToolbar]="true"
+        (valueChanged)="openMessagesChanged.emit($event)"
+        formControlName="openMessages" />
+    </div>
+    <div class="d-sm-inline">
+      <soe-checkbox
+        [labelKey]="'common.showclosed'"
+        [inToolbar]="true"
+        formControlName="closedMessages"
+        (valueChanged)="closedMessagesChanged.emit($event)" />
+    </div>
+    <div class="d-sm-inline">
+      <soe-checkbox
+        [labelKey]="'economy.supplier.invoice.incoming'"
+        [inToolbar]="true"
+        formControlName="rawMessages"
+        (valueChanged)="rawMessagesChanged.emit($event)" />
+    </div>
+  </div>
+</form>

@@ -1,0 +1,324 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form px-0"
+        novalidate
+        autocomplete="off">
+        <mat-tab-group
+          dynamicHeight
+          animationDuration="200ms"
+          mat-stretch-tabs="false"
+          mat-align-tabs="start"
+          (selectedTabChange)="onTabChanged($event)">
+          >
+          <!-- View specific settings -->
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <fa-icon
+                [icon]="['fal', 'calendar-circle-user']"
+                class="me-1"></fa-icon>
+              <span>{{ 'Vyinställningar' | translate }}</span>
+            </ng-template>
+            <div class="mx-3">
+              <div class="row mt-3 mb-2">
+                <div class="col-sm-12">
+                  <soe-instruction
+                    [type]="'info'"
+                    [text]="
+                      'Dessa inställningar är personliga och gäller för aktuell vy. Några av inställningarna kan finnas i flera vyer men har då separata inställningar för varje vy.'
+                    ">
+                  </soe-instruction>
+                </div>
+              </div>
+              @if (filterService.isCommonScheduleView()) {
+                <div class="row">
+                  <div class="col-sm-4">
+                    <!-- TODO: Create new term -->
+                    <soe-select
+                      [labelKey]="'Standardintervall'"
+                      [items]="settingService.scheduleIntervalsForSetting"
+                      formControlName="defaultInterval"></soe-select>
+                  </div>
+                </div>
+              }
+              <div class="row mt-3">
+                <div class="col-sm-4">
+                  <soe-expansion-panel
+                    [labelKey]="
+                      'time.schedule.planning.selectableinformation.timecost'
+                    "
+                    [static]="true"
+                    [condensedBody]="true">
+                    <soe-checkbox
+                      [labelKey]="'time.employee.employeegroup.employeegroup'"
+                      formControlName="showEmployeeGroup"></soe-checkbox>
+                    @if (filterService.isScheduleView()) {
+                      <soe-checkbox
+                        [labelKey]="
+                          'time.schedule.planning.showcycleplannedtime'
+                        "
+                        formControlName="showCyclePlannedTime"></soe-checkbox>
+                    }
+                    <soe-checkbox
+                      [labelKey]="
+                        'time.schedule.planning.showscheduletypefactortime'
+                      "
+                      formControlName="showScheduleTypeFactorTime"></soe-checkbox>
+                    @if (settingService.showGrossTimeSetting()) {
+                      <soe-checkbox
+                        [labelKey]="'time.schedule.planning.showgrosstime'"
+                        formControlName="showGrossTime"></soe-checkbox>
+                    }
+                    @if (settingService.showCostReadPermission()) {
+                      <soe-checkbox
+                        [labelKey]="'time.schedule.planning.showtotalcost'"
+                        (valueChanged)="onShowTotalCostChanged()"
+                        formControlName="showTotalCost"></soe-checkbox>
+                      <div class="ms-3">
+                        <soe-checkbox
+                          [labelKey]="
+                            'time.schedule.planning.includeemptaxandsuppcharge'
+                          "
+                          (valueChanged)="
+                            onShowTotalCostIncEmpTaxAndSuppChargeChanged()
+                          "
+                          formControlName="showTotalCostIncEmpTaxAndSuppCharge"></soe-checkbox>
+                      </div>
+                    }
+                    <!-- TODO: Create new term -->
+                    <soe-checkbox
+                      [labelKey]="'Summering i sidfot'"
+                      formControlName="summaryInFooter"></soe-checkbox>
+                  </soe-expansion-panel>
+                </div>
+                <div class="col-sm-4">
+                  <div class="row">
+                    <soe-expansion-panel
+                      [labelKey]="
+                        'time.schedule.planning.selectableinformation.availability'
+                      "
+                      [static]="true"
+                      [condensedBody]="true">
+                      <soe-checkbox
+                        [labelKey]="'time.schedule.planning.showavailability'"
+                        formControlName="showAvailability"></soe-checkbox>
+                    </soe-expansion-panel>
+                  </div>
+                  <div class="row">
+                    <soe-expansion-panel
+                      [labelKey]="
+                        'time.schedule.planning.selectableinformation.communication'
+                      "
+                      [static]="true"
+                      [condensedBody]="true">
+                      <soe-checkbox
+                        [labelKey]="
+                          'time.schedule.planning.skipxemailonchanges'
+                        "
+                        formControlName="skipXEMailOnChanges"></soe-checkbox>
+                    </soe-expansion-panel>
+                  </div>
+                  <div class="row">
+                    <soe-expansion-panel
+                      [labelKey]="
+                        'time.schedule.planning.selectableinformation.validations'
+                      "
+                      [static]="true"
+                      [condensedBody]="true">
+                      <soe-checkbox
+                        [labelKey]="'time.schedule.planning.skipworkrules'"
+                        formControlName="skipWorkRules"></soe-checkbox>
+                    </soe-expansion-panel>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+          <!-- User settings -->
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <fa-icon [icon]="['fal', 'user-gear']" class="me-1"></fa-icon>
+              <span>{{
+                'common.usercompanysettings.usersettings' | translate
+              }}</span>
+            </ng-template>
+            <div class="mx-3">
+              <div class="row mt-3 mb-2">
+                <div class="col-sm-12">
+                  <soe-instruction
+                    [type]="'info'"
+                    [text]="
+                      'Dessa inställningar är personliga och gäller generellt för flera vyer i schemaplaneringen.'
+                    ">
+                  </soe-instruction>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- TODO: Create new term -->
+                  <soe-select
+                    [labelKey]="'Standardvy'"
+                    [items]="settingService.defaultViews"
+                    formControlName="defaultView"></soe-select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- TODO: Create new term -->
+                  @if (filterService.isCommonDayView()) {
+                    <soe-select
+                      [labelKey]="'Standardsortering'"
+                      [items]="settingService.dayViewSortBys"
+                      formControlName="dayViewDefaultSortBy"></soe-select>
+                  } @else if (filterService.isCommonScheduleView()) {
+                    <soe-select
+                      [labelKey]="'Standardsortering'"
+                      [items]="settingService.scheduleViewSortBys"
+                      formControlName="scheduleViewDefaultSortBy"></soe-select>
+                  }
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- TODO: Create new term -->
+                  <soe-checkbox
+                    [labelKey]="'Stäng av initial laddning'"
+                    formControlName="disableAutoLoad"></soe-checkbox>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+          <!-- Company settings -->
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <fa-icon [icon]="['fal', 'users-gear']" class="me-1"></fa-icon>
+              <span>{{
+                'common.usercompanysettings.companysettings' | translate
+              }}</span>
+            </ng-template>
+            <div class="mx-3">
+              <div class="row mt-3 mb-3">
+                <div class="col-sm-12">
+                  <soe-instruction
+                    [type]="'warning'"
+                    [text]="
+                      'Observera att dessa inställningar inte är personliga, utan påverkar alla användare.'
+                    ">
+                  </soe-instruction>
+                </div>
+              </div>
+              <soe-expansion-panel
+                [labelKey]="'time.schedule.planning.viewdefinition.day'">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <!-- TODO: Create new term -->
+                    <soe-timebox
+                      [labelKey]="'Dagen börjar klockan'"
+                      [isDuration]="true"
+                      [leadingZero]="true"
+                      formControlName="dayViewStartTimeFormatted"></soe-timebox>
+                  </div>
+                  <div class="col-sm-4">
+                    <!-- TODO: Create new term -->
+                    <soe-timebox
+                      [labelKey]="'Dagen slutar klockan'"
+                      [isDuration]="true"
+                      [leadingZero]="true"
+                      formControlName="dayViewEndTimeFormatted"></soe-timebox>
+                  </div>
+                  <div class="col-sm-4">
+                    <!-- TODO: Create new term -->
+                    <soe-select
+                      [labelKey]="'Intervall (minuter)'"
+                      [items]="settingService.staffingNeedsHeadIntervals"
+                      formControlName="dayViewMinorTickLength"></soe-select>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-sm-8">
+                    <soe-instruction
+                      [type]="'info'"
+                      [text]="
+                        'Det får max vara 24 timmar mellan start och sluttid på dagen. Det går dock bra att ange start till exempelvis 04:00 och slut till 28:00 för att förskjuta dagen över midnatt.'
+                      ">
+                    </soe-instruction>
+                  </div>
+                </div>
+              </soe-expansion-panel>
+              <soe-expansion-panel
+                [labelKey]="'time.schedule.planning.workrules'">
+                <!-- TODO: Create new term -->
+                <soe-expansion-panel [labelKey]="'Passförfrågan'">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <soe-checkbox
+                        [labelKey]="
+                          'Kontrollera att passförfrågan inte skickas för tidigt'
+                        "
+                        formControlName="shiftRequestPreventTooEarly"></soe-checkbox>
+                    </div>
+                  </div>
+                  @if (form.controls.shiftRequestPreventTooEarly.value) {
+                    <div class="row mt-3">
+                      <div class="col-sm-12">
+                        <soe-label
+                          [labelKey]="
+                            'Om passförfrågan skickas tidigare än NN timmar före passets starttid'
+                          ">
+                        </soe-label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <soe-numberbox
+                          [labelKey]="'Varna'"
+                          formControlName="shiftRequestPreventTooEarlyWarnHoursBefore"></soe-numberbox>
+                      </div>
+                      <div class="col-sm-2">
+                        <soe-numberbox
+                          [labelKey]="'Stoppa'"
+                          formControlName="shiftRequestPreventTooEarlyStopHoursBefore"></soe-numberbox>
+                      </div>
+                      <div class="col-sm-8">
+                        <soe-instruction
+                          [type]="'info'"
+                          [inline]="true"
+                          [fitToContent]="true"
+                          [text]="
+                            'Ska vara större än noll för att träda i kraft.'
+                          ">
+                        </soe-instruction>
+                      </div>
+                    </div>
+                  }
+                  <div class="row mt-3">
+                    <div class="col-sm-12">
+                      <soe-instruction
+                        [type]="'info'"
+                        [text]="
+                          'Ett ledigt pass bör läggas ut som tillgängligt i god tid innan passets starttid för att anställda ska kunna önska och ställa sig i kö till det.\nEndast då det är ont om tid bör passförfrågan istället användas för att riktas mot specifika anställda.\nAnvänd ovanstående inställningar för att se till att detta flöde följs.\nDet går att välja om det ska bara ska komma upp en varning eller vara helt stoppande om man skickar för tidigt.\nDet går även att använda sig av både varning och stopp. Varning ska då ha ett lägre värde än stopp.'
+                        ">
+                      </soe-instruction>
+                    </div>
+                  </div>
+                </soe-expansion-panel>
+              </soe-expansion-panel>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </form>
+    }
+  </ng-container>
+  <div dialog-footer>
+    <soe-button
+      class="ms-3"
+      [caption]="'core.cancel'"
+      (action)="cancel()"></soe-button>
+    <soe-button
+      class="ms-3"
+      [caption]="'core.ok'"
+      [behaviour]="'primary'"
+      (action)="ok()"></soe-button></div
+></soe-dialog>

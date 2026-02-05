@@ -1,0 +1,49 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <div sales-budget-validation ng-model="ctrl.budgetHead" class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-select is-disabled="ctrl.isDisabled" label-key="common.type" model="ctrl.budgetHead.type" required="true" items="ctrl.types" options="item.id as item.name for item in items" on-changing="ctrl.typeChanged();"></soe-select>
+                </div>
+                <div class="col-sm-3">
+                    <soe-textbox is-disabled="ctrl.isDisabled" label-key="common.name" model="ctrl.budgetHead.name" required="true" auto-focus="true"></soe-textbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-datepicker label-key="common.validfrom" model="ctrl.budgetHead.fromDate" second-model="ctrl.budgetHead.toDate" validate-date-range="true" is-start-in-range="true" is-disabled="ctrl.isDisabled" on-change="ctrl.dateChanged();"></soe-datepicker>
+                </div>
+                <div class="col-sm-2">
+                    <soe-datepicker label-key="common.validto" model="ctrl.budgetHead.toDate" second-model="ctrl.budgetHead.fromDate" validate-date-range="true" is-disabled="ctrl.isDisabled" on-change="ctrl.dateChanged();"></soe-datepicker>
+                </div>
+                <div class="col-sm-3">
+                    <soe-select is-disabled="ctrl.isDisabled || !ctrl.budgetHead.type" label-key="economy.accounting.distributioncode.distributioncode" model="ctrl.budgetHead.distributionCodeHeadId" items="ctrl.distributionCodesDict" options="item.id as item.name for item in items" numeric-not-zero="true" required="true"></soe-select>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-12">
+                    <sales-budget-grid is-disabled="ctrl.isDisabled" show-passed-periods-dialog="!ctrl.ignorePassedPeriod" account-dims="ctrl.accountDims" distribution-codes="ctrl.distributionCodes" opening-hours="ctrl.openingHours" distribution-codes-dict="ctrl.distributionCodesDict" budget-head="ctrl.budgetHead" number-of-periods="ctrl.numberOfPeriods" use-dim-2="ctrl.budgetHead.useDim2" use-dim-3="ctrl.budgetHead.useDim3" distribution-code-id="ctrl.budgetHead.distributionCodeHeadId" dim-2-id="ctrl.budgetHead.dim2Id" dim-3-id="ctrl.budgetHead.dim3Id" interval-type="ctrl.selectedInterval" budget-type="ctrl.budgetHead.type" ng-if="ctrl.budgetHead || ctrl.accountStdsDict" guid="ctrl.guid" earliest-opening-hour="ctrl.earliestOpeningHour" latest-closing-hour="ctrl.latestClosingHour"></sales-budget-grid>
+                </div>
+            </div>
+        </div>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-2">
+                <created-modified model="ctrl.budgetHead"></created-modified>
+            </div>
+            <div class="col-sm-10">
+                <div class="pull-right">
+                    <div ng-if="ctrl.modifyPermission">
+                        <div class="col margin-large-right margin-large-left" data-ng-if="!ctrl.invoice.isTemplate">
+                            <soe-checkbox label-key="economy.accounting.salesbudget.definitive" model="ctrl.definitive" is-disabled="!ctrl.setDefinitePersmission"></soe-checkbox>
+                        </div>
+                        <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl"></div>
+                        <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,18 @@
+﻿<div>
+    <soe-progressbar is-busy="directiveCtrl.progressBusy" message="directiveCtrl.progressMessage"></soe-progressbar>
+    <div class="row">
+        <div class="col-sm-12 margin-small-bottom" ng-if="directiveCtrl.modifyPermission">
+            <div class="btn-toolbar">
+                <button type="button" class="btn btn-default btn-sm pull-right ngSoeMainButton margin-large-top" data-l10n-bind="'core.transfertoorder'" data-ng-click="directiveCtrl.showOrderDialog()" data-ng-disabled="!directiveCtrl.wholesellerId"></button>
+                <soe-select class="pull-right" label-key="economy.supplier.supplier.syswholeseller" model="directiveCtrl.wholesellerId" use-ignore-dirty="true" items="directiveCtrl.wholesellers" options="item.id as item.name for item in items"></soe-select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div ag-grid="directiveCtrl.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 300px; width: 100%;"></div>
+            <div id="sum-footer-grid" class="ag-theme-balham" style="height: 30px; width: 100%;" prevent-enter></div>
+            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+        </div>
+    </div>
+</div>

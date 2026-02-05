@@ -1,0 +1,136 @@
+<div
+  [class.mt-2]="!inline()"
+  [ngStyle]="width() && !inline() ? { 'width.px': width() } : {}"
+  [class.d-flex]="inline()"
+  [class.flex-nowrap]="inline()"
+  [class.form-label-inline-top-alignment]="alignInline()">
+  @if (hasLabel()) {
+    <div
+      class="form-label-container d-flex align-items-center"
+      [class.me-2]="inline()">
+      <soe-label
+        [labelKey]="labelKey()"
+        [secondaryLabelKey]="secondaryLabelKey()"
+        [secondaryLabelBold]="secondaryLabelBold()"
+        [secondaryLabelParantheses]="secondaryLabelParantheses()"
+        [secondaryLabelPostfixKey]="secondaryLabelPostfixKey()"
+        [secondaryLabelPrefixKey]="secondaryLabelPrefixKey()"
+        [isRequired]="isRequired()"></soe-label>
+    </div>
+  }
+  <div
+    class="d-flex align-center position-relative"
+    [ngStyle]="width() && inline() ? { 'width.px': width() } : {}"
+    soeClickOutside
+    (clickOutside)="closeList()">
+    <button
+      #selectCtrl
+      class="form-control form-select soe-multi-select-button"
+      id="selection_{{ labelKey() }}"
+      name="selection_{{ labelKey() }}"
+      [ngStyle]="width() ? { 'width.px': width() } : {}"
+      [class.has-selected-items]="
+        !hideHasSelectedItems() && selectedItems.length > 0
+      "
+      [class.no-border-right-radius]="hasContent()"
+      (click)="toggleOpenState()"
+      [title]="visibleValue">
+      @if (
+        placeholderKey() && (selectedItems.length === 0 || !showSelected())
+      ) {
+        <span>{{ placeholderKey() | translate }}</span>
+      }
+      @if (
+        showSelected() &&
+        !showSelectedItemsInline() &&
+        (!placeholderKey() || selectedItems.length > 0)
+      ) {
+        <span
+          >{{ selectedItems.length }} {{ 'common.of' | translate }}
+          {{ items().length }} {{ 'core.selected.multiple' | translate }}</span
+        >
+      }
+      @if (
+        showSelectedItemsInline() &&
+        (!placeholderKey() || selectedItems.length > 0)
+      ) {
+        <span>{{ visibleValue }}</span>
+      }
+    </button>
+
+    <div #content class="d-flex align-center soe-button-group">
+      <ng-content></ng-content>
+    </div>
+
+    @if (isOpen()) {
+      <div
+        class="soe-multi-select-list-container"
+        [ngStyle]="dropdownWidth() ? { 'width.px': dropdownWidth() } : {}"
+        [class.dropup]="dropUp()">
+        <div class="soe-multi-select-list-container__search">
+          <input
+            [formControl]="searchCtrl"
+            [placeholder]="('core.search' | translate) + '...'" />
+        </div>
+        <div class="soe-multi-select-list-container__totals-info">
+          <input
+            tabindex="-1"
+            type="checkbox"
+            class="form-check-input select-all-checkbox"
+            [checked]="isAllSelectedChecked()"
+            [indeterminate]="isAllSelectedIndeterminate()"
+            (change)="isAllSelectedChanged()" />
+          <label class="form-check-label">
+            ({{ selectedItems.length }}/{{ items().length }})
+          </label>
+
+          @if (visibleItems.length !== items().length) {
+            <span class="filtered-count"
+              >{{ 'core.filtered' | translate }} {{ visibleItems.length }}</span
+            >
+          }
+        </div>
+        <ul class="soe-multi-select-list" [class.dropup-content]="dropUp()">
+          @for (item of visibleItems; track item) {
+            <li
+              [value]="item[optionIdField()]"
+              [title]="item[optionNameField()]"
+              (click)="selectItem(item)"
+              (keydown.enter)="selectItem(item)"
+              (keydown.space)="selectItem(item)"
+              tabindex="0"
+              style="white-space: nowrap">
+              <input
+                tabindex="-1"
+                type="checkbox"
+                class="form-check-input"
+                [checked]="isSelected(item)"
+                [value]="item[optionIdField()]" />
+              <label class="form-check-label">
+                {{ item[optionNameField()] }}
+              </label>
+            </li>
+          }
+        </ul>
+        @if (!hideFilterButton()) {
+          <div class="soe-multi-select-list-container__filter">
+            <soe-button
+              [caption]="filterButtonCaption()"
+              [behaviour]="'primary'"
+              (action)="setSelectionComplete()"></soe-button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  @if (showSelectedItems() && allSelectedItems.length > 0) {
+    <ul class="soe-multi-select-selected-items">
+      @for (item of allSelectedItems; track item) {
+        <li>
+          {{ item }}
+        </li>
+      }
+    </ul>
+  }
+</div>

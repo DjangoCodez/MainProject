@@ -1,0 +1,33 @@
+﻿<div>
+    <div id="helpMenu" class="right-menu" data-ng-show="ctrl.showMenu" data-ng-class="{'fullscreen': ctrl.fullscreen}">
+        <div>
+            <div class="panel panel-default" style="position: relative; height: 100%;">
+                <div class="panel-heading">
+                    <span class="right-menu-toggle-fullscreen fal fa-angle-double-left" data-l10n-bind data-l10n-bind-title="'core.maximize'" data-ng-if="!ctrl.fullscreen" data-ng-click="ctrl.toggleFullscreen()"></span>
+                    <span class="right-menu-toggle-fullscreen fal fa-angle-double-right" data-l10n-bind data-l10n-bind-title="'core.restore'" data-ng-if="ctrl.fullscreen" data-ng-click="ctrl.toggleFullscreen()"></span>
+                    <span class="indiscreet">{{ctrl.content[ctrl.content.length-1].title}}</span>
+                    <button type="button" class="panel-heading-button" data-l10n-bind data-l10n-bind-title="'core.close'" data-ng-click="ctrl.toggleShowMenu()" aria-hidden="true"><span class="fal fa-times"></span></button>
+                    <button type="button" class="panel-heading-button" data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-click="ctrl.edit()" aria-hidden="true" data-ng-if="ctrl.editEnabled"><span class="fal fa-pencil iconEdit"></span></button>
+                </div>
+                <div class="panel-body">
+                    <div class="row external-links horizontal-line margin-small-bottom">
+                        <div class="col-sm-6 padding-small-left padding-small-right margin-small-bottom">
+                            <!--<button type="button" class="btn btn-sm btn-default pull-left" data-l10n-bind data-l10n-bind-title="'core.help.releasenotes'" data-ng-click="ctrl.openReleaseNotes()" aria-hidden="true"><span><span class="fal fa-newspaper extraLargeFont margin-small-right"></span><span class="button-text" data-l10n-bind="'core.help.releasenotes'"></span></span></button>
+                            <button type="button" class="btn btn-sm btn-default pull-left" data-l10n-bind data-l10n-bind-title="'core.help.faq'" data-ng-click="ctrl.openFaq()" aria-hidden="true"><span><span class="fal fa-file-search extraLargeFont margin-small-right"></span><span class="button-text" data-l10n-bind="'core.help.faq'"></span></span></button>-->
+                        </div>
+                        <div class="col-sm-6 padding-small-left padding-small-right margin-small-bottom">
+                            <button type="button" class="btn btn-sm btn-default" data-l10n-bind data-l10n-bind-title="'core.help.teamviewer'" data-ng-click="ctrl.openTeamViewer()" aria-hidden="true"><span><span class="fal fa-headset extraLargeFont margin-small-right" style="color: #0565C9;"></span><span class="button-text" data-l10n-bind="'core.help.teamviewer'"></span></span></button>
+                            <button type="button" class="btn btn-sm btn-default" data-l10n-bind data-l10n-bind-title="'core.help.digitalcustomercenter'" data-ng-click="ctrl.openCustomerCenter()" aria-hidden="true"><span><span class="fal fa-question-square extraLargeFont infoColor margin-small-right"></span><span class="button-text" data-l10n-bind="'core.help.digitalcustomercenter'"></span></span></button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default" data-ng-show="ctrl.content.length > 1" data-ng-click="ctrl.back()"><span class="fal fa-chevron-left"></span> <span data-l10n-bind="'core.back'"></span></button>
+                    <hr data-ng-show="ctrl.content.length > 1" />
+                    <help-menu-content link="ctrl.linkClicked(feature)" content="ctrl.content[ctrl.content.length-1].text"></help-menu-content>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="help-menu-toggle" class="right-menu-toggle" data-ng-class="{'right-menu-toggle-active': ctrl.showMenu}" data-ng-style="{'top': ctrl.topPosition }" data-l10n-bind data-l10n-bind-title="'core.help'" data-ng-show="!ctrl.hidden || ctrl.editEnabled">
+        <a data-ng-click="ctrl.toggleShowMenu(); ctrl.getHelp();"><i class="fal fa-question">&nbsp;</i></a>
+    </div>
+</div>

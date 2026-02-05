@@ -1,0 +1,39 @@
+@use '../../styles/core-styles/colors.scss';
+@use '../../styles/core-styles/fonts.scss';
+@use '../../styles/core-styles/variables.scss';
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: linear-gradient(
+      colors.$soe-color-neutral-light-grey,
+      colors.$soe-color-neutral-light-grey
+    )
+    no-repeat center/100% 1px;
+}
+
+.divider:hover {
+  cursor: n-resize;
+}
+
+.divider > .handle {
+  height: 0.75rem;
+  width: 4rem;
+  background-color: colors.$soe-color-secondary-blue;
+  border-radius: variables.$border-radius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: n-resize;
+}
+
+.divider > .handle > fa-icon {
+  color: colors.$soe-color-neutral-white;
+  font-size: fonts.$soe-font-size-lg;
+  margin-top: 1px;
+}
+
+.divider.grabbing > .handle {
+  background-color: colors.$soe-color-neutral-dark-grey;
+}

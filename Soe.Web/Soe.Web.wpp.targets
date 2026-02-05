@@ -1,0 +1,72 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <OnBeforePackageUsingManifest>AddCustomSkipRules</OnBeforePackageUsingManifest>
+  </PropertyGroup>
+  <Target Name="AddCustomSkipRules">
+    <ItemGroup>
+      <MsDeploySkipRules Include="SkipDeleteTemp">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>dirPath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\temp</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+    </ItemGroup>
+    <ItemGroup>
+      <MsDeploySkipRules Include="SkipDeleteAPI">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>dirPath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\api$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+    </ItemGroup>
+    <ItemGroup>
+      <MsDeploySkipRules Include="SkipDeleteAPIX">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>dirPath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\apix$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+    </ItemGroup>
+    <ItemGroup>
+      <MsDeploySkipRules Include="SkipDeleteWTS">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>dirPath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\wts$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+    </ItemGroup>
+    <ItemGroup>
+      <MsDeploySkipRules Include="SkipDeleteWSX">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>dirPath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\wsx$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+    </ItemGroup>
+    <ItemGroup>
+      <MsDeploySkipRules Include="SkipDeleteTS">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>dirPath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\ts$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+    </ItemGroup>
+    <ItemGroup>
+      <MsDeploySkipRules Include="SkipDeleteServices">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>dirPath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\services$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+    </ItemGroup>
+    <ItemGroup>
+      <MsDeploySkipRules Include="SkipDeleteWcfi">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>dirPath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\wcfi$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+    </ItemGroup>
+  </Target>
+</Project>
+

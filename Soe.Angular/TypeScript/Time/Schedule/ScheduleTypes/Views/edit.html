@@ -1,0 +1,105 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+            <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+        </soe-toolbar>
+        <soe-panel label-key="time.schedule.scheduletype.scheduletype" is-open="true">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-checkbox label-key="common.all" model="ctrl.timeScheduleType.isAll" data-ng-click="ctrl.isAllChanged()"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="common.code" model="ctrl.timeScheduleType.code" required="true" maxlength="20" set-focus="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="common.name" model="ctrl.timeScheduleType.name" required="true" maxlength="100" is-readonly="!ctrl.modifyPermission || ctrl.timeScheduleType.isAll"></soe-textbox>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-textbox label-key="common.description" model="ctrl.timeScheduleType.description" maxlength="512" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="common.settings" is-open="true">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-checkbox label-key="time.schedule.scheduletype.bilagaj" model="ctrl.timeScheduleType.isBilagaJ"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-checkbox label-key="time.schedule.scheduletype.ignoreifextrashift" model="ctrl.timeScheduleType.ignoreIfExtraShift"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row" data-ng-hide="ctrl.timeScheduleType.useScheduleTimeFactor">
+                    <div class="col-sm-4">
+                        <soe-checkbox label-key="time.schedule.scheduletype.isnotscheduletime" model="ctrl.timeScheduleType.isNotScheduleTime"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row" data-ng-hide="ctrl.timeScheduleType.isNotScheduleTime">
+                    <div class="col-sm-4">
+                        <soe-checkbox label-key="time.schedule.scheduletype.usescheduletimefactor" model="ctrl.timeScheduleType.useScheduleTimeFactor"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row margin-large-top" data-ng-if="ctrl.timeScheduleType.useScheduleTimeFactor">
+                    <div class="col-sm-4">
+                        <table class="table table-condensed table-hover table-outer-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width: 20px"></th>
+                                    <th scope="col" class="right-align-cell" data-l10n-bind="'time.schedule.scheduletype.factor'"></th>
+                                    <th scope="col" data-l10n-bind="'time.schedule.scheduletype.factorfromtime'"></th>
+                                    <th scope="col" data-l10n-bind="'time.schedule.scheduletype.factortotime'"></th>
+                                    <th scope="col" class="right-align-cell" data-l10n-bind="'common.length'"></th>
+                                    <th scope="col" style="width: 56px" colspan="2" class="table-header-button right-align-cell" data-l10n-bind data-l10n-bind-title="'core.newrow'" data-ng-if="ctrl.modifyPermission" data-ng-click="ctrl.editFactor(null);">
+                                        <span><i class="fal fa-plus"></i><span data-l10n-bind="'core.newrow'"></span></span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody data-ng-repeat="factor in ctrl.timeScheduleType.factors">
+                                <tr data-ng-class="{'table-selected-row': ctrl.selectedFactor === factor}" data-ng-click="ctrl.selectedFactor = factor">
+                                    <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedFactor === factor"></i></td>
+                                    <td class="right-align-cell"><span data-ng-class="{'indiscreet': factor.isCurrent}">{{factor.factor | amount}}</span></td>
+                                    <td><span>{{factor.fromTime | date:'shortTime'}}</span></td>
+                                    <td><span>{{factor.toTime | date:'shortTime'}}</span></td>
+                                    <td class="right-align-cell"><span>{{factor.length | minutesToTimeSpan}}</span></td>
+                                    <td class="right-align-cell"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="ctrl.modifyPermission" data-ng-click="ctrl.editFactor(factor);"></i></span></td>
+                                    <td class="right-align-cell"><span data-l10n-bind data-l10n-bind-title="'core.deleterow'"><i class="fal fa-times iconDelete link" data-ng-if="ctrl.modifyPermission" data-ng-click="ctrl.deleteFactor(factor);"></i></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" data-ng-hide="ctrl.hideShowInTerminal">
+                    <div class="col-sm-4">
+                        <soe-checkbox label-key="time.schedule.scheduletype.showinterminal" model="ctrl.timeScheduleType.showInTerminal"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="time.schedule.scheduletype.replacewithdeviationcause" model="ctrl.timeScheduleType.timeDeviationCauseId" items="ctrl.timeDeviationCauses" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.timeScheduleType"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.timeScheduleType.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

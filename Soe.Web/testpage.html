@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        window.soeConfig = {
+            language: "SV",
+            baseUrl: "Angular/TypeScript"
+        };
+    </script>
+    <script src="cssjs/system.js"></script>
+    <script src="Angular/js/store.min.js"></script>
+    <script src="cssjs/oidc/oidc-client.min.js"></script>
+    <script src="cssjs/oidc/oidc-client-config.js?cs=2021"></script>
+    <!--<script>
+        var settings = {
+            defaultExt: "js",
+            baseUrl: '',
+            paths: {
+                "moment": "/Angular/node_modules/moment/min/moment.min.js",
+                "moment-timezone": "/Angular/node_modules/moment-timezone/moment-timezone.js",
+                "lodash": "/Angular/node_modules/lodash/lodash.min.js",
+                "angular": "/Angular/node_modules/angular/angular.js",
+                "ag-grid-enterprise": "/Angular/node_modules/ag-grid-enterprise/dist/ag-grid-enterprise.js",
+                "angular-translate": "Angular/node_modules/angular-translate/dist/angular-translate.js",
+                "angular-translate-loader-partial": "Angular/node_modules/angular-translate/dist/angular-translate-loader-partial/angular-translate-loader-partial.js",
+                "angular-sanitize": "Angular/node_modules/angular-sanitize/angular-sanitize.js",
+                "angular-ui-bootstrap": "Angular/node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js",
+                "angular-ui-router": "Angular/node_modules/angular-ui-router/release/angular-ui-router.js",
+                "angular-ui-indeterminate": "Angular/node_modules/angular-ui-indeterminate/dist/indeterminate.js",
+                "angular-ui-grid": "Angular/node_modules/angular-ui-grid/ui-grid.js",
+                "ui-select": "Angular/node_modules/ui-select/dist/select.js",
+                "angularjs-dropdown-multiselect": "Angular/node_modules/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js",
+                "angular-file-upload": "Angular/node_modules/angular-file-upload/dist/angular-file-upload.js",
+                "angular-moment": "Angular/node_modules/angular-moment/angular-moment.js",
+                "angular-animate": "Angular/node_modules/angular-animate/angular-animate.js",
+                "angular-simple-logger": "Angular/node_modules/angular-simple-logger/dist/angular-simple-logger.js",
+                "angular-google-maps": "Angular/node_modules/angular-google-maps/dist/angular-google-maps.js",
+                "oclazyload": "Angular/node_modules/oclazyload/dist/ocLazyLoad.js",
+                "angular-ui-tinymce": "Angular/node_modules/angular-ui-tinymce/dist/tinymce.min.js",
+                "angular-minicolors": "Angular/node_modules/angular-minicolors/angular-minicolors.js",
+                "jquery-minicolors": "Angular/node_modules/jquery-minicolors/jquery.minicolors.js",
+                "jquery": "Angular/node_modules/jquery/dist/jquery.js",
+
+                "CommonLibs": "/Angular/dist/test/libs.bundle.js",
+                "CoreModule": "/Angular/dist/test/core.bundle.js",
+                "CommonModule": "/Angular/dist/test/common.bundle.js",
+                "UtilModule": "/Angular/dist/test/util.bundle.js",
+                "ManageModule": "/Angular/dist/test/manage.bundle.js",
+                "EconomyModule": "/Angular/dist/test/economy.bundle.js"
+            },
+            meta: {}
+        }
+        //var settings = {
+        //    defaultExt: "ts",
+        //    baseUrl: '/Angular/TypeScript/',
+        //    paths: {
+        //        "moment": "/Angular/node_modules/moment/min/moment.min.js",
+        //        "lodash": "/Angular/node_modules/lodash/lodash.min.js",
+        //        "angular": "/Angular/node_modules/angular/angular.js",
+
+        //        "CoreModule": "/Angular/TypeScript/Core/bundle.ts",
+        //        "CommonModule": "/Angular/TypeScript/Common/bundle.ts",
+        //        "UtilModule": "/Angular/TypeScript/Util/bundle.ts",
+        //        "ManageModule": "/Angular/TypeScript/Manage/bundle.ts",
+        //    },
+        //    meta: {
+        //    'angular': {
+        //        format: 'global', // load this module as a global
+        //            exports: 'angular', // the global property to take as the module value
+        //        },
+        //    'agGrid': {
+        //        format: 'global'
+        //    }
+        //},
+        //}
+
+        System.config({
+            baseURL: settings.baseUrl,
+            packages: {
+                "": {
+                    "defaultExtension": "ts",
+                    meta: {
+                        '*': { format: 'esm' }
+                    }
+                },
+                "Angular/dist": {
+                    "defaultExtension": "js"
+                },
+                "Angular/node_modules": {
+                    "defaultExtension": "js"
+                },
+                "Angular/js": {
+                    "defaultExtension": "js"
+                },
+                "ts": {
+                    "main": "lib/plugin.js"
+                },
+                "typescript": {
+                    "main": "lib/typescript.js",
+                    "meta": {
+                        "lib/typescript.js": {
+                            "exports": "ts"
+                        }
+                    }
+                }
+            },
+            paths: settings.paths,
+            meta: settings.meta,
+            transpiler: 'ts',
+            map: {
+                "ts": "/Angular/node_modules/plugin-typescript",
+                "typescript": "/Angular/node_modules/typescript"
+            }
+        });
+        System.import('CommonLibs').then(function () {
+            System.import('CommonLibraries').then(function () {
+                Promise.all([
+                    System.import('CoreModule'),
+                    System.import('CommonModule'),
+                    System.import('UtilModule'),
+                    System.import('ManageModule'),
+                    System.import('EconomyModule'),
+                ]).then(function (modules) {
+                    Promise.all([
+                        System.import('Core/Bundle'),
+                        System.import('Util/Bundle'),
+                        System.import('Common/Bundle'),
+                        System.import('Economy/Bundle'),
+                        System.import('Manage/Bundle'),
+                    ]).then(function (modules) {
+                        angular.bootstrap(document, ['Soe.Manage']);
+                    })
+                })
+            });
+        });
+    </script>-->
+
+</head>
+<body>
+    <h1>Testpage!!!</h1>
+    <div id="bootstrap-element" data-ng-app="Soe.Billing.Projects" style="height: auto; overflow: hidden; position: relative;">
+        <!--<help-menu feature="<%=(int)PageBase.Feature %>"></help-menu>-->
+        <div style="overflow: hidden; width: auto;" data-ui-view></div>
+    </div>
+
+    <script>
+        var settings = {
+            defaultExt: "js",
+            baseUrl: '',
+            paths: {
+                "moment": "/Angular/node_modules/moment/min/moment.min.js",
+                "moment-timezone": "/Angular/node_modules/moment-timezone/moment-timezone.js",
+                "lodash": "/Angular/node_modules/lodash/lodash.min.js",
+                "angular": "/Angular/node_modules/angular/angular.js",
+                "ag-grid-enterprise": "/Angular/node_modules/ag-grid-enterprise/dist/ag-grid-enterprise.js",
+                "angular-translate": "Angular/node_modules/angular-translate/dist/angular-translate.js",
+                "angular-translate-loader-partial": "Angular/node_modules/angular-translate/dist/angular-translate-loader-partial/angular-translate-loader-partial.js",
+                "angular-sanitize": "Angular/node_modules/angular-sanitize/angular-sanitize.js",
+                "angular-ui-bootstrap": "Angular/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js",
+                "angular-ui-router": "Angular/node_modules/angular-ui-router/release/angular-ui-router.js",
+                "angular-ui-sortable": "Angular/node_modules/angular-ui-sortable/dist/sortable.js",
+                "angular-ui-indeterminate": "Angular/node_modules/angular-ui-indeterminate/dist/indeterminate.js",
+                "angular-ui-grid": "Angular/node_modules/angular-ui-grid/ui-grid.js",
+                "ui-select": "Angular/node_modules/ui-select/dist/select.js",
+                "angularjs-dropdown-multiselect": "Angular/node_modules/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js",
+                "angular-file-upload": "Angular/node_modules/angular-file-upload/dist/angular-file-upload.js",
+                "angular-moment": "Angular/node_modules/angular-moment/angular-moment.js",
+                "angular-animate": "Angular/node_modules/angular-animate/angular-animate.js",
+                "angular-simple-logger": "Angular/node_modules/angular-simple-logger/dist/angular-simple-logger.js",
+                "angular-google-maps": "Angular/node_modules/angular-google-maps/dist/angular-google-maps.js",
+                "oclazyload": "Angular/node_modules/oclazyload/dist/ocLazyLoad.js",
+                "angular-ui-tinymce": "Angular/node_modules/angular-ui-tinymce/dist/tinymce.min.js",
+                "angular-minicolors": "Angular/node_modules/angular-minicolors/angular-minicolors.js",
+                "jquery-minicolors": "Angular/node_modules/jquery-minicolors/jquery.minicolors.js",
+                "jquery": "Angular/node_modules/jquery/dist/jquery.js",
+                "postal": "Angular/node_modules/postal/lib/postal.js",
+                "angular-hotkeys": "Angular/node_modules/angular-hotkeys/build/hotkeys.min.js",
+                "angularjs-gauge": "Angular/node_modules/angularjs-gauge/dist/angularjs-gauge.js",
+                "angular-bootstrap-contextmenu": "Angular/node_modules/angular-bootstrap-contextmenu/contextMenu.js",
+                "nvd3": "Angular/node_modules/nv3d/build/nv.d3.js",
+                "d3": "Angular/node_modules/d3/d3.js",
+                "angular-nvd3": "Angular/node_modules/angular-nvd3/dist/angular-nvd3.js",
+            },
+            meta: {}
+        }
+
+        System.config({
+            baseURL: settings.baseUrl,
+            packages: {
+                "": {
+                    "defaultExtension": "ts",
+                    meta: {
+                        '*': { format: 'esm' }
+                    }
+                },
+                "Angular/dist": {
+                    "defaultExtension": "js"
+                },
+                "Angular/node_modules": {
+                    "defaultExtension": "js"
+                },
+                "Angular/js": {
+                    "defaultExtension": "js"
+                },
+                "ts": {
+                    "main": "lib/plugin.js"
+                },
+                "typescript": {
+                    "main": "lib/typescript.js",
+                    "meta": {
+                        "lib/typescript.js": {
+                            "exports": "ts"
+                        }
+                    }
+                }
+            },
+            paths: settings.paths,
+            meta: settings.meta,
+            transpiler: 'ts',
+            map: {
+                "ts": "/Angular/node_modules/plugin-typescript",
+                "typescript": "/Angular/node_modules/typescript"
+            }
+        });
+
+        var path = document.getElementById("bootstrap-element").getAttribute("data-ng-app").substr(4);
+
+        Promise.all([
+            System.import('Angular/dist/test/Soe.Libs.js'),
+            System.import('Angular/dist/test/Soe.Core.js'),
+            System.import('Angular/dist/test/Soe.Util.js'),
+            System.import('Angular/dist/test/Soe.' + path + '.js')
+        ]).then(function () {
+            System.import('Util/Bundle').then(function () {
+                System.import('Core/Bundle').then(function () {
+                    var filename = path.replace(/\./g, '/') + '/Bundle';
+                    System.import(filename).then(function () {
+                        console.log("Loaded " + filename)
+                    })
+                })
+            })
+        })
+
+    </script>
+</body>
+</html>

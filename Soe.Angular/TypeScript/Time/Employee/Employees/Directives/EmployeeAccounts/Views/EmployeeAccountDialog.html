@@ -1,0 +1,138 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></h6>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'" data-ng-if="!ctrl.isNew"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row margin-large-bottom">
+            <div class="col-sm-3" data-ng-if="ctrl.readOnly">
+                <soe-textbox label-key="common.accountdim" model="ctrl.employeeAccount.accountDimName" is-readonly="true"></soe-textbox>
+            </div>
+            <div class="col-sm-3" data-ng-if="!ctrl.readOnly">
+                <soe-select label-key="common.accountdim" model="ctrl.selectedAccountDim" items="ctrl.selectableAccountDims" options="item as item.name for item in items"></soe-select>
+            </div>
+            <div class="col-sm-3">
+                <soe-checkbox label-key="time.employee.employee.accounthierarchy.addotheremployeeaccount" model="ctrl.loadOtherEmployeeAccounts" inline="true" is-readonly="ctrl.readOnly" on-changing="ctrl.loadOtherEmployeeAccountsChanged();" data-ng-if="ctrl.selectedAccountDim && ctrl.hasAllowToAddOtherEmployeeAccounts"></soe-checkbox>
+            </div>
+            <div class="col-sm-6">
+                <div class="info">
+                    <div>
+                        <span data-l10n-bind="'time.employee.employeeaccount.mainchildwithoutparent'"></span>
+                    </div>
+                    <div>
+                        <span data-l10n-bind="'time.employee.employeeaccount.multiplemainonsamelevel'"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <soe-label label-value="ctrl.selectedAccountDim.name" label-value-indiscreet="true"></soe-label>
+            </div>
+            <div class="col-sm-3 padding-none-left padding-none-right">
+                <div class="col-sm-6">
+                    <soe-label label-key="common.fromdate"></soe-label>
+                </div>
+                <div class="col-sm-6">
+                    <soe-label label-key="common.todate"></soe-label>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <soe-label label-key="time.employee.employee.accounts" label-value="ctrl.defaultLabel" label-value-indiscreet="true"></soe-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" data-ng-if="ctrl.readOnly">
+                <soe-textbox hidelabel="true" model="ctrl.employeeAccount.accountName" is-readonly="true"></soe-textbox>
+            </div>
+            <div class="col-sm-3" data-ng-if="!ctrl.readOnly">
+                <soe-typeahead hidelabel="true" model="ctrl.selectedAccount" items="ctrl.selectedAccountDim.accounts" options="item as item.numberName for item in items | orderBy:'name'" limit="1000" filter-property="numberName" edit-icon="fa-sync" edit-class="border-radius-right" edit-tooltip-key="" required="true" auto-focus="true"></soe-typeahead>
+            </div>
+            <div class="col-sm-3 padding-none-left padding-none-right">
+                <div class="col-sm-6">
+                    <soe-datepicker hidelabel="true" model="ctrl.employeeAccount.dateFrom" second-model="ctrl.employeeAccount.dateTo" validate-date-range="true" is-start-in-range="true" required="true" is-readonly="ctrl.readOnly"></soe-datepicker>
+                </div>
+                <div class="col-sm-6">
+                    <soe-datepicker hidelabel="true" model="ctrl.employeeAccount.dateTo" second-model="ctrl.employeeAccount.dateFrom" validate-date-range="true" is-readonly="ctrl.readOnly"></soe-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-6 form-inline">
+                <soe-checkbox label-key="time.employee.employeeaccount.mainallocation" model="ctrl.employeeAccount.mainAllocation" is-readonly="ctrl.readOnly || ctrl.loadOtherEmployeeAccounts"></soe-checkbox>
+                <soe-radiobutton label-key="time.employee.employeeaccount.default.true" model="ctrl.employeeAccount.default" group="default" value="true" is-readonly="ctrl.readOnly || ctrl.loadOtherEmployeeAccounts"></soe-radiobutton>
+                <soe-radiobutton label-key="time.employee.employeeaccount.default.false" model="ctrl.employeeAccount.default" group="default" value="false" is-readonly="ctrl.readOnly || ctrl.loadOtherEmployeeAccounts"></soe-radiobutton>
+                <button type="button" style="height: 30px; width: 30px; margin-left: 10px;" class="btn btn-sm btn-default fal fa-level-up fa-rotate-90 textColor" data-ng-if="ctrl.showChildren" data-l10n-bind data-l10n-bind-title="'time.employee.employee.accounthierarchy.addchild'" data-ng-click="$event.stopPropagation();ctrl.addChild();"></button>
+            </div>
+        </div>
+        <!-- Children -->
+        <div class="row" data-ng-repeat="child in ctrl.employeeAccount.children" data-ng-if="ctrl.showChildren && !ctrl.readOnly">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-3 padding-none-left padding-none-right">
+                        <div class="col-sm-2 text-right margin-large-top">
+                            <soe-label></soe-label>
+                            <span class="fal fa-level-up fa-rotate-90 extraLargeFont"></span>
+                        </div>
+                        <div class="col-sm-10">
+                            <soe-select label-value="ctrl.childAccountDim.name" label-value-indiscreet="true" model="child.accountId" items="ctrl.accounts" options="item.accountId as item.numberName for item in items | orderBy:'name'" required="true" auto-focus="true" on-changing="ctrl.childAccountChanged(child);"></soe-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 padding-none-left padding-none-right">
+                        <div class="col-sm-6">
+                            <soe-datepicker label-key="common.fromdate" model="child.dateFrom" second-model="child.dateTo" validate-date-range="true" is-start-in-range="true" required="true"></soe-datepicker>
+                        </div>
+                        <div class="col-sm-6">
+                            <soe-datepicker label-key="common.todate" model="child.dateTo" second-model="child.dateFrom" validate-date-range="true"></soe-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 form-inline" style="margin-top: 22px;">
+                        <soe-checkbox label-key="time.employee.employeeaccount.mainallocation" model="child.mainAllocation" is-readonly="ctrl.loadOtherEmployeeAccounts"></soe-checkbox>
+                        <soe-radiobutton label-key="time.employee.employeeaccount.default.true" model="child.default" group="childDefault{{ctrl.selectedAccount.accountId}}#{{$index}}" value="true" is-readonly="ctrl.loadOtherEmployeeAccounts" style="margin-bottom: 6px;"></soe-radiobutton>
+                        <soe-radiobutton label-key="time.employee.employeeaccount.default.false" model="child.default" group="childDefault{{ctrl.selectedAccount.accountId}}#{{$index}}" value="false" is-readonly="ctrl.loadOtherEmployeeAccounts" style="margin-bottom: 6px;"></soe-radiobutton>
+                        <button type="button" style="height: 30px; width: 30px; margin-left: 10px" class="btn btn-sm btn-default fal fa-level-up fa-rotate-90 textColor" data-l10n-bind data-l10n-bind-title="'time.employee.employee.accounthierarchy.addchild'" data-ng-if="ctrl.showSubChildren && child.accountId" data-ng-click="$event.stopPropagation();ctrl.addSubChild(child);"></button>
+                        <button type="button" style="height: 30px; width: 30px;" data-ng-style="{'margin-left': ctrl.showSubChildren && child.accountId ? '5px' : '48px'}" class="btn btn-sm btn-default fal fa-times iconDelete" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.deleteChild(child);"></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub children -->
+            <div data-ng-repeat="subChild in child.children" data-ng-if="ctrl.showSubChildren">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-3 padding-none-left padding-none-right">
+                            <div class="col-sm-4 text-right margin-large-top">
+                                <soe-label></soe-label>
+                                <span class="fal fa-level-up fa-rotate-90 extraLargeFont"></span>
+                            </div>
+                            <div class="col-sm-8">
+                                <soe-select label-value="ctrl.subChildAccountDim.name" label-value-indiscreet="true" model="subChild.accountId" items="child.accounts" options="item.accountId as item.numberName for item in items | orderBy:'name'" required="true" auto-focus="true" on-changing="ctrl.subChildAccountChanged(child, subChild);"></soe-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 padding-none-left padding-none-right">
+                            <div class="col-sm-6">
+                                <soe-datepicker label-key="common.fromdate" model="subChild.dateFrom" second-model="subChild.dateTo" validate-date-range="true" is-start-in-range="true" required="true"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-6">
+                                <soe-datepicker label-key="common.todate" model="subChild.dateTo" second-model="subChild.dateFrom" validate-date-range="true"></soe-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 form-inline" style="margin-top: 22px;">
+                            <soe-checkbox label-key="time.employee.employeeaccount.mainallocation" model="subChild.mainAllocation" is-readonly="ctrl.loadOtherEmployeeAccounts"></soe-checkbox>
+                            <soe-radiobutton label-key="time.employee.employeeaccount.default.true" model="subChild.default" group="subChildDefault{{child.accountId}}#{{$index}}" value="true" is-readonly="ctrl.loadOtherEmployeeAccounts" style="margin-bottom: 6px;"></soe-radiobutton>
+                            <soe-radiobutton label-key="time.employee.employeeaccount.default.false" model="subChild.default" group="subChildDefault{{child.accountId}}#{{$index}}" value="false" is-readonly="ctrl.loadOtherEmployeeAccounts" style="margin-bottom: 6px;"></soe-radiobutton>
+                            <button type="button" style="height: 30px; width: 30px; margin-left: 48px;" class="btn btn-sm btn-default fal fa-times iconDelete" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.deleteSubChild(child, subChild);"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-show="!ctrl.dialogform.$invalid && !ctrl.readOnly" data-ng-click="ctrl.ok()"></button>
+        <div class="btn-group" role="group" data-ng-show="ctrl.dialogform.$invalid && !ctrl.readOnly">
+            <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.ok'" data-ng-disabled="ctrl.dialogform.$invalid || ctrl.isSaveDisabled();"></button>
+            <button type="button" class="btn btn-sm ngSoeMainButtonInvalid" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+        </div>
+    </div>
+</div>

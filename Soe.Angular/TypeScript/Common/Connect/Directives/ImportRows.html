@@ -1,0 +1,33 @@
+﻿<div>
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+
+    <div>
+        <div class="col-sm-12">
+            <!--<div class="row">
+                <soe-toolbar buttons="ctrl.buttonGroups"></soe-toolbar>
+            </div>-->
+            <div class="row">
+                <div ag-grid="ctrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                <div id="sum-footer-grid" class="ag-theme-balham" style="height: 30px; width: 100%;" prevent-enter ng-if="ctrl.showPrintButton"></div>
+                <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-default pull-right" data-l10n-bind="'common.connect.importrows'" data-ng-click="ctrl.initImportSelectedRows()" ng-disabled="ctrl.progressBusy"></button>
+                    <button type="button" class="btn btn-default pull-right margin-small-right" data-l10n-bind="'core.save'" data-ng-click="ctrl.save()"></button>
+                    <button 
+                        type="button" 
+                        class="btn btn-default pull-right margin-small-right" 
+                        data-l10n-bind="'core.print'" 
+                        data-ng-click="ctrl.print()"
+                        ng-disabled="ctrl.isPrinting" 
+                        data-ng-show="ctrl.showPrintButton">
+                    </button>
+                </div>
+               
+            </div>
+
+        </div>
+    </div>
+</div>

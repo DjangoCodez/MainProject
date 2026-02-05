@@ -1,0 +1,14 @@
+<form
+  [formGroup]="form"
+  novalidate
+  autocomplete="off">
+  <div class="row">
+    <div class="d-sm-inline">
+        <soe-select
+          [inline]="true"
+          [items]="allItemsSelectionDict"
+          formControlName="selectedSelectionTypeId"
+          (valueChanged)="allItemSelectionfilterChanged.emit($event)" />
+      </div>
+  </div>
+</form>

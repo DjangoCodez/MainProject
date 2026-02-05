@@ -1,0 +1,43 @@
+﻿import 'angular';
+import 'lodash';
+import 'angular-bootstrap-contextmenu';
+import 'angular-translate';
+import 'angular-translate-loader-partial';
+import 'angular-sanitize';
+import 'angular-ui-bootstrap';
+import 'angular-ui-router';
+import 'angular-ui-indeterminate';
+import 'angular-ui-sortable';
+import 'angular-ui-grid';
+import './i18n/ui-grid.language.da.js';
+import './i18n/ui-grid.language.fi.js';
+import './i18n/ui-grid.language.no.js';
+import './i18n/ui-grid.language.sv.js';
+import 'ui-select';
+import 'angularjs-dropdown-multiselect';
+import 'angular-file-upload';
+import 'moment';
+import 'moment-timezone';
+import 'moment-range';
+import 'angular-moment';
+import 'angular-animate';
+import 'angular-minicolors';
+import 'ag-grid-enterprise';
+import 'ag-charts-community';
+import 'angular-hotkeys';
+import 'postal';
+import 'bootstrap3-typeahead';
+//import 'promise-polyfill';
+
+import "pdfmake";
+import "vfs_fonts";
+//import "pdfjs_Compatibility";
+import "pdfjs-dist";
+import 'jquery';
+import 'jquery-ui-dist';
+import 'jquery-minicolors';
+
+import 'angular-google-maps';
+import 'angular-simple-logger';
+
+import 'oclazyload';

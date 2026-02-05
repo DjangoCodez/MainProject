@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SOE_SEPAPaymentImport>
+  <xs:schema id="SOE_SEPAPaymentImport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="SOE_SEPAPaymentImport" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="SEPAPaymentImport">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="LoginName" type="xs:string" minOccurs="0" />                      
+                      <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="Company" type="xs:string" minOccurs="0" />
+                      <xs:element name="Orgnr" type="xs:string" minOccurs="0" />                     
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>                      
+                      <xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />                                           
+                      <xs:element name="ReportTitleLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportDescriptionLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="CompanyNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OrgNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="TimeLabel" type="xs:string" minOccurs="0" />                     
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="PaymentMethodNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PaymentMethodPaymentNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="FileNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="CustomerNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="CustomerNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PayerNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PaymentNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="BookingDateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PaymentDateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="BatchIdLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="InvoiceNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OCRLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PaymentAmountLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="CorrectionLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ErrorMessageLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="NoteLabel" type="xs:string" minOccurs="0" />                    
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="PaymentMethod" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="PaymentMethodName" type="xs:string" minOccurs="0" />
+                      <xs:element name="PaymentMethodPaymentNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="FileName" type="xs:string" minOccurs="0" />
+                      <xs:element name="Payment" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                              <xs:element name="CustomerNr" type="xs:string" minOccurs="0" />
+                              <xs:element name="CustomerName" type="xs:string" minOccurs="0" />
+                              <xs:element name="PayerName" type="xs:string" minOccurs="0" />
+                              <xs:element name="PaymentNr" type="xs:string" minOccurs="0" />
+                              <xs:element name="BookingDate" type="xs:dateTime" minOccurs="0" />
+                              <xs:element name="PaymentDate" type="xs:dateTime" minOccurs="0" />
+                              <xs:element name="BathcId" type="xs:string" minOccurs="0" />
+                              <xs:element name="InvoiceNr" type="xs:string" minOccurs="0" />                      
+                              <xs:element name="OCR" type="xs:string" minOccurs="0" />
+                              <xs:element name="PaymentAmount" type="xs:decimal" minOccurs="0" />
+                              <xs:element name="Correction" type="xs:string" minOccurs="0" />                      
+                              <xs:element name="ErrorMessage" type="xs:string" minOccurs="0" />                      
+                              <xs:element name="Note" type="xs:string" minOccurs="0" />                                                    
+                          </xs:sequence>
+                          <xs:attribute name="Id" type="xs:int"></xs:attribute>
+                        </xs:complexType>                        
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="Id" type="xs:int"></xs:attribute>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <SEPAPaymentImport>
+    <ReportHeader>      
+      <LoginName>Demo3</LoginName>
+      <ReportTitle>SEPA import report</ReportTitle>
+      <ReportDescription></ReportDescription>
+      <ReportNr>213</ReportNr>
+      <Company>Hantverkardemo</Company>
+      <Orgnr>12345678</Orgnr>
+    </ReportHeader>
+    <ReportHeaderLabels>
+      <LoginNameLabel>User:</LoginNameLabel>
+      <ReportTitleLabel>Title:</ReportTitleLabel>
+      <ReportDescriptionLabel>Description:</ReportDescriptionLabel>
+      <ReportNrLabel>Report number:</ReportNrLabel>
+      <CompanyNameLabel>Company:</CompanyNameLabel>
+      <OrgNrLabel>Org.number:</OrgNrLabel>
+      <PageLabel>Page:</PageLabel>
+      <DateLabel>Date:</DateLabel>
+      <TimeLabel>Time:</TimeLabel>      
+    </ReportHeaderLabels>
+    <PageHeaderLabels>
+      <PaymentMethodNameLabel>Payment method</PaymentMethodNameLabel>
+      <PaymentMethodPaymentNrLabel>Payment method number</PaymentMethodPaymentNrLabel>
+      <FileNameLabel>Filename</FileNameLabel>
+      <CustomerNrLabel>Customer number</CustomerNrLabel>
+      <CustomerNameLabel>Customer name</CustomerNameLabel>
+      <PayerNameLabel>Payer name</PayerNameLabel>
+      <PaymentNrLabel>Payment number</PaymentNrLabel>
+      <BookingDateLabel>Booking date</BookingDateLabel>
+      <PaymentDateLabel>Payment date</PaymentDateLabel>
+      <BatchIdLabel>Batch id</BatchIdLabel>
+      <InvoiceNrLabel>Invoice number</InvoiceNrLabel>
+      <OCRLabel>OCR</OCRLabel>
+      <PaymentAmountLabel>Payment amount</PaymentAmountLabel>
+      <CorrectionLabel>Correction</CorrectionLabel>
+      <ErrorMessageLabel>Error message</ErrorMessageLabel>
+      <NoteLabel>Note</NoteLabel>
+    </PageHeaderLabels>
+    <PaymentMethod Id="1">
+      <PaymentMethodName>Nordea</PaymentMethodName>
+      <PaymentMethodPaymentNr>NDEAFIHH/FI1113513000112259</PaymentMethodPaymentNr>
+      <FileName>CAMTVIIT2.SAM</FileName>
+      <Payment Id="1">
+        <CustomerNr />
+        <CustomerName>SCANIA SUOMI OY</CustomerName>
+        <PayerName>SCANIA SUOMI OY</PayerName>
+        <PaymentNr></PaymentNr>
+        <BookingDate>2015-10-26T00:00:00</BookingDate>
+        <PaymentDate>2015-10-23T00:00:00</PaymentDate>
+        <BathcId>1510268E6014412279</BathcId>
+        <InvoiceNr>7115</InvoiceNr>
+        <OCR>RF752971000265527442</OCR>
+        <PaymentAmount>304.93</PaymentAmount>
+        <Correction />
+        <ErrorMessage>Maksua viitteellä RF752971000265527442, summa 304,93 ei saatu käsiteltyä</ErrorMessage>
+        <Note />
+      </Payment>
+    </PaymentMethod>
+  </SEPAPaymentImport>
+</SOE_SEPAPaymentImport>

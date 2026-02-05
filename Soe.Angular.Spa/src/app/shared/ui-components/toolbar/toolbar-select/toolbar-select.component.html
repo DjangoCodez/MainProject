@@ -1,0 +1,24 @@
+<form
+  [formGroup]="form"
+  [class.is-hidden]="hidden()"
+  novalidate
+  autocomplete="off">
+  <soe-select
+    [labelKey]="labelKey()"
+    [secondaryLabelKey]="secondaryLabelKey()"
+    [secondaryLabelBold]="secondaryLabelBold()"
+    [secondaryLabelParantheses]="secondaryLabelParantheses()"
+    [secondaryLabelPrefixKey]="secondaryLabelPrefixKey()"
+    [secondaryLabelPostfixKey]="secondaryLabelPostfixKey()"
+    [inline]="true"
+    [width]="width()"
+    [items]="items()"
+    [optionIdField]="optionIdField()"
+    [optionNameField]="optionNameField()"
+    [selectedItem]="selectedItem()"
+    [selectedId]="selectedId()"
+    [manualDisabled]="disabled()"
+    (valueChanged)="valueChanged($event)"
+    formControlName="selectedId">
+  </soe-select>
+</form>

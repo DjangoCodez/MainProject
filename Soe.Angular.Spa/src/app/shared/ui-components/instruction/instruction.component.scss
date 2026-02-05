@@ -1,0 +1,87 @@
+@use '../../styles/core-styles/colors.scss';
+@use '../../styles/core-styles/fonts.scss';
+@use '../../styles/core-styles/variables.scss';
+
+.alert {
+  border: 1px solid colors.$soe-border-color;
+  border-radius: variables.$border-radius;
+  background-color: colors.$soe-color-secondary-light-beige;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  color: colors.$soe-text-color;
+  font-size: fonts.$soe-font-size-md;
+  font-weight: fonts.$font-weight-normal;
+  min-height: 2rem;
+  line-height: 21px;
+  margin: 0;
+
+  fa-icon {
+    font-size: fonts.$soe-font-size-md;
+    margin-right: 0.5rem;
+  }
+
+  .alert-text {
+    height: 100%;
+    vertical-align: middle;
+  }
+
+  &.inline {
+    margin-top: 1.5rem;
+  }
+
+  &.fit-content {
+    width: fit-content;
+  }
+
+  &.alert-success {
+    border: 1px solid colors.$soe-color-semantic-success;
+    background-color: colors.$soe-color-semantic-success-5;
+
+    fa-icon {
+      color: colors.$soe-color-semantic-success;
+    }
+  }
+
+  &.alert-info {
+    border: 1px solid colors.$soe-color-semantic-information;
+    background-color: colors.$soe-color-semantic-information-5;
+
+    fa-icon {
+      color: colors.$soe-color-semantic-information;
+    }
+  }
+
+  &.alert-warning {
+    border: 1px solid colors.$soe-color-semantic-warning;
+    background-color: colors.$soe-color-semantic-warning-5;
+
+    fa-icon {
+      color: colors.$soe-color-semantic-warning;
+    }
+  }
+
+  &.alert-danger {
+    border: 1px solid colors.$soe-color-semantic-error;
+    background-color: colors.$soe-color-semantic-error-5;
+
+    fa-icon {
+      color: colors.$soe-color-semantic-error;
+    }
+  }
+
+  &.alert-dismissible {
+    padding-right: 1rem;
+    .btn-close {
+      padding: 0.25rem;
+    }
+  }
+
+  .btn-close {
+    font-size: fonts.$soe-font-size-sm;
+  }
+
+  .btn-close:hover {
+    border-color: colors.$soe-border-color;
+    background-color: colors.$soe-button-hover-background-color;
+    color: colors.$soe-text-color;
+  }
+}

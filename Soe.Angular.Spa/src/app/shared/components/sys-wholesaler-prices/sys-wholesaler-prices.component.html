@@ -1,0 +1,6 @@
+@if (flowHandler.allowFetchGrid()) {
+<soe-grid [height]="300" [parentGuid]="guid()"
+  [rows]="rowData"
+  (selectionChanged)="priceSelectionChanged($event)">
+</soe-grid>
+}

@@ -1,0 +1,26 @@
+<div>
+  <form
+    [formGroup]="form"
+    class="soe-edit-form p-0"
+    novalidate
+    autocomplete="off">
+    <div class="row">
+      <div class="d-sm-inline">
+        <soe-select
+          [labelKey]="''"
+          [inline]="true"
+          [width]="100"
+          [items]="selections"
+          (valueChanged)="onChangeGridContoller()"
+          formControlName="allItemsSelection"></soe-select>
+      </div>
+      <div class="d-sm-inline">
+        <soe-checkbox
+          [labelKey]="'economy.import.finvoice.showonlyunhandled'"
+          formControlName="showOnlyUnHandled"
+          (valueChanged)="onChangeGridContoller()">
+        </soe-checkbox>
+      </div>
+    </div>
+  </form>
+</div>

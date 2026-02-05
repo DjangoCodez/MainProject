@@ -1,0 +1,111 @@
+@if (isLoaded()) {
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+    <div class="modal-body">
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off"
+      >
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'economy.supplier.attestgroup.attestgroup'"
+              [items]="attestGroups()"
+              formControlName="attestWorkFlowHeadId"
+            ></soe-select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'economy.supplier.attestgroup.choosetemplate'"
+              [items]="templates()"
+              formControlName="attestWorkFlowTemplateHeadId"
+              [optionIdField]="'attestWorkFlowTemplateHeadId'"
+            ></soe-select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'economy.supplier.attestgroup.role_user'"
+              [items]="role_User()"
+              formControlName="roleOrUser"
+            ></soe-select>
+          </div>
+          <div class="col-sm-4">
+            <soe-textbox
+              [labelKey]="'economy.supplier.invoice.nrofinvoices'"
+              formControlName="numberOfInvoicesText"
+            ></soe-textbox>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-8">
+            <soe-textbox
+              [labelKey]="'economy.supplier.invoice.attestflowadminmessage'"
+              formControlName="adminText"
+            ></soe-textbox>
+          </div>
+        </div>
+
+        @if (showUserRequiredWarning()) {
+        <div class="row mt-2">
+          <div class="col-sm-8">
+            <soe-instruction
+              [type]="userRequiredMessageType()"
+              [text]="userRequiredMessage()"
+              [textStyles]="{ 'font-weight': 'bold' }"
+            ></soe-instruction>
+          </div>
+        </div>
+        }
+
+        <div class="row">
+          @for (row of templateRows(); track row.attestWorkFlowTemplateRowId) {
+          <div class="col-sm-6 margin-large-top">
+            <soe-user-selector-for-template-head-row
+              [row]="row"
+              [head]="attestWorkFlowHead()"
+              [mode]="form.roleOrUser.value"
+            ></soe-user-selector-for-template-head-row>
+          </div>
+          }
+        </div>
+
+        <div class="row margin-large-top">
+          <div class="col-sm-4">
+            <soe-checkbox
+              [labelKey]="'economy.supplier.invoice.sendattestmessage'"
+              formControlName="sendMessage"
+            ></soe-checkbox>
+          </div>
+        </div>
+      </form>
+    </div>
+    }
+  </div>
+  <div dialog-footer>
+    <soe-button
+      [behaviour]="'standard'"
+      [caption]="'core.cancel'"
+      (action)="closeDialog()"
+    ></soe-button>
+
+    <soe-save-button
+      [behaviour]="'standard'"
+      [caption]="'core.ok'"
+      (action)="buttonOkClick()"
+      [invalid]="form.invalid"
+      [disabled]="buttonOKClicked()"
+      (validationErrorsAction)="form.openFormValidationErrors()"
+    ></soe-save-button>
+  </div>
+</soe-dialog>
+}

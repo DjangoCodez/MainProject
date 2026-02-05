@@ -1,0 +1,30 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div>
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+            <h6 class="modal-title">{{ctrl.title}}</h6>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div ag-grid="ctrl.gridHandler.gridAg.options.gridOptions" class="ag-theme-balham"></div>
+                    <div id="timeRowGrid-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="margin-large-left pull-left">
+                <div class="col">
+                    <created-modified model="ctrl.timestamp"></created-modified>
+                </div>
+            </div>
+            <div class="pull-right margin-large-right">
+                <div>
+                    <button type="button" class="btn btn-primary pull-right" data-l10n-bind="'core.save'" data-ng-click="ctrl.save()" title="Ctrl+S" data-ng-disabled="ctrl.saveDisabled()"></button>
+                    <button type="button" class="btn btn-default pull-right margin-small-right" title="ESC" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+                    <button type="button" class="btn btn-default pull-right" data-l10n-bind="'common.newrow'" title="Ctrl+R" data-ng-click="$event.stopPropagation();ctrl.addRow()" data-ng-disabled="ctrl.readOnly" ng-if="ctrl.enableAddNew"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

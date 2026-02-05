@@ -1,0 +1,20 @@
+﻿<div>
+    <div class="modal-header scheduleview-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.planning.contextmenu.absence'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-8">
+                <soe-select label-key="common.type" model="ctrl.selectedAbsenceType" items="ctrl.absenceTypes" options="item.id as item.name for item in items"></soe-select>
+            </div>
+            <div class="col-sm-4">
+                <soe-textbox label-key="common.length" model="ctrl.length | minutesToTimeSpan" input-class="text-right" input-class-condition="true" readonly="true"></soe-textbox>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'core.save'" data-ng-disabled="ctrl.executing || ctrl.length === 0" data-ng-click="ctrl.save()"></button>
+        <button type="button" class="btn btn-sm btn-default pull-right margin-small-right margin-large-left" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+    </div>
+</div>

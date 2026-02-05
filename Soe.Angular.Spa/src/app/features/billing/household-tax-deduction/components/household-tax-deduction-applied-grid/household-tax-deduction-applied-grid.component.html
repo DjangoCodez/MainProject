@@ -1,0 +1,103 @@
+<form [formGroup]="form" novalidate autocomplete="off">
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [parentGuid]="guid()"
+      [toolbarGroups]="toolbarUtils.toolbarGroups"
+      (selectionChanged)="selectionChanged($event)">
+      <div class="row" toolbar-content-left>
+        <soe-select
+          [items]="deductionTypes"
+          [inline]="true"
+          formControlName="deductionType"
+          (valueChanged)="taxDeductionTypeChanged($event)">
+        </soe-select>
+      </div>
+    </soe-grid-wrapper>
+
+    <div class="row" footer>
+      <div class="col-sm-12">
+        <div class="information-container no-top-margin">
+          <div class="row mt-3">
+            <div class="col-sm-8">
+              <soe-label class="pull-right"> </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelKey]="'common.customer.invoices.checkedrows'">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelKey]="'common.customer.invoices.filteredrows'">
+              </soe-label>
+            </div>
+          </div>
+
+          <div class="row mb-1">
+            <div class="col-sm-8">
+              <soe-label
+                [labelKey]="'billing.invoices.householddeduction.appliedtext'">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  selectedAmount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-2">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  filteredAmount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6 d-flex flex-row align-items-start"></div>
+        <div class="col-sm-6 p-2 d-flex flex-row-reverse align-items-end">
+          <soe-menu-button
+            [list]="applyFunctions"
+            [behaviour]="'primary'"
+            [variant]="'split'"
+            [disabled]="noSelectedRows()"
+            [dropUp]="true"
+            [selectedItem]="applyFunctions[0]"
+            (itemSelected)="applyFunctionSelected($event)"></soe-menu-button>
+
+          <soe-datepicker
+            class="me-4"
+            [labelKey]="'billing.invoices.householddeduction.applieddenieddate'"
+            [inline]="true"
+            formControlName="applyDate" />
+
+          <soe-menu-button
+            class="me-4"
+            [list]="printFunctions"
+            [behaviour]="'secondary'"
+            [variant]="'split'"
+            [disabled]="noSelectedRows() || form.invalid || isPrinting"
+            [selectedItem]="selectedPrintOption"
+            [dropUp]="true"
+            (selectedItem)="(printFunctions)"
+            (itemSelected)="printFunctionSelected($event)"></soe-menu-button>
+        </div>
+      </div>
+    </div>
+  }
+</form>

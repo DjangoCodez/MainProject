@@ -1,0 +1,13 @@
+<form [formGroup]="formFilter" novalidate autocomplete="off">
+  <soe-multi-select
+    toolbar-content-left
+    [items]="inventoryStatus || []"
+    [labelKey]="'common.status'"
+    [width]="150"
+    [placeholderKey]="'core.select'"
+    [inline]="true"
+    [dropdownWidth]="300"
+    (onSelectionComplete)="gridLoadFilter()"
+    formControlName="selectedStatusIds">
+  </soe-multi-select>
+</form>

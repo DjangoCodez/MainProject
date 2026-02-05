@@ -1,0 +1,76 @@
+﻿<form name="ctrl.editValidation" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.isDirty" confirm-on-exit>
+    <div>
+        <div data-ng-if="!ctrl.progressBusy">
+            <data-ng-include src="ctrl.gridHeaderComponentUrl" />
+        </div>
+
+        <soe-toolbar buttons="ctrl.buttonGroups"></soe-toolbar>
+
+        <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+        <!--<div ng-show="ctrl.canEditCell" data-ui-grid="ctrl.soeGridOptions.gridOptions" data-ng-if="!ctrl.progressBusy" enableCellEdit="true"  ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-save-state ui-grid-exporter ui-grid-expandable ng-attr-data-ui-grid-edit ng-attr-ui-grid-cellNav ng-attr-grid-keypress="ctrl.handleKeyPressInEditCell" class="ngSoeGrid"></div>-->
+        <div data-ui-grid="ctrl.soeGridOptions.gridOptions" data-ng-if="!ctrl.progressBusy" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-save-state ui-grid-exporter ui-grid-expandable class="ngSoeGrid">
+
+        </div>
+
+        <div class="form-group info" data-ng-if="!ctrl.progressBusy">
+            <div class="row">
+                <soe-label class="col-sm-6" label-key="economy.supplier.invoice.matches.totalamount"></soe-label>
+                <soe-label class="col-sm-6" label-key="economy.supplier.invoice.matches.selectedamount"></soe-label>
+            </div>
+            <div class="row">
+                <soe-label class="col-sm-2" label-key="common.stateanalysis.invoices"></soe-label>
+                <soe-label class="col-sm-2" label-key="economy.supplier.invoice.matches.payment"></soe-label>
+                <soe-label class="col-sm-2" label-key="common.sum"></soe-label>
+                <soe-label class="col-sm-2" label-key="common.stateanalysis.invoices"></soe-label>
+                <soe-label class="col-sm-2" label-key="economy.supplier.invoice.matches.payment"></soe-label>
+                <soe-label class="col-sm-2" label-key="common.sum"></soe-label>
+            </div>
+            <div class="row">
+                <soe-text class="col-sm-2" type="number" model="ctrl.totalInvoice | number:2"></soe-text>
+                <soe-text class="col-sm-2" type="number" model="ctrl.totalPayment | number:2"></soe-text>
+                <soe-text class="col-sm-2" type="number" model="ctrl.totalSum | number:2"></soe-text>
+                <soe-text class="col-sm-2" type="number" model="ctrl.selectedInvoice | number:2"></soe-text>
+                <soe-text class="col-sm-2" type="number" model="ctrl.selectedPayment | number:2"></soe-text>
+                <soe-text class="col-sm-2" type="number" model="ctrl.selectedSum | number:2"></soe-text>
+            </div>
+        </div>
+        <div class="form-group" data-ng-if="!ctrl.progressBusy">
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-select label-key="economy.accounting.voucher.voucherseries" model="ctrl.selectedvoucherSeries" items="ctrl.voucherSeries" options="item as item.voucherSeriesTypeName for item in items"></soe-select>
+                </div>
+                <div class="col-sm-2">
+                    <soe-datepicker label-key="common.date" model="ctrl.selectedDate"></soe-datepicker>
+                </div>
+                <div class="col-sm-6">
+                    <soe-textbox label-key="common.text" model="ctrl.comment"></soe-textbox>
+                </div>
+                <div class="col-sm-2">
+                    <soe-label></soe-label>
+                    <soe-checkbox label-key="economy.supplier.invoice.matches.accountvat" model="ctrl.accountVat" on-changing="ctrl.vatChanged(ctrl.accountVat)"></soe-checkbox>
+                </div>
+            </div>
+        </div>
+        <div ng-repeat="matchCode in ctrl.matchCodes" data-ng-if="!ctrl.progressBusy">
+            <button type="button" ng-disabled="ctrl.soeGridOptions.getSelectedRows().length === 0" class="btn btn-sm ngSoeMainButton col-sm-2" ng-click="ctrl.match(matchCode)">{{matchCode.name}}</button>
+        </div>
+        <div class="form-group" data-ng-if="!ctrl.progressBusy">
+            <div class="row">
+                <div class="col-sm-12">
+                    <accounting-rows is-readonly="ctrl.isLocked" container="3" accounting-rows="ctrl.accountingRows" show-text="true" show-balance="true" show-amount-summary="true" allow-zero-amount="ctrl.saveAsTemplate" data-ng-if="ctrl.accountingRows"></accounting-rows>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" data-ng-if="!ctrl.progressBusy">
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.match'" data-l10n-bind-title="'core.match'" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.editValidation.$valid" data-ng-disabled="ctrl.accountingRows.length === 0 || ctrl.editValidation.$invalid" data-ng-click="$event.stopPropagation();ctrl.matching()"></button>
+                    <div class="btn-group" role="group" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.editValidation.$invalid">
+                        <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.match'" data-ng-disabled="ctrl.editValidation.$invalid"></button>
+                        <button type="button" class="btn btn-sm ngSoeMainButtonInvalid" data-l10n-bind data-l10n-bind-title="'error.unabletomatch_tooltip'" data-ng-click="$event.stopPropagation();ctrl.validate()">!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,15 @@
+﻿<div>
+    <div>
+        <data-ng-include src="ctrl.gridHeaderComponentUrl" />
+    </div>
+
+    <soe-toolbar buttons="ctrl.toolbar.buttonGroups">
+        <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+    </soe-toolbar>
+
+    <div data-ui-grid="ctrl.grid.options.gridOptions" data-ng-if="!ctrl.progress.progressModalBusy" height-checker ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-save-state ui-grid-exporter ui-grid-expandable class="ngSoeGrid-dynamic"></div>
+
+    <div>
+        <data-ng-include src="ctrl.gridFooterComponentUrl" />
+    </div>
+</div>

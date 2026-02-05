@@ -1,0 +1,94 @@
+﻿<div class="info" style="margin-top: 16px; margin-bottom: 8px;">
+    <div class="row">
+        <div class="col-sm-12 pull-right">
+            <div class="col-sm-2 pull-right" ng-if="ctrl.showYearlyTotals">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.contracts.totalselectedyearly"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.selectedYearly | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 margin-small-right pull-right" ng-if="ctrl.showYearlyTotals">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.contracts.totalfilteredyearly"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredYearly | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 margin-small-right pull-right" ng-if="ctrl.showTotals">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.totalselected"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.selectedTotal | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 margin-small-right pull-right" ng-if="ctrl.showTotals">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.totalfiltered"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredTotal | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 margin-small-right pull-right" ng-if="ctrl.showPaidTotals">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.paidselected"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.selectedPaid | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 margin-small-right pull-right" ng-if="ctrl.showPaidTotals">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.paidfiltered"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredPaid | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 margin-small-right pull-right" ng-if="ctrl.showToPayTotals">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.topayselected"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.selectedToPay | amount}}</label>
+                </div>
+            </div>
+            <div class="col-sm-2 margin-small-right pull-right" ng-if="ctrl.showToPayTotals">
+                <div class="row">
+                    <soe-label class="pull-right" label-key="common.customer.invoices.topayfiltered"></soe-label>
+                </div>
+                <div class="row">
+                    <label class="pull-right discreet">{{ctrl.filteredToPay | amount}}</label>
+                </div>
+            </div>
+            <div class="col pull-right">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <soe-checkbox label-key="common.customer.invoices.showsummaryinclvat" model="ctrl.showVatFree" data-ng-click="ctrl.showVatFreeChanged()"></soe-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ngSoeFormFooter" data-ng-if="!ctrl.isProjectCentral">
+    <div class="row">
+        <div class="col-sm-12 pull-right">
+            <div class="col pull-right">
+                <soe-splitbutton class="pull-right margin-small-left margin-small-right" label-key="core.functions" options="ctrl.buttonFunctions" main-button="true" drop-up="true" data-ng-if="ctrl.hasOpenPermission && !ctrl.isProjectCentral && !ctrl.hideFunctionsButton" is-disabled="ctrl.gridAg.options.getSelectedCount() === 0" selected-option="ctrl.splitButtonSelectedOption" option-selected="ctrl.executeButtonFunction(option)"></soe-splitbutton>
+            </div>
+            <soe-datepicker style="width: 150px" class="pull-right" hidelabel="true" label-key="" model="ctrl.selectedVoucherDate" data-ng-if="ctrl.showVoucherDate"></soe-datepicker>
+            <soe-label class="pull-right margin-small-right" label-key="common.customer.invoices.voucherdate" discreet="true" data-ng-if="ctrl.showVoucherDate"></soe-label>
+            <soe-datepicker style="width: 150px" class="pull-right margin-small-right" hidelabel="true" label-key="" model="ctrl.selectedDueDate" data-ng-if="ctrl.showDueDate"></soe-datepicker>
+            <soe-label class="pull-right margin-small-right" label-key="common.customer.invoices.duedate" discreet="true" data-ng-if="ctrl.showDueDate"></soe-label>
+            <soe-datepicker style="width: 150px" class="pull-right margin-small-right" hidelabel="true" label-key="" model="ctrl.selectedInvoiceDate" data-ng-if="ctrl.showInvoiceDate"></soe-datepicker>
+            <soe-label class="pull-right margin-small-right" label-key="common.customer.invoices.invoicedate" discreet="true" data-ng-if="ctrl.showInvoiceDate"></soe-label>
+            <button type="button" class="btn btn-sm btn-default pull-right margin-small-right" data-l10n-bind="'common.contactperson.contactpersons'" data-l10n-bind-title="'common.contactperson.contactpersons'" data-ng-if="ctrl.originType == 7 && ctrl.classification == 709" ng-disabled="ctrl.gridAg.options.getSelectedCount() === 0" data-ng-click="$event.stopPropagation();ctrl.showContactPersonsForSelectedInvoices()"></button>
+            <soe-label class="pull-right margin-large-right" label-key="common.customer.invoices.datesinfo" data-ng-if="ctrl.showVoucherDate && ctrl.showDueDate && ctrl.showInvoiceDate"></soe-label>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,282 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.isDirty" confirm-on-exit>
+    <div class="modal-header" data-ng-class="{'scheduleview-header':!ctrl.isTemplateView && !ctrl.isEmployeePostView && !ctrl.isScenarioView && !ctrl.isStandbyView, 'templateview-header': ctrl.isTemplateView, 'employeepostview-header': ctrl.isEmployeePostView, 'scenarioview-header': ctrl.isScenarioView, 'standbyview-header': ctrl.isStandbyView}">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">{{ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="col-sm-12 info">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span>{{ctrl.headingRow1}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span data-l10n-bind="'time.schedule.planning.dragshift.headingrow2'"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6" data-ng-if="!ctrl.isTemplateView && (ctrl.isFullyUnavailable || ctrl.isPartlyUnavailable)">
+                <soe-label label-key="time.schedule.planning.availability" class="errorColor"></soe-label>
+                <div class="warning">
+                    <span>{{ctrl.targetEmployee.name}}</span> <span data-ng-if="ctrl.isFullyUnavailable" data-l10n-bind="'time.schedule.planning.editshift.fullyunavailable'"></span><span data-ng-if="ctrl.isPartlyUnavailable" data-l10n-bind="'time.schedule.planning.editshift.partlyunavailable'"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-large-top">
+            <div class="col-sm-6">
+                <soe-panel hidelabel="true" label-value="ctrl.sourceShiftLabel">
+                    <div class="row margin-small-bottom">
+                        <div class="col-sm-12">
+                            <span class="indiscreet largeFont"><span>{{ctrl.sourceShiftEmployee}}</span><span class="margin-small-left">{{ctrl.sourceShiftDate}}</span></span>
+                        </div>
+                    </div>
+
+                    <div class="row margin-large-top" data-ng-if="ctrl.sourceShifts.length > 0">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-hover table-borderless" role="presentation">
+                                    <tbody>
+                                        <tr data-ng-repeat="sourceShift in ctrl.sourceShifts" data-ng-class="{'edit-shift-onduty-button': sourceShift.isOnDuty}">
+                                            <td style="width: 1px; white-space: nowrap;" data-ng-if="ctrl.multipleSourceDates"><span class="indiscreet">{{::sourceShift.actualStartTime | date:'shortDate'}}</span></td>
+                                            <td style="width: 1px; white-space: nowrap;"><span class="indiscreet">{{::sourceShift.actualStartTime | date:'shortTime'}}-{{::sourceShift.actualStopTime | date:'shortTime'}}</span></td>
+                                            <td><span class="indiscreet">{{::sourceShift.shiftTypeName}}</span><span data-ng-if="sourceShift.isOnDuty">{{ctrl.onDutyLabel}}</span></td>
+                                            <td><span class="indiscreet" data-l10n-bind="'time.schedule.planning.editshift.extrashift'" data-ng-if="sourceShift.extraShift"></span></td>
+                                            <td><span class="indiscreet" data-l10n-bind="'time.schedule.planning.editshift.substitute'" data-ng-if="sourceShift.substituteShift"></span></td>
+                                        </tr>
+                                        <tr data-ng-repeat="onDutyShift in ctrl.onDutyShifts" class="edit-shift-onduty-button" data-ng-if="ctrl.includeOnDutyShifts">
+                                            <td style="width: 1px; white-space: nowrap;" data-ng-if="ctrl.multipleSourceDates"><span class="indiscreet">{{::onDutyShift.actualStartDate | date:'shortDate'}}</span></td>
+                                            <td style="width: 1px; white-space: nowrap;"><span class="indiscreet">{{::onDutyShift.actualStartTime | date:'shortTime'}}-{{::onDutyShift.actualStopTime | date:'shortTime'}}</span></td>
+                                            <td colspan="3"><span class="indiscreet">{{::onDutyShift.shiftTypeName}}</span><span>{{ctrl.onDutyLabel}}</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 margin-small-top" data-ng-show="ctrl.sourceTaskExists">
+                            <uib-accordion close-others="false">
+                                <soe-accordion label-key="time.schedule.planning.editshift.task">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <shift-tasks task-exists="ctrl.sourceTaskExists" shift-ids="ctrl.sourceShiftIds" show-desc="false" is-readonly="true"></shift-tasks>
+                                        </div>
+                                    </div>
+                                </soe-accordion>
+                            </uib-accordion>
+                        </div>
+                    </div>
+                </soe-panel>
+                <div class="warning" data-ng-if="ctrl.sourcePlacement">
+                    <span class="indiscreet" data-l10n-bind="'time.schedule.planning.scheduleactivated.title'"></span><span class="indiscreet"> {{ctrl.sourcePlacement.employeeScheduleStopDate | date: 'shortDate'}}</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <soe-panel hidelabel="true" label-value="ctrl.targetShiftLabel">
+                    <div data-ng-if="ctrl.changeEmployeeMode">
+                        <div class="col-sm-6">
+                            <soe-datepicker label-key="common.date" model="ctrl.targetDate" data-ng-if="ctrl.changeEmployeeMode" on-change="ctrl.targetDateChanged();"></soe-datepicker>
+                        </div>
+                        <div class="col-sm-6">
+                            <soe-typeahead label-key="common.employee" model="ctrl.targetEmployee" items="ctrl.employees" options="item as item.numberAndName for item in items" filter-property="numberAndName" limit="50" auto-focus="true" on-selection-changed="ctrl.targetEmployeeChanged();"></soe-typeahead>
+                        </div>
+                    </div>
+                    <div data-ng-if="!ctrl.changeEmployeeMode">
+                        <div class="row margin-small-bottom">
+                            <div class="col-sm-12">
+                                <span class="indiscreet largeFont"><span>{{ctrl.targetEmployee.name}}</span><span class="margin-small-left">{{ctrl.targetShiftDate}}</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row margin-large-top" data-ng-if="ctrl.targetShifts.length > 0 || ctrl.targetShiftsOnDuty.length > 0">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-hover table-borderless" role="presentation">
+                                    <tbody>
+                                        <tr data-ng-repeat="targetShift in ctrl.targetShifts">
+                                            <td style="width: 1px; white-space: nowrap;" data-ng-if="ctrl.multipleTargetDates"><span class="indiscreet">{{::targetShift.actualStartTime | date:'shortDate'}}</span></td>
+                                            <td style="width: 1px; white-space: nowrap;"><span class="indiscreet">{{::targetShift.actualStartTime | date:'shortTime'}}-{{::targetShift.actualStopTime | date:'shortTime'}}</span></td>
+                                            <td><span class="indiscreet">{{::targetShift.shiftTypeName}}</span></td>
+                                        </tr>
+                                        <tr data-ng-repeat="targetShiftOnDuty in ctrl.targetShiftsOnDuty" class="edit-shift-onduty-button" data-ng-if="ctrl.includeOnDutyShifts">
+                                            <td style="width: 1px; white-space: nowrap;" data-ng-if="ctrl.multipleSourceDates"><span class="indiscreet">{{::targetShiftOnDuty.actualStartDate | date:'shortDate'}}</span></td>
+                                            <td style="width: 1px; white-space: nowrap;"><span class="indiscreet">{{::targetShiftOnDuty.actualStartTime | date:'shortTime'}}-{{::targetShiftOnDuty.actualStopTime | date:'shortTime'}}</span></td>
+                                            <td><span class="indiscreet">{{::targetShiftOnDuty.shiftTypeName}}</span><span>{{ctrl.onDutyLabel}}</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 margin-small-top" data-ng-show="ctrl.targetTaskExists">
+                            <uib-accordion close-others="false">
+                                <soe-accordion label-key="time.schedule.planning.editshift.task">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <shift-tasks task-exists="ctrl.targetTaskExists" shift-ids="ctrl.targetShiftIds" show-desc="false" is-readonly="true"></shift-tasks>
+                                        </div>
+                                    </div>
+                                </soe-accordion>
+                            </uib-accordion>
+                        </div>
+                    </div>
+                </soe-panel>
+                <div class="warning" data-ng-if="ctrl.targetPlacement">
+                    <span class="indiscreet" data-l10n-bind="'time.schedule.planning.scheduleactivated.title'"></span><span class="indiscreet"> {{ctrl.targetPlacement.stop | date: 'shortDate'}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <soe-panel label-key="time.schedule.planning.dragshift.actions">
+                    <div class="row">
+                        <div data-ng-class="{'col-sm-8': ctrl.isStandbyView && ctrl.sourceShiftIsStandby, 'col-sm-12': !ctrl.isStandbyView || !ctrl.sourceShiftIsStandby}">
+                            <div class="toggle-group">
+                                <!-- Move -->
+                                <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.showMove">
+                                    <div class="col-sm-2">
+                                        <input type="radio" id="action_move" name="action" data-ng-model="ctrl.selectedActionValue" value="1" data-ng-class="{ 'checked': ctrl.selectedAction == 1 }">
+                                        <label class="btn btn-default btn-block" for="action_move" data-l10n-bind="'time.schedule.planning.dragshift.action.move'"></label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 1 }">{{ctrl.informationMove}}</span>
+                                    </div>
+                                </div>
+                                <!-- Copy -->
+                                <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.showCopy">
+                                    <div class="col-sm-2">
+                                        <input type="radio" id="action_copy" name="action" data-ng-model="ctrl.selectedActionValue" value="2" data-ng-class="{ 'checked': ctrl.selectedAction == 2 }">
+                                        <label class="btn btn-default btn-block" for="action_copy" data-l10n-bind="'time.schedule.planning.dragshift.action.copy'"></label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 2 }">{{ctrl.informationCopy}}</span>
+                                    </div>
+                                </div>
+                                <div class="row vertical-align margin-small-top margin-small-bottom" data-ng-if="ctrl.selectedAction == 2 && ctrl.sourceTaskExists">
+                                    <div class="col-sm-2">
+                                        <soe-checkbox label-key="time.schedule.planning.dragshift.action.copytasks" model="ctrl.copyTaskWithShift"></soe-checkbox>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <span data-l10n-bind="'time.schedule.planning.dragshift.information.copytasks'"></span>
+                                    </div>
+                                </div>
+                                <!-- Replace -->
+                                <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.showReplace">
+                                    <div class="col-sm-2">
+                                        <input type="radio" id="action_replace" name="action" data-ng-model="ctrl.selectedActionValue" value="3" data-ng-class="{ 'checked': ctrl.selectedAction == 3 }">
+                                        <label class="btn btn-default btn-block" for="action_replace" data-l10n-bind="'time.schedule.planning.dragshift.action.replace'"></label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 3 }">{{ctrl.informationReplace}}</span>
+                                    </div>
+                                </div>
+                                <!-- Replace and free -->
+                                <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.showReplaceAndFree">
+                                    <div class="col-sm-2">
+                                        <input type="radio" id="action_replace_and_free" name="action" data-ng-model="ctrl.selectedActionValue" value="4" data-ng-class="{ 'checked': ctrl.selectedAction == 4 }">
+                                        <label class="btn btn-default btn-block" for="action_replace_and_free" data-l10n-bind="'time.schedule.planning.dragshift.action.replaceandfree'"></label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 4 }">{{ctrl.informationReplaceAndFree}}</span>
+                                    </div>
+                                </div>
+                                <!-- Swap employee -->
+                                <div class="row vertical-align margin-small-bottom" data-ng-if="ctrl.showSwapEmployee">
+                                    <div class="col-sm-2">
+                                        <input type="radio" id="action_swap_employee" name="action" data-ng-model="ctrl.selectedActionValue" value="5" data-ng-class="{ 'checked': ctrl.selectedAction == 5 }">
+                                        <label class="btn btn-default btn-block" for="action_swap_employee" data-l10n-bind="'time.schedule.planning.dragshift.action.swapemployee'"></label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 5 }">{{ctrl.informationSwapEmployee}}</span>
+                                    </div>
+                                </div>
+                                <!-- Absence -->
+                                <div class="row vertical-align" data-ng-if="ctrl.showAbsence">
+                                    <div class="col-sm-2">
+                                        <input type="radio" id="action_absence" name="action" data-ng-model="ctrl.selectedActionValue" value="6" data-ng-class="{ 'checked': ctrl.selectedAction == 6 }">
+                                        <label class="btn btn-default btn-block" for="action_absence" data-l10n-bind="'time.schedule.planning.dragshift.action.absence'"></label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <span data-ng-class="{ 'indiscreet': ctrl.selectedAction == 6 }">{{ctrl.informationAbsence}}</span>
+                                    </div>
+                                </div>
+                                <div class="row vertical-align margin-small-top" data-ng-if="ctrl.selectedAction == 6">
+                                    <div class="col-sm-2">
+                                        <soe-select hidelabel="true" model="ctrl.selectedDeviationCause" items="ctrl.deviationCauses" options="item as item.name for item in items" required="true"></soe-select>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <span data-l10n-bind="'time.schedule.planning.dragshift.information.selectdeviationcause'" data-ng-class="{ 'indiscreet': !ctrl.selectedDeviationCause.timeDeviationCauseId }"></span><span>.</span>
+                                    </div>
+                                </div>
+                                <div class="row vertical-align margin-small-top" data-ng-if="ctrl.selectedDeviationCause.specifyChild">
+                                    <div class="col-sm-2">
+                                        <soe-select hidelabel="true" model="ctrl.selectedEmployeeChildId" items="ctrl.employeeChilds" options="item.id as item.name for item in items" required="true"></soe-select>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <span data-l10n-bind="'time.schedule.planning.dragshift.information.selectchild'" data-ng-class="{ 'indiscreet': !ctrl.selectedEmployeeChildId }"></span><span>.</span>
+                                    </div>
+                                </div>
+                                <div class="row vertical-align margin-small-top" data-ng-if="ctrl.selectedAction == 6">
+                                    <div class="col-sm-2">
+                                        <soe-checkbox label-key="time.schedule.planning.dragshift.action.wholedayabsence" model="ctrl.isWholeDayAbsence" on-changing="ctrl.isWholeDayAbsenceChanged();"></soe-checkbox>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <span>{{ctrl.informationWholeDayAbsence}}</span>
+                                    </div>
+                                </div>
+                                <div class="info margin-large-top" data-ng-if="ctrl.hasExtraShift || ctrl.hasSubstituteShift">
+                                    <span data-ng-bind-html="::ctrl.shiftExtraInfo" data-ng-if="ctrl.hasExtraShift && !ctrl.hasSubstituteShift"></span>
+                                    <span data-ng-bind-html="::ctrl.shiftSubstituteInfo" data-ng-if="ctrl.hasSubstituteShift && !ctrl.hasExtraShift"></span>
+                                    <span data-ng-bind-html="::ctrl.shiftExtraAndSubstituteInfo" data-ng-if="ctrl.hasExtraShift && ctrl.hasSubstituteShift"></span>
+                                </div>
+                            </div>
+                            <div data-ng-if="!ctrl.showMove && !ctrl.showCopy && !ctrl.showReplace && !ctrl.showReplaceAndFree && !ctrl.showSwapEmployee && !ctrl.showAbsence">
+                                <div class="info">
+                                    <span data-ng-bind-html="::ctrl.noActionAvailable"></span>
+                                </div>
+                                <div class="warning margin-large-top" data-ng-if="ctrl.noActionAvailableInfo">
+                                    <span data-ng-bind-html="::ctrl.noActionAvailableInfo"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" data-ng-if="ctrl.isStandbyView && ctrl.sourceShiftIsStandby">
+                            <div class="info">
+                                <div class="row">
+                                    <div class="col-sm-12 margin-large-bottom">
+                                        <soe-label label-key="time.schedule.planning.standbycycle"></soe-label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-label label-key="time.schedule.planning.standbycycleweek"></soe-label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <soe-textbox hidelabel="true" model="ctrl.standbyCycleWeek" numeric="true" decimals="0"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div class="row margin-large-bottom">
+                                    <div class="col-sm-6">
+                                        <soe-datepicker label-key="common.fromdate" model="ctrl.standbyCycleDateFrom" second-model="ctrl.standbyCycleDateTo" validate-date-range="true" is-start-in-range="true"></soe-datepicker>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <soe-datepicker label-key="common.todate" model="ctrl.standbyCycleDateTo" second-model="ctrl.standbyCycleDateFrom" validate-date-range="true"></soe-datepicker>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm ngSoeMainButton pull-right" data-l10n-bind="'core.save'" data-l10n-bind-title="'core.save'" data-ng-disabled="ctrl.selectedAction===0 || !ctrl.targetDate || !ctrl.targetEmployee || ctrl.executing" data-ng-click="$event.stopPropagation();ctrl.save()"></button>
+        <div class="pull-right" data-ng-include src="ctrl.cancelButtonTemplateUrl" />
+        <soe-checkbox class="pull-right" label-key="time.schedule.planning.dragshift.includeondutyshifts" model="ctrl.includeOnDutyShifts" is-disabled="ctrl.isWholeDayAbsence" data-ng-if="ctrl.showOnDutyShifts" on-changing="ctrl.includeOnDutyShiftsChanged();"></soe-checkbox>
+    </div>
+</form>

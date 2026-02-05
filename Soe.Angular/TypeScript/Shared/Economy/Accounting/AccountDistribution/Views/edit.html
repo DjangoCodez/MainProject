@@ -1,0 +1,249 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <div account-distribution-validation ng-model="ctrl.accountDistribution" is-period-account-distribution="ctrl.isPeriodAccountDistribution" data-ng-if="!ctrl.progressBusy">
+        <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+        <div data-ng-if="!ctrl.progress.progressBusy">
+            <div class="btn-toolbar">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="pull-left">
+                            <soe-toolbar always-show="true" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);" hide-border="true" no-margin="true"></soe-toolbar>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" hide-border="true" no-margin="true"></soe-toolbar>
+                    </div>
+                </div>
+            </div>
+            <soe-panel label-key="{{ctrl.editPanelName}}">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="common.name" model="ctrl.accountDistribution.name" required="true" maxlength="100"></soe-textbox>
+                            </div>
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="common.description" model="ctrl.accountDistribution.description" maxlength="255"></soe-textbox>
+                            </div>
+                            <!--<div class="col-sm-12">
+                        <soe-textbox label-key="economy.accounting.accountdistribution.sorting" input-type="number" model="ctrl.accountDistribution.sort"></soe-textbox>
+                    </div>-->
+                            <div class="col-sm-12">
+                                <soe-select label-key="economy.accounting.accountdistribution.calculationtype" model="ctrl.accountDistribution.calculationType" required="true" items="ctrl.accountDistributionCalculationType" options="item.id as item.name for item in items" on-changing="ctrl.accountDistributionCalculationTypeChanged(item)"></soe-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="col-sm-12">
+                                <soe-datepicker label-key="economy.accounting.accountdistribution.startdate" model="ctrl.accountDistribution.startDate" required="ctrl.isPeriodAccountDistribution" is-disabled="ctrl.entriesIsStarted"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-12">
+                                <soe-datepicker label-key="economy.accounting.accountdistribution.enddate" model="ctrl.accountDistribution.endDate"></soe-datepicker>
+                            </div>
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="economy.accounting.accountdistribution.calculate" input-type="number" model="ctrl.accountDistribution.calculate" data-ng-show="ctrl.isTotalAmount" maxlength="100"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" data-ng-show="ctrl.isPeriodAccountDistribution">
+                            <div class="col-sm-12">
+                                <soe-select label-key="economy.accounting.accountdistribution.type" model="ctrl.accountDistribution.triggerType" items="ctrl.accountDistributionTriggerType" options="item.id as item.name for item in items" on-changing="ctrl.accountDistributionTriggerTypeChanged(item)"></soe-select>
+                            </div>
+                            <div class="col-sm-12">
+                                <soe-select label-key="economy.accounting.accountdistribution.voucherserie" model="ctrl.accountDistribution.voucherSeriesTypeId" items="ctrl.voucherSeriesTypeFilterOptions" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                            <div class="col-sm-12">
+                                <soe-select label-key="economy.accounting.accountdistribution.periodtype" model="ctrl.accountDistribution.periodType" items="ctrl.accountDistributionFilteredPeriodType" options="item.id as item.name for item in items" data-ng-hide="ctrl.registrationAsTriggerType" on-changing="ctrl.accountDistributionPeriodTypeChanged(item)"></soe-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" data-ng-show="ctrl.isPeriodAccountDistribution">
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="economy.accounting.accountdistribution.dayinperiod" input-type="number" model="ctrl.dayInPeriod" maxlength="100"></soe-textbox>
+                            </div>
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="economy.accounting.accountdistribution.numberoftimes" input-type="number" model="ctrl.accountDistribution.periodValue" data-ng-show="ctrl.registrationAsTriggerType" maxlength="100"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:10px; margin-bottom:10px" data-ng-show="ctrl.registrationAsTriggerType">
+                        <div class="col-sm-12">
+                            <soe-label label-key="economy.accounting.accountdistribution.usein"></soe-label>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="col-sm-12">
+                                <soe-checkbox label-key="economy.accounting.accountdistribution.voucherregister" model="ctrl.accountDistribution.useInVoucher"></soe-checkbox>
+                            </div>
+                            <div class="col-sm-12">
+                                <soe-checkbox label-key="economy.accounting.accountdistribution.supplierinvoice" model="ctrl.accountDistribution.useInSupplierInvoice"></soe-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="col-sm-12">
+                                <soe-checkbox label-key="economy.accounting.accountdistribution.customerinvoice" model="ctrl.accountDistribution.useInCustomerInvoice"></soe-checkbox>
+                            </div>
+                            <div class="col-sm-12">
+                                <soe-checkbox label-key="economy.accounting.accountdistribution.import" model="ctrl.accountDistribution.useInImport"></soe-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="col-sm-12">
+                                <soe-checkbox label-key="economy.accounting.accountdistribution.payrollvoucher" model="ctrl.accountDistribution.useInPayrollVoucher"></soe-checkbox>
+                            </div>
+                            <div class="col-sm-12">
+                                <soe-checkbox label-key="economy.accounting.accountdistribution.payrollvacationvoucher" model="ctrl.accountDistribution.useInPayrollVacationVoucher"></soe-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"  data-ng-show="ctrl.isPeriodAccountDistribution">
+                        <div class="col-sm-12">
+                            <div class="info margin-small-top">
+                                <div class="row margin-small-top">
+                                    <div class="col-sm-2">
+                                        <soe-label label-key="economy.accounting.accountdistribution.totalcount"></soe-label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-label label-key="economy.accounting.accountdistribution.transferredcount"></soe-label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-label label-key="economy.accounting.accountdistribution.remainingcount"></soe-label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-label label-key="economy.accounting.accountdistribution.lasttransferdate"></soe-label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label class="discreet">{{ctrl.entryTotalCount}}</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="discreet">{{ctrl.entryTransferredCount}}</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="discreet">{{ctrl.entryRemainingCount}}</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="discreet">{{ctrl.entryLatestTransferDate | date:'shortDate'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <soe-label label-key="economy.accounting.accountdistribution.totalamount"></soe-label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-label label-key="economy.accounting.accountdistribution.saldo"></soe-label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-label label-key="economy.accounting.accountdistribution.remainingamount"></soe-label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <soe-label label-key="economy.accounting.accountdistribution.periodamount"></soe-label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label class="discreet">{{ctrl.entryTotalAmount | amount}}</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="discreet">{{ctrl.entryTransferredAmount | amount}}</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="discreet">{{ctrl.entryRemainingAmount | amount}}</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="discreet">{{ctrl.entryPeriodAmount | amount}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </soe-panel>
+            <uib-accordion close-others="false">
+                <soe-accordion label-key="economy.accounting.accountdistribution.conditions" is-open="true" data-ng-hide="ctrl.amountAsPeriodType">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-1">
+                                    <label>{{ctrl.accountDim1Name}}</label>
+                                    <soe-textbox hidelabel="true" model="ctrl.accountDistribution.dim1Expression" maxlength="400"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2" data-ng-if="ctrl.showAccountDim2">
+                                    <label>{{ctrl.accountDim2Name}}</label>
+                                    <soe-textbox hidelabel="true" model="ctrl.accountDistribution.dim2Expression" maxlength="400"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2" data-ng-if="ctrl.showAccountDim3">
+                                    <label>{{ctrl.accountDim3Name}}</label>
+                                    <soe-textbox hidelabel="true" model="ctrl.accountDistribution.dim3Expression" maxlength="400"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2" data-ng-if="ctrl.showAccountDim4">
+                                    <label>{{ctrl.accountDim4Name}}</label>
+                                    <soe-textbox hidelabel="true" model="ctrl.accountDistribution.dim4Expression" maxlength="400"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2" data-ng-if="ctrl.showAccountDim5">
+                                    <label>{{ctrl.accountDim5Name}}</label>
+                                    <soe-textbox hidelabel="true" model="ctrl.accountDistribution.dim5Expression" maxlength="400"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2" data-ng-if="ctrl.showAccountDim6">
+                                    <label>{{ctrl.accountDim6Name}}</label>
+                                    <soe-textbox hidelabel="true" model="ctrl.accountDistribution.dim6Expression" maxlength="400"></soe-textbox>
+                                </div>
+                                <!--<div class="col-sm-1" data-ng-if="ctrl.showAccountDim6">
+                            <soe-textbox label-key="ctrl.accountDistribution.dim6Id" model="ctrl.accountDistribution.dim6Expression" maxlength="400"></soe-textbox>
+                        </div>-->
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-1">
+                                    <soe-select label-key="economy.accounting.accountdistribution.amountoperator" model="ctrl.accountDistribution.amountOperator" items="ctrl.amountOperatorWildCardOptions" options="item.id as item.name for item in items"></soe-select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="common.amount" model="ctrl.accountDistribution.amount" maxlength="20"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2" data-ng-if="!ctrl.isPeriodAccountDistribution">
+                                    <label></label>
+                                    <soe-checkbox label-key="economy.accounting.accountdistribution.keeprow" model="ctrl.accountDistribution.keepRow"></soe-checkbox>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="info col-sm-12" style="margin-top:5px">
+                                    <soe-label discreet="true" label-key="economy.accounting.accountdistribution.informationtext"></soe-label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+            </uib-accordion>
+            <uib-accordion close-others="false">
+                <soe-accordion label-key="common.accountingrows" is-open="true">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <distribution-rows accounting-rows="ctrl.accountDistribution.rows" data-ng-if="ctrl.accountDistribution" show-amount-summary="true"></distribution-rows>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+            </uib-accordion>
+            <uib-accordion close-others="false">
+                <soe-accordion label-key="common.tracing" data-ng-if="!ctrl.isNew">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <trace-rows trace-id="ctrl.accountDistributionHeadId" page-name="'accountDistributionEdit'"></trace-rows>
+                            </div>
+                        </div>
+                    </div>
+                </soe-accordion>
+            </uib-accordion>
+            <div class="ngSoeFormFooter">
+                <div class="col-sm-6">
+                    <created-modified model="ctrl.accountDistribution"></created-modified>
+                </div>
+                <div class="col-sm-6">
+                    <div class="pull-right">
+                        <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                        <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,60 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'common.signdoc.status'"></h6>
+    </div>
+    <div class="modal-body">
+        <soe-progressbar data-ng-if="ctrl.loading" is-busy="true"></soe-progressbar>
+        <div class="row">
+            <div class="col-sm-4">
+                <div id="historyContainer"></div>
+            </div>
+            <div class="col-sm-8">
+                <div class="table-outer-bordered">
+                    <table class="table table-condensed table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col"><span data-l10n-bind="'common.signdoc.status.tostate'"></span></th>
+                                <th scope="col"><span data-l10n-bind="'common.signdoc.status.processtype'"></span></th>
+                                <th scope="col"><span data-l10n-bind="'common.name'"></span></th>
+                                <th scope="col"><span data-l10n-bind="'common.signdoc.status.answer'"></span></th>
+                                <th scope="col"><span data-l10n-bind="'common.time'"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="row in ctrl.attestWorkflowRows" data-ng-class="{'indiscreet': row.isCurrentUser, 'disabledTextColor': row.processType==4}">
+                                <td><span>{{row.attestStateToName}}</span></td>
+                                <td><span>{{row.processTypeName}}</span></td>
+                                <td><span>{{row.name}}</span></td>
+                                <td>
+                                    <span data-ng-if="row.isRegistered" class="fal fa-file-signature"></span>
+                                    <span data-ng-if="row.isOpened" class="fal fa-eye"></span>
+                                    <span data-ng-if="row.isSigned" class="fas fa-thumbs-up okColor"></span>
+                                    <span data-ng-if="row.isRejected" class="fas fa-thumbs-down errorColor"></span>
+                                </td>
+                                <td><span>{{row.modified | date:'shortDate'}}</span> <span>{{row.modified | date:'shortTime'}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row margin-large-top" data-ng-if="(ctrl.isCurrentUserCurrentSignee || ctrl.cancelPermission) && !ctrl.isCancelled">
+                    <div class="col-sm-12">
+                        <soe-textarea label-key="core.comment" model="ctrl.comment" rows="3"></soe-textarea>
+                    </div>
+                </div>
+                <div class="row margin-large-top" data-ng-if="(ctrl.isCurrentUserCurrentSignee || ctrl.cancelPermission) && !ctrl.isCancelled">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-sm btn-danger pull-right margin-large-left" style="min-width: 100px;" data-l10n-bind="'common.signdoc.status.reject'" data-ng-if="ctrl.isCurrentUserCurrentSignee && ctrl.isDebug" data-ng-disabled="ctrl.answerClicked" data-ng-click="ctrl.initAnswer(false);"></button>
+                        <button type="button" class="btn btn-sm btn-success pull-right margin-large-left" style="min-width: 100px;" data-l10n-bind="'common.signdoc.status.sign'" data-ng-if="ctrl.isCurrentUserCurrentSignee && ctrl.isDebug" data-ng-disabled="ctrl.answerClicked" data-ng-click="ctrl.initAnswer(true);"></button>
+                        <button type="button" class="btn btn-sm btn-default pull-right" style="min-width: 100px;" data-l10n-bind="'common.signdoc.status.cancel'" data-ng-if="ctrl.cancelPermission" data-ng-click="ctrl.initCancelAttestFlow();"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.close()"></button>
+        <debug class="pull-left" on-debug="ctrl.debug()"></debug>
+    </div>
+</div>
+

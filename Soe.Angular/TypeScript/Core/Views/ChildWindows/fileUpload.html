@@ -1,0 +1,134 @@
+﻿<div class="messagebox file-upload">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title">{{::ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <div data-ng-if="ctrl.uploaderCreated">
+            <div class="row">
+                <div class="col-sm-4" data-ng-if="ctrl.showSelect || ctrl.showCheckBox || ctrl.showRoles || ctrl.showMessageGroups">
+                    <div class="row" data-ng-if="ctrl.showSelect">
+                        <div class="col-sm-12">
+                            <soe-select label-value="ctrl.selectLabel" label-value-indiscreet="true" model="ctrl.selectedOption" items="ctrl.selectOptions" options="item.id as item.name for item in items"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.showDate">
+                        <div class="col-sm-12">
+                            <soe-datepicker label-value="ctrl.dateLabel" label-value-indiscreet="true" model="ctrl.selectedDate"></soe-datepicker>
+                        </div>
+                    </div>
+                    <div class="row margin-small-top margin-small-bottom" data-ng-if="ctrl.showCheckBox">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-value="ctrl.checkBoxLabel" model="ctrl.isChecked"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.showRoles">
+                        <div class="col-sm-12">
+                            <soe-multiselect label-key="common.user.roles" options="ctrl.selectableRoles" display-prop="name" model="ctrl.selectedRoles" show-selected="true" data-ng-if="!ctrl.rolesMandatory"></soe-multiselect>
+                            <soe-multiselect label-key="common.user.roles" options="ctrl.selectableRoles" display-prop="name" model="ctrl.selectedRoles" show-selected="true" required="true" data-ng-if="ctrl.rolesMandatory"></soe-multiselect>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.showMessageGroups">
+                        <div class="col-sm-12">
+                            <soe-multiselect label-key="common.receiverslist.messagegroup" options="ctrl.selectableMessageGroups" display-prop="name" model="ctrl.selectedMessageGroups" show-selected="true"></soe-multiselect>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="file" nv-file-select="" uploader="ctrl.uploader" data-ng-if="!ctrl.allowMultipleFiles" />
+                            <input type="file" nv-file-select="" uploader="ctrl.uploader" multiple data-ng-if="ctrl.allowMultipleFiles" />
+                        </div>
+                    </div>
+                    <div class="row margin-large-top" data-ng-if="ctrl.showDropZone">
+                        <div class="col-sm-12">
+                            <div ng-show="ctrl.uploader.isHTML5">
+                                <div nv-file-drop="" uploader="ctrl.uploader">
+                                    <div class="well drop-zone" nv-file-over="" uploader="ctrl.uploader">
+                                        <span data-l10n-bind="'core.fileupload.dropfiles'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-ng-if="ctrl.showQueue">
+                <div class="col-sm-12">
+                    <h4 data-l10n-bind="'core.fileupload.queue'"></h4>
+                    <span class="indiscreet"><span data-l10n-bind="'core.fileupload.queuelength'"></span><span> {{ ctrl.uploader.queue.length }}</span></span>
+
+                    <table class="table table-outer-bordered margin-small-top">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-l10n-bind="'core.fileupload.filename'" width="50%"></th>
+                                <th scope="col" data-l10n-bind="'core.fileupload.size'" data-ng-show="ctrl.uploader.isHTML5"></th>
+                                <th scope="col" data-l10n-bind="'core.fileupload.progress'" data-ng-show="ctrl.uploader.isHTML5"></th>
+                                <th scope="col" data-l10n-bind="'core.fileupload.status'"></th>
+                                <th scope="col" data-l10n-bind="'core.fileupload.actions'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="item in ctrl.uploader.queue">
+                                <td><strong>{{ item.file.name }}</strong></td>
+                                <td data-ng-show="ctrl.uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                                <td data-ng-show="ctrl.uploader.isHTML5">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" data-ng-style="{ 'width': item.progress + '%' }"></div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <span data-ng-show="item.isSuccess"><i class="fal fa-check backgroundColor"></i></span>
+                                    <span data-ng-show="item.isCancel"><i class="fal fa-ban backgroundColor"></i></span>
+                                    <span data-ng-show="item.isError"><i class="fal fa-times backgroundColor"></i></span>
+                                </td>
+                                <td nowrap>
+                                    <button type="button" class="btn btn-xs btn-primary margin-small-right" style="padding-left: 10px; padding-right: 10px;" data-ng-click="item.upload()" data-ng-disabled="item.isReady || item.isUploading || item.isSuccess || (ctrl.rolesMandatory && !ctrl.selectedRoles.length)">
+                                        <span class="fal fa-download backgroundColor" style="margin-top: 3px;"></span>
+                                        <span data-l10n-bind="'core.fileupload.upload'"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-xs btn-warning margin-small-right" style="padding-left: 10px; padding-right: 10px;" data-ng-click="item.cancel()" data-ng-disabled="!item.isUploading">
+                                        <span class="fal fa-ban backgroundColor" style="margin-top: 3px;"></span>
+                                        <span data-l10n-bind="'core.fileupload.cancel'"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-xs btn-danger" style="padding-left: 10px; padding-right: 10px;" data-ng-click="item.remove()">
+                                        <span class="fal fa-times backgroundColor" style="margin-top: 3px;"></span>
+                                        <span data-l10n-bind="'core.fileupload.remove'"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="margin-small-top">
+                        <span class="indiscreet" data-l10n-bind="'core.fileupload.queueprogress'"></span>
+                        <div class="progress margin-small-top">
+                            <div class="progress-bar" role="progressbar" data-ng-style="{ 'width': ctrl.uploader.progress + '%' }"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row margin-small-top" data-ng-if="ctrl.allowMultipleFiles">
+                <div class="col-sm-12">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-sm btn-primary margin-small-right" data-ng-click="ctrl.uploader.uploadAll()" data-ng-disabled="!ctrl.uploader.getNotUploadedItems().length || (ctrl.rolesMandatory && !ctrl.selectedRoles.length)">
+                            <span class="fal fa-download backgroundColor" style="margin-top: 3px;"></span>
+                            <span data-l10n-bind="'core.fileupload.uploadall'"></span>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-warning margin-small-right" data-ng-click="ctrl.uploader.cancelAll()" data-ng-disabled="!ctrl.uploader.isUploading">
+                            <span class="fal fa-ban backgroundColor" style="margin-top: 3px;"></span>
+                            <span data-l10n-bind="'core.fileupload.cancelall'"></span>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger" data-ng-click="ctrl.uploader.clearQueue()" data-ng-disabled="!ctrl.uploader.queue.length">
+                            <span class="fal fa-times backgroundColor" style="margin-top: 3px;"></span>
+                            <span data-l10n-bind="'core.fileupload.removeall'"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

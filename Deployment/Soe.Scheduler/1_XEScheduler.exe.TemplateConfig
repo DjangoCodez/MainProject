@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <section name="Soe.Scheduler.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+    </sectionGroup>
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+  </configSections>
+  <appSettings>
+    <add key="smtpHost" value="smtpout.dnsdrift.net" />
+    <!-- Timer interval in seconds-->
+    <add key="interval" value="10" />
+    <add key="SOE_EDI_FTP" value="ftp://ftp.softone.se/Leveransbesked/" />
+    <add key="SOE_EDI_FTP_NELFO" value="ftp://ftp.softone.se/Grossister/Nelfo/" />
+    <add key="SOE_EDI_FTP_ADMIN_USERNAME" value="Support" />
+    <add key="SOE_EDI_FTP_ADMIN_PASSWORD" value="Igelkott88" />
+    <add key="SOE_EDI_FOLDERWATCH_BASEPATH" value="E:/FTP/Wholesellers/" />
+    <add key="SOE_EDI_WHOLESALESAVEFOLDER" value="E:/XE Scheduler/GrossistSparade/" />
+    <add key="SOE_EDI_WHOLESALEFTPPATH" value="ftp://localhost/Wholesellers" />
+  </appSettings>
+	<connectionStrings>
+		<add name="SOESysEntities" connectionString="metadata=res://*/SoftOne.Soe.Data.SOESysModel.csdl|res://*/SoftOne.Soe.Data.SOESysModel.ssdl|res://*/SoftOne.Soe.Data.SOESysModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=192.168.50.100;Initial Catalog=SOESysV2;Trusted_Connection=No;User Id=xe;password=65Bastards2luv;MultipleActiveResultSets=True&quot;" providerName="System.Data.EntityClient"/>
+		<add name="SOECompEntities" connectionString="metadata=res://*/SoftOne.Soe.Data.SOECompModel.csdl|res://*/SoftOne.Soe.Data.SOECompModel.ssdl|res://*/SoftOne.Soe.Data.SOECompModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=192.168.50.100;Initial Catalog=SOEcompV2;Trusted_Connection=No;User Id=xe;password=65Bastards2luv;MultipleActiveResultSets=True&quot;" providerName="System.Data.EntityClient"/>
+		<add name="Log4net" connectionString="data source=192.168.50.100;Initial Catalog=SOESysV2;Trusted_Connection=No;User Id=xe;password=65Bastards2luv"/>    
+	</connectionStrings>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5" />
+  </startup>
+  <applicationSettings>
+    <Soe.Scheduler.Properties.Settings>
+      <setting name="SmtpHost" serializeAs="String">
+        <value>SMTP</value>
+      </setting>
+    </Soe.Scheduler.Properties.Settings>
+  </applicationSettings>
+  <entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.SqlConnectionFactory, EntityFramework" />
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+    </providers>
+  </entityFramework>
+  <system.serviceModel>
+    <client>
+      <endpoint address="http://localhost:56746/Edi/EdiService.asmx"
+        binding="basicHttpBinding"
+        contract="WebServices.External.EdiServiceSoap" name="EdiServiceSoap" />
+    </client>
+  </system.serviceModel>
+</configuration>

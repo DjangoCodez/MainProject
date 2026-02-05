@@ -1,0 +1,29 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'economy.supplier.invoice.changecompany'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-select label-key="common.company" model="ctrl.selectedCompany" items="ctrl.companiesFilterOptions" on-changing="ctrl.companyOnChanging(item)" options="item as item.name for item in items"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-select label-key="economy.supplier.supplier.supplier" model="ctrl.selectedSupplier" items="ctrl.suppliersFilterOptions" on-changing="ctrl.supplierOnChanging(item)" options="item as item.name for item in items"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-select label-key="economy.accounting.voucherseriestype" model="ctrl.selectedVoucherSerie" items="ctrl.voucherSeriesFilterOptions" on-changing="ctrl.voucherSerieOnChanging(item)" options="item as item.name for item in items"></soe-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.buttonOkClick()"></button>
+    </div>
+</div>

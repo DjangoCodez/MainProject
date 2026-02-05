@@ -1,0 +1,13 @@
+﻿<div>
+    <div class="row">
+        <soe-typeahead class="col-sm-4" label-key="common.report.selection.customernr" model="$ctrl.customerNrFrom" items="$ctrl.customerDict" options="item as item.name for item in items" editable="true" on-selection-changed="$ctrl.onActorNumberFromChanged(item)"></soe-typeahead>
+        <soe-typeahead class="col-sm-4 margin-small-top" model="$ctrl.customerNrTo" items="$ctrl.customerDict" options="item as item.name for item in items" editable="true" on-selection-changed="$ctrl.onActorNumberToChanged(item)"></soe-typeahead>
+    </div>
+    <div class="row">
+        <text-selection label-key="common.report.selection.contractnr" class="col-sm-4" user-selection-input="$ctrl.invoiceSeqNrFrom" on-selected="$ctrl.onInvoiceSerialNumberFromChanged(selection)"></text-selection>
+        <text-selection class="col-sm-4 margin-small-top" user-selection-input="$ctrl.invoiceSeqNrTo" on-selected="$ctrl.onInvoiceSerialNumberToChanged(selection)"></text-selection>
+    </div>
+    <div class="row">
+        <id-selection label-key="common.report.selection.sorting" class="col-sm-4" items="$ctrl.selectableSortOrder" user-selection-input="$ctrl.userSelectionInputSortOrder" on-selected="$ctrl.onSortOrderChanged(selection)" />
+    </div>
+</div>

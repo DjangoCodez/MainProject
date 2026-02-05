@@ -1,0 +1,15 @@
+<form [formGroup]="formFilter" novalidate autocomplete="off">
+  <div class="row">
+    <div class="col-sm-6">
+      <soe-select
+        [labelKey]="''"
+        [inline]="true"
+        [width]="250"
+        [items]="performLoadSelectionTypes.data || []"
+        [selectedId]="formFilter.value.durationSelection"
+        (valueChanged)="durationSelectionChanged()"
+        formControlName="durationSelection">
+      </soe-select>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,14 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (editRowClicked)="edit($event)"
+    (selectedItemsChanged)="selectedItemsChanged($event)"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+    [toolbarGroups]="toolbarUtils.toolbarGroups">
+    <soe-logged-warnings-grid-filter
+      toolbar-content-left
+      [(selectedDateRange)]="dateSelection">
+    </soe-logged-warnings-grid-filter>
+  </soe-grid-wrapper>
+}

@@ -1,0 +1,12 @@
+﻿<div class="timeattest-schedule">
+    <table id="{{ctrl.tableId}}" class="table-bordered">
+        <thead>
+            <tr data-ng-if="ctrl.showTimeHeader">
+                <th scope="col" class="timeattest-schedule-day-header"><span style="margin-left: 5px;">{{ctrl.model.date | date:'shortDate'}}</span></th>
+                <th scope="col" class="timeattest-schedule-day-header" data-ng-repeat="date in ctrl.dates track by date.date">{{date.date | date:'shortTime'}}</th>
+                <th scope="col" class="timeattest-schedule-day-button-header"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>

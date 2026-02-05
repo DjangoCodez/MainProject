@@ -1,0 +1,72 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-3">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          [required]="true"
+          [autoFocus]="true"
+          formControlName="name">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-6">
+        <soe-textbox
+          [labelKey]="'common.description'"
+          [maxLength]="512"
+          formControlName="description">
+        </soe-textbox>
+      </div>
+    </div>
+    @if (useAccountsHierarchy()) {
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'common.user.attestrole.accounthierarchy'"
+            [selectedId]="form.value.accountId"
+            [items]="this.accounts"
+            formControlName="accountId">
+          </soe-select>
+        </div>
+      </div>
+    }
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-numberbox 
+        [labelKey]="'time.schedule.incomingdeliverytype.lengthminutes'"
+        [disallowNegative]="true"
+        formControlName="length">
+        </soe-numberbox>
+      </div>
+      <div class="col-sm-1">
+        <soe-instruction
+        [text]="this.minLengthInfoLabel()"
+        [inline]="true">
+        </soe-instruction>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-numberbox
+          [labelKey]="'time.schedule.incomingdeliverytype.nbrofpersons'"
+          [disallowNegative]="true"
+          formControlName="nbrOfPersons">
+        </soe-numberbox>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

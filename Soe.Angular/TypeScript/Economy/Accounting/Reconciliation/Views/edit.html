@@ -1,0 +1,24 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <div class="btn-toolbar">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-toolbar buttons="ctrl.toolbar.buttonGroups" hide-border="true" no-margin="true"></soe-toolbar>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <label class="control-label">
+                    {{ctrl.editPanelName}}
+                </label>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div ag-grid="ctrl.gridAg.options.gridOptions" class="ag-theme-balham" height-checker style="height: 800px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

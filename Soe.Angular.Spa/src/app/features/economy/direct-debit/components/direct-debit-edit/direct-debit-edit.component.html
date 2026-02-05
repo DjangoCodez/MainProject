@@ -1,0 +1,67 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'economy.export.paymentservice.batchcid'"
+          [maxLength]="20"
+          [autoFocus]="true"
+          formControlName="batchId">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'common.service'"
+          [selectedId]="form.value.paymentServiceId"
+          [items]="paymentServices || []"
+          [optionNameField]="'name'"
+          [optionIdField]="'id'"
+          (valueChanged)="selectPaymentService($event)"
+          formControlName="paymentServiceId"></soe-select>
+      </div>
+      <div class="col-sm-2 mt-4 ms-5">
+        <soe-save-button
+          [caption]="'economy.export.payments.createtemplate'"
+          [dirty]="showCreateTemplate"
+          (action)="createTemplate()"
+          [disabled]="!form.valid">
+        </soe-save-button>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-sm-12">
+        @if (form) {
+          <soe-direct-debit-edit-grid
+            [rows]="rows"
+            (selectedInvoices)="getSelectedInvoices($event)">
+          </soe-direct-debit-edit-grid>
+        }
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      [hideSave]="true"
+      [hideDelete]="true">
+      <div pageButtons>
+        <soe-button
+          [caption]="'economy.export.payments.createexport'"
+          [behaviour]="'primary'"
+          (action)="export()"
+          [disabled]="selectedInvoices.length === 0">
+        </soe-button>
+      </div>
+    </soe-edit-footer>
+  </form>
+}

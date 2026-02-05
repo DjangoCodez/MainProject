@@ -1,0 +1,72 @@
+﻿<div class="ngSoeForm form-group form-group-sm">
+    <uib-accordion close-others="false">
+        <soe-accordion label-key="common.selection" is-open="ctrl.selectionIsOpen">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <date-time-interval-selection on-selected="ctrl.onDateRangeSelectionUpdated(selection)" label-key="common.period" selected-interval="month" user-selection-input="ctrl.userSelectionInputDate" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-select label-key="time.employee.accumulators.comparemodel" model="ctrl.currentCompareModel" items="ctrl.compareModels" options="item.id as item.name for item in items"></soe-select>
+                </div>
+            </div>
+            <div class="form-group form-group-sm" style="margin-top:10px">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <employees-selection on-selected="ctrl.onEmployeeSelectionUpdated(employeeSelection)" label-key="common.employees" enable-filters="true" show-inactive="true" show-only-inactive="true" from-date="ctrl.fromDate" to-date="ctrl.toDate" user-selection-input="ctrl.userSelectionInputEmployee" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <time-accumulator-selection on-selected="ctrl.onTimeAccumulatorSelectionUpdated(selection)" label-key="common.balance" include-vacation-balance="true" include-work-time-account-balance="true" user-selection-input="ctrl.userSelectionInputTimeAccumulator" />
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="time.employee.accumulators.ownlimitmin" model="ctrl.ownLimitMinFormatted" update-on="blur" is-time="true" allow-empty="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="time.employee.accumulators.ownlimitmax" model="ctrl.ownLimitMaxFormatted" update-on="blur" is-time="true" allow-empty="true"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row margin-small-top">
+                    <div class="col-sm-6">
+                        <soe-checkbox label-key="time.employee.accumulators.onlyoutsidelimits" text-class="discreet" text-class-condition="true" model="ctrl.onlyOutsideLimits" on-changing="ctrl.onlyOutsideLimitsChanged()"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <soe-checkbox label-key="time.employee.accumulators.showemployesswithzerovalue" text-class="discreet" text-class-condition="true" model="ctrl.showEmployessWithZeroValue" on-changing="ctrl.showEmployessWithZeroValueChanged()"></soe-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div>
+            </div>
+            <div class="row pull-right margin-small-bottom">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-sm ngSoeMainButton margin-small-top margin-small-right" data-l10n-bind="'core.search'" data-l10n-bind-title="'core.search'" data-ng-disabled="ctrl.gridform.$invalid || ctrl.isSearching" data-ng-click="$event.stopPropagation();ctrl.search();"></button>
+                </div>
+            </div>
+        </soe-accordion>
+        <div class="noresult" data-ng-if="ctrl.allRows && ctrl.allRows.length === 0 && !ctrl.isSearching && ctrl.hasSearched" style="margin:0">
+            <div class="row">
+                <div class="col-sm-12">
+                    <span data-l10n-bind="'common.noresult'"></span>
+                </div>
+            </div>
+        </div>
+        <div data-ng-show="ctrl.currentSelectedRangeDescription && ctrl.currentAccTodayDescription">
+            <div class="row">
+                <div class="col-sm-4 margin-small-top">
+                    <div id="infoContainer" class="info">
+                        <div><span>{{ctrl.currentSelectedRangeDescription}}</span></div>
+                        <div><span>{{ctrl.currentAccTodayDescription}}</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </uib-accordion>
+</div>

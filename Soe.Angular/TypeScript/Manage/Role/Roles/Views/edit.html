@@ -1,0 +1,81 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="manage.role.role.role" is-open="true">
+                <div class="form-group form-group-sm" data-ng-if="ctrl.showConfigureInfo">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="info">
+                                <div>
+                                    <span class="indiscreet" data-l10n-bind="'manage.role.role.configure'"></span>
+                                </div>
+                                <div>
+                                    <span data-l10n-bind="'manage.role.role.configure.instructionrow1'"></span>
+                                </div>
+                                <div>
+                                    <span data-l10n-bind="'manage.role.role.configure.instructionrow2'"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <soe-textbox label-key="common.name" model="ctrl.role.name" required="true" maxlength="255" set-focus="true" delay="100" is-readonly="!ctrl.modifyPermission || ctrl.role.isAdmin"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <soe-textbox label-key="manage.role.role.externalcodes" model="ctrl.role.externalCodesString" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <soe-textbox label-key="manage.role.role.sort" model="ctrl.role.sort" is-readonly="!ctrl.modifyPermission"  numeric="true" decimals="0"></soe-textbox>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <div class="row" data-ng-if="ctrl.isNew && ctrl.editPermissionsPermission">
+                        <div class="col-sm-3">
+                            <soe-select label-key="manage.role.role.templaterole" model="ctrl.role.templateRoleId" items="ctrl.companyRoles" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <soe-select label-key="manage.role.role.startpage" model="ctrl.role.favoriteOption" items="ctrl.startPages" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                        </div>
+                        <div class="col-sm-3" data-ng-if="!ctrl.isNew">
+                            <soe-checkbox label-key="manage.role.role.updatestartpage" model="ctrl.role.updateStartPage" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <soe-checkbox label-key="common.active" model="ctrl.role.active"></soe-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="manage.user.user.log" data-ng-if="ctrl.roleId">
+                <entity-log-viewer entity="14" record-id="ctrl.role.roleId" only-change-log="true"></entity-log-viewer>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.role"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

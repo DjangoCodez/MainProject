@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_API" xmlns:b="http://schemas.microsoft.com/BizTalk/2003" elementFormDefault="qualified" targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_API" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://arbetsgivarintygtest.sverigesakassor.se/HR_SystemService/ArbetsgivarintygService.svc?xsd=xsd2" namespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_Bas" />
+  <xs:import schemaLocation="https://arbetsgivarintygtest.sverigesakassor.se/HR_SystemService/ArbetsgivarintygService.svc?xsd=xsd3" namespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp" />
+  <xs:annotation>
+    <xs:appinfo>
+      <b:references xmlns:b="http://schemas.microsoft.com/BizTalk/2003">
+        <b:reference targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_Bas" />
+        <b:reference targetNamespace="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp" />
+      </b:references>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:complexType name="APIAGPVersion">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="Version" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30" />
+            <xs:minLength value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="APIAGPVersion" nillable="true" type="tns:APIAGPVersion" />
+  <xs:complexType name="ArrayOfApiCertificate">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ApiCertifikat" nillable="true" type="tns:ApiCertificate" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertifikat" nillable="true" type="tns:ArrayOfApiCertificate">
+    <xs:annotation>
+      <xs:appinfo />
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ApiCertificate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Arbetsgivare" nillable="true" type="tns:ApiCertificate_CompanyBlock" />
+      <xs:element minOccurs="0" name="Avgangsvederlag" nillable="true" type="tns:ApiCertificate_CompensationBlock" />
+      <xs:element minOccurs="0" name="Anstallning" nillable="true" type="tns:ApiCertificate_EmploymentBlock" />
+      <xs:element minOccurs="0" name="Anstallningsform" nillable="true" type="tns:ApiCertificate_EmploymentFormBlock" />
+      <xs:element minOccurs="0" name="ErbjudandeOmFortsattArbete" nillable="true" type="tns:ApiCertificate_OfferOfContinuedWorkBlock" />
+      <xs:element minOccurs="0" name="OvrigUpplysning" nillable="true" type="tns:ApiCertificate_ExtraInformationBlock" />
+      <xs:element minOccurs="0" name="Upphorandeorsak" nillable="true" type="tns:ApiCertificate_ReasonEmploymentEndedBlock" />
+      <xs:element minOccurs="0" name="Lon" nillable="true" type="tns:ApiCertificate_SalaryBlock" />
+      <xs:element minOccurs="0" name="SpeciellAnstallningsinformation" nillable="true" type="tns:ApiCertificate_SpecificEmploymentInformationBlock" />
+      <xs:element minOccurs="0" name="Lararlon" nillable="true" type="tns:ApiCertificate_TeachersSalaryBlock" />
+      <xs:element minOccurs="0" name="ArbetadTid" nillable="true" type="tns:ApiCertificate_WorkedHoursBlock" />
+      <xs:element minOccurs="0" name="Arbetstagare" nillable="true" type="tns:ApiCertificate_WorkerBlock" />
+      <xs:element minOccurs="0" name="Arbetstid" nillable="true" type="tns:ApiCertificate_WorkingHoursBlock" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate" nillable="true" type="tns:ApiCertificate" />
+  <xs:complexType name="ApiCertificate_CompanyBlock">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp" minOccurs="0" name="Adress" nillable="true" type="q1:Adress" />
+      <xs:element minOccurs="1" name="Epostadress" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256" />
+            <xs:minLength value="3" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="1" name="Namn" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50" />
+            <xs:minLength value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="1" name="Organisationsnummer" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="16" />
+            <xs:minLength value="10" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="1" name="Telefonnummer" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15" />
+            <xs:minLength value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="AnvandRedanRegistreradInformation" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OvrigUpplysning" nillable="true" type="tns:ApiCertificate_ExtraInformationBlock" />
+      <xs:element minOccurs="1" maxOccurs="1" fixed="true" name="Samtycke">
+        <xs:simpleType>
+          <xs:restriction base="xs:boolean" />
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_CompanyBlock" nillable="true" type="tns:ApiCertificate_CompanyBlock" />
+  <xs:complexType name="ApiCertificate_CompensationBlock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IngattAvtal" nillable="true" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_CompensationBlock" nillable="true" type="tns:ApiCertificate_CompensationBlock" />
+  <xs:complexType name="ApiCertificate_EmploymentBlock">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="Befattning" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="60" />
+            <xs:minLength value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="ArbetstidOmfattning" nillable="true" type="xs:decimal" />
+      <xs:element xmlns:q2="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_Bas" minOccurs="0" name="AnstallningstidPeriod" nillable="true" type="q2:DatumOmfattning" />
+      <xs:element minOccurs="0" name="Tjanstledig" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Tjanstledigheter" nillable="true" type="tns:ArrayOfApiCertificate_EmploymentBlock_LeaveOfAbscenceRow" />
+      <xs:element minOccurs="0" name="FortfarandeAnstalld" nillable="true" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_EmploymentBlock" nillable="true" type="tns:ApiCertificate_EmploymentBlock" />
+  <xs:complexType name="ArrayOfApiCertificate_EmploymentBlock_LeaveOfAbscenceRow">
+    <xs:sequence minOccurs="0">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Tjanstledighet" nillable="true" type="tns:ApiCertificate_EmploymentBlock_LeaveOfAbscenceRow" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfApiCertificate_EmploymentBlock_LeaveOfAbscenceRow" nillable="true" type="tns:ArrayOfApiCertificate_EmploymentBlock_LeaveOfAbscenceRow" />
+  <xs:complexType name="ApiCertificate_EmploymentBlock_LeaveOfAbscenceRow">
+    <xs:sequence minOccurs="0">
+      <xs:element minOccurs="0" name="OmfattningProcent" nillable="true" type="xs:int" />
+      <xs:element xmlns:q3="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_Bas" minOccurs="0" name="Period" nillable="true" type="q3:DatumOmfattning" />
+      <xs:element minOccurs="0" name="Orsak" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256" />
+            <xs:minLength value="0" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_EmploymentBlock_LeaveOfAbscenceRow" nillable="true" type="tns:ApiCertificate_EmploymentBlock_LeaveOfAbscenceRow" />
+  <xs:complexType name="ApiCertificate_EmploymentFormBlock">
+    <xs:sequence minOccurs="0">
+      <xs:element minOccurs="0" name="TidsbegransadAnstallningSlutdatum" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ProvanstallningSlutdatum" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q4="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp" minOccurs="1" name="Typ" type="q4:AnstallningsformTyp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_EmploymentFormBlock" nillable="true" type="tns:ApiCertificate_EmploymentFormBlock" />
+  <xs:complexType name="ApiCertificate_ExtraInformationBlock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="OvrigUpplysning" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="512" />
+            <xs:minLength value="0" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_ExtraInformationBlock" nillable="true" type="tns:ApiCertificate_ExtraInformationBlock" />
+  <xs:complexType name="ApiCertificate_OfferOfContinuedWorkBlock">
+    <xs:all minOccurs="0" maxOccurs="1">
+      <xs:element minOccurs="0" name="DatumAvbojtErbjudande" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TimmarPerVeckaHeltid" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AccepteratErbjudande" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TillsvidareAnstallning" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FinnsErbjudande" nillable="true" type="xs:boolean" />
+      <xs:element xmlns:q5="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_Bas" minOccurs="0" name="FinnsErbjudandeOmfattning" nillable="true" type="q5:DatumOmfattning" />
+      <xs:element minOccurs="0" name="TimmarPerVeckaDeltid" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ProcentAvHeltid" nillable="true" type="xs:decimal" />
+      <xs:element xmlns:q6="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp" minOccurs="0" name="Arbetstid" type="q6:ArbetstidTyp" />
+    </xs:all>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_OfferOfContinuedWorkBlock" nillable="true" type="tns:ApiCertificate_OfferOfContinuedWorkBlock" />
+  <xs:complexType name="ApiCertificate_ReasonEmploymentEndedBlock">
+    <xs:sequence>
+      <xs:element xmlns:q7="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp" minOccurs="0" name="Orsak" type="q7:Orsak" />
+      <xs:element minOccurs="0" name="AnnanOrsak" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Beskedsdatum" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TidsbegransadAnstallningDatumBesked" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_ReasonEmploymentEndedBlock" nillable="true" type="tns:ApiCertificate_ReasonEmploymentEndedBlock" />
+  <xs:complexType name="ApiCertificate_SalaryBlock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Belopp" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AndraLonetillaggLista" nillable="true" type="tns:ArrayOfApiCertificate_SalaryBlock_ComplementWorkedHoursRow" />
+      <xs:element minOccurs="0" name="ExtraLon" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="VarierandeTimlon" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Mertidstillagg" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Overtidstillagg" nillable="true" type="xs:decimal" />
+      <xs:element xmlns:q8="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp" minOccurs="0" name="TypAvLon" type="q8:LoneTyp" />
+      <xs:element minOccurs="0" name="Ar" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_SalaryBlock" nillable="true" type="tns:ApiCertificate_SalaryBlock" />
+  <xs:complexType name="ArrayOfApiCertificate_SalaryBlock_ComplementWorkedHoursRow">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AndraLonetillaggRad" nillable="true" type="tns:ApiCertificate_SalaryBlock_ComplementWorkedHoursRow" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfApiCertificate_SalaryBlock_ComplementWorkedHoursRow" nillable="true" type="tns:ArrayOfApiCertificate_SalaryBlock_ComplementWorkedHoursRow" />
+  <xs:complexType name="ApiCertificate_SalaryBlock_ComplementWorkedHoursRow">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Belopp" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Dagar" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Beskrivning" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256" />
+            <xs:minLength value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Timmar" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Manad" type="xs:int" />
+      <xs:element xmlns:q9="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp" minOccurs="0" name="Lonetillaggstyp" type="q9:LoneTyper" />
+      <xs:element minOccurs="0" name="Ar" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_SalaryBlock_ComplementWorkedHoursRow" nillable="true" type="tns:ApiCertificate_SalaryBlock_ComplementWorkedHoursRow" />
+  <xs:complexType name="ApiCertificate_SpecificEmploymentInformationBlock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AnstalldBemanning" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Skiftarbete" nillable="true" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_SpecificEmploymentInformationBlock" nillable="true" type="tns:ApiCertificate_SpecificEmploymentInformationBlock" />
+  <xs:complexType name="ApiCertificate_TeachersSalaryBlock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Uppehallslon" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="UppehallslonBelopp" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Ferielon" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FerielonBelopp" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FerielonDagar" nillable="true" type="xs:int" />
+      <xs:element xmlns:q10="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_Bas" minOccurs="0" name="SemesterDatumOmfattning" nillable="true" type="q10:DatumOmfattning" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_TeachersSalaryBlock" nillable="true" type="tns:ApiCertificate_TeachersSalaryBlock" />
+  <xs:complexType name="ApiCertificate_WorkedHoursBlock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Undervisningstimmar" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Sjuklon" nillable="true" type="xs:boolean" />
+      <xs:element xmlns:q11="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp_Bas" minOccurs="0" name="ArbetadTidDatumOmfattning" nillable="true" type="q11:DatumOmfattning" />
+      <xs:element minOccurs="0" name="Undervisningstid" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ArbetadTidManader" nillable="true" type="tns:ArrayOfApiCertificate_WorkedHoursBlock_WorkedHoursRow" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_WorkedHoursBlock" nillable="true" type="tns:ApiCertificate_WorkedHoursBlock" />
+  <xs:complexType name="ArrayOfApiCertificate_WorkedHoursBlock_WorkedHoursRow">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ArbetadTidManad" nillable="true" type="tns:ApiCertificate_WorkedHoursBlock_WorkedHoursRow" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfApiCertificate_WorkedHoursBlock_WorkedHoursRow" nillable="true" type="tns:ArrayOfApiCertificate_WorkedHoursBlock_WorkedHoursRow" />
+  <xs:complexType name="ApiCertificate_WorkedHoursBlock_WorkedHoursRow">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Franvaro" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Manad" type="xs:int" />
+      <xs:element minOccurs="0" name="Mertid" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Overtid" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ArbetadeTimmar" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Ar" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_WorkedHoursBlock_WorkedHoursRow" nillable="true" type="tns:ApiCertificate_WorkedHoursBlock_WorkedHoursRow" />
+  <xs:complexType name="ApiCertificate_WorkerBlock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Epostadress" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="256" />
+            <xs:minLength value="3" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="1" name="Fornamn" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="20" />
+            <xs:minLength value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="1" name="Efternamn" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="35" />
+            <xs:minLength value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Telefonnummer" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15" />
+            <xs:minLength value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="SkickaSMS" type="xs:boolean" />
+      <xs:element minOccurs="1" name="Personnummer" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="16" />
+            <xs:minLength value="10" />
+            <xs:pattern value="\d{8}-+\d{4}" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_WorkerBlock" nillable="true" type="tns:ApiCertificate_WorkerBlock" />
+  <xs:complexType name="ApiCertificate_WorkingHoursBlock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ArbetstidHeltidTimmar" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ProcentAvHeltid" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ArbetstidDeltidTimmar" nillable="true" type="xs:decimal" />
+      <xs:element xmlns:q12="http://INT036_Lonesystem.Schemas.ArbetsgivarintygTyp" minOccurs="0" name="Typ" type="q12:ArbetstidTyp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiCertificate_WorkingHoursBlock" nillable="true" type="tns:ApiCertificate_WorkingHoursBlock" />
+  <xs:complexType name="APISoftwareInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Build" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" name="Supplier" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30" />
+            <xs:minLength value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="1" name="Version" nillable="true">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30" />
+            <xs:minLength value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="APISoftwareInfo" nillable="true" type="tns:APISoftwareInfo" />
+  <xs:complexType name="ArrayOfApiImportCertificateResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ApiImportCertificateResult" nillable="true" type="tns:ApiImportCertificateResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfApiImportCertificateResult" nillable="true" type="tns:ArrayOfApiImportCertificateResult" />
+  <xs:complexType name="ApiImportCertificateResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Certificate" nillable="true" type="tns:ApiCertificate" />
+      <xs:element minOccurs="0" name="Code" type="xs:int" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ApiImportCertificateResult" nillable="true" type="tns:ApiImportCertificateResult" />
+</xs:schema>

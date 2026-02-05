@@ -1,0 +1,52 @@
+﻿
+<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <button type="button" class="close margin-small-right" style="opacity:1;" data-l10n-bind-title="'common.download'" data-ng-disabled="!ctrl.isExistingContactPerson"><i class="fal fa-download" data-ng-click="ctrl.exportContactPerson()"></i></button>
+        <h6 class="modal-title">{{::ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-textbox label-key="common.firstname" model="ctrl.contactPerson.firstName"></soe-textbox>
+            </div>
+            <div class="col-sm-6">
+                <soe-textbox label-key="common.lastname" model="ctrl.contactPerson.lastName"></soe-textbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-textbox label-key="common.email" model="ctrl.contactPerson.email"></soe-textbox>
+            </div>
+            <div class="col-sm-6">
+                <soe-textbox label-key="common.phone" model="ctrl.contactPerson.phoneNumber"></soe-textbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-select label-key="common.contactperson.position" model="ctrl.contactPerson.position" items="ctrl.positions" options="item.id as item.name for item in items"></soe-select>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <categories category-type="4" category-record-entity="4" parent-guid="ctrl.guid" selected-categories="ctrl.contactPerson.categoryIds" nbr-of-rows="6" read-only="ctrl.isLocked"></categories>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-checkbox label-key="common.consent" data-l10n-bind data-l10n-bind-title="ctrl.consentToolTip" model="ctrl.hasConsent"></soe-checkbox>
+            </div>
+            <div class="col-sm-6">
+                <soe-datepicker label-key="common.consentdate" model="ctrl.contactPerson.consentDate" is-disabled="!ctrl.contactPerson.hasConsent"></soe-datepicker>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="col-sm-12">
+            <div class="ng-form pull-right">
+                <button type="button" class="btn btn-default " data-l10n-bind="'core.cancel'" data-ng-click="$event.stopPropagation();ctrl.cancel()"></button>
+                <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="$event.stopPropagation();ctrl.ok()" data-ng-disabled="!ctrl.validToSave"></button>
+            </div>
+        </div>
+    </div>
+</div>

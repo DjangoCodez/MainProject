@@ -1,0 +1,88 @@
+<soe-dialog>
+  <div [formGroup]="form" class="mx-3 my-2" dialog-content>
+    <div class="row">
+      <div class="col-sm-12">
+        @if (data.field?.enableValueMapping) {
+          <soe-select
+            [labelKey]="'common.importdynamic.defaultvalue'"
+            formControlName="defaultGenericTypeValueInt"
+            [items]="data.field?.availableValues ?? []"
+            (valueChanged)="defaultGenericTypeChanged($event)"></soe-select>
+        } @else {
+          @switch (data.field?.dataType) {
+            @case (1) {
+              <soe-textbox
+                [labelKey]="'common.importdynamic.defaultvalue'"
+                formControlName="defaultStringValue"></soe-textbox>
+            }
+            @case (2) {
+              <soe-numberbox
+                [labelKey]="'common.importdynamic.defaultvalue'"
+                formControlName="defaultIntValue"
+                [decimals]="0"></soe-numberbox>
+            }
+            @case (3) {
+              <soe-checkbox
+                [labelKey]="'common.importdynamic.defaultvalue'"
+                formControlName="defaultBoolValue"></soe-checkbox>
+            }
+            @case (4) {
+              <soe-datepicker
+                [labelKey]="'common.importdynamic.defaultvalue'"
+                formControlName="defaultDateTimeValue"></soe-datepicker>
+            }
+            @case (5) {
+              <soe-numberbox
+                [labelKey]="'common.importdynamic.defaultvalue'"
+                formControlName="defaultDecimalValue"
+                [decimals]="2"></soe-numberbox>
+            }
+          }
+        }
+      </div>
+    </div>
+    @if (
+      data.field?.enableValueMapping &&
+      data.uniqueValues &&
+      data.uniqueValues.length > 0
+    ) {
+      <div class="row mt-3">
+        <soe-label [labelKey]="'common.importdynamic.mapvalues'"></soe-label>
+      </div>
+      <div formArrayName="valueMappingControls" class="mt-1">
+        @for (
+          valueMapForm of form.valueMappingControls.controls;
+          track valueMapForm
+        ) {
+          <div class="row mt-2" [formGroup]="valueMapForm">
+            <div class="col-6">
+              <soe-textbox
+                [inline]="true"
+                formControlName="fieldName"></soe-textbox>
+            </div>
+            <div class="col-6">
+              <soe-select
+                [inline]="true"
+                [labelKey]="''"
+                [items]="data.field?.availableValues ?? []"
+                formControlName="fieldValue"
+                (valueChanged)="
+                  valueMapFieldValueChange($event, valueMapForm.fieldName.value)
+                "></soe-select>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+  <div dialog-footer>
+    <soe-button
+      [caption]="'core.cancel'"
+      [behaviour]="'standard'"
+      (action)="cancel()"></soe-button>
+    <soe-button
+      [caption]="'core.ok'"
+      [behaviour]="'primary'"
+      (action)="configureField()"></soe-button>
+  </div>
+</soe-dialog>

@@ -1,0 +1,75 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="'common.name'"
+              formControlName="name"
+              [maxLength]="100"
+              [required]="true">
+            </soe-textbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="'common.description'"
+              formControlName="description"
+              [maxLength]="512">
+            </soe-textbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'core.reportmenu.selection.access'"
+              [items]="accessTypes"
+              formControlName="accessType">
+            </soe-select>
+          </div>
+        </div>
+        @if (form.accessTypeIsRole || form.accessTypeIsMessageGroup) {
+          <div class="row">
+            <div class="col-sm-12">
+              @if (form.accessTypeIsRole) {
+                <soe-multi-select
+                  [labelKey]="'common.user.roles'"
+                  [items]="roles"
+                  [showSelectedItemsInline]="true"
+                  [dropUp]="true"
+                  [hideFilterButton]="true"
+                  formControlName="roleIds">
+                </soe-multi-select>
+              } @else if (form.accessTypeIsMessageGroup) {
+                <soe-multi-select
+                  [labelKey]="'manage.registry.receivergroups.receivergroups'"
+                  [items]="messageGroups"
+                  [showSelectedItemsInline]="true"
+                  [dropUp]="true"
+                  [hideFilterButton]="true"
+                  formControlName="messageGroupIds">
+                </soe-multi-select>
+              }
+            </div>
+          </div>
+        }
+      </form>
+    }
+  </ng-container>
+  <div dialog-footer>
+    <soe-button
+      class="ms-3"
+      [caption]="'core.cancel'"
+      (action)="cancel()"></soe-button>
+    <soe-save-button
+      class="ms-3"
+      [invalid]="!form.valid"
+      (validationErrorsAction)="form.openFormValidationErrors()"
+      (action)="initSave()"></soe-save-button></div
+></soe-dialog>

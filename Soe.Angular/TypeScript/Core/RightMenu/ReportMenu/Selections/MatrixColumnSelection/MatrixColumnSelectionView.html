@@ -1,0 +1,58 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="row horizontal-line-top">
+            <div class="col-sm-12 margin-large-top margin-large-bottom">
+                <div class="form-inline">
+                    <div class="form-group form-group-sm" style="height: 35px;">
+                        <span class="link" data-ng-class="{'accentColor': $ctrl.selectedModeIsAnalysis}" data-ng-click="$ctrl.selectedMode = 0">
+                            <span class="fal fa-table extraLargeFont" style="margin: 3px 5px 0 0;"></span>
+                            <span data-l10n-bind="'core.reportmenu.analysis'" class="indiscreet margin-large-right"></span>
+                        </span>
+                        <span class="link" data-ng-class="{'accentColor': $ctrl.selectedModeIsInsights}" data-ng-click="$ctrl.selectedMode = 1">
+                            <span class="fal fa-analytics extraLargeFont" style="margin: 3px 5px 0 0;"></span>
+                            <span data-l10n-bind="'core.reportmenu.insights'" class="indiscreet margin-large-right"></span>
+                        </span>
+                        <soe-select hidelabel="true" model="$ctrl.selectedInsight" items="$ctrl.insights" options="item as item.name for item in items" inline-block="true" input-width="200px" data-ng-if="$ctrl.selectedModeIsInsights" on-changing="$ctrl.insightChanged();"></soe-select>
+                        <span data-l10n-bind="'core.reportmenu.insights.charttype'" class="indiscreet margin-large-left margin-small-right" data-ng-if="$ctrl.selectedModeIsInsights"></span>
+                        <soe-select hidelabel="true" model="$ctrl.selectedChartType" items="$ctrl.possibleChartTypes" options="item.id as item.name for item in items" inline-block="true" input-width="200px" data-ng-if="$ctrl.selectedModeIsInsights" on-changing="$ctrl.propagateSelectionFromGUI();"></soe-select>
+                        <span data-l10n-bind="'common.value'" class="indiscreet margin-large-left margin-small-right" data-ng-if="$ctrl.showValueTypeSelector"></span>
+                        <soe-select hidelabel="true" model="$ctrl.selectedValueType" items="$ctrl.valueTypes" options="item.id as item.name for item in items" inline-block="true" input-width="100px" data-ng-if="$ctrl.showValueTypeSelector" on-changing="$ctrl.propagateSelectionFromGUI();"></soe-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-small-bottom" data-ng-hide="(!$ctrl.selectedModeIsAnalysis && !$ctrl.selectedModeIsInsights) || ($ctrl.selectedModeIsInsights && !$ctrl.hasInsightsModifyPermission)">
+            <div class="col-sm-12">
+                <div class="form-inline toolbar">
+                    <div class="row">
+                        <div class="col-sm-6 padding-none-right">
+                            <user-selections module="$ctrl.module" selection-type="$ctrl.selectionType" selections="$ctrl.selections" report-id="$ctrl.reportId" show-include-columns-selection="false" on-selected="$ctrl.reportUserSelectionChanged(reportUserSelection);"></user-selections>
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-sm btn-default" style="min-width: 120px;" data-ng-disabled="$ctrl.visiblePossibleColumns.length===0" data-ng-click="$ctrl.addAllColumns();"><span data-l10n-bind="'core.reportmenu.selection.matrix.addallcolumns'"></span><span class="fal fa-angle-double-right margin-small-left"></span></button>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 padding-small-left">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-default" style="min-width: 120px;" data-ng-disabled="$ctrl.selectedColumns.length===0" data-ng-click="$ctrl.deleteAllColumns();"><span class="fal fa-angle-double-left margin-small-right"></span><span data-l10n-bind="'core.reportmenu.selection.matrix.deleteallcolumns'"></span></button>
+                            </div>
+                            <div class="btn-group pull-right" style="font-size: 18px;" data-l10n-bind data-l10n-bind-title="'core.sorting'">
+                                <button type="button" class="btn btn-sm btn-default" data-ng-disabled="!$ctrl.selectedColumn || $ctrl.selectedColumnIsFirst" data-ng-click="$ctrl.sortFirst();"><span class="fal fa-angle-double-up"></span></button>
+                                <button type="button" class="btn btn-sm btn-default" data-ng-disabled="!$ctrl.selectedColumn || $ctrl.selectedColumnIsFirst" data-ng-click="$ctrl.sortUp();"><span class="fal fa-angle-up"></span></button>
+                                <button type="button" class="btn btn-sm btn-default" data-ng-disabled="!$ctrl.selectedColumn || $ctrl.selectedColumnIsLast" data-ng-click="$ctrl.sortDown();"><span class="fal fa-angle-down"></span></button>
+                                <button type="button" class="btn btn-sm btn-default" data-ng-disabled="!$ctrl.selectedColumn || $ctrl.selectedColumnIsLast" data-ng-click="$ctrl.sortLast();"><span class="fal fa-angle-double-down"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-ng-show="$ctrl.selectedModeIsAnalysis || $ctrl.selectedModeIsInsights">
+            <div class="col-sm-6 padding-none-right">
+                <div id="possible-columns-grid" ag-grid="$ctrl.gridHandlerPossibleColumns.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+            </div>
+            <div class="col-sm-6 padding-small-left">
+                <div id="selected-columns-grid" ag-grid="$ctrl.gridHandlerSelectedColumns.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</div>

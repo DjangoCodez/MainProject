@@ -1,0 +1,645 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [static]="true"
+      [labelKey]="'common.customer.customer.customer'">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-checkbox
+                [labelKey]="'common.active'"
+                [inline]="true"
+                formControlName="active">
+              </soe-checkbox>
+            </div>
+            <div class="col-sm-3">
+              <soe-checkbox
+                [labelKey]="'common.privateperson'"
+                [inline]="true"
+                formControlName="isPrivatePerson">
+              </soe-checkbox>
+            </div>
+            <div class="col-sm-3">
+              @if (form.isPrivatePerson.value) {
+                <soe-checkbox
+                  [labelKey]="'common.consent'"
+                  [inline]="true"
+                  formControlName="hasConsent">
+                </soe-checkbox>
+              }
+            </div>
+            <div class="row">
+              @if (form.isPrivatePerson.value) {
+                <div class="col-sm-offset-7 col-sm-4">
+                  <soe-datepicker
+                    [labelKey]="'common.consentdate'"
+                    formControlName="consentDate"></soe-datepicker>
+                </div>
+              }
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'common.customer.customer.customernr'"
+                formControlName="customerNr"></soe-textbox>
+            </div>
+            <div class="col-sm-8">
+              <soe-textarea
+                [labelKey]="'common.name'"
+                formControlName="name"></soe-textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'common.orgnr'"
+                formControlName="orgNr"></soe-textbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'common.customer.customer.vatnr'"
+                formControlName="vatNr"></soe-textbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'common.customer.customer.suppliernr'"
+                formControlName="supplierNr"></soe-textbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              @if (finvoicePermission) {
+                <soe-textbox
+                  [labelKey]="'common.customer.customer.departmentnr'"
+                  formControlName="departmentNr"></soe-textbox>
+              }
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.country'"
+                [selectedId]="form.value.sysCountryId"
+                [items]="countries"
+                formControlName="sysCountryId">
+              </soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.language'"
+                [selectedId]="form.value.sysLanguageId"
+                [items]="languages"
+                formControlName="sysLanguageId">
+              </soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.currency.vouchercurrency'"
+                [selectedId]="form.value.currencyId"
+                [items]="currencies"
+                formControlName="currencyId">
+              </soe-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="mt-2">
+                <div class="form-label-container d-flex align-items-center">
+                  <soe-label
+                    [labelKey]="'common.customer.customer.users'"></soe-label>
+                </div>
+                <div class="d-flex input-group">
+                  <div
+                    disabled
+                    class="form-control ng-pristine no-border-right-radius ng-valid ng-touched"
+                    style="height: auto">
+                    @for (
+                      user of form.value.customerUsers;
+                      track user;
+                      let i = $index;
+                      let first = $first;
+                      let last = $last
+                    ) {
+                      <span
+                        style="font-weight: bold"
+                        [ngStyle]="
+                          first
+                            ? { 'padding-right': '5px' }
+                            : { padding: '0px 5px' }
+                        "
+                        [ngClass]="user.main ? 'fw-bold' : 'fw-normal'"
+                        >{{ user.name }}{{ !last ? ',' : '' }}</span
+                      >
+                    }
+                  </div>
+                  <div
+                    class="d-flex align-center soe-button-group"
+                    style="margin-left: 0px">
+                    <soe-icon-button
+                      [disabled]="disabledParticipantButton()"
+                      [iconName]="'pen'"
+                      [tooltip]="'common.customer.customer.users.select'"
+                      (action)="openSelectUser()">
+                    </soe-icon-button>
+                    <!-- disable when partlyDelivered -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <soe-contact-addresses
+            [contactType]="1"
+            [form]="form"
+            [addresses]="form.contactAddresses.value"
+            [readOnly]="!flowHandler.modifyPermission()"
+            [allowShowSecret]="flowHandler.modifyPermission()"
+            [ignoreSys]="true"
+            (addressesChange)="
+              contactAddressesChanged($event)
+            "></soe-contact-addresses>
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel
+      [labelKey]="'common.contactperson.contactpersons'"
+      (isOpened)="contactExpanderRendered = true">
+      @if (contactExpanderRendered) {
+        <soe-contact-persons
+          [actorId]="form.actorCustomerId.value"
+          [form]="form"
+          (personsChange)="contactPersonsChanged($event)"></soe-contact-persons>
+      }
+    </soe-expansion-panel>
+
+    <soe-expansion-panel [labelKey]="'common.settings'">
+      <div class="col-sm-6">
+        <soe-expansion-panel
+          [labelKey]="'common.customer.customer.billing'"
+          [static]="true">
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.vattype'"
+                [items]="vatTypes"
+                formControlName="vatType"></soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.customer.customer.pricelist'"
+                [items]="priceLists"
+                formControlName="priceListTypeId"></soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.customer.customer.wholeseller'"
+                [items]="wholesellers"
+                formControlName="sysWholeSellerId"></soe-select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="'common.customer.customer.discountmerchandise'"
+                formControlName="discountMerchandise"></soe-numberbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="'common.customer.customer.discountservice'"
+                formControlName="discountService"></soe-numberbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="'common.customer.customer.creditlimit'"
+                formControlName="creditLimit"></soe-numberbox>
+            </div>
+          </div>
+          @if (isAdditionalDiscount) {
+            <div class="row">
+              <div class="col-sm-4">
+                <soe-numberbox
+                  [labelKey]="'common.customer.customer.discount2merchandise'"
+                  formControlName="discount2Merchandise"></soe-numberbox>
+              </div>
+              <div class="col-sm-4">
+                <soe-numberbox
+                  [labelKey]="'common.customer.customer.discount2service'"
+                  formControlName="discount2Service"></soe-numberbox>
+              </div>
+            </div>
+          }
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'common.customer.customer.invoicereference'"
+                formControlName="invoiceReference"></soe-textbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.customer.customer.invoicedeliverytype'"
+                [items]="invoiceDeliveryTypes"
+                formControlName="invoiceDeliveryType"></soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.customer.customer.invoicedefaultemail'"
+                [items]="emails"
+                formControlName="contactEComId"></soe-select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.customer.customer.orderdefaultemail'"
+                [items]="emails"
+                formControlName="orderContactEComId"></soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.customer.invoices.reminderemail'"
+                [items]="emails"
+                formControlName="reminderContactEComId"></soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.customer.customer.invoicedefaultgln'"
+                [items]="customerGLNs"
+                formControlName="contactGLNId"></soe-select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'common.customer.customer.contractnr'"
+                formControlName="contractNr"></soe-textbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.customer.invoices.invoicedeliveryprovider'"
+                [items]="invoiceDeliveryProviders"
+                formControlName="invoiceDeliveryProvider"></soe-select>
+            </div>
+            <div class="col-sm-4"></div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-textbox
+                [labelKey]="'common.customer.customer.invoicelabel'"
+                formControlName="invoiceLabel"></soe-textbox>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-3">
+              <soe-checkbox
+                [labelKey]="'common.customer.customer.disableinvoicefee'"
+                formControlName="disableInvoiceFee"></soe-checkbox>
+            </div>
+            <div class="col-sm-3">
+              <soe-checkbox
+                [labelKey]="'common.customer.customer.einvoiceattachments'"
+                formControlName="addAttachementsToEInvoice"></soe-checkbox>
+            </div>
+            <div class="col-sm-3">
+              <soe-checkbox
+                [labelKey]="
+                  'common.customer.invoices.addsupplierinvoicesoneinvoice'
+                "
+                formControlName="addSupplierInvoicesToEInvoice"></soe-checkbox>
+            </div>
+            <div class="col-sm-3">
+              <soe-checkbox
+                [labelKey]="'common.tripartitetrade'"
+                formControlName="triangulationSales"></soe-checkbox>
+            </div>
+          </div>
+        </soe-expansion-panel>
+        @if (finvoicePermission) {
+          <soe-expansion-panel
+            [labelKey]="'common.customer.customer.finvoice'"
+            [static]="true">
+            <div class="row">
+              <div class="col-sm-3">
+                <soe-checkbox
+                  [labelKey]="'common.customer.customer.finvoice.customer'"
+                  [inline]="true"
+                  formControlName="isFinvoiceCustomer"></soe-checkbox>
+              </div>
+              <div class="col-sm-4">
+                <soe-textbox
+                  [labelKey]="'common.customer.customer.finvoice.address'"
+                  formControlName="finvoiceAddress">
+                  <soe-icon-button
+                    [iconName]="'search'"
+                    [tooltip]="finvoiceLinkLabel"
+                    (action)="openFinvoiceAddressSearch()">
+                  </soe-icon-button>
+                </soe-textbox>
+              </div>
+              <div class="col-sm-4">
+                <soe-textbox
+                  [labelKey]="'common.customer.customer.finvoice.operator'"
+                  formControlName="finvoiceOperator"></soe-textbox>
+              </div>
+            </div>
+          </soe-expansion-panel>
+        }
+        <soe-expansion-panel
+          [labelKey]="'common.customer.customer.conditions'"
+          [static]="true">
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.customer.customer.deliverytype'"
+                [items]="deliveryTypes"
+                formControlName="deliveryTypeId"></soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.customer.customer.deliverycondition'"
+                [items]="deliveryConditions"
+                formControlName="deliveryConditionId"></soe-select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.customer.customer.paymentcondition'"
+                [items]="paymentConditions"
+                formControlName="paymentConditionId"></soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-numberbox
+                [labelKey]="'common.customer.customer.graceperioddays'"
+                formControlName="gracePeriodDays"></soe-numberbox>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-select
+                [labelKey]="'common.customer.customer.invoicepaymentservice'"
+                [items]="invoicePaymentServices"
+                formControlName="invoicePaymentService"></soe-select>
+            </div>
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'common.customer.customer.bankaccountnr'"
+                formControlName="bankAccountNr"></soe-textbox>
+            </div>
+            @if (useDeliveryCustomer) {
+              <div class="col-sm-3">
+                <soe-autocomplete
+                  [labelKey]="'common.customer.customer.payingcustomer'"
+                  formControlName="selectedPayingCustomer"
+                  [items]="customers"
+                  formControlName="payingCustomerId"
+                  [optionIdField]="'id'"
+                  [optionNameField]="'name'"></soe-autocomplete>
+              </div>
+              <div class="col-sm-1" style="padding-top: 24px">
+                <soe-icon-button
+                  [iconName]="'info-circle'"
+                  [iconClass]="'info'"
+                  [tooltip]="'common.customer.customer.customernote'"
+                  [noBorder]="false"
+                  (action)="showPayingCustomerNote()"></soe-icon-button>
+              </div>
+            }
+          </div>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-checkbox
+                [labelKey]="'common.customer.customer.iscashcustomer'"
+                formControlName="isCashCustomer"></soe-checkbox>
+            </div>
+            <div class="col-sm-4">
+              <soe-checkbox
+                [labelKey]="'common.customer.customer.onetimecustomer'"
+                formControlName="isOneTimeCustomer"></soe-checkbox>
+            </div>
+          </div>
+        </soe-expansion-panel>
+      </div>
+
+      <div class="col-sm-6">
+        <soe-expansion-panel
+          [labelKey]="'common.customer.customer.templates'"
+          [static]="true">
+          <div class="row">
+            <div class="col-sm-3">
+              <soe-select
+                [labelKey]="'common.customer.customer.agreementtemplate'"
+                [items]="agreementTemplates"
+                formControlName="agreementTemplate">
+              </soe-select>
+            </div>
+            <div class="col-sm-3">
+              <soe-select
+                [labelKey]="'common.customer.customer.offertemplate'"
+                [items]="offerTemplates"
+                formControlName="offerTemplate">
+              </soe-select>
+            </div>
+            <div class="col-sm-3">
+              <soe-select
+                [labelKey]="'common.customer.customer.ordertemplate'"
+                [items]="orderTemplates"
+                formControlName="orderTemplate">
+              </soe-select>
+            </div>
+            <div class="col-sm-3">
+              <soe-select
+                [labelKey]="'common.customer.customer.billingtemplate'"
+                [items]="billingTemplates"
+                formControlName="billingTemplate">
+              </soe-select>
+            </div>
+          </div>
+        </soe-expansion-panel>
+
+        <soe-expansion-panel
+          [labelKey]="'common.customer.customer.block'"
+          [static]="true">
+          <div class="row">
+            <div class="col-sm-3">
+              <soe-checkbox
+                [labelKey]="'common.customer.customer.blockorder'"
+                [inline]="true"
+                formControlName="blockOrder"
+                [inline]="true">
+              </soe-checkbox>
+            </div>
+            <div class="col-sm-3">
+              <soe-checkbox
+                [labelKey]="'common.customer.customer.blockinvoice'"
+                [inline]="true"
+                formControlName="blockInvoice"
+                [inline]="true">
+              </soe-checkbox>
+            </div>
+            <div class="col-sm-6">
+              <soe-textbox
+                [labelKey]="'common.customer.customer.blocknote'"
+                formControlName="blockNote"></soe-textbox>
+            </div>
+          </div>
+        </soe-expansion-panel>
+
+        <soe-categories
+          [categoryType]="2"
+          [form]="form"
+          [categoryIds]="form.categoryIds.value"
+          [readOnly]="!flowHandler.modifyPermission()"
+          (categoriesChange)="categoriesChanged($event)">
+        </soe-categories>
+
+        <soe-expansion-panel
+          [labelKey]="'common.connect.import'"
+          [static]="true">
+          <div class="row">
+            <div class="col-sm-3">
+              <soe-checkbox
+                [labelKey]="'common.customer.customer.importinvoicesdetailed'"
+                formControlName="importInvoicesDetailed">
+              </soe-checkbox>
+            </div>
+          </div>
+        </soe-expansion-panel>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-expansion-panel
+      [labelKey]="'common.customer.customer.accountsettings'"
+      (isOpened)="accountExpanderRendered = true">
+      @if (accountExpanderRendered) {
+        <div class="row">
+          <div class="col-sm-8">
+            <soe-accounting-settings
+              [hideAccordion]="false"
+              [settingTypes]="settingTypes"
+              [settings]="form.accountingSettings.value"
+              [showBaseAccount]="true"
+              [minRows]="3"
+              [maxRows]="3"
+              [readOnly]="!flowHandler.modifyPermission()"
+              [form]="form"
+              [baseAccounts]="baseAccounts"
+              (settingsChange)="
+                accountSettingsChanged($event)
+              "></soe-accounting-settings>
+          </div>
+        </div>
+      }
+    </soe-expansion-panel>
+    @if (!hideTaxDeductionContacts) {
+      <soe-expansion-panel
+        [labelKey]="'common.customer.customer.taxdeduction'"
+        (isOpened)="rotExpanderRendered = true">
+        @if (rotExpanderRendered) {
+          <soe-tax-deduction-contacts
+            [contacts]="taxDeductionContacts"
+            [form]="form"
+            [customerId]="this.form.actorCustomerId.value"
+            (contactChange)="
+              taxDeductionContactChanged($event)
+            "></soe-tax-deduction-contacts>
+        }
+      </soe-expansion-panel>
+    }
+
+    <soe-expansion-panel
+      [labelKey]="'common.customer.customer.products'"
+      (isOpened)="productsExpanderRendered = true">
+      @if (productsExpanderRendered) {
+        <div class="col-sm-6">
+          <soe-customer-products [form]="form"> </soe-customer-products>
+        </div>
+      }
+    </soe-expansion-panel>
+
+    <soe-expansion-panel [labelKey]="'common.note'">
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-textarea [rows]="5" formControlName="note"></soe-textarea>
+          <soe-checkbox
+            [labelKey]="'common.customer.customer.shownoteininvoice'"
+            formControlName="showNote"></soe-checkbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    @if (documentsPermission) {
+      <soe-expansion-panel
+        [open]="false"
+        [labelKey]="'core.document'"
+        [secondaryLabelKey]="filesHelper.nbrOfFilesStr()"
+        [secondaryLabelParantheses]="true"
+        (isOpened)="filesHelper.loadFilesOnOpen($event)">
+        <soe-file-display
+          [gridHeight]="130"
+          [uploadPermission]="filesHelper.getUploadPermission()"
+          (onReload)="filesHelper.loadFilesOnOpen(true)"
+          [helper]="filesHelper"></soe-file-display>
+      </soe-expansion-panel>
+    }
+
+    <soe-expansion-panel
+      [labelKey]="'common.statistics'"
+      (isOpened)="statisticsExpanderRendered = true">
+      @if (statisticsExpanderRendered) {
+        <div class="row">
+          <soe-customer-statistics
+            [customerId]="form.actorCustomerId.value"></soe-customer-statistics>
+        </div>
+      }
+    </soe-expansion-panel>
+
+    @if (hasExtraFieldPermission) {
+      <soe-expansion-panel
+        [labelKey]="'common.extrafields.extrafields'"
+        (isOpened)="onExtraFieldsExpanderOpenClose()">
+        @if (extraFieldsExpanderRendered) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-extra-fields-input
+                [recordId]="form.actorCustomerId.value"
+                [entity]="entityType"
+                [readOnly]="!flowHandler.modifyPermission()"
+                (recordsChange)="
+                  extraFieldsChanged($event)
+                "></soe-extra-fields-input>
+            </div>
+          </div>
+        }
+      </soe-expansion-panel>
+    }
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()">
+    </soe-edit-footer>
+  </form>
+}

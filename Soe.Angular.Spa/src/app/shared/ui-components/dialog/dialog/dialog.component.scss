@@ -1,0 +1,60 @@
+@use '../../../styles/core-styles/colors.scss';
+@use '../../../styles/core-styles/fonts.scss';
+@use '../../../styles/core-styles/variables.scss';
+
+.soe-dialog {
+  width: 79vw;
+
+  &.sm {
+    max-width: 300px;
+  }
+
+  &.md {
+    max-width: 600px;
+  }
+
+  &.lg {
+    max-width: 900px;
+  }
+
+  &.xl {
+    max-width: 1200px;
+  }
+
+  .soe-dialog-header {
+    height: 32px;
+    padding: 0.5rem;
+    border-radius: variables.$border-radius variables.$border-radius 0 0;
+    background-color: colors.$soe-header-background-color;
+    border-bottom: 1px solid colors.$soe-border-color;
+    cursor: move;
+
+    .soe-dialog-header__title {
+      font-size: fonts.$soe-font-size-lg;
+      font-weight: fonts.$font-weight-bold;
+    }
+
+    .btn {
+      border-width: 0px !important;
+    }
+  }
+
+  .soe-dialog__content {
+    max-height: 75vh;
+    overflow-y: auto;
+  }
+
+  .soe-dialog__footer {
+    padding: 0.5rem;
+    border-top: 1px solid colors.$soe-border-color;
+
+    &::ng-deep {
+      soe-save-button,
+      soe-delete-button,
+      soe-close-button,
+      soe-button {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+}

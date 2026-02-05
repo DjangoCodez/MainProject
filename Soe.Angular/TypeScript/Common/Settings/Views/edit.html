@@ -1,0 +1,81 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+
+        <div class="row margin-large-bottom">
+            <div class="col-sm-3">
+                <soe-textbox hidelabel="true" placeholder-key="core.search" model="ctrl.filterAll" use-ignore-dirty="true"></soe-textbox>
+            </div>
+        </div>
+        <div class="row margin-large-bottom">
+            <div class="col-sm-12">
+                <table class="table table-outer-bordered table-striped table-hover" style="table-layout: fixed;">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 10px;"></th>
+                            <th scope="col" style="width: 10px;"></th>
+                            <th scope="col">
+                                <soe-textbox label-key="common.usercompanysetting.grouplevel1" placeholder-key="core.filter" model="ctrl.filterGroupLevel1" use-ignore-dirty="true"></soe-textbox>
+                            </th>
+                            <th scope="col">
+                                <soe-textbox label-key="common.usercompanysetting.grouplevel2" placeholder-key="core.filter" model="ctrl.filterGroupLevel2" use-ignore-dirty="true"></soe-textbox>
+                            </th>
+                            <th scope="col">
+                                <soe-textbox label-key="common.usercompanysetting.grouplevel3" placeholder-key="core.filter" model="ctrl.filterGroupLevel3" use-ignore-dirty="true"></soe-textbox>
+                            </th>
+                            <th scope="col">
+                                <soe-textbox label-key="common.setting" placeholder-key="core.filter" model="ctrl.filterName" use-ignore-dirty="true"></soe-textbox>
+                            </th>
+                            <th scope="col" style="width: 60px; vertical-align: top;">
+                                <soe-label label-key="common.datatype"></soe-label>
+                            </th>
+                            <th scope="col" style="width: 300px; vertical-align: top;">
+                                <soe-label label-key="common.value"></soe-label>
+                            </th>
+                            <th scope="col" style="width: 28px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="setting in ctrl.filteredSettings track by setting.settingTypeId" data-ng-class="{'repeater-selected-row': ctrl.selectedSetting === setting}" style="height: 32px;" data-ng-click="ctrl.selectedSetting = setting">
+                            <td style="padding: 8px 8px 0px 8px;"><span class="fas fa-caret-right" style="margin: 2px 0px 0px 0px;" data-ng-if="ctrl.selectedSetting === setting"></span></td>
+                            <td style="padding: 8px 8px 0px 8px;"><span class="fal fa-asterisk errorColor smallFont" style="margin: 2px 0px 0px 0px;" data-ng-if="setting.isModified"></span></td>
+                            <td style="padding: 8px 8px 0px 8px;"><span>{{setting.groupLevel1}}</span></td>
+                            <td style="padding: 8px 8px 0px 8px;"><span>{{setting.groupLevel2}}</span></td>
+                            <td style="padding: 8px 8px 0px 8px;"><span>{{setting.groupLevel3}}</span></td>
+                            <td style="padding: 8px 8px 0px 8px;"><span>{{setting.name}}</span></td>
+                            <td style="padding: 8px 8px 0px 8px;"><span class="{{setting.icon}}"></span></td>
+                            <td style="padding: 8px 8px 0px 8px;" data-ng-if="ctrl.selectedSetting !== setting || !setting.isEditing" data-ng-click="setting.isEditing = true;">
+                                <span data-ng-if="(setting.userCompanySettingId || setting.isModified) && setting.dataType != 3">{{setting.value}}</span>
+                                <span data-ng-if="(setting.userCompanySettingId || setting.isModified) && setting.dataType == 3" class="fal" data-ng-class="{'{{setting.value}}':true}" style="font-size: 18px;"></span>
+                                <span data-ng-if="!setting.userCompanySettingId && !setting.isModified" class="errorColor indiscreet" data-l10n-bind="'common.valueunset'"></span>
+                            </td>
+                            <td style="padding: 0;" data-ng-if="ctrl.selectedSetting === setting && setting.isEditing">
+                                <soe-textbox data-ng-if="setting.dataType == 1" hidelabel="true" model="setting.stringValue" data-ng-model-options="{updateOn: 'blur'}" focus-on-show="true" on-change="ctrl.valueChanged(setting);"></soe-textbox>
+                                <soe-textbox data-ng-if="setting.dataType == 2 && !setting.options" hidelabel="true" model="setting.integerValue" data-ng-model-options="{updateOn: 'blur'}" numeric="true" decimals="0" focus-on-show="true" on-change="ctrl.valueChanged(setting);"></soe-textbox>
+                                <soe-select data-ng-if="setting.dataType == 2 && setting.options" hidelabel="true" model="setting.integerValue" items="setting.options" options="item.id as item.name for item in items" focus-on-show="true" on-changing="ctrl.valueChanged(setting);"></soe-select>
+                                <soe-checkbox data-ng-if="setting.dataType == 3" hidelabel="true" model="setting.booleanValue" data-ng-model-options="{updateOn: 'blur'}" focus-on-show="true" on-changing="ctrl.valueChanged(setting);" style="margin: -2px 0px -3px 20px;"></soe-checkbox>
+                                <soe-datepicker data-ng-if="setting.dataType == 4" hidelabel="true" model="setting.dateValue" focus-on-show="true" on-change="ctrl.valueChanged(setting);"></soe-datepicker>
+                                <soe-textbox data-ng-if="setting.dataType == 5" hidelabel="true" model="setting.decimalValue" data-ng-model-options="{updateOn: 'blur'}" numeric="true" decimals="2" focus-on-show="true" on-change="ctrl.valueChanged(setting);"></soe-textbox>
+                                <soe-timebox data-ng-if="setting.dataType == 6" hidelabel="true" model="setting.dateValue" focus-on-show="true" on-change="ctrl.valueChanged(setting);"></soe-timebox>
+                            </td>
+                            <td style="padding: 8px 8px 0px 8px;" data-ng-click="ctrl.showHistory(setting);"><span class="fal fa-history link" data-l10n-bind data-l10n-bind-title="'common.showhistory'"></span></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="9" class="right-align-cell">{{ctrl.footerInfo}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

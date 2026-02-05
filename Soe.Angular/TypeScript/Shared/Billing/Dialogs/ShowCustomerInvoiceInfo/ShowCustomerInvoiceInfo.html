@@ -1,0 +1,57 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonOkClick()">&times;</button>
+        <h6 class="modal-title">{{ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <soe-progressbar is-busy="ctrl.progressBusy"></soe-progressbar>
+        <div class="table-responsive table-outer-bordered" ng-if="!ctrl.progressBusy">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col" data-l10n-bind="'billing.project.timesheet.workedtime'"></th>
+                        <th scope="col" data-l10n-bind="'billing.project.timesheet.invoicedtime'"></th>
+                        <th scope="col" data-l10n-bind="'billing.project.central.costs'"></th>
+                        <th scope="col" data-l10n-bind="'common.income'"></th>
+                        <th scope="col" data-l10n-bind="'billing.productrows.marginalincome.short'"></th>
+                        <th scope="col" data-l10n-bind="'billing.productrows.marginalincomeratio.short'"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span data-l10n-bind="'common.material'"></span></td>
+                        <td><span class="pull-right margin-small-right"></span></td>
+                        <td><span class="pull-right margin-small-right"></span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.costMaterial}}</span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.incomeMaterial}}</span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.marginalIncomeMaterial}}</span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.marginalIncomeRatioMaterial | amount}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'common.time'"></span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.workedMinutes | minutesToTimeSpan}}</span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.billableMinutes | minutesToTimeSpan}}</span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.costPersonell}}</span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.incomePersonell}}</span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.marginalIncomePersonell}}</span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.marginalIncomeRatioPersonell | amount}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'common.total'"></span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.workedMinutes | minutesToTimeSpan}}</span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.billableMinutes | minutesToTimeSpan}}</span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.costTotal}}</span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.incomeTotal}}</span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.marginalIncomeTotal}}</span></td>
+                        <td><span class="pull-right margin-small-right">{{ctrl.summary.marginalIncomeRatioTotal | amount}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.buttonOkClick()"></button>
+    </div>
+</div>
+

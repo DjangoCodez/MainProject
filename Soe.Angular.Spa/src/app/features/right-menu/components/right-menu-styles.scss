@@ -1,0 +1,205 @@
+@use '../../../shared/styles/core-styles/colors.scss';
+@use '../../../shared/styles/core-styles/fonts.scss';
+@use '../../../shared/styles/core-styles/variables.scss';
+
+.right-menu-toggle {
+  --fa-counter-background-color: #1e1e1e; //$soe-text-color;
+  --fa-counter-scale: 0.75;
+
+  position: fixed;
+  right: 0px;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  border: 1px solid colors.$soe-border-color;
+  border-radius: variables.$button-border-radius 0 0
+    variables.$button-border-radius;
+  background-color: colors.$soe-color-secondary-medium-beige;
+  z-index: 100;
+  cursor: pointer;
+
+  fa-icon {
+    font-size: fonts.$soe-font-size-xl;
+    padding-top: 1px;
+    color: colors.$soe-text-color;
+  }
+
+  .fa-layers-counter {
+    color: colors.$soe-color-neutral-white;
+    background-color: colors.$soe-color-secondary-blue;
+    border-radius: 10px;
+    position: absolute;
+    left: -3px;
+    top: -3px;
+    padding: 2px 4px 0px 4px;
+  }
+}
+
+.right-menu-toggle:hover {
+  width: 36px;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.right-menu-toggle-disabled {
+  background-color: colors.$soe-disabled-background-color;
+
+  fa-icon {
+    color: colors.$soe-disabled-text-color;
+  }
+}
+
+.right-menu-toggle-disabled:hover {
+  width: 28px;
+  cursor: default;
+}
+
+.right-menu-toggle-active {
+  width: 36px;
+}
+
+.right-menu-toggle-fullscreen {
+  font-size: fonts.$soe-font-size-xxxl;
+  vertical-align: top;
+  margin-top: -3px;
+  margin-right: 8px;
+  height: 20px;
+  cursor: pointer;
+}
+
+@keyframes right-menu-toggle-blink {
+  0% {
+    width: 28px;
+  }
+
+  25% {
+    width: 32px;
+  }
+
+  50% {
+    width: 36px;
+  }
+
+  75% {
+    width: 32px;
+  }
+
+  100% {
+    width: 28px;
+  }
+}
+
+.right-menu-toggle-blink {
+  -moz-animation: right-menu-toggle-blink 1s linear infinite;
+  -o-animation: right-menu-toggle-blink 1s linear infinite;
+  -webkit-animation: right-menu-toggle-blink 1s linear infinite;
+  animation: right-menu-toggle-blink 1s linear infinite;
+}
+
+@keyframes right-menu-toggle-counter-blink {
+  0% {
+    color: white;
+  }
+
+  50% {
+    color: colors.$soe-color-primary;
+  }
+
+  100% {
+    color: white;
+  }
+}
+
+.right-menu-toggle-counter-blink {
+  -moz-animation: right-menu-toggle-counter-blink 1s linear infinite;
+  -o-animation: right-menu-toggle-counter-blink 1s linear infinite;
+  -webkit-animation: right-menu-toggle-counter-blink 1s linear infinite;
+  animation: right-menu-toggle-counter-blink 1s linear infinite;
+}
+
+.right-menu {
+  width: 25%;
+  height: 90vh;
+  float: right;
+  font-size: fonts.$soe-font-size-md;
+  margin-left: 8px;
+
+  &.fullscreen {
+    position: relative;
+    width: 100%;
+    z-index: 999;
+    margin-left: 0;
+  }
+
+  .panel.panel-default {
+    position: relative;
+    height: 100%;
+    margin-bottom: 0px;
+  }
+
+  .panel-heading {
+    color: colors.$soe-text-color;
+    background-color: colors.$soe-header-background-color;
+    border-color: colors.$soe-border-color;
+
+    height: 24px;
+    line-height: 22px;
+    padding: 0px 8px 0px 8px;
+
+    .panel-heading-button {
+      cursor: pointer;
+      float: right;
+      font-size: fonts.$soe-font-size-lg;
+      border: none;
+      background-color: transparent;
+      margin-left: 8px;
+
+      &:active {
+        outline: none;
+      }
+    }
+
+    .panel-heading-button-left {
+      float: left;
+      margin-left: 0px;
+      margin-right: 8px;
+    }
+
+    .panel-heading-button:hover {
+      color: colors.$secondary;
+    }
+
+    .panel-heading-button:disabled {
+      color: colors.$soe-disabled-text-color;
+      cursor: default;
+    }
+  }
+
+  .panel-body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 24px;
+    bottom: 0px;
+    padding: 0px;
+    overflow: hidden;
+    overflow-y: scroll;
+
+    .panel-body-button {
+      font-size: fonts.$soe-font-size-lg;
+      margin-left: 8px;
+    }
+
+    .panel-body-button-right {
+      float: right;
+      margin-left: 0px;
+      margin-right: 8px;
+    }
+  }
+
+  .icon-button.btn {
+    height: 24px !important;
+  }
+}

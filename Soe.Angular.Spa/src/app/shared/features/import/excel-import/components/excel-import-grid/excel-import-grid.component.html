@@ -1,0 +1,56 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    [toolbarGroups]="toolbarUtils.toolbarGroups">
+  </soe-grid-wrapper>
+  <div class="mx-2">
+    <div class="row" footer>
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <soe-expansion-panel [labelKey]="'core.import'" [static]="true">
+          <div class="row">
+            <soe-file-upload
+              formControlName="file"
+              [labelKey]="'common.selectfile'"
+              [multipleFiles]="false"
+              [asBinary]="true"
+              [hideDetails]="true"
+              [required]="true"
+              (afterFilesAttached)="afterFilesAttached($event)"
+              [showUploadButton]="false"></soe-file-upload>
+          </div>
+          <div class="row"></div>
+          <div class="row" style="margin-top: 30px">
+            <div class="col-sm-10">
+              <soe-checkbox
+                [labelKey]="'common.donotupdatewithempty'"
+                [secondaryLabelKey]="'common.mandatoryfieldsrequired'"
+                formControlName="doNotUpdateWithEmptyValues">
+              </soe-checkbox>
+            </div>
+            <div class="col-sm-2">
+              <soe-save-button
+                [title]="'core.import'"
+                [caption]="'core.import'"
+                [invalid]="form.invalid"
+                (action)="importFile()"
+                (validationErrorsAction)="
+                  form.openFormValidationErrors()"
+                class="pull-right">
+              </soe-save-button>
+            </div>
+          </div>
+        </soe-expansion-panel>
+
+        @if (conflicts && conflicts.length > 0) {
+          <excel-import-conflicts-grid
+            [conflictRows]="conflicts"></excel-import-conflicts-grid>
+        }
+      </form>
+    </div>
+  </div>
+}

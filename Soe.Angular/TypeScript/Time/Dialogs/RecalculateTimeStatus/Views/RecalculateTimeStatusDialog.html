@@ -1,0 +1,180 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <h6 class="modal-title" data-l10n-bind="'time.recalculatetimestatus'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row margin-small-bottom" data-ng-if="ctrl.activateMode">
+            <div class="col-sm-12">
+                <div data-ng-if="ctrl.progressMessage && !ctrl.errorMessage">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span data-ng-bind-html="ctrl.progressMessage"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="warning" data-ng-if="ctrl.errorMessage">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span data-ng-bind-html="ctrl.errorMessage"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-outer-bordered margin-large-bottom" data-ng-if="ctrl.activateMode">
+            <table class="table table-more-condensed table-hover" style="margin-bottom: 0;">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 120px;" data-l10n-bind="'common.status'"></th>
+                        <th scope="col" data-l10n-bind="'common.employee'"></th>
+                        <th scope="col" style="width: 100px;" data-l10n-bind="'common.from'"></th>
+                        <th scope="col" style="width: 100px;" data-l10n-bind="'common.to'"></th>
+                        <th scope="col" style="width: 20px;"></th>
+                        <th scope="col" style="width: 20px;"></th>
+                        <th scope="col" style="width: 20px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="record in ctrl.currentHead.records">
+                        <td>
+                            <i class="fal fa-fw smallFont" data-ng-class="{'fa-snooze': record.recalculateTimeRecordStatus==0, 'fa-clock': record.recalculateTimeRecordStatus==1, 'far fa-spinner fa-pulse': record.recalculateTimeRecordStatus==2, 'fa-check': record.recalculateTimeRecordStatus==3, 'fa-exclamation-triangle errorColor': record.recalculateTimeRecordStatus==4, 'fa-undo warningColor': record.recalculateTimeRecordStatus==5}"></i>
+                            <span class="margin-small-left">{{record.statusName}}</span>
+                        </td>
+                        <td><span>{{record.employeeName}}</span></td>
+                        <td><span>{{record.startDate | date:'shortDate'}}</span></td>
+                        <td><span>{{record.stopDate | date:'shortDate'}}</span></td>
+                        <td><i class="link fal fa-exclamation-circle warningColor" data-l10n-bind data-l10n-bind-title="'time.recalculatetimestatus.showwarnings'" data-ng-if="record.warningMsg" data-ng-click="ctrl.showWarningMessage(record);"></i></td>
+                        <td><i class="link fal fa-exclamation-triangle errorColor" data-l10n-bind data-l10n-bind-title="'time.recalculatetimestatus.showerrors'" data-ng-if="record.errorMsg" data-ng-click="ctrl.showErrorMessage(record);"></i></td>
+                        <td><i class="link fal fa-times iconDelete" data-l10n-bind data-l10n-bind-title="'time.recalculatetimestatus.cancel'" data-ng-if="ctrl.canCancel(ctrl.currentHead, record);" data-ng-click="ctrl.cancelRecord(record);"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row margin-small-bottom" data-ng-if="!ctrl.activateMode || ctrl.showAll">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <soe-checkbox label-key="time.recalculatetimestatus.showhistory" model="ctrl.showHistory" inline="true" on-changing="ctrl.showHistoryChanged();"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-3 padding-none-left">
+                        <soe-datepicker label-key="common.datefrom" model="ctrl.dateFrom" is-disabled="!ctrl.showHistory"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-3 padding-none-left">
+                        <soe-datepicker label-key="common.dateto" model="ctrl.dateTo" is-disabled="!ctrl.showHistory"></soe-datepicker>
+                    </div>
+                    <div class="col-sm-1 padding-none-left margin-large-top">
+                        <soe-label></soe-label>
+                        <i class="fal fa-sync link extraLargeFont" data-ng-class="{'fa-spin': ctrl.loading}" data-l10n-bind data-l10n-bind-title="'core.reload_data'" data-ng-click="ctrl.loadData()"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-5 col-sm-7 padding-none-left margin-small-top">
+                        <span data-l10n-bind="'time.recalculatetimestatus.showhistory.info'"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-small-bottom" data-ng-if="!ctrl.loading && (!ctrl.activateMode || ctrl.showAll)">
+            <div class="col-sm-12">
+                <div class="info">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span data-l10n-bind="'time.recalculatetimestatus.refreshinfo'"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-outer-bordered" data-ng-if="!ctrl.activateMode || ctrl.showAll">
+            <table class="table table-more-condensed table-hover" style="margin-bottom: 0;">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 20px;"><i class="link far smallFont" data-ng-class="{'fa-chevron-right': !ctrl.allHeadsExpanded, 'fa-chevron-down': ctrl.allHeadsExpanded}" data-ng-click="ctrl.expandAllHeads();"></i></th>
+                        <th scope="col" class="indiscreet" style="width: 120px;" data-l10n-bind="'common.status'"></th>
+                        <th scope="col" class="indiscreet" data-l10n-bind="'common.employees'"></th>
+                        <th scope="col" class="indiscreet" style="width: 100px;" data-l10n-bind="'core.created'"></th>
+                        <th scope="col" class="indiscreet" style="width: 160px;" data-l10n-bind="'core.createdby'"></th>
+                        <th scope="col" style="width: 24px;"></th>
+                    </tr>
+                </thead>
+                <tbody data-ng-repeat="head in ctrl.heads">
+                    <tr class="link" data-ng-click="ctrl.headExpanded(head);">
+                        <td>
+                            <span class="far smallFont" data-ng-class="{'fa-chevron-right': !head.expanded, 'fa-chevron-down': head.expanded}" data-ng-if="head.records.length>0"></span>
+                        </td>
+                        <td>
+                            <span class="fal fa-fw smallFont" data-ng-class="{'fa-clock': head.status==1, 'far fa-spinner fa-pulse': head.status==0 || head.status==2, 'fa-check': head.status==3, 'fa-exclamation-triangle errorColor': head.status==4, 'fa-undo warningColor': head.status==5}"></span>
+                            <span class="margin-small-left">{{head.statusName}}</span>
+                        </td>
+                        <td><span>{{head.records.length}}</span></td>
+                        <td><span>{{head.created | date:'shortDate'}} {{head.created | date:'shortTime'}}</span></td>
+                        <td><span>{{head.createdBy}}</span></td>
+                        <td>
+                            <i class="link fal fa-times iconDelete" data-l10n-bind data-l10n-bind-title="'time.recalculatetimestatus.cancelhead.ask.title'" data-ng-if="ctrl.canCancelHead(head);" data-ng-click="ctrl.cancelHead(head);"></i>
+                            <i class="link fal fa-check" data-l10n-bind data-l10n-bind-title="'time.recalculatetimestatus.setheadtoprocessed.ask.title'" data-ng-if="ctrl.canSetHeadToProcessed(head);" data-ng-click="ctrl.setHeadToProcessed(head);"></i>
+                        </td>
+                    </tr>
+
+                    <tr data-ng-if="head.records.length>0 && head.expanded">
+                        <td colspan="6" style="padding: 0px;">
+                            <table class="table table-more-condensed table-hover" style="margin: 0px;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 20px;"></th>
+                                        <th scope="col" style="width: 120px;" data-l10n-bind="'common.status'"></th>
+                                        <th scope="col" data-l10n-bind="'common.employee'"></th>
+                                        <th scope="col" style="width: 100px;" data-l10n-bind="'common.from'"></th>
+                                        <th scope="col" style="width: 100px;" data-l10n-bind="'common.to'"></th>
+                                        <th scope="col" style="width: 20px;"></th>
+                                        <th scope="col" style="width: 20px;"></th>
+                                        <th scope="col" style="width: 20px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="record in head.records">
+                                        <td></td>
+                                        <td>
+                                            <span class="fal fa-fw smallFont" data-ng-class="{'fa-snooze': record.recalculateTimeRecordStatus==0, 'fa-clock': record.recalculateTimeRecordStatus==1, 'far fa-spinner fa-pulse': record.recalculateTimeRecordStatus==2, 'fa-check': record.recalculateTimeRecordStatus==3, 'fa-exclamation-triangle errorColor': record.recalculateTimeRecordStatus==4, 'fa-undo warningColor': record.recalculateTimeRecordStatus==5}"></span>
+                                            <span class="margin-small-left italic">{{record.statusName}}</span>
+                                        </td>
+                                        <td><span class="italic">{{record.employeeName}}</span></td>
+                                        <td><span class="italic">{{record.startDate | date:'shortDate'}}</span></td>
+                                        <td><span class="italic">{{record.stopDate | date:'shortDate'}}</span></td>
+                                        <td><i class="link fal fa-exclamation-circle warningColor" data-l10n-bind data-l10n-bind-title="'time.recalculatetimestatus.showwarnings'" data-ng-if="record.warningMsg" data-ng-click="ctrl.showWarningMessage(record);"></i></td>
+                                        <td><i class="link fal fa-exclamation-triangle errorColor" data-l10n-bind data-l10n-bind-title="'time.recalculatetimestatus.showerrors'" data-ng-if="record.errorMsg" data-ng-click="ctrl.showErrorMessage(record);"></i></td>
+                                        <td><i class="link fal fa-times iconDelete" data-l10n-bind data-l10n-bind-title="'time.recalculatetimestatus.cancel'" data-ng-if="ctrl.canCancel(head, record);" data-ng-click="ctrl.cancelRecord(record);"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row margin-small-top" data-ng-if="ctrl.showHistory && !ctrl.overrideLimit && ctrl.heads.length === 20">
+            <div class="col-sm-12">
+                <div class="warning">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span data-l10n-bind="'time.recalculatetimestatus.showhistory.limitreached'"></span>
+                            <div class="pull-right" data-ng-if="ctrl.showOverrideLimit">
+                                <soe-checkbox label-key="time.recalculatetimestatus.showhistory.overridelimit" model="ctrl.overrideLimit" condensed="true" on-changing="ctrl.overrideLimitChanged();"></soe-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'time.recalculatetimestatus.showall'" data-ng-if="ctrl.activateMode && !ctrl.showAll" data-ng-click="ctrl.toggleShowAll();"></button>
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-disabled="ctrl.validating || ctrl.activating" data-ng-click="ctrl.close(ctrl.activateMode)"></button>
+    </div>
+</div>

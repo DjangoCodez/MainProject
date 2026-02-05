@@ -1,0 +1,12 @@
+@if (flowHandler.allowFetchGrid()) {
+<div class="row">
+  <div class="col-sm-12">
+    <soe-expansion-panel [labelKey]="'billing.products.product.stocks'" [noPadding]="true" [noMargin]="true"
+      [static]="true">
+      <soe-grid-wrapper [rows]="rowData" [height]="100" [parentGuid]="guid()" [noMargin]="true"
+        [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+      </soe-grid-wrapper>
+    </soe-expansion-panel>
+  </div>
+</div>
+}

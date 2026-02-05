@@ -1,0 +1,117 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <soe-checkbox
+        [labelKey]="'common.all'"
+        [checked]="form.value.isAll"
+        formControlName="isAll"
+        (valueChanged)="onIsAllChanged($event)">
+      </soe-checkbox>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          #codeField
+          [labelKey]="'common.code'"
+          [maxLength]="20"
+          [autoFocus]="true"
+          [required]="true"
+          formControlName="code">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-4">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          [required]="true"
+          formControlName="name">
+        </soe-textbox>
+      </div>
+      <div class="col-sm-6">
+        <soe-textbox
+          [labelKey]="'common.description'"
+          [maxLength]="512"
+          formControlName="description">
+        </soe-textbox>
+      </div>
+    </div>
+
+    <soe-expansion-panel
+      [labelKey]="'common.settings'"
+      [addTopMargin]="true"
+      [open]="false">
+      <div class="row">
+        <soe-checkbox
+          [labelKey]="'time.schedule.scheduletype.bilagaj'"
+          [checked]="form.value.isBilagaJ"
+          formControlName="isBilagaJ">
+        </soe-checkbox>
+      </div>
+      <div class="row">
+        <soe-checkbox
+          [labelKey]="'time.schedule.scheduletype.ignoreifextrashift'"
+          [checked]="form.value.ignoreIfExtraShift"
+          formControlName="ignoreIfExtraShift">
+        </soe-checkbox>
+      </div>
+      <div class="row">
+        <soe-checkbox
+          [labelKey]="'time.schedule.scheduletype.isnotscheduletime'"
+          [checked]="form.value.isNotScheduleTime"
+          formControlName="isNotScheduleTime"
+          (valueChanged)="onIsNotScheduleTimeChanged($event)">
+        </soe-checkbox>
+      </div>
+      <div class="row">
+        <soe-checkbox
+          [labelKey]="'time.schedule.scheduletype.usescheduletimefactor'"
+          [checked]="form.value.useScheduleTimeFactor"
+          formControlName="useScheduleTimeFactor"
+          (valueChanged)="onUseScheduleTimeFactorChanged($event)">
+        </soe-checkbox>
+      </div>
+      @if (form.value.useScheduleTimeFactor) {
+        <div class="row margin-large-top">
+          <div class="col-sm-4">
+            <soe-time-schedule-type-edit-factors-grid
+              [form]="form"></soe-time-schedule-type-edit-factors-grid>
+          </div>
+        </div>
+      }
+      <div class="row">
+        <soe-checkbox
+          [labelKey]="'time.schedule.scheduletype.showinterminal'"
+          [checked]="form.value.showInTerminal"
+          [hidden]="hideShowInTerminal()"
+          formControlName="showInTerminal">
+        </soe-checkbox>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'time.schedule.scheduletype.replacewithdeviationcause'"
+            [selectedId]="form.value.deviationCauseId"
+            [items]="timeDeviationCauses"
+            formControlName="timeDeviationCauseId">
+          </soe-select>
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      [showActive]="true"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

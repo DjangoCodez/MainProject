@@ -1,0 +1,62 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (editRowClicked)="edit($event)"
+    [toolbarGroups]="toolbarUtils.toolbarGroups"
+    [height]="600"
+    (editRowClicked)="editSupplierInvoice($event)">
+    <div class="container" header>
+      <div class="row">
+        <soe-supplier-central-header
+          [supplierCentralCountersAndBalances]="
+            supplierCentralCountersAndBalances
+          "
+          [supplierInput]="supplierInput"
+          [supplierInvoiceStatusForeignPermissionInput]="
+            supplierInvoiceStatusForeignPermissionInput
+          "
+          (openSupplierEdit)="
+            supplierEdit($event)
+          "></soe-supplier-central-header>
+      </div>
+      <div class="row" [formGroup]="supplierCentralGridForm">
+        <div class="col-sm-1">
+          <soe-checkbox
+            formControlName="loadOpen"
+            [labelKey]="'economy.supplier.invoice.loadopen'"></soe-checkbox>
+        </div>
+        <div class="col-sm-1">
+          <soe-checkbox
+            formControlName="loadClosed"
+            [labelKey]="'economy.supplier.invoice.loadclosed'"></soe-checkbox>
+        </div>
+        <div class="col-sm-2">
+          <soe-select
+            [items]="allItemsSelectionDict"
+            formControlName="allItemsSelection"
+            [inline]="true"></soe-select>
+        </div>
+      </div>
+    </div>
+    <div class="information-container m-2" footer>
+      <soe-grid-footer-amounts
+        [grid]="grid"
+        [rowData]="rowData"
+        [values]="[
+          {
+            changeOn: 'selection',
+            labelKey: 'economy.supplier.invoice.selelectedtotal',
+            incVatKey: 'totalAmount',
+            exVatKey: 'totalAmountExVat'
+          },
+          {
+            changeOn: 'filter',
+            labelKey: 'economy.supplier.invoice.total',
+            incVatKey: 'totalAmount',
+            exVatKey: 'totalAmountExVat'
+          }
+        ]"></soe-grid-footer-amounts>
+    </div>
+  </soe-grid-wrapper>
+}

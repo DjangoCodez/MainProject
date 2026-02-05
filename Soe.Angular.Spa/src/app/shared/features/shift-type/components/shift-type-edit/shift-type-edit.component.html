@@ -1,0 +1,221 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-select
+            [labelKey]="'common.type'"
+            [items]="timeScheduleTemplateBlockTypes || []"
+            [selectedId]="form.value.timeScheduleTemplateBlockTypes"
+            [autoFocus]="true"
+            formControlName="timeScheduleTemplateBlockType">
+          </soe-select>
+        </div>
+        <div class="col-sm-10 mt-4">
+          <soe-instruction [text]="typeInfo()" [fitToContent]="true">
+          </soe-instruction>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [maxLength]="100"
+            formControlName="name">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-10">
+          <soe-textbox
+            [labelKey]="'common.description'"
+            [maxLength]="512"
+            formControlName="description">
+          </soe-textbox>
+        </div>
+      </div>
+      @if (shiftTypeAccountDim) {
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'time.schedule.shifttype.linktoaccount'"
+              [items]="shiftTypeAccountDim.accounts || []"
+              [optionIdField]="'accountId'"
+              [optionNameField]="'numberName'"
+              [selectedId]="form.value.accountId"
+              formControlName="accountId"
+              (valueChanged)="linkedAccountChanged($event)">
+            </soe-select>
+          </div>
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="'common.number'"
+              maxlength="100"
+              formControlName="needsCode">
+            </soe-textbox>
+          </div>
+          @if (
+            !linkedToInactivatedAccountInfo() && this.form.value.accountId > 0
+          ) {
+            <div class="col-sm-2">
+              <div class="instruction-container">
+                <soe-instruction
+                  [text]="'time.schedule.shifttype.linkedtoaccount'"
+                  [inline]="true"></soe-instruction>
+              </div>
+            </div>
+          }
+          @if (
+            linkedToInactivatedAccountInfo() && this.form.value.accountId > 0
+          ) {
+            <div class="col-sm-2">
+              <div class="instruction-container">
+                <soe-instruction
+                  [text]="linkedToInactivatedAccountInfo()"
+                  [type]="'warning'"
+                  [inline]="true"
+                  [fitToContent]="true"></soe-instruction>
+              </div>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="'common.code'"
+              [maxLength]="100"
+              formControlName="needsCode">
+            </soe-textbox>
+          </div>
+        </div>
+      }
+      @if (timeScheduleTypeVisible()) {
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'time.schedule.scheduletype.scheduletype'"
+              [items]="timeScheduleTypes || []"
+              [selectedId]="form.value.timeScheduleTypeId"
+              formControlName="timeScheduleTypeId">
+            </soe-select>
+          </div>
+        </div>
+      }
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-colorpicker
+            [labelKey]="'time.schedule.shifttype.color'"
+            formControlName="color">
+          </soe-colorpicker>
+        </div>
+      </div>
+      @if (!urlService.isOrder) {
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-checkbox
+              [labelKey]="'time.schedule.shifttype.handlingmoney'"
+              formControlName="handlingMoney">
+            </soe-checkbox>
+          </div>
+        </div>
+      }
+      @if (urlService.isOrder) {
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-timebox
+              [labelKey]="'time.schedule.shifttype.defaultlength'"
+              formControlName="defaultLengthFormatted"
+              [leadingZero]="isLeadingZero()">
+            </soe-timebox>
+          </div>
+        </div>
+      }
+    </div>
+
+    <soe-expansion-panel
+      [addTopMargin]="true"
+      [labelKey]="'time.schedule.scheduletype.settings'">
+      <div class="row">
+        @if (useAccountHierarchy()) {
+          <div class="col-sm-6">
+            <soe-hierarchy-accounts-grid
+              [form]="form"
+              [defaultAccountDim]="
+                defaultEmployeeAccountDimEmployee()
+              "></soe-hierarchy-accounts-grid>
+          </div>
+        } @else {
+          <div class="col-sm-6">
+            <soe-categories
+              [categoryType]="6"
+              [form]="form"
+              [nbrOfRows]="5"
+              [categoryIds]="form.categoryIds.value"
+              [readOnly]="!flowHandler.modifyPermission()"
+              (categoriesChange)="categoriesChanged($event)"></soe-categories>
+          </div>
+        }
+        @if (!urlService.isOrder) {
+          <div class="col-sm-6" [class.margin-top-fix]="useAccountHierarchy()">
+            <soe-accounting-settings
+              [baseAccounts]="baseAccounts"
+              [settingTypes]="settingTypes"
+              [hideStdDim]="true"
+              [minRows]="3"
+              [readOnly]="false"
+              [form]="form"
+              [includeOrphanAccounts]="true"
+              [settings]="accountingSettings"
+              (settingsChange)="
+                accountSettingsChanged($event)
+              "></soe-accounting-settings>
+          </div>
+        }
+      </div>
+      @if (hasEmployeeStatisticsPermission()) {
+        <div class="row">
+          <div class="col-sm-6 pt-3">
+            <soe-employee-statistic-grid [form]="form">
+            </soe-employee-statistic-grid>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="'time.schedule.shifttype.externalcode'"
+              formControlName="externalCode">
+            </soe-textbox>
+          </div>
+        </div>
+      }
+    </soe-expansion-panel>
+
+    <soe-expansion-panel [labelKey]="'common.skills.skills'">
+      <div class="row">
+        <div class="col-sm-6">
+          <skills
+            [hideDate]="true"
+            [selectedSkills]="selectedSkills"
+            [form]="form"
+            (rowSelectionChanged)="skillsChanged($event)">
+          </skills>
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

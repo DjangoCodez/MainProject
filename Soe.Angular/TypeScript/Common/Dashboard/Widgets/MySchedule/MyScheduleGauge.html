@@ -1,0 +1,33 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div>
+        <div data-ng-if="!ctrl.widgetSettingsMode">
+            <div class="row">
+                <div class="col-sm-12">
+                    <schedule is-schedule-planning-mode="ctrl.isSchedulePlanningMode" is-order-planning-mode="ctrl.isOrderPlanningMode" employee="ctrl.employee" date-from="ctrl.dateFrom" date-to="ctrl.dateTo" show-open-shifts="ctrl.showOpenShifts" show-colleagues-shifts="ctrl.showColleaguesShifts" use-multiple-schedule-types="ctrl.useMultipleScheduleTypes" my-shifts="ctrl.myShifts" open-shifts="ctrl.openShifts" colleagues-shifts="ctrl.colleaguesShifts" on-edit-shift="ctrl.editShift(shift);" on-date-expanded="ctrl.loadAdditionalShifts(date, false);" on-reload-employee="ctrl.loadEmployee(true);" on-reload-shifts="ctrl.reload();"></schedule>
+                </div>
+            </div>
+        </div>
+        <div data-ng-if="ctrl.widgetSettingsMode" class="widget-settings">
+            <div class="row">
+                <div class="col-sm-3">
+                    <soe-textbox label-key="common.dashboard.myschedule.nbrofdaysahead" label-value="'0-28'" label-value-in-parentheses="true" model="ctrl.nbrOfDaysAhead" input-type="number" numeric="true" allow-empty="false" min="0" max="28" on-change="ctrl.validateSettings();"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <soe-textbox label-key="common.dashboard.myschedule.nbrofdaysback" label-value="'0-7'" label-value-in-parentheses="true" model="ctrl.nbrOfDaysBack" input-type="number" numeric="true" allow-empty="false" min="0" max="7" on-change="ctrl.validateSettings();"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <soe-checkbox label-key="common.dashboard.myschedule.showopenshifts" model="ctrl.showOpenShifts"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.seeOtherEmployeesShiftsPermission">
+                <div class="col-sm-3">
+                    <soe-checkbox label-key="common.dashboard.myschedule.showcolleaguesshifts" model="ctrl.showColleaguesShifts"></soe-checkbox>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

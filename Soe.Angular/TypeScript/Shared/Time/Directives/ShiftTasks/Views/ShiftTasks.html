@@ -1,0 +1,39 @@
+﻿<div>
+    <div data-ng-repeat="task in ctrl.activeTasks">
+        <div class="form-group form-group-sm">
+            <div data-ng-if="$first">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-label label-key="common.from"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label label-key="common.to"></soe-label>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-label label-key="common.name"></soe-label>
+                    </div>
+                    <div class="col-sm-4" data-ng-if="ctrl.showDesc">
+                        <soe-label label-key="common.description"></soe-label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-timepicker hidelabel="true" model="task.startTime" is-readonly="ctrl.isReadonly" changed="ctrl.startTimeChanged(task)"></soe-timepicker>
+                </div>
+                <div class="col-sm-2">
+                    <soe-timepicker hidelabel="true" model="task.stopTime" is-readonly="ctrl.isReadonly" changed="ctrl.stopTimeChanged(task)"></soe-timepicker>
+                </div>
+                <div class="col-sm-3">
+                    <soe-text model="task.name"></soe-text>
+                </div>
+                <div class="col-sm-4">
+                    <soe-text model="task.description"></soe-text>
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-link fal fa-times iconDelete pull-right" data-l10n-bind data-l10n-bind-title="'time.schedule.timescheduletask.freetask'" data-ng-click="$event.stopPropagation();ctrl.freeTask(task)"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

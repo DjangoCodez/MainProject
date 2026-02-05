@@ -1,0 +1,88 @@
+<div>
+  <form [formGroup]="accountingPrioForm">
+    <div class="row">
+      @if (showNumbering()) {
+        <div class="col-sm-4"></div>
+      }
+      <div class="col-sm-1"></div>
+      <div class="col-sm-7">
+        <soe-label [labelKey]="accountingLabelKey()"></soe-label>
+      </div>
+    </div>
+    <div class="row">
+      @if (showNumbering()) {
+        <div class="col-sm-4 mt-3">
+          <soe-label [labelKey]="'common.first'"></soe-label>
+        </div>
+      }
+      <div class="col-sm-8 mt-2">
+        <soe-select
+          [selectedId]="accountingPrioForm.value.accountingPrio1"
+          [items]="this.accountingPrioItems || []"
+          [inline]="true"
+          formControlName="accountingPrio1">
+        </soe-select>
+      </div>
+    </div>
+    <div class="row">
+      @if (showNumbering()) {
+        <div class="col-sm-4 mt-3">
+          <soe-label [labelKey]="'common.second'"></soe-label>
+        </div>
+      }
+      <div class="col-sm-8 mt-2">
+        <soe-select
+          [selectedId]="accountingPrioForm.value.accountingPrio2"
+          [items]="this.accountingPrioItems || []"
+          [inline]="true"
+          formControlName="accountingPrio2">
+        </soe-select>
+      </div>
+    </div>
+    <div class="row">
+      @if (showNumbering()) {
+        <div class="col-sm-4 mt-3">
+          <soe-label [labelKey]="'common.third'"></soe-label>
+        </div>
+      }
+      <div class="col-sm-8 mt-2">
+        <soe-select
+          [selectedId]="accountingPrioForm.value.accountingPrio3"
+          [items]="this.accountingPrioItems || []"
+          [inline]="true"
+          formControlName="accountingPrio3">
+        </soe-select>
+      </div>
+    </div>
+    <div class="row">
+      @if (showNumbering()) {
+        <div class="col-sm-4 mt-3">
+          <soe-label [labelKey]="'common.fourth'"></soe-label>
+        </div>
+      }
+      <div class="col-sm-8 mt-2">
+        <soe-select
+          [selectedId]="accountingPrioForm.value.accountingPrio4"
+          [items]="this.accountingPrioItems || []"
+          [inline]="true"
+          formControlName="accountingPrio4">
+        </soe-select>
+      </div>
+    </div>
+    <div class="row">
+      @if (showNumbering()) {
+        <div class="col-sm-4 mt-3">
+          <soe-label [labelKey]="'common.fifth'"></soe-label>
+        </div>
+      }
+      <div class="col-sm-8 mt-2">
+        <soe-select
+          [selectedId]="accountingPrioForm.value.accountingPrio5"
+          [items]="this.accountingPrioItems || []"
+          [inline]="true"
+          formControlName="accountingPrio5">
+        </soe-select>
+      </div>
+    </div>
+  </form>
+</div>

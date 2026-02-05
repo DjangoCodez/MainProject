@@ -1,0 +1,81 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [static]="true"
+      [labelKey]="'economy.supplier.attestgroup.attestgroup'">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            formControlName="attestGroupName">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.code'"
+            formControlName="attestGroupCode">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-checkbox
+            [labelKey]="'economy.supplier.invoice.sendattestmessage'"
+            formControlName="sendMessage"
+            [inline]="true">
+          </soe-checkbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [open]="true"
+      [labelKey]="'economy.supplier.attestgroup.attestflow'">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'economy.supplier.attestgroup.choosetemplate'"
+            [optionIdField]="'attestWorkFlowTemplateHeadId'"
+            formControlName="attestWorkFlowTemplateHeadId"
+            [items]="templates || []"
+            (valueChanged)="templateChanged($event)">
+          </soe-select>
+        </div>
+        <div class="col-sm-3">
+          <soe-select
+            [labelKey]="'economy.supplier.attestgroup.role_user'"
+            [formControl]="roleOrUser"
+            [items]="role_User">
+          </soe-select>
+        </div>
+      </div>
+      <div class="row">
+        @for (row of templateRows; track $index) {
+          <div class="col-sm-6">
+            <soe-user-selector-for-template-head-row
+              (rowChange)="rowChanged($event)"
+              [mode]="roleOrUser"
+              [row]="row"
+              [head]="attestGroup"
+              [attestWorkFlowTypes]="
+                attestWorkFlowTypes
+              "></soe-user-selector-for-template-head-row>
+          </div>
+        }
+      </div>
+    </soe-expansion-panel>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()">
+    </soe-edit-footer>
+  </form>
+}

@@ -1,0 +1,419 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal()" aria-hidden="true">&times;</button>
+        <h6 class="modal-title">{{ctrl.modalTitle}}</h6>
+    </div>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" ng-class="ctrl.isModal ? 'edit-padding': ''" customer-validation ng-model="ctrl.customer" is-contact-addresses-valid="ctrl.isContactAddressesValid">
+        <div class="row margin-large-bottom">
+            <div class="col-sm-6">
+                <div class="pull-left">
+                    <soe-toolbar buttons="ctrl.toolbar.navigationMenuButtons" hide-border="true" no-margin="true" data-ng-if="ctrl.showNavigationButtons"></soe-toolbar>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <soe-toolbar buttons="ctrl.toolbar.buttonGroups" hide-border="true" no-margin="true"></soe-toolbar>
+            </div>
+        </div>
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="common.customer.customer.customer" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-checkbox label-key="common.active" model="ctrl.customer.active"></soe-checkbox>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-checkbox label-key="common.privateperson" model="ctrl.customer.isPrivatePerson"></soe-checkbox>
+                            </div>
+                            <div class="col-sm-2">
+                                <soe-checkbox label-key="common.consent" model="ctrl.hasConsent" data-l10n-bind data-l10n-bind-title="ctrl.consentToolTip" data-ng-if="ctrl.customer.isPrivatePerson"></soe-checkbox>
+                            </div>
+                            <div class="row">
+                                <div class=" col-sm-offset-7 col-sm-4">
+                                    <soe-datepicker label-key="common.consentdate" model="ctrl.customer.consentDate" data-ng-if="ctrl.customer.isPrivatePerson" is-disabled="!ctrl.customer.hasConsent"></soe-datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.customer.customer.customernr" model="ctrl.customer.customerNr" required="true" maxlength="50"></soe-textbox>
+                            </div>
+                            <div class="col-sm-8">
+                                <soe-textarea label-key="common.name" model="ctrl.customer.name" required="true" maxlength="256" rows="2"></soe-textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.orgnr" model="ctrl.customer.orgNr" maxlength="50"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.customer.customer.vatnr" model="ctrl.customer.vatNr" maxlength="50"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.customer.customer.suppliernr" model="ctrl.customer.supplierNr"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.customer.customer.departmentnr" model="ctrl.customer.departmentNr" maxlength="5" data-ng-if="ctrl.finvoicePermission"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-select label-key="common.country" model="ctrl.customer.sysCountryId" items="ctrl.countries" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-select label-key="common.language" model="ctrl.customer.sysLanguageId" items="ctrl.languages" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-select label-key="common.currency.vouchercurrency" model="ctrl.customer.currencyId" items="ctrl.currencies" options="item.id as item.name for item in items"></soe-select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" data-ng-if="ctrl.modifyUsersPermission">
+                            <div class="col-sm-12 form-group">
+                                <soe-label label-key="common.customer.customer.users"></soe-label>
+                                <div class="input-group horizontal-list">
+                                    <div data-ng-repeat="user in ctrl.customer.customerUsers | orderBy:['-main', 'name']" class="horizontal-list-item">
+                                        <span data-ng-class="{indiscreet: $first}">{{user.name}}</span>
+                                        <span class="horizontal-list-item-separator" data-ng-if="!$last">, </span>
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-default iconEdit fal fa-pencil" data-l10n-bind data-l10n-bind-title="'common.customer.customer.users.select'" data-ng-click="$event.stopPropagation();ctrl.selectUsers()"></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <contact-addresses contact-type="1" address-rows="ctrl.customer.contactAddresses" read-only="!ctrl.modifyPermission" allow-show-secret="ctrl.modifyPermission" data-ng-if="ctrl.customer && ctrl.permissionsLoaded" is-valid="ctrl.isContactAddressesValid" validation-errors="ctrl.contactAddressesValidationErrors" parent-guid="ctrl.guid" ignore-sys="true" validate-deletion="true" entity-type="33"></contact-addresses>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.contactperson.contactpersons" on-open="ctrl.contactExpanderRendered = true">
+                <div class="form-group form-group-sm" ng-if="ctrl.contactExpanderRendered">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <contact-persons actor-id="ctrl.customer.actorCustomerId" contact-persons-for-actor-ids="ctrl.customer.contactPersons" data-ng-if="ctrl.customer" guid="ctrl.guid"></contact-persons>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.settings">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <soe-panel label-key="common.customer.customer.billing">
+                            <div class="form-group form-group-sm">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <soe-select label-key="common.vattype" model="ctrl.customer.vatType" items="ctrl.vatTypes" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-select label-key="common.customer.customer.pricelist" model="ctrl.customer.priceListTypeId" items="ctrl.priceLists" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-select label-key="common.customer.customer.wholeseller" model="ctrl.customer.sysWholeSellerId" items="ctrl.wholesellers" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <soe-textbox label-key="common.customer.customer.discountmerchandise" model="ctrl.customer.discountMerchandise" numeric="true" decimals="2"></soe-textbox>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-textbox label-key="common.customer.customer.discountservice" model="ctrl.customer.discountService" numeric="true" decimals="2"></soe-textbox>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-textbox label-key="common.customer.customer.creditlimit" model="ctrl.customer.creditLimit" numeric="true" decimals="2"></soe-textbox>
+                                    </div>
+                                </div>
+                                    <div class="row" ng-if="ctrl.isAdditionalDiscount">
+                                        <div class="col-sm-4">
+                                            <soe-textbox label-key="common.customer.customer.discount2merchandise" model="ctrl.customer.discount2Merchandise" numeric="true" decimals="2"></soe-textbox>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-textbox label-key="common.customer.customer.discount2service" model="ctrl.customer.discount2Service" numeric="true" decimals="2"></soe-textbox>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <soe-textbox label-key="common.customer.customer.invoicereference" model="ctrl.customer.invoiceReference" maxlength="50"></soe-textbox>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-select label-key="common.customer.customer.invoicedeliverytype" model="ctrl.customer.invoiceDeliveryType" items="ctrl.invoiceDeliveryTypes" options="item.id as item.name for item in items"></soe-select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-select label-key="common.customer.customer.invoicedefaultemail" model="ctrl.customer.contactEComId" items="ctrl.emails" options="item.id as item.name for item in items"></soe-select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <soe-select label-key="common.customer.customer.orderdefaultemail" model="ctrl.customer.orderContactEComId" items="ctrl.emails" options="item.id as item.name for item in items"></soe-select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-select label-key="common.customer.invoices.reminderemail" model="ctrl.customer.reminderContactEComId" items="ctrl.emails" options="item.id as item.name for item in items"></soe-select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-select label-key="common.customer.customer.invoicedefaultgln" model="ctrl.customer.contactGLNId" items="ctrl.customerGLNs" options="item.id as item.name for item in items"></soe-select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <soe-textbox label-key="common.customer.customer.contractnr" model="ctrl.customer.contractNr" maxlength="100"></soe-textbox>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <soe-select label-key="common.customer.invoices.invoicedeliveryprovider" model="ctrl.customer.invoiceDeliveryProvider" items="ctrl.invoiceDeliveryProviders" options="item.id as item.name for item in items" data-ng-if="ctrl.useInvoiceDeliveryProvider"></soe-select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <soe-textbox label-key="common.customer.customer.invoicelabel" model="ctrl.customer.invoiceLabel" maxlength="1024"></soe-textbox>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <soe-checkbox label-key="common.customer.customer.disableinvoicefee" model="ctrl.customer.disableInvoiceFee"></soe-checkbox>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <soe-checkbox label-key="common.customer.customer.einvoiceattachments" model="ctrl.customer.addAttachementsToEInvoice"></soe-checkbox>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <soe-checkbox label-key="common.customer.invoices.addsupplierinvoicesoneinvoice" model="ctrl.customer.addSupplierInvoicesToEInvoice"></soe-checkbox>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <soe-checkbox label-key="common.tripartitetrade" model="ctrl.customer.triangulationSales"></soe-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+</soe-panel>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.finvoicePermission">
+                        <soe-panel label-key="common.customer.customer.finvoice">
+                            <div class="form-group form-group-sm">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <soe-checkbox label-key="common.customer.customer.finvoice.customer" model="ctrl.customer.isFinvoiceCustomer" inline="true"></soe-checkbox>
+                                    </div>
+                                    <div class="col-sm-1" style="padding-top: 27px;">
+                                        <a ng-href="{{ ctrl.getFinvoiceSearchUrl() }}" data-l10n-bind="" data-l10n-bind-title="'common.customer.customer.finvoice.search'" target="_blank">
+                                            <span class="fal fa-globe-europe"></span>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-textbox label-key="common.customer.customer.finvoice.address" model="ctrl.customer.finvoiceAddress" maxlength="30" is-disabled="!ctrl.customer.isFinvoiceCustomer"></soe-textbox>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-textbox label-key="common.customer.customer.finvoice.operator" model="ctrl.customer.finvoiceOperator" maxlength="30" is-disabled="!ctrl.customer.isFinvoiceCustomer"></soe-textbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </soe-panel>
+                    </div>
+                    <div class="row">
+                        <soe-panel label-key="common.customer.customer.conditions">
+                            <div class="form-group form-group-sm">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <soe-select label-key="common.customer.customer.deliverytype" model="ctrl.customer.deliveryTypeId" items="ctrl.deliveryTypes" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-select label-key="common.customer.customer.deliverycondition" model="ctrl.customer.deliveryConditionId" items="ctrl.deliveryConditions" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <soe-select label-key="common.customer.customer.paymentcondition" model="ctrl.customer.paymentConditionId" items="ctrl.paymentConditions" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-textbox label-key="common.customer.customer.graceperioddays" model="ctrl.customer.gracePeriodDays" input-type="number"></soe-textbox>
+                                    </div>
+                                    <!--<div class="col-sm-4">
+                                <soe-textbox label-key="common.customer.customer.paymentmorale" model="ctrl.customer.paymentMorale" input-type="number"></soe-textbox>
+                            </div>-->
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <soe-select label-key="common.customer.customer.invoicepaymentservice" model="ctrl.customer.invoicePaymentService" items="ctrl.invoicePaymentServices" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-textbox label-key="common.customer.customer.bankaccountnr" model="ctrl.customer.bankAccountNr" maxlength="30"></soe-textbox>
+                                    </div>
+                                    <div class="col-sm-3" data-ng-if="ctrl.useDeliveryCustomer">
+                                        <soe-typeahead label-key="common.customer.customer.payingcustomer" model="ctrl.selectedPayingCustomer" items="ctrl.customers" options="item as item.name for item in items"></soe-typeahead>
+                                    </div>
+                                    <div class="col-sm-1" data-ng-if="ctrl.useDeliveryCustomer">
+                                        <soe-label class="margin-small-bottom"></soe-label>
+                                        <button type="button" class="btn btn-sm btn-default fal fa-info-circle infoColor" data-l10n-bind data-l10n-bind-title="'common.customer.customer.customernote'" data-ng-click="$event.stopPropagation();ctrl.showPayingCustomerNote()"></button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <soe-checkbox label-key="common.customer.customer.iscashcustomer" model="ctrl.customer.isCashCustomer"></soe-checkbox>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-checkbox label-key="common.customer.customer.onetimecustomer" model="ctrl.customer.isOneTimeCustomer"></soe-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </soe-panel>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row margin-small-left">
+                        <soe-panel label-key="common.customer.customer.templates">
+                            <div class="form-group form-group-sm">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <soe-select label-key="common.customer.customer.agreementtemplate" model="ctrl.customer.agreementTemplate" items="ctrl.agreementTemplates" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <soe-select label-key="common.customer.customer.offertemplate" model="ctrl.customer.offerTemplate" items="ctrl.offerTemplates" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <soe-select label-key="common.customer.customer.ordertemplate" model="ctrl.customer.orderTemplate" items="ctrl.orderTemplates" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <soe-select label-key="common.customer.customer.billingtemplate" model="ctrl.customer.billingTemplate" items="ctrl.billingTemplates" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </soe-panel>
+                    </div>
+                    <div class="row margin-small-left">
+                        <soe-panel label-key="common.customer.customer.block">
+                            <div class="form-group form-group-sm">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <soe-checkbox label-key="common.customer.customer.blockorder" model="ctrl.customer.blockOrder" inline="true"></soe-checkbox>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <soe-checkbox label-key="common.customer.customer.blockinvoice" model="ctrl.customer.blockInvoice" inline="true"></soe-checkbox>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <soe-textbox label-key="common.customer.customer.blocknote" model="ctrl.customer.blockNote" maxlength="30"></soe-textbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </soe-panel>
+                    </div>
+                    <div class="row margin-small-left margin-small-bottom">
+                        <categories category-type="2" category-record-entity="2" parent-guid="ctrl.guid" selected-categories="ctrl.customer.categoryIds" read-only="ctrl.readOnly"></categories>
+                    </div>
+                    <div class="row margin-small-left">
+                        <soe-panel label-key="common.connect.import">
+                            <div class="form-group form-group-sm">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <soe-checkbox label-key="common.customer.customer.importinvoicesdetailed" model="ctrl.customer.importInvoicesDetailed"></soe-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </soe-panel>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.customer.customer.accountsettings" on-open="ctrl.accountExpanderRendered = true">
+                <div class="form-group form-group-sm" ng-if="ctrl.accountExpanderRendered">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <accounting-settings setting-types="ctrl.settingTypes" settings="ctrl.customer.accountingSettings" base-accounts="ctrl.baseAccounts" show-base-account="true" min-rows="3" read-only="ctrl.readOnly" parent-guid="ctrl.guid"></accounting-settings>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.customer.customer.taxdeduction" on-open="ctrl.openRotExpander()" ng-if="!ctrl.hideTaxDeductionContacts">
+                <div class="form-group form-group-sm" ng-if="ctrl.rotExpanderRendered">
+                    <div class="btn-toolbar">
+                        <div class="row">
+                            <div>
+                                <div class="col margin-large-right pull-right">
+                                    <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'common.customer.customer.rot.new'" data-l10n-bind-title="'common.customer.customer.rot.register'" data-ng-click="ctrl.addRot()" ng-if="ctrl.modifyPermission && ctrl.modifyHHTDApplicantsPermission"></button>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col margin-large-right pull-right">
+                                    <soe-checkbox label-key="common.customer.invoices.showallapplicants" model="ctrl.showAllApplicants" use-ignore-dirty="true" is-readonly="ctrl.readOnly"></soe-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div ag-grid="ctrl.rotGridOptions.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.customer.customer.products" on-open="ctrl.productsExpanderRendered = true">
+                <div class="form-group form-group-sm" ng-if="ctrl.productsExpanderRendered">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <customer-products rows="ctrl.customer.customerProducts" read-only="!ctrl.modifyPermission"></customer-products>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.note">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-textarea hidelabel="true" model="ctrl.customer.note" rows="5"></soe-textarea>
+                            <soe-checkbox label-key="common.customer.customer.shownoteininvoice" model="ctrl.customer.showNote"></soe-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="core.document" label-value="ctrl.filesHelper.nbrOfFiles" label-value-in-parentheses="true" on-open="ctrl.filesHelper.loadFiles(ctrl.inventoryId)" is-open="ctrl.documentExpanderIsOpen" ng-if="ctrl.documentsPermission">
+                <div class="row form-group form-group-sm">
+                    <div class="col-sm-12">
+                        <soe-file-display files="ctrl.filesHelper.files" nbr-of-files-changed="ctrl.filesHelper.nbrOfFilesChanged(nbrOfFiles)" file-name-changed="ctrl.filesHelper.fileNameChanged(file)" read-only="ctrl.isLocked"></soe-file-display>
+                        <soe-file-upload callback="ctrl.filesHelper.fileUploadedCallback(result)" entity="{{::ctrl.filesHelper.entity}}" image-type="{{::ctrl.filesHelper.type}}" read-only="ctrl.isLocked"></soe-file-upload>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.statistics" on-open="ctrl.openStatisticsExpander()">
+                <div class="form-group form-group-sm" ng-if="ctrl.statisticsExpanderRendered">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <soe-toolbar buttons="ctrl.statisticsGridButtonGroups">
+                                <soe-select hidelabel="true" model="ctrl.allItemsSelection" items="ctrl.allItemsSelectionDict" use-ignore-dirty="true" options="item.id as item.name for item in items"></soe-select>
+                            </soe-toolbar>
+                        </div>
+                        <div class="row">
+                            <div id="statistics-grid" ag-grid="ctrl.statisticsGrid.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+                            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                            <data-ng-include src="ctrl.customerStatisticsGridFooterComponentUrl" />
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.extrafields.extrafields" is-open="false" ng-if="ctrl.showExtraFieldsExpander" on-open="ctrl.onExtraFieldsExpanderOpenClose()" on-close="ctrl.onExtraFieldsExpanderOpenClose()">
+                <div class="form-group form-group-sm" ng-if="ctrl.extraFieldsExpanderRendered">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <extra-fields record-id="ctrl.customerId" entity="33" read-only="!ctrl.modifyPermission" parent-guid="ctrl.guid" extra-field-records="ctrl.extraFieldRecords"></extra-fields>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+        <div class="ngSoeFormFooter" data-ng-class="{'modal-margin': ctrl.isModal}">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.customer"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

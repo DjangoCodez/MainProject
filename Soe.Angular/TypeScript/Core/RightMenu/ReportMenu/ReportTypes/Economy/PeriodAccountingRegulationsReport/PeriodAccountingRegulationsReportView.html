@@ -1,0 +1,14 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <bool-selection label-key="common.report.selection.date" on-selected="$ctrl.onDateSelectionSelected(selection)" user-selection-input="$ctrl.dateIsSelectedDTO"></bool-selection>
+    </div>
+    <div class="col-sm-12" data-ng-show="$ctrl.showRange">
+        <accounting-year-and-period-range-selection on-interval-from-selected="$ctrl.intervalFromChanged(selection)" on-interval-to-selected="$ctrl.intervalToChanged(selection)" selected-range-from="$ctrl.accountPeriodFrom" selected-range-to="$ctrl.accountPeriodTo"></accounting-year-and-period-range-selection>
+    </div>
+    <div class="col-sm-8" data-ng-show="!$ctrl.showRange">
+        <date-selection show-range="true" as-range="true" label-key="common.datefrom" additional-label-key="common.dateto" on-selected="$ctrl.onDateRangeSelected(selection)" user-selection-input="$ctrl.selectedDateRange"></date-selection>
+    </div>    
+    <div class="col-sm-12">
+        <account-range-selection filter-ranges="$ctrl.rangeFilters" selectable-range-names="$ctrl.selectableRangeNames"></account-range-selection>
+    </div>
+ </div>

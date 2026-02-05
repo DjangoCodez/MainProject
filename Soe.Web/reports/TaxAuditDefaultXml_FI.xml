@@ -1,0 +1,69 @@
+<?xml version="1.0" standalone="yes"?>
+<SOE_TaxAudit_FI>
+  <xs:schema id="SOE_TaxAudit_FI" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="SOE_TaxAudit_FI" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="TaxAudit_FI">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Company" type="xs:string" minOccurs="0" />
+                <xs:element name="CompanyOrgNr" type="xs:string" minOccurs="0" />
+                <xs:element name="TaxVatPeriod" type="xs:string" minOccurs="0" />                
+                <xs:element name="TaxType" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="TypeCode" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="Account" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="AccountNr" type="xs:string" minOccurs="0" />
+                                  <xs:element name="AccountName" type="xs:string" minOccurs="0" />
+                                  <xs:element name="AccountBalancechangePeriod" type="xs:decimal" minOccurs="0" />
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                          <xs:attribute name="id" type="xs:string" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="id" type="xs:string" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <TaxAudit_FI>
+    <Company />
+    <CompanyOrgNr />
+    <TaxVatPeriod />    
+    <TaxType id="301">      
+    <TypeCode id="301_1">
+    <Account>
+      <AccountNr>3000</AccountNr>
+      <AccountName>Myynti alv 24%</AccountName>
+      <AccountBalancechangePeriod>80.65</AccountBalancechangePeriod>
+    </Account>
+    <Account>
+      <AccountNr>3212</AccountNr>
+      <AccountName>Marginaaliveron peruste</AccountName>
+      <AccountBalancechangePeriod>241.94</AccountBalancechangePeriod>
+    </Account>    
+    </TypeCode>
+    <TypeCode id="301_2">
+    <Account>
+      <AccountNr>4960</AccountNr>
+      <AccountName>Palveluostot 24% EU:n ulkopuolelta</AccountName>
+      <AccountBalancechangePeriod>68.55</AccountBalancechangePeriod>
+    </Account>
+    </TypeCode>  
+    </TaxType>      
+  </TaxAudit_FI>
+</SOE_TaxAudit_FI>

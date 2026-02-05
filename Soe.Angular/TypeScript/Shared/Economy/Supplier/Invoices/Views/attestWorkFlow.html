@@ -1,0 +1,24 @@
+﻿<div>
+    <div class="row margin-large-bottom col-sm-4">
+        <attest-history load-from-head="false" attest-workflow-head="ctrl.attestWorkflowHead" attest-workflow-rows="ctrl.attestWorkflowRows"></attest-history>
+    </div>
+    <div class="col-sm-8">
+        <div class="row" style="padding-left:15px;padding-right:15px;" ng-disabled="ctrl.isLocked">
+            <div ag-grid="ctrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 300px; width: 100%;" ng-disabled="ctrl.isLocked"></div>
+            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-textarea label-key="common.comment" model="ctrl.comment" rows="3" use-ignore-dirty="true" ng-if="!ctrl.isLocked"></soe-textarea>
+            </div>
+            <div class="col-sm-6 pull-right margin-large-top">
+                <soe-splitbutton class="margin-small-left margin-small-bottom" data-ng-show="ctrl.showAcceptButton && !ctrl.isLocked" label-key="core.attestflowaccept" options="ctrl.buttonFunctions" main-button="true" drop-up="true" is-disabled="!ctrl.functionButtonEnabled || !ctrl.selectedRow || ctrl.disableTransfer" option-selected="ctrl.executeButtonFunction(option)"></soe-splitbutton>
+                <button type="button" class="btn btn-sm btn-default pull-right margin-small-bottom" data-l10n-bind="'core.attestflowcancel'" data-ng-if="ctrl.attestFlowCancelPermission && !ctrl.isLocked" ng-click="ctrl.cancelAttestFlow()"></button>
+                <button type="button" class="btn btn-sm btn-default pull-right margin-small-bottom" data-ng-show="ctrl.isLocked" data-l10n-bind="'core.addtoattestflow'" data-l10n-bind-title="'core.addtoattestflow'" data-ng-click="$event.stopPropagation();ctrl.addInvoiceToAttestFlow()"></button>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <!--empty row-->
+        </div>
+    </div>
+</div>

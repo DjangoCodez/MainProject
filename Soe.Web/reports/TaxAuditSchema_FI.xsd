@@ -1,0 +1,40 @@
+  <xs:schema id="SOE_TaxAudit_FI" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="SOE_TaxAudit_FI" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="TaxAudit_FI">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Company" type="xs:string" minOccurs="0" />                
+                <xs:element name="CompanyOrgNr" type="xs:string" minOccurs="0" />
+                <xs:element name="TaxVatPeriod" type="xs:string" minOccurs="0" />                                
+                <xs:element name="TaxType" minOccurs="0" maxOccurs="unbounded">
+                 <xs:complexType>
+                  <xs:sequence>
+                   <xs:element name="TypeCode" minOccurs="0" maxOccurs="unbounded"> 
+                    <xs:complexType>
+                     <xs:sequence>
+                      <xs:element name="Account" minOccurs="0" maxOccurs="unbounded">
+                       <xs:complexType>
+                        <xs:sequence>
+                         <xs:element name="AccountNr" type="xs:string" minOccurs="0" />
+                         <xs:element name="AccountName" type="xs:string" minOccurs="0" />
+                         <xs:element name="AccountBalancechangePeriod" type="xs:decimal" minOccurs="0" />
+                        </xs:sequence>                      
+                       </xs:complexType>
+                      </xs:element>
+                     </xs:sequence> 
+                     <xs:attribute name="id" type="xs:string" />
+                    </xs:complexType>
+                   </xs:element>  
+                  </xs:sequence>                  
+                  <xs:attribute name="id" type="xs:string" />
+                 </xs:complexType>
+                </xs:element>                                                         
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>

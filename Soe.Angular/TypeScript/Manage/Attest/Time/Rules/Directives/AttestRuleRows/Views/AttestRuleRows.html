@@ -1,0 +1,34 @@
+﻿<div>
+    <div class="table-outer-bordered">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 20px"></th>
+                    <th scope="col" data-l10n-bind="'manage.attest.time.leftoperator'"></th>
+                    <th scope="col"></th>
+                    <th scope="col" data-l10n-bind="'manage.attest.time.operator'"></th>
+                    <th scope="col" data-l10n-bind="'manage.attest.time.rightoperator'"></th>
+                    <th scope="col"></th>
+                    <th scope="col" class="right-align-cell" data-l10n-bind="'manage.attest.time.minutes'"></th>
+                    <th scope="col" class="table-header-button" style="width: 130px;" colspan="3" data-ng-if="!ctrl.readOnly">
+                        <span data-l10n-bind data-l10n-bind-title="'core.newrow'" data-ng-click="ctrl.editRow(null);"><i class="fal fa-plus"></i><span data-l10n-bind="'core.newrow'"></span></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="row in ctrl.attestRuleRows">
+                <tr data-ng-class="{'table-selected-row': ctrl.selectedRow === row}" data-ng-click="ctrl.selectedRow = row">
+                    <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedRow === row"></i></td>
+                    <td><span>{{row.leftValueTypeName}}</span></td>
+                    <td><span>{{row.leftValueIdName}}</span></td>
+                    <td><span>{{row.comparisonOperatorString}}</span></td>
+                    <td><span>{{row.rightValueTypeName}}</span></td>
+                    <td><span>{{row.rightValueIdName}}</span></td>
+                    <td class="right-align-cell"><span data-ng-if="row.minutes<0">-</span><span>{{row.minutes|abs}}</span></td>
+                    <td style="width: 74px" data-ng-if="!ctrl.readOnly">
+                    <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editRow(row);"></i></span></td>
+                    <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.deleterow'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteRow(row);"></i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>    
+</div>

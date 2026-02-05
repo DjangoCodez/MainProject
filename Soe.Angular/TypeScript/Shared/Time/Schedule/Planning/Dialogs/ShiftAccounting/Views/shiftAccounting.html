@@ -1,0 +1,59 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">
+            <span data-l10n-bind="'common.accounting'"></span>
+        </h6>
+    </div>
+    <div class="modal-body">
+        <div class="row margin-large-bottom">
+            <div class="col-sm-12">
+                <span class="indiscreet">{{ctrl.selectedShift.actualStartTime | date:'shortTime'}}-{{ctrl.selectedShift.actualStopTime | date:'shortTime'}} {{ctrl.selectedShift.shiftTypeName}}</span>
+            </div>
+        </div>
+
+        <record-navigator class="margin-large-bottom" records="ctrl.shifts" selected-record="ctrl.selectedShift" show-dropdown="true" dropdown-text-property="accountingDescription" on-selection-changed="ctrl.setSelectedShift(record);"></record-navigator>
+
+        <div class="table-responsive table-outer-bordered">
+            <table class="table table-condensed table-striped table-hover" style="margin-bottom: 0px;">
+                <thead>
+                    <tr>
+                        <th scope="col" data-l10n-bind="'common.accountdim'"></th>
+                        <th scope="col" data-l10n-bind="'common.accountingsettings.account'"></th>
+                        <th scope="col" data-l10n-bind="'common.name'"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-if="ctrl.accounting.dim2Id">
+                        <td><span>{{ctrl.accounting.dim2DimName}}</span></td>
+                        <td><span>{{ctrl.accounting.dim2Nr}}</span></td>
+                        <td><span>{{ctrl.accounting.dim2Name}}</span></td>
+                    </tr>
+                    <tr data-ng-if="ctrl.accounting.dim3Id">
+                        <td><span>{{ctrl.accounting.dim3DimName}}</span></td>
+                        <td><span>{{ctrl.accounting.dim3Nr}}</span></td>
+                        <td><span>{{ctrl.accounting.dim3Name}}</span></td>
+                    </tr>
+                    <tr data-ng-if="ctrl.accounting.dim4Id">
+                        <td><span>{{ctrl.accounting.dim4DimName}}</span></td>
+                        <td><span>{{ctrl.accounting.dim4Nr}}</span></td>
+                        <td><span>{{ctrl.accounting.dim4Name}}</span></td>
+                    </tr>
+                    <tr data-ng-if="ctrl.accounting.dim5Id">
+                        <td><span>{{ctrl.accounting.dim5DimName}}</span></td>
+                        <td><span>{{ctrl.accounting.dim5Nr}}</span></td>
+                        <td><span>{{ctrl.accounting.dim5Name}}</span></td>
+                    </tr>
+                    <tr data-ng-if="ctrl.accounting.dim6Id">
+                        <td><span>{{ctrl.accounting.dim6DimName}}</span></td>
+                        <td><span>{{ctrl.accounting.dim6Nr}}</span></td>
+                        <td><span>{{ctrl.accounting.dim6Name}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.cancel()"></button>
+    </div>
+</div>

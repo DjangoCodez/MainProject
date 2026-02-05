@@ -1,0 +1,20 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">    
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel();">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'time.time.attest.sendattestreminder'"></h6>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-checkbox label-key="time.time.attest.sendattestremindertoemployee" model="ctrl.sendAttestReminderToEmployee" style="margin:10px"></soe-checkbox>
+                </div>
+                <div class="col-sm-12">
+                    <soe-checkbox label-key="time.time.attest.sendattestremindertoadmin" model="ctrl.sendAttestReminderToExecutive" style="margin:10px"></soe-checkbox>
+                </div>
+            </div>
+        </div>        
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel();"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.send'" data-ng-disabled="ctrl.edit.$invalid || (!ctrl.sendAttestReminderToEmployee && !ctrl.sendAttestReminderToExecutive)" data-ng-click="ctrl.ok();"></button>
+        </div>    
+</form>

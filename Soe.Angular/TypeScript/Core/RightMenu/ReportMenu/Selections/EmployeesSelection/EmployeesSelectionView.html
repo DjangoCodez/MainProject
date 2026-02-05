@@ -1,0 +1,68 @@
+﻿<div>
+    <label class="control-label" data-l10n-bind="::$ctrl.labelKey" data-ng-if="::!$ctrl.hideLabel"></label>
+    <div class="row" data-ng-class="{'margin-large-bottom': !$ctrl.showOnlyInactive && !$ctrl.showEnded && !$ctrl.showVacant && !$ctrl.showHidden}" data-ng-if="::$ctrl.showInactive">
+        <div class="col-sm-4">
+            <soe-checkbox label-key="common.includeinactive" text-class="discreet" text-class-condition="true" model="$ctrl.selectedInactive" on-changing="$ctrl.boolChanged()"></soe-checkbox>
+        </div>
+    </div>
+    <div class="row" data-ng-class="{'margin-large-bottom': !$ctrl.showEnded && !$ctrl.showVacant && !$ctrl.showHidden}" data-ng-if="::$ctrl.showOnlyInactive">
+        <div class="col-sm-4">
+            <soe-checkbox label-key="common.onlyinactive" text-class="discreet" text-class-condition="true" model="$ctrl.selectedOnlyInactive" on-changing="$ctrl.boolChanged()"></soe-checkbox>
+        </div>
+    </div>
+    <div class="row" data-ng-class="{'margin-large-bottom': !$ctrl.showVacant && !$ctrl.showHidden}" data-ng-if="::$ctrl.showEnded">
+        <div class="col-sm-4">
+            <soe-checkbox label-key="common.includeended" text-class="discreet" text-class-condition="true" model="$ctrl.selectedEnded" on-changing="$ctrl.boolChanged()"></soe-checkbox>
+        </div>
+    </div>
+    <div class="row" data-ng-class="{'margin-large-bottom': !$ctrl.showHidden}" data-ng-if="::$ctrl.showVacant">
+        <div class="col-sm-4">
+            <soe-checkbox label-key="common.includevacant" text-class="discreet" text-class-condition="true" model="$ctrl.selectedVacant" on-changing="$ctrl.boolChanged()"></soe-checkbox>
+        </div>
+    </div>
+    <div class="row" data-ng-if="::$ctrl.showHidden">
+        <div class="col-sm-4">
+            <soe-checkbox label-key="common.includehidden" text-class="discreet" text-class-condition="true" model="$ctrl.selectedHidden" on-changing="$ctrl.boolChanged()"></soe-checkbox>
+        </div>
+    </div>
+    <div class="row" data-ng-if="::$ctrl.showSecondary">
+        <div class="col-sm-4">
+            <soe-checkbox label-key="common.includesecondary" text-class="discreet" text-class-condition="true" model="$ctrl.selectedSecondary" on-changing="$ctrl.boolChanged()"></soe-checkbox>
+        </div>
+    </div>
+    <div class="row margin-large-top margin-large-bottom" data-ng-if="!$ctrl.hideAccountingType">
+        <div class="col-sm-2">
+            <soe-select label-key="common.accountingtype" label-discreet="true" model="$ctrl.selectedAccountingType" items="$ctrl.availableAccountingTypes" options="item.id as item.name for item in items" on-changing="$ctrl.accountingTypeChanged()"></soe-select>
+        </div>
+        <div class="col-sm-10">
+            <soe-label></soe-label>
+            <soe-instruction model="$ctrl.accountingTypeHelpText"></soe-instruction>
+        </div>
+    </div>
+    <div class="row" data-ng-if="$ctrl.enableFilters">
+        <!-- New row after five dropdowns, otherwise the sixth dropdown will be hidden under report list -->
+        <div data-ng-repeat="group in $ctrl.groupedFilterCollections track by group.id" data-ng-class="{'row margin-none-left': $index % 5 === 0}">
+            <div class="col-sm-2 margin-large-bottom" data-ng-repeat="collection in group.collections track by collection.id" data-ng-switch="collection.canMultiSelect" data-ng-show="collection.availableFilters.length>0 && (group.id !== 'account' || $ctrl.selectedAccountingType !== 0)">
+                <soe-select hidelabel="true" model="collection.selectedIds" items="collection.availableFilters" options="item.id as item.label for item in items" data-ng-switch-when="false" data-ng-show="collection.availableFilters.length>1" on-changing="$ctrl.selectFilter($parent.$parent.$index, $index, item)"></soe-select>
+                <soe-multiselect hidelabel="true" label-key="{{collection.displayLabel}}" model="collection.selectedIds" options="collection.availableFilters" data-ng-switch-when="true" data-ng-show="collection.availableFilters.length>1" on-selection-complete="$ctrl.selectMultiFilter($parent.$parent.$index, $index, items)"></soe-multiselect>
+                <div class="account-dim-hidden" data-ng-attr-title="{{collection.availableFilters[0].label}}" data-ng-if="collection.availableFilters.length<=1"><span>{{collection.availableFilters[0].label}}</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div data-ng-class="{'col-sm-2': $ctrl.enableFilters, 'col-sm-4': !$ctrl.enableFilters}" class="margin-large-bottom">
+            <soe-multiselect label-key="common.employees" hidelabel="true" model="$ctrl.selectedEmployees"
+                             options="$ctrl.availableSelectableEmployees" show-selected="true" is-disabled="!$ctrl.availableSelectableEmployees"
+                             on-selection-complete="$ctrl.propagateEmployeeSelection()"></soe-multiselect>
+        </div>
+        <div class="col-sm-1" data-ng-if="!$ctrl.useAutoFilterOnEmployee">
+            <button type="button" class="btn btn-sm btn-default" data-ng-class="{'btn-primary': $ctrl.employeeFilterDirty}" data-l10n-bind data-l10n-bind-title="'common.report.selection.loademployees'" data-ng-disabled="$ctrl.populating" data-ng-click="$ctrl.populateEmployees(true);">
+                <span class="fal fa-sync" data-ng-class="{'fa-spinner fa-pulse fa-fw': $ctrl.populating}"></span>
+                <span class="margin-small-left" data-l10n-bind="'common.report.selection.loademployees'"></span>
+            </button>
+        </div>
+        <div class="col-sm-1 padding-none-left padding-none-right" style="margin-left: -10px; margin-top: 4px;" data-ng-if="$ctrl.useAutoFilterOnEmployee">
+            <span class="far fa-spinner fa-pulse fa-fw extraLargeFont" data-ng-if="$ctrl.populating"></span>
+        </div>
+    </div>
+</div>

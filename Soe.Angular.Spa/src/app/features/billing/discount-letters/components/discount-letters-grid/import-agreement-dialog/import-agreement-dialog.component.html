@@ -1,0 +1,80 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        @if (this.data.showHeaderInfo) {
+          <div class="row">
+            <div class="col-sm-12 mb-3">
+              <soe-instruction
+                text="billing.invoices.supplieragreement.importinfo"></soe-instruction>
+            </div>
+          </div>
+        }
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <soe-file-upload
+              [labelKey]="'core.fileupload.choosefiletoimport'"
+              [multipleFiles]="allowMultipleFiles()"
+              [asBinary]="false"
+              [showUploadButton]="false"
+              (afterFilesAttached)="afterFilesAttached($event)"
+              formControlName="file"></soe-file-upload>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'common.customer.customer.wholesellername'"
+              [selectedId]="form.value.wholesellerId"
+              formControlName="wholesellerId"
+              (valueChanged)="onWholsellerChange($event)"
+              [items]="data.wholesellersDict"></soe-select>
+          </div>
+        </div>
+        @if (showWholesellerText()) {
+          <div class="row">
+            <div class="col-sm-12 mb-3">
+              <soe-instruction [text]="wholesellerInfoText()"></soe-instruction>
+            </div>
+          </div>
+        }
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-select
+              [labelKey]="'billing.order.pricelisttype'"
+              formControlName="priceListTypeId"
+              [items]="data.priceLists"></soe-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="'billing.invoices.supplieragreement.generaldiscount'"
+              formControlName="generalDiscount"></soe-textbox>
+          </div>
+        </div>
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    <soe-button
+      class="ms-3"
+      [caption]="'core.cancel'"
+      typeClass="btn btn-secondary"
+      [behaviour]="'standard'"
+      (action)="cancel()"></soe-button>
+    <soe-save-button
+      class="ms-3"
+      [caption]="'core.ok'"
+      typeClass="btn btn-secondary"
+      [invalid]="form.invalid"
+      (action)="ok()"
+      (validationErrorsAction)="
+        form.openFormValidationErrors()
+      "></soe-save-button>
+  </div>
+</soe-dialog>

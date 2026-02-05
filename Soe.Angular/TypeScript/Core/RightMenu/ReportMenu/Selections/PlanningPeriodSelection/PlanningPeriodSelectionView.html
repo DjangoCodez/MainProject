@@ -1,0 +1,8 @@
+﻿<div class="row">
+    <div class="col-sm-6">
+        <soe-select hidelabel="::$ctrl.hideHeadLabel" label-key="{{::$ctrl.headLabelKey}}" model="$ctrl.selectedTimePeriodHeadId" items="$ctrl.availableSelectableTimePeriodHeads" options="item.id as item.label for item in items" on-changing="$ctrl.timePeriodHeadChanged(item)"></soe-select>
+    </div>
+    <div class="col-sm-6">
+        <soe-select hidelabel="::$ctrl.hideLabel" label-key="{{::$ctrl.labelKey}}" model="$ctrl.selectedTimePeriodId" items="$ctrl.availableSelectableTimePeriods" options="item.id as item.label for item in items" on-changing="$ctrl.timePeriodChanged(item)"></soe-select>
+    </div>
+</div>

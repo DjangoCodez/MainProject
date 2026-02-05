@@ -1,0 +1,93 @@
+<form [formGroup]="form">
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [parentGuid]="guid()"
+      (editRowClicked)="edit($event)"
+      [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+      <div toolbar-content-left>
+        <soe-select
+          [labelKey]="'economy.accounting.accountyear'"
+          [inline]="true"
+          [width]="150"
+          [items]="accountYearsDict || []"
+          [selectedId]="form.value.accountYearId"
+          formControlName="accountYearId"
+          (valueChange)="changeSelectedYear()">
+        </soe-select>
+      </div>
+      <div class="row" footer>
+        <div class="col-sm-12">
+          <div class="information-container no-top-margin">
+            <div class="row mt-3">
+              <div class="col-sm-6">
+                <soe-label class="pull-right"> </soe-label>
+              </div>
+              <div class="col-sm-2">
+                <soe-label class="pull-right" [labelKey]="'common.debit'">
+                </soe-label>
+              </div>
+              <div class="col-sm-2">
+                <soe-label class="pull-right" [labelKey]="'common.credit'">
+                </soe-label>
+              </div>
+              <div class="col-sm-2">
+                <soe-label
+                  class="pull-right"
+                  [labelKey]="'economy.accounting.reconciliation.diffamount'">
+                </soe-label>
+              </div>
+            </div>
+
+            <div class="row mb-1">
+              <div class="col-sm-6">
+                <soe-label class="pull-right" [labelKey]="''"> </soe-label>
+              </div>
+              <div class="col-sm-2">
+                <soe-label
+                  class="pull-right"
+                  [labelValue]="
+                    debitAmount.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                    })
+                  ">
+                </soe-label>
+              </div>
+              <div class="col-sm-2">
+                <soe-label
+                  class="pull-right"
+                  [labelValue]="
+                    creditAmount.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                    })
+                  ">
+                </soe-label>
+              </div>
+              <div class="col-sm-2">
+                <soe-label
+                  class="pull-right"
+                  [labelValue]="
+                    diffAmount.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                    })
+                  ">
+                </soe-label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 p-2 d-flex flex-row-reverse align-items-end">
+          <soe-save-button
+            class="me-2"
+            (action)="saveBalance()"
+            [dirty]="form.dirty">
+          </soe-save-button>
+        </div>
+      </div>
+    </soe-grid-wrapper>
+  }
+</form>

@@ -1,0 +1,362 @@
+/* SoeForm */
+.SoeForm {
+    height: auto;
+    font-size: 12px;
+    color: #333;
+}
+
+    .SoeForm .discreet {
+        font-weight: normal;
+    }
+
+    .SoeForm .preventcopypaste {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+
+    /* Font-awesome */
+    .SoeForm .fa {
+        padding: 5px;
+        font-size: 16px;
+        color: var(--soe-text-color);
+    }
+
+    .SoeForm span.fa:hover {
+        background-color: #F5F5F5;
+    }
+
+    /* SoeForm legend & fieldset */
+    .SoeForm legend {
+        width: calc(100% + 17px);
+        margin-left: -8px;
+        padding: 5px 10px 5px 10px;
+        border: 1px solid var(--soe-border-color);
+        background-color: var(--soe-color-secondary-light-beige);
+        border-radius: 4px 4px 4px 0;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .SoeForm fieldset {
+        margin: 10px 10px 0;
+        padding: 0 8px 5px 7px;
+        border: 1px solid var(--soe-border-color);
+        border-radius: 4px;
+    }
+
+        .SoeForm fieldset p, ul {
+            margin: 0 5px 5px 0;
+        }
+
+        .SoeForm fieldset li {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+    /* SoeForm table */
+    .SoeForm table {
+        margin: 0 10px 5px 0;
+        border-collapse: collapse;
+    }
+
+        .SoeForm table tr, .SoeForm table th, .SoeForm table td {
+            height: 40px;
+            margin: 0;
+            padding: 0;
+            vertical-align: middle;
+            text-align: left;
+            border: 0;
+        }
+
+        .SoeForm table.slim tr, .SoeForm table th, .SoeForm table.slim td {
+            height: auto;
+        }
+
+        .SoeForm table th {
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .SoeForm table td.focus {
+            border-bottom: 1px solid var(--soe-color-secondary-blue);
+            border-top: 1px solid var(--soe-color-secondary-blue);
+        }
+
+        .SoeForm table td.focusleft {
+            border-bottom: 1px solid var(--soe-color-secondary-blue);
+            border-top: 1px solid var(--soe-color-secondary-blue);
+            border-left: 1px solid var(--soe-color-secondary-blue);
+        }
+
+        .SoeForm table td.focusright {
+            border-bottom: 1px solid var(--soe-color-secondary-blue);
+            border-top: 1px solid var(--soe-color-secondary-blue);
+            border-right: 1px solid var(--soe-color-secondary-blue);
+        }
+
+        .SoeForm table tr.interval-row td {
+            vertical-align: top; /* Fix for td inside a FormIntervalEntry, when vertical-align middle doesnt align correct */
+        }
+
+        .SoeForm table tr a {
+            margin: 0 5px 0 0;
+            position: relative;
+        }
+
+        .SoeForm table.instruction {
+            margin: 0px 0px 8px 0px;
+            border: 1px solid var(--soe-color-semantic-information);
+        }
+
+        .SoeForm table.instruction, .SoeForm label.instruction {
+            background-color: var(--soe-color-semantic-information-20);
+            color: #333;
+            font-weight: normal;
+        }
+
+            .SoeForm table.instruction td, .SoeForm table.instruction tr {
+                height: auto; /*Fix for InstructionList when we dont want space between rows */
+                padding: 4px;
+            }
+
+    /* SoeForm controls */
+    .SoeForm input[type=text], .SoeForm input[type=password], .SoeForm input[type=number], .SoeForm input[type=date], .SoeForm input[type=datetime] {
+        height: 24px;
+        width: 250px;
+        padding: 2px 2px 2px 2px;
+        margin: 5px 2px 5px 2px;
+        border: 1px solid #ccc;
+    }
+
+    .SoeForm input[type=file] {
+        height: 26px;
+    }
+
+    .SoeForm input[type=checkbox], .SoeForm input[type=radio], .SoeForm input.radio, .SoeForm input.checkbox {
+        height: 14px;
+        width: 14px;
+        margin: 10px 0 0 2px;
+        float: left;
+        border: 0;
+    }
+
+    .SoeForm select {
+        height: 30px;
+        width: 255px;
+        padding: 2px 2px 2px 2px;
+        margin: 5px 2px 5px 2px;
+        font-weight: normal;
+    }
+
+    .SoeForm input.focus, select.focus {
+        border: 1px solid var(--soe-color-secondary-blue);
+    }
+
+    .SoeForm textarea {
+        display: block;
+        margin: 0 0 5px 0;
+        border: 1px solid #ccc;
+    }
+
+    .SoeForm a.infoLink {
+        cursor: help;
+    }
+
+    .SoeForm .TreeView {
+        margin: 0;
+        padding: 0;
+    }
+
+        .SoeForm .TreeView table tr, .SoeForm .TreeView table th, .SoeForm .TreeView table td, table.slim tr, table.slim th, table.slim td {
+            height: 14px;
+        }
+
+        .SoeForm .TreeView input.checkbox, .SoeForm .TreeView a, .SoeForm .TreeView input[type=checkbox] {
+            margin: 0;
+            padding: 0;
+        }
+
+    /* SoeForm labels and texts */
+    .SoeForm label, .formText {
+        margin: 0 5px 0 0;
+        white-space: nowrap;
+        font-weight: bold;
+    }
+
+        .SoeForm label.adjustToCell {
+            margin-top: 5px;
+        }
+
+        .SoeForm label.highlight {
+            text-decoration: underline;
+        }
+
+        .SoeForm label.infoLabel {
+            font-size: 12px;
+            font-style: italic;
+            font-weight: normal;
+            vertical-align: middle;
+            color: #333;
+        }
+
+        .SoeForm label.checkboxInfoLabel {
+            position: relative;
+            top: 3px;
+            left: 5px;
+        }
+
+/* SoeForm specifics */
+.SoeForm, #DivAccounts {
+    min-width: 380px;
+}
+
+    /* SoeForm formHeader */
+    .SoeForm .formHeader {
+        width: 100%;
+        margin: 0 0 20px 0;
+        height: 20px;
+    }
+
+        .SoeForm .formHeader .messageIcon {
+            margin: 0 0 0 10px;
+            float: left;
+        }
+
+    /* SoeForm toolBar */
+    .SoeForm .toolBar {
+        vertical-align: middle;
+        margin: 0 5px 0 0;
+    }
+
+        .SoeForm .toolBar .title {
+            margin: 0 0 0 10px;
+            font-size: 16px;
+        }
+
+    /* SoeForm actionBar */
+    .SoeForm .actionBar {
+        float: right;
+        margin-right: 15px;
+    }
+
+        .SoeForm .actionBar button {
+            margin-left: 5px;
+            background-color: var(--soe-background-color);
+            border: 1px solid var(--soe-border-color);
+            padding: 3px 6px;
+        }
+
+            .SoeForm .actionBar button:hover {
+                background-color: #F5F5F5;
+            }
+
+        .SoeForm .actionBar a, .SoeForm .actionBar input {
+            margin: 0 5px 0 0;
+            border: none;
+        }
+
+        .SoeForm .actionBar .fal {
+            font-size: 16px;
+        }
+
+    /* SoeForm formFooter */
+    .SoeForm .formFooter {
+        height: auto;
+        margin: 0;
+        padding: 5px 5px 5px 5px;
+        border: 1px solid var(--soe-border-color);
+    }
+
+        .SoeForm .formFooter .linksFooter {
+            display: block;
+        }
+
+            .SoeForm .formFooter .linksFooter li {
+                padding: 0 6px 0 0;
+                display: block;
+                float: left;
+                list-style-type: none;
+            }
+
+                .SoeForm .formFooter .linksFooter li a {
+                    font-size: 11px;
+                    text-decoration: underline;
+                    color: #333;
+                }
+
+                    .SoeForm .formFooter .linksFooter li a:hover {
+                        color: #F1801C;
+                    }
+
+        .SoeForm .formFooter .messageFooter {
+            display: block;
+            padding-bottom: 10px;
+        }
+
+            .SoeForm .formFooter .messageFooter .message {
+                height: 15px;
+                font-weight: bold;
+                margin-left: 8px;
+            }
+
+        .SoeForm .formFooter .statusFooter {
+            height: 35px;
+        }
+
+            .SoeForm .formFooter .statusFooter .noinfo {
+                font-size: 11px;
+                font-weight: lighter;
+                font-style: italic;
+            }
+
+        .SoeForm .formFooter .buttonsFooter {
+            height: 35px;
+        }
+
+            .SoeForm .formFooter .buttonsFooter button, .SoeForm .formFooter .buttonsFooter input, div.button, .SoeForm input[type=submit] {
+                height: 30px;
+                min-width: 120px;
+                color: var(--soe-text-color);
+                font-size: 12px;
+                font-weight: normal;
+                border: 1px solid var(--soe-border-color);
+                background: var(--soe-background-color);
+                padding: 5px 10px 5px 10px;
+            }
+
+                .SoeForm input[type=submit].aspNetDisabled {
+                    color: var(--soe-disabled-text-color);
+                }
+
+                    .SoeForm input[type=submit].aspNetDisabled:hover {
+                        border: none;
+                    }
+
+                .SoeForm .formFooter .buttonsFooter button:hover, .SoeForm .formFooter .buttonsFooter input:hover, div.button:hover, input[type=submit]:hover {
+                    border: 1px solid var(--soe-border-color);
+                    background: var(--soe-color-secondary-light-beige);
+                }
+
+                .SoeForm .formFooter .buttonsFooter button.submit, .SoeForm .formFooter .buttonsFooter input.submit {
+                    border: 1px solid var(--soe-color-secondary-blue);
+                    background: var(--soe-color-secondary-blue-70);
+                }
+
+                    .SoeForm .formFooter .buttonsFooter button.submit:hover, .SoeForm .formFooter .buttonsFooter input.submit:hover {
+                        border: 1px solid var(--soe-color-secondary-blue);
+                        background: var(--soe-color-secondary-medium-blue);
+                    }
+
+                    .SoeForm .formFooter .buttonsFooter button.submit.secondary, .SoeForm .formFooter .buttonsFooter input.submit.secondary {
+                        border: 1px solid var(--soe-border-color);
+                        background: var(--soe-background-back);
+                    }
+
+                        .SoeForm .formFooter .buttonsFooter button.submit.secondary:hover, .SoeForm .formFooter .buttonsFooter input.submit.secondary:hover {
+                            border: 1px solid var(--soe-border-color);
+                            background: var(--soe-color-secondary-light-beige);
+                        }

@@ -1,0 +1,19 @@
+<soe-dialog>
+  <div dialog-content [style.height.vh]="80">
+    @if (fileExtension === '.pdf') {
+      <soe-pdf-viewer
+        [fileName]="fileName"
+        [base64Data]="base64Data"></soe-pdf-viewer>
+    } @else if (
+      fileExtension === '.png' ||
+      fileExtension === '.jpeg' ||
+      fileExtension === '.jpg' ||
+      fileExtension === '.gif'
+    ) {
+      <soe-image-viewer
+        [base64Data]="base64Data"
+        [extension]="fileExtension.replace('.', '')"
+        [fileName]="fileName"></soe-image-viewer>
+    }
+  </div>
+</soe-dialog>

@@ -1,0 +1,52 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        @if (!isReadOnly()) {
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-textbox
+                [labelKey]="'core.comment'"
+                formControlName="generalComment">
+              </soe-textbox>
+            </div>
+            <div class="col-sm-4"></div>
+          </div>
+        }
+        <div class="row mt-3">
+          <div class="col-sm-12">
+            <soe-change-log-modal-grid
+              [rows]="items"
+              (rowsChanged)="valueChanged()"
+              [isReadOnly]="isReadOnly()">
+            </soe-change-log-modal-grid>
+          </div>
+        </div>
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    @if (!isReadOnly()) {
+      <soe-button
+        (action)="closeDialog()"
+        [caption]="'core.cancel'"
+        [behaviour]="'standard'"></soe-button>
+      <soe-button
+        class="ms-3"
+        [caption]="'core.ok'"
+        [behaviour]="'primary'"
+        (action)="triggerOk()"
+        [disabled]="okButtonDisabled()"></soe-button>
+    } @else {
+      <soe-button
+        class="ms-3"
+        [caption]="'core.ok'"
+        [behaviour]="'primary'"
+        (action)="triggerOk()"></soe-button>
+    }
+  </div>
+</soe-dialog>

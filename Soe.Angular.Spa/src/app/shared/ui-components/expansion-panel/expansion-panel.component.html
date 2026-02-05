@@ -1,0 +1,51 @@
+<div
+  class="mat-expansion-panel-container"
+  [class.mt-3]="addTopMargin()"
+  [class.borderless]="borderless()"
+  [class.no-bottom-margin]="noBottomMargin()"
+  [attr.data-testid]="labelKey() + '-container'">
+  <mat-expansion-panel
+    [expanded]="!disabled() && (open() || static())"
+    [disabled]="disabled() || static()"
+    [hideToggle]="true"
+    [togglePosition]="borderless() ? 'before' : 'after'"
+    [class.no-margin]="noMargin()"
+    [class.no-padding]="noPadding()"
+    [class.do-padding]="doPadding()"
+    [class.no-top-padding]="noTopPadding()"
+    [class.condensed-body]="condensedBody()"
+    (opened)="onOpened()"
+    (closed)="onClosed()">
+    <mat-expansion-panel-header
+      [class.static]="static()"
+      [attr.data-testid]="labelKey()">
+      <mat-panel-title>
+        <soe-label
+          [labelKey]="labelKey()"
+          [labelClass]="labelClass()"
+          [secondaryLabelKey]="secondaryLabelKey()"
+          [secondaryLabelBold]="secondaryLabelBold()"
+          [secondaryLabelParantheses]="secondaryLabelParantheses()"
+          [secondaryLabelPostfixKey]="secondaryLabelPostfixKey()"
+          [secondaryLabelPrefixKey]="secondaryLabelPrefixKey()"></soe-label>
+      </mat-panel-title>
+      <mat-panel-description [class.header-content]="!description()">
+        @if (description()) {
+          {{ description() | translate }}
+        } @else {
+          <ng-content select="[headerContent]"></ng-content>
+        }
+        @if (!static()) {
+          <div class="toggle-icon-container">
+            @if (isOpen()) {
+              <fa-icon [icon]="['fal', 'chevron-up']"></fa-icon>
+            } @else {
+              <fa-icon [icon]="['fal', 'chevron-down']"></fa-icon>
+            }
+          </div>
+        }
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-content></ng-content>
+  </mat-expansion-panel>
+</div>

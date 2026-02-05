@@ -1,0 +1,109 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="messagebox">
+        <div class="modal-header">
+            <button tabindex="-1" type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></h6>
+            <h6 class="modal-title" data-l10n-bind="'core.edit'" data-ng-if="!ctrl.isNew && !ctrl.isReadOnly()"></h6>
+            <h6 class="modal-title" data-l10n-bind="'core.showinfo'" data-ng-if="!ctrl.isNew && ctrl.isReadOnly()"></h6>
+        </div>
+        <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <soe-select label-key="common.expensetype" model="ctrl.selectedTimeCode" required="true" items="ctrl.timeCodes" options="item as item.name for item in items" tab-index="ctrl.tabIndexes['timecode']" is-readonly="ctrl.isTimeCodeReadOnly()"></soe-select>
+                </div>
+                <div class="col-sm-3" ng-if="ctrl.useEmployees">
+                    <soe-select label-key="common.employee" model="ctrl.selectedEmployee" required="true" items="ctrl.employees" options="item as item.label for item in items" is-readonly="ctrl.isTimeCodeReadOnly() || (ctrl.row && (ctrl.row.isReadOnly || ctrl.isTimeReadOnly))"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <soe-datepicker label-key="common.fromdate2" model="ctrl.selectedStartDate" required="true" is-readonly="ctrl.isStartDateReadonly()" tab-index="ctrl.tabIndexes['startdate']"></soe-datepicker>
+                </div>
+                <div class="col-sm-3">
+                    <soe-timebox label-key="common.fromclock" model="ctrl.row.start" is-time="true" is-disabled="ctrl.isStartTimeReadonly()" tab-index="ctrl.tabIndexes['starttime']"></soe-timebox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-datepicker label-key="common.todate2" model="ctrl.selectedStopDate" is-readonly="ctrl.isStopDateReadonly()" tab-index="ctrl.tabIndexes['stopdate']"></soe-datepicker>
+                </div>
+                <div class="col-sm-3">
+                    <soe-timebox label-key="common.toclock" model="ctrl.row.stop" is-time="true" is-disabled="ctrl.isStopTimeReadonly()" tab-index="ctrl.tabIndexes['stoptime']"></soe-timebox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <soe-textbox label-key="common.quantity" data-ng-if="ctrl.isRegistrationTypeQuantity()" is-disabled="ctrl.isQuantityReadOnly()" model="ctrl.selectedQuantity" numeric-not-zero="true" decimals="2" tab-index="ctrl.tabIndexes['quantity']"></soe-textbox>
+                            <soe-textbox label-key="common.time" data-ng-if="!ctrl.isRegistrationTypeQuantity()" is-disabled="ctrl.isQuantityReadOnly()" model="ctrl.quantityFormatted" update-on="blur" numeric-not-zero="true" input-class="text-right" input-class-condition="true" tab-index="ctrl.tabIndexes['quantity']"></soe-textbox>
+                        </div>
+                        <div class="col-sm-6">
+                            <soe-checkbox label-key="common.customer.invoices.specifiedunitprice" model="ctrl.specifiedUnitPrice" inline="true" is-disabled="ctrl.isSpecifiedUnitPriceReadOnly()"></soe-checkbox>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <soe-textbox label-key="common.price" model="ctrl.selectedUnitPrice" numeric="true" decimals="2" is-disabled="ctrl.isUnitPriceReadOnly()" data-ng-if="ctrl.row.isSpecifiedUnitPrice" tab-index="ctrl.tabIndexes['unitprice']"></soe-textbox>
+                    <soe-textbox label-key="common.price" model="ctrl.unitPriceInfo" is-disabled="true" data-ng-if="!ctrl.row.isSpecifiedUnitPrice"></soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-textbox label-key="common.customer.invoices.amountincvat" label-value="ctrl.currencyCode" label-value-in-parentheses="true" model="ctrl.row.amount" numeric="true" decimals="2" is-disabled="ctrl.isAmountReadOnly()" tab-index="ctrl.tabIndexes['amount']"></soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-textbox label-key="common.vat" model="ctrl.row.vat" numeric="true" decimals="2" is-disabled="ctrl.isVatReadOnly()" tab-index="ctrl.tabIndexes['vat']"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" ng-if="ctrl.showInvoiceFields()">
+                <div class="col-sm-3">
+                    <soe-checkbox label-key="common.customer.invoices.shouldbeinvoiced" model="ctrl.transferToOrder" inline="true" is-disabled="ctrl.isInvoicingReadOnly()"></soe-checkbox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-textbox label-key="common.customer.invoices.amounttoinvoice" model="ctrl.row.invoicedAmount" numeric="true" decimals="2" is-disabled="!ctrl.transferToOrder || ctrl.isInvoicingReadOnly()" tab-index="ctrl.tabIndexes['amount']"></soe-textbox>
+                </div>
+            </div>
+            <div class="row" ng-if="ctrl.showInvoiceFields()">
+                <div class="col-sm-12 margin-large-top">
+                    <soe-label class="info" label-key="common.customer.invoices.expenseinfotext"></soe-label>
+                </div>
+            </div>
+            <div class="row" ng-if="ctrl.isProjectMode">
+                <div class="col-sm-6">
+                    <soe-textarea label-key="billing.project.timesheet.edittime.internalnote" model="ctrl.row.comment" rows="3" is-readonly="ctrl.isInternalCommentReadOnly()"></soe-textarea>
+                </div>
+                <div class="col-sm-6">
+                    <soe-textarea label-key="billing.project.timesheet.edittime.externalnote" model="ctrl.row.externalComment" rows="3" is-readonly="ctrl.isInvoicingReadOnly()"></soe-textarea>
+                </div>
+            </div>
+            <div class="row" ng-if="!ctrl.isProjectMode">
+                <div class="col-sm-12">
+                    <soe-textarea label-key="common.comment" model="ctrl.row.comment" rows="3" is-readonly="ctrl.isCommentReadOnly() || (!ctrl.isNew && ctrl.isReadOnly())"></soe-textarea>
+                </div>
+            </div>
+            <div class="row margin-large-top" ng-if="!ctrl.isProjectMode && ctrl.selectedTimeCode">
+                <div class="col-sm-12">
+                    <accounting-settings label-key="common.accountingsettings.deviatingaccountingsettings" setting-types="ctrl.settingTypes" settings="ctrl.settings" hide-std-dim="!ctrl.showStdAccount" show-base-account="false" use-no-account="true" min-rows="1" tab-index="ctrl.tabIndexes['accounting']" read-only="ctrl.isAccountingReadOnly()" ignore-hierarchy-only="true" on-change="ctrl.accountingChanged();"></accounting-settings>
+                </div>
+            </div>
+            <div class="row margin-large-top">
+                <div class="col-sm-12">
+                    <uib-accordion close-others="false">
+                        <soe-accordion label-key="core.document" label-value="ctrl.filesHelper.nbrOfFiles" label-value-in-parentheses="true" on-open="ctrl.filesHelper.loadFiles(ctrl.inventoryId)" is-open="ctrl.documentExpanderIsOpen">
+                            <div class="row form-group form-group-sm">
+                                <div class="col-sm-12">
+                                    <soe-file-display files="ctrl.filesHelper.files" nbr-of-files-changed="ctrl.filesHelper.nbrOfFilesChanged(nbrOfFiles)" file-name-changed="ctrl.filesHelper.fileNameChanged(file)" read-only="ctrl.isLocked || (!ctrl.isNew && ctrl.isReadOnly())"></soe-file-display>
+                                    <soe-file-upload callback="ctrl.filesHelper.fileUploadedCallback(result)" entity="{{::ctrl.filesHelper.entity}}" image-type="{{::ctrl.filesHelper.type}}" read-only="ctrl.isLocked || (!ctrl.isNew && ctrl.isReadOnly())"></soe-file-upload>
+                                </div>
+                            </div>
+                        </soe-accordion>
+                    </uib-accordion>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-right">
+                <div class="col pull-right margin-small-right" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                <button type="button" class="btn btn-sm btn-default pull-right margin-small-right margin-large-left" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+            </div>
+        </div>
+    </div>
+</form>

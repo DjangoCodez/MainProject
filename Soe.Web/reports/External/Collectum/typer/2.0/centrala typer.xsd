@@ -1,0 +1,1604 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 rel. 3 sp2 (http://www.altova.com) by vincent wong (Collectum AB) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:typer="http://collectum.se/typer/2.0" targetNamespace="http://collectum.se/typer/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>
+			2013-01-24 Rev 2.0.0.44 Mattias Erlandsson, Collectum
+			Nya data typer för Gränssnitt 242: Försäkrings- och värdeuppgifter för löpande avstämning och värdebesked av ålderspension
+			2013-05-07 Rev 2.0.0.45 Mattias Erlandsson, Collectum
+			Nya data typer för Gränssnitt 242: Försäkrings- och värdeuppgifter för löpande avstämning och värdebesked av ålderspension
+			2013-09-05 Rev 2.0.0.46 Mattias Erlandsson, Collectum
+			Ändring data typ för Gränssnitt 242: Utbetalningstid ändrad från unsignedByte till unsignedShort
+			2013-09-11 Rev 2.0.0.47 Mattias Erlandsson, Collectum
+			Ändring data typ för FTP-planen (grunduppgifter): OrsakTjanstgoringsgrad, tillåtna värden utökat med 1 och 3
+			2013-11-13 Rev 2.0.0.48 Mattias Erlandsson, Collectum
+			Ändring data typ för Gränssnitt 242: Livslangdsantagande ändrad från unsignedByte till unsignedShort
+			2014-02-19 Rev 2.0.0.49 Mattias Erlandsson, Collectum
+			Ny data typ för Gränssnitt 242: ForsakringsvaxladFran (icke-obligatoriskt fält)
+			2014-03-07 Rev 2.0.0.50 Mattias Erlandsson, Collectum
+			Nya data typer för Grunduppgifter: FornamnGU och EfternamnGU att inte tillåta tomma namnfält
+			2015-05-26 Rev 2.0.0.51 Mattias Erlandsson, Collectum
+			Ny data typ för Avvikelser inför Årsbesked: PersonnummerAB, OrsakskodAB
+			2016-06-08 Rev 2.0.0.52 Mattias Erlandsson, Collectum
+			Ändring data typ för FTP-planen (grunduppgifter): OrsakTjanstgoringsgrad, borttag av värden 2 och 4 som ej är tillåtna längre
+			Tjanstgoringsgrad utökning av totalDigits till 5 för att även tillåta värden uttryckt i procent med två decimaler.
+			2016-10-27 Rev 2.0.0.53 Mattias Erlandsson, Collectum
+			Nya data typer för gränssnitten Kundföretag, Anställning och risk, Felfil från/till Pensionskassorna
+			2017-01-17 Rev 2.0.0.54 Mattias Erlandsson, Collectum
+			Pensionskassorna AvgangsOrsak=8 har tagits bort, AvgangsOrsak=6 har lagts till, SkickatFran har lagts till
+			2017-02-02 Rev 2.0.0.55 Mattias Erlandsson, Collectum
+			Pensionskassorna AvgangsOrsak=6 har tagits bort
+			2017-06-01 Rev 2.0.0.56 Mattias Erlandsson, Collectum
+			Pensionskassorna, ny typ Handelsemanad och Felbeskrivning utökat till 220 tecken
+			2017-09-07  Rev 2.0.0.57 Mattias Erlandsson, Collectum
+			Pensionskassorna, typ PensionsmedforandeLon ändrad till integer med 10 tecken, typ EngangspremieBelopp ändrad till 13 tecken inkl två decimaler
+			2017-10-05 Rev 2.0.0.58 Mattias Erlandsson, Collectum
+			Ändring data typ för FTP-planen (grunduppgifter): OrsakTjanstgoringsgrad, tillägg av värden 2 och 4 per ITSM 107110
+			2018-01-18 Rev 2.0.0.59 Mattias Erlandsson, Collectum
+			Sjuk och Frisk anmälan, EmailKontaktPerson har lagts till per ITSM 108389
+			2019-03-04 Rev 2.0.0.60 Mattias Erlandsson, Collectum
+			KollektivslutbetalningJN har lagts till per ITSM 110071
+			</xs:documentation>
+	</xs:annotation>
+	<!--GENERELLA ######################################################################## -->
+	<xs:complexType name="Kallreferenser">
+		<xs:sequence>
+			<xs:element name="Foretagsnr" type="typer:Foretagsnr" minOccurs="0"/>
+			<xs:element name="Pensioneringsavtalsnr" type="typer:Pensioneringsavtalsnr" minOccurs="0"/>
+			<xs:element name="Personid" type="typer:Personid" minOccurs="0"/>
+			<xs:element name="PlanId" type="typer:PlanId" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="Orsak">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="N"/>
+			<xs:enumeration value="Ä"/>
+			<xs:enumeration value="B"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Status">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="2"/>
+			<xs:maxLength value="2"/>
+			<xs:enumeration value="00"/>
+			<xs:enumeration value="01"/>
+			<xs:enumeration value="97"/>
+			<xs:enumeration value="98"/>
+			<xs:enumeration value="99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ReferensId">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="60"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ArManad">
+		<xs:restriction base="xs:unsignedInt">
+			<xs:totalDigits value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Timestamp">
+		<xs:sequence>
+			<xs:element name="Datetime">
+				<xs:simpleType>
+					<xs:restriction base="xs:dateTime"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Fractions">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:totalDigits value="6"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="Handelsenummer">
+		<xs:restriction base="xs:unsignedInt">
+			<xs:minInclusive value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Landkod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="2"/>
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Valutakod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Adress">
+		<xs:sequence>
+			<xs:element name="Attentionrad" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="COadress" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Gatuadress" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Postnr" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Postort" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Adressrad2" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Utlandsadressrad3" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Utlandsadressrad4" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="AdressLandkod" type="typer:Landkod" minOccurs="0"/>
+			<xs:element name="Landbenamning" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!--ANSTÄLLNING ########################################################################-->
+	<xs:simpleType name="AnstallningId">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AnstallningFromDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="AnstallningTomDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="PFLon">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Tjanstgoringsgrad">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="5"/>
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OrsakTjanstgoringsgrad">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FulltArbetsforJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="UtlandJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="Kompensationsrattkod">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="3"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FriskanmalanDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<!--ANSTÄLLNINGSTATUS ########################################################################-->
+	<xs:simpleType name="Anstallningsstatustypkod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="2"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Anstallningsstatuskod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="2"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+			<xs:enumeration value="7"/>
+			<xs:enumeration value="8"/>
+			<xs:enumeration value="99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--ANSTÄLLNINGVALALTITP ########################################################################-->
+	<xs:simpleType name="ValAltITPJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="IndAltITPNedreGrans">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="3"/>
+			<xs:fractionDigits value="1"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AltITPInklITPKJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<!--AVTALSPLAN ########################################################################-->
+	<xs:simpleType name="Avtalsplanid">
+		<xs:restriction base="xs:unsignedLong">
+			<xs:totalDigits value="10"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Avtalsplannamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="54"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvtalsplanFromman">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="AvtalsplanTomman">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="PRIEngagemangJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="PassivPRIJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<!--AVTALSPLANFINANSFORM ########################################################################-->
+	<xs:simpleType name="FinansieringsformFromman">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Finansieringsformkod">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:totalDigits value="3"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--AVTALSPLANPENSIONSÅLDER ########################################################################-->
+	<xs:simpleType name="AvtalsplanPensalderFromman">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="AvtaladPensionsalder">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvtaladPensionsalderFromman">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<!-- AVVIKELSEPERIODER ############################################################################-->
+	<xs:simpleType name="AvvikelsePosttyp">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="T"/>
+			<xs:enumeration value="A"/>
+			<xs:enumeration value="C"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EfterskyddstidJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<!-- DELFLYTT ############################################################################-->
+	<xs:simpleType name="AvgivandePrelFlyttAvgift">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvgivandePrelVardeBelopp">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvgivandePrelVardeDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="AvgivandeVardeBelopp">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvgivandeVardeFondBelopp">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvgivandeVardeGarantiBelopp">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvgivandeVardeAterbaringsBelopp">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvgivandeVardeOverskottsandel">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvgivandeFlyttAvgift">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvgivandeRantekompensation">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvgivandeVardeArAterbetalningsskyddatJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="AvgivandeBeloppTomDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="AvgivandeFlyttDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="DelflyttId">
+		<xs:restriction base="xs:unsignedLong">
+			<xs:totalDigits value="10"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DelFlyttStatus">
+		<xs:restriction base="xs:unsignedByte"/>
+	</xs:simpleType>
+	<xs:simpleType name="MottagandeVardeBelopp">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MottagandeVardeGarantiBelopp">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MottagandeVardeAterbaringsBelopp">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MottagandeVardeOverskottsandel">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MottagandeFlyttAvgift">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MottagandeVardeArAterbetalningsskyddatJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="MottagetBeloppFromDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="MottagandeFlyttTidpunkt">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="BeslutsDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="StartDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="AvslutsDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Inbetalningsdatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Avbrottsorsak">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="2"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+			<xs:enumeration value="9"/>
+			<xs:enumeration value="99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Marknadsvardesjustering">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<!--DÖDSFALLSUPPGIFT ########################################################################-->
+	<xs:simpleType name="Uppglamnarenamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Uppglamnaretel">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NarmastAnhorignamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NarmastAnhorigtel">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--FAKTURASTÄLLE ########################################################################-->
+	<xs:simpleType name="Fakturastalleid">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="3"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Fakturastallenamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="48"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- Förmånsgrundandelön ########################################################################-->
+	<xs:simpleType name="FormansgrundandeLon">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- FÖRETAG ########################################################################-->
+	<xs:simpleType name="Foretagsnr">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Organisationsnummer">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="(00|16|18|19|20)[0-9]{6}-[0-9]{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Organisationsnummertyp">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OrgNr10">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="[0-9]{6}-[0-9]{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UtlandsktOrgnr">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="60"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ExterntArbetsgivarnr">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OfficielltForetagsnamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="200"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Foretagsnamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JuridiskFormkod">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:totalDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UtlandsktForetagJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="StartVecka">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Bokslutstidpunkt">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Storleksklasskod">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:totalDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SNIkod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OfficielltTelnr">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Firmateckningsformulering">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="320"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Likvidatornamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Konkursforvaltarenamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="KonkursforvaltareTelnr">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="KonkursbeslutTingsratt">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- FÖRETAGSTATUS ########################################################################-->
+	<xs:simpleType name="Foretagsstatusdatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Foretagsstatuskod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+			<xs:enumeration value="5"/>
+			<xs:enumeration value="6"/>
+			<xs:enumeration value="7"/>
+			<xs:enumeration value="8"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--FÖRMÅN (endast relevant för GVB/HVB) #####################################################-->
+	<xs:simpleType name="BasformanNr">
+		<xs:restriction base="xs:unsignedByte"/>
+	</xs:simpleType>
+	<xs:simpleType name="GrundplanFormanNr">
+		<xs:restriction base="xs:unsignedShort"/>
+	</xs:simpleType>
+	<xs:simpleType name="FormanBel">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Utbetalningsalder">
+		<xs:restriction base="xs:unsignedShort"/>
+	</xs:simpleType>
+	<xs:simpleType name="SlutUtbetalningsalder">
+		<xs:restriction base="xs:unsignedShort"/>
+	</xs:simpleType>
+	<xs:simpleType name="ExtForsgivareNamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="48"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IntjanadAPJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<!--FÖRSÄKRING ########################################################################-->
+	<xs:simpleType name="Forsakringsnr">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Forsakringsstatuskod">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="3"/>
+			<xs:enumeration value="00"/>
+			<xs:enumeration value="02"/>
+			<xs:enumeration value="04"/>
+			<xs:enumeration value="05"/>
+			<xs:enumeration value="06"/>
+			<xs:enumeration value="07"/>
+			<xs:enumeration value="08"/>
+			<xs:enumeration value="09"/>
+			<xs:enumeration value="88"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UtokadTjanstetid">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:totalDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Pensionsalder">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TjanstetidBeraknad">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FortsattnForsrattNr">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OverforsakradJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="ForsakringId">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Annullerad">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="Avslutsorsak">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ITPK-relaterat -->
+	<xs:simpleType name="NyGammalITPK">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:totalDigits value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ForsId">
+		<xs:restriction base="xs:unsignedLong">
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ForsakringsomradesId">
+		<xs:restriction base="xs:unsignedLong">
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ForsakringsomradesNamn">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ExterntForsakringsproduktId">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TGLiAlecta">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="ProduktId">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="3"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvtaladProdukt">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvgivandeForsakringsId">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--FÖRSÄKRINGINDPENSÅLDER ########################################################################-->
+	<xs:simpleType name="IndividuellPensionsalder">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--FÖRSÄKRINGSGIVARE ########################################################################-->
+	<xs:simpleType name="ForsakringsgivarId">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--FÖRSÄKRINGSGIVAREFÖRSÄKRING ########################################################################-->
+	<xs:simpleType name="AterbetalningsskyddJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="ForsakringsgivaresForsakringId">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ForsakringsgivareForsakringNr">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ForsakringsgivareForsakringStatus">
+		<xs:restriction base="xs:unsignedByte"/>
+	</xs:simpleType>
+	<xs:simpleType name="ForsakringsstatusTidpunkt">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Forvaltningsform">
+		<xs:restriction base="xs:unsignedByte"/>
+	</xs:simpleType>
+	<xs:simpleType name="GiltighetsFromDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Redovisningsstatus">
+		<xs:restriction base="xs:unsignedByte"/>
+	</xs:simpleType>
+	<xs:simpleType name="StandigtTraditionellForsakringJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="SkapadPgaFlyttJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="Vardeuppgift">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+		<xs:simpleType name="KollektivslutbetalningJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<!--FÖRSÄKRINGSHÄNDELSE ########################################################################-->
+	<xs:simpleType name="Forshandelsetypkod">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="3"/>
+			<xs:minInclusive value="1"/>
+			<xs:maxInclusive value="16"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UndertryckUtskickHFBJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<!--GRUPPANMÄLAN TGL ########################################################################-->
+	<xs:simpleType name="Antalforsakrade">
+		<xs:restriction base="xs:unsignedInt">
+			<xs:totalDigits value="6"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GruppanmTGLKstFromman">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="GruppanmTGLKstTomman">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<!--KALENDARIE ########################################################################-->
+	<xs:simpleType name="PeriodFrom">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="PeriodTom">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Ersattningstyp">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GradAvArbetsoformagaPbef">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="3"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Kollektiv ########################################################################-->
+	<xs:simpleType name="KollektivId">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--KOSTNADSSTÄLLE ########################################################################-->
+	<xs:simpleType name="KostnadsstalleId">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="3"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Kostnadsstallenamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="48"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--LÖNEUPPGIFT########################################################################-->
+	<xs:simpleType name="Lonetyp">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="2"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+			<xs:enumeration value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AnmaldLon">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LonUtanOren">
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="15"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GradAvArbetsoformaga">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="3"/>
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="1.00"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LonFrom">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<!--PENSAVTALSTYP ########################################################################-->
+	<xs:simpleType name="Pensavtalstypkod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1" fixed="false"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--PENSIONERINGSAVTAL ########################################################################-->
+	<xs:simpleType name="Pensioneringsavtalsnr">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Pensavtalfromman">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Pensavtaltomman">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<!--PERSON ########################################################################-->
+	<xs:simpleType name="Personid">
+		<xs:restriction base="xs:unsignedLong">
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Personnummer">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="(18|19|20)[0-9]{6}-[0-9]{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Personnummertyp">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:totalDigits value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DodsfalldatumSpar">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="8"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DodsfalldatumSparStatuskod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DodsfalldatumManuellt">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Fornamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="80"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FornamnGU">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="80"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Mellannamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Efternamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="60"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EfternamnGU">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="60"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TillhorUtjamningskollektivetJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<!--PERSONADRESS ########################################################################-->
+	<xs:simpleType name="Personadresstypkod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--PLACERINGSPRODUKTID ########################################################################-->
+	<xs:simpleType name="PlaceringsProduktId">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--PLAN ########################################################################-->
+	<xs:simpleType name="PlanId">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="3"/>
+			<xs:minInclusive value="1"/>
+			<!--			<xs:maxInclusive value="18"/>   -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GrundplantypKod">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="3"/>
+			<xs:minInclusive value="1"/>
+			<xs:maxInclusive value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="APTeckningsalder">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- PREMIEBERÄKNINGSPLANERING ##################################### -->
+	<xs:simpleType name="Korningsmanad">
+		<xs:restriction base="xs:unsignedInt">
+			<xs:totalDigits value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- PREMIEBERÄKNINGSRESULTAT ##################################### -->
+	<xs:simpleType name="Berakningsperiod">
+		<xs:restriction base="xs:unsignedInt">
+			<xs:totalDigits value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- Premiebelopp finns även här, men använd den som finns sorterad under Premiefördelningsresultat -->
+	<xs:simpleType name="Premietillagg">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- PREMIEFÖRDELNINGSSRESULTAT ##################################### -->
+	<xs:simpleType name="Premieperiod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BetalDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Premiebelopp">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- PREMIETYP ############################################## -->
+	<xs:simpleType name="PremietypKod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="12"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Premietyp">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Frilagdpremieuppgift">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="3"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--STYRELSELEDAMOT ###############################################-->
+	<xs:simpleType name="Text">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- FP-Avstående ##################################################-->
+	<xs:simpleType name="AvstaendeKollektiv">
+		<xs:restriction base="xs:unsignedByte"/>
+	</xs:simpleType>
+	<xs:simpleType name="FPBelopp">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Beloppstyp">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Kundinfo ###############################################-->
+	<xs:simpleType name="Valdatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Premiedragande">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="ValAndel">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="1.00"/>
+			<xs:totalDigits value="3"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ITPKNy">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="Premibefriad">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="UndUttrAvstkod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ForsakringFrom">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="AvstaendeFP">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="AvstaendeFPFrom">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Returkod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Forsakringsgivare">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="36"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Forsakringsnummer">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GVBDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Kapital">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="14"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Forsakringstyp">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ForvaltningsformKundinfo">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="T"/>
+			<xs:enumeration value="F"/>
+			<xs:enumeration value="D"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Flytt">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="J"/>
+			<xs:enumeration value="N"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UnderUtbetalning">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="J"/>
+			<xs:enumeration value="N"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Aterbetalningsskydd">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="J"/>
+			<xs:enumeration value="N"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--VALFAMILJESKYDD ###############################################-->
+	<xs:simpleType name="ValFamiljeskyddJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="FamiljeskyddTyp">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ValFamiljeskyddFromDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="ValFamiljeskyddTomDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="AntalBasbelopp">
+		<xs:restriction base="xs:unsignedByte"/>
+	</xs:simpleType>
+	<xs:simpleType name="Utbetalningstid">
+		<xs:restriction base="xs:unsignedShort"/>
+	</xs:simpleType>
+	<xs:simpleType name="Skuldbelopp">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--SAMORDNINGSREGISTRET #######################################-->
+	<xs:simpleType name="UtdragOnskas">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="AktiveraIntrade">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="IntradenSaknasJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="Intradesdatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<!--Förmånsmapp #######################################-->
+	<xs:simpleType name="FormansmappId">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FormansmappStatus">
+		<xs:restriction base="xs:unsignedByte"/>
+	</xs:simpleType>
+	<xs:simpleType name="AvtalsomradeId">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ErbjudnaFormanId">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="15"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FulltAtertag">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Andring">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:totalDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="VardeTidpunkt">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<!--Sjuk & Frisk anmälan ################################-->
+	<xs:simpleType name="Heltid">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="J"/>
+			<xs:enumeration value="N"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DeltidIProcentAvHeltid">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DeltidITimmarPerVecka">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Kontouppgift">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="J"/>
+			<xs:enumeration value="N"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ClearingNr">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="KontoNr">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ITPBemanning">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="J"/>
+			<xs:enumeration value="N"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="HeltAr">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="J"/>
+			<xs:enumeration value="N"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Timmar">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Fromdat">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Tomdat">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="FriskFromDat">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Sjukgrad">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="2"/>
+			<xs:maxLength value="3"/>
+			<xs:enumeration value="25"/>
+			<xs:enumeration value="50"/>
+			<xs:enumeration value="75"/>
+			<xs:enumeration value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="KontaktPerson">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="80"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TfnKontaktPerson">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EmailKontaktPerson">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="241"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="KompletterandeInfo">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="500"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Försäkrings- och värdeuppgifter för löpande avstämning och värdebesked av ålderspension ########-->
+	<xs:simpleType name="FormansmappStatus242">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:totalDigits value="2"/>
+			<xs:enumeration value="12"/>
+			<xs:enumeration value="13"/>
+			<xs:enumeration value="14"/>
+			<xs:enumeration value="98"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Identitet">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ForsakringStatus">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Entrelosning">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="9"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Livslangdsantagande">
+		<xs:restriction base="xs:unsignedShort"/>
+	</xs:simpleType>
+	<xs:simpleType name="Prognosranta">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="3"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UnderUtbetalningJN">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="KostnadEllerIntakt">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="K"/>
+			<xs:enumeration value="I"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="KostnadIntaktTyp">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="3"/>
+			<xs:enumeration value="010"/>
+			<xs:enumeration value="020"/>
+			<xs:enumeration value="030"/>
+			<xs:enumeration value="040"/>
+			<xs:enumeration value="050"/>
+			<xs:enumeration value="060"/>
+			<xs:enumeration value="061"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Transaktionsdatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="ForsakringsvaxladFran">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Avvikelser inför Årsbesked #########################################-->
+	<xs:simpleType name="PersonnummerAB">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="(18|19|20)[0-9]{6}[0-9]{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OrsakskodAB">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="2"/>
+			<xs:enumeration value="01"/>
+			<xs:enumeration value="02"/>
+			<xs:enumeration value="03"/>
+			<xs:enumeration value="04"/>
+			<xs:enumeration value="05"/>
+			<xs:enumeration value="06"/>
+			<xs:enumeration value="07"/>
+			<xs:enumeration value="08"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Kundföretag, Felfil, Anställning&Risk mot Pensionskassorna #########################################-->
+	<xs:simpleType name="SkickatFran">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="9"/>
+			<xs:enumeration value="AP"/>
+			<xs:enumeration value="PP"/>
+			<xs:enumeration value="SPV"/>
+			<xs:enumeration value="FOL"/>
+			<xs:enumeration value="Collectum"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PKKostnadsstalleNamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PKKostnadsstalleTyp">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OverordnatKostnadsstalle">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:totalDigits value="3"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ExtAbgId">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="KundforetagNamn">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FakturaMottagare">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FakturaadressGata">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FakturaadressPostnr">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FakturaadressPostort">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FakturaadressLandskod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="2"/>
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Handelsetyp">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Feltyp">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="E"/>
+			<xs:enumeration value="I"/>
+			<xs:enumeration value="W"/>
+			<xs:enumeration value="S"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Felkod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Felbeskrivning">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="220"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Kod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PensionsmedforandeLon">
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="10"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvgangsOrsak">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="9"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FelposterDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="AnstallningRiskDatum">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="AnstallningRiskBoolean">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="SlutbetalningKoefficient">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="7"/>
+			<xs:fractionDigits value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EngangspremieBelopp">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="13"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Handelsemanad">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="6"/>
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

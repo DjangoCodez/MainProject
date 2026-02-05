@@ -1,0 +1,44 @@
+<soe-dialog>
+  <div dialog-content>
+    <div class="row">
+      <soe-project-time-report-edit-grid
+        [rows]="rowData"
+        [workTimePermission]="workTimePermission"
+        [invoiceTimePermission]="invoiceTimePermission"
+        [useExtendedTimeRegistration]="useExtendedTimeRegistration"
+        [timeDeviationCausesDict]="causesDict"
+        [employeesDict]="employeesDict"
+        [employees]="employees"
+        [projects]="projects"
+        [timeDeviationCauses]="timeDeviationCauses"
+        [orders]="orders"
+        [isDirty]="isDirty"
+        [isNew]="isNew"
+        [employeeId]="employeeId"
+        [employee]="employee"
+        [invoiceTimeAsWorkTime]="invoiceTimeAsWorkTime"
+        [registrationType]="registrationType"
+        [addRow]="$addRow"
+        [defaultTimeCodeId]="defaultTimeCodeId">
+      </soe-project-time-report-edit-grid>
+    </div>
+  </div>
+  <div dialog-footer>
+    <soe-button
+      class="me-1"
+      [caption]="'common.newrow'"
+      [behaviour]="'standard'"
+      (action)="addRow()">
+    </soe-button>
+
+    <soe-button
+      class="me-1"
+      [caption]="'core.cancel'"
+      typeClass="btn btn-secondary"
+      [behaviour]="'standard'"
+      (action)="cancel()"></soe-button>
+
+    <soe-save-button class="me-2" (action)="save()" [dirty]="isDirty()">
+    </soe-save-button>
+  </div>
+</soe-dialog>

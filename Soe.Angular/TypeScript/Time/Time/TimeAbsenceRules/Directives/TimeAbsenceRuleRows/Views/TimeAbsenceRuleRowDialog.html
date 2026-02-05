@@ -1,0 +1,36 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></h6>
+        <h6 class="modal-title" data-l10n-bind="'core.edit'" data-ng-if="!ctrl.isNew"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-textbox label-key="common.start" model="ctrl.timeAbsenceRuleRow.start" required="true" maxlength="5"></soe-textbox>
+            </div>
+            <div class="col-sm-6">
+                <soe-textbox label-key="common.stop" model="ctrl.timeAbsenceRuleRow.stop" required="true" maxlength="5"></soe-textbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-select label-key="common.type" model="ctrl.timeAbsenceRuleRow.type" items="ctrl.types" options="item.id as item.name for item in items" required="true"></soe-select>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.showScope">
+            <div class="col-sm-12">
+                <soe-select label-key="time.time.timeabsencerules.timeabsencerulerow.scope" model="ctrl.timeAbsenceRuleRow.scope" items="ctrl.scopes" options="item.id as item.name for item in items"></soe-select>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.showPayrollProduct">
+            <div class="col-sm-12">
+                <soe-select label-key="common.payrollproduct" model="ctrl.timeAbsenceRuleRow.payrollProductId" items="ctrl.payrollProductsForType" options="item.productId as item.numberName for item in items" required="true"></soe-select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-disabled="!ctrl.isValid()" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

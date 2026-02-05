@@ -1,0 +1,14 @@
+<div
+  class="content-container"
+  [class.has-scrollbar]="hasScrollbar()"
+  cdkDropListGroup>
+  @for (
+    employee of employeeService.visibleEmployees();
+    track employee.employeeId;
+    let i = $index
+  ) {
+    <sp-employee-row
+      [employee]="employee"
+      [canBePinned]="i === 0"></sp-employee-row>
+  }
+</div>

@@ -1,0 +1,263 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.modal.close()" aria-hidden="true">&times;</button>
+    </div>
+    <!--ng-if="ctrl.isExternal"-->
+    <div data-ng-if="!ctrl.progress.progressBusy" ng-class="ctrl.isModal ? 'edit-padding': ''">
+        <div class="row margin-large-bottom">
+            <div class="pull-left margin-small-left">
+                <soe-toolbar buttons="ctrl.toolbar.navigationMenuButtons" hide-border="true" no-margin="true"></soe-toolbar>
+            </div>
+            <div class="pull-right margin-large-right">
+                <soe-toolbar buttons="ctrl.toolbar.buttonGroups" hide-border="true" no-margin="true"></soe-toolbar>
+            </div>
+        </div>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="common.general" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="common.active" model="ctrl.active"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="billing.product.number" model="ctrl.product.number" required="true" is-readonly="ctrl.product.isExternal"></soe-textbox>
+                                </div>
+                                <div class="col-sm-8">
+                                    <soe-textbox label-key="billing.product.name" model="ctrl.product.name" required="true"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <soe-select label-key="billing.product.vattype" model="ctrl.product.vatType" items="ctrl.vatTypes" options="item.id as item.name for item in items" on-changing="ctrl.vatTypeChanged(item)"></soe-select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-select label-key="billing.product.productunit" model="ctrl.product.productUnitId" items="ctrl.productUnits" options="item.productUnitId as item.name for item in items"></soe-select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-select label-key="billing.product.vatcode" model="ctrl.product.vatCodeId" items="ctrl.vatCodes" options="item.vatCodeId as item.name for item in items"></soe-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <soe-textarea label-key="billing.product.description" model="ctrl.product.description" rows="4"></soe-textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-select label-key="billing.product.materialcode" model="ctrl.product.timeCodeId" items="ctrl.materialCodes" options="item.timeCodeId as item.name for item in items"></soe-select>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-typeahead label-key="billing.product.productgroup" model="ctrl.selectedProductGroup" items="ctrl.productGroups" options="item as item.name for item in items" editable="true"></soe-typeahead>
+                        </div>
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="billing.product.ean" model="ctrl.product.ean"></soe-textbox>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="col-sm-3">
+                                <soe-checkbox label-key="billing.product.showdescriptionastextrow" model="ctrl.product.showDescriptionAsTextRow" inline="true"></soe-checkbox>
+                            </div>
+                            <div class="col-sm-3">
+                                <soe-checkbox label-key="billing.product.showdescastextrowonpurchase" model="ctrl.product.showDescrAsTextRowOnPurchase" inline="true"></soe-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <soe-select label-key="billing.products.taxdeductiontype" model="ctrl.product.householdDeductionType" items="ctrl.householdDeductionTypes" options="item.id as item.name for item in items"></soe-select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="billing.product.householddeductionpercent" model="ctrl.product.householdDeductionPercentage" input-type="number"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-checkbox label-key="billing.product.usecalculatedcost" model="ctrl.product.useCalculatedCost" inline="true" ng-show="ctrl.showCalculatedCost"></soe-checkbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <soe-select label-key="billing.product.calculationtype" model="ctrl.product.calculationType" items="ctrl.calculationTypes" options="item.id as item.name for item in items" on-changing="ctrl.calculationTypeChanged(item)"></soe-select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="billing.product.weight" model="ctrl.product.weight" input-type="number" on-blur="ctrl.weightBlur(this.value)"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="billing.product.guaranteepercentage" model="ctrl.product.guaranteePercentage" input-type="number" ng-show="ctrl.showGuaranteePercentage"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4" title="{{ctrl.commodityCodeTooltip}}">
+                                    <soe-typeahead label-key="common.commoditycodes.code" model="ctrl.selectedCommodityCode" items="ctrl.commodityCodes" options="item as item.name for item in items" editable="true" ng-show="ctrl.hasCommodityCodesPermission"></soe-typeahead>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-select label-key="common.countryoforigin" model="ctrl.product.sysCountryId" items="ctrl.countries" options="item.id as item.name for item in items"></soe-select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-select label-key="billing.product.grossmargincalculationtype" model="ctrl.product.defaultGrossMarginCalculationType" items="ctrl.grossMarginCalculationTypes" options="item.id as item.name for item in items"></soe-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 margin-large-top">
+                            <categories category-type="1" category-record-entity="1" parent-guid="ctrl.guid" selected-categories="ctrl.product.categoryIds" nbr-of-rows="3" read-only="!ctrl.modifyPermission || !ctrl.modifyCategoryPermission"></categories>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="billing.product.prices" is-open="false">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <soe-checkbox label-key="billing.product.dontusediscountpercent" model="ctrl.product.dontUseDiscountPercent"></soe-checkbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <soe-textbox label-key="billing.product.purchaseprice" model="ctrl.product.purchasePrice" numeric="true" decimals="2" ng-show="ctrl.showPurchasePrice" is-readonly="!ctrl.isNew && ctrl.product.isExternal" max-decimals="4"></soe-textbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="row" ng-show="ctrl.product.isExternal">
+                                <div class="col-sm-6">
+                                    <soe-textbox label-key="billing.product.wholesellername" model="ctrl.product.sysWholesellerName" is-readonly="true"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="ctrl.product.isExternal">
+                                <div class="col-sm-6" data-ng-if="ctrl.product.priceLists.length>0">
+                                    <soe-textbox label-key="billing.product.externalprice" model="ctrl.product.priceLists[0].price" numeric="true" decimals="2" is-readonly="true"></soe-textbox>
+                                </div>
+                                <div class="col-sm-6" data-ng-if="ctrl.product.priceLists.length>0">
+                                    <soe-textbox label-key="billing.product.externalpriceexplanation" model="ctrl.product.priceLists[0].name" is-readonly="true"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="!ctrl.product.isExternal">
+                                <div class="col-sm-12">
+                                    <price-lists price-list-rows="ctrl.priceListRows" read-only="!ctrl.modifyPermission" parent-guid="ctrl.guid"></price-lists>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="billing.product.accountsettings" is-open="false" on-open="ctrl.onAccountSettingsExpanderOpen()">
+                <div class="form-group form-group-sm" ng-if="ctrl.accountSettingsExpanderRendered">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <accounting-settings setting-types="ctrl.productAccountSettingTypes" settings="ctrl.productAccountingSettings" base-accounts="ctrl.productBaseAccounts" show-base-account="true" min-rows="4" read-only="ctrl.readOnly" parent-guid="ctrl.guid"></accounting-settings>
+                        </div>
+                        <div class="col-sm-4">
+                            <accounting-priority product-account-priority-rows="ctrl.productAccountPriorityRows" read-only="!ctrl.modifyPermission"></accounting-priority>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="billing.product.stock" is-open="false" ng-show="ctrl.useStockPermission || ctrl.stockHandling" on-open="ctrl.onStockExpanderOpen()">
+                <div class="form-group form-group-sm" ng-if="ctrl.stockExpanderRendered">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="billing.products.product.isstockproduct" model="ctrl.product.isStockProduct"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <accounting-settings setting-types="ctrl.stockAccountSettingTypes" settings="ctrl.stockAccountingSettings" base-accounts="ctrl.stockBaseAccounts" show-base-account="true" min-rows="3" read-only="ctrl.readOnly" parent-guid="ctrl.guid"></accounting-settings>
+                        </div>
+                        <div class="col-sm-4" ng-if="ctrl.useProductUnitConvert">
+                            <product-unit-convert product-id="ctrl.productId" product-unit-id="ctrl.product.productUnitId" product-unit-converts="ctrl.productUnitConverts" read-only="ctrl.readOnly"></product-unit-convert>
+                        </div>
+                    </div>
+                    <div class="row margin-large-top" ng-show="ctrl.stockHandling">
+                        <div class="col-sm-8">
+                            <stocks product-id="ctrl.productId" stocks-for-product="ctrl.productStockHelper.stocksForProduct" default-stock-id="ctrl.defaultStockId" read-only="ctrl.readOnly" parent-guid="ctrl.guid"></stocks>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="billing.purchase.product.products" is-open="false" ng-if="ctrl.hasPurchaseProductsPermission" on-open="ctrl.onSupplierProductsExpanderOpen()">
+                <div ng-if="ctrl.supplierProductsExpanderRendered">
+                    <supplier-products product-id="ctrl.productId"></supplier-products>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="common.extrafields.extrafields" is-open="false" ng-if="ctrl.showExtraFieldsExpander" on-open="ctrl.onExtraFieldsExpanderOpen()">
+                <div class="form-group form-group-sm" ng-if="ctrl.extraFieldsExpanderRendered">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <extra-fields record-id="ctrl.productId" entity="61" read-only="!ctrl.modifyPermission" parent-guid="ctrl.guid" extra-field-records="ctrl.extraFieldRecords"></extra-fields>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="billing.product.translations" is-open="false" on-open="ctrl.onTranslationsExpanderOpen()">
+                <div class="form-group form-group-sm" ng-if="ctrl.translationsExpanderRendered">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <comp-terms comp-term-record-type="ctrl.compTermRecordType" record-id="ctrl.productId" comp-term-rows="ctrl.compTermRows" read-only="!ctrl.modifyPermission" parent-guid="ctrl.guid"></comp-terms>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="common.statistics" on-open="ctrl.onStatisticsExpanderOpen()">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row margin-large-bottom" style="margin-top: -15px;">
+                            <soe-toolbar class="form-inline" buttons="ctrl.statisticsGridButtonGroups" no-margin="true">
+                                <div class="form-group form-group-sm margin-large-right">
+                                    <soe-select hidelabel="true" model="ctrl.allItemsSelection" items="ctrl.allItemsSelectionDict" options="item.id as item.name for item in items"></soe-select>
+                                </div>
+                                <div class="form-group form-group-sm">
+                                    <soe-select hidelabel="true" model="ctrl.selectedOriginType" items="ctrl.originTypes" options="item.value as item.label for item in items"></soe-select>
+                                </div>
+                            </soe-toolbar>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <!--<div data-ui-grid="ctrl.statisticsGridOptions.gridOptions" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-save-state ui-grid-exporter ui-grid-expandable></div>-->
+                            <div ag-grid="ctrl.gridHandler.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+                            <div id="totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;" prevent-enter></div>
+                            <!--<data-ng-include src="ctrl.productStatisticsGridFooterComponentUrl" />-->
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter" data-ng-class="{'modal-margin': ctrl.isModal}">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.product"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

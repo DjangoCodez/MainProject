@@ -1,0 +1,135 @@
+﻿<xs:schema id="SOE_KPADirektReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SOE_KPADirektReport">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="KPADirektReport">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportHeader">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="ReportTitle"/>
+                    <xs:element type="xs:string" name="ReportDescription"/>
+                    <xs:element type="xs:int" name="ReportNr"/>
+                    <xs:element type="xs:string" name="Company"/>
+                    <xs:element type="xs:string" name="Orgnr"/>
+                    <xs:element type="xs:string" name="LoginName"/>
+                    <xs:element type="xs:string" name="TimePeriod"/>
+                    <xs:element type="xs:string" name="SortByLevel1"/>
+                    <xs:element type="xs:string" name="SortByLevel2"/>
+                    <xs:element type="xs:string" name="SortByLevel3"/>
+                    <xs:element type="xs:string" name="SortByLevel4"/>
+                    <xs:element type="xs:string" name="IsSortAscending"/>
+                    <xs:element type="xs:string" name="GroupByLevel1"/>
+                    <xs:element type="xs:string" name="GroupByLevel2"/>
+                    <xs:element type="xs:string" name="GroupByLevel3"/>
+                    <xs:element type="xs:string" name="GroupByLevel4"/>
+                    <xs:element type="xs:string" name="Special"/>
+                    <xs:element type="xs:string" name="DateInterval"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Employee" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="EmployeeNr"/>
+                    <xs:element type="xs:string" name="FirstName"/>
+                    <xs:element type="xs:string" name="LastName"/>
+                    <xs:element type="xs:string" name="SocialSec"/>
+                    <xs:element type="xs:string" name="Note"/>
+                    <xs:element name="EmployeeKPADirekt">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="EmployeeNr"/>
+                          <xs:element type="xs:string" name="EmployeeName"/>
+                          <xs:element type="xs:string" name="Kundnummer"/>
+                          <xs:element type="xs:string" name="Forvaltningsnummer"/>
+                          <xs:element type="xs:string" name="Personnummer"/>
+                          <xs:element type="xs:int" name="PostTyp"/>
+                          <xs:element type="xs:int" name="Sekel"/>
+                          <xs:element name="EmployeeKPADirektAnstallningKAP" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="Kundnummer"/>
+                                <xs:element type="xs:string" name="Forvaltningsnummer"/>
+                                <xs:element type="xs:string" name="Personnummer"/>
+                                <xs:element type="xs:int" name="PostTyp"/>
+                                <xs:element type="xs:string" name="Anstallningsnummer"/>
+                                <xs:element type="xs:dateTime" name="FromDatum"/>
+                                <xs:element type="xs:dateTime" name="TomDatum"/>
+                                <xs:element type="xs:decimal" name="LonVidAnstallningensTilltrade"/>
+                                <xs:element type="xs:decimal" name="PensionsgrundandeTillagg"/>
+                                <xs:element type="xs:int" name="PensionAlder"/>
+                                <xs:element type="xs:int" name="Brandman"/>
+                                <xs:element type="xs:int" name="AntalArbetsdagarForTimanstalld"/>
+                                <xs:element type="xs:string" name="Tillhorighet"/>
+                              </xs:sequence>
+                              <xs:attribute type="xs:int" name="Id" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="EmployeeKPADirektAnstallningPFA" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="Kundnummer"/>
+                                <xs:element type="xs:string" name="Forvaltningsnummer"/>
+                                <xs:element type="xs:string" name="Personnummer"/>
+                                <xs:element type="xs:int" name="PostTyp"/>
+                                <xs:element type="xs:string" name="Anstallningsnummer"/>
+                                <xs:element type="xs:dateTime" name="FromDatum"/>
+                                <xs:element type="xs:dateTime" name="TomDatum"/>
+                                <xs:element type="xs:string" name="AvslutsKod"/>
+                                <xs:element type="xs:int" name="PensionAlder"/>
+                                <xs:element type="xs:int" name="Brandman"/>
+                                <xs:element type="xs:string" name="PensionAvtal"/>
+                                <xs:element type="xs:string" name="VisstidsForordnandeKod"/>
+                                <xs:element type="xs:int" name="AntalArbetsdagarForTimanstalld"/>
+                              </xs:sequence>
+                              <xs:attribute type="xs:int" name="Id" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="EmployeeKPADirektArsbelopp">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="Kundnummer"/>
+                                <xs:element type="xs:string" name="Forvaltningsnummer"/>
+                                <xs:element type="xs:string" name="Personnummer"/>
+                                <xs:element type="xs:int" name="PostTyp"/>
+                                <xs:element type="xs:string" name="Anstallningsnummer"/>
+                                <xs:element type="xs:dateTime" name="FromDatum"/>
+                                <xs:element type="xs:dateTime" name="TomDatum"/>
+                                <xs:element type="xs:int" name="PensionsgrundandeLon"/>
+                                <xs:element type="xs:int" name="ManadslonAKAP_KL"/>
+                                <xs:element type="xs:int" name="ProcentsatsForAvgiftsbaseradAlderspensionUnder7_5Inkomstbasbelopp"/>
+                                <xs:element type="xs:int" name="ProcentsatsForAvgiftsbaseradAlderspensionOver7_5Inkomstbasbelopp"/>
+                                <xs:element type="xs:string" name="VilketAvtalAnställningenTillhor"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="EmployeeKPADirektLedighetsuppgift" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="Kundnummer"/>
+                                <xs:element type="xs:string" name="Forvaltningsnummer"/>
+                                <xs:element type="xs:string" name="Personnummer"/>
+                                <xs:element type="xs:int" name="PostTyp"/>
+                                <xs:element type="xs:dateTime" name="FromDatum"/>
+                                <xs:element type="xs:dateTime" name="TomDatum"/>
+                                <xs:element type="xs:int" name="Omfattning" minOccurs="0"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:int" name="Id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:int" name="Id" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

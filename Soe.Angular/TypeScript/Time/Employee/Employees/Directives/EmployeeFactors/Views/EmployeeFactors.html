@@ -1,0 +1,32 @@
+﻿<div>
+    <soe-panel label-key="time.employee.employee.factors" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.editFactor();">
+        <div>
+            <div class="col-sm-12 margin-small-top margin-small-bottom">
+                <soe-checkbox label-key="time.employee.employee.factor.showallgenerations" model="ctrl.showAllGenerations" on-changing="ctrl.showAllGenerationsChanged();"></soe-checkbox>
+            </div>
+
+            <table class="table table-condensed table-hover horizontal-line-top">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 20px"></th>
+                        <th scope="col" data-l10n-bind="'common.type'"></th>
+                        <th scope="col" data-l10n-bind="'common.fromdate'"></th>
+                        <th scope="col" class="right-align-cell" data-l10n-bind="'time.employee.employee.factor'"></th>
+                        <th scope="col" style="width: 28px"></th>
+                        <th scope="col" style="width: 28px"></th>
+                    </tr>
+                </thead>
+                <tbody data-ng-repeat="factor in ctrl.filteredFactors">
+                    <tr data-ng-class="{'table-selected-row': ctrl.selectedFactor === factor}" data-ng-click="ctrl.selectedFactor = factor">
+                        <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedFactor === factor"></i></td>
+                        <td><span data-ng-class="{'indiscreet': factor.isCurrent}">{{factor.typeName}}</span></td>
+                        <td><span data-ng-class="{'indiscreet': factor.isCurrent}">{{factor.fromDate | date:'shortDate'}}</span></td>
+                        <td class="right-align-cell"><span data-ng-class="{'indiscreet': factor.isCurrent}">{{factor.factor | amount}}</span></td>
+                        <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editFactor(factor);"></i></span></td>
+                        <td><span data-l10n-bind data-l10n-bind-title="'core.deleterow'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteFactor(factor);"></i></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </soe-panel>
+</div>

@@ -1,0 +1,104 @@
+@use '../../../../../shared/styles/core-styles/colors.scss';
+@use '../../../../../shared/styles/core-styles/fonts.scss';
+@use '../schedule-planning/schedule-planning-common.scss';
+
+.time-slot-header-container {
+  .time-slots-row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    font-size: fonts.$soe-font-size-md;
+    border-style: solid;
+    border-color: colors.$soe-border-color;
+    border-width: 1px 1px 1px 0;
+    margin-bottom: -1px;
+    height: 26px;
+
+    .employee-slot {
+      border-right-width: 2px;
+      // position: sticky;
+      // left: 0;
+      // background-color: colors.$soe-background-color;
+
+      &.information-background-color {
+        // Add padding to background color to avoid color bleeding with border
+        padding: 1px;
+        background-clip: content-box;
+        display: flex;
+        align-items: center;
+
+        span {
+          margin-left: 0.25rem;
+        }
+      }
+    }
+
+    .time-slots {
+      &.weeks-grid {
+        .time-slot-week {
+          height: 26px;
+        }
+      }
+
+      .time-slot {
+        &.time-slot-week-day {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+
+          &.is-today,
+          &.is-saturday,
+          &.is-sunday {
+            // Add padding to background color to avoid color bleeding with border
+            padding: 1px;
+            background-clip: content-box;
+          }
+        }
+
+        &.time-slot-hour {
+          text-align: left;
+          padding-left: 0.25rem;
+          border-color: colors.$soe-color-neutral-grey;
+        }
+      }
+
+      .time-slot-day {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &.is-today,
+        &.is-saturday,
+        &.is-sunday {
+          // Add padding to background color to avoid color bleeding with border
+          padding: 1px;
+          background-clip: content-box;
+        }
+      }
+    }
+  }
+}
+
+.time-slots.weeks-grid,
+.time-slots.days-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr; /* each day column same flexible width */
+}
+
+.time-slots.weeks-grid .time-slot-week {
+  /* spans handled inline via grid-column */
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right-width: 2px;
+}
+
+.time-slots.days-grid .time-slot-week-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,12 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [parentGuid]="guid()"
+    [rows]="rowData"
+    (editRowClicked)="edit($event)"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+    <soe-import-payments-grid-filter
+      toolbar-content-left
+      (filterReady)="onFilterReady($event)"
+      (filterChange)="filterOnChange($event)"></soe-import-payments-grid-filter>
+  </soe-grid-wrapper>
+}

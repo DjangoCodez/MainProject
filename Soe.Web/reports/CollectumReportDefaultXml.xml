@@ -1,0 +1,201 @@
+<?xml version="1.0" standalone="yes"?>
+<SOE_CollectumReport>
+  <xs:schema id="SOE_CollectumReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="SOE_CollectumReport" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element name="CollectumReport">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="Company" type="xs:string" minOccurs="0" />
+                      <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                      <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                      <xs:element name="TimePeriod" type="xs:string" minOccurs="0" />
+                      <xs:element name="SortByLevel1" type="xs:string" minOccurs="0" />
+                      <xs:element name="SortByLevel2" type="xs:string" minOccurs="0" />
+                      <xs:element name="SortByLevel3" type="xs:string" minOccurs="0" />
+                      <xs:element name="SortByLevel4" type="xs:string" minOccurs="0" />
+                      <xs:element name="IsSortAscending" type="xs:string" minOccurs="0" />
+                      <xs:element name="GroupByLevel1" type="xs:string" minOccurs="0" />
+                      <xs:element name="GroupByLevel2" type="xs:string" minOccurs="0" />
+                      <xs:element name="GroupByLevel3" type="xs:string" minOccurs="0" />
+                      <xs:element name="GroupByLevel4" type="xs:string" minOccurs="0" />
+                      <xs:element name="Special" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateInterval" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="Employee" maxOccurs="unbounded" minOccurs="0">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element type="xs:string" name="EmployeeNr"/>
+                      <xs:element type="xs:string" name="FirstName"/>
+                      <xs:element type="xs:string" name="LastName"/>
+                      <xs:element type="xs:string" name="SocialSec"/>
+                      <xs:element type="xs:string" name="Note"/>
+                      <xs:element type="xs:int" name="CollectumITPPlan" />
+                      <xs:element type="xs:string" name="CollectumCostPlace" />
+                      <xs:element type="xs:string" name="CollectumAgreedOnProduct" />
+                      <xs:element name="Nyanmalan">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element type="xs:int" name="Handelsenummer"/>
+                            <xs:element type="xs:string" name="Organisationsnummer"/>
+                            <xs:element type="xs:string" name="KostnadsstalleId"/>
+                            <xs:element type="xs:string" name="Avtalsplanid"/>
+                            <xs:element type="xs:string" name="Personnummer"/>
+                            <xs:element type="xs:dateTime" name="Handelsetidpunkt"/>
+                            <xs:element type="xs:string" name="Efternamn"/>
+                            <xs:element type="xs:string" name="Fornamn"/>
+                            <xs:element type="xs:decimal" name="Manadslon" minOccurs="0"/>
+                            <xs:element type="xs:decimal" name="Arslon" minOccurs="0"/>
+                            <xs:element type="xs:decimal" name="ArslonEfterLoneavstaende" minOccurs="0"/>
+                            <xs:element type="xs:decimal" name="FulltArbetsfor" minOccurs="0"/>
+                            <xs:element type="xs:int" name="GradAvArbetsoformaga" minOccurs="0"/>
+                            <xs:element type="xs:int" name="VanligITP2" minOccurs="0"/>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="FlyttAnstalldaInomKoncernElement">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element type="xs:int" name="Handelsenummer"/>
+                            <xs:element type="xs:string" name="Organisationsnummer"/>
+                            <xs:element type="xs:string" name="KostnadsstalleId"/>
+                            <xs:element type="xs:string" name="Avtalsplanid"/>
+                            <xs:element type="xs:string" name="Personnummer"/>
+                            <xs:element type="xs:dateTime" name="Handelsetidpunkt"/>
+                            <xs:element type="xs:string" name="OrganisationsnummerFran"/>
+                            <xs:element type="xs:string" name="KostnadsstalleIdFran"/>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="Loneandring">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element type="xs:int" name="Handelsenummer"/>
+                            <xs:element type="xs:string" name="Organisationsnummer"/>
+                            <xs:element type="xs:string" name="KostnadsstalleId"/>
+                            <xs:element type="xs:string" name="Avtalsplanid"/>
+                            <xs:element type="xs:string" name="Personnummer"/>
+                            <xs:element type="xs:dateTime" name="Handelsetidpunkt"/>
+                            <xs:element type="xs:decimal" name="Manadslon" minOccurs="0"/>
+                            <xs:element type="xs:decimal" name="AvtaladManadslon" minOccurs="0"/>
+                            <xs:element type="xs:decimal" name="Arslon" minOccurs="0"/>
+                            <xs:element type="xs:decimal" name="ArslonEfterLoneavstaende" minOccurs="0"/>
+                            <xs:element type="xs:int" name="GradAvArbetsoformaga" minOccurs="0"/>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="Avanmalan">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element type="xs:int" name="Handelsenummer"/>
+                            <xs:element type="xs:string" name="Organisationsnummer"/>
+                            <xs:element type="xs:string" name="KostnadsstalleId"/>
+                            <xs:element type="xs:string" name="Avtalsplanid"/>
+                            <xs:element type="xs:string" name="Personnummer"/>
+                            <xs:element type="xs:dateTime" name="Handelsetidpunkt"/>
+                            <xs:element type="xs:int" name="Avgangsorsak"/>
+                            <xs:element type="xs:dateTime" name="DatumForForaldraledighet"/>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute type="xs:byte" name="Id" use="optional"/>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <CollectumReport>
+    <ReportHeader>
+      <ReportTitle>0</ReportTitle>
+      <ReportDescription></ReportDescription>
+      <ReportNr>0</ReportNr>
+      <Company>0</Company>
+      <Orgnr>0</Orgnr>
+      <LoginName>0</LoginName>
+      <TimePeriod></TimePeriod>
+      <SortByLevel1>Unknown</SortByLevel1>
+      <SortByLevel2>Unknown</SortByLevel2>
+      <SortByLevel3>Unknown</SortByLevel3>
+      <SortByLevel4>Unknown</SortByLevel4>
+      <IsSortAscending>false</IsSortAscending>
+      <GroupByLevel1>Unknown</GroupByLevel1>
+      <GroupByLevel2>Unknown</GroupByLevel2>
+      <GroupByLevel3>Unknown</GroupByLevel3>
+      <GroupByLevel4>Unknown</GroupByLevel4>
+      <Special />
+      <DateInterval>1900-01-01T00:00:00</DateInterval>
+    </ReportHeader>
+    <Employee Id="1">
+      <EmployeeNr>0</EmployeeNr>
+      <FirstName>0</FirstName>
+      <LastName></LastName>
+      <SocialSec>196602135037</SocialSec>
+      <Note>0</Note>
+      <CollectumITPPlan>0</CollectumITPPlan>
+      <CollectumCostPlace />
+      <CollectumAgreedOnProduct />
+      <Nyanmalan>
+        <Handelsenummer>0</Handelsenummer>
+        <Organisationsnummer></Organisationsnummer>
+        <KostnadsstalleId></KostnadsstalleId>
+        <Avtalsplanid></Avtalsplanid>
+        <Personnummer></Personnummer>
+        <Handelsetidpunkt>1900-01-01T00:00:00</Handelsetidpunkt>
+        <Efternamn></Efternamn>
+        <Fornamn></Fornamn>
+        <Manadslon>0</Manadslon>
+        <Arslon>0</Arslon>
+        <ArslonEfterLoneavstaende>0</ArslonEfterLoneavstaende>
+        <FulltArbetsfor>1</FulltArbetsfor>
+        <GradAvArbetsoformaga>0</GradAvArbetsoformaga>
+        <VanligITP2>0</VanligITP2>
+      </Nyanmalan>
+      <FlyttAnstalldaInomKoncernElement>
+        <Handelsenummer>1</Handelsenummer>
+        <Organisationsnummer>0</Organisationsnummer>
+        <KostnadsstalleId></KostnadsstalleId>
+        <Avtalsplanid></Avtalsplanid>
+        <Personnummer>196602135037</Personnummer>
+        <Handelsetidpunkt>1900-01-01T00:00:00</Handelsetidpunkt>
+        <OrganisationsnummerFran></OrganisationsnummerFran>
+        <KostnadsstalleIdFran></KostnadsstalleIdFran>
+      </FlyttAnstalldaInomKoncernElement>
+      <Loneandring>
+        <Handelsenummer>1</Handelsenummer>
+        <Organisationsnummer>01</Organisationsnummer>
+        <KostnadsstalleId></KostnadsstalleId>
+        <Avtalsplanid></Avtalsplanid>
+        <Personnummer>0</Personnummer>
+        <Handelsetidpunkt>1900-01-01T00:00:00</Handelsetidpunkt>
+        <Manadslon>0</Manadslon>
+        <Arslon>0</Arslon>
+        <ArslonEfterLoneavstaende>0</ArslonEfterLoneavstaende>
+        <GradAvArbetsoformaga>0</GradAvArbetsoformaga>
+      </Loneandring>
+      <Avanmalan>
+        <Handelsenummer>0</Handelsenummer>
+        <Organisationsnummer></Organisationsnummer>
+        <KostnadsstalleId></KostnadsstalleId>
+        <Avtalsplanid></Avtalsplanid>
+        <Personnummer></Personnummer>
+        <Handelsetidpunkt>1900-01-01T00:00:00</Handelsetidpunkt>
+        <Avgangsorsak>0</Avgangsorsak>
+        <DatumForForaldraledighet>1900-01-01T00:00:00</DatumForForaldraledighet>
+      </Avanmalan>
+    </Employee>
+  </CollectumReport>
+</SOE_CollectumReport>

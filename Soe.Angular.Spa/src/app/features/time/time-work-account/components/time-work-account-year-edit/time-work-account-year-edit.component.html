@@ -1,0 +1,261 @@
+﻿<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <soe-expansion-panel
+          labelKey="time.payroll.worktimeaccount.annualrun"
+          [open]="settingsExpanderIsOpen">
+          <div ng-show="settingsExpanderIsOpen">
+            <div class="row">
+              <div class="col-sm-2">
+                <div class="row">
+                  <soe-datepicker
+                    labelKey="time.payroll.worktimeaccount.earningstart"
+                    formControlName="earningStart">
+                  </soe-datepicker>
+                </div>
+                <div class="row">
+                  <soe-datepicker
+                    labelKey="time.payroll.worktimeaccount.earningstop"
+                    formControlName="earningStop">
+                  </soe-datepicker>
+                </div>
+                <div class="row">
+                  @if (showPension) {
+                    <div class="col-sm-12">
+                      <soe-select
+                        labelKey="time.payroll.worktimeaccount.pensionproduct"
+                        [selectedId]="form.value.pensionDepositPayrollProductId"
+                        [items]="pensionPayrollProducts"
+                        formControlName="pensionDepositPayrollProductId">
+                      </soe-select>
+                    </div>
+                  }
+                </div>
+                <div class="row">
+                  @if (showPaidLeave) {
+                    <div class="col-sm-12">
+                      <soe-select
+                        labelKey="time.time.timeaccumulators.timeaccumulator"
+                        [selectedId]="form.value.timeAccumulatorId"
+                        [items]="timeAccumulators"
+                        formControlName="timeAccumulatorId">
+                      </soe-select>
+                    </div>
+                  }
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="row">
+                  <soe-datepicker
+                    labelKey="time.payroll.worktimeaccount.withdrawalstart"
+                    formControlName="withdrawalStart">
+                  </soe-datepicker>
+                </div>
+                <div class="row">
+                  <soe-datepicker
+                    [labelKey]="'time.payroll.worktimeaccount.withdrawalstop'"
+                    formControlName="withdrawalStop">
+                  </soe-datepicker>
+                </div>
+                <div class="row">
+                  @if (showDirectPayment) {
+                    <div class="col-sm-12">
+                      <soe-select
+                        labelKey="time.payroll.worktimeaccount.directpaymentproduct"
+                        [selectedId]="form.value.directPaymentPayrollProductId"
+                        [items]="directPaymentpayrollProducts"
+                        formControlName="directPaymentPayrollProductId">
+                      </soe-select>
+                    </div>
+                  }
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="row">
+                  <soe-datepicker
+                    labelKey="time.payroll.worktimeaccount.employeelastdecideddate"
+                    formControlName="employeeLastDecidedDate">
+                  </soe-datepicker>
+                </div>
+                <div class="row">
+                  <soe-datepicker
+                    labelKey="time.payroll.worktimeaccount.paidabsencestopdate"
+                    formControlName="paidAbsenceStopDate">
+                  </soe-datepicker>
+                </div>
+                <div class="row">
+                  <soe-datepicker
+                    labelKey="time.payroll.worktimeaccount.directpaymentlastdate"
+                    formControlName="directPaymentLastDate">
+                  </soe-datepicker>
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="row">
+                  @if (showPension) {
+                    <soe-numberbox
+                      labelKey="time.payroll.worktimeaccount.pensiondepositpercent"
+                      [decimals]="2"
+                      formControlName="pensionDepositPercent">
+                    </soe-numberbox>
+                  }
+                </div>
+                <div class="row">
+                  @if (showPaidLeave) {
+                    <soe-numberbox
+                      labelKey="time.payroll.worktimeaccount.paidleavepercent"
+                      [decimals]="2"
+                      formControlName="paidLeavePercent">
+                    </soe-numberbox>
+                  }
+                </div>
+                <div class="row">
+                  @if (showDirectPayment) {
+                    <soe-numberbox
+                      labelKey="time.payroll.worktimeaccount.directpaymentpercent"
+                      [decimals]="2"
+                      formControlName="directPaymentPercent">
+                    </soe-numberbox>
+                  }
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <soe-expansion-panel
+                  labelKey="time.payroll.worktimeaccount.employee.worktimeweek.workinterval"
+                  [static]="true"
+                  [noPadding]="true">
+                  <soe-toolbar
+                    [itemGroups]="workIntervalToolbarService.toolbarItemGroups">
+                  </soe-toolbar>
+                  <table class="table table-condensed table-hover">
+                    <thead>
+                      <tr>
+                        <th
+                          scope="col"
+                          style="width: auto"
+                          id="header_weektimefrom">
+                          {{ 'common.from' | translate }}
+                        </th>
+                        <th
+                          scope="col"
+                          style="width: auto"
+                          id="header_weektimeto">
+                          {{ 'common.to' | translate }}
+                        </th>
+                        <th
+                          scope="col"
+                          style="width: auto"
+                          id="header_weektimemaxhours">
+                          {{
+                            'time.payroll.worktimeaccount.employee.worktimeweek.maxhours'
+                              | translate
+                          }}
+                        </th>
+                        <th
+                          scope="col"
+                          style="width: 18px"
+                          id="header_editempty">
+                          &nbsp;
+                        </th>
+                        <th
+                          scope="col"
+                          style="width: 18px"
+                          id="header_deleteempty">
+                          &nbsp;
+                        </th>
+                      </tr>
+                    </thead>
+                    @for (
+                      item of form.timeWorkAccountWorkTimeWeeks.controls;
+                      track item;
+                      let i = $index
+                    ) {
+                      <tbody>
+                        <tr>
+                          <td style="width: auto">
+                            <span>
+                              {{
+                                convertMinutesToHour(
+                                  item.value.workTimeWeekFrom
+                                )
+                              }}</span
+                            >
+                          </td>
+                          <td style="width: auto">
+                            <span>
+                              {{
+                                convertMinutesToHour(item.value.workTimeWeekTo)
+                              }}</span
+                            >
+                          </td>
+                          <td style="width: auto">
+                            <span>
+                              {{
+                                convertMinutesToHour(item.value.paidLeaveTime)
+                              }}</span
+                            >
+                          </td>
+                          <td style="width: 28px">
+                            <span>
+                              <em
+                                class="fal fa-pen icon-edit link"
+                                (click)="editWorkTimeWeek(i)"></em>
+                            </span>
+                          </td>
+                          <td style="width: 28px">
+                            <span>
+                              <em
+                                class="fal fa-times icon-delete link"
+                                (click)="deleteWorkTimeWeek(i)"></em>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    }
+                  </table>
+                </soe-expansion-panel>
+              </div>
+              <div class="col-sm-1">
+                <soe-menu-button
+                  class="float-end"
+                  [caption]="'core.functions'"
+                  [list]="menuList"
+                  [hidden]="form.isNew"
+                  [disabled]="
+                    !handler.modifyPermission() || menuList.length == 0
+                  "
+                  [behaviour]="'secondary'"
+                  (itemSelected)="peformAction($event)"
+                  (selectedItem)="(menuList)"></soe-menu-button>
+              </div>
+            </div>
+          </div>
+        </soe-expansion-panel>
+        <div class="row">
+          <div class="col-sm-12">
+            @if (handler.allowFetchGrid()) {
+              <soe-grid
+                [rows]="subData"
+                (selectionChanged)="checkSelection()"
+                (cellValueChanged)="onCellValueChanged($event)"
+                [height]="400">
+              </soe-grid>
+            }
+          </div>
+        </div>
+        <soe-edit-footer
+          [form]="form"
+          [idFieldName]="idFieldName"
+          [modifyPermission]="handler.modifyPermission()"
+          [inProgress]="performAction.inProgress()"
+          (saved)="performSave()"
+          (deleted)="triggerDelete()"></soe-edit-footer>
+      </form>
+    }
+  </ng-container>
+</soe-dialog>

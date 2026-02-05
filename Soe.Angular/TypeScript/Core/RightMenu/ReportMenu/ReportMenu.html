@@ -1,0 +1,438 @@
+﻿<div>
+    <div id="reportMenu" class="right-menu" data-ng-show="ctrl.showMenu" data-ng-class="{'fullscreen': ctrl.fullscreen}">
+        <div>
+            <div id="reportMenuPanel" class="panel panel-default" style="position: relative; height: 100%; margin-bottom: 0px;">
+                <div class="panel-heading">
+                    <button type="button" class="panel-heading-button pull-left margin-none-left margin-small-right" data-l10n-bind data-l10n-bind-title="'core.reportmenu.queue.contextmenu.openselection'" data-ng-if="ctrl.fullscreen && ctrl.isMatrixGrid" data-ng-click="ctrl.openAnalysisSelection();"><span class="fal fa-ballot-check textColor extraLargeFont"></span><span class="margin-small-left mediumFont indiscreet" data-l10n-bind="'core.reportmenu.queue.contextmenu.openselection'"></span></button>
+                    <button type="button" class="panel-heading-button pull-left margin-none-left margin-small-right" data-l10n-bind data-l10n-bind-title="'core.reportmenu.queue.contextmenu.openselection'" data-ng-if="ctrl.fullscreen && ctrl.isInsight" data-ng-click="ctrl.openInsightsSelection();"><span class="fal fa-ballot-check textColor extraLargeFont"></span><span class="margin-small-left mediumFont indiscreet" data-l10n-bind="'core.reportmenu.queue.contextmenu.openselection'"></span></button>
+                    <button type="button" class="panel-heading-button pull-left margin-none-left margin-small-right" data-l10n-bind data-l10n-bind-title="'common.batchupdate.title'" data-ng-if="ctrl.matrixGridIsEmployeeBatchUpdatable && ctrl.employeeBatchUpdatePermission && ctrl.fullscreen && ctrl.isMatrixGrid" data-ng-disabled="!ctrl.matrixGridHasSelectedRows" data-ng-click="ctrl.openEmployeeBatchUpdate();"><span class="fal fa-pen" style="font-size: 18px;"></span><span class="margin-small-left mediumFont indiscreet" data-l10n-bind="'common.batchupdate.title'"></span></button>
+                    <button type="button" class="panel-heading-button pull-left margin-none-left margin-small-right" data-l10n-bind data-l10n-bind-title="'common.batchupdate.title'" data-ng-if="ctrl.matrixGridIsPayrollProductBatchUpdatable && ctrl.payrollProductBatchUpdatePermission && ctrl.fullscreen && ctrl.isMatrixGrid" data-ng-disabled="!ctrl.matrixGridHasSelectedRows" data-ng-click="ctrl.openPayrollProductBatchUpdate();"><span class="fal fa-pen" style="font-size: 18px;"></span><span class="margin-small-left mediumFont indiscreet" data-l10n-bind="'common.batchupdate.title'"></span></button>
+                    <span class="vertical-line-left-black margin-small-right" data-ng-if="ctrl.fullscreen && (ctrl.isMatrixGrid || ctrl.isInsight)"></span>
+                    <span class="right-menu-toggle-fullscreen fal fa-angle-double-right" data-l10n-bind data-l10n-bind-title="'core.restore'" data-ng-if="ctrl.fullscreen" data-ng-click="ctrl.toggleFullscreen()"></span>
+                    <span class="indiscreet">{{ctrl.title}}</span><span class="indiscreet" data-ng-if="ctrl.selectedReport"> - {{ctrl.selectedReport.name}}</span>
+                    <button type="button" class="panel-heading-button" data-l10n-bind data-l10n-bind-title="'core.close'" data-ng-click="ctrl.toggleShowMenu()"><span class="fal fa-times"></span></button>
+                </div>
+                <div class="panel-body" style="overflow-y: hidden;">
+                    <div class="row" style="height: 100%">
+                        <div id="report-menu-overview-container" class="col-sm-9" style="padding-right: 0px; height: 100%;" data-ng-if="ctrl.fullscreen">
+                            <div class="report-menu-overview" style="height: calc(100% - 36px);" data-ng-if="ctrl.isOverview">
+                                <div class="info" data-ng-if="ctrl.loadingReports">
+                                    <span class="far fa-spinner fa-pulse fa-fw margin-small-right"></span><span data-l10n-bind="'core.reportmenu.loadingreports'"></span>
+                                </div>
+                                <div when-rendered="ctrl.setReportGridHeight();" data-ng-if="!ctrl.loadingReports">
+                                    <div id="report-grid" ag-grid="ctrl.gridHandler.gridAg.options.gridOptions" class="ag-theme-balham" style="min-height: 500px; margin: -11px -9px 0px -11px;"></div>
+                                    <div id="report-totals-grid" class="ag-theme-balham" style="height: 25px; margin: 0px -9px 0px -11px;"></div>
+                                </div>
+                            </div>
+                            <div class="report-menu-matrix-grid" style="height: calc(100% - 36px);" data-ng-if="ctrl.isMatrixGrid">
+                                <div when-rendered="ctrl.setMatrixGridHeight();">
+                                    <div id="matrix-grid" ag-grid="ctrl.matrixGridHandler.gridAg.options.gridOptions" class="ag-theme-balham" style="min-height: 500px; margin: -11px -9px 0px -11px;"></div>
+                                    <div id="matrix-totals-grid" class="ag-theme-balham" style="height: 25px; margin: 0px -9px 0px -11px;"></div>
+                                </div>
+                            </div>
+                            <div id="chart-container" class="report-menu-insight-container" style="height: calc(100% - 36px);" data-ng-if="ctrl.isInsight">
+                                <!-- Insights -->
+                                <div data-ng-switch="ctrl.matrixSelection.chartType" style="height: 100%">
+                                    <pie-insight container-id="'chart-container'" data-ng-switch-when="1|2" ng-switch-when-separator="|" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.analysisJsonRows"></pie-insight>
+                                    <line-insight container-id="'chart-container'" data-ng-switch-when="11" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.analysisJsonRows"></line-insight>
+                                    <bar-insight container-id="'chart-container'" data-ng-switch-when="21|22" ng-switch-when-separator="|" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.analysisJsonRows"></bar-insight>
+                                    <area-insight container-id="'chart-container'" data-ng-switch-when="31" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.analysisJsonRows"></area-insight>
+                                    <!--<scatter-insight data-ng-switch-when="41" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.analysisJsonRows"></scatter-insight>
+                                    <bubble-insight data-ng-switch-when="42" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.analysisJsonRows"></bubble-insight>
+                                    <histogram-insight data-ng-switch-when="51" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.analysisJsonRows"></histogram-insight>-->
+                                    <treemap-insight container-id="'chart-container'" data-ng-switch-when="61" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.analysisJsonRows"></treemap-insight>
+                                </div>
+                            </div>
+                            <div class="report-menu-selection" data-ng-if="!ctrl.isOverview && !ctrl.isMatrixGrid && !ctrl.isInsight">
+                                <div class="info margin-large-top margin-small-right margin-large-bottom margin-small-left" data-ng-if="ctrl.loadingReport">
+                                    <span class="far fa-spinner fa-pulse fa-fw margin-small-right"></span><span data-l10n-bind="'core.reportmenu.loadingreport'"></span>
+                                </div>
+                                <div data-ng-if="!ctrl.loadingReport">
+                                    <div class="form-inline toolbar">
+                                        <user-selections module="ctrl.selectedReport.module" selection-type="1" selections="ctrl.selections" selected-export-type="ctrl.selectedExportType" report-id="ctrl.selectedReport.reportId" show-include-columns-selection="ctrl.selectedReport.isAnalysis && ctrl.showExportTypeSelector && ctrl.hasAnalysisColumns" data-ng-if="ctrl.selectedReport.printableFromMenu" on-selected="ctrl.reportUserSelectionChanged(reportUserSelection);"></user-selections>
+                                        <div class="form-group form-group-sm margin-large-left" data-ng-if="ctrl.selectedReport.printableFromMenu">
+                                            <soe-select hidelabel="true" main-button="true" model="ctrl.selectedExportType" click-button-class="border-radius-right" items="ctrl.selectedReport.reportItem.supportedExportTypes" options="item.id as item.name for item in items" button-icon="ctrl.printIcon" button-tooltip-key="core.create" on-button-click="ctrl.initCreatePrintJob();" is-disabled="(ctrl.selectedReport.isAnalysis && !ctrl.hasAnalysisColumns) || ctrl.invalid" data-ng-if="ctrl.showExportTypeSelector"></soe-select>
+                                            <soe-splitbutton label-key="core.reportmenu.insights.create" options="ctrl.createInsightFunctions" main-button="true" last-button-class="last-button" option-selected="ctrl.createInsight(option)" is-disabled="!ctrl.hasAnalysisColumns || ctrl.invalid" data-ng-if="ctrl.showInsightExecuter"></soe-splitbutton>
+                                        </div>
+                                        <div class="form-group form-group-sm margin-small-left" data-ng-if="ctrl.showInsightExecuter && ctrl.analysisJsonRows">
+                                            <span><span>{{ctrl.analysisJsonRows.length}}</span> <span data-l10n-bind="'core.reportmenu.insights.recordsloaded'"></span></span>
+                                            <button type="button" class="btn btn-default margin-small-left" data-l10n-bind data-l10n-bind-title="'core.reportmenu.insights.viewasmatrix'" data-ng-click="ctrl.viewCreatedMatrixKeepData();"><i class="fal fa-table"></i></button>
+                                        </div>
+                                        <button type="button" class="close" data-l10n-bind data-l10n-bind-title="'core.close'" data-ng-click="ctrl.closeSelection();"><i class="fal fa-times" style="vertical-align: top;"></i></button>
+                                        <button type="button" class="btn btn-default pull-right margin-large-right" data-l10n-bind data-l10n-bind-title="'common.settings'" data-ng-click="ctrl.showSettings(ctrl.selectedReport);" data-ng-if="ctrl.hasReportSettingsPermission(ctrl.selectedReport);"><i class="fal fa-cog" style="font-size: 18px;"></i></button>
+                                    </div>
+                                    <div class="row margin-large-top">
+                                        <div class="col-sm-12">
+                                            <div id="reportSelectionPanel" class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <div>
+                                                        <span data-l10n-bind="'core.selection'" class="indiscreet"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-body report-selection" when-rendered="ctrl.setReportSelectionHeight();">
+                                                    <div data-ng-if="!ctrl.selectedReport"></div>
+                                                    <div class="col-sm-12 margin-large-top" data-ng-switch="ctrl.selectedReport.sysReportTemplateTypeId" data-ng-if="ctrl.selectedReport">
+                                                        <!-- Reports -->
+                                                        <!-- Billing -->
+                                                        <interest-invoice-report data-ng-switch-when="12" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></interest-invoice-report>
+                                                        <project-transactions-report data-ng-switch-when="38" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></project-transactions-report>
+                                                        <sales-statistik-report data-ng-switch-when="48" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></sales-statistik-report>
+                                                        <stock-inventory-report data-ng-switch-when="80" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></stock-inventory-report>
+                                                        <tax-reduction-report data-ng-switch-when="13" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></tax-reduction-report>
+                                                        <projekttid-report data-ng-switch-when="94" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></projekttid-report>
+                                                        <projektstatistik-report data-ng-switch-when="22" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></projektstatistik-report>
+                                                        <invoice-report data-ng-switch-when="11" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></invoice-report>
+                                                        <contract-report data-ng-switch-when="25" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></contract-report>
+                                                        <order-report data-ng-switch-when="20" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></order-report>
+                                                        <order-report data-ng-switch-when="105" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></order-report>
+                                                        <expense-report data-ng-switch-when="98" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></expense-report>
+                                                        <offer-report data-ng-switch-when="21" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></offer-report>
+                                                        <stock-list-report data-ng-switch-when="66" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></stock-list-report>
+                                                        <product-list-report data-ng-switch-when="88" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></product-list-report>
+                                                        <purchase-order-report data-ng-switch-when="104" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></purchase-order-report>
+                                                        <stock-history-report data-ng-switch-when="67" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></stock-history-report>
+                                                        <time-report data-ng-switch-when="19" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-report>
+                                                        <order-checklist-report data-ng-switch-when="36" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></order-checklist-report>
+                                                        <invoice-statistics-report data-ng-switch-when="103" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></invoice-statistics-report>
+                                                        <tax-Reduction-Balance-List-Report data-ng-switch-when="120" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></tax-Reduction-Balance-List-Report>
+                                                        <!-- Economy -->
+                                                        <result-report-v2 data-ng-switch-when="62" include-budget="ctrl.selectedReport.reportItem.includeBudget" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></result-report-v2>
+                                                        <payment-journal-supplier-report data-ng-switch-when="28" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></payment-journal-supplier-report>
+                                                        <fixed-asset-report data-ng-switch-when="76" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></fixed-asset-report>
+                                                        <customer-payment-journal-report data-ng-switch-when="27" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></customer-payment-journal-report>
+                                                        <invoice-journal-customer-report data-ng-switch-when="10" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></invoice-journal-customer-report>
+                                                        <tax-return-report data-ng-switch-when="5" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></tax-return-report>
+                                                        <tax-return-fn-report data-ng-switch-when="51" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></tax-return-fn-report>
+                                                        <invoice-journal-supplier-report data-ng-switch-when="8" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></invoice-journal-supplier-report>
+                                                        <customer-balance-list-report data-ng-switch-when="9" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></customer-balance-list-report>
+                                                        <supplier-balance-list-report data-ng-switch-when="7" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></supplier-balance-list-report>
+                                                        <result-report data-ng-switch-when="4" show-rows-by-account-input="ctrl.selectedReport.reportItem.showRowsByAccount" include-budget="ctrl.selectedReport.reportItem.includeBudget" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></result-report>
+                                                        <sru-report data-ng-switch-when="6" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></sru-report>
+                                                        <balance-report data-ng-switch-when="3" show-rows-by-account-input="ctrl.selectedReport.reportItem.showRowsByAccount" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></balance-report>
+                                                        <voucher-list-report data-ng-switch-when="1" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></voucher-list-report>
+                                                        <distribution-selection-report data-ng-switch-when="2" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></distribution-selection-report>
+                                                        <period-accounting-forecast-report data-ng-switch-when="95" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></period-accounting-forecast-report>
+                                                        <period-accounting-regulations-report data-ng-switch-when="73" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></period-accounting-regulations-report>
+                                                        <demand-letter-report data-ng-switch-when="37" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></demand-letter-report>
+                                                        <supplier-invoice-edi-report data-ng-switch-when="23" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></supplier-invoice-edi-report>
+                                                        <finvoice-supplier-invoice-report data-ng-switch-when="31" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></finvoice-supplier-invoice-report>
+                                                        <import-customer-invoice-report data-ng-switch-when="55" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></import-customer-invoice-report>
+                                                        <import-voucher-report data-ng-switch-when="54" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></import-voucher-report>
+                                                        <interest-estimate-report data-ng-switch-when="92" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></interest-estimate-report>
+                                                        <!-- Time -->
+                                                        <time-monthly-report data-ng-switch-when="14" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-monthly-report>
+                                                        <time-payroll-transaction-report data-ng-switch-when="15" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-payroll-transaction-report>
+                                                        <time-employee-schedule-report data-ng-switch-when="16" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-employee-schedule-report>
+                                                        <time-category-schedule-report data-ng-switch-when="17" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-category-schedule-report>
+                                                        <time-accumulator-report data-ng-switch-when="24" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-accumulator-report>
+                                                        <time-accumulator-detailed-report data-ng-switch-when="96" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-accumulator-detailed-report>
+                                                        <time-category-statistics-report data-ng-switch-when="29" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-category-statistics-report>
+                                                        <time-stamp-entry-report data-ng-switch-when="30" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-stamp-entry-report>
+                                                        <time-salary-specification-report data-ng-switch-when="32" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-salary-specification-report>
+                                                        <time-salary-control-info-report data-ng-switch-when="40" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-salary-control-info-report>
+                                                        <employee-list-report data-ng-switch-when="43" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></employee-list-report>
+                                                        <time-employee-schedule-report data-ng-switch-when="46" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-employee-schedule-report>
+                                                        <time-employment-contract-report data-ng-switch-when="47" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-employment-contract-report>
+                                                        <payroll-slip-report data-ng-switch-when="49" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></payroll-slip-report>
+                                                        <time-schedule-block-history-report data-ng-switch-when="50" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-schedule-block-history-report>
+                                                        <payroll-transaction-statistics-report data-ng-switch-when="59" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></payroll-transaction-statistics-report>
+                                                        <payroll-accounting-report data-ng-switch-when="60" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" export-file-type="ctrl.exportFileType"></payroll-accounting-report>
+                                                        <employee-vacation-information-report data-ng-switch-when="63" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></employee-vacation-information-report>
+                                                        <employee-vacation-debt-report data-ng-switch-when="64" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></employee-vacation-debt-report>
+                                                        <payroll-product-report data-ng-switch-when="65" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></payroll-product-report>
+                                                        <ku10-report data-ng-switch-when="68" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></ku10-report>
+                                                        <s-k-d-report data-ng-switch-when="69" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></s-k-d-report>
+                                                        <certificate-of-employment-report data-ng-switch-when="70" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></certificate-of-employment-report>
+                                                        <collectum-report data-ng-switch-when="71" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></collectum-report>
+                                                        <employee-time-period-report data-ng-switch-when="74" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></employee-time-period-report>
+                                                        <payroll-period-warning-check-report data-ng-switch-when="75" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></payroll-period-warning-check-report>
+                                                        <s-c-b-s-l-p-report data-ng-switch-when="77" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></s-c-b-s-l-p-report>
+                                                        <s-n-report data-ng-switch-when="78" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></s-n-report>
+                                                        <k-p-a-report data-ng-switch-when="79" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></k-p-a-report>
+                                                        <k-p-a-direkt-report data-ng-switch-when="99" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></k-p-a-direkt-report>
+                                                        <fora-report data-ng-switch-when="81" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></fora-report>
+                                                        <s-c-b-k-s-p-report data-ng-switch-when="82" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></s-c-b-k-s-p-report>
+                                                        <s-c-b-k-s-j-u-report data-ng-switch-when="83" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></s-c-b-k-s-j-u-report>
+                                                        <s-c-b-k-l-p-report data-ng-switch-when="84" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></s-c-b-k-l-p-report>
+                                                        <agd-Employee-report data-ng-switch-when="87" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></agd-Employee-report>
+                                                        <time-schedule-tasks-and-deliverys-report data-ng-switch-when="86" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-schedule-tasks-and-deliverys-report>
+                                                        <time-payroll-transaction-report data-ng-switch-when="89" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-payroll-transaction-report>
+                                                        <time-employee-schedule-report data-ng-switch-when="90" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-employee-schedule-report>
+                                                        <time-payroll-transaction-report data-ng-switch-when="91" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-payroll-transaction-report>
+                                                        <time-employee-line-schedule-report data-ng-switch-when="93" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-employee-line-schedule-report>
+                                                        <role-report data-ng-switch-when="97" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></role-report>
+                                                        <payroll-vacation-accounting-report data-ng-switch-when="100" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></payroll-vacation-accounting-report>
+                                                        <bygglosen-report data-ng-switch-when="101" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></bygglosen-report>
+                                                        <kronofogden-report data-ng-switch-when="102" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></kronofogden-report>
+                                                        <fora-monthly-report data-ng-switch-when="108" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></fora-monthly-report>
+                                                        <time-schedule-copy-report data-ng-switch-when="110" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></time-schedule-copy-report>
+                                                        <!--Generic Analysis -->
+                                                        <g-t-p-report data-ng-switch-when="500" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></g-t-p-report>
+                                                        <skandia-pension-report data-ng-switch-when="501" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></skandia-pension-report>
+                                                        <i-f-metall-report data-ng-switch-when="502" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></i-f-metall-report>
+                                                        <s-e-f-report data-ng-switch-when="503" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></s-e-f-report>
+                                                        <agd-employee-absence-report data-ng-switch-when="504" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection"></agd-employee-absence-report>
+                                                        <!-- Analysis -->
+                                                        <generic-report data-ng-switch-when="1000" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></generic-report>
+                                                        <time-payroll-transaction-report data-ng-switch-when="1001" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></time-payroll-transaction-report>
+                                                        <payroll-transaction-statistics-report data-ng-switch-when="1002" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></payroll-transaction-statistics-report>
+                                                        <employee-list-report data-ng-switch-when="1003" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-list-report>
+                                                        <time-employee-schedule-report data-ng-switch-when="1004" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></time-employee-schedule-report>
+                                                        <employee-date-report data-ng-switch-when="1005" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-date-report>
+                                                        <time-stamp-entry-report data-ng-switch-when="1006" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></time-stamp-entry-report>
+                                                        <user-report data-ng-switch-when="1007" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></user-report>
+                                                        <supplier-report data-ng-switch-when="1008" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></supplier-report>
+                                                        <invoice-product-report data-ng-switch-when="1009" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></invoice-product-report>
+                                                        <customer-report data-ng-switch-when="1010" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></customer-report>
+                                                        <staffingneeds-frequency-report data-ng-switch-when="1011" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></staffingneeds-frequency-report>
+                                                        <employee-skill-report data-ng-switch-when="1012" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-skill-report>
+                                                        <organisation-hr-report data-ng-switch-when="1013" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></organisation-hr-report>
+                                                        <shift-type-skill-report data-ng-switch-when="1014" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></shift-type-skill-report>
+                                                        <employee-end-reasons-report data-ng-switch-when="1015" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-end-reasons-report>
+                                                        <employee-salary-report data-ng-switch-when="1016" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-salary-report>
+                                                        <employee-time-period-report data-ng-switch-when="1017" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-time-period-report>
+                                                        <staffingneeds-statistics-report data-ng-switch-when="1018" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></staffingneeds-statistics-report>
+                                                        <aggregated-time-statistics-report data-ng-switch-when="1019" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></aggregated-time-statistics-report>
+                                                        <employee-meeting-report data-ng-switch-when="1020" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-meeting-report>
+                                                        <scheduled-time-summary-report data-ng-switch-when="1021" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></scheduled-time-summary-report>
+                                                        <employee-experience-report data-ng-switch-when="1022" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-experience-report>
+                                                        <employee-document-report data-ng-switch-when="1023" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-document-report>
+                                                        <employee-account-report data-ng-switch-when="1024" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-account-report>
+                                                        <report-statistics-report data-ng-switch-when="1025" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></report-statistics-report>
+                                                        <employee-fixed-pay-Lines-report data-ng-switch-when="1026" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-fixed-pay-Lines-report>
+                                                        <employment-history-report data-ng-switch-when="1027" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employment-history-report>
+                                                        <payroll-products-report data-ng-switch-when="1028" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></payroll-products-report>
+                                                        <employee-salary-distress-report data-ng-switch-when="1029" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-salary-distress-report>
+                                                        <order-analysis-report data-ng-switch-when="1030" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></order-analysis-report>
+                                                        <employee-salary-union-fees-report data-ng-switch-when="1031" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-salary-union-fees-report>
+                                                        <employment-days-report data-ng-switch-when="1032" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employment-days-report>
+                                                        <Invoice-analysis-report data-ng-switch-when="1033" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></Invoice-analysis-report>
+                                                        <Account-hierarchy-report data-ng-switch-when="1035" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></Account-hierarchy-report>
+                                                        <annual-progress-report data-ng-switch-when="1036" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></annual-progress-report>
+                                                        <longterm-absence-report data-ng-switch-when="1037" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></longterm-absence-report>
+                                                        <vacation-balance-report data-ng-switch-when="1038" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></vacation-balance-report>
+                                                        <shift-queue-report data-ng-switch-when="1039" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></shift-queue-report>
+                                                        <shift-history-report data-ng-switch-when="1040" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></shift-history-report>
+                                                        <shift-request-report data-ng-switch-when="1041" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></shift-request-report>
+                                                        <absence-request-report data-ng-switch-when="1042" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></absence-request-report>
+                                                        <time-stamp-history-report data-ng-switch-when="1043" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></time-stamp-history-report>
+                                                        <vertical-time-tracker-report data-ng-switch-when="1044" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></vertical-time-tracker-report>
+                                                        <horizontal-time-tracker-report data-ng-switch-when="1045" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></horizontal-time-tracker-report>
+                                                        <agi-absence-report data-ng-switch-when="1046" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></agi-absence-report>
+                                                        <invoice-product-unit-convert-report data-ng-switch-when="1047" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></invoice-product-unit-convert-report>
+                                                        <inventory-analysis-report data-ng-switch-when="1048" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></inventory-analysis-report>
+                                                        <employee-child-report data-ng-switch-when="1049" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-child-report>
+                                                        <employee-payroll-additions-report data-ng-switch-when="1050" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></employee-payroll-additions-report>
+                                                        <annual-leave-transaction-report data-ng-switch-when="1051" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></annual-leave-transaction-report>
+                                                        <depreciation-analysis-report data-ng-switch-when="1052" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></depreciation-analysis-report>
+                                                        <swap-shift-report data-ng-switch-when="1053" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></swap-shift-report>
+                                                        <!-- Bridge -->
+                                                        <visma-payroll-changes-report data-ng-switch-when="5001" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true">
+                                                            <!-- Status -->
+                                                            <soft-one-status-result-report data-ng-switch-when="10001" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></soft-one-status-result-report>
+                                                            <soft-one-status-event-report data-ng-switch-when="10002" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></soft-one-status-event-report>
+                                                            <soft-one-status-up-time-report data-ng-switch-when="10003" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"></soft-one-status-up-time-report>
+                                                            <license-information-report data-ng-switch-when="10004" module="ctrl.selectedReport.module" selections="ctrl.selections" user-selection="ctrl.selectedReportUserSelection" sys-report-template-type-id="ctrl.selectedReport.sysReportTemplateTypeId" report-id="ctrl.selectedReport.reportId" is-analysis="true"> </license-information-report>
+                                                            <!-- Test -->
+                                                            <test-all-selections data-ng-switch-default selections="ctrl.selections">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-ng-class="{'col-sm-12': !ctrl.fullscreen, 'col-sm-3': ctrl.fullscreen}" data-ng-style="{'padding-left': ctrl.fullscreen ? '0px': '15px'}" style="height: 100%">
+                            <div class="report-menu-pages">
+                                <ul>
+                                    <li data-ng-repeat="page in ctrl.pages" data-ng-class="{'selected': page.selected}" data-ng-attr-title="{{page.tooltip}}" data-ng-click="ctrl.selectPage(page);"><span>{{page.title}}</span><span class="pull-right margin-small-right" style="margin-top: 1px;"><span class="{{page.icon}}"></span></span></li>
+                                </ul>
+                            </div>
+                            <div class="report-menu-reports" style="height: calc(100% - 36px);">
+                                <!-- Favorites -->
+                                <div data-ng-if="ctrl.selectedPageIsFavorites">
+                                    <div class="info margin-large-top margin-small-right margin-large-bottom margin-small-left" data-ng-if="ctrl.loadingReports">
+                                        <span class="far fa-spinner fa-pulse fa-fw margin-small-right"></span><span data-l10n-bind="'core.reportmenu.loadingfavorites'"></span>
+                                    </div>
+                                    <div data-ng-if="!ctrl.loadingReports">
+                                        <soe-textbox hidelabel="true" placeholder-key="core.search" model="ctrl.freeTextFilter" style="margin: 5px;" is-readonly="ctrl.loadingReports"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div data-ng-if="ctrl.selectedPageIsFavorites" style="overflow-y: auto; height: calc(100% - 32px);">
+                                    <ul data-ng-if="!ctrl.loadingReports">
+                                        <li data-ng-repeat="report in ctrl.filteredReports(ctrl.favorites)" data-ng-class="{'group': report.isGroup, 'inactive': !report.isGroup && (!report.active || report.noPrintPermission)}" data-ng-click="$event.stopPropagation();$event.preventDefault();ctrl.selectReport(report);" data-ng-attr-title="{{report.description}}">
+                                            <span data-ng-if="!report.isGroup && report.active && !report.noPrintPermission">
+                                                <i class="fa-star" data-ng-class="{'fal disabledTextColor': !report.isFavorite, 'fas infoColor': report.isFavorite}" data-ng-attr-title="{{report.isFavorite ? ctrl.favoriteRemoveToolTip : ctrl.favoriteAddToolTip}}" data-ng-if="report.printableFromMenu" data-ng-click="$event.stopPropagation();$event.preventDefault();ctrl.toggleFavorite(report);"></i>
+                                            </span>
+                                            <span class="rename-favorite" data-ng-if="!report.isGroup && !report.noPrintPermission" data-l10n-bind data-l10n-bind-title="'core.reportmenu.favorites.rename'">
+                                                <i class="fal fa-pencil" data-ng-click="$event.stopPropagation();$event.preventDefault();ctrl.renameFavorite(report);"></i>
+                                            </span>
+                                            <span data-ng-style="{'margin-left': (!report.isGroup && !report.printableFromMenu) ? '17px': '0px'}">
+                                                <span data-ng-if="report.noPrintPermission">(</span>
+                                                <span data-ng-class="{'italic': !report.isGroup && !report.printableFromMenu}">{{report.name}}</span>
+                                                <span data-ng-if="report.noPrintPermission">)</span>
+                                                <span class="pull-right" data-l10n-bind data-l10n-bind-title="'common.report.report.reportNumber'" data-ng-if="report.reportNr">{{report.reportNr}}</span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Reports -->
+                                <div data-ng-if="ctrl.selectedPageIsReports">
+                                    <soe-checkbox label-key="core.reportmenu.showinactive" model="ctrl.showInactive" class="col" style="margin: 0px 0px 5px 10px; padding-top: 5px;" is-readonly="ctrl.loadingReports"></soe-checkbox>
+                                    <soe-menubutton label-key="core.sortingon" options="ctrl.sortingReports" class="col pull-left margin-small-top margin-small-bottom" option-selected="ctrl.executeSorting(option)" is-disabled="false"></soe-menubutton>
+                                    <soe-textbox hidelabel="true" placeholder-key="core.search" model="ctrl.freeTextFilter" style="margin: 5px;" is-readonly="ctrl.loadingReports"></soe-textbox>
+                                </div>
+                                <div data-ng-if="ctrl.selectedPageIsReports" style="overflow-y: auto; height: calc(100% - 72px);">
+                                    <div data-ng-repeat="module in ctrl.reportModules">
+                                        <div class="module-expander" data-ng-click="ctrl.toggleExpandModule(module);">
+                                            <span class="link fal fa-fw fa-chevron-double-left" data-l10n-bind data-l10n-bind-title="'core.maximize'" data-ng-if="!ctrl.fullscreen" data-ng-click="$event.stopPropagation();$event.preventDefault();ctrl.toggleShowOverview(module);"></span>
+                                            <span class="link fal fa-fw fa-chevron-right" data-ng-if="!module.expanded"></span>
+                                            <span class="link fal fa-fw fa-chevron-down" data-ng-if="module.expanded"></span>
+                                            <img ng-src={{module.imageSource}} />
+                                            <span class="indiscreet largeFont">{{module.title}}</span>
+                                            <span class="nolink" data-ng-if="module.hasNoRolesSpecified" data-ng-click="$event.stopPropagation();$event.preventDefault();ctrl.showHasNoRolesSpecifiedInfo();"><span class="fal fa-exclamation-triangle warningColor margin-small-left"></span><span class="warningColor indiscreet margin-small-left" data-l10n-bind="'core.reportmenu.hasnorolesspecified'"></span><span class="fal fa-question-circle link margin-small-left"></span></span>
+                                            <span class="link fal fa-sync pull-right" style="margin: 8px 8px 0 0" data-l10n-bind data-l10n-bind-title="'core.reload_data'" data-ng-click="$event.stopPropagation();$event.preventDefault();ctrl.loadReports(module, true, true);"></span>
+                                            <!--<span class="fal fa-print mediumFont disabledTextColor pull-right" style="margin: 8px 8px 0 0"></span>-->
+                                        </div>
+                                        <div data-ng-if="module.loadingReports">
+                                            <div class="info margin-large-top margin-small-right margin-large-bottom margin-small-left">
+                                                <span class="far fa-spinner fa-pulse fa-fw margin-small-right"></span><span data-l10n-bind="'core.reportmenu.loadingreports'"></span>
+                                            </div>
+                                        </div>
+                                        <div data-ng-if="module.expanded && !module.loadingReports">
+                                            <table class="report-menu-hless-table">
+                                                <colgroup>
+                                                    <col style="width: 25px;">
+                                                    <col>
+                                                    <col style="width: 20px">
+                                                    <col style="width: 50px">
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr data-ng-repeat="report in ctrl.filteredReports(module.reports)" data-ng-class="{'group': report.isGroup, 'inactive': !report.isGroup && (!report.active || report.noPrintPermission)}" data-ng-click="$event.stopPropagation();$event.preventDefault();ctrl.selectReport(report);" data-ng-attr-title="{{report.description}}">
+                                                        <td class="align-right">
+                                                            <span data-ng-if="!report.isGroup && report.active && !report.noPrintPermission">
+                                                                <i class="fa-star" data-ng-class="{'fal disabledTextColor': !report.isFavorite, 'fas infoColor': report.isFavorite}" data-ng-attr-title="{{report.isFavorite ? ctrl.favoriteRemoveToolTip : ctrl.favoriteAddToolTip}}" data-ng-if="report.printableFromMenu" data-ng-click="$event.stopPropagation();$event.preventDefault();ctrl.toggleFavorite(report);"></i>
+                                                            </span>
+                                                            <span data-ng-if="!report.isGroup && report.noPrintPermission">
+                                                                <i class="fal fa-cog" data-l10n-bind data-l10n-bind-title="'common.settings'" data-ng-click="$event.stopPropagation();$event.preventDefault();ctrl.showSettings(report);"></i>
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span data-ng-if="report.noPrintPermission">(</span>
+                                                            <span data-ng-class="{'italic': !report.isGroup && !report.printableFromMenu}">{{report.name}}</span>
+                                                            <span data-ng-if="report.noPrintPermission">)</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="" data-ng-if="!report.isGroup && report.printableFromMenu && (!report.isStandard || report.isSystemReport)">
+                                                                <i data-ng-if="!report.isStandard && !report.isSystemReport" class="fal fa-clone" data-l10n-bind data-l10n-bind-title="'common.notstandard'"></i>
+                                                                <i data-ng-if="report.isSystemReport" class="fal fa-lock" data-l10n-bind data-l10n-bind-title="'core.reportmenu.systemreportismaintained'"></i>
+                                                            </span>
+                                                        </td>
+                                                        <td class="number-column">
+                                                            <span class="" data-l10n-bind data-l10n-bind-title="'common.report.report.reportNumber'" data-ng-if="report.reportNr">{{report.reportNr}}</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Analysis -->
+                                <div data-ng-if="ctrl.selectedPageIsAnalysis">
+                                    <div>
+                                        <soe-checkbox label-key="core.reportmenu.showinactive" model="ctrl.showInactive" style="margin: 0px 0px 5px 10px; padding-top: 5px;" is-readonly="ctrl.loadingReports"></soe-checkbox>
+                                        <soe-textbox hidelabel="true" placeholder-key="core.search" model="ctrl.freeTextFilter" style="margin: 5px;" is-readonly="ctrl.loadingReports"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div data-ng-if="ctrl.selectedPageIsAnalysis" style="overflow-y: auto; height: calc(100% - 58px); ">
+                                    <div data-ng-repeat="module in ctrl.analysisModules">
+                                        <div class="module-expander" data-ng-click="ctrl.toggleExpandModule(module);">
+                                            <span class="link fal fa-fw fa-chevron-right" data-ng-if="!module.expanded"></span>
+                                            <span class="link fal fa-fw fa-chevron-down" data-ng-if="module.expanded"></span>
+                                            <img ng-src={{module.imageSource}} />
+                                            <span class="indiscreet largeFont">{{module.title}}</span>
+                                            <span class="link fal fa-sync pull-right" style="margin: 8px 8px 0 0" data-l10n-bind data-l10n-bind-title="'core.reload_data'" data-ng-click="$event.stopPropagation();$event.preventDefault();ctrl.loadReports(module, true, true);"></span>
+                                            <!--<span class="fal fa-table mediumFont disabledTextColor pull-right" style="margin: 8px 8px 0 0"></span>
+                                            <span class="fal fa-analytics mediumFont disabledTextColor pull-right" style="margin: 8px 8px 0 0" data-ng-if="module.hasInsightsPermission"></span>-->
+                                        </div>
+                                        <div data-ng-if="module.loadingReports">
+                                            <div class="info margin-large-top margin-small-right margin-large-bottom margin-small-left">
+                                                <span class="far fa-spinner fa-pulse fa-fw margin-small-right"></span><span data-l10n-bind="'core.reportmenu.loadinganalysis'"></span>
+                                            </div>
+                                        </div>
+                                        <div data-ng-if="module.expanded && !module.loadingReports">
+                                            <ul>
+                                                <li data-ng-repeat="report in ctrl.filteredReports(module.reports)" data-ng-class="{'group': report.isGroup, 'inactive': !report.isGroup && (!report.active || report.noPrintPermission)}" data-ng-click="$event.stopPropagation();$event.preventDefault();ctrl.selectReport(report);" data-ng-attr-title="{{report.description}}">
+                                                    <span data-ng-if="!report.isGroup && report.active && !report.noPrintPermission">
+                                                        <i class="fa-star" data-ng-class="{'fal disabledTextColor': !report.isFavorite, 'fas infoColor': report.isFavorite}" data-ng-attr-title="{{report.isFavorite ? ctrl.favoriteRemoveToolTip : ctrl.favoriteAddToolTip}}" data-ng-if="report.printableFromMenu" data-ng-click="$event.stopPropagation();$event.preventDefault();ctrl.toggleFavorite(report);"></i>
+                                                    </span>
+                                                    <span data-ng-if="!report.isGroup && report.printableFromMenu && !report.isStandard">
+                                                        <i class="fal fa-clone" data-l10n-bind data-l10n-bind-title="'common.notstandard'"></i>
+                                                    </span>
+                                                    <span data-ng-if="!report.isGroup && report.noPrintPermission">
+                                                        <i class="fal fa-cog" data-l10n-bind data-l10n-bind-title="'common.settings'" data-ng-click="$event.stopPropagation();$event.preventDefault();ctrl.showSettings(report);"></i>
+                                                    </span>
+                                                    <span data-ng-style="{'margin-left': (!report.isGroup && !report.printableFromMenu) ? '17px': '0px'}">
+                                                        <span data-ng-if="report.noPrintPermission">(</span>
+                                                        <span data-ng-class="{'italic': !report.isGroup && !report.printableFromMenu}">{{report.name}}</span>
+                                                        <span data-ng-if="report.noPrintPermission">)</span>
+                                                        <span class="pull-right" data-l10n-bind data-l10n-bind-title="'common.report.report.reportNumber'" data-ng-if="report.reportNr">{{report.reportNr}}</span>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Queue -->
+                                <div data-ng-if="ctrl.selectedPageIsPrinted">
+                                    <div class="info margin-large-top margin-small-right margin-large-bottom margin-small-left" data-ng-if="ctrl.loadingQueue">
+                                        <span data-l10n-bind="'core.reportmenu.loadingqueue'"></span>
+                                    </div>
+                                    <div>
+                                        <soe-textbox hidelabel="true" placeholder-key="core.search" model="ctrl.freeTextFilter" style="margin: 5px;" is-readonly="ctrl.loadingQueue"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div data-ng-if="ctrl.selectedPageIsPrinted" style="overflow-y: auto; height: calc(100% - 32px); padding-top: 0px;">
+                                    <div data-ng-if="!ctrl.loadingQueue">
+                                        <table class="table table-condensed table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col"><span data-l10n-bind="'common.report.report.report'"></span><span class="pull-right" data-ng-if="ctrl.requestedReportIds.length>0"> (<span>{{ctrl.requestedReportIds.length}}</span> <span data-l10n-bind="'core.reportmenu.queue.requested'"></span>)</span></th>
+                                                    <th scope="col" style="width: 100px" data-l10n-bind="'core.reportmenu.printed.date'"></th>
+                                                    <th scope="col" style="width: 28px"></th>
+                                                    <th scope="col" style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.reload_data'" data-ng-click="ctrl.loadReports(true, true);"><i class="fal fa-sync link"></i></span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-ng-repeat="jobStatus in ctrl.filteredReportJobsStatus()" data-ng-class="{'italic disabledTextColor': jobStatus.printoutStatus == 8, 'warningBackgroundColor': jobStatus.printoutStatus == 6}" context-menu="ctrl.getQueueContextMenuOptions(jobStatus);" model="jobStatus">
+                                                    <td><span class="link" data-l10n-bind data-l10n-bind-title="'core.reportmenu.queue.contextmenu.openselection'" data-ng-click="ctrl.queueContextMenuOpenSelection(jobStatus);">{{jobStatus.name}}</span><span data-ng-if="jobStatus.printoutStatus == 8"> (<span data-l10n-bind="'core.reportmenu.printed.queued.short'"></span>)</span></td>
+                                                    <td>
+                                                        <span data-ng-class="{'italic': jobStatus.printoutStatus != 2}">{{jobStatus.printoutDelivered ? jobStatus.printoutDelivered : jobStatus.printoutRequested | date:'shortDate'}} {{jobStatus.printoutDelivered ? jobStatus.printoutDelivered : jobStatus.printoutRequested | date:'shortTime'}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span data-ng-if="jobStatus.printoutStatus == 1" data-l10n-bind data-l10n-bind-title="'core.reportmenu.printed.requested'"><i class="far fa-spinner fa-pulse fa-fw"></i></span>
+                                                        <span data-ng-if="jobStatus.printoutStatus == 2" data-l10n-bind data-l10n-bind-title="'core.reportmenu.queue.contextmenu.openreport'" data-ng-click="ctrl.showPrintedReport(jobStatus);"><i class="fal fa-fw link" data-ng-class="jobStatus.fileTypeClass"></i></span>
+                                                        <span data-ng-if="jobStatus.printoutStatus == 6" data-ng-attr-title="{{jobStatus.printoutErrorMessage}}" data-ng-click="ctrl.showError(jobStatus);"><i class="fal fa-exclamation-triangle errorColor fa-fw link"></i></span>
+                                                        <span data-ng-if="jobStatus.printoutStatus == 8" data-l10n-bind data-l10n-bind-title="'core.reportmenu.printed.queued'"><i class="fal fa-snooze"></i></span>
+                                                    </td>
+                                                    <td><span data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="ctrl.deletePrintedReport(jobStatus);"><i class="fal fa-times iconDelete link"></i></span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="report-menu-toggle" class="right-menu-toggle" data-ng-class="{'right-menu-toggle-active': ctrl.showMenu}" data-ng-style="{'top': ctrl.topPosition }" data-l10n-bind data-l10n-bind-title="'core.reportmenu.title'">
+        <a data-ng-click="ctrl.toggleShowMenu();"><i class="fal fa-file-medical-alt">&nbsp;</i></a>
+    </div>
+</div>

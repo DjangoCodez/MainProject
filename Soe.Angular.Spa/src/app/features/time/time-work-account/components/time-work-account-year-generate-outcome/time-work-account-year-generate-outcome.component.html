@@ -1,0 +1,38 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-select
+              labelKey="time.time.timeperiod.paymentdate"
+              [selectedId]="form.value.paymentDates"
+              (valueChanged)="updateDate()"
+              [items]="paymentDates"
+              formControlName="paymentDateId">
+            </soe-select>
+          </div>
+        </div>
+        @if (showCheckbox) {
+          <div class="row" style="margin-top: 20px">
+            <div class="col-sm-12">
+              <soe-checkbox
+                labelKey="time.payroll.worktimeaccount.overridechoosen"
+                [checked]="form.value.overrideChoosen"
+                formControlName="overrideChoosen"></soe-checkbox>
+            </div>
+          </div>
+        }
+        <soe-edit-footer
+          [form]="form"
+          [modifyPermission]="flowHandler.modifyPermission()"
+          [inProgress]="performAction.inProgress()"
+          (saved)="perform()"></soe-edit-footer>
+      </form>
+    }
+  </ng-container>
+</soe-dialog>

@@ -1,0 +1,34 @@
+﻿<div class="accounting-row-grid">
+
+    <!--<soe-progressbar is-busy="directiveCtrl.progressBusy" message="directiveCtrl.progressMessage"></soe-progressbar>
+
+    <div data-ng-show="!directiveCtrl.progressBusy">-->
+    <div class="row">
+        <div class="col-md-12">
+            <soe-toolbar buttons="directiveCtrl.buttonGroups"></soe-toolbar>
+        </div>
+    </div>
+
+    <div ag-grid="directiveCtrl.soeGridOptions.gridOptions" class="ag-theme-balham" style="height: 100px; width: 100%;"></div>
+
+    <div data-ng-show="directiveCtrl.amountSummary">
+        <div class="info" style="float:right;margin-top: 10px;">
+            <table class="pull-right small-table">
+                <thead>
+                    <tr>
+                        <th scope="col" data-l10n-bind="'economy.accounting.accountdistributionauto.samesign'"></th>
+                        <th scope="col" data-l10n-bind="'economy.accounting.accountdistributionauto.oppositesign'"></th>
+                        <th scope="col" data-l10n-bind="'economy.accounting.accountdistributionauto.difference'"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-ng-bind="directiveCtrl.amountSummary.sameSum | number:2"></td>
+                        <td data-ng-bind="directiveCtrl.amountSummary.oppositeSum | number:2"></td>
+                        <td data-ng-bind="directiveCtrl.amountSummary.difference | number:2"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

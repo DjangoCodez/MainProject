@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:typer="http://collectum.se/typer/2.0" xmlns:ns1="http://collectum.se/paket/pa/loneandring/3.0" targetNamespace="http://collectum.se/paket/pa/loneandring/3.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://collectum.se/typer/2.0" schemaLocation="..\..\..\..\typer\2.0\centrala typer.xsd"/>
+	<xs:complexType name="Loneandring">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">
+				2008-07-02 rev 3.0.0.1 ArslonEfterLoneavstaende tillagt.
+                2013-09-11 rev 3.0.0.2 Lagt till tva icke obl. falt for BlueGarden som byter format fran txt till xml.
+                2014-03-06 rev 3.0.0.3 Lönefälten ändrade till LonUtanOren per ÄB 104124.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Organisationsnummer" type="typer:Organisationsnummer"/>
+			<xs:element name="KostnadsstalleId" type="typer:KostnadsstalleId"/>
+			<xs:element name="Personnummer" type="typer:Personnummer"/>
+			<xs:element name="Handelsetidpunkt" type="xs:date"/>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="Arslon" type="typer:LonUtanOren"/>
+					<xs:element name="ArslonEfterLoneavstaende" type="typer:LonUtanOren" minOccurs="0"/>
+				</xs:sequence>
+				<xs:element name="Manadslon" type="typer:LonUtanOren"/>
+			</xs:choice>
+			<xs:element name="GradAvArbetsoformaga" type="typer:GradAvArbetsoformaga" minOccurs="0"/>
+			<xs:element name="Tjanstgoringsgrad" type="typer:Tjanstgoringsgrad" minOccurs="0"/>
+			<xs:element name="OrsakTjanstgoringsgrad" type="typer:OrsakTjanstgoringsgrad" minOccurs="0"/>
+			<xs:element name="Tidsstampel" type="typer:Timestamp"/>
+		</xs:sequence>
+		<xs:attribute name="version" default="3.0.0.3"/>
+	</xs:complexType>
+</xs:schema>

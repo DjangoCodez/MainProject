@@ -1,0 +1,17 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (selectionChanged)="selectionChanged($event)"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+    [masterDetail]="!urlService.isTemplate()">
+    <soe-voucher-grid-filter
+      toolbar-content-left
+      [selectedVoucherSeriesType]="selectedVoucherSeriesType"
+      [voucherSeriesTypes]="voucherSeriesTypesDict"
+      (filter)="doFilter($event)"
+      (saveVoucherSeriesType)="
+        saveVoucherSeriesType($event)
+      "></soe-voucher-grid-filter>
+  </soe-grid-wrapper>
+}

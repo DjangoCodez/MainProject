@@ -1,0 +1,16 @@
+<form>
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [parentGuid]="guid()"
+      (editRowClicked)="edit($event)"
+      [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+      <soe-intrastat-export-grid-header
+        toolbar-content-left
+        (searchClick)="doSearch($event)"
+        (canCreateFile)="
+          canCreateFile($event)
+        "></soe-intrastat-export-grid-header>
+    </soe-grid-wrapper>
+  }
+</form>

@@ -1,0 +1,8 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid
+    [rows]="gridRows"
+    (filterModified)="filterChange($event)"
+    (rowSelected)="selectionChange($event)"
+    [height]="245">
+  </soe-grid>
+}

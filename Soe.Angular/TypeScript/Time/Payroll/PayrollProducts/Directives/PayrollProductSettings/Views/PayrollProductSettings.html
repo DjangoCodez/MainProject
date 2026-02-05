@@ -1,0 +1,119 @@
+﻿<div>
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind data-l10n-bind-title="'time.payroll.payrollproduct.setting.add.tooltip'" data-ng-click="$event.stopPropagation();ctrl.addSetting();"><span class="fal fa-plus margin-small-left"></span><span class="margin-small-left margin-small-right" data-l10n-bind="'core.add'"></span></button>
+            <soe-multiselect class="pull-right margin-small-right" label-key="time.employee.payrollgroup.payrollgroups" hidelabel="true" options="ctrl.payrollGroups" model="ctrl.selectedPayrollGroups" show-selected="true" display-prop="name" data-l10n-bind data-l10n-bind-title="'time.payroll.payrollproduct.setting.filter.payrollgroup.tooltip'" is-disabled="!ctrl.payrollGroups" on-selection-complete="ctrl.onPayrollGroupFiltered(items)"></soe-multiselect>
+        </div>
+    </div>
+
+    <div class="row margin-large-top">
+        <div class="col-sm-12">
+            <table class="table table-bordered table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"><span data-l10n-bind="'common.setting'"></span></th>
+                        <th scope="col" data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index">
+                            <span>
+                                <span>{{setting.payrollGroupName}}</span>
+                                <i class="fal fa-pencil iconEdit link margin-small-left" data-l10n-bind data-l10n-bind-title="'core.edit'" data-ng-click="ctrl.editSetting(setting);" data-ng-if="!ctrl.readOnly"></i>
+                                <i class="fal fa-times iconDelete link margin-small-left" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="ctrl.deleteSetting(setting);" data-ng-if="!ctrl.readOnly && setting.payrollGroupId>0"></i>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.centroundingtype'" class="indiscreet"></span> (<span data-l10n-bind="'time.payroll.payrollproduct.setting.centroundinglevel'" class="lowercase"></span>)</td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-attr-title="{{setting.centRoundingTypeName}}" data-ng-click="ctrl.selectedSetting = setting;"><span>{{setting.centRoundingTypeName}}</span><span data-ng-if="setting.centRoundingLevelName"> ({{setting.centRoundingLevelName|lowercase}})</span></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.taxcalculationtype'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-attr-title="{{setting.taxCalculationTypeName}}" data-ng-click="ctrl.selectedSetting = setting;"><span>{{setting.taxCalculationTypeName}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.pensioncompany'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-attr-title="{{setting.pensionCompanyName}}" data-ng-click="ctrl.selectedSetting = setting;"><span>{{setting.pensionCompanyName}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.timeunit'" class="indiscreet"></span> (<span data-l10n-bind="'time.payroll.payrollproduct.setting.quantityroundingtype'" class="lowercase"></span>)</td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-attr-title="{{setting.timeUnitName}}" data-ng-click="ctrl.selectedSetting = setting;">
+                            <span>{{setting.timeUnitName}}</span>
+                            <span data-ng-if="setting.quantityRoundingTypeName">
+                                (<span>{{setting.quantityRoundingTypeName|lowercase}}</span>
+                                <span data-ng-if="setting.quantityRoundingMinutes">{{setting.quantityRoundingMinutes}}</span> <span data-l10n-bind="'core.time.minutes'" class="lowercase"></span>)
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.childproduct'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-attr-title="{{setting.childProductName}}" data-ng-click="ctrl.selectedSetting = setting;"><span>{{setting.childProductName}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.printonsalaryspecification'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-click="ctrl.selectedSetting = setting;"><i data-ng-class="{'fal fa-times': setting.printOnSalarySpecification}"></i></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.dontprintonsalaryspecificationwhenzeroamount'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-click="ctrl.selectedSetting = setting;"><i data-ng-class="{'fal fa-times': setting.dontPrintOnSalarySpecificationWhenZeroAmount}"></i></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.printdate'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-click="ctrl.selectedSetting = setting;"><i data-ng-class="{'fal fa-times': setting.printDate}"></i></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.dontincludeinretroactivepayroll'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-click="ctrl.selectedSetting = setting;"><i data-ng-class="{'fal fa-times': setting.dontIncludeInRetroactivePayroll}"></i></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.vacationsalarypromoted'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-click="ctrl.selectedSetting = setting;"><i data-ng-class="{'fal fa-times': setting.vacationSalaryPromoted}"></i></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.unionfeepromoted'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-click="ctrl.selectedSetting = setting;"><i data-ng-class="{'fal fa-times': setting.unionFeePromoted}"></i></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.workingtimepromoted'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-click="ctrl.selectedSetting = setting;"><i data-ng-class="{'fal fa-times': setting.workingTimePromoted}"></i></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.calculatesupplementcharge'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-click="ctrl.selectedSetting = setting;"><i data-ng-class="{'fal fa-times': setting.calculateSupplementCharge}"></i></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.calculatesicknesssalary'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-click="ctrl.selectedSetting = setting;"><i data-ng-class="{'fal fa-times': setting.calculateSicknessSalary}"></i></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.dontincludeinabsencecost'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-click="ctrl.selectedSetting = setting;"><i data-ng-class="{'fal fa-times': setting.dontIncludeInAbsenceCost}"></i></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollpricetype.payrollpricetypes'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-attr-title="{{setting.priceTypesName}}" data-ng-click="ctrl.selectedSetting = setting;"><span>{{setting.priceTypesName}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollpriceformula.payrollpriceformulas'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-attr-title="{{setting.priceFormulasName}}" data-ng-click="ctrl.selectedSetting = setting;"><span>{{setting.priceFormulasName}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'common.accounting'" class="indiscreet"></span> - <span data-l10n-bind="'time.payroll.payrollproduct.setting.accounting.purchase'"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-attr-title="{{setting.accountingName}}" data-ng-click="ctrl.selectedSetting = setting;"><span>{{setting.accountingName}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span data-l10n-bind="'time.payroll.payrollproduct.setting.accountingprio'" class="indiscreet"></span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-attr-title="{{setting.accountingPrioName}}" data-ng-click="ctrl.selectedSetting = setting;"><span>{{setting.accountingPrioName}}</span></td>
+                    </tr>
+                    <tr data-ng-repeat="extraField in ctrl.extraFields track by $index">
+                        <td><span data-l10n-bind="'common.extrafields.extrafields'" class="indiscreet"></span><span> - {{extraField.text}}</span></td>
+                        <td data-ng-class="{'cell-selected':setting === ctrl.selectedSetting}" data-ng-repeat="setting in ctrl.filteredSettings track by $index" data-ng-click="ctrl.selectedSetting = setting;">
+                            <span data-ng-if="!extraField.isCheckbox && !extraField.isYesNo">{{ctrl.getExtraFieldValue(setting, extraField.extraFieldId)}}</span>
+                            <i data-ng-if="extraField.isCheckbox" data-ng-class="{'fal fa-times': ctrl.getExtraFieldValue(setting, extraField.extraFieldId).toLocaleLowerCase() === 'true'}"></i>
+                            <i data-ng-if="extraField.isYesNo" data-ng-class="{'fal fa-times': ctrl.getExtraFieldValue(setting, extraField.extraFieldId) === '1'}"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar always-show="true" buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+        <soe-panel label-key="billing.contract.contractgroups.contractgroup">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.name" model="ctrl.contractGroup.name" required="true" maxlength="100" auto-focus="true"> </soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.description" model="ctrl.contractGroup.description"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="common.period" model="ctrl.contractGroup.period" items="ctrl.periods" options="item.id as item.name for item in items" required="true"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-select label-key="billing.contract.contractgroups.pricemanagement" model="ctrl.contractGroup.priceManagement" items="ctrl.priceManagementTypes" options="item.id as item.name for item in items" required="true"></soe-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="billing.contract.contractgroups.interval" model="ctrl.contractGroup.interval" numeric="true" decimals="0" required="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="billing.contract.contractgroups.dayinmonth" model="ctrl.contractGroup.dayInMonth" numeric="true" decimals="0"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textarea label-key="billing.contract.contractgroups.invoicetext" model="ctrl.contractGroup.invoiceText" rows="10"></soe-textarea>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-textarea label-key="billing.contract.contractgroups.invoicetextrow" model="ctrl.contractGroup.invoiceTextRow" rows="10"></soe-textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="billing.contract.contractgroups.ordertemplate" model="ctrl.contractGroup.orderTemplate" items="ctrl.orderReportTemplates" options="item.id as item.name for item in items" hidden="true"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-select label-key="billing.contract.contractgroups.invoicetemplate" model="ctrl.contractGroup.invoiceTemplate" items="ctrl.invoiceReportTemplates" options="item.id as item.name for item in items" hidden="true"></soe-select>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.deliveryCondition"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                        <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

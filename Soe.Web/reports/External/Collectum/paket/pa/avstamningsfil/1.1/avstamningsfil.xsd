@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:typer="http://collectum.se/typer/2.0" xmlns:avstamningsfil="http://collectum.se/paket/pa/avstamningsfil/1.1" targetNamespace="http://collectum.se/paket/pa/avstamningsfil/1.1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://collectum.se/typer/2.0" schemaLocation="..\..\..\..\typer\2.0\centrala typer.xsd"/>
+	<xs:complexType name="Avstamningar">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">
+			2010-01-20 rev 1.1 Lön samt Handelsetidpunkt ändrade till valfria element.
+			2012-03-29 rev 1.1.0.1 Ändrad datatyp (LonUtanOren) för alla lönefält.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Foretag" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Organisationsnummer" type="typer:OrgNr10"/>
+						<xs:element name="Kostnadsstallen" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Kostnadsstalle" type="typer:KostnadsstalleId"/>
+									<xs:element name="Forsakringsdetaljer" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="ProduktId" type="typer:ProduktId"/>
+												<xs:element name="AvtaladProdukt" type="typer:AvtaladProdukt"/>
+												<xs:element name="Personnummer" type="typer:Personnummer"/>
+												<xs:element name="Efternamn" type="typer:Efternamn"/>
+												<xs:element name="Fornamn" type="typer:Fornamn"/>
+												<xs:element name="Lon" type="typer:LonUtanOren" minOccurs="0"/>
+												<xs:element name="ArslonEfterAvst" type="typer:LonUtanOren" minOccurs="0"/>
+												<xs:element name="HandelseTidpunkt" type="typer:StartDatum" minOccurs="0"/>
+												<xs:element name="AlternativITP" type="typer:ValAltITPJN" minOccurs="0"/>
+												<xs:element name="Sjuk" type="typer:ValAltITPJN" minOccurs="0"/>
+												<xs:element name="Foraldraledig" type="typer:ValAltITPJN" minOccurs="0"/>
+												<xs:element name="Tjanstledig" type="typer:ValAltITPJN" minOccurs="0"/>
+												<xs:element name="Utland" type="typer:UtlandJN" minOccurs="0"/>
+												<xs:element name="Undantag" type="typer:UtlandJN" minOccurs="0"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,42 @@
+﻿import { IEmployeeVacationPeriodDTO } from "../../Scripts/TypeLite.Net4";
+
+export class EmployeeVacationPeriodDTO implements IEmployeeVacationPeriodDTO {
+    calculateHours: boolean;
+    calculateHoursDayFactor: number;
+    employeeId: number;
+    timePeriodId: number;
+    remainingDaysPaid: number;
+    remainingDaysUnpaid: number;
+    remainingDaysAdvance: number;
+    remainingDaysYear1: number;
+    remainingDaysYear2: number;
+    remainingDaysYear3: number;
+    remainingDaysYear4: number;
+    remainingDaysYear5: number;
+    remainingDaysOverdue: number;
+    earnedDaysRemainingHoursAdvance: number;
+    earnedDaysRemainingHoursOverdue: number;
+    earnedDaysRemainingHoursPaid: number;
+    earnedDaysRemainingHoursUnpaid: number;
+    earnedDaysRemainingHoursYear1: number;
+    earnedDaysRemainingHoursYear2: number;
+    earnedDaysRemainingHoursYear3: number;
+    earnedDaysRemainingHoursYear4: number;
+    earnedDaysRemainingHoursYear5: number;
+    periodDaysPaid: number;
+    periodDaysUnpaid: number;
+    periodDaysAdvance: number;
+    periodDaysSavedYear1: number;
+    periodDaysSavedYear2: number;
+    periodDaysSavedYear3: number;
+    periodDaysSavedYear4: number;
+    periodDaysSavedYear5: number;
+    periodDaysOverdue: number;
+    periodVacationCompensationPaidCount: number;
+    periodVacationCompensationSavedCount: number;
+    daysPaid: number;
+    daysUnpaid: number;
+    daysAdvance: number;
+    daysSaved: number;
+    daysSum: number;
+}

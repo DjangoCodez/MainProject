@@ -1,0 +1,162 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal(false);" aria-hidden="true">&times;</button>
+        <h6 class="modal-title" data-ng-if="ctrl.timeRule">{{ctrl.timeRule.name}} [{{ctrl.timeRule.timeRuleId}}]</h6>
+    </div>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div ng-class="ctrl.isModal ? 'edit-padding': ''" time-rule-validation ng-model="ctrl.timeRule" has-start-formula-error="ctrl.startFormulaError.length>0" has-stop-formula-error="ctrl.stopFormulaError.length>0" data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+            <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+        </soe-toolbar>
+       
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="time.time.timerule.settings" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <soe-textbox label-key="common.name" model="ctrl.timeRule.name" required="true" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="row margin-large-top">
+                                <div class="col-sm-6">
+                                    <soe-select label-key="common.type" model="ctrl.timeRule.type" items="ctrl.types" options="item.id as item.name for item in items" required="true" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.typeChanged();"></soe-select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <soe-select label-key="time.time.timerule.rulestartdirection" model="ctrl.timeRule.ruleStartDirection" items="ctrl.directions" options="item.id as item.name for item in items" required="true" is-readonly="!ctrl.modifyPermission"></soe-select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <soe-select label-key="common.timecode" model="ctrl.timeRule.timeCodeId" items="ctrl.timeCodes" options="item.id as item.name for item in items" required="true" is-readonly="!ctrl.modifyPermission"></soe-select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <soe-textbox label-key="common.sort" model="ctrl.timeRule.sort" numeric="true" decimals="0" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <soe-datepicker label-key="common.startdate" model="ctrl.timeRule.startDate" is-readonly="!ctrl.modifyPermission"></soe-datepicker>
+                                </div>
+                                <div class="col-sm-6">
+                                    <soe-datepicker label-key="common.stopdate" model="ctrl.timeRule.stopDate" is-readonly="!ctrl.modifyPermission"></soe-datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <soe-textbox label-key="common.description" model="ctrl.timeRule.description" maxlength="512" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-sm-6 padding-none-left padding-none-right">
+                                        <soe-checkbox label-key="time.time.timerule.isiwh" model="ctrl.timeRule.isInconvenientWorkHours" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                                    </div>
+                                    <div class="col-sm-6 padding-none-left padding-none-right">
+                                        <soe-checkbox label-key="time.time.timerule.isstandby" model="ctrl.timeRule.isStandby" inline="true" is-readonly="!ctrl.modifyPermission || ctrl.isTypeAbsence" on-changing="ctrl.isStandbyChanged();"></soe-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row margin-large-top">
+                                <div class="col-sm-3">
+                                    <soe-multiselect label-key="common.employeegroups" options="ctrl.employeeGroups" display-prop="name" model="ctrl.selectedEmployeeGroups" dynamic-title="true" show-selected-items="true" is-disabled="!ctrl.modifyPermission" on-selection-complete="ctrl.selectedEmployeeGroupsChanged()"></soe-multiselect>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-multiselect label-key="time.schedule.scheduletype.scheduletypes" options="ctrl.scheduleTypes" display-prop="name" model="ctrl.selectedScheduleTypes" dynamic-title="true" show-selected-items="true" is-disabled="!ctrl.modifyPermission" on-selection-complete="ctrl.setDirty();"></soe-multiselect>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-multiselect label-key="time.schedule.planning.deviationcauses" options="ctrl.timeDeviationCauses" display-prop="name" model="ctrl.selectedTimeDeviationCauses" dynamic-title="true" show-selected-items="true" is-disabled="!ctrl.modifyPermission" on-selection-complete="ctrl.setDirty();"></soe-multiselect>
+                                </div>
+                                <div class="col-sm-3">
+                                    <soe-multiselect label-key="time.schedule.daytype.daytypes" options="ctrl.dayTypes" display-prop="name" model="ctrl.selectedDayTypes" dynamic-title="true" show-selected-items="true" is-disabled="!ctrl.modifyPermission" on-selection-complete="ctrl.setDirty();"></soe-multiselect>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="time.time.timerule.advancedsettings" is-open="false">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="time.time.timerule.standardminutes" model="ctrl.timeRule.standardMinutes" numeric="true" decimals="0" allow-empty="true" is-readonly="!ctrl.modifyPermission" on-change="ctrl.standardMinutesChanged();"></soe-textbox>
+                    </div>
+                    <div class="col-sm-10" style="padding-top:17px">
+                        <soe-instruction label-key="time.time.timerule.standardminutes.help"></soe-instruction>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="time.time.timerule.timecodemaxlength" model="ctrl.timeRule.timeCodeMaxLength" numeric="true" decimals="0" allow-empty="true" is-readonly="!ctrl.modifyPermission" on-change="ctrl.timeCodeMaxLengthChanged();"></soe-textbox>
+                    </div>
+                    <div class="col-sm-10" style="padding-top:17px">
+                        <soe-instruction label-key="time.time.timerule.timecodemaxlength.help"></soe-instruction>
+                    </div>
+                </div>
+                <div class="row" style="padding-top:5px">
+                    <div class="col-sm-2">
+                        <soe-checkbox label-key="time.time.timerule.breakifanyfailed" model="ctrl.timeRule.breakIfAnyFailed" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-10">
+                        <soe-instruction label-key="time.time.timerule.breakifanyfailed.help"></soe-instruction>
+                    </div>
+                </div>
+                <div class="row" style="padding-top:5px">
+                    <div class="col-sm-2">
+                        <soe-checkbox label-key="time.time.timerule.adjuststarttotimeblockstart" model="ctrl.timeRule.adjustStartToTimeBlockStart" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    </div>
+                    <div class="col-sm-10">
+                        <soe-instruction label-key="time.time.timerule.adjuststarttotimeblockstart.help"></soe-instruction>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="time.time.timerule.ruledefinitions" is-open="true">
+                <div class="row">
+                    <div class="col-fixed-200">
+                        <expression-container is-readonly="!ctrl.modifyPermission" exp-widgets="ctrl.expWidgets" op-widgets="ctrl.opWidgets" on-drop="ctrl.widgetDropped(widget, containerIndex);"></expression-container>
+                    </div>
+                    <div class="col-sm-12 col-offset-200">
+                        <formula-container is-readonly="!ctrl.modifyPermission" label-key="time.time.timerule.start" frm-widgets="ctrl.startWidgets" formula-valid="ctrl.startFormulaValid" formula-error="ctrl.startFormulaError" show-secondary-container="true" secondary-label-key="time.time.timerule.stop" secondary-frm-widgets="ctrl.stopWidgets" secondary-formula-valid="ctrl.stopFormulaValid" secondary-formula-error="ctrl.stopFormulaError" on-change="ctrl.setDirty();" on-validate="ctrl.validateRuleStructure(widgets, containerIndex);"></formula-container>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="time.time.timerule.iwhtitle" is-open="true" data-ng-if="ctrl.timeRule.isInconvenientWorkHours">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <soe-textbox label-key="time.time.timerule.start" model="ctrl.timeRule.inconvenientWorkHourRule.startTime | date:'shortTime'" input-class="text-right" input-class-condition="true" readonly="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-1">
+                        <soe-textbox label-key="time.time.timerule.stop" model="ctrl.timeRule.inconvenientWorkHourRule.stopTime | date:'shortTime'" input-class="text-right" input-class-condition="true" readonly="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-1">
+                        <soe-textbox label-key="common.length" model="ctrl.timeRule.inconvenientWorkHourRule.length" input-class="text-right" input-class-condition="true" readonly="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="common.payrollproduct" model="ctrl.timeRule.inconvenientWorkHourRule.payrollProductName" readonly="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-1">
+                        <soe-textbox label-key="time.time.timecode.factor" model="ctrl.timeRule.inconvenientWorkHourRule.payrollProductFactor" input-class="text-right" input-class-condition="true" readonly="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-textbox label-key="core.info" model="ctrl.timeRule.inconvenientWorkHourRule.information" readonly="true"></soe-textbox>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.timeRule"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.timeRule.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" data-ng-if="!ctrl.isModal" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

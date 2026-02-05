@@ -1,0 +1,1761 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://apiftp.quinyx.com/soap/FlexForce" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://apiftp.quinyx.com/soap/FlexForce" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://apiftp.quinyx.com/soap/FlexForce">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+      <xsd:complexType name="Restaurant">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="extApplicationId" type="xsd:string" />
+          <xsd:element name="managerId" type="xsd:int" />
+          <xsd:element name="managerBadgeNo" type="xsd:string" />
+          <xsd:element name="managerGroupId" type="xsd:int" />
+          <xsd:element name="maxHourDay" type="xsd:int" />
+          <xsd:element name="maxHourWeek" type="xsd:int" />
+          <xsd:element name="minShift" type="xsd:int" />
+          <xsd:element name="minRest" type="xsd:int" />
+          <xsd:element name="publishedTo" type="xsd:date" />
+          <xsd:element name="currency" type="xsd:string" />
+          <xsd:element name="noBreaks" type="xsd:int" />
+          <xsd:element name="premium1" type="xsd:int" />
+          <xsd:element name="premium2" type="xsd:int" />
+          <xsd:element name="costCentre" type="xsd:int" />
+          <xsd:element name="costCentreExtCode" type="xsd:string" />
+          <xsd:element name="districtId" type="xsd:int" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Restaurants">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Restaurant[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Customer">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="contact" type="xsd:string" />
+          <xsd:element name="address1" type="xsd:string" />
+          <xsd:element name="address2" type="xsd:string" />
+          <xsd:element name="zip" type="xsd:string" />
+          <xsd:element name="city" type="xsd:string" />
+          <xsd:element name="country" type="xsd:string" />
+          <xsd:element name="cellPhone" type="xsd:string" />
+          <xsd:element name="phoneNo" type="xsd:string" />
+          <xsd:element name="email" type="xsd:string" />
+          <xsd:element name="dateCreated" type="xsd:string" />
+          <xsd:element name="locale" type="xsd:string" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Customers">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Customer[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Payroll">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="empName" type="xsd:string" />
+          <xsd:element name="restId" type="xsd:int" />
+          <xsd:element name="badgeNo" type="xsd:string" />
+          <xsd:element name="socsecNo" type="xsd:string" />
+          <xsd:element name="cardNo" type="xsd:string" />
+          <xsd:element name="pType" type="xsd:int" />
+          <xsd:element name="date" type="xsd:string" />
+          <xsd:element name="salType" type="xsd:string" />
+          <xsd:element name="in" type="xsd:string" />
+          <xsd:element name="out" type="xsd:string" />
+          <xsd:element name="hours" type="xsd:decimal" />
+          <xsd:element name="costCentre" type="xsd:string" />
+          <xsd:element name="projectNo" type="xsd:string" />
+          <xsd:element name="accountNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Payrolls">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Payroll[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="PayrollRaw">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="empName" type="xsd:string" />
+          <xsd:element name="restId" type="xsd:int" />
+          <xsd:element name="badgeNo" type="xsd:string" />
+          <xsd:element name="socsecNo" type="xsd:string" />
+          <xsd:element name="cardNo" type="xsd:string" />
+          <xsd:element name="punchId" type="xsd:string" />
+          <xsd:element name="punchDate" type="xsd:string" />
+          <xsd:element name="punchIn" type="xsd:string" />
+          <xsd:element name="punchOut" type="xsd:string" />
+          <xsd:element name="hours" type="xsd:decimal" />
+          <xsd:element name="costCentre" type="xsd:string" />
+          <xsd:element name="projectNo" type="xsd:string" />
+          <xsd:element name="accountNo" type="xsd:string" />
+          <xsd:element name="salaryType" type="xsd:string" />
+          <xsd:element name="begTime" type="xsd:string" />
+          <xsd:element name="endTime" type="xsd:string" />
+          <xsd:element name="shiftHours" type="xsd:decimal" />
+          <xsd:element name="punchHours" type="xsd:decimal" />
+          <xsd:element name="pType" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="PayrollRaws">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:PayrollRaw[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Section">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="restId" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="managerId" type="xsd:int" />
+          <xsd:element name="managerGroupId" type="xsd:int" />
+          <xsd:element name="costCentre" type="xsd:int" />
+          <xsd:element name="costCentreExtCode" type="xsd:string" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Sections">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Section[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Category">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="categoryName" type="xsd:string" />
+          <xsd:element name="extCode" type="xsd:string" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Categories">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Category[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="LeaveReason">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="extCode" type="xsd:string" />
+          <xsd:element name="confirmationText" type="xsd:string" />
+          <xsd:element name="salaryBase" type="xsd:int" />
+          <xsd:element name="abbrCode" type="xsd:string" />
+          <xsd:element name="isSickness" type="xsd:int" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="LeaveReasons">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:LeaveReason[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="LeaveApplication">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="header" type="xsd:string" />
+          <xsd:element name="bodytext" type="xsd:string" />
+          <xsd:element name="senddate" type="xsd:dateTime" />
+          <xsd:element name="fromPersId" type="xsd:int" />
+          <xsd:element name="fromBadgeNo" type="xsd:string" />
+          <xsd:element name="toPersId" type="xsd:int" />
+          <xsd:element name="moderated" type="xsd:int" />
+          <xsd:element name="beenViewed" type="xsd:int" />
+          <xsd:element name="leaveReason" type="xsd:string" />
+          <xsd:element name="fromDate" type="xsd:date" />
+          <xsd:element name="fromTime" type="xsd:time" />
+          <xsd:element name="toDate" type="xsd:date" />
+          <xsd:element name="toTime" type="xsd:time" />
+          <xsd:element name="restId" type="xsd:int" />
+          <xsd:element name="extCode" type="xsd:string" />
+          <xsd:element name="estHours" type="xsd:decimal" />
+          <xsd:element name="estSalary" type="xsd:decimal" />
+          <xsd:element name="sickLevel" type="xsd:decimal" />
+          <xsd:element name="isPreliminary" type="xsd:int" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="LeaveApplications">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:LeaveApplication[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Schedule">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="restId" type="xsd:int" />
+          <xsd:element name="begDate" type="xsd:date" />
+          <xsd:element name="begTime" type="xsd:time" />
+          <xsd:element name="endDate" type="xsd:date" />
+          <xsd:element name="endTime" type="xsd:time" />
+          <xsd:element name="breakType" type="xsd:int" />
+          <xsd:element name="begBreak" type="xsd:time" />
+          <xsd:element name="endBreak" type="xsd:time" />
+          <xsd:element name="begBreak2" type="xsd:time" />
+          <xsd:element name="endBreak2" type="xsd:time" />
+          <xsd:element name="begBreak3" type="xsd:time" />
+          <xsd:element name="endBreak3" type="xsd:time" />
+          <xsd:element name="begBreak4" type="xsd:time" />
+          <xsd:element name="endBreak4" type="xsd:time" />
+          <xsd:element name="persId" type="xsd:int" />
+          <xsd:element name="badgeNo" type="xsd:string" />
+          <xsd:element name="status" type="xsd:int" />
+          <xsd:element name="grabbAble" type="xsd:int" />
+          <xsd:element name="grabbId" type="xsd:int" />
+          <xsd:element name="approved" type="xsd:int" />
+          <xsd:element name="managerId" type="xsd:int" />
+          <xsd:element name="categoryId" type="xsd:int" />
+          <xsd:element name="categoryName" type="xsd:string" />
+          <xsd:element name="comment" type="xsd:string" />
+          <xsd:element name="section" type="xsd:int" />
+          <xsd:element name="sectionName" type="xsd:string" />
+          <xsd:element name="costEstimate" type="xsd:decimal" />
+          <xsd:element name="hours" type="xsd:decimal" />
+          <xsd:element name="fixSchedId" type="xsd:int" />
+          <xsd:element name="shiftChanged" type="xsd:int" />
+          <xsd:element name="costCentre" type="xsd:int" />
+          <xsd:element name="salaryType" type="xsd:int" />
+          <xsd:element name="accountNo" type="xsd:int" />
+          <xsd:element name="projectNo" type="xsd:int" />
+          <xsd:element name="unitName" type="xsd:string" />
+          <xsd:element name="accountNoExtCode" type="xsd:string" />
+          <xsd:element name="costCentreExtCode" type="xsd:string" />
+          <xsd:element name="projectNoExtCode" type="xsd:string" />
+          <xsd:element name="salaryTypeExtCode" type="xsd:string" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Schedules">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Schedule[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ScheduleTask">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="scheduleId" type="xsd:int" />
+          <xsd:element name="categoryId" type="xsd:int" />
+          <xsd:element name="begTime" type="xsd:string" />
+          <xsd:element name="endTime" type="xsd:string" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="onCall" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="ScheduleTasks">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:ScheduleTask[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ShiftCategory">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="restId" type="xsd:int" />
+          <xsd:element name="begTime" type="xsd:time" />
+          <xsd:element name="endTime" type="xsd:time" />
+          <xsd:element name="breakType" type="xsd:int" />
+          <xsd:element name="begBreak" type="xsd:time" />
+          <xsd:element name="endBreak" type="xsd:time" />
+          <xsd:element name="begBreak2" type="xsd:time" />
+          <xsd:element name="endBreak2" type="xsd:time" />
+          <xsd:element name="begBreak3" type="xsd:time" />
+          <xsd:element name="endBreak3" type="xsd:time" />
+          <xsd:element name="begBreak4" type="xsd:time" />
+          <xsd:element name="endBreak4" type="xsd:time" />
+          <xsd:element name="section" type="xsd:int" />
+          <xsd:element name="costCentre" type="xsd:int" />
+          <xsd:element name="salaryType" type="xsd:int" />
+          <xsd:element name="accountNo" type="xsd:int" />
+          <xsd:element name="projectNo" type="xsd:int" />
+          <xsd:element name="accountNoExtCode" type="xsd:string" />
+          <xsd:element name="costCentreExtCode" type="xsd:string" />
+          <xsd:element name="projectNoExtCode" type="xsd:string" />
+          <xsd:element name="salaryTypeExtCode" type="xsd:string" />
+          <xsd:element name="onCall" type="xsd:int" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="ShiftCategories">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:ShiftCategory[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Agreement">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="persId" type="xsd:int" />
+          <xsd:element name="badgeNo" type="xsd:string" />
+          <xsd:element name="weekHours" type="xsd:decimal" />
+          <xsd:element name="minHours" type="xsd:decimal" />
+          <xsd:element name="maxHours" type="xsd:decimal" />
+          <xsd:element name="salary" type="xsd:decimal" />
+          <xsd:element name="premiumSalary" type="xsd:decimal" />
+          <xsd:element name="premiumSalary2" type="xsd:decimal" />
+          <xsd:element name="premiumSalary3" type="xsd:decimal" />
+          <xsd:element name="periodType" type="xsd:int" />
+          <xsd:element name="periodDay" type="xsd:int" />
+          <xsd:element name="periodStart" type="xsd:date" />
+          <xsd:element name="periodLength" type="xsd:int" />
+          <xsd:element name="weeklyAvg" type="xsd:decimal" />
+          <xsd:element name="empLevel" type="xsd:decimal" />
+          <xsd:element name="templateId" type="xsd:int" />
+          <xsd:element name="hourly" type="xsd:int" />
+          <xsd:element name="fromDate" type="xsd:date" />
+          <xsd:element name="toDate" type="xsd:date" />
+          <xsd:element name="expires" type="xsd:int" />
+          <xsd:element name="comment" type="xsd:string" />
+          <xsd:element name="vacations" type="tns:Vacations" />
+          <xsd:element name="redDays" type="tns:ArrayOfString" />
+          <xsd:element name="overTime1" type="tns:OverTimes" />
+          <xsd:element name="overTime2" type="tns:OverTimes" />
+          <xsd:element name="overTime3" type="tns:OverTimes" />
+          <xsd:element name="xtrawork" type="tns:Xtraworks" />
+          <xsd:element name="shifts" type="tns:Shifts" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Agreements">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Agreement[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Vacation">
+        <xsd:all>
+          <xsd:element name="fromDate" type="xsd:date" />
+          <xsd:element name="fromTime" type="xsd:string" />
+          <xsd:element name="toDate" type="xsd:date" />
+          <xsd:element name="toTime" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Vacations">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Vacation[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfString">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfInt">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="OverTimes">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:OverTime[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="OverTime">
+        <xsd:all>
+          <xsd:element name="startPeriod1" type="xsd:int" />
+          <xsd:element name="endPeriod1" type="xsd:int" />
+          <xsd:element name="startPeriod2" type="xsd:int" />
+          <xsd:element name="endPeriod2" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Xtraworks">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Xtrawork[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Xtrawork">
+        <xsd:all>
+          <xsd:element name="fromDate" type="xsd:date" />
+          <xsd:element name="fromTime" type="xsd:string" />
+          <xsd:element name="toDate" type="xsd:date" />
+          <xsd:element name="toTime" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Shifts">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Shift[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Shift">
+        <xsd:all>
+          <xsd:element name="weekDay" type="xsd:int" />
+          <xsd:element name="availfrom" type="xsd:string" />
+          <xsd:element name="availto" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Employee">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="badgeNo" type="xsd:string" />
+          <xsd:element name="givenName" type="xsd:string" />
+          <xsd:element name="familyName" type="xsd:string" />
+          <xsd:element name="address1" type="xsd:string" />
+          <xsd:element name="address2" type="xsd:string" />
+          <xsd:element name="zip" type="xsd:string" />
+          <xsd:element name="city" type="xsd:string" />
+          <xsd:element name="cellPhone" type="xsd:string" />
+          <xsd:element name="phoneNo" type="xsd:string" />
+          <xsd:element name="email" type="xsd:string" />
+          <xsd:element name="active" type="xsd:int" />
+          <xsd:element name="leaveDate" type="xsd:date" />
+          <xsd:element name="socsecNo" type="xsd:string" />
+          <xsd:element name="country" type="xsd:string" />
+          <xsd:element name="restId" type="xsd:int" />
+          <xsd:element name="staffCat" type="xsd:int" />
+          <xsd:element name="staffCatName" type="xsd:string" />
+          <xsd:element name="section" type="xsd:int" />
+          <xsd:element name="sectionName" type="xsd:string" />
+          <xsd:element name="passive" type="xsd:int" />
+          <xsd:element name="info" type="xsd:string" />
+          <xsd:element name="dateOfBirth" type="xsd:date" />
+          <xsd:element name="employedDate" type="xsd:date" />
+          <xsd:element name="cardNo" type="xsd:string" />
+          <xsd:element name="passwordTandA" type="xsd:string" />
+          <xsd:element name="nextOfKind" type="xsd:string" />
+          <xsd:element name="nextPhone" type="xsd:string" />
+          <xsd:element name="role" type="xsd:int" />
+          <xsd:element name="costCentre" type="xsd:int" />
+          <xsd:element name="costCentreExtCode" type="xsd:string" />
+          <xsd:element name="punchType" type="xsd:int" />
+          <xsd:element name="sex" type="xsd:int" />
+          <xsd:element name="myDistrict" type="xsd:int" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Employees">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Employee[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Group">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="members" type="tns:GroupMembers" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Groups">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Group[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="GroupMembers">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:GroupMember[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="GroupMember">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="groupId" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="employeeId" type="xsd:int" />
+          <xsd:element name="badgeNo" type="xsd:string" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="District">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="managerId" type="xsd:int" />
+          <xsd:element name="managerBadgeNo" type="xsd:string" />
+          <xsd:element name="managerMemberOfRestaurant" type="xsd:string" />
+          <xsd:element name="managerGroupId" type="xsd:int" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Districts">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:District[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Role">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Roles">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Role[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="AgreementTemplate">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="templateName" type="xsd:string" />
+          <xsd:element name="weekHours" type="xsd:decimal" />
+          <xsd:element name="minHours" type="xsd:decimal" />
+          <xsd:element name="maxHours" type="xsd:decimal" />
+          <xsd:element name="salary" type="xsd:decimal" />
+          <xsd:element name="premiumSalary" type="xsd:decimal" />
+          <xsd:element name="premiumSalary2" type="xsd:decimal" />
+          <xsd:element name="premiumSalary3" type="xsd:decimal" />
+          <xsd:element name="hourly" type="xsd:int" />
+          <xsd:element name="fromDate" type="xsd:date" />
+          <xsd:element name="toDate" type="xsd:date" />
+          <xsd:element name="expires" type="xsd:int" />
+          <xsd:element name="comment" type="xsd:string" />
+          <xsd:element name="periodType" type="xsd:int" />
+          <xsd:element name="periodDay" type="xsd:int" />
+          <xsd:element name="periodStart" type="xsd:date" />
+          <xsd:element name="periodLength" type="xsd:int" />
+          <xsd:element name="weeklyAvg" type="xsd:decimal" />
+          <xsd:element name="empLevel" type="xsd:decimal" />
+          <xsd:element name="stdRedDays" type="xsd:int" />
+          <xsd:element name="stdOverTime" type="xsd:int" />
+          <xsd:element name="maxHourDay" type="xsd:int" />
+          <xsd:element name="maxHourWeek" type="xsd:int" />
+          <xsd:element name="minShift" type="xsd:int" />
+          <xsd:element name="minRest" type="xsd:int" />
+          <xsd:element name="shifts" type="tns:TemplateShifts" />
+          <xsd:element name="redDays" type="tns:TemplateRedDays" />
+          <xsd:element name="overTime" type="tns:TemplateOverTimes" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="AgreementTemplates">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:AgreementTemplate[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="TemplateShift">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="templateId" type="xsd:int" />
+          <xsd:element name="weekDay" type="xsd:int" />
+          <xsd:element name="availfrom" type="xsd:time" />
+          <xsd:element name="availto" type="xsd:time" />
+          <xsd:element name="altWeekDay" type="xsd:int" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="TemplateShifts">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:TemplateShift[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="TemplateRedDay">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="templateId" type="xsd:int" />
+          <xsd:element name="redDate" type="xsd:date" />
+          <xsd:element name="description" type="xsd:string" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="TemplateRedDays">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:TemplateRedDay[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="TemplateOverTime">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="templateId" type="xsd:int" />
+          <xsd:element name="weekDay" type="xsd:int" />
+          <xsd:element name="overtimeFrom" type="xsd:time" />
+          <xsd:element name="overtimeTo" type="xsd:time" />
+          <xsd:element name="oType" type="xsd:int" />
+          <xsd:element name="altWeekDay" type="xsd:int" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="TemplateOverTimes">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:TemplateOverTime[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="TimeRecord">
+        <xsd:all>
+          <xsd:element name="persId" type="xsd:int" />
+          <xsd:element name="punchDate" type="xsd:date" />
+          <xsd:element name="punchIn" type="xsd:string" />
+          <xsd:element name="punchOut" type="xsd:string" />
+          <xsd:element name="comment" type="xsd:string" />
+          <xsd:element name="costCentre" type="xsd:int" />
+          <xsd:element name="projectNo" type="xsd:int" />
+          <xsd:element name="validationErrors" type="tns:ArrayOfString" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="TimeRecords">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:TimeRecord[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="SalesDatas">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:SalesData[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="SalesData">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="salesdataDate" type="xsd:date" />
+          <xsd:element name="salesTotal" type="xsd:decimal" />
+          <xsd:element name="comments" type="xsd:string" />
+          <xsd:element name="salesdata00_01" type="xsd:decimal" />
+          <xsd:element name="salesdata01_02" type="xsd:decimal" />
+          <xsd:element name="salesdata02_03" type="xsd:decimal" />
+          <xsd:element name="salesdata03_04" type="xsd:decimal" />
+          <xsd:element name="salesdata04_05" type="xsd:decimal" />
+          <xsd:element name="salesdata05_06" type="xsd:decimal" />
+          <xsd:element name="salesdata06_07" type="xsd:decimal" />
+          <xsd:element name="salesdata07_08" type="xsd:decimal" />
+          <xsd:element name="salesdata08_09" type="xsd:decimal" />
+          <xsd:element name="salesdata09_10" type="xsd:decimal" />
+          <xsd:element name="salesdata10_11" type="xsd:decimal" />
+          <xsd:element name="salesdata11_12" type="xsd:decimal" />
+          <xsd:element name="salesdata12_13" type="xsd:decimal" />
+          <xsd:element name="salesdata13_14" type="xsd:decimal" />
+          <xsd:element name="salesdata14_15" type="xsd:decimal" />
+          <xsd:element name="salesdata15_16" type="xsd:decimal" />
+          <xsd:element name="salesdata16_17" type="xsd:decimal" />
+          <xsd:element name="salesdata17_18" type="xsd:decimal" />
+          <xsd:element name="salesdata18_19" type="xsd:decimal" />
+          <xsd:element name="salesdata19_20" type="xsd:decimal" />
+          <xsd:element name="salesdata20_21" type="xsd:decimal" />
+          <xsd:element name="salesdata21_22" type="xsd:decimal" />
+          <xsd:element name="salesdata22_23" type="xsd:decimal" />
+          <xsd:element name="salesdata23_24" type="xsd:decimal" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Forecasts">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Forecast[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Forecast">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="forecastDate" type="xsd:date" />
+          <xsd:element name="salesTotal" type="xsd:decimal" />
+          <xsd:element name="comments" type="xsd:string" />
+          <xsd:element name="forecast00_01" type="xsd:decimal" />
+          <xsd:element name="forecast01_02" type="xsd:decimal" />
+          <xsd:element name="forecast02_03" type="xsd:decimal" />
+          <xsd:element name="forecast03_04" type="xsd:decimal" />
+          <xsd:element name="forecast04_05" type="xsd:decimal" />
+          <xsd:element name="forecast05_06" type="xsd:decimal" />
+          <xsd:element name="forecast06_07" type="xsd:decimal" />
+          <xsd:element name="forecast07_08" type="xsd:decimal" />
+          <xsd:element name="forecast08_09" type="xsd:decimal" />
+          <xsd:element name="forecast09_10" type="xsd:decimal" />
+          <xsd:element name="forecast10_11" type="xsd:decimal" />
+          <xsd:element name="forecast11_12" type="xsd:decimal" />
+          <xsd:element name="forecast12_13" type="xsd:decimal" />
+          <xsd:element name="forecast13_14" type="xsd:decimal" />
+          <xsd:element name="forecast14_15" type="xsd:decimal" />
+          <xsd:element name="forecast15_16" type="xsd:decimal" />
+          <xsd:element name="forecast16_17" type="xsd:decimal" />
+          <xsd:element name="forecast17_18" type="xsd:decimal" />
+          <xsd:element name="forecast18_19" type="xsd:decimal" />
+          <xsd:element name="forecast19_20" type="xsd:decimal" />
+          <xsd:element name="forecast20_21" type="xsd:decimal" />
+          <xsd:element name="forecast21_22" type="xsd:decimal" />
+          <xsd:element name="forecast22_23" type="xsd:decimal" />
+          <xsd:element name="forecast23_24" type="xsd:decimal" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="VariableType">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="isSales" type="xsd:int" />
+          <xsd:element name="isTransactions" type="xsd:int" />
+          <xsd:element name="isWorkedHours" type="xsd:int" />
+          <xsd:element name="isCalculated" type="xsd:int" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="VariableTypes">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:VariableType[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="MonthlyView">
+        <xsd:all>
+          <xsd:element name="date" type="xsd:date" />
+          <xsd:element name="red" type="xsd:boolean" />
+          <xsd:element name="comment" type="xsd:string" />
+          <xsd:element name="sales" type="xsd:decimal" />
+          <xsd:element name="bSales" type="xsd:decimal" />
+          <xsd:element name="fctHours" type="xsd:decimal" />
+          <xsd:element name="actHours" type="xsd:decimal" />
+          <xsd:element name="budHours" type="xsd:decimal" />
+          <xsd:element name="cComment" type="xsd:string" />
+          <xsd:element name="memo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="MonthlyViews">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:MonthlyView[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Portrait">
+        <xsd:all>
+          <xsd:element name="portrait" type="xsd:string" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="UpdateEmployee">
+        <xsd:all>
+          <xsd:element name="badgeNo" type="xsd:string" />
+          <xsd:element name="loginId" type="xsd:string" />
+          <xsd:element name="givenName" type="xsd:string" />
+          <xsd:element name="familyName" type="xsd:string" />
+          <xsd:element name="email" type="xsd:string" />
+          <xsd:element name="phoneNo" type="xsd:string" />
+          <xsd:element name="cellPhone" type="xsd:string" />
+          <xsd:element name="dateOfBirth" type="xsd:date" />
+          <xsd:element name="employedDate" type="xsd:date" />
+          <xsd:element name="address1" type="xsd:string" />
+          <xsd:element name="address2" type="xsd:string" />
+          <xsd:element name="zip" type="xsd:string" />
+          <xsd:element name="city" type="xsd:string" />
+          <xsd:element name="cardNo" type="xsd:string" />
+          <xsd:element name="staffCat" type="xsd:int" />
+          <xsd:element name="punchType" type="xsd:int" />
+          <xsd:element name="password" type="xsd:string" />
+          <xsd:element name="passwordTandA" type="xsd:string" />
+          <xsd:element name="active" type="xsd:int" />
+          <xsd:element name="passive" type="xsd:int" />
+          <xsd:element name="leaveDate" type="xsd:date" />
+          <xsd:element name="socsecNo" type="xsd:string" />
+          <xsd:element name="country" type="xsd:string" />
+          <xsd:element name="costCentre" type="xsd:int" />
+          <xsd:element name="role" type="xsd:int" />
+          <xsd:element name="validationErrors" type="tns:ArrayOfString" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="UpdateEmployees">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:UpdateEmployee[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="UpdateShiftTypes">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:UpdateShiftType[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="UpdateShiftType">
+        <xsd:all>
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="costHourly" type="xsd:decimal" />
+          <xsd:element name="timeStart" type="xsd:string" />
+          <xsd:element name="timeEnd" type="xsd:string" />
+          <xsd:element name="sectionId" type="xsd:int" />
+          <xsd:element name="breakStart" type="xsd:string" />
+          <xsd:element name="breakEnd" type="xsd:string" />
+          <xsd:element name="comment" type="xsd:string" />
+          <xsd:element name="shiftTypeCatId" type="xsd:int" />
+          <xsd:element name="skills" type="tns:Skills" />
+          <xsd:element name="productiveTime" type="xsd:int" />
+          <xsd:element name="validationErrors" type="tns:ArrayOfString" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Skills">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Skill[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Skill">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="UpdateTimePunches">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:UpdateTimePunch[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="UpdateTimePunch">
+        <xsd:all>
+          <xsd:element name="persId" type="xsd:int" />
+          <xsd:element name="punchDate" type="xsd:string" />
+          <xsd:element name="punchIn" type="xsd:string" />
+          <xsd:element name="punchOut" type="xsd:string" />
+          <xsd:element name="comment" type="xsd:string" />
+          <xsd:element name="costCentre" type="xsd:int" />
+          <xsd:element name="empAuth" type="xsd:int" />
+          <xsd:element name="bossAuth" type="xsd:int" />
+          <xsd:element name="bossComment" type="xsd:string" />
+          <xsd:element name="projectNo" type="xsd:int" />
+          <xsd:element name="validationErrors" type="tns:ArrayOfString" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="UpdateForecast">
+        <xsd:all>
+          <xsd:element name="date" type="xsd:date" />
+          <xsd:element name="variableTypeId" type="xsd:int" />
+          <xsd:element name="periods" type="tns:Periods" />
+          <xsd:element name="validationErrors" type="tns:ArrayOfString" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="UpdateForecasts">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:UpdateForecast[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Period">
+        <xsd:all>
+          <xsd:element name="time" type="xsd:time" />
+          <xsd:element name="amount" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Periods">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Period[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="UpdateAgreement">
+        <xsd:all>
+          <xsd:element name="badgeNo" type="xsd:string" />
+          <xsd:element name="weekHours" type="xsd:decimal" />
+          <xsd:element name="minHours" type="xsd:decimal" />
+          <xsd:element name="maxHours" type="xsd:decimal" />
+          <xsd:element name="salary" type="xsd:decimal" />
+          <xsd:element name="premiumSalary" type="xsd:decimal" />
+          <xsd:element name="premiumSalary2" type="xsd:decimal" />
+          <xsd:element name="premiumSalary3" type="xsd:decimal" />
+          <xsd:element name="hourly" type="xsd:int" />
+          <xsd:element name="fromDate" type="xsd:date" />
+          <xsd:element name="toDate" type="xsd:date" />
+          <xsd:element name="expires" type="xsd:int" />
+          <xsd:element name="periodType" type="xsd:int" />
+          <xsd:element name="periodStart" type="xsd:date" />
+          <xsd:element name="periodLength" type="xsd:int" />
+          <xsd:element name="weeklyAvg" type="xsd:decimal" />
+          <xsd:element name="empLevel" type="xsd:decimal" />
+          <xsd:element name="templateId" type="xsd:int" />
+          <xsd:element name="useTempAvail" type="xsd:int" />
+          <xsd:element name="useTempTimeRules" type="xsd:int" />
+          <xsd:element name="useTempSalary" type="xsd:int" />
+          <xsd:element name="useTempWorkTime" type="xsd:int" />
+          <xsd:element name="useTempMonthHours" type="xsd:int" />
+          <xsd:element name="useTempRedDates" type="xsd:int" />
+          <xsd:element name="useTempTandA" type="xsd:int" />
+          <xsd:element name="validationErrors" type="tns:ArrayOfString" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="UpdateAgreements">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:UpdateAgreement[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="TextItem">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="tag" type="xsd:string" />
+          <xsd:element name="ttext" type="xsd:string" />
+          <xsd:element name="extCode" type="xsd:string" />
+          <xsd:element name="validationErrors" type="tns:ArrayOfString" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="TextItems">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:TextItem[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Project">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="projectNo" type="xsd:string" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="description" type="xsd:string" />
+          <xsd:element name="begDate" type="xsd:date" />
+          <xsd:element name="endDate" type="xsd:date" />
+          <xsd:element name="status" type="xsd:int" />
+          <xsd:element name="managerId" type="xsd:int" />
+          <xsd:element name="restId" type="xsd:int" />
+          <xsd:element name="groupId" type="xsd:int" />
+          <xsd:element name="projectCategoryId" type="xsd:int" />
+          <xsd:element name="info" type="xsd:string" />
+          <xsd:element name="totalHours" type="xsd:decimal" />
+          <xsd:element name="totalVolume" type="xsd:decimal" />
+          <xsd:element name="monCallable" type="xsd:int" />
+          <xsd:element name="monBegTime" type="xsd:time" />
+          <xsd:element name="monEndTime" type="xsd:time" />
+          <xsd:element name="tueCallable" type="xsd:int" />
+          <xsd:element name="tueBegTime" type="xsd:time" />
+          <xsd:element name="tueEndTime" type="xsd:time" />
+          <xsd:element name="wedCallable" type="xsd:int" />
+          <xsd:element name="wedBegTime" type="xsd:time" />
+          <xsd:element name="wedEndTime" type="xsd:time" />
+          <xsd:element name="thuCallable" type="xsd:int" />
+          <xsd:element name="thuBegTime" type="xsd:time" />
+          <xsd:element name="thuEndTime" type="xsd:time" />
+          <xsd:element name="friCallable" type="xsd:int" />
+          <xsd:element name="friBegTime" type="xsd:time" />
+          <xsd:element name="friEndTime" type="xsd:time" />
+          <xsd:element name="satCallable" type="xsd:int" />
+          <xsd:element name="satBegTime" type="xsd:time" />
+          <xsd:element name="satEndTime" type="xsd:time" />
+          <xsd:element name="sunCallable" type="xsd:int" />
+          <xsd:element name="sunBegTime" type="xsd:time" />
+          <xsd:element name="sunEndTime" type="xsd:time" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+          <xsd:element name="orderTypes" type="tns:OrderTypes" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Projects">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:Project[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="OrderType">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="projectId" type="xsd:int" />
+          <xsd:element name="orderTypeId" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="budget" type="xsd:int" />
+          <xsd:element name="ts" type="xsd:dateTime" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="OrderTypes">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:OrderType[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="wsdlGetRestaurantsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetRestaurantsResponse">
+    <wsdl:part name="return" type="tns:Restaurants" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetRestaurantRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetRestaurantResponse">
+    <wsdl:part name="return" type="tns:Restaurants" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetCustomersRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetCustomersResponse">
+    <wsdl:part name="return" type="tns:Customers" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetPayrollRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="fromDate" type="xsd:string" />
+    <wsdl:part name="toDate" type="xsd:string" />
+    <wsdl:part name="attest" type="xsd:int" />
+    <wsdl:part name="pSalType" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetPayrollResponse">
+    <wsdl:part name="return" type="tns:Payrolls" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetPayrollRawRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="fromDate" type="xsd:string" />
+    <wsdl:part name="toDate" type="xsd:string" />
+    <wsdl:part name="attest" type="xsd:int" />
+    <wsdl:part name="pSalType" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetPayrollRawResponse">
+    <wsdl:part name="return" type="tns:PayrollRaws" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetSectionsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetSectionsResponse">
+    <wsdl:part name="return" type="tns:Sections" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetCategoriesRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="categoryType" type="xsd:int" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetCategoriesResponse">
+    <wsdl:part name="return" type="tns:Categories" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetLeaveReasonsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetLeaveReasonsResponse">
+    <wsdl:part name="return" type="tns:LeaveReasons" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetLeaveApplicationsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="sectionId" type="xsd:int" />
+    <wsdl:part name="employeeId" type="xsd:int" />
+    <wsdl:part name="badgeNo" type="xsd:string" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetLeaveApplicationsResponse">
+    <wsdl:part name="return" type="tns:LeaveApplications" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetDeletedLeaveApplicationsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="sectionId" type="xsd:int" />
+    <wsdl:part name="employeeId" type="xsd:int" />
+    <wsdl:part name="badgeNo" type="xsd:string" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetDeletedLeaveApplicationsResponse">
+    <wsdl:part name="return" type="tns:LeaveApplications" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetSchedulesRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="sectionId" type="xsd:int" />
+    <wsdl:part name="employeeId" type="xsd:int" />
+    <wsdl:part name="badgeNo" type="xsd:string" />
+    <wsdl:part name="fromDate" type="xsd:string" />
+    <wsdl:part name="fromTime" type="xsd:string" />
+    <wsdl:part name="toDate" type="xsd:string" />
+    <wsdl:part name="toTime" type="xsd:string" />
+    <wsdl:part name="unassignedShiftsFromLeave" type="xsd:int" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetSchedulesResponse">
+    <wsdl:part name="return" type="tns:Schedules" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetDeletedSchedulesRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="sectionId" type="xsd:int" />
+    <wsdl:part name="employeeId" type="xsd:int" />
+    <wsdl:part name="badgeNo" type="xsd:string" />
+    <wsdl:part name="fromDate" type="xsd:string" />
+    <wsdl:part name="fromTime" type="xsd:string" />
+    <wsdl:part name="toDate" type="xsd:string" />
+    <wsdl:part name="toTime" type="xsd:string" />
+    <wsdl:part name="unassignedShiftsFromLeave" type="xsd:int" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetDeletedSchedulesResponse">
+    <wsdl:part name="return" type="tns:Schedules" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetUnassignedShiftsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="sectionId" type="xsd:int" />
+    <wsdl:part name="employeeId" type="xsd:int" />
+    <wsdl:part name="badgeNo" type="xsd:string" />
+    <wsdl:part name="fromDate" type="xsd:string" />
+    <wsdl:part name="fromTime" type="xsd:string" />
+    <wsdl:part name="toDate" type="xsd:string" />
+    <wsdl:part name="toTime" type="xsd:string" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetUnassignedShiftsResponse">
+    <wsdl:part name="return" type="tns:Schedules" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetScheduleTasksRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="scheduleId" type="xsd:int" />
+    <wsdl:part name="categoryId" type="xsd:int" />
+    <wsdl:part name="begTime" type="xsd:string" />
+    <wsdl:part name="endTime" type="xsd:string" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetScheduleTasksResponse">
+    <wsdl:part name="return" type="tns:ScheduleTasks" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetShiftCategoriesRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetShiftCategoriesResponse">
+    <wsdl:part name="return" type="tns:ShiftCategories" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetAgreementsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="sectionId" type="xsd:int" />
+    <wsdl:part name="employeeId" type="xsd:int" />
+    <wsdl:part name="badgeNo" type="xsd:string" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetAgreementsResponse">
+    <wsdl:part name="return" type="tns:Agreements" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetEmployeesRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="sectionId" type="xsd:int" />
+    <wsdl:part name="employeeId" type="xsd:int" />
+    <wsdl:part name="badgeNo" type="xsd:string" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetEmployeesResponse">
+    <wsdl:part name="return" type="tns:Employees" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetEmployeeGroupsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="groupId" type="xsd:int" />
+    <wsdl:part name="sharedGroups" type="xsd:boolean" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetEmployeeGroupsResponse">
+    <wsdl:part name="return" type="tns:Groups" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetDistrictsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetDistrictsResponse">
+    <wsdl:part name="return" type="tns:Districts" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetRolesRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetRolesResponse">
+    <wsdl:part name="return" type="tns:Roles" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetAgreementTemplatesRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="agreementTemplateId" type="xsd:int" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetAgreementTemplatesResponse">
+    <wsdl:part name="return" type="tns:AgreementTemplates" />
+  </wsdl:message>
+  <wsdl:message name="wsdlInsertTimeRecordsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="timeRecords" type="tns:TimeRecords" />
+  </wsdl:message>
+  <wsdl:message name="wsdlInsertTimeRecordsResponse">
+    <wsdl:part name="return" type="tns:TimeRecords" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetSalesDataRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="variableTypeId" type="xsd:int" />
+    <wsdl:part name="startDate" type="xsd:date" />
+    <wsdl:part name="endDate" type="xsd:date" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetSalesDataResponse">
+    <wsdl:part name="return" type="tns:SalesDatas" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetForecastsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="variableTypeId" type="xsd:int" />
+    <wsdl:part name="startDate" type="xsd:date" />
+    <wsdl:part name="endDate" type="xsd:date" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetForecastsResponse">
+    <wsdl:part name="return" type="tns:Forecasts" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetVariableTypesRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetVariableTypesResponse">
+    <wsdl:part name="return" type="tns:VariableTypes" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetMonthlyViewRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="variableTypeId" type="xsd:int" />
+    <wsdl:part name="year" type="xsd:int" />
+    <wsdl:part name="month" type="xsd:int" />
+    <wsdl:part name="budgetVersion" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetMonthlyViewResponse">
+    <wsdl:part name="return" type="tns:MonthlyViews" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetEmployeePortraitRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="badgeNo" type="xsd:string" />
+    <wsdl:part name="lastModified" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetEmployeePortraitResponse">
+    <wsdl:part name="return" type="tns:Portrait" />
+  </wsdl:message>
+  <wsdl:message name="wsdlUpdateEmployeesRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="employees" type="tns:UpdateEmployees" />
+  </wsdl:message>
+  <wsdl:message name="wsdlUpdateEmployeesResponse">
+    <wsdl:part name="return" type="tns:UpdateEmployees" />
+  </wsdl:message>
+  <wsdl:message name="wsdlUpdateShiftTypesRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="shifType" type="tns:UpdateShiftTypes" />
+  </wsdl:message>
+  <wsdl:message name="wsdlUpdateShiftTypesResponse">
+    <wsdl:part name="return" type="tns:UpdateShiftTypes" />
+  </wsdl:message>
+  <wsdl:message name="wsdlUpdateTimePunchesRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="punchData" type="tns:UpdateTimePunches" />
+  </wsdl:message>
+  <wsdl:message name="wsdlUpdateTimePunchesResponse">
+    <wsdl:part name="return" type="tns:UpdateTimePunches" />
+  </wsdl:message>
+  <wsdl:message name="wsdlUpdateForecastsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="isForecast" type="xsd:int" />
+    <wsdl:part name="forecasts" type="tns:UpdateForecasts" />
+  </wsdl:message>
+  <wsdl:message name="wsdlUpdateForecastsResponse">
+    <wsdl:part name="return" type="tns:UpdateForecasts" />
+  </wsdl:message>
+  <wsdl:message name="wsdlUpdateAgreementsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="agreements" type="tns:UpdateAgreements" />
+  </wsdl:message>
+  <wsdl:message name="wsdlUpdateAgreementsResponse">
+    <wsdl:part name="return" type="tns:UpdateAgreements" />
+  </wsdl:message>
+  <wsdl:message name="wsdlUpdateTextItemsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+    <wsdl:part name="TextItems" type="tns:TextItems" />
+  </wsdl:message>
+  <wsdl:message name="wsdlUpdateTextItemsResponse">
+    <wsdl:part name="return" type="tns:TextItems" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetProjectsRequest">
+    <wsdl:part name="apiKey" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="wsdlGetProjectsResponse">
+    <wsdl:part name="return" type="tns:Projects" />
+  </wsdl:message>
+  <wsdl:portType name="FlexForcePortType">
+    <wsdl:operation name="wsdlGetRestaurants">
+      <wsdl:input message="tns:wsdlGetRestaurantsRequest" />
+      <wsdl:output message="tns:wsdlGetRestaurantsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetRestaurant">
+      <wsdl:input message="tns:wsdlGetRestaurantRequest" />
+      <wsdl:output message="tns:wsdlGetRestaurantResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetCustomers">
+      <wsdl:input message="tns:wsdlGetCustomersRequest" />
+      <wsdl:output message="tns:wsdlGetCustomersResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetPayroll">
+      <wsdl:input message="tns:wsdlGetPayrollRequest" />
+      <wsdl:output message="tns:wsdlGetPayrollResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetPayrollRaw">
+      <wsdl:input message="tns:wsdlGetPayrollRawRequest" />
+      <wsdl:output message="tns:wsdlGetPayrollRawResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetSections">
+      <wsdl:input message="tns:wsdlGetSectionsRequest" />
+      <wsdl:output message="tns:wsdlGetSectionsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetCategories">
+      <wsdl:input message="tns:wsdlGetCategoriesRequest" />
+      <wsdl:output message="tns:wsdlGetCategoriesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetLeaveReasons">
+      <wsdl:input message="tns:wsdlGetLeaveReasonsRequest" />
+      <wsdl:output message="tns:wsdlGetLeaveReasonsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetLeaveApplications">
+      <wsdl:input message="tns:wsdlGetLeaveApplicationsRequest" />
+      <wsdl:output message="tns:wsdlGetLeaveApplicationsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetDeletedLeaveApplications">
+      <wsdl:input message="tns:wsdlGetDeletedLeaveApplicationsRequest" />
+      <wsdl:output message="tns:wsdlGetDeletedLeaveApplicationsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetSchedules">
+      <wsdl:input message="tns:wsdlGetSchedulesRequest" />
+      <wsdl:output message="tns:wsdlGetSchedulesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetDeletedSchedules">
+      <wsdl:input message="tns:wsdlGetDeletedSchedulesRequest" />
+      <wsdl:output message="tns:wsdlGetDeletedSchedulesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetUnassignedShifts">
+      <wsdl:input message="tns:wsdlGetUnassignedShiftsRequest" />
+      <wsdl:output message="tns:wsdlGetUnassignedShiftsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetScheduleTasks">
+      <wsdl:input message="tns:wsdlGetScheduleTasksRequest" />
+      <wsdl:output message="tns:wsdlGetScheduleTasksResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetShiftCategories">
+      <wsdl:input message="tns:wsdlGetShiftCategoriesRequest" />
+      <wsdl:output message="tns:wsdlGetShiftCategoriesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetAgreements">
+      <wsdl:input message="tns:wsdlGetAgreementsRequest" />
+      <wsdl:output message="tns:wsdlGetAgreementsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetEmployees">
+      <wsdl:input message="tns:wsdlGetEmployeesRequest" />
+      <wsdl:output message="tns:wsdlGetEmployeesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetEmployeeGroups">
+      <wsdl:input message="tns:wsdlGetEmployeeGroupsRequest" />
+      <wsdl:output message="tns:wsdlGetEmployeeGroupsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetDistricts">
+      <wsdl:input message="tns:wsdlGetDistrictsRequest" />
+      <wsdl:output message="tns:wsdlGetDistrictsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetRoles">
+      <wsdl:input message="tns:wsdlGetRolesRequest" />
+      <wsdl:output message="tns:wsdlGetRolesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetAgreementTemplates">
+      <wsdl:input message="tns:wsdlGetAgreementTemplatesRequest" />
+      <wsdl:output message="tns:wsdlGetAgreementTemplatesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlInsertTimeRecords">
+      <wsdl:input message="tns:wsdlInsertTimeRecordsRequest" />
+      <wsdl:output message="tns:wsdlInsertTimeRecordsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetSalesData">
+      <wsdl:input message="tns:wsdlGetSalesDataRequest" />
+      <wsdl:output message="tns:wsdlGetSalesDataResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetForecasts">
+      <wsdl:input message="tns:wsdlGetForecastsRequest" />
+      <wsdl:output message="tns:wsdlGetForecastsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetVariableTypes">
+      <wsdl:input message="tns:wsdlGetVariableTypesRequest" />
+      <wsdl:output message="tns:wsdlGetVariableTypesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetMonthlyView">
+      <wsdl:input message="tns:wsdlGetMonthlyViewRequest" />
+      <wsdl:output message="tns:wsdlGetMonthlyViewResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetEmployeePortrait">
+      <wsdl:input message="tns:wsdlGetEmployeePortraitRequest" />
+      <wsdl:output message="tns:wsdlGetEmployeePortraitResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlUpdateEmployees">
+      <wsdl:input message="tns:wsdlUpdateEmployeesRequest" />
+      <wsdl:output message="tns:wsdlUpdateEmployeesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlUpdateShiftTypes">
+      <wsdl:input message="tns:wsdlUpdateShiftTypesRequest" />
+      <wsdl:output message="tns:wsdlUpdateShiftTypesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlUpdateTimePunches">
+      <wsdl:input message="tns:wsdlUpdateTimePunchesRequest" />
+      <wsdl:output message="tns:wsdlUpdateTimePunchesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlUpdateForecasts">
+      <wsdl:input message="tns:wsdlUpdateForecastsRequest" />
+      <wsdl:output message="tns:wsdlUpdateForecastsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlUpdateAgreements">
+      <wsdl:input message="tns:wsdlUpdateAgreementsRequest" />
+      <wsdl:output message="tns:wsdlUpdateAgreementsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlUpdateTextItems">
+      <wsdl:input message="tns:wsdlUpdateTextItemsRequest" />
+      <wsdl:output message="tns:wsdlUpdateTextItemsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetProjects">
+      <wsdl:input message="tns:wsdlGetProjectsRequest" />
+      <wsdl:output message="tns:wsdlGetProjectsResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FlexForceBinding" type="tns:FlexForcePortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="wsdlGetRestaurants">
+      <soap:operation soapAction="uri:FlexForce/GetRestaurants" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetRestaurant">
+      <soap:operation soapAction="uri:FlexForce/GetRestaurant" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetCustomers">
+      <soap:operation soapAction="uri:FlexForce/GetCustomers" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetPayroll">
+      <soap:operation soapAction="uri:FlexForce/getPayroll" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetPayrollRaw">
+      <soap:operation soapAction="uri:FlexForce/getPayrollRaw" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetSections">
+      <soap:operation soapAction="uri:FlexForce/GetSections" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetCategories">
+      <soap:operation soapAction="uri:FlexForce/GetCategories" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetLeaveReasons">
+      <soap:operation soapAction="uri:FlexForce/GetLeaveReasons" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetLeaveApplications">
+      <soap:operation soapAction="uri:FlexForce/GetLeaveApplications" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetDeletedLeaveApplications">
+      <soap:operation soapAction="uri:FlexForce/wsdlGetDeletedLeaveApplications" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetSchedules">
+      <soap:operation soapAction="uri:FlexForce/GetSchedules" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetDeletedSchedules">
+      <soap:operation soapAction="uri:FlexForce/wsdlGetDeletedSchedules" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetUnassignedShifts">
+      <soap:operation soapAction="uri:FlexForce/wsdlGetUnassignedShifts" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetScheduleTasks">
+      <soap:operation soapAction="uri:FlexForce/wsdlGetScheduleTasks" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetShiftCategories">
+      <soap:operation soapAction="uri:FlexForce/wsdlGetShiftCategories" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetAgreements">
+      <soap:operation soapAction="uri:FlexForce/GetAgreements" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetEmployees">
+      <soap:operation soapAction="uri:FlexForce/wsdlGetEmployees" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetEmployeeGroups">
+      <soap:operation soapAction="uri:FlexForce/wsdlGetEmployeeGroups" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetDistricts">
+      <soap:operation soapAction="uri:FlexForce/wsdlGetDistricts" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetRoles">
+      <soap:operation soapAction="uri:FlexForce/wsdlGetRoles" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetAgreementTemplates">
+      <soap:operation soapAction="uri:FlexForce/wsdlGetAgreementTemplates" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlInsertTimeRecords">
+      <soap:operation soapAction="uri:FlexForce/wsdlInsertTimeRecords" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetSalesData">
+      <soap:operation soapAction="uri:FlexForce/GetSalesData" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetForecasts">
+      <soap:operation soapAction="uri:FlexForce/GetForecasts" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetVariableTypes">
+      <soap:operation soapAction="uri:FlexForce/GetVariableTypes" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetMonthlyView">
+      <soap:operation soapAction="uri:FlexForce/wsdlGetMonthlyView" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetEmployeePortrait">
+      <soap:operation soapAction="uri:FlexForce/wsdlGetEmployeePortrait" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlUpdateEmployees">
+      <soap:operation soapAction="uri:FlexForce/wsdlUpdateEmployees" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlUpdateShiftTypes">
+      <soap:operation soapAction="uri:FlexForce/wsdlUpdateShiftTypes" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlUpdateTimePunches">
+      <soap:operation soapAction="uri:FlexForce/wsdlUpdateTimePunches" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlUpdateForecasts">
+      <soap:operation soapAction="uri:FlexForce/wsdlUpdateForecasts" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlUpdateAgreements">
+      <soap:operation soapAction="uri:FlexForce/wsdlUpdateAgreements" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlUpdateTextItems">
+      <soap:operation soapAction="uri:FlexForce/wsdlUpdateTextItems" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsdlGetProjects">
+      <soap:operation soapAction="uri:FlexForce/GetProjects" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="uri:FlexForce" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FlexForce">
+    <wsdl:port name="FlexForcePort" binding="tns:FlexForceBinding">
+      <soap:address location="http://apiftp.quinyx.com/FlexForceWebServices.php" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

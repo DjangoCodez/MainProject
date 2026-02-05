@@ -1,0 +1,242 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    <div class="soe-edit-form" [formGroup]="form">
+      @if (showDefaulTemailtemplateMissingSelection()) {
+        <div class="row dialog-row-top-padding">
+          <div class="col-sm-12">
+            <soe-instruction
+              [type]="'info'"
+              [text]="'common.defaultemailtemplatemissing'"></soe-instruction>
+          </div>
+        </div>
+      }
+      @if (showReportSelection()) {
+        <div class="row dialog-row-top-padding">
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'common.language'"
+              [selectedId]="form.value.selectedLanguageId"
+              [items]="languages"
+              formControlName="selectedLanguageId">
+            </soe-select>
+          </div>
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'common.report.report.report'"
+              [selectedId]="form.value.selectedReportId"
+              [items]="reports"
+              (valueChanged)="changeReport()"
+              formControlName="selectedReportId">
+            </soe-select>
+          </div>
+        </div>
+      }
+      @if (!data.hideTemplate) {
+      <div class="row dialog-row-top-padding">
+        <div class="col-sm-12">
+          <table
+            class="table table-condensed table-hover table-responsive table-outer-bordered"
+            style="overflow-y: clip; margin-bottom: 0px">
+            <thead>
+              <tr>
+                <th class="form-label">
+                  <soe-label [labelKey]="'common.name'"></soe-label>
+                </th>
+                <th class="form-label">
+                  <soe-label [labelKey]="'core.xemail.subject'"></soe-label>
+                </th>
+                <th class="form-label">
+                  <soe-label [labelKey]="'common.type'"></soe-label>
+                </th>
+                <th class="form-label"></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (template of emailTemplates; track template) {
+                <tr>
+                  <td style="vertical-align: middle">
+                    <span>{{ template.name }}</span>
+                  </td>
+                  <td style="vertical-align: middle">
+                    <span>{{ template.subject }}</span>
+                  </td>
+                  <td style="vertical-align: middle">
+                    <span>{{ template.typename }}</span>
+                  </td>
+                  <td style="width: 32px">
+                    <soe-radio
+                      [labelKey]="' '"
+                      [inline]="false"
+                      [group]="'emailTemplates'"
+                      [value]="template.emailTemplateId"
+                      (valueChanged)="changeEmailTemplate()"
+                      formControlName="selectedTemplateId"></soe-radio>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+      }
+
+      @if (!grid() && !data.isSendEmailDocuments) {
+        <div class="row">
+          <div class="col-sm-12">
+            <table
+              class="table table-condensed table-hover table-responsive table-outer-bordered"
+              style="overflow-y: clip">
+              <thead>
+                <tr>
+                  <th colspan="2" class="form-label indiscreet">
+                    <soe-label [labelKey]="'core.xemail.receivers'"></soe-label>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (
+                  recipientControl of form.recipients.controls;
+                  track recipientControl
+                ) {
+                  <tr>
+                    <td style="vertical-align: middle">
+                      <span>{{ recipientControl.name.value }}</span>
+                    </td>
+                    <td style="width: 32px">
+                      <soe-checkbox
+                        [labelKey]="' '"
+                        [inline]="false"
+                        [formControl]="
+                          recipientControl.isSelected
+                        "></soe-checkbox>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      }
+
+      @if (showAttachments()) {
+        <div class="row dialog-row-top-padding">
+          <div class="col-sm-12">
+            <div class="table-responsive table-outer-bordered">
+              <table
+                class="table table-condensed table-hover"
+                style="overflow-y: clip">
+                <thead>
+                  <tr>
+                    <th colspan="2" class="form-label indiscreet">
+                      <soe-label [labelKey]="'core.attachments'"></soe-label>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (
+                    attachment of form.attachments.controls;
+                    track attachment
+                  ) {
+                    <tr class="horizontal-list-item">
+                      <td style="vertical-align: middle">
+                        <span>{{ attachment.description.value }}</span>
+                      </td>
+                      <td style="width: 32px">
+                        <soe-checkbox
+                          [labelKey]="''"
+                          [formControl]="attachment.isSelected"></soe-checkbox>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      }
+
+      @if (data.isSendEmailDocuments && data.showAddRecipient) {
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-textbox
+              [labelKey]="'common.emailaddress'"
+              formControlName="emailAddresses">
+            </soe-textbox>
+          </div>
+        </div>
+      }
+
+      @if (showChecklists()) {
+        <div class="row dialog-row-top-padding">
+          <div class="col-sm-12">
+            <div class="table-responsive table-outer-bordered">
+              <table
+                class="table table-condensed table-hover"
+                style="overflow-y: clip">
+                <thead>
+                  <tr>
+                    <th colspan="2" class="form-label indiscreet">
+                      <soe-label [labelKey]="'common.checklists'"></soe-label>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (
+                    checkListControl of form.checkLists.controls;
+                    track checkListControl
+                  ) {
+                    <tr class="horizontal-list-item">
+                      <td style="vertical-align: middle">
+                        <span
+                          >{{ checkListControl.checklistHeadName }} (
+                          {{
+                            checkListControl.created
+                              ? (checkListControl.created.value
+                                | date: 'shortDate')
+                              : ''
+                          }}
+                          )</span
+                        >
+                      </td>
+                      <td style="width: 32px">
+                        <soe-checkbox
+                          [labelKey]="''"
+                          [formControl]="
+                            checkListControl.isSelected
+                          "></soe-checkbox>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      }
+      @if (!data.isSendEmailDocuments) {
+      <div class="row dialog-row-top-padding">
+        <div class="col-sm-12">
+          <soe-checkbox
+            [labelKey]="'common.report.mergepdfs'"
+            formControlName="mergePdfs"></soe-checkbox>
+        </div>
+      </div>
+      }
+    </div>
+  </ng-container>
+  <div dialog-footer>
+    <soe-button
+      class="ms-3"
+      [caption]="'core.cancel'"
+      typeClass="btn btn-secondary"
+      [behaviour]="'standard'"
+      (action)="cancel()"></soe-button>
+    <soe-button
+      class="ms-3"
+      [caption]="'core.send'"
+      typeClass="btn btn-secondary"
+      [behaviour]="'standard'"
+      [disabled]="disableSend()"
+      (action)="send()"></soe-button>
+  </div>
+</soe-dialog>

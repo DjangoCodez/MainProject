@@ -1,0 +1,90 @@
+<soe-expansion-panel
+  [labelKey]="labelKey()"
+  [labelClass]="labelClass()"
+  [secondaryLabelKey]="skills().length.toString()"
+  [secondaryLabelParantheses]="true"
+  [noBottomMargin]="true"
+  [open]="true">
+  @if (skills().length === 0 && !hideHeader()) {
+    <div class="m-2">
+      <soe-label [labelKey]="'time.skillmatcher.noskills'"></soe-label>
+    </div>
+  }
+  @if (skills().length > 0 && isValid()) {
+    <div class="m-2">
+      <soe-label [labelKey]="'time.skillmatcher.allok'"></soe-label>
+    </div>
+  }
+  @if (skills().length > 0) {
+    <div class="mb-2 ms-3">
+      <soe-checkbox
+        [labelKey]="'time.skillmatcher.showall'"
+        (valueChanged)="showAllChanged($event)"></soe-checkbox>
+    </div>
+    @if (!isValid() || showAll()) {
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            @if (shiftTypeIds().length > 1) {
+              <th scope="col">{{ 'common.shifttype' | translate }}</th>
+            }
+            @if (employeePositionIds().length > 1) {
+              <th scope="col">
+                {{ 'time.employee.position.position' | translate }}
+              </th>
+            }
+            <th scope="col">{{ 'time.skillmatcher.name' | translate }}</th>
+            @if (nbrOfSkillLevels() > 1) {
+              <th scope="col">{{ 'time.skillmatcher.level' | translate }}</th>
+            }
+            @if (showDateTo()) {
+              <th scope="col">
+                {{ 'time.skillmatcher.dateto' | translate }}
+              </th>
+            }
+            <th scope="col">{{ 'time.skillmatcher.note' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (skill of visibleSkills(); track $index) {
+            <tr>
+              @if (
+                shiftTypeIds().length > 1 || employeePositionIds().length > 1
+              ) {
+                <td>
+                  <span>{{ skill.shiftTypeName }}</span>
+                </td>
+              }
+              <td>
+                <span [class.missing]="skill.missing">{{
+                  skill.skillName
+                }}</span>
+              </td>
+              @if (nbrOfSkillLevels() > 1) {
+                <td>
+                  <span [class.level-unreached]="skill.skillLevelUnreached">
+                    {{ skill.employeeSkillRating }}/{{
+                      skill.skillRating
+                    }}</span
+                  >
+                </td>
+              }
+              @if (showDateTo()) {
+                <td>
+                  <span [class.date-passed]="skill.dateToPassed">{{
+                    skill.dateTo | date: 'shortDate'
+                  }}</span>
+                </td>
+              }
+              <td>
+                <span [class.ok]="skill.ok" [class.not-ok]="!skill.ok">{{
+                  skill.note
+                }}</span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  }
+</soe-expansion-panel>

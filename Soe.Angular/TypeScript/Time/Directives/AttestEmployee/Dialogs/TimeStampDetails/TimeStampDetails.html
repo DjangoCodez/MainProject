@@ -1,0 +1,117 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">
+            <span data-l10n-bind="'time.time.attest.timestamps.details'"></span>
+        </h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-label label-key="common.time"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label label-key="time.time.attest.timestamps.originaltime"></soe-label>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-label label-key="core.source"></soe-label>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-label label-key="common.status"></soe-label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <span>{{ctrl.timeStampEntry.time | date: 'shortTime'}}</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>{{ctrl.timeStampEntry.originalTime | date: 'shortTime'}}</span>
+                    </div>
+                    <div class="col-sm-4">
+                        <span>{{ctrl.timeStampEntry.originTypeText}}</span>
+                    </div>
+                    <div class="col-sm-4">
+                        <span>{{ctrl.timeStampEntry.statusText}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <span data-l10n-bind="'time.time.attest.timestamps.manuallyadjusted'" class="indiscreet warningColor" data-ng-if="ctrl.timeStampEntry.manuallyAdjusted"></span>
+                    </div>
+                    <div class="col-sm-4">
+                        <span data-ng-if="ctrl.timeStampEntry.timeTerminalId">{{ctrl.timeStampEntry.terminalInfo}}</span>
+                        <span data-l10n-bind="'time.time.attest.timestamps.noterminal'" class="indiscreet" data-ng-if="!ctrl.timeStampEntry.timeTerminalId"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6" data-ng-if="ctrl.timeStampEntry.note.length > 0">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-label label-key="common.comment"></soe-label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <span>{{ctrl.timeStampEntry.note}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px;" data-ng-if="ctrl.timeStampEntry.timeStampEntryId">
+            <div class="col-sm-12">
+                <entity-log-viewer entity="70" record-id="ctrl.timeStampEntry.timeStampEntryId" only-change-log="true"></entity-log-viewer>
+            </div>
+        </div>
+
+        <div class="row margin-large-top" data-ng-if="ctrl.isSupportAdmin && ctrl.clientInfo.hasData">
+            <div class="col-sm-12">
+                <uib-accordion close-others="false">
+                    <soe-accordion label-key="time.time.attest.timestamps.clientinfo" is-open="false" on-open="ctrl.expandUserAgentClientInfo();">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-textbox label-key="time.time.attest.timestamps.clientinfo.os" model="ctrl.clientInfo.osString" is-readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-6">
+                                <soe-textbox label-key="time.time.attest.timestamps.clientinfo.ua" model="ctrl.clientInfo.uaString" is-readonly="true"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row margin-large-top">
+                            <div class="col-sm-12">
+                                <soe-label label-key="time.time.attest.timestamps.clientinfo.device"></soe-label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="time.time.attest.timestamps.clientinfo.device.brand" model="ctrl.clientInfo.deviceBrand" is-readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="time.time.attest.timestamps.clientinfo.device.family" model="ctrl.clientInfo.deviceFamily" is-readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="time.time.attest.timestamps.clientinfo.device.model" model="ctrl.clientInfo.deviceModel" is-readonly="true"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row margin-large-top">
+                            <div class="col-sm-12">
+                                <soe-textarea label-key="time.time.attest.timestamps.clientinfo.data" model="ctrl.clientInfo.data" is-readonly="true"></soe-textarea>
+                            </div>
+                        </div>
+                    </soe-accordion>
+                </uib-accordion>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="col-sm-6 padding-none-left">
+            <created-modified model="ctrl.timeStampEntry"></created-modified>
+        </div>
+        <div class="col-sm-6 padding-none-right">
+            <div class="pull-right">
+                <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.cancel()"></button>
+            </div>
+        </div>
+    </div>
+</div>

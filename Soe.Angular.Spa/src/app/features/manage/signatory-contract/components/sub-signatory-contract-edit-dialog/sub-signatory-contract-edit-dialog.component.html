@@ -1,0 +1,75 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+    <form
+      [formGroup]="form"
+      class="soe-edit-form"
+      novalidate
+      autocomplete="off"
+    >
+
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-select
+            [labelKey]="'manage.registry.signatorycontract.recipientuser'"
+            formControlName="recipientUserId"
+            [items]="data.users"
+          ></soe-select>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="row mx-2">
+      <div class="col-sm-12">
+        <soe-expansion-panel
+          [static]="true"
+          [noMargin]="true"
+          [noPadding]="true"
+        >
+          <div headerContent>
+            <div class="sscp-header-content">
+              <soe-label
+                [labelKey]="'manage.registry.signatorycontract.permissions'"
+                [isRequired]="true"
+              >
+              </soe-label>
+            </div>
+
+          </div>
+          <soe-dynamic-grid
+            [gridName]="'Manage.Registry.SignatoryContract.SubSignatoryContract.PermissionEdit'"
+            [columns]="gridColumns"
+            [suppressFiltering]="true"
+            [suppressGridMenu]="true"
+            [gridData]="gridRows"
+            [suppressRowCount]="true"
+          ></soe-dynamic-grid>
+
+        </soe-expansion-panel>
+      </div>
+    </div>
+
+    }
+  </div>
+  <div dialog-footer>
+    <soe-button
+      [behaviour]="'standard'"
+      [caption]="'core.cancel'"
+      (action)="closeDialog()"
+    ></soe-button>
+
+    <soe-save-button
+      [behaviour]="'standard'"
+      [caption]="'core.ok'"
+      (action)="ok()"
+      [invalid]="form.invalid"
+      [dirty]="form.dirty"
+      (validationErrorsAction)="
+          form.openFormValidationErrors()
+        "
+    ></soe-save-button>
+
+
+  </div>
+</soe-dialog>

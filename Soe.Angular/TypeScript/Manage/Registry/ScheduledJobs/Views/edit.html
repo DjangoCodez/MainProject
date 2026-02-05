@@ -1,0 +1,105 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <div class="row">
+            <div class="col-sm-2">
+                <soe-panel label-key="manage.registry.scheduledjobs.scheduledjobhead">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="common.name" model="ctrl.head.name" required="true" maxlength="100" auto-focus="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="common.description" model="ctrl.head.description" maxlenght="512" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="common.sort" model="ctrl.head.sort" numeric="true" decimals="0" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-select label-key="manage.registry.scheduledjobs.scheduledjobhead.parent" model="ctrl.head.parentId" items="ctrl.heads" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                            </div>
+                        </div>
+                        <div class="row margin-large-top">
+                            <div class="col-sm-12">
+                                <soe-checkbox label-key="manage.registry.scheduledjobs.scheduledjobhead.sharedonlicense" model="ctrl.head.sharedOnLicense" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+            </div>
+            <div class="col-sm-4">
+                <job-settings read-only="!ctrl.modifyPermission" settings="ctrl.head.settings" on-change="ctrl.setDirty();"></job-settings>
+            </div>
+            <div class="col-sm-6">
+                <soe-panel label-key="manage.registry.scheduledjobs.scheduledjobrows">
+                    <div data-ng-repeat="row in ctrl.head.rows track by $index" data-ng-click="ctrl.selectedRow = row">
+                        <div class="form-group form-group-sm">
+                            <div data-ng-if="$first">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <soe-label label-key="manage.registry.scheduledjobs.scheduledjobrow.recurrenceinterval"></soe-label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-label label-key="manage.registry.scheduledjobs.scheduledjobrow.timeinterval"></soe-label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <soe-label label-key="manage.registry.scheduledjobs.scheduledjobrow.nextexecutiontime"></soe-label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" data-ng-class="{'repeater-selected-row': ctrl.selectedRow === row}">
+                                <div class="col-sm-4">
+                                    <span class="fas fa-caret-right" data-ng-if="ctrl.selectedRow === row"></span>
+                                    <soe-textbox hidelabel="true" model="row.recurrenceInterval" button-icon="fa-pencil" on-focus="ctrl.selectedRow = row" is-readonly="true" button-disabled="!ctrl.modifyPermission" on-button-click="ctrl.editRecurrenceInterval(row);"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-select hidelabel="true" model="row.sysTimeIntervalId" items="ctrl.sysTimeIntervals" options="item.id as item.name for item in items" on-focus="ctrl.selectedRow = row" is-readonly="!ctrl.modifyPermission"></soe-select>
+                                </div>
+                                <div class="col-sm-4 padding-none-right">
+                                    <div class="col-sm-11 padding-none-left padding-none-right">
+                                        <soe-textbox hidelabel="true" model="row.nextExecutionTimeText" on-focus="ctrl.selectedRow = row" readonly="true"></soe-textbox>
+                                    </div>
+                                    <div class="col-sm-1 padding-none-left padding-none-right">
+                                        <button type="button" class="btn btn-sm btn-link fal fa-times iconDelete" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-if="ctrl.modifyPermission" on-focus="ctrl.selectedRow = row" data-ng-click="$event.stopPropagation();ctrl.deleteRow(row);"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-small-top margin-small-bottom" data-ng-if="ctrl.modifyPermission">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-sm btn-default pull-right margin-small-right" data-l10n-bind="'manage.registry.scheduledjobs.scheduledjobrow.new'" data-ng-click="$event.stopPropagation();ctrl.addRow();"></button>
+                        </div>
+                    </div>
+                </soe-panel>
+            </div>
+        </div>
+
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="manage.support.logs" is-open="ctrl.logsExpanderOpen">
+                <logs scheduled-job-head-id="ctrl.head.scheduledJobHeadId" scheduled-job-row-id="ctrl.selectedRow.scheduledJobRowId" is-visible="ctrl.logsExpanderOpen"></logs>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.head"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

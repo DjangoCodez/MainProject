@@ -1,0 +1,10 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+    <soe-annual-leave-balance-grid-filter
+      toolbar-content-left
+      (searchClick)="doFilter($event)"></soe-annual-leave-balance-grid-filter>
+  </soe-grid-wrapper>
+}

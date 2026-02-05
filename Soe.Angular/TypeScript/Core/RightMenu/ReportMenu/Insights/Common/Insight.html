@@ -1,0 +1,11 @@
+﻿<div>
+    <div data-ng-switch="ctrl.matrixSelection.chartType" style="height: 100%">
+        <pie-insight container-id="ctrl.containerId" hide-title="ctrl.hideTitle" data-ng-switch-when="1|2" ng-switch-when-separator="|" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.rows"></pie-insight>
+        <line-insight container-id="ctrl.containerId" hide-title="ctrl.hideTitle" data-ng-switch-when="11" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.rows"></line-insight>
+        <bar-insight container-id="ctrl.containerId" hide-title="ctrl.hideTitle" data-ng-switch-when="21|22" ng-switch-when-separator="|" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.rows"></bar-insight>
+        <area-insight container-id="ctrl.containerId" hide-title="ctrl.hideTitle" data-ng-switch-when="31" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.rows"></area-insight>
+        <!--<scatter-insight hide-title="ctrl.hideTitle" data-ng-switch-when="41" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.rows"></scatter-insight>
+        <bubble-insight data-ng-switch-when="42" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.rows"></bubble-insight>
+        <histogram-insight data-ng-switch-when="51" user-selection="ctrl.selectedReportUserSelection" matrix-selection="ctrl.matrixSelection" rows="ctrl.rows"></histogram-insight>-->
+    </div>
+</div>

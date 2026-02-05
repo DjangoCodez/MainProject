@@ -1,0 +1,47 @@
+/* http://www.positioniseverything.net/articles/dropshadows.html */
+
+/*XXXXXXXXXXXXXXXXXX Dropshadow elements XXXXXXXXXXXXXXX*/ 
+
+html>body .ds1 {
+background: url(merge/popup/upperrightfade.png) right top no-repeat;
+} 
+/* .ds1 must be given a width contraint, via either a width, 
+or by floating or absolute positioning. In this demo these are 
+applied from the second class name on the .ds1 DIV's.
+This box also has one of the corner .png's. */
+
+
+html>body .ds2, html>body #menu .ds2 {
+background: url(merge/popup/lowerleftfade.png) left bottom no-repeat;
+padding-top: 8px;
+padding-left: 8px;
+}
+/* .ds2 has padding equal to the shadow 
+thickness, and also has one of the corner .png's */ 
+
+
+html>body .ds3 {
+background: url(merge/popup/shadow.png) bottom right;
+}
+/* .ds3 holds the main shadow .png */ 
+
+
+html>body .ds4 {
+position: relative;
+left: -8px;
+top: -8px;
+}
+/* .ds4 is made "relative" and is "pulled" up and to 
+the left, by a distance equal to the thickness of the shadow.
+Because this is a relative-based shift, the box retains its
+exact dimensions without change. */
+
+
+.ds3 img {
+border: 10px solid #fff;
+vertical-align: bottom;
+}
+/* Shadowed images should not be made "block" for eliminating the baseline 
+space under the images, because this may trigger IE background bugs. 
+Instead, use "vertical-align: bottom;" for this purpose. */
+

@@ -1,0 +1,1040 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'common.name'"
+          [maxLength]="100"
+          [autoFocus]="true"
+          formControlName="name">
+        </soe-textbox>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'common.externalcodes'"
+          [maxLength]="255"
+          formControlName="externalCodesString">
+        </soe-textbox>
+      </div>
+    </div>
+
+    @if (initialized()) {
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-expansion-panel
+            [labelKey]="'common.time'"
+            [open]="true"
+            [addTopMargin]="true">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="row">
+                  <div class="col-sm-2">
+                    <soe-select
+                      [labelKey]="'time.employee.employeegroup.timereporttype'"
+                      [selectedId]="form.value.timeReportType"
+                      [items]="this.service.performTimeReportTypes.data || []"
+                      formControlName="timeReportType"
+                      (valueChanged)="timeReportTypeChanged($event)">
+                    </soe-select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <soe-checkbox
+                      [labelKey]="
+                        'time.employee.employeegroup.notifychangeofdeviations'
+                      "
+                      [hidden]="!this.showNotifyChangeOfDeviations()"
+                      formControlName="notifyChangeOfDeviations">
+                    </soe-checkbox>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <soe-checkbox
+                      [labelKey]="
+                        'time.employee.employeegroup.autogentimeandbreakforproject'
+                      "
+                      [hidden]="!this.showAutogenTimeblocks()"
+                      formControlName="autoGenTimeAndBreakForProject">
+                    </soe-checkbox>
+                  </div>
+                </div>
+                <soe-expansion-panel
+                  [labelKey]="
+                    'time.time.timedeviationcause.timedeviationcauses'
+                  "
+                  [addTopMargin]="true">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <soe-select
+                            [labelKey]="
+                              'time.employee.employeegroup.deviationcauses.standard'
+                            "
+                            [selectedId]="form.value.timeDeviationCauseId"
+                            [items]="
+                              this.service.performDeviationCauses.data || []
+                            "
+                            [required]="true"
+                            (valueChanged)="
+                              populateTimeDeviationCausesGridWhenEmpty($event)
+                            "
+                            formControlName="timeDeviationCauseId">
+                          </soe-select>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <soe-eg-timedeviationcauses-grid
+                            [form]="form"></soe-eg-timedeviationcauses-grid>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="row">
+                        <div class="col-sm-12 select-margin-top-fix">
+                          <soe-eg-deviation-cause-time-code-grid [form]="form">
+                          </soe-eg-deviation-cause-time-code-grid>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </soe-expansion-panel>
+                <soe-expansion-panel
+                  [labelKey]="'time.employee.employeegroup.absencecauses'">
+                  <div class="col-sm-6">
+                    <soe-eg-timedeviationcause-absence-announcement-grid
+                      [form]="
+                        form
+                      "></soe-eg-timedeviationcause-absence-announcement-grid>
+                  </div>
+                  <div class="col-sm-6">
+                    <soe-eg-timedeviationcause-request-grid
+                      [form]="form"></soe-eg-timedeviationcause-request-grid>
+                  </div>
+                </soe-expansion-panel>
+                <soe-expansion-panel
+                  [labelKey]="'time.schedule.daytype.daytypes'"
+                  [addTopMargin]="true">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <soe-eg-daytypes-grid [form]="form">
+                      </soe-eg-daytypes-grid>
+                    </div>
+                    <div class="col-sm-6">
+                      <soe-eg-daytypes-weekendpay-grid
+                        [form]="form"></soe-eg-daytypes-weekendpay-grid>
+                    </div>
+                  </div>
+                </soe-expansion-panel>
+
+                <soe-expansion-panel
+                  [labelKey]="'time.time.timecode.timecodes'">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <soe-eg-timecodes-grid
+                        [form]="form"></soe-eg-timecodes-grid>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-4">
+                      <div class="row">
+                        <div class="col-sm-6 grid-header-margin-top-fix">
+                          <soe-select
+                            [labelKey]="
+                              'time.employee.employeegroup.timecodes.projecttimecode'
+                            "
+                            [selectedId]="form.value.timeCodeId"
+                            [items]="this.service.performTimeCodes.data || []"
+                            formControlName="timeCodeId">
+                          </soe-select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </soe-expansion-panel>
+                <soe-expansion-panel
+                  [labelKey]="'time.employee.employeegroup.attest'">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="col-sm-12">
+                        <soe-eg-attest-transitions-grid
+                          [form]="form"></soe-eg-attest-transitions-grid>
+                      </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-4 grid-header-margin-top-fix">
+                      <soe-checkbox
+                        [labelKey]="
+                          'time.employee.employeegroup.alsoattestadditionsfromtime'
+                        "
+                        formControlName="alsoAttestAdditionsFromTime">
+                      </soe-checkbox>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <soe-expansion-panel
+                      [labelKey]="
+                        'time.employee.employeegroup.attest.finalizationreminders'
+                      "
+                      [static]="true"
+                      [addTopMargin]="true">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="col-sm-4">
+                            <soe-select
+                              [labelKey]="
+                                'time.employee.employeegroup.attest.finalizationreminders.attestlevel'
+                              "
+                              [selectedId]="form.value.reminderAttestStateId"
+                              [items]="this.attestStates || []"
+                              formControlName="reminderAttestStateId">
+                            </soe-select>
+                          </div>
+
+                          <div class="col-sm-2">
+                            <soe-numberbox
+                              [labelKey]="
+                                'time.employee.employeegroup.attest.finalizationreminders.amountdays'
+                              "
+                              formControlName="reminderNoOfDays"
+                              [disallowNegative]="true">
+                            </soe-numberbox>
+                          </div>
+
+                          <div class="col-sm-4">
+                            <soe-select
+                              [labelKey]="
+                                'time.employee.employeegroup.attest.finalizationreminders.after'
+                              "
+                              [selectedId]="form.value.reminderPeriodType"
+                              [items]="this.reminderPeriodTypes || []"
+                              formControlName="reminderPeriodType">
+                            </soe-select>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <soe-instruction
+                            [text]="
+                              'time.employee.employeegroup.attest.finalizationreminders.remind'
+                            "
+                            [inline]="true"
+                            [type]="'info'"></soe-instruction>
+                        </div>
+                      </div>
+                    </soe-expansion-panel>
+                  </div>
+                </soe-expansion-panel>
+                <soe-expansion-panel
+                  [labelKey]="'time.time.attest.timestamps'"
+                  [open]="false">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <soe-expansion-panel
+                        [labelKey]="
+                          'time.employee.employeegroup.punchingrounding'
+                        "
+                        [static]="true"
+                        [open]="true"
+                        [borderless]="false">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <soe-numberbox
+                              [labelKey]="
+                                'time.employee.employeegroup.punchingrounding.beforeschedulein'
+                              "
+                              [secondaryLabelKey]="'core.time.minutes'"
+                              formControlName="roundInNeg">
+                            </soe-numberbox>
+                          </div>
+                          <div class="col-sm-6">
+                            <soe-numberbox
+                              [labelKey]="
+                                'time.employee.employeegroup.punchingrounding.beforescheduleout'
+                              "
+                              [secondaryLabelKey]="'core.time.minutes'"
+                              formControlName="roundOutNeg">
+                            </soe-numberbox>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <soe-numberbox
+                              [labelKey]="
+                                'time.employee.employeegroup.punchingrounding.afterschedulein'
+                              "
+                              [secondaryLabelKey]="'core.time.minutes'"
+                              formControlName="roundInPos">
+                            </soe-numberbox>
+                          </div>
+                          <div class="col-sm-6">
+                            <soe-numberbox
+                              [labelKey]="
+                                'time.employee.employeegroup.punchingrounding.afterscheduleout'
+                              "
+                              [secondaryLabelKey]="'core.time.minutes'"
+                              formControlName="roundOutPos">
+                            </soe-numberbox>
+                          </div>
+                        </div>
+                      </soe-expansion-panel>
+                    </div>
+                    <div class="col-sm-2">
+                      <soe-expansion-panel
+                        [labelKey]="'time.employee.employeegroup.breakrounding'"
+                        [static]="true"
+                        [open]="true"
+                        [borderless]="false">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <soe-numberbox
+                              [labelKey]="
+                                'time.employee.employeegroup.breakrounding.roundingup'
+                              "
+                              [secondaryLabelKey]="'core.time.minutes'"
+                              formControlName="breakRoundingUp">
+                            </soe-numberbox>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <soe-numberbox
+                              [labelKey]="
+                                'time.employee.employeegroup.breakrounding.roundingdown'
+                              "
+                              [secondaryLabelKey]="'core.time.minutes'"
+                              formControlName="breakRoundingDown">
+                            </soe-numberbox>
+                          </div>
+                        </div>
+                      </soe-expansion-panel>
+                    </div>
+                    <div class="col-sm-6">
+                      <soe-expansion-panel
+                        [labelKey]="'time.employee.employeegroup.daybreak'"
+                        [static]="true"
+                        [open]="true">
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <soe-numberbox
+                              [labelKey]="
+                                'time.employee.employeegroup.breakdayminutesaftermidnight'
+                              "
+                              [secondaryLabelKey]="'core.time.minutes'"
+                              formControlName="breakDayMinutesAfterMidnight">
+                            </soe-numberbox>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <soe-numberbox
+                              [labelKey]="
+                                'time.employee.employeegroup.keepstampstogetherwithinminutes'
+                              "
+                              [secondaryLabelKey]="'core.time.minutes'"
+                              formControlName="keepStampsTogetherWithinMinutes">
+                            </soe-numberbox>
+                          </div>
+                          <div class="col-sm-8">
+                            <soe-instruction
+                              [text]="
+                                'time.employee.employeegroup.keepstampstogetherwithinminutes.information'
+                              "
+                              [inline]="true"
+                              [type]="'info'"></soe-instruction>
+                          </div>
+                        </div>
+                      </soe-expansion-panel>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <soe-expansion-panel
+                        [labelKey]="'time.employee.employeegroup.breakhandling'"
+                        [static]="true"
+                        [open]="true"
+                        [borderless]="false">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <soe-checkbox
+                              [labelKey]="
+                                'time.employee.employeegroup.alwaysdiscardbreakevaluation'
+                              "
+                              formControlName="alwaysDiscardBreakEvaluation"
+                              (valueChanged)="breakSettingChanged($event)">
+                            </soe-checkbox>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <soe-checkbox
+                              [labelKey]="
+                                'time.employee.employeegroup.autogenbreakonstamping'
+                              "
+                              formControlName="autogenBreakOnStamping"
+                              (valueChanged)="breakSettingChanged($event)">
+                            </soe-checkbox>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <soe-checkbox
+                              [labelKey]="
+                                'time.employee.employeegroup.mergeschedulebreaksonday'
+                              "
+                              formControlName="mergeScheduleBreaksOnDay"
+                              (valueChanged)="breakSettingChanged($event)">
+                            </soe-checkbox>
+                          </div>
+                        </div>
+                      </soe-expansion-panel>
+                    </div>
+                  </div>
+                </soe-expansion-panel>
+                <soe-expansion-panel
+                  [labelKey]="
+                    'time.employee.employeegroup.qualifyingdeduction'
+                  ">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <soe-select
+                        [labelKey]="
+                          'time.employee.employeegroup.qualifyingdeductioncalculationrule'
+                        "
+                        [selectedId]="form.value.qualifyingDayCalculationRule"
+                        [items]="
+                          this.service.performQualifyingDayCalculationRule
+                            .data || []
+                        "
+                        formControlName="qualifyingDayCalculationRule">
+                      </soe-select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2">
+                      <soe-checkbox
+                        [labelKey]="
+                          'time.employee.employeegroup.qualifyingdeductionrulelimitfirstday'
+                        "
+                        formControlName="qualifyingDayCalculationRuleLimitFirstDay">
+                      </soe-checkbox>
+                    </div>
+                  </div>
+                </soe-expansion-panel>
+                <soe-expansion-panel
+                  [labelKey]="'time.employee.employeegroup.worktimereduction'">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <soe-select
+                        [labelKey]="
+                          'time.employeegroup.worktimereduction.calculation'
+                        "
+                        [selectedId]="
+                          form.value.timeWorkReductionCalculationRule
+                        "
+                        [items]="
+                          this.service.performTimeWorkReductionCalculationRule
+                            .data || []
+                        "
+                        formControlName="timeWorkReductionCalculationRule">
+                      </soe-select>
+                    </div>
+                  </div>
+                </soe-expansion-panel>
+                <soe-expansion-panel
+                  [labelKey]="'time.time.timeaccumulator.timeaccumulators'">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <soe-eg-time-accumulators-grid
+                        [form]="form"></soe-eg-time-accumulators-grid>
+                    </div>
+                  </div>
+                </soe-expansion-panel>
+              </div>
+            </div>
+          </soe-expansion-panel>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-expansion-panel
+            [labelKey]="'time.employee.employeegroup.planning'"
+            [open]="false">
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="col-sm-8">
+                  <div class="row">
+                    <soe-numberbox
+                      [labelKey]="
+                        'time.employee.employeegroup.deviationaxelstarthours'
+                      "
+                      formControlName="deviationAxelStartHours">
+                    </soe-numberbox>
+                  </div>
+
+                  <div class="row">
+                    <soe-numberbox
+                      [labelKey]="
+                        'time.employee.employeegroup.deviationaxelstophours'
+                      "
+                      formControlName="deviationAxelStopHours">
+                    </soe-numberbox>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="row">
+                  <soe-checkbox
+                    [labelKey]="
+                      'time.employee.employeegroup.extrashiftasdefault'
+                    "
+                    [inline]="true"
+                    formControlName="extraShiftAsDefault">
+                  </soe-checkbox>
+                </div>
+                <div class="row">
+                  <soe-checkbox
+                    [labelKey]="
+                      'time.employee.employeegroup.candidateforovertimeonzerodayexcluded'
+                    "
+                    [inline]="false"
+                    formControlName="candidateForOvertimeOnZeroDayExcluded">
+                  </soe-checkbox>
+                </div>
+                <div class="row">
+                  @if (useAccountHierarchy()) {
+                    <soe-checkbox
+                      [labelKey]="
+                        'time.employee.employeegroup.allowshiftswithoutaccount'
+                      "
+                      formControlName="allowShiftsWithoutAccount">
+                    </soe-checkbox>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <soe-expansion-panel
+              [labelKey]="'time.schedule.planning.workrules'"
+              [addTopMargin]="true">
+              <div class="row">
+                <div class="col-sm-2">
+                  <soe-timebox
+                    [labelKey]="'time.employee.employeegroup.ruleworktimeweek'"
+                    [secondaryLabelLowercase]="true"
+                    [secondaryLabelKey]="form.value.ruleWorkTimeWeek || 0"
+                    [secondaryLabelPostfixKey]="'core.time.short.minute'"
+                    [isDuration]="true"
+                    (valueChanged)="
+                      timeboxFieldChanged('ruleWorkTimeWeek', $event)
+                    "
+                    formControlName="ruleWorkTimeWeekFormatted">
+                  </soe-timebox>
+                </div>
+                <div class="col-sm-6">
+                  <soe-instruction
+                    [text]="
+                      'time.employee.employeegroup.ruleworktimeweek.recountonchange'
+                    "
+                    [inline]="true"
+                    [type]="'info'"></soe-instruction>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2">
+                  <soe-expansion-panel
+                    [labelKey]="'time.employee.employeegroup.ruleworktime'"
+                    [static]="true"
+                    [addTopMargin]="true">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <soe-timebox
+                          [labelKey]="
+                            'time.employee.employeegroup.ruleworktimedayminimum'
+                          "
+                          [secondaryLabelKey]="
+                            form.value.ruleWorkTimeDayMinimum || 0
+                          "
+                          [secondaryLabelPostfixKey]="'core.time.short.minute'"
+                          [secondaryLabelLowercase]="true"
+                          [isDuration]="true"
+                          (valueChanged)="
+                            timeboxFieldChanged(
+                              'ruleWorkTimeDayMinimum',
+                              $event
+                            )
+                          "
+                          formControlName="ruleWorkTimeDayMinimumFormatted">
+                        </soe-timebox>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <soe-timebox
+                          [labelKey]="
+                            'time.employee.employeegroup.ruleworktimedaymaximumworkday'
+                          "
+                          [secondaryLabelKey]="
+                            form.value.ruleWorkTimeDayMaximumWorkDay || 0
+                          "
+                          [secondaryLabelPostfixKey]="'core.time.short.minute'"
+                          [secondaryLabelLowercase]="true"
+                          [isDuration]="true"
+                          (valueChanged)="
+                            timeboxFieldChanged(
+                              'ruleWorkTimeDayMaximumWorkDay',
+                              $event
+                            )
+                          "
+                          formControlName="ruleWorkTimeDayMaximumWorkDayFormatted">
+                        </soe-timebox>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <soe-timebox
+                          [labelKey]="
+                            'time.employee.employeegroup.ruleworktimedaymaximumweekend'
+                          "
+                          [secondaryLabelKey]="
+                            form.value.ruleWorkTimeDayMaximumWeekend || 0
+                          "
+                          [secondaryLabelPostfixKey]="'core.time.short.minute'"
+                          [secondaryLabelLowercase]="true"
+                          [isDuration]="true"
+                          (valueChanged)="
+                            timeboxFieldChanged(
+                              'ruleWorkTimeDayMaximumWeekend',
+                              $event
+                            )
+                          "
+                          formControlName="ruleWorkTimeDayMaximumWeekendFormatted">
+                        </soe-timebox>
+                      </div>
+                    </div>
+                  </soe-expansion-panel>
+                </div>
+                <div class="col-sm-6">
+                  <soe-expansion-panel
+                    [labelKey]="'time.employee.employeegroup.rulescheduletime'"
+                    [static]="true"
+                    [addTopMargin]="true">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <soe-timebox
+                          [labelKey]="
+                            'time.employee.employeegroup.maxscheduletimefulltime'
+                          "
+                          [secondaryLabelKey]="
+                            form.value.maxScheduleTimeFullTime || 0
+                          "
+                          [secondaryLabelPostfixKey]="'core.time.short.minute'"
+                          [secondaryLabelLowercase]="true"
+                          [isDuration]="true"
+                          (valueChanged)="
+                            timeboxFieldChanged(
+                              'maxScheduleTimeFullTime',
+                              $event
+                            )
+                          "
+                          formControlName="maxScheduleTimeFullTimeFormatted">
+                        </soe-timebox>
+                      </div>
+                      <div class="col-sm-4">
+                        <soe-timebox
+                          [labelKey]="
+                            'time.employee.employeegroup.maxscheduletimeparttime'
+                          "
+                          [secondaryLabelKey]="
+                            form.value.maxScheduleTimePartTime || 0
+                          "
+                          [secondaryLabelPostfixKey]="'core.time.short.minute'"
+                          [secondaryLabelLowercase]="true"
+                          [isDuration]="true"
+                          (valueChanged)="
+                            timeboxFieldChanged(
+                              'maxScheduleTimePartTime',
+                              $event
+                            )
+                          "
+                          formControlName="maxScheduleTimePartTimeFormatted">
+                        </soe-timebox>
+                      </div>
+                      <div class="col-sm-4">
+                        <soe-timebox
+                          [labelKey]="
+                            'time.employee.employeegroup.maxscheduletimewithoutbreaks'
+                          "
+                          [secondaryLabelKey]="
+                            form.value.maxScheduleTimeWithoutBreaks || 0
+                          "
+                          [secondaryLabelPostfixKey]="'core.time.short.minute'"
+                          [secondaryLabelLowercase]="true"
+                          [isDuration]="true"
+                          (valueChanged)="
+                            timeboxFieldChanged(
+                              'maxScheduleTimeWithoutBreaks',
+                              $event
+                            )
+                          "
+                          formControlName="maxScheduleTimeWithoutBreaksFormatted">
+                        </soe-timebox>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <soe-timebox
+                          [labelKey]="
+                            'time.employee.employeegroup.minscheduletimefulltime'
+                          "
+                          [secondaryLabelKey]="
+                            form.value.minScheduleTimeFullTime || 0
+                          "
+                          [secondaryLabelPostfixKey]="'core.time.short.minute'"
+                          [secondaryLabelLowercase]="true"
+                          [isDuration]="true"
+                          (valueChanged)="
+                            timeboxFieldChanged(
+                              'minScheduleTimeFullTime',
+                              $event
+                            )
+                          "
+                          formControlName="minScheduleTimeFullTimeFormatted">
+                        </soe-timebox>
+                      </div>
+                      <div class="col-sm-4">
+                        <soe-timebox
+                          [labelKey]="
+                            'time.employee.employeegroup.minscheduletimeparttime'
+                          "
+                          [secondaryLabelKey]="
+                            form.value.minScheduleTimePartTime || 0
+                          "
+                          [secondaryLabelPostfixKey]="'core.time.short.minute'"
+                          [secondaryLabelLowercase]="true"
+                          [isDuration]="true"
+                          (valueChanged)="
+                            timeboxFieldChanged(
+                              'minScheduleTimePartTime',
+                              $event
+                            )
+                          "
+                          formControlName="minScheduleTimePartTimeFormatted">
+                        </soe-timebox>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-8">
+                        <soe-instruction
+                          [text]="
+                            'time.employee.employeegroup.rulescheduletime.explanation'
+                          "
+                          [inline]="true"
+                          [type]="'info'"></soe-instruction>
+                      </div>
+                    </div>
+                  </soe-expansion-panel>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <soe-expansion-panel
+                    [labelKey]="'time.employee.employeegroup.ruleresttimeday'"
+                    [static]="true">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <soe-timebox
+                          [labelKey]="
+                            'time.employee.employeegroup.ruleresttimeday'
+                          "
+                          [secondaryLabelKey]="form.value.ruleRestTimeDay || 0"
+                          [secondaryLabelPostfixKey]="'core.time.short.minute'"
+                          [secondaryLabelLowercase]="true"
+                          [isDuration]="true"
+                          (valueChanged)="
+                            timeboxFieldChanged('ruleRestTimeDay', $event)
+                          "
+                          formControlName="ruleRestTimeDayFormatted">
+                        </soe-timebox>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <soe-timebox
+                          [labelKey]="
+                            'time.employee.employeegroup.ruleresttimedaystarttime'
+                          "
+                          formControlName="ruleRestTimeDayStartTime">
+                        </soe-timebox>
+                      </div>
+                      <div class="col-sm-6">
+                        <soe-checkbox
+                          [labelKey]="
+                            'time.employee.employeegroup.rulerestdayincludepresence'
+                          "
+                          [inline]="true"
+                          formControlName="ruleRestDayIncludePresence">
+                        </soe-checkbox>
+                      </div>
+                    </div>
+                  </soe-expansion-panel>
+                </div>
+                <div class="col-sm-4">
+                  <soe-expansion-panel
+                    [labelKey]="'time.employee.employeegroup.ruleresttimeweek'"
+                    [static]="true">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <soe-timebox
+                          [labelKey]="
+                            'time.employee.employeegroup.ruleresttimeweek'
+                          "
+                          [secondaryLabelKey]="form.value.ruleRestTimeWeek || 0"
+                          [secondaryLabelPostfixKey]="'core.time.short.minute'"
+                          [secondaryLabelLowercase]="true"
+                          [isDuration]="true"
+                          (valueChanged)="
+                            timeboxFieldChanged('ruleRestTimeWeek', $event)
+                          "
+                          formControlName="ruleRestTimeWeekFormatted">
+                        </soe-timebox>
+                      </div>
+                      <div class="col-sm-6">
+                        <soe-select
+                          [labelKey]="
+                            'time.employee.employeegroup.ruleresttimeweekstartday'
+                          "
+                          [selectedId]="
+                            form.value.ruleRestTimeWeekStartDayNumber
+                          "
+                          [items]="this.service.performWeekDays.data || []"
+                          formControlName="ruleRestTimeWeekStartDayNumber">
+                        </soe-select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <soe-timebox
+                          [labelKey]="
+                            'time.employee.employeegroup.ruleresttimeweekstarttime'
+                          "
+                          formControlName="ruleRestTimeWeekStartTime">
+                        </soe-timebox>
+                      </div>
+                      <div class="col-sm-6">
+                        <soe-checkbox
+                          [labelKey]="
+                            'time.employee.employeegroup.ruleresttimeweekincludepresence'
+                          "
+                          [inline]="true"
+                          formControlName="ruleRestWeekIncludePresence">
+                        </soe-checkbox>
+                      </div>
+                    </div>
+                  </soe-expansion-panel>
+                </div>
+                <div class="col-sm-2">
+                  <soe-expansion-panel
+                    [labelKey]="' '"
+                    [static]="true"
+                    [addTopMargin]="false">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <soe-numberbox
+                          [labelKey]="
+                            'time.employee.employeegroup.ruleschedulefreeweekendsminimumyear'
+                          "
+                          formControlName="ruleScheduleFreeWeekendsMinimumYear">
+                        </soe-numberbox>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <soe-numberbox
+                          [labelKey]="
+                            'time.employee.employeegroup.rulescheduleddaysmaximumweek'
+                          "
+                          formControlName="ruleScheduledDaysMaximumWeek">
+                        </soe-numberbox>
+                      </div>
+                    </div>
+                  </soe-expansion-panel>
+                </div>
+              </div>
+            </soe-expansion-panel>
+            <soe-expansion-panel
+              [labelKey]="'time.time.planningperiod.planningperiods'">
+              <div class="row">
+                <div class="col-sm-12">
+                  <soe-eg-rule-work-time-periods-grid
+                    [form]="form"></soe-eg-rule-work-time-periods-grid>
+                </div>
+              </div>
+            </soe-expansion-panel>
+            <soe-expansion-panel
+              [labelKey]="'time.employee.employeegroup.shiftswap'">
+              <div class="row">
+                <div class="col-sm-10">
+                  <soe-instruction
+                    [text]="'time.employee.employeegroup.shiftswap.infotext'"
+                    [type]="'info'"
+                    [fitToContent]="true"></soe-instruction>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-10">
+                  <soe-textbox
+                    [labelKey]="
+                      'time.employee.employeegroup.shiftswap.toshorter'
+                    "
+                    [maxLength]="512"
+                    formControlName="swapShiftToShorterText">
+                  </soe-textbox>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-10">
+                  <soe-instruction
+                    [text]="
+                      'time.employee.employeegroup.shiftswap.toshorter.standardtext'
+                    "
+                    [type]="'plain'"></soe-instruction>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-10">
+                  <soe-textbox
+                    [labelKey]="
+                      'time.employee.employeegroup.shiftswap.tolonger'
+                    "
+                    [maxLength]="512"
+                    formControlName="swapShiftToLongerText">
+                  </soe-textbox>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-10">
+                  <soe-instruction
+                    [text]="
+                      'time.employee.employeegroup.shiftswap.tolonger.standardtext'
+                    "
+                    [type]="'plain'"></soe-instruction>
+                </div>
+              </div>
+            </soe-expansion-panel>
+          </soe-expansion-panel>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-expansion-panel
+            [labelKey]="'time.employee.employeegroup.accountandcostsettings'">
+            <div class="col-sm-6">
+              <soe-expansion-panel
+                [labelKey]="'common.accountingsettings.accountingsettings'"
+                [open]="true"
+                [static]="true">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <soe-accounting-prio
+                          [form]="form"
+                          [accountingPrios]="
+                            form.value.payrollProductAccountingPrio
+                          "
+                          [accountingLabelKey]="
+                            'billing.projects.list.payrollproductposting'
+                          "
+                          [prioItemsTermGroup]="payrollAccountingPriosTermGroup"
+                          (accountingPrioChange)="
+                            form.patchValue({
+                              payrollProductAccountingPrio: $event
+                            })
+                          ">
+                        </soe-accounting-prio>
+                      </div>
+                      <div class="col-sm-4">
+                        <soe-accounting-prio
+                          [form]="form"
+                          [accountingPrios]="
+                            form.value.invoiceProductAccountingPrio
+                          "
+                          [showNumbering]="false"
+                          [accountingLabelKey]="
+                            'billing.projects.list.productsposting'
+                          "
+                          [prioItemsTermGroup]="invoiceAccountingPriosTermGroup"
+                          (accountingPrioChange)="
+                            form.patchValue({
+                              invoiceProductAccountingPrio: $event
+                            })
+                          ">
+                        </soe-accounting-prio>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </soe-expansion-panel>
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <soe-expansion-panel
+                    [labelKey]="'time.employee.employeegroup.costaccounts'"
+                    [open]="true"
+                    [static]="true">
+                    <soe-account-dims
+                      [hideStdDim]="true"
+                      [form]="accountDimsCostForm"
+                      (accountDimsChanged)="accountCostDimsChanged($event)"
+                      [addNotUsed]="true">
+                    </soe-account-dims>
+                  </soe-expansion-panel>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <soe-expansion-panel
+                    [labelKey]="'time.employee.employeegroup.incomeaccounts'"
+                    [open]="true"
+                    [static]="true"
+                    [noBottomMargin]="true">
+                    <soe-account-dims
+                      [hideStdDim]="true"
+                      [form]="accountDimsIncomeForm"
+                      (accountDimsChanged)="accountIncomeDimsChanged($event)"
+                      [addNotUsed]="true">
+                    </soe-account-dims>
+                  </soe-expansion-panel>
+                </div>
+              </div>
+            </div>
+          </soe-expansion-panel>
+        </div>
+      </div>
+    }
+
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

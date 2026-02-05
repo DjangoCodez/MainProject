@@ -1,0 +1,20 @@
+<form [formGroup]="form">
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [parentGuid]="guid()"
+      (editRowClicked)="edit($event)"
+      [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+      <div class="row" toolbar-content-left>
+        <soe-select
+          [labelKey]="''"
+          [inline]="true"
+          [width]="150"
+          [items]="performLoadSelectionTypes.data || []"
+          [selectedId]="form.value.deliveryType"
+          formControlName="deliveryType">
+        </soe-select>
+      </div>
+    </soe-grid-wrapper>
+  }
+</form>

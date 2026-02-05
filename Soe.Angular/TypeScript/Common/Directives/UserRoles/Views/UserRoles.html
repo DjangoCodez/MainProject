@@ -1,0 +1,29 @@
+﻿<div>
+    <table class="table table-condensed table-outer-bordered table-hover horizontal-line-top">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 22px"><span class="dirtyTabIcon" data-ng-if="ctrl.userRolesHasChanges || ctrl.userAttestRolesHasChanges">*</span></th>
+                <th scope="col" data-l10n-bind="'common.user.company'"></th>
+                <th scope="col" data-l10n-bind="'common.user.roles'" data-ng-if="ctrl.userRolesReadPermission"></th>
+                <th scope="col" data-l10n-bind="'common.user.attestroles'" data-ng-if="ctrl.attestRolesReadPermission"></th>
+                <th scope="col" style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="(ctrl.userRolesModifyPermission || ctrl.attestRolesModifyPermission) && !ctrl.loading" data-ng-click="ctrl.openUserRolesDialog();"></i></span></th>
+            </tr>
+        </thead>
+        <tbody data-ng-if="ctrl.loading">
+            <tr>
+                <td colspan="5">
+                    <span data-l10n-bind="'core.loading'"></span>
+                </td>
+            </tr>
+        </tbody>
+        <tbody data-ng-repeat="userRole in ctrl.userRoles | filter:{visible:'true'}" data-ng-if="!ctrl.loading">
+            <tr>
+                <td></td>
+                <td><span data-ng-class="{'indiscreet': userRole.defaultCompany}">{{userRole.companyName}}</span></td>
+                <td data-ng-if="ctrl.userRolesReadPermission"><span><span class="indiscreet">{{userRole.defaultRoleNamesDistinct}}</span><span data-ng-if="userRole.defaultRoleNamesDistinct.length > 0 && userRole.otherRoleNamesDistinct.length > 0">, </span><span>{{userRole.otherRoleNamesDistinct}}</span></span></td>
+                <td data-ng-if="ctrl.attestRolesReadPermission"><span>{{userRole.attestRoleNamesDistinct}}</span></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

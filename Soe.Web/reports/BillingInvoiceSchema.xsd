@@ -1,0 +1,689 @@
+﻿<xs:schema id="SOE_BillingInvoice" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SOE_BillingInvoice" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="BillingInvoice">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="TimeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="SortOrderLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceIntervalLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerIntervalLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyVatNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyAddressLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyAddressCOLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyPostalCodeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyPostalAddressLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyCountryLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyBoardHQLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyEmailLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyPhoneLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyFaxLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyWebAddressLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyBgLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyPgLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyBankLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyBicLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="CompanyIbanLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanySepaLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyOrgNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="TimePeriodLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="InvertedVatTextLongLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="AccountIntervalLabel" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="Company" type="xs:string" minOccurs="0" />
+                    <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                    <xs:element name="AccountYear" type="xs:string" minOccurs="0" />
+                    <xs:element name="AccountPeriod" type="xs:string" minOccurs="0" />
+                    <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                    <xs:element name="SortOrderName" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceInterval" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerInterval" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateInterval" type="xs:string" minOccurs="0" />
+					          <xs:element name="CreatedDateInterval" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyVatNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyAddress" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyAddressCO" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyPostalCode" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyPostalAddress" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyCountry" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyBoardHQPostalAddress" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyBoardHQCountry" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyEmail" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyPhoneHome" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyPhoneWork" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyPhoneMobile" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyFax" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyWebAddress" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyBg" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyPg" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyBank" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyBic" type="xs:string" minOccurs="0" />
+					          <xs:element name="CompanyBicNR" type="xs:string" minOccurs="0" />
+					          <xs:element name="CompanyBicBIC" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanySepa" type="xs:string" minOccurs="0" />
+                    <xs:element name="CompanyLogo" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReminderPaymentCondition" type="xs:string" minOccurs="0" />
+					          <xs:element name="ExtendedTimeRegistration" type="xs:string" minOccurs="0" />
+					          <xs:element name="ShowStartStop" type="xs:string" minOccurs="0" />
+					          <xs:element name="PaymentDateInterval" type="xs:string" minOccurs="0" />
+                    <xs:element name="AdditionalDiscountInUse" type="xs:boolean" minOccurs="0" />
+					          <xs:element name="Paymentinformation" minOccurs="0" maxOccurs="unbounded">
+					            <xs:complexType>
+					              <xs:sequence>
+					                <xs:element name="PaymentinformationRow" minOccurs="0" maxOccurs="unbounded">
+					              <xs:complexType>
+					            <xs:sequence>
+					          <xs:element name="BIC" type="xs:string" minOccurs="0" />
+					          <xs:element name="CurrencyCode" type="xs:string" minOccurs="0" />
+					          <xs:element name="PaymentType" type="xs:string" minOccurs="0" />
+					          <xs:element name="PaymentNumber" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+					    </xs:complexType>
+					</xs:element>
+					</xs:sequence>
+					</xs:complexType>
+					</xs:element>
+                    <xs:element name="AccountInterval" type="xs:string" minOccurs="0" />
+                    <xs:element name="AttestLevelInitial" type="xs:string" minOccurs="0" />
+                    <xs:element name="AttestLevelInvoiced" type="xs:string" minOccurs="0" />
+                    <xs:element name="AttestLevelMobileReady" type="xs:string" minOccurs="0" />
+                    <xs:element name="AttestLevelOfferToOrder" type="xs:string" minOccurs="0" />
+                    <xs:element name="SortByLevel1" type="xs:string" minOccurs="0" />
+                    <xs:element name="SortByLevel2" type="xs:string" minOccurs="0" />
+                    <xs:element name="SortByLevel3" type="xs:string" minOccurs="0" />
+                    <xs:element name="SortByLevel4" type="xs:string" minOccurs="0" />
+                    <xs:element name="IsSortAscending" type="xs:string" minOccurs="0" />
+                    <xs:element name="GroupByLevel1" type="xs:string" minOccurs="0" />
+                    <xs:element name="GroupByLevel2" type="xs:string" minOccurs="0" />
+                    <xs:element name="GroupByLevel3" type="xs:string" minOccurs="0" />
+                    <xs:element name="GroupByLevel4" type="xs:string" minOccurs="0" />
+                    <xs:element name="Special" type="xs:string" minOccurs="0" />    
+                    <xs:element name="HidePrice" type="xs:boolean" minOccurs="0" />	
+					<xs:element name="HidePriceAndRowSum" type="xs:boolean" minOccurs="0" />
+					<xs:element name="GroupInvoiceByTaxdeduction" type="xs:boolean" minOccurs="0" />							
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="CustomerNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerGroupLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerGroupParentLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerOrgNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerVatNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerDeliveryAddressLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerRegDateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceSeqNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceBillingTypeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceVatTypLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceOCRLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceSumAmountLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceVatAmountLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceFeeAmountLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceFreightAmountLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceCentRoundingLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceDescriptionLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceWorkingDescriptionLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceTotalAmountLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceTotalAmountCurrencyLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceTotalAmountCreditLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceTotalAmountCreditCurrencyLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceCurrencyLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceCurrencyRateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceCurrencyDateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceDateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceDueDateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceVoucherDateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceDeliveryDateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceOrderDateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceReferenceYourLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceReferenceOurLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceReferenceOrderLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceLabelLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoicePaymentConditionLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceDeliveryConditionLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceDeliveryTypeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceFTaxLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceOrderNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceContractNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceIsCashSaleLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="RemainingAmountLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="PaidAmountLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="RemainingAmount3Label" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PeriodLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthJanuaryLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthFebruaryLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthMarchLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthAprilLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthMayLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthJuneLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthJulyLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthAugustLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthSeptemberLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthOctoberLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthNovemberLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthDecemberLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthJanuaryShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthFebruaryShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthMarchShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthAprilShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthMayShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthJuneShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthJulyShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthAugustShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthSeptemberShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthOctoberShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthNovemberShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MonthDecemberShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="YearLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="OrderLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="OfferLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="OrderRowsNotInvoicedLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="OrderRowsInvoicedLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="BilledLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MarginLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MarginShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MarginPercentLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MarginPercentShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PayedLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CostLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="RevenueLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="WorkLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MiscLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="AccLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="IsBilledLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="TotalLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MaterialLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="HouseDeductionLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="HouseDeductionShortLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="AverageLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MedianLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MaxPurchasePriceLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="MinPurchasePriceLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProfitLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="LossLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="WholesellerLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PackingslipLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PicklistLabel" type="xs:string" minOccurs="0" />
+		            <xs:element name="InvoiceRetainedGuaranteeAmountLabel" type="xs:string" minOccurs="0" />
+		            <xs:element name="InvoiceCustomerAdressLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="InvoiceReminderFeeLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="InvoiceAccruedInterestLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowProductNumberLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowProductNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowProductDescriptionLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowProductUnitLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowQuantityLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowInvoiceQuantityLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowAmountLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowVatAmountLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowSumAmountLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowSumAmountCurrencyLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowDiscountPercentLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowDiscountAmountLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowDiscount2PercentLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowDiscount2AmountLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowTextLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowProductGroupLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowProductCategoryLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowProductCategoryParentLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="StatusLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="TenderSumLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PreviousInvoicedLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PreviousInvoicedFromOrderLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="LiftLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="LiftThisLiftLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="RemainingAmount2Label" type="xs:string" minOccurs="0" />
+                    <xs:element name="SafeGuardAmountLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PageSingleLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PageMultipleLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CreatedLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="CreatedByLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ModifiedLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ModifiedByLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="RowDeliveryDateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="RowLiftDateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="RowDeliveradQuantityLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="RemainingQuantityLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjectLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjectNumberLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjectNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjectDescriptionLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjectInvoiceNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjecCreatedLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjecCreatedByLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjecStateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="EmployeeNrLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="EmployeeNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="NoteLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceTimeInMinutesLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="TimeCodeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="HourLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="HouseholdDeductionLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="HouseholdDeductionTypeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="PreviousInvoicesLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceInclusiveVatLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionStandardNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionStandardShortNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternalName1Label" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternalShortName1Label" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternal1SieType" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternalName2Label" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternalShortName2Label" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternal2SieType" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternalName3Label" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternalShortName3Label" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternal3SieType" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternalName4Label" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternalShortName4Label" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternal4SieType" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternalName5Label" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternalShortName5Label" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternal5SieType" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternalName6Label" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternalShortName6Label" type="xs:string" minOccurs="0" />
+                    <xs:element name="DimensionInternal6SieType" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractGroupNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractGroupPeriodTypeLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractNextYearLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractNextPeriodLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractEndYearLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractEndPeriodLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractCategoryNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowProductWeightLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRowTotalWeightLabel" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="InvoiceHead" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="BillingInvoiceReportType" type="xs:int" minOccurs="0" />
+                    <xs:element name="CustomerName" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerGroupCode" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerGroup" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerGroupParentCode" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerGroupParentName" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerOrgNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerVatNr" type="xs:string" minOccurs="0" />
+					<xs:element name="CustomerCountryCode" type="xs:string" minOccurs="0" />
+					<xs:element name="CustomerCountryName" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerAddressBilling" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerAddressCOBilling" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerPostalCodeBilling" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerPostalAddressBilling" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerCountryBilling" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerNameDelivery" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerAddressDelivery" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerAddressCODelivery" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerPostalCodeDelivery" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerPostalAddressDelivery" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerCountryDelivery" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerRegDate" type="xs:string" minOccurs="0" />
+                    <xs:element name="CustomerEmail" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceParentOrderNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceParentContractNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceSeqNr" type="xs:int" minOccurs="0" />
+                    <xs:element name="InvoiceBillingType" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceCreditedInvoicesText" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceVatTyp" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceOCR" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceSumAmount" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceSumAmountBase" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceVatAmount" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceVatAmountBase" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceFeeAmount" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceFeeAmountBase" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceFreightAmount" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceFreightAmountBase" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceCentRounding" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceTotalAmount" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceTotalAmountBase" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceCurrency" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceCurrencyCode" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceCurrencyRate" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceCurrencyDate" type="xs:dateTime" minOccurs="0" />
+                    <xs:element name="InvoiceDate" type="xs:dateTime" minOccurs="0" />
+                    <xs:element name="InvoiceDueDate" type="xs:dateTime" minOccurs="0" />
+                    <xs:element name="InvoiceVoucherDate" type="xs:dateTime" minOccurs="0" />
+                    <xs:element name="InvoiceDeliveryDate" type="xs:dateTime" minOccurs="0" />
+                    <xs:element name="InvoiceDeliveryDateText" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceDateTxt" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceOrderDateTxt" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceDueDateTxt" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceDeliveryDateTxt" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceOrderDate" type="xs:dateTime" minOccurs="0" />
+		            <xs:element name="InvoiceCreatedDate" type="xs:dateTime" minOccurs="0" />
+		            <xs:element name="InvoiceCreatedBy" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceReferenceYour" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceReferenceOur" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceReferenceOrder" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceText" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceHeadText" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceDescription" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceWorkingDescription" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoicePaymentCondition" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceDeliveryConditionCode" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceDeliveryConditionName" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceDeliveryTypeCode" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceDeliveryTypeName" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceBillingInterest" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceBillingInterestPercent" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceInvertedVat" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceCopy" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceIsCashSale" type="xs:int" minOccurs="0" />
+                    <xs:element name="InvoiceIsClosed" type="xs:int" minOccurs="0" />
+                    <xs:element name="ProjectNumber" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjectName" type="xs:string" minOccurs="0" />
+                    <xs:element name="ShiftName" type="xs:string" minOccurs="0" />
+                    <xs:element name="OriginType" type="xs:string" minOccurs="0" />
+                    <xs:element name="PaidAmount" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="FullyPaid" type="xs:int" minOccurs="0" />
+                    <xs:element name="InvoiceInclusiveVat" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceFreightVatRate" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceFreightVatAmount" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceFeeVatRate" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceFeeVatAmount" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="DefaultDim1Code" type="xs:string" minOccurs="0" />
+                    <xs:element name="DefaultDim1Name" type="xs:string" minOccurs="0" />
+                    <xs:element name="DefaultDim2Code" type="xs:string" minOccurs="0" />
+                    <xs:element name="DefaultDim2Name" type="xs:string" minOccurs="0" />
+                    <xs:element name="DefaultDim3Code" type="xs:string" minOccurs="0" />
+                    <xs:element name="DefaultDim3Name" type="xs:string" minOccurs="0" />
+                    <xs:element name="DefaultDim4Code" type="xs:string" minOccurs="0" />
+                    <xs:element name="DefaultDim4Name" type="xs:string" minOccurs="0" />
+                    <xs:element name="DefaultDim5Code" type="xs:string" minOccurs="0" />
+                    <xs:element name="DefaultDim5Name" type="xs:string" minOccurs="0" />
+                    <xs:element name="DefaultDim6Code" type="xs:string" minOccurs="0" />
+                    <xs:element name="DefaultDim6Name" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceState" type="xs:int" minOccurs="0" />
+                    <xs:element name="InvoiceOriginStatus" type="xs:int" minOccurs="0" />
+                    <xs:element name="BillingType" type="xs:int" minOccurs="0" />
+                    <xs:element name="InvoiceSumRemainingAmount" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceSumRemainingAmountVat" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceSumRemainingAmountIncVat" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceHasLiftRows" type="xs:boolean" minOccurs="0" />
+                    <xs:element name="InvoiceHasFixedPriceRows" type="xs:boolean" minOccurs="0" />
+                    <xs:element name="InvoiceIsFixedPriceType1" type="xs:boolean" minOccurs="0" />
+                    <xs:element name="InvoiceIsFixedPriceType2" type="xs:boolean" minOccurs="0" />
+                    <xs:element name="InvoiceRetainedGuaranteeAmount" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceRetainedGuaranteeVatAmount" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceFixedPriceAmount" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceFixedPriceVatAmount" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="InvoiceHasProject" type="xs:int" minOccurs="0" />
+                    <xs:element name="ShowTimeProjectReport" type="xs:int" minOccurs="0" />
+                    <xs:element name="ShowExpenseReport" type="xs:int" minOccurs="0" />
+                    <xs:element name="ShowSignatures" type="xs:int" minOccurs="0" />
+					<xs:element name="ExistHouseHouldDeduction" type="xs:boolean" minOccurs="0" />
+                    <xs:element name="HasPreviousInvoices" type="xs:int" minOccurs="0" />
+                    <xs:element name="ShowRemainingAmountInReport" type="xs:int" minOccurs="0" />
+					<xs:element name="IsOneTimeCustomer" type="xs:int" minOccurs="0" />
+					<xs:element name="CustomerPhoneNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractGroupName" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractGroupPeriodType" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractNextYear" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractNextPeriod" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractEndYear" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractEndPeriod" type="xs:string" minOccurs="0" />
+                    <xs:element name="ContractCategoryName" type="xs:string" minOccurs="0" />
+					<xs:element name="InvoiceReminderFee" type="xs:decimal" minOccurs="0" />
+					<xs:element name="InvoiceInterestAmount" type="xs:decimal" minOccurs="0" />
+                    <xs:element name="QrLink" type="xs:string" minOccurs="0" />
+                    <xs:element name="InvoiceRow" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="InvoiceRowProductNumber" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                          <xs:element name="InvoiceRowProductName" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                          <xs:element name="InvoiceRowProductDescription" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                          <xs:element name="InvoiceRowProductUnitCode" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                          <xs:element name="InvoiceRowProductUnitName" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                          <xs:element name="InvoiceRowQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="6" />
+                          <xs:element name="InvoiceRowAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="7" />
+                          <xs:element name="InvoiceRowAmountBase" type="xs:decimal" minOccurs="0" msdata:Ordinal="8" />
+                          <xs:element name="InvoiceRowVatAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="9" />
+                          <xs:element name="InvoiceRowVatAmountBase" type="xs:decimal" minOccurs="0" msdata:Ordinal="10" />
+                          <xs:element name="InvoiceRowSumAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="11" />
+                          <xs:element name="InvoiceRowSumAmountCurrency" type="xs:decimal" minOccurs="0" msdata:Ordinal="12" />
+                          <xs:element name="InvoiceRowSumAmountCurrencyCode" type="xs:string" minOccurs="0" msdata:Ordinal="13" />
+                          <xs:element name="InvoiceRowSumAmountBase" type="xs:decimal" minOccurs="0" msdata:Ordinal="14" />
+                          <xs:element name="InvoiceRowDiscountPercent" type="xs:decimal" minOccurs="0" msdata:Ordinal="15" />
+                          <xs:element name="InvoiceRowDiscountAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="16" />
+                          <xs:element name="InvoiceRowDiscountAmountBase" type="xs:decimal" minOccurs="0" msdata:Ordinal="17" />
+                          <xs:element name="InvoiceRowDiscount2Percent" type="xs:decimal" minOccurs="0" msdata:Ordinal="18" />
+                          <xs:element name="InvoiceRowDiscount2Amount" type="xs:decimal" minOccurs="0" msdata:Ordinal="19" />
+                          <xs:element name="InvoiceRowDiscount2AmountBase" type="xs:decimal" minOccurs="0" msdata:Ordinal="20" />
+                          <xs:element name="InvoiceRowText" type="xs:string" minOccurs="0" msdata:Ordinal="21" />
+                          <xs:element name="InvoiceRowType" type="xs:int" minOccurs="0" msdata:Ordinal="22" />
+                          <xs:element name="InvoiceRowVatRate" type="xs:decimal" minOccurs="0" msdata:Ordinal="23" />
+                          <xs:element name="InvoiceRowVatCodeName" type="xs:string" minOccurs="0" msdata:Ordinal="25" />
+                          <xs:element name="InvoiceRowVatCodePercent" type="xs:decimal" minOccurs="0" msdata:Ordinal="30" />
+                          <xs:element name="InvoiceRowVatCodeCode" type="xs:string" minOccurs="0" msdata:Ordinal="35" />
+                          <xs:element name="InvoiceRowisStockRow" type="xs:boolean" minOccurs="0" msdata:Ordinal="40" />
+                          <xs:element name="InvoiceRowPurchasePrice" type="xs:decimal" minOccurs="0" msdata:Ordinal="45" />
+                          <xs:element name="InvoiceRowMarginalIncome" type="xs:decimal" minOccurs="0" msdata:Ordinal="50" />
+                          <xs:element name="InvoiceRowMarginalIncomeRatio" type="xs:decimal" minOccurs="0" msdata:Ordinal="55" />
+                          <xs:element name="isInvoicedRow" type="xs:boolean" minOccurs="0" msdata:Ordinal="56" />
+                          <xs:element name="InvoiceRowInvoiceQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="57" />
+                          <xs:element name="InvoiceRowIsHouseholdProduct" type="xs:int" minOccurs="0" msdata:Ordinal="60" />
+                          <xs:element name="InvoiceRowIsGuarantee" type="xs:int" minOccurs="0" msdata:Ordinal="61" />
+                          <xs:element name="InvoiceRowProductVatType" type="xs:int" minOccurs="0" msdata:Ordinal="65" />
+                          <xs:element name="InvoiceRowSysWholesellerName" type="xs:string" minOccurs="0" msdata:Ordinal="70" />
+                          <xs:element name="InvoiceRowRowNumber" type="xs:int" minOccurs="0" msdata:Ordinal="71" />
+						  <xs:element name="InvoiceRowHouseholdDeductionType" type="xs:string" minOccurs="0" msdata:Ordinal="72" />			                   			  
+                          <xs:element name="InvoiceRowStockCode" type="xs:string" minOccurs="0" msdata:Ordinal="75" />					 
+						  <xs:element name="InvoiceRowStockName" type="xs:string" minOccurs="0" msdata:Ordinal="80" />
+                          <xs:element name="InvoiceRowShelfCode" type="xs:string" minOccurs="0" msdata:Ordinal="85" />
+                          <xs:element name="InvoiceRowShelfName" type="xs:string" minOccurs="0" msdata:Ordinal="90" />
+                          <xs:element name="InvoiceRowProductGroupCode" type="xs:string" minOccurs="0" msdata:Ordinal="95" />
+                          <xs:element name="InvoiceRowProductGroupName" type="xs:string" minOccurs="0" msdata:Ordinal="100" />
+                          <xs:element name="InvoiceRowProductCategoryCode" type="xs:string" minOccurs="0" msdata:Ordinal="105" />
+                          <xs:element name="InvoiceRowProductCategoryName" type="xs:string" minOccurs="0" msdata:Ordinal="110" />
+                          <xs:element name="InvoiceRowProductCategoryParentCode" type="xs:string" minOccurs="0" msdata:Ordinal="115" />
+                          <xs:element name="InvoiceRowProductCategoryParentName" type="xs:string" minOccurs="0" msdata:Ordinal="120" />
+                          <xs:element name="InvoiceRowProductCalculationType" type="xs:int" minOccurs="0" msdata:Ordinal="125" />
+                          <xs:element name="InvoiceRowLiftDate" type="xs:dateTime" minOccurs="0" msdata:Ordinal="130" />
+                          <xs:element name="InvoiceRowDate" type="xs:dateTime" minOccurs="0" msdata:Ordinal="140" />
+                          <xs:element name="InvoiceRowDeliveryDateText" type="xs:string" minOccurs="0" msdata:Ordinal="141" />
+                          <xs:element name="isLiftRow" type="xs:int" minOccurs="0" msdata:Ordinal="145" />
+                          <xs:element name="AttestState" type="xs:string" minOccurs="0" msdata:Ordinal="150" />
+                          <xs:element name="IsClosedRow" type="xs:int" minOccurs="0" msdata:Ordinal="151" />
+                          <xs:element name="isEDI" type="xs:int" minOccurs="0" msdata:Ordinal="155" />
+                          <xs:element name="isTimeProject" type="xs:int" minOccurs="0" msdata:Ordinal="160" />
+                          <xs:element name="isMixedVat" type="xs:int" minOccurs="0" msdata:Ordinal="165" />
+                          <xs:element name="Created" type="xs:dateTime" minOccurs="0" msdata:Ordinal="170" />
+                          <xs:element name="CreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="175" />
+                          <xs:element name="Modified" type="xs:dateTime" minOccurs="0" msdata:Ordinal="180" />
+                          <xs:element name="ModifiedBy" type="xs:string" minOccurs="0" msdata:Ordinal="185" />
+                          <xs:element name="InvoiceRowProductWeight" type="xs:decimal" minOccurs="0" msdata:Ordinal="186" />
+                          <xs:element name="InvoiceRowTotalWeight" type="xs:decimal" minOccurs="0" msdata:Ordinal="187" />
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PreviousInvoiceHead" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="PreviousInvoiceInvoiceNr" type="xs:string" minOccurs="0" />
+                          <xs:element name="PreviousInvoiceInvoiceVatAmount" type="xs:decimal" minOccurs="0" />
+                          <xs:element name="PreviousInvoiceInvoiceTotalAmount" type="xs:decimal" minOccurs="0" />
+                          <xs:element name="PreviousInvoiceInvoiceTotalAmountBase" type="xs:decimal" minOccurs="0" />
+                          <xs:element name="PreviousInvoiceInvoiceDate" type="xs:dateTime" minOccurs="0" />
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="OriginInvoiceHead" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="InvoiceDate" type="xs:dateTime" minOccurs="0" />
+                          <xs:element name="InvoiceDueDate" type="xs:dateTime" minOccurs="0" />
+                          <xs:element name="InvoiceNr" type="xs:string" minOccurs="0" />
+                          <xs:element name="InvoiceOCR" type="xs:string" minOccurs="0" />
+                          <xs:element name="InvoiceTotalAmount" type="xs:decimal" minOccurs="0" />
+                          <xs:element name="InvoiceTotalAmountBase" type="xs:decimal" minOccurs="0" />
+                          <xs:element name="InvoiceVatAmount" type="xs:decimal" minOccurs="0" />
+                          <xs:element name="InvoiceVatAmountBase" type="xs:decimal" minOccurs="0" />
+                          <xs:element name="InvoicePaidAmount" type="xs:decimal" minOccurs="0" />
+                          <xs:element name="InvoicePaidAmountBase" type="xs:decimal" minOccurs="0" />
+                          <xs:element name="OverduedDays" type="xs:int" minOccurs="0" />
+                          <xs:element name="ClaimLevel" type="xs:int" minOccurs="0" />
+                          <xs:element name="ClaimText" type="xs:string" minOccurs="0" />
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="OriginUser" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Name" type="xs:string" minOccurs="0" />
+                          <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                          <xs:element name="Main" type="xs:int" minOccurs="0" />
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="InvoiceSignatureImage" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ImagePath" type="xs:string" minOccurs="0" />
+                          <xs:element name="Type" type="xs:int" minOccurs="0" />
+                          <xs:element name="Description" type="xs:string" minOccurs="0" />
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Project" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ProjectNumber" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                          <xs:element name="ProjectName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                          <xs:element name="ProjectDescription" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                          <xs:element name="ProjectInvoiceNr" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                          <xs:element name="ProjectCreated" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                          <xs:element name="ProjectCreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                          <xs:element name="ProjectState" type="xs:int" minOccurs="0" msdata:Ordinal="6" />
+                          <xs:element name="ProjectWorkSiteId" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+                          <xs:element name="ProjectWorkSiteNumber" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+                          <xs:element name="Employee" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="EmployeeNr" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                                <xs:element name="EmployeeName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xs:element name="ProjectInvoiceDay" minOccurs="0" maxOccurs="unbounded">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="TCCode" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                                      <xs:element name="TCName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                                      <xs:element name="InvoiceTimeInMinutes" type="xs:int" minOccurs="0" msdata:Ordinal="2" />
+                                      <xs:element name="Date" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                                      <xs:element name="Note" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                                      <xs:element name="ExternalNote" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                                      <xs:element name="IsoDate" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+                                      <xs:element name="TDName" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+                                      <xs:element name="TBStartTime" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+                                      <xs:element name="TBStopTime" type="xs:string" minOccurs="0" msdata:Ordinal="9" />
+                                    </xs:sequence>
+                                    <xs:attribute name="id" type="xs:string" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="id" type="xs:string" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+					<xs:element name="Expenses" minOccurs="0" maxOccurs="unbounded">			  
+					<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Invoices" minOccurs="0" maxOccurs="unbounded">			  
+						<xs:complexType>
+						<xs:sequence>
+						<xs:element name="InvoiceNr" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+						<xs:element name="InvoiceCreated" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+						<xs:element name="InvoiceCreatedBy" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+						<xs:element name="InvoiceCustomerNr" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+						<xs:element name="InvoiceCustomerName" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+						<xs:element name="CustomerInvoiceExpenseRow" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType> 
+							<xs:sequence>
+								<xs:element name="InvoiceNr" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+								<xs:element name="InvoiceCustomerName" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+								<xs:element name="InvoiceExpenseRowEmployeeName" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+								<xs:element name="InvoiceExpenseRowTimeCodeName" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+								<xs:element name="InvoiceExpenseRowPayrollAttestStateName" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+								<xs:element name="InvoiceExpenseRowQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="5" />
+								<xs:element name="InvoiceExpenseRowQuantityType" type="xs:decimal" minOccurs="0" msdata:Ordinal="6" />
+								<xs:element name="InvoiceExpenseRowUnitPrice" type="xs:decimal" minOccurs="0" msdata:Ordinal="7" />
+								<xs:element name="InvoiceExpenseRowAmountExVat" type="xs:decimal" minOccurs="0" msdata:Ordinal="8" />
+								<xs:element name="InvoiceExpenseRowVat" type="xs:decimal" minOccurs="0" msdata:Ordinal="9" />
+								<xs:element name="InvoiceExpenseRowAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="10" />
+								<xs:element name="InvoiceExpenseRowInvoicedAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="11" />
+								<xs:element name="InvoiceExpenseRowComment" type="xs:string" minOccurs="0" msdata:Ordinal="12" />
+								<xs:element name="InvoiceExpenseRowExternalComment" type="xs:string" minOccurs="0" msdata:Ordinal="13" />
+								<xs:element name="InvoiceExpenseRowDate" type="xs:string" minOccurs="0" msdata:Ordinal="14" />
+							</xs:sequence>
+							<xs:attribute name="id" type="xs:string" />
+						</xs:complexType>
+						</xs:element>
+						</xs:sequence>
+						<xs:attribute name="id" type="xs:string" />
+						</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					</xs:complexType>
+					</xs:element>
+					<xs:element name="Payments" minOccurs="0" maxOccurs="unbounded">			  
+					<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Payment" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType> 
+						<xs:sequence>
+							<xs:element name="InvoiceNr" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+							<xs:element name="PaymentMethodName" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+							<xs:element name="PaymentDate" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+							<xs:element name="PaymentAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="2" />
+						</xs:sequence>
+						<xs:attribute name="id" type="xs:string" />
+						</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					</xs:complexType>
+					</xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

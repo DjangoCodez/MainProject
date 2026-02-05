@@ -1,0 +1,23 @@
+<div
+  id="information-menu-toggle"
+  class="right-menu-toggle"
+  [style.top.px]="topPosition"
+  [title]="toggleTooltip"
+  (click)="openLegacyMenu()">
+  <a>
+    @if (nbrOfUnreadInformations === 0) {
+      <fa-icon
+        [icon]="['fal', 'info']"
+      ></fa-icon>
+    }
+    @if (nbrOfUnreadInformations > 0) {
+      <fa-layers [fixedWidth]="true">
+        <fa-icon [icon]="['fal', 'info']"></fa-icon>
+        <fa-layers-counter
+        content="{{
+          nbrOfUnreadInformations > 99 ? '99+' : nbrOfUnreadInformations
+        }}"></fa-layers-counter>
+      </fa-layers>
+    }
+  </a>
+</div>

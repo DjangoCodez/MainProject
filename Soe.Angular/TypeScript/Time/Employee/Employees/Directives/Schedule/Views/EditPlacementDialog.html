@@ -1,0 +1,47 @@
+﻿<form name="ctrl.dialogform">
+    <div class="messagebox" edit-placement-validation ng-model="ctrl.placement" has-initial-attest-state="ctrl.hasInitialAttestState" mode="ctrl.mode" template-type="ctrl.templateType" template-head="ctrl.selectedTemplateHead" period-id="ctrl.selectedPeriodId" start-date="ctrl.startDate" stop-date="ctrl.stopDate">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'time.employee.employee.placement.new'" data-ng-if="ctrl.isNew"></h6>
+            <h6 class="modal-title" data-ng-if="!ctrl.isNew"><span data-l10n-bind="'core.edit'"></span> <span>{{ctrl.placement.timeScheduleTemplateHeadName}}</span></h6>
+        </div>
+        <div class="modal-body">
+            <div class="row form-inline" data-ng-if="ctrl.modeIsNew">
+                <div class="col-sm-12">
+                    <soe-radiobutton label-key="time.employee.employee.placement.templates.search" model="ctrl.templateType" group="templateType" value="0" use-ignore-dirty="true" on-changing="ctrl.setTemplates();"></soe-radiobutton>
+                    <soe-radiobutton label-key="time.employee.employee.placement.templates.personal" model="ctrl.templateType" group="templateType" value="1" use-ignore-dirty="true" on-changing="ctrl.setTemplates();"></soe-radiobutton>
+                    <soe-radiobutton label-key="time.employee.employee.placement.templates.public" model="ctrl.templateType" group="templateType" value="2" use-ignore-dirty="true" on-changing="ctrl.setTemplates();"></soe-radiobutton>
+                </div>
+            </div>
+            <div class="row margin-large-bottom" data-ng-if="ctrl.modeIsNew && ctrl.templateType !== 0">
+                <div class="col-sm-12">
+                    <soe-select label-key="time.employee.employee.templateheads" model="ctrl.selectedTemplateHead" items="ctrl.templateSchedules" options="item as item.description for item in items" is-disabled="ctrl.loading" on-changing="ctrl.selectedTemplateHeadChanged();"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4" data-ng-if="ctrl.templatePeriods.length > 0 && ctrl.modeIsNew && ctrl.templateType !== 0">
+                    <soe-select label-key="time.schedule.activate.startday" model="ctrl.selectedPeriodId" items="ctrl.templatePeriods" options="item.timeScheduleTemplatePeriodId as item.dayNumber for item in items"></soe-select>
+                </div>
+                <div class="col-sm-4">
+                    <soe-datepicker label-key="common.startdate" model="ctrl.startDate" hide-today-button="true" is-disabled="!ctrl.modeIsNew" on-change="ctrl.startDateChanged();"></soe-datepicker>
+                </div>
+                <div class="col-sm-4">
+                    <soe-datepicker label-key="common.stopdate" model="ctrl.stopDate" options="ctrl.stopDateOptions" hide-today-button="true"></soe-datepicker>
+                </div>
+            </div>
+            <div class="row" data-ng-if="ctrl.showPreliminary">
+                <div class="col-sm-12">
+                    <soe-checkbox label-key="time.schedule.planning.templateschedule.activate.preliminary" model="ctrl.preliminary"></soe-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+            <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'time.schedule.planning.contextmenu.activate'" data-l10n-bind-title="'time.schedule.planning.contextmenu.activate'" data-ng-show="ctrl.dialogform.$valid" data-ng-disabled="ctrl.dialogform.$invalid || ctrl.executing" data-ng-click="$event.stopPropagation();ctrl.initActivate();"></button>
+            <div class="btn-group" role="group" data-ng-show="ctrl.dialogform.$invalid">
+                <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'time.schedule.planning.contextmenu.activate'" data-ng-disabled="ctrl.dialogform.$invalid"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButtonInvalid" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+            </div>
+        </div>
+    </div>
+</form>

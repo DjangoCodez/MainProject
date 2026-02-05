@@ -1,0 +1,175 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-lg-8 col-xxl-6">
+        <soe-expansion-panel [labelKey]="'common.expensetype'" [static]="true">
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4">
+              <soe-select
+                [labelKey]="'common.type'"
+                [items]="expenseTypes"
+                formControlName="expenseType">
+              </soe-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4">
+              <soe-textbox
+                [labelKey]="'common.code'"
+                [maxLength]="20"
+                formControlName="code">
+              </soe-textbox>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-8">
+              <soe-textbox
+                [labelKey]="'common.name'"
+                [maxLength]="100"
+                [autoFocus]="true"
+                formControlName="name">
+              </soe-textbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <soe-textbox
+                [labelKey]="'common.description'"
+                [maxLength]="512"
+                formControlName="description">
+              </soe-textbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-lg-4">
+              <soe-select
+                [labelKey]="'time.time.timecode.registrationtype'"
+                [items]="registrationTypes"
+                formControlName="registrationType">
+              </soe-select>
+            </div>
+            @if (shouldShowFixedQuantityInput()) {
+              <div class="col-md-6 col-lg-4">
+                <soe-numberbox
+                  [labelKey]="'time.time.timecode.fixedquantity'"
+                  [noFormatting]="true"
+                  formControlName="fixedQuantity">
+                </soe-numberbox>
+              </div>
+            }
+          </div>
+          <div class="row">
+            <div class="col">
+              <soe-checkbox
+                [labelKey]="'time.time.timecode.hideforemployee'"
+                formControlName="hideForEmployee"></soe-checkbox>
+              @if (this.possibilityToRegisterAdditionsInTerminal) {
+                <soe-checkbox
+                  [labelKey]="'time.schedule.scheduletype.showinterminal'"
+                  formControlName="showInTerminal"></soe-checkbox>
+              }
+            </div>
+          </div>
+        </soe-expansion-panel>
+      </div>
+      <div class="col-lg-4 col-xxl-6">
+        <soe-expansion-panel
+          [labelKey]="'time.time.timecodeadditiondeductions.registering'"
+          [static]="true">
+          <soe-label
+            [labelKey]="
+              'time.time.timecodeadditiondeductions.stopat'
+            "></soe-label>
+          <div class="row">
+            <div class="col">
+              <soe-checkbox
+                [labelKey]="
+                  'time.time.timecodeadditiondeductions.stopatdatestart'
+                "
+                formControlName="stopAtDateStart"></soe-checkbox>
+            </div>
+          </div>
+          @if (stopAtDateStopExpenseTypes.includes(form.value.expenseType)) {
+            <div class="row">
+              <div class="col">
+                <soe-checkbox
+                  [labelKey]="
+                    'time.time.timecodeadditiondeductions.stopatdatestop'
+                  "
+                  formControlName="stopAtDateStop"></soe-checkbox>
+              </div>
+            </div>
+          }
+          @if (stopAtPriceExpenseTypes.includes(form.value.expenseType)) {
+            <div class="row">
+              <div class="col">
+                <soe-checkbox
+                  [labelKey]="'common.price'"
+                  formControlName="stopAtPrice"></soe-checkbox>
+              </div>
+            </div>
+          }
+          @if (stopAtVatExpenseTypes.includes(form.value.expenseType)) {
+            <div class="row">
+              <div class="col">
+                <soe-checkbox
+                  [labelKey]="'common.vat'"
+                  formControlName="stopAtVat"></soe-checkbox>
+              </div>
+            </div>
+          }
+          <div class="row">
+            <div class="col">
+              <soe-checkbox
+                [labelKey]="'common.comment'"
+                formControlName="stopAtComment"></soe-checkbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col ms-4">
+              <soe-checkbox
+                [labelKey]="'core.mandatory'"
+                formControlName="commentMandatory"></soe-checkbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <soe-checkbox
+                [labelKey]="'common.accounting'"
+                formControlName="stopAtAccounting"></soe-checkbox>
+            </div>
+          </div>
+        </soe-expansion-panel>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <soe-time-code-payroll-products-grid
+          [form]="form"
+          [permission]="
+            Feature.Time_Preferences_TimeSettings_TimeCodeAdditionDeduction_Edit
+          "></soe-time-code-payroll-products-grid>
+      </div>
+      <div class="mt-3 col-lg-6 mt-lg-0">
+        <soe-time-code-invoice-products-grid
+          [form]="form"
+          [permission]="
+            Feature.Time_Preferences_TimeSettings_TimeCodeAdditionDeduction_Edit
+          "></soe-time-code-invoice-products-grid>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [showActive]="true"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

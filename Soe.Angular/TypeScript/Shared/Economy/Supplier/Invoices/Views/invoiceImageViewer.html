@@ -1,0 +1,26 @@
+﻿<div class="margin-small-bottom full-height">
+    <div class="margin-small-top margin-small-left" style="text-align: center;">
+        <button data-ng-if="ctrl.hasMultiplePages" type="button" class="btn fal fa-chevron-double-left" data-l10n-bind-title="'core.navigatefirst'" data-ng-click="$event.stopPropagation();ctrl.navigateFirst()"></button>
+        <button data-ng-if="ctrl.hasMultiplePages" type="button" class="btn fal fa-chevron-left" data-l10n-bind-title="'core.navigateleft'" data-ng-click="$event.stopPropagation();ctrl.navigatePrevious()"></button>
+        <button data-ng-if="ctrl.hasMultiplePages" type="button" class="btn fal fa-chevron-right" data-l10n-bind-title="'core.navigateright'" data-ng-click="$event.stopPropagation();ctrl.navigateNext()"></button>
+        <button data-ng-if="ctrl.hasMultiplePages" type="button" class="btn fal fa-chevron-double-right" data-l10n-bind-title="'core.navigatelast'" data-ng-click="$event.stopPropagation();ctrl.navigateLast()"></button>
+        <button data-ng-if="!ctrl.pdf && ctrl.image && ctrl.showDelete" type="button" class="btn fal fa-trash" data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.deleteInvoiceImage()"></button>
+    </div>
+    <div class="" style="height: calc(100% - 35px)">
+        <pdf-viewer data-ng-if="ctrl.pdf" pdf="ctrl.pdf" id="ctrl.id" edi-entry-id="ctrl.ediEntryId" supplier-invoice-id="ctrl.supplierInvoiceId" invoice-nr="ctrl.invoiceNr" show-delete="!ctrl.isReadonly && ctrl.showDelete" on-delete="$event.stopPropagation();ctrl.deleteInvoiceImage()" scale="ctrl.scale"></pdf-viewer>
+        <div data-ng-if="ctrl.image" style="overflow: scroll; height: 100%">
+            <img style="max-width: 100%; cursor: pointer;" data-ng-if="ctrl.image" data-ng-click="ctrl.showImage()" data-ng-src="data:image/jpg;base64,{{ctrl.image.image}}" />
+        </div>
+        <div ng-if="ctrl.failed">
+            <div data-l10n-bind="'core.unsupportedfileformat'"></div>
+            <a class="btn btn-default" data-ng-href="ctrl.downloadUrl" target="_blank" data-l10n-bind="'core.downloadfile'"></a>
+            <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.delete'" data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.deleteInvoiceImage()"></button>
+        </div>
+        <div ng-if="!ctrl.failed && !ctrl.image && !ctrl.pdf">
+            <div style="text-align: center; margin: 30%">
+                <i class="fal fa-image" style="font-size: 128px;"></i>
+                <div data-l10n-bind="'core.missingimage'" style="font-size: 24px;"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,177 @@
+@use '../../../../../shared/styles/core-styles/colors.scss';
+@use '../../../../../shared/styles/core-styles/fonts.scss';
+@use '../schedule-planning/schedule-planning-common.scss';
+
+.employee-row-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  border-bottom: 1px solid colors.$soe-border-color;
+  min-height: 27px;
+
+  &.is-loading {
+    pointer-events: none;
+    background-color: colors.$soe-color-neutral-light-grey;
+    animation: pulsating-opacity 1.5s linear infinite;
+  }
+
+  .employee-slot {
+    border-right-width: 2px;
+    // position: sticky;
+    // left: 0;
+    // background-color: colors.$soe-background-color;
+    // z-index: 1000;
+
+    &:hover {
+      background-color: colors.$soe-color-semantic-information-5;
+    }
+    &.is-selected {
+      background-color: colors.$soe-color-semantic-information-20;
+    }
+
+    .is-undertime {
+      color: colors.$soe-color-semantic-information;
+    }
+
+    .is-overtime {
+      color: colors.$soe-color-semantic-error;
+    }
+
+    .employee-group {
+      font-size: fonts.$soe-font-size-sm;
+    }
+
+    .employee-time {
+      text-align: end;
+    }
+
+    .pin-icon {
+      float: right;
+      cursor: pointer;
+      color: colors.$soe-disabled-text-color;
+
+      &.is-pinned {
+        color: colors.$soe-color-semantic-information;
+      }
+
+      &:hover {
+        color: colors.$soe-color-semantic-information;
+      }
+    }
+  }
+
+  .time-slots {
+    /* Day view */
+    .time-slot-hours-container {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      width: 100%;
+
+      .time-slot-hour {
+        border: 0px;
+        border-right: 1px solid colors.$soe-border-color;
+        padding: 0px;
+
+        &:hover {
+          background-color: colors.$soe-color-semantic-information-5;
+        }
+        &.is-selected {
+          background-color: colors.$soe-color-semantic-information-20;
+        }
+
+        &:last-child {
+          /* Remove right border on last time slot when scrollbar is not visible */
+          border-right: 0;
+        }
+
+        &.is-end-of-hour {
+          border-right-color: colors.$soe-color-neutral-grey;
+        }
+
+        .shift-container-day {
+          position: relative;
+
+          sp-shift {
+            position: absolute;
+          }
+        }
+      }
+    }
+
+    /* Schedule view (week) */
+    .time-slot {
+      &.time-slot-day:hover {
+        background-color: colors.$soe-color-semantic-information-5;
+      }
+
+      &.time-slot-day.is-selected {
+        background-color: colors.$soe-color-semantic-information-20;
+      }
+
+      &.time-slot-day,
+      &.time-slot-week-day {
+        cursor: pointer;
+
+        .shift-container-schedule {
+          sp-shift {
+            position: relative;
+            display: block;
+          }
+        }
+      }
+
+      &.time-slot-day.is-sunday {
+        border-right-width: 2px;
+      }
+
+      &.time-slot-day.is-today,
+      &.time-slot-day.is-saturday,
+      &.time-slot-day.is-sunday {
+        // Background color is set in schedule-planning-common.scss, unset it here
+        background-color: unset;
+      }
+
+      .shift-container-day,
+      .shift-container-schedule {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .shift-item {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0; // Makes it span full width of its positioned parent
+      }
+
+      .shift-item sp-shift {
+        display: block;
+        width: 100%;
+      }
+    }
+
+    .time-slot-hours-container.is-drag-hover,
+    .time-slot-day.is-drag-hover {
+      outline: 1px dashed colors.$soe-color-semantic-information !important;
+      background-color: colors.$soe-color-semantic-information-20 !important;
+      transition:
+        background-color 120ms,
+        outline 120ms;
+    }
+  }
+}
+
+// Pulsating animation for loading state
+@keyframes pulsating-opacity {
+  from {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 0.75;
+  }
+}

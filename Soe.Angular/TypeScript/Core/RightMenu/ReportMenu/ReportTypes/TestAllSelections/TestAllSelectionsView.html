@@ -1,0 +1,125 @@
+﻿<div>
+    <h1>Sida endast för test av urval!</h1>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <accounting-year-and-period-selection></accounting-year-and-period-selection>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <bool-selection on-selected="$ctrl.onAnySelectionUpdated('bool', selection)" label-key="common.selected" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <date-selection on-selected="$ctrl.onAnySelectionUpdated('date', selection)" label-key="common.date" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <date-selection on-selected="$ctrl.onDateRangeSelectionUpdated(selection)" label-key="common.datefrom" additional-label-key="common.dateto" show-range="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <date-time-interval-selection on-selected="$ctrl.onAnySelectionUpdated('dateTimeInterval', selection)" label-key="common.period" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <month-selection on-selected="$ctrl.onAnySelectionUpdated('month', selection)" label-key="common.month" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <week-selection on-selected="$ctrl.onAnySelectionUpdated('week', selection)" label-key="common.week" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <payroll-period-selection on-selected="$ctrl.onAnySelectionUpdated('payrollPeriod', selections)" label-key="common.period" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <time-period-selection on-selected="$ctrl.onAnySelectionUpdated('timePeriod', selection)" label-key="common.period" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <payroll-month-year-selection on-selected="$ctrl.onAnySelectionUpdated('payrollMonths', selections)" label-key="common.month" use-months="true" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <employees-selection on-selected="$ctrl.onAnySelectionUpdated('employees1', employeeSelection)" label-key="common.employees" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <employees-selection on-selected="$ctrl.onAnySelectionUpdated('employees2', employeeSelection)" label-key="common.employees" enable-filters="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <category-selection on-selected="$ctrl.onAnySelectionUpdated('categories', selection)" label-key="common.categories" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <payroll-product-selection on-selected="$ctrl.onAnySelectionUpdated('payrollProduct', selections)" label-key="common.payrollproduct" can-add="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <vacation-group-selection on-selected="$ctrl.onAnySelectionUpdated('vacationGroups', selection)" label-key="common.vacationgroups" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <time-accumulator-selection on-selected="$ctrl.onAnySelectionUpdated('timeAccumulators', selection)" label-key="common.balance" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

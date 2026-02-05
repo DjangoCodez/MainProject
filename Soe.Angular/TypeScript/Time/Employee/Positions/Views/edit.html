@@ -1,0 +1,55 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div>
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+        <soe-panel label-key="time.employee.position.position">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.code" model="ctrl.position.code" maxlength="50"></soe-textbox>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-checkbox label-key="time.employee.position.linksys" model="ctrl.isLinked" inline="true" on-changing="ctrl.isLinkedChanged()"></soe-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.name" model="ctrl.position.name" required="true" maxlength="100"></soe-textbox>
+                    </div>
+                    <div class="col-sm-4">
+                        <soe-select label-key="time.employee.position.sysposition" model="ctrl.position.sysPositionId" items="ctrl.sysPositions" options="item.sysPositionId as item.codeAndName for item in items" is-disabled="!ctrl.isLinked"></soe-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.description" model="ctrl.position.description" maxlength="512"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <uib-accordion>
+            <soe-accordion label-key="time.employee.position.skills">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <skills record-entity="37" selected-skills="ctrl.position.positionSkills" nbr-of-rows="5" hide-header="true" hide-date="true" read-only="!ctrl.modifyPermission"></skills>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.position"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

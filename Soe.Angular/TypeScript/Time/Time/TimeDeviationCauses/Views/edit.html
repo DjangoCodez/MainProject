@@ -1,0 +1,108 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+        <soe-panel label-key="time.time.timedeviationcause.timedeviationcauses" is-open="true">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-textbox label-key="common.name" model="ctrl.timeDeviationCause.name" required="true" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-textbox label-key="common.description" model="ctrl.timeDeviationCause.description" maxlength="512" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-textbox label-key="time.time.timedeviationcause.extcode" model="ctrl.timeDeviationCause.extCode" maxlength="20" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-textbox label-key="time.time.timedeviationcause.icon" model="ctrl.timeDeviationCause.imageSource" maxlength="20" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-select label-key="time.time.timedeviationcause.type" model="ctrl.timeDeviationCause.type" items="ctrl.types" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-select label-key="time.time.timedeviationcause.timecodeid" model="ctrl.timeDeviationCause.timeCodeId" items="ctrl.timeCodes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <soe-textbox label-key="time.time.timedeviationcause.employeeRequestPolicyNbrOfDaysBefore" model="ctrl.timeDeviationCause.employeeRequestPolicyNbrOfDaysBefore" numeric="true" decimals="0" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-checkbox label-key="time.time.timedeviationcause.employeeRequestPolicyNbrOfDaysBeforeCanOverride" model="ctrl.timeDeviationCause.employeeRequestPolicyNbrOfDaysBeforeCanOverride" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timedeviationcause.onlyWholeDay" model="ctrl.timeDeviationCause.onlyWholeDay" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timedeviationcause.showZeroDaysInAbsencePlanning" model="ctrl.timeDeviationCause.showZeroDaysInAbsencePlanning" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-textbox label-key="time.time.timedeviationcause.attachZeroDaysNbrOfDaysBefore" model="ctrl.timeDeviationCause.attachZeroDaysNbrOfDaysBefore" numeric="true" decimals="0" is-readonly="!ctrl.modifyPermission" style="width:280px;"></soe-textbox>
+                    <soe-textbox label-key="time.time.timedeviationcause.attachZeroDaysNbrOfDaysAfter" model="ctrl.timeDeviationCause.attachZeroDaysNbrOfDaysAfter" numeric="true" decimals="0" is-readonly="!ctrl.modifyPermission" style="width:280px;"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-checkbox label-key="time.time.timedeviationcause.changeDeviationCauseAccordingToPlannedAbsence" model="ctrl.timeDeviationCause.changeDeviationCauseAccordingToPlannedAbsence" inline="true" data-ng-click="ctrl.checkFields()" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+
+                    <soe-textbox label-key="time.time.timedeviationcause.changeCauseOutsideOfPlannedAbsence" model="ctrl.timeDeviationCause.changeCauseOutsideOfPlannedAbsence" numeric="true" decimals="0" is-readonly="!ctrl.modifyPermission" ng-hide="!ctrl.showFields" style="width:280px;"></soe-textbox>
+                    <soe-textbox label-key="time.time.timedeviationcause.changeCauseInsideOfPlannedAbsence" model="ctrl.timeDeviationCause.changeCauseInsideOfPlannedAbsence" numeric="true" decimals="0" is-readonly="!ctrl.modifyPermission" ng-hide="!ctrl.showFields" style="width:280px;"></soe-textbox>
+                    <soe-textbox label-key="time.time.timedeviationcause.adjustTimeOutsideOfPlannedAbsence" model="ctrl.timeDeviationCause.adjustTimeOutsideOfPlannedAbsence" numeric="true" decimals="0" is-readonly="!ctrl.modifyPermission" ng-hide="!ctrl.showFields" style="width:280px;"></soe-textbox>
+                    <soe-textbox label-key="time.time.timedeviationcause.adjustTimeInsideOfPlannedAbsence" model="ctrl.timeDeviationCause.adjustTimeInsideOfPlannedAbsence" numeric="true" decimals="0" is-readonly="!ctrl.modifyPermission" ng-hide="!ctrl.showFields" style="width:280px;"></soe-textbox>
+                    <soe-checkbox label-key="time.time.timedeviationcause.allowGapToPlannedAbsence" model="ctrl.timeDeviationCause.allowGapToPlannedAbsence" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+
+                    <soe-checkbox label-key="time.time.timedeviationcause.isVacation" model="ctrl.timeDeviationCause.isVacation" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timedeviationcause.specifyChild" model="ctrl.timeDeviationCause.specifyChild" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timedeviationcause.payed" model="ctrl.timeDeviationCause.payed" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timedeviationcause.notChargeable" model="ctrl.timeDeviationCause.notChargeable" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timedeviationcause.mandatoryNote" model="ctrl.timeDeviationCause.mandatoryNote" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timedeviationcause.mandatoryTime" model="ctrl.timeDeviationCause.mandatoryTime" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timedeviationcause.excludeFromPresenceWorkRules" model="ctrl.timeDeviationCause.excludeFromPresenceWorkRules" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timedeviationcause.excludeFromScheduleWorkRules" model="ctrl.timeDeviationCause.excludeFromScheduleWorkRules" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timedeviationcause.validForStandby" model="ctrl.timeDeviationCause.validForStandby" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timedeviationcause.validforhibernating" model="ctrl.timeDeviationCause.validForHibernating" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timedeviationcause.candidateforovertime" model="ctrl.timeDeviationCause.candidateForOvertime" inline="true" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                    <soe-checkbox label-key="time.time.timedeviationcause.calculateasothertimeinsales" model="ctrl.timeDeviationCause.calculateAsOtherTimeInSales" inline="true" is-readonly="!ctrl.modifyPermission" ng-if="ctrl.useExtendedTimeRegistration"></soe-checkbox>
+
+                </div>
+            </div>
+            
+</soe-panel>
+
+        <div class="row margin-large-top margin-large-bottom">
+            <div class="col-sm-6">
+                <time-code-payroll-products time-code-products="ctrl.timeDeviationCause.payrollProducts" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></time-code-payroll-products>
+            </div>
+            <div class="col-sm-6">
+                <time-code-invoice-products time-code-products="ctrl.timeDeviationCause.invoiceProducts" time-code-type="ctrl.timeDeviationCause.type" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></time-code-invoice-products>
+            </div>
+        </div>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.timeDeviationCause"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <!-- <div class="col"><soe-checkbox label-key="common.active" model="ctrl.timeDeviationCause.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div> -->
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                        <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>

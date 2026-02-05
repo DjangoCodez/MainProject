@@ -1,0 +1,37 @@
+<soe-dialog>
+  <div dialog-content>
+    <div class="instruction-container">
+      @if (this.failedEmployeesErrorMessage().length > 0) {
+        <soe-instruction
+          [text]="this.failedEmployeesErrorMessage().join('\n')"
+          [inline]="true"
+          [fitToContent]="false"
+          [type]="'warning'"></soe-instruction>
+      }
+      @if (this.progressMessage()) {
+        <soe-instruction
+          [text]="progressMessage()"
+          [inline]="true"
+          [fitToContent]="false"
+          [type]="this.progressMessageType()"></soe-instruction>
+      }
+    </div>
+    @if (this.currentHead()) {
+      <soe-placements-pending-recalculation-dialog-grid
+        [records]="
+          this.currentHead()?.records || []
+        "></soe-placements-pending-recalculation-dialog-grid>
+    }
+  </div>
+  <div dialog-footer>
+    <div class="d-flex justify-content-end">
+      <soe-button
+        class="ms-3"
+        [caption]="'core.ok'"
+        [tooltip]="'core.ok'"
+        [behaviour]="'standard'"
+        [disabled]="activating()"
+        (action)="cancel()">
+      </soe-button>
+    </div></div
+></soe-dialog>

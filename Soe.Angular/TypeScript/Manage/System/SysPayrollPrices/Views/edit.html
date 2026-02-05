@@ -1,0 +1,88 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div class="margin-large-top" data-ng-if="!ctrl.progress.progressBusy && ctrl.isNew">
+        <span class="warning largeFont" data-l10n-bind="'manage.system.syspayrollprices.syspayrollprice.notfound'"></span>
+    </div>
+
+    <div data-ng-if="!ctrl.progress.progressBusy && !ctrl.isNew">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups">
+            <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+        </soe-toolbar>
+
+        <div class="row margin-large-top">
+            <div class="col-sm-6">
+                <soe-panel label-key="manage.system.syspayrollprices.syspayrollprice">
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.type" model="ctrl.sysPayrollPrice.typeName" readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.code" model="ctrl.sysPayrollPrice.code" readonly="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.name" model="ctrl.sysPayrollPrice.name" readonly="true"></soe-textbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.value" model="ctrl.sysPayrollPrice.amount" numeric="true" decimals="2" required="true" set-focus="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-select label-key="manage.system.syspayrollprices.amounttype" model="ctrl.sysPayrollPrice.amountType" items="ctrl.amountTypes" options="item.id as item.name for item in items" required="true"></soe-select>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-datepicker label-key="common.fromdate" model="ctrl.sysPayrollPrice.fromDate" required="true"></soe-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                </soe-panel>
+            </div>
+            <div class="col-sm-6" data-ng-if="ctrl.sysPayrollPrice.showIntervals">
+                <soe-panel label-key="manage.system.syspayrollprices.syspayrollprice.intervals" condensed="true">
+                    <table class="table table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 20px"></th>
+                                <th scope="col" style="width: 100px" class="right-align-cell" data-l10n-bind="'common.fromdate'"></th>
+                                <th scope="col" style="width: 100px" class="right-align-cell" data-l10n-bind="'common.todate'"></th>
+                                <th scope="col" style="width: 100px" class="right-align-cell" data-l10n-bind="'common.value'"></th>
+                                <th scope="col" data-l10n-bind="'manage.system.syspayrollprices.amounttype'"></th>
+                                <th scope="col" class="table-header-button" style="width: 84px;" colspan="3" data-ng-click="ctrl.editInterval(null);">
+                                    <span data-l10n-bind data-l10n-bind-title="'common.newrow'"><i class="fal fa-plus"></i><span data-l10n-bind="'core.newrow'"></span></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody data-ng-repeat="interval in ctrl.sysPayrollPrice.intervals | orderBy:['-!fromInterval', 'fromInterval']">
+                            <tr data-ng-class="{'table-selected-row': ctrl.selectedInterval === interval}" data-ng-click="ctrl.selectedInterval = interval">
+                                <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedInterval === interval"></i></td>
+                                <td style="width: 100px" class="right-align-cell"><span>{{interval.fromInterval}}</span></td>
+                                <td style="width: 100px" class="right-align-cell"><span>{{interval.toInterval}}</span></td>
+                                <td style="width: 100px" class="right-align-cell"><span>{{interval.amount | amount}}</span></td>
+                                <td><span>{{interval.amountTypeName}}</span></td>
+                                <td style="width: 28px"></td>
+                                <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-click="ctrl.editInterval(interval);"></i></span></td>
+                                <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-click="ctrl.deleteInterval(interval);"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </soe-panel>
+            </div>
+        </div>
+
+        <div class="ngSoeFormFooter margin-large-top">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.sysPayrollPrice"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

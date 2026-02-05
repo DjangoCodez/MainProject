@@ -1,0 +1,245 @@
+<soe-dialog>
+  <div dialog-content class="px-3 py-3" [formGroup]="form">
+    <div class="row">
+      <div class="col-sm-12">
+        <soe-instruction
+          [type]="'info'"
+          [text]="'common.batchupdate.howto'"></soe-instruction>
+      </div>
+    </div>
+    <div class="row" [ngClass]="{ 'mb-3': !doShowFilter() }">
+      <div class="col-sm-12">
+        <soe-select
+          [labelKey]="'common.batchupdate.field'"
+          formControlName="selectedFieldId"
+          [items]="notAddedBatchUpdates()"
+          [optionIdField]="'field'"
+          [optionNameField]="'label'">
+          <soe-icon-button
+            [iconName]="'plus'"
+            (action)="addRow()"></soe-icon-button>
+        </soe-select>
+      </div>
+    </div>
+    @if (doShowFilter()) {
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <soe-multi-select
+            [labelKey]="filterTranslationKey"
+            formControlName="filterIds"
+            [items]="filterOptions"></soe-multi-select>
+        </div>
+      </div>
+    }
+    @if (form.batchUpdates.length > 0) {
+      <div class="row mt-3">
+        <soe-expansion-panel
+          [labelKey]="'common.batchupdate.newvalues'"
+          [open]="true"
+          [static]="true">
+          <div class="row">
+            <div class="col-sm-4">
+              <soe-label [labelKey]="'common.batchupdate.field'"></soe-label>
+            </div>
+            @if (!doShowDates()) {
+              <div class="col-sm-1">&nbsp;</div>
+            }
+            <div
+              [ngClass]="doShowDates() ? 'col-sm-3' : 'col-sm-6 '"
+              class="ps-3">
+              <soe-label [labelKey]="'common.batchupdate.valueto'"></soe-label>
+            </div>
+            @if (doShowDates()) {
+              <div class="col-sm-2 ps-3">
+                <soe-label [labelKey]="'common.startdate'"></soe-label>
+              </div>
+              <div class="col-sm-2 ps-3">
+                <soe-label [labelKey]="'common.stopdate'"></soe-label>
+              </div>
+            }
+            <div class="col-sm-1 col">&nbsp;</div>
+          </div>
+          @for (
+            batchUpdate of form.batchUpdates.controls;
+            track idx;
+            let idx = $index
+          ) {
+            <div class="row mt-2" [formGroup]="batchUpdate">
+              <div class="col-sm-4 pt-1">
+                <span class="font-md">{{ batchUpdate.label.value }}</span>
+              </div>
+              @if (!doShowDates()) {
+                <div class="col-sm-1 pt-1">
+                  <fa-icon [icon]="['fal', 'equals']" class="mt-3"></fa-icon>
+                </div>
+              }
+              <div [ngClass]="doShowDates() ? 'col-sm-3' : 'col-sm-6'">
+                @switch (batchUpdate.fieldType.value) {
+                  @case (1) {
+                    <soe-textbox
+                      [inline]="true"
+                      [formControl]="batchUpdate.stringValue"></soe-textbox>
+                  }
+                  @case (2) {
+                    <soe-numberbox
+                      [inline]="true"
+                      [formControl]="batchUpdate.intValue"></soe-numberbox>
+                  }
+                  @case (3) {
+                    <soe-checkbox
+                      [formControl]="batchUpdate.boolValue"></soe-checkbox>
+                  }
+                  @case (4) {
+                    <soe-datepicker
+                      [inline]="true"
+                      [formControl]="batchUpdate.dateValue"></soe-datepicker>
+                  }
+                  @case (5) {
+                    <soe-numberbox
+                      [inline]="true"
+                      [decimals]="2"
+                      [formControl]="batchUpdate.decimalValue"></soe-numberbox>
+                  }
+                  @case (6) {
+                    <soe-timebox
+                      [inline]="true"
+                      [formControl]="batchUpdate.timeValue"></soe-timebox>
+                  }
+                  @case (7) {
+                    <soe-select
+                      [inline]="true"
+                      [formControl]="batchUpdate.intValue"
+                      [items]="batchUpdate?.options?.value ?? []"></soe-select>
+                  }
+                }
+              </div>
+              @if (doShowDates()) {
+                <div class="col-sm-2">
+                  <soe-datepicker
+                    [formControl]="batchUpdate.fromDate"
+                    [inline]="true"
+                    (valueChanged)="
+                      selectedFromDateChanged(idx)
+                    "></soe-datepicker>
+                </div>
+                <div class="col-sm-2">
+                  <soe-datepicker
+                    [formControl]="batchUpdate.toDate"
+                    [inline]="true"
+                    (valueChanged)="
+                      selectedToDateChanged(idx)
+                    "></soe-datepicker>
+                </div>
+              }
+              <div class="col-sm-1">
+                <soe-icon-button
+                  [iconName]="'times'"
+                  [iconClass]="'icon-delete'"
+                  (action)="
+                    removeRow(idx, batchUpdate.value)
+                  "></soe-icon-button>
+              </div>
+            </div>
+            @for (
+              batchUpdateChild of batchUpdate.children.controls;
+              track idxChild;
+              let idxChild = $index
+            ) {
+              <div class="row mt-2" [formGroup]="batchUpdateChild">
+                <div class="col-md-5">
+                  <span class="font-md">{{
+                    batchUpdateChild.label.value
+                  }}</span>
+                </div>
+                <div [ngClass]="doShowDates() ? 'col-sm-3' : 'col-sm-6'">
+                  @switch (batchUpdateChild.fieldType.value) {
+                    @case (1) {
+                      <soe-textbox
+                        [inline]="true"
+                        [formControl]="
+                          batchUpdateChild.stringValue
+                        "></soe-textbox>
+                    }
+                    @case (2) {
+                      <soe-numberbox
+                        [inline]="true"
+                        [formControl]="
+                          batchUpdateChild.intValue
+                        "></soe-numberbox>
+                    }
+                    @case (3) {
+                      <soe-checkbox
+                        [formControl]="
+                          batchUpdateChild.boolValue
+                        "></soe-checkbox>
+                    }
+                    @case (4) {
+                      <soe-datepicker
+                        [inline]="true"
+                        [formControl]="
+                          batchUpdateChild.dateValue
+                        "></soe-datepicker>
+                    }
+                    @case (5) {
+                      <soe-numberbox
+                        [inline]="true"
+                        [decimals]="2"
+                        [formControl]="
+                          batchUpdateChild.decimalValue
+                        "></soe-numberbox>
+                    }
+                    @case (6) {
+                      <soe-timebox
+                        [inline]="true"
+                        [formControl]="
+                          batchUpdateChild.timeValue
+                        "></soe-timebox>
+                    }
+                    @case (7) {
+                      <soe-select
+                        [inline]="true"
+                        [formControl]="batchUpdateChild.intValue"
+                        [items]="
+                          batchUpdateChild?.options?.value ?? []
+                        "></soe-select>
+                    }
+                  }
+                </div>
+                <div [ngClass]="doShowDates() ? 'col-sm-5' : 'col-sm-1'">
+                  &nbsp;
+                </div>
+              </div>
+            }
+          }
+        </soe-expansion-panel>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-instruction
+              [type]="'info'"
+              [text]="batchUpdateInfoText()"></soe-instruction>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+  <div dialog-footer class="w-100">
+    <div class="d-flex justify-content-between">
+      <div>
+        <span class="font-md">{{ this.idCountText() }}</span>
+      </div>
+      <div>
+        <soe-button
+          (action)="closeDialog()"
+          [caption]="'core.cancel'"
+          [behaviour]="'standard'"></soe-button>
+        <soe-save-button
+          [caption]="'core.ok'"
+          [disabled]="addedBatchUpdates.length === 0"
+          [invalid]="form.invalid"
+          [dirty]="form.dirty"
+          (validationErrorsAction)="form.openFormValidationErrors()"
+          (action)="triggerSave()"></soe-save-button>
+      </div>
+    </div>
+  </div>
+</soe-dialog>

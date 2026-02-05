@@ -1,0 +1,40 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-instruction
+              text="billing.invoices.householddeduction.setseqnrdialoginfo"></soe-instruction>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10"></div>
+          <div class="col-sm-2 pull-right">
+            <soe-numberbox
+              [labelKey]="'common.customer.invoices.seqnr'"
+              [disallowNegative]="true"
+              [decimals]="0"
+              (valueChanged)="onSequenceNumberChange($event)"
+              formControlName="sequenceNumber"></soe-numberbox>
+          </div>
+        </div>
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    <soe-button
+      (action)="closeDialog()"
+      [caption]="'core.cancel'"
+      [behaviour]="'standard'"></soe-button>
+    <soe-button
+      class="ms-3"
+      [caption]="'core.ok'"
+      (action)="triggerOk()"
+      [disabled]="okButtonDisabled()"></soe-button>
+  </div>
+</soe-dialog>

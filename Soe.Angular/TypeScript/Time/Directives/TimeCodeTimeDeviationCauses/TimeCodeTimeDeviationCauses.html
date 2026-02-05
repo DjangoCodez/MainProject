@@ -1,0 +1,26 @@
+﻿<div>
+    <soe-accordion label-key="time.time.timecodebreaks.timecodetimedeviationcause" is-open="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.edit();">
+        <div>
+            <table class="table table-outer-bordered table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 20px"></th>
+                        <th scope="col" data-l10n-bind="'common.time.timedeviationcause'"></th>
+                        <th scope="col" data-l10n-bind="'time.time.timecode.timecode'"></th>
+                        <th scope="col" style="width: 28px"></th>
+                        <th scope="col" style="width: 28px"></th>
+                    </tr>
+                </thead>
+                <tbody data-ng-repeat="row in ctrl.rows">
+                    <tr data-ng-class="{'table-selected-row': ctrl.selectedRow === row}" data-ng-click="ctrl.selectedRow = row">
+                        <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedRow === row"></i></td>
+                        <td><span>{{row.timeDeviationCauseName}}</span></td>
+                        <td><span>{{row.timeCodeName}}</span></td>
+                        <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.edit(row);"></i></span></td>
+                        <td><span data-l10n-bind data-l10n-bind-title="'core.deleterow'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.delete(row);"></i></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </soe-accordion>
+</div>

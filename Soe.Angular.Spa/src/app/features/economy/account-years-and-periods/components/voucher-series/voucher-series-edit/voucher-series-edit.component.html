@@ -1,0 +1,72 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [static]="true"
+      [labelKey]="'economy.accounting.voucherseriestype'">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-numberbox
+            [labelKey]="
+              'economy.accounting.voucherseriestype.voucherseriestypenr'
+            "
+            [maxLength]="9"
+            [noFormatting]="true"
+            formControlName="voucherSeriesTypeNr">
+          </soe-numberbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'economy.accounting.voucherseriestype.name'"
+            [maxLength]="100"
+            formControlName="name">
+          </soe-textbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-numberbox
+            [labelKey]="'economy.accounting.voucherseriestype.startnr'"
+            [maxLength]="18"
+            [noFormatting]="true"
+            formControlName="startNr">
+          </soe-numberbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-checkbox
+            [labelKey]="'economy.accounting.voucherseriestype.yearendserie'"
+            formControlName="yearEndSerie">
+          </soe-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-checkbox
+            [labelKey]="'economy.accounting.voucherseriestype.externalserie'"
+            formControlName="externalSerie">
+          </soe-checkbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-edit-footer
+      class="mt-0"
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

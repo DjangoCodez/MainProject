@@ -1,0 +1,66 @@
+<soe-core-styles>
+  <div class="soe-tabs-wrapper" (keydown.enter)="$event.preventDefault()">
+    <div class="soe-tabs" [class.has-scrollbar]="hasScrollbar()">
+      @for (tab of tabs; track tab; let i = $index) {
+        <button
+          class="soe-tab"
+          [attr.data-testid]="'tab-' + i"
+          [class.selected]="activeIndex() === i"
+          [title]="tab.label() | translate"
+          [disabled]="tab.disabled()"
+          soeUnsavedChanges
+          [hasChanged]="tab.isDirty() || false"
+          (click)="selectTab(i)">
+          <div class="soe-tab__label" (dblclick)="tabDoubleClick(tab)">
+            @if (tab.label()) {
+              <span [innerHTML]="tab.label() | translate"></span>
+            }
+          </div>
+          @if (tab.isDirty()) {
+            <div
+              class="soe-tab-icon-dirty"
+              [attr.data-testid]="'tab-' + i + '-dirty'">
+              <fa-icon class="soe-tab__icon" [icon]="faAsterisk"></fa-icon>
+            </div>
+          }
+          @if (tab.closable()) {
+            <button
+              tabindex="0"
+              (click)="removeTab($event, i)"
+              [attr.data-testid]="'tab-' + i + '-close'">
+              <div class="close-tab-icon">
+                <fa-icon class="soe-tab__icon" [icon]="faTimes"></fa-icon>
+              </div>
+            </button>
+          }
+        </button>
+      }
+      @if (!hideAdd()) {
+        <button
+          data-testid="add-tab-button"
+          class="soe-tab soe-tab__add-tab-button slim"
+          [title]="'core.add' | translate"
+          [disabled]="!hasAddPermission() || preventNewTabs()"
+          (click)="addTab()">
+          <fa-icon class="soe-tab__icon add-tab-icon" [icon]="faPlus"></fa-icon>
+        </button>
+      }
+      @if (!hideCloseAll()) {
+        <button
+          data-testid="close-all-tabs-button"
+          class="soe-tab slim"
+          [title]="'core.close_all_tabs' | translate"
+          [disabled]="disabledCloseAll()"
+          (click)="removeAllTabs()">
+          <fa-icon
+            class="soe-tab__icon close-all-tabs-icon"
+            [icon]="faTimes"></fa-icon>
+        </button>
+      }
+    </div>
+
+    <div class="soe-tab-content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</soe-core-styles>

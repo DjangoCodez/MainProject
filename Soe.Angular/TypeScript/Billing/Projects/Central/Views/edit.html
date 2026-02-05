@@ -1,0 +1,143 @@
+﻿<div class="ngSoeForm form-group form-group-sm">
+    <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+    <uib-accordion close-others="false">
+        <soe-accordion hidelabel="true" label-value="ctrl.projectInfoLabel" is-open="ctrl.infoAccordionOpen">
+            <div data-ng-if="ctrl.showBreadCrumbs">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <soe-label label-key="billing.projects.list.mainproject"></soe-label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col" ng-repeat="project in ctrl.projectBreadCrumbs">
+                            <span ng-hide="$first">&nbsp;>&nbsp;</span>
+                            <span ng-class="{ 'spanClickable' : project.projectId != ctrl.projectId }" data-ng-click="ctrl.changeActiveProject(project, false);">{{project.number}}&nbsp;{{project.name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-small-top">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <soe-label label-key="billing.project.project"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label label-key="billing.projects.list.customer"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label label-key="billing.projects.list.leader"></soe-label>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-label label-key="billing.projects.list.status"></soe-label>
+                    </div>
+                </div>
+                <div class="row margin-small-top">
+                    <div class="col-sm-2">
+                        <span ng-class="{ 'spanClickable' : ctrl.hasEditProjectPermission }" data-ng-click="ctrl.openProject();">{{ctrl.project.number}}&nbsp;{{ctrl.project.name}}</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <span ng-class="{ 'spanClickable' : ctrl.hasEditCustomerPermission }" data-ng-click="ctrl.openCustomer();">{{ctrl.project.customerNr}}&nbsp;{{ctrl.project.customerName}}</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet">{{ctrl.project.managerName}}</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="discreet">{{ctrl.project.statusName}}</label>
+                    </div>
+                </div>
+            </div>
+        </soe-accordion>
+    </uib-accordion>
+    <soe-panel label-key="billing.project.central.selection">
+        <div class="row margin-small-top" style="margin-top:-20px">
+            <div class="col-sm-2">
+                <soe-datepicker placeholder-key="common.from" model="ctrl.fromDate" second-model="ctrl.toDate" validate-date-range="true" is-start-in-range="true" on-change="ctrl.validateSearchInterval()"></soe-datepicker>
+            </div>
+            <div class="col-sm-2">
+                <soe-datepicker placeholder-key="common.to" model="ctrl.toDate" second-model="ctrl.fromDate" validate-date-range="true" on-change="ctrl.validateSearchInterval()"></soe-datepicker>
+            </div>
+            <div class="col-sm-6">
+                <soe-checkbox inline="true" style="display: inline-block;" label-key="billing.project.central.inclchildprojects" model="ctrl.includeChildProjects" data-ng-click="ctrl.childProjectChanged()"></soe-checkbox>
+                <soe-checkbox inline="true" style="display: inline-block;" label-key="billing.project.central.showdetails" model="ctrl.loadDetails" data-ng-click="ctrl.showDetailsChanged()"></soe-checkbox>
+            </div>
+            <div class="col pull-right" style="margin-top: 20px;">
+                <div class="pull-right margin-small-right btn-group dropup">
+                    <button type="button" class="btn btn-sm btn-default ngSoeSplitButton ng-binding ngSoeMainButton" data-l10n-bind="'billing.project.central.getdata'" data-l10n-bind-title="'billing.project.central.getdata'" data-ng-click="ctrl.loadProjectData()" data-ng-disabled="!ctrl.project || !ctrl.searchIntervalValidated()"></button>
+                    <button type="button" class="btn btn-sm btn-default ngSoeSplitButton dropdown-toggle ngSoeMainButton" data-l10n-bind-title="'billing.project.central.clearselection'" data-ng-click="ctrl.clearSelection()">
+                        <span class="fal fa-filter"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </soe-panel>
+    <div class="row margin-small-top">
+        <div class="col-sm-12">
+            <div id="project-central-grid" ag-grid="ctrl.gridHandler.gridAg.options.gridOptions" class="ag-theme-balham" prevent-enter></div>
+        </div>
+    </div>
+    <div class="info margin-small-top">
+        <div class="row margin-small-top">
+            <div class="col-sm-2">
+                <soe-label class="pull-right" label-key="billing.project.central.incomeinvoiced"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label class="pull-right" label-key="billing.project.central.costs"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label class="pull-right" label-key="billing.project.central.result"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label class="pull-right" label-key="billing.project.central.resultbudget"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label class="pull-right" label-key="billing.project.central.marginalincomeratio"></soe-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="pull-right discreet">{{ctrl.incomeinvoiced | amount}}</label>
+            </div>
+            <div class="col-sm-2">
+                <label class="pull-right discreet">{{ctrl.costs | amount}}</label>
+            </div>
+            <div class="col-sm-2">
+                <label class="pull-right discreet">{{ctrl.result | amount}}</label>
+            </div>
+            <div class="col-sm-2">
+                <label class="pull-right discreet">{{ctrl.resultbudget | amount}}</label>
+            </div>
+            <div class="col-sm-2">
+                <label class="pull-right discreet">{{ctrl.marginalincomeratio | amount}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <soe-label class="pull-right" label-key="billing.project.central.days"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label class="pull-right" label-key="billing.project.central.workedhours"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label class="pull-right" label-key="billing.project.central.notbilledhours"></soe-label>
+            </div>
+            <div class="col-sm-2">
+                <soe-label class="pull-right" label-key="billing.project.central.fixedprice"></soe-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="pull-right discreet">{{ctrl.days}}</label>
+            </div>
+            <div class="col-sm-2">
+                <label class="pull-right discreet">{{ctrl.workedhours | amount}}</label>
+            </div>
+            <div class="col-sm-2">
+                <label class="pull-right discreet">{{ctrl.notbilledhours | amount}}</label>
+            </div>
+            <div class="col-sm-2">
+                <label class="pull-right discreet">{{ctrl.fixedprice | amount}}</label>
+            </div>
+        </div>
+    </div>
+</div>

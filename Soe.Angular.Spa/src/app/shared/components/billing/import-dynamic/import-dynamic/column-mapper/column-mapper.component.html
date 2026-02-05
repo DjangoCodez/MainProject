@@ -1,0 +1,100 @@
+<div class="soe-column-mapper row" cdkDropListGroup>
+  <div class="soe-column-mapper__columns col-xs-12 col-sm-4">
+    <soe-expansion-panel
+      [labelKey]="'common.importdynamic.filevalues'"
+      [static]="true">
+      <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10 col-offset-1">
+          <soe-record-navigator
+            [isDate]="false"
+            [records]="recordNavRecords"
+            [hideDropdown]="true"
+            (recordChanged)="recordChanged($event)"></soe-record-navigator>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mt-2">
+          <ul cdkDropList cdkDropListSortingDisabled>
+            @for (column of columns; track column) {
+              <li
+                cdkDrag
+                (cdkDragStarted)="dragStarted()"
+                (cdkDragEnded)="dragEnded($event, column)"
+                [class.disable-taken]="disableMultipleSelection"
+                [class.taken]="assignedColumns.includes(column.columnIndex)">
+                {{ getReferenceValue(column.columnIndex) }}
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </soe-expansion-panel>
+  </div>
+  <div class="soe-column-mapper__form col-xs-12 col-sm-8">
+    <soe-expansion-panel [labelKey]="'common.field'" [static]="true">
+      <div class="row">
+        @for (key of fields(); track key) {
+          <div class="col-xs-12 col-sm-6 mb-2">
+            <label class="form-label" [for]="key.field">{{
+              key.label | translate
+            }}</label>
+            @if (key.isRequired) {
+              <span>
+                <fa-icon class="icon-required" [icon]="faAsterisk"></fa-icon>
+              </span>
+            }
+            <div class="d-flex align-center">
+              <input
+                type="text"
+                class="form-control"
+                cdkDropList
+                [class.dragging]="isDragging"
+                [id]="key.field"
+                readonly
+                [value]="
+                  mappedObject[key.field]
+                    ? getReferenceValue(
+                        mappedObject[key.field]?.columnIndex ?? -1
+                      )
+                    : ''
+                " />
+              @if (mappedObject[key.field]) {
+                <soe-icon-button
+                  (action)="unlinkFormItem(key)"
+                  iconName="unlink"
+                  aria-label="Remove connection"></soe-icon-button>
+              }
+              <soe-icon-button
+                [iconName]="'gear-complex'"
+                aria-label="Field default values"
+                (action)="showFieldOption(key)"></soe-icon-button>
+            </div>
+          </div>
+        }
+      </div>
+    </soe-expansion-panel>
+    <div class="row">
+      <div [formGroup]="importDynamicForm" class="col-12 ps-4">
+        <soe-checkbox
+          [labelKey]="'common.importdynamic.skipfirstrow'"
+          [formControl]="importDynamicForm.options.skipFirstRow"></soe-checkbox>
+        <soe-checkbox
+          [labelKey]="'common.importdynamic.importnew'"
+          [formControl]="importDynamicForm.options.importNew"></soe-checkbox>
+        <soe-checkbox
+          [labelKey]="'common.importdynamic.importexisting'"
+          [formControl]="
+            importDynamicForm.options.updateExisting
+          "></soe-checkbox>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <soe-instruction
+          [type]="'info'"
+          [text]="'common.importdynamic.linkfieldshelp'"></soe-instruction>
+      </div>
+    </div>
+  </div>
+</div>

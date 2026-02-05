@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:typer="http://collectum.se/typer/2.0" xmlns:flyttAnstalldaInomKoncern="http://collectum.se/paket/pa/flyttAnstalldaInomKoncern/3.0" targetNamespace="http://collectum.se/paket/pa/flyttAnstalldaInomKoncern/3.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://collectum.se/typer/2.0" schemaLocation="..\..\..\..\typer\2.0\centrala typer.xsd"/>
+	<xs:complexType name="FlyttAnstalldaInomKoncern">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">
+			2008-05-15 Rev 3.0
+			2020-01-14 version 3.1 Avtaladlon och Timanstalld inkluderas för ITP1 (ITSM 111149)
+			2021-05-20 version 3.2 AvtaladManadslon ersätter Avtaladlon och Timanstalld (UTV-7276)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Organisationsnummer" type="typer:Organisationsnummer"/>
+			<xs:element name="KostnadsstalleId" type="typer:KostnadsstalleId"/>
+			<xs:element name="Avtalsplanid" type="typer:Avtalsplanid"/>
+			<xs:element name="Personnummer" type="typer:Personnummer"/>
+			<xs:element name="Handelsetidpunkt" type="xs:date"/>
+			<xs:element name="OrganisationsnummerFran" type="typer:Organisationsnummer"/>
+			<xs:element name="KostnadsstalleIdFran" type="typer:KostnadsstalleId"/>
+			<xs:element name="AvtaladManadslon" type="typer:LonUtanOren" minOccurs="0"/>
+			<xs:element name="Tidsstampel" type="typer:Timestamp"/>
+		</xs:sequence>
+		<xs:attribute name="version" default="3.2.0.0"/>
+	</xs:complexType>
+</xs:schema>

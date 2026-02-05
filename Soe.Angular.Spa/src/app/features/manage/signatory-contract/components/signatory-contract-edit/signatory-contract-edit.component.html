@@ -1,0 +1,135 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)"
+>
+  <ng-content
+    toolbar-content-left
+    select="[toolbar-content-left]"
+  ></ng-content>
+</soe-toolbar>
+
+@if (form) {
+<form
+  [formGroup]="form"
+  class="soe-edit-form"
+  novalidate
+  autocomplete="off"
+>
+
+  <div class="row">
+    <div class="col-sm-6">
+
+      <div class="row">
+        <soe-select
+          [labelKey]="'manage.registry.signatorycontract.recipientuser'"
+          formControlName="recipientUserId"
+          [items]="users"
+        ></soe-select>
+      </div>
+      <div class="row">
+        <soe-select
+          [labelKey]="'manage.registry.signatorycontract.authenticationmethod'"
+          formControlName="requiredAuthenticationMethodType"
+          [items]="authenticationMethodTerms"
+        ></soe-select>
+      </div>
+      @if(!isNew()) {
+      <div class="row">
+
+        <soe-textbox
+          [labelKey]="'manage.registry.signatorycontract.signedbyuser'"
+          formControlName="signedByUserName"
+        ></soe-textbox>
+
+      </div>
+      }
+    </div>
+    <div class="col-sm-6">
+      <soe-signatory-contract-permission-edit-grid
+        #permissionEditGrid
+        [signatoryContractId]="form.signatoryContractId.value"
+        [editable]="isNew() && addPermission()"
+        (permissionChanged)="permissionChanged($event)"
+      >
+
+      </soe-signatory-contract-permission-edit-grid>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-sm-12">
+      <soe-sub-signatory-contract-edit-grid
+        #subSignatoryContractEditGrid
+        [signatoryContractId]="form.signatoryContractId.value"
+        [editable]="!isNew() && modifyPermission() && !isRevoked()"
+        [users]="users"
+        [parentPermissions]="form.permissionTypes.value"
+        (changeSubSignatoryContracts)="subSignatoryContractsChanged($event)"
+      >
+      </soe-sub-signatory-contract-edit-grid>
+    </div>
+  </div>
+
+  @if (form.revokedAt.value) {
+
+  <soe-expansion-panel
+    [secondaryLabelKey]="'manage.registry.signatorycontract.revoke'"
+    [secondaryLabelBold]="true"
+    [secondaryLabelParantheses]="false"
+    [static]="true"
+  >
+
+    <div class="row">
+      <div class="col-sm-2">
+        <soe-datepicker
+          [labelKey]="'manage.registry.signatorycontract.revokedat'"
+          formControlName="revokedAt"
+          [hideCalendarButton]="true"
+        >
+        </soe-datepicker>
+      </div>
+
+      <div class="col-sm-2">
+        <soe-textbox
+          [labelKey]="'manage.registry.signatorycontract.revokedby'"
+          formControlName="revokedBy"
+        ></soe-textbox>
+      </div>
+
+      <div class="col-sm-8">
+        <soe-textarea
+          [labelKey]="'manage.registry.signatorycontract.revokereason'"
+          formControlName="revokedReason"
+        ></soe-textarea>
+      </div>
+    </div>
+
+  </soe-expansion-panel>
+  }
+
+  <soe-edit-footer
+    [form]="form"
+    [idFieldName]="idFieldName"
+    [modifyPermission]="savePermission()"
+    [hideSave]="isRevoked() || !savePermission()"
+    [inProgress]="performAction.inProgress()"
+    [hideDelete]="true"
+    (saved)="performSave()"
+  >
+    @if (!form.revokedAt.value && !isNew() && revokePermission()) {
+    <div pageButtons>
+
+      <soe-button
+        [caption]="'manage.registry.signatorycontract.revoke'"
+        [behaviour]="'standard'"
+        (action)="showRevokeModal()"
+        class="ms-2"
+      >
+      </soe-button>
+    </div>
+    }
+  </soe-edit-footer>
+</form>
+}

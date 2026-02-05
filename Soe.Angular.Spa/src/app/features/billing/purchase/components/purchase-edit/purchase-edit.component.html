@@ -1,0 +1,435 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  @if (visibleAllowedStatusFunctionsButton()) {
+    <soe-menu-button
+      toolbar-content-right
+      [caption]="' '"
+      [list]="allowedStatusFunctions"
+      [disabled]="disableAllowedStatusFunctionsButton()"
+      [behaviour]="'secondary'"
+      [variant]="'split'"
+      [dropUp]="false"
+      (itemSelected)="executeStatusFunction($event)"
+      [selectedItem]="currentStatusOption">
+    </soe-menu-button>
+  }
+</soe-toolbar>
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel [labelKey]="headExpanderLabel()" [open]="true">
+      <div class="row g-3 align-items-center">
+        <div class="col p-0 m-0">
+          <div class="col-sm-4">
+            <soe-autocomplete
+              [labelKey]="'billing.purchase.supplier'"
+              [items]="supplierHelper.suppliers || []"
+              [limit]="20"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"
+              (valueChanged)="supplierOnChange($event)"
+              formControlName="supplierId">
+              <soe-icon-button
+                [hidden]="false"
+                [iconName]="'pen'"
+                (action)="openSupplier()">
+              </soe-icon-button>
+              <!-- enable -->
+              <soe-icon-button
+                [hidden]="false"
+                [disabled]="!isOriginState()"
+                [iconName]="'search'"
+                (action)="searchSupplier()">
+              </soe-icon-button>
+              <!-- disable when origin -->
+            </soe-autocomplete>
+          </div>
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="'billing.purchase.purchasenr'"
+              formControlName="purchaseNr">
+            </soe-textbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="'billing.purchase.purchasestatus'"
+              formControlName="statusName">
+            </soe-textbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="'billing.project.projectnr'"
+              formControlName="projectNr">
+              <soe-icon-button
+                [disabled]="!isOriginState()"
+                [iconName]="'exchange'"
+                [tooltip]="'billing.order.project.changeproject'"
+                (action)="openSelectProject()">
+              </soe-icon-button>
+              <!-- disable when origin -->
+              <soe-icon-button
+                [iconName]="'calculator-alt'"
+                [tooltip]="'billing.order.project.showprojectcentral'"
+                [disabled]="disableShowProjectCentralLinkButton()"
+                (action)="clickProjectCentralLink()">
+              </soe-icon-button>
+            </soe-textbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="'billing.order.ordernr'"
+              formControlName="orderNr">
+              <soe-icon-button
+                [disabled]="!isOriginState()"
+                [iconName]="'search'"
+                [tooltip]="'core.search'"
+                (action)="openCustomerInvoice()">
+              </soe-icon-button>
+              <!-- disable when origin -->
+            </soe-textbox>
+          </div>
+        </div>
+      </div>
+
+      <div class="row p-0 m-0">
+        <div class="col-sm-8">
+          <div class="mt-2">
+            <div class="form-label-container d-flex align-items-center">
+              <soe-label [labelKey]="'billing.order.users'"></soe-label>
+            </div>
+            <div class="d-flex input-group">
+              <div
+                disabled
+                class="form-control ng-pristine no-border-right-radius ng-valid ng-touched"
+                style="height: auto">
+                @for (
+                  user of form.value.originUsers;
+                  track user;
+                  let i = $index;
+                  let first = $first;
+                  let last = $last
+                ) {
+                  <span
+                    style="font-weight: bold"
+                    [ngStyle]="
+                      first
+                        ? { 'padding-right': '5px' }
+                        : { padding: '0px 5px' }
+                    "
+                    [ngClass]="user.main ? 'fw-bold' : 'fw-normal'"
+                    >{{ user.name }}{{ !last ? ',' : '' }}</span
+                  >
+                }
+              </div>
+              <div
+                class="d-flex align-center soe-button-group"
+                style="margin-left: 0px">
+                <soe-icon-button
+                  [disabled]="disabledParticipantButton()"
+                  [iconName]="'pen'"
+                  [tooltip]="'billing.order.users.select'"
+                  (action)="openSelectUser()">
+                </soe-icon-button>
+                <!-- disable when partlyDelivered -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row gy-3 align-items-center">
+        <div class="col mx-0 px-0">
+          <div class="col-sm-2">
+            <soe-textbox
+              [labelKey]="'economy.supplier.supplier.ourcustomernr'"
+              formControlName="supplierCustomerNr">
+            </soe-textbox>
+          </div>
+          <div class="col-sm-2">
+            <soe-autocomplete
+              [labelKey]="'billing.order.ourreference'"
+              [items]="ourReferencesId || []"
+              [limit]="20"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"
+              [defaultEmptyValue]="undefined"
+              formControlName="referenceOurId">
+            </soe-autocomplete>
+          </div>
+          <div class="col-sm-2">
+            <soe-autocomplete
+              [labelKey]="'common.customer.invoices.yourreference'"
+              [items]="supplierHelper.supplierReferences || []"
+              [limit]="20"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"
+              formControlName="referenceYour">
+              <soe-icon-button
+                [disabled]="disabledReferenceYourButton()"
+                [iconName]="'info-circle'"
+                (action)="showYourReferenceInfo()">
+              </soe-icon-button>
+              <!-- disable when referenceYour empty -->
+            </soe-autocomplete>
+          </div>
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'common.contactaddresses.ecommenu.email'"
+              [selectedId]="form.value.contactEComId"
+              [items]="supplierHelper.supplierEmails"
+              formControlName="contactEComId">
+              <soe-icon-button
+                [iconName]="'pen'"
+                [disabled]="disabledEditEmailButton()"
+                (action)="editEmail()">
+              </soe-icon-button>
+            </soe-select>
+          </div>
+        </div>
+      </div>
+      <div class="row p-0 m-0">
+        <div class="col-sm-8">
+          <soe-textbox
+            [labelKey]="'billing.order.invoicelabel'"
+            formControlName="purchaseLabel">
+          </soe-textbox>
+        </div>
+      </div>
+      <div class="row p-0 m-0">
+        <div class="col-sm-8">
+          <soe-textbox
+            [labelKey]="'billing.purchase.origindescription'"
+            formControlName="origindescription">
+          </soe-textbox>
+        </div>
+      </div>
+      <div class="row p-0">
+        <div class="col p-0">
+          <div class="col-sm-2">
+            <soe-datepicker
+              [labelKey]="'billing.purchase.purchasedate'"
+              formControlName="purchaseDate"></soe-datepicker>
+          </div>
+          <div class="col-sm-2">
+            <soe-datepicker
+              [labelKey]="'billing.purchaserows.wanteddeliverydate'"
+              formControlName="wantedDeliveryDate"></soe-datepicker>
+          </div>
+          <div class="col-sm-2">
+            <soe-datepicker
+              [labelKey]="'billing.purchaserows.accdeliverydate'"
+              formControlName="confirmedDeliveryDate"
+              [hideCalendarButton]="true">
+              <soe-icon-button
+                [disabled]="disabledSetPurchaseDateButton()"
+                [iconName]="'exchange'"
+                [tooltip]="'billing.purchaserows.accdeliverydate'"
+                (action)="openSetPurchaseDate(72)"></soe-icon-button>
+              <!-- disable when partlyDeliveredNonOrigin -->
+            </soe-datepicker>
+          </div>
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'billing.stock.stocks.stocks'"
+              [items]="stocks || []"
+              [optionIdField]="'stockId'"
+              [optionNameField]="'name'"
+              formControlName="stockId"
+              (valueChanged)="stockValueChanged($event)">
+            </soe-select>
+          </div>
+        </div>
+      </div>
+      <div class="row p-0">
+        <div class="col p-0">
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'common.customer.customer.deliverytype'"
+              [items]="deliveryTypes || []"
+              formControlName="deliveryTypeId">
+            </soe-select>
+          </div>
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'common.customer.customer.deliverycondition'"
+              [items]="deliveryConditions || []"
+              formControlName="deliveryConditionId">
+            </soe-select>
+          </div>
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'billing.order.deliveryaddress'"
+              [items]="deliveryAddresses || []"
+              [optionIdField]="'contactAddressId'"
+              [optionNameField]="'address'"
+              formControlName="deliveryAddressId">
+              <soe-icon-button
+                [disabled]="disabledGetDeliveryAddressesButton()"
+                [iconName]="'pen'"
+                [tooltip]="'billing.order.deliveryaddress.edit'"
+                (action)="editDeliveryAddress()">
+              </soe-icon-button>
+              <!-- disable when accepted -->
+              @if (visibleGetDeliveryAddressButton()) {
+                <soe-icon-button
+                  [disabled]="disabledGetDeliveryAddressesButton()"
+                  [iconName]="'address-book'"
+                  [tooltip]="'billing.purchase.deliveryaddressfromcustomer'"
+                  (action)="getDeliveryAddresses()">
+                </soe-icon-button>
+              }
+              <!-- disable when accepted -->
+            </soe-select>
+          </div>
+        </div>
+      </div>
+      <div class="row p-0">
+        <div class="col p-0 m-0">
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="'common.customer.invoices.paymentcondition'"
+              [selectedId]="form.value.paymentConditionId"
+              [items]="supplierHelper.paymentConditions || []"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"
+              formControlName="paymentConditionId">
+            </soe-select>
+          </div>
+          <div class="col-sm-2">
+            <soe-select
+              [disabled]="!isOriginState()"
+              [labelKey]="'common.currency'"
+              [items]="this.currencyService.currencies"
+              [optionIdField]="'currencyId'"
+              [optionNameField]="'name'"
+              formControlName="currencyId">
+            </soe-select>
+          </div>
+          @if (!this.currencyService.isBaseCurrency()) {
+            <div class="col-sm-2">
+              <soe-numberbox
+                [labelKey]="'common.customer.invoices.currencyrate'"
+                [secondaryLabelParantheses]="showCurrencyRateSecondaryLabel()"
+                [secondaryLabelKey]="currencyRateSecondaryLabel()"
+                formControlName="currencyRate"
+                [decimals]="2">
+              </soe-numberbox>
+            </div>
+          }
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [disabled]="disablePurchaseRows()"
+      [labelKey]="'billing.purchase.rows'"
+      [secondaryLabelParantheses]="false"
+      [secondaryLabelKey]="secondaryAccordionTitlePurchaseRows()"
+      (isOpened)="openPurchaseRowExpander()">
+      @if (purchaseRowsRendered()) {
+        <soe-purchase-rows
+          [rows]="purchaseRows"
+          [parentForm]="form"
+          [stockId]="form.value.stockId"
+          [stockCode]="form.value.stockCode"
+          [totalAmountExVatCurrency]="totalAmountExVatCurrency()"
+          (getTotal)="loadPurchaseRowsLabel($event)"
+          (rowDeleted)="purchaseRowDeleted($event)"
+          [useCentRounding]="useCentRounding"
+          [currencyService]="currencyService"
+          (getProject)="getProject()"
+          [originStatus]="originStatus"
+          [intrastatCodeId]="supplierHelper.supplier?.intrastatCodeId"
+          [sysCountryId]="
+            supplierHelper.supplier?.sysCountryId
+          "></soe-purchase-rows>
+      }
+    </soe-expansion-panel>
+    @if (deliveryPermission() && !form.isNew && !form.isCopy) {
+      <soe-expansion-panel
+        [labelKey]="'billing.purchase.delivery.deliveries'"
+        (isOpened)="toggleDeliveryRowsOpened($event)">
+        @if (deliveryRowsRendered()) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-delivery-rows
+                [rows]="purchaseDeliveryRows"
+                purchase-id="form.value.purchaseId"
+                delivery-rows="form.value.purchaseDelivaryRows"></soe-delivery-rows>
+            </div>
+          </div>
+        }
+      </soe-expansion-panel>
+    }
+    @if (orderRowsPermission() && form.value.purchaseId && !form.isCopy) {
+      <soe-expansion-panel
+        [labelKey]="'billing.purchase.orderrows'"
+        (isOpened)="toggleCustomerInvoiceRowsOpened($event)">
+        @if (customerInvoiceRowsRendered()) {
+          <soe-purchase-customer-invoice-rows
+            purchase-id="form.value.purchaseId"
+            [id]="form.value.purchaseId"
+            [viewType]="viewType"></soe-purchase-customer-invoice-rows>
+        }
+      </soe-expansion-panel>
+    }
+    @if (tracingPermission() && !form.isNew && !form.isCopy) {
+      <soe-expansion-panel
+        [labelKey]="'common.tracing'"
+        (isOpened)="toggleTracingOpened($event)">
+        @if (traceRowsRendered()) {
+          <div class="row">
+            <div class="col-sm-12">
+              <soe-trace-rows
+                [traceId]="form.value.purchaseId"
+                [pageName]="pageName"></soe-trace-rows>
+            </div>
+          </div>
+        }
+      </soe-expansion-panel>
+    }
+
+    <div class="soe-form-footer">
+      <div class="col-sm-6 d-flex flex-row align-items-start">
+        <created-modified [model]="form.value" class="ps-2"></created-modified>
+      </div>
+      <div class="col-sm-6 d-flex flex-row-reverse align-items-end">
+        @if (form.value[idFieldName] > 0 && !form.isNew) {
+          <soe-delete-button
+            class="me-2"
+            [disabled]="!flowHandler.modifyPermission()"
+            (action)="triggerDelete()"></soe-delete-button>
+        }
+        @if (flowHandler.modifyPermission()) {
+          <soe-menu-button
+            class="me-2"
+            [caption]="'core.save'"
+            [list]="menuSaveList"
+            [disabled]="
+              !flowHandler.modifyPermission() || form.invalid || !form.dirty
+            "
+            [behaviour]="'primary'"
+            [variant]="'split'"
+            [dropUp]="true"
+            [selectedItem]="menuSaveList[0]"
+            (itemSelected)="peformSaveAction($event)"
+            (validationErrorsAction)="form.openFormValidationErrors()">
+          </soe-menu-button>
+        }
+        @if (flowHandler.modifyPermission() && !form.isNew) {
+          <soe-menu-button
+            class="me-2"
+            [variant]="'split'"
+            [selectedItem]="menuPrintList[0]"
+            [caption]="'common.report.report.print'"
+            [list]="menuPrintList"
+            [disabled]="disablePrintMenu()"
+            [behaviour]="'secondary'"
+            [dropUp]="true"
+            (itemSelected)="peformPrintAction($event)">
+          </soe-menu-button>
+        }
+      </div>
+    </div>
+  </form>
+}

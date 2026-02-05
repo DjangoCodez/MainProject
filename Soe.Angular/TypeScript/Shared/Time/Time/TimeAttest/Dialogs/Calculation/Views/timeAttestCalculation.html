@@ -1,0 +1,43 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">
+            <span>{{::ctrl.calculationText}}</span>
+        </h6>
+    </div>
+    <div class="modal-body">
+        <div class="info" data-ng-if="ctrl.description">
+            <div class="row">
+                <div class="col-sm-12">
+                    <span>{{::ctrl.description.description1}}</span>
+                </div>
+                <div class="col-sm-12" data-ng-if="ctrl.description.description2">
+                    <span class="indiscreet" data-ng-if="ctrl.description.description2Caption">{{::ctrl.description.description2Caption}}:</span>
+                    <span>{{::ctrl.description.description2}}</span>
+                </div>
+                <div class="col-sm-12" data-ng-if="ctrl.description.description3">
+                    <span class="indiscreet" data-ng-if="ctrl.description.description2Caption">{{::ctrl.description.description3Caption}}:</span>
+                    <span>{{::ctrl.description.description3}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-4">
+                <soe-datepicker label-key="common.datefrom" model="ctrl.dateFrom"></soe-datepicker>
+            </div>
+            <div class="col-sm-4">
+                <soe-datepicker label-key="common.dateto" model="ctrl.dateTo"></soe-datepicker>
+            </div>
+        </div>
+
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <div data-ui-grid="ctrl.soeGridOptions.gridOptions" ui-grid-selection ui-grid-auto-resize></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-sm ngSoeMainButton" data-ng-disabled="ctrl.soeGridOptions.getSelectedCount() === 0 || ctrl.executing" data-ng-click="ctrl.initSave()">{{::ctrl.calculationText}}</button>
+    </div>
+</div>

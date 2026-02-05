@@ -1,0 +1,51 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+        <h6 class="modal-title">{{::ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <div class="row col-sm-12">
+            <div class="pull-left">
+                <div>
+                    <soe-textbox label-key="common.name" model="ctrl.title" ng-if="ctrl.showTitle"></soe-textbox>
+                    <label class="control-label" data-ng-hide="!ctrl.textboxTitle">{{::ctrl.textboxTitle}}</label>
+                </div>
+            </div>
+            <div class="pull-right">
+                <div>
+                    <soe-select label-key="economy.accounting.voucher.template" is-disabled="ctrl.isLocked" model="ctrl.selectedTemplate" items="ctrl.templates" options="item.id as item.name for item in items"  ng-if="ctrl.showTemplatesSelect"></soe-select>
+                </div>
+            </div>
+        </div>
+        <uib-accordion close-others="false">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-textarea model="ctrl.text" rows="5" max-length="ctrl.maxTextLength" set-focus="true" is-readonly="ctrl.textareaDisabled"></soe-textarea>
+                </div>
+            </div>
+            <soe-accordion label-key="billing.product.translations" ng-if="ctrl.showTranslations">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <comp-terms comp-term-record-type="ctrl.compTermRecordType" record-id="ctrl.currentTextBlock.textBlockId" comp-term-rows="ctrl.compTermRows" read-only="!ctrl.modifyPermission"></comp-terms>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+    </div>
+    <div class="modal-footer">
+        <div class="pull-left">
+            <div class="col">
+                <button type="button" class="btn btn-default" data-l10n-bind="'common.savetemplate'" data-ng-click="ctrl.saveTextBlock()" data-ng-disabled="!ctrl.saveTemplateValid" ng-if="ctrl.showTemplatesButtons"></button>
+                <button type="button" class="btn btn-default" data-l10n-bind="'common.deletetemplate'" data-ng-click="ctrl.deleteTextBlock()" data-ng-disabled="!ctrl.deleteTemplateValid" ng-if="ctrl.showTemplatesButtons"></button>
+            </div>
+        </div>
+        <div class="pull-right">
+            <div class="col">
+                <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.close()"></button>
+                <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.save()" ng-if="ctrl.showOk" data-ng-disabled="!ctrl.okValid"></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="row">
+  <soe-stock-purchase-grid-filter
+    (onSearchClick)="loadGridData($event)"></soe-stock-purchase-grid-filter>
+</div>
+
+<div class="mx-3">
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [height]="350"
+      [parentGuid]="guid()"
+      [rows]="rowData"
+      [noMargin]="true"
+      (editRowClicked)="edit($event)">
+      <div class="row" footer>
+        <div class="col-sm-12 p-2 d-flex flex-row-reverse align-items-end">
+          <soe-button
+            class="me-2"
+            [caption]="'billing.stock.purchase.createpurchase'"
+            [behaviour]="'primary'"
+            (action)="triggerCreate()">
+          </soe-button>
+          <soe-checkbox
+            [labelKey]="'billing.stock.purchase.excluderowswithnoquantity'"
+            [inline]="true"
+            (valueChanged)="isExcludeChange($event)">
+          </soe-checkbox>
+        </div>
+      </div>
+    </soe-grid-wrapper>
+  }
+</div>

@@ -1,0 +1,68 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [toolbarGroups]="toolbarUtils.toolbarGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+  <ng-content toolbar-content-left select="[toolbar-content-left]"></ng-content>
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <soe-expansion-panel
+      [static]="true"
+      [labelKey]="'economy.accounting.companygroup.mapping'">
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-numberbox
+            [labelKey]="'common.number'"
+            [maxLength]="10"
+            (focusout)="validateNumber()"
+            formControlName="number">
+          </soe-numberbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [maxLength]="100"
+            formControlName="name">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.description'"
+            [maxLength]="100"
+            formControlName="description">
+          </soe-textbox>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="float-end">
+          <soe-button
+            class="pull-right"
+            [caption]="'common.newrow'"
+            [behaviour]="'standard'"
+            (action)="addNewRow()">
+          </soe-button>
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-sm-12">
+          @if (form) {
+            <soe-company-group-mapping-rows [rows]="rowData" [form]="form">
+            </soe-company-group-mapping-rows>
+          }
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-edit-footer
+      class="mt-0"
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

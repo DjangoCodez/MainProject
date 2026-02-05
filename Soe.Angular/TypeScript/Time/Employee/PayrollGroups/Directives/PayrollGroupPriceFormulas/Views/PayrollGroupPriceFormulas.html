@@ -1,0 +1,30 @@
+﻿<div>
+    <soe-panel label-key="time.employee.employmentpriceformula.title" condensed="true">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" data-l10n-bind="'time.employee.employmentpriceformula.calculatedsalary'"></th>
+                    <th scope="col" data-l10n-bind="'time.employee.employmentpriceformula.formula'"></th>
+                    <th scope="col" data-l10n-bind="'time.employee.payrollgroup.pricetype.showonemployee'"></th>
+                    <th scope="col" data-l10n-bind="'common.fromdate'"></th>
+                    <th scope="col" data-l10n-bind="'common.todate'"></th>
+                    <th scope="col" class="table-header-button" style="width: 130px;" colspan="3" data-ng-if="!ctrl.readOnly">
+                        <span data-l10n-bind data-l10n-bind-title="'time.employee.payrollgroup.formula.new'" data-ng-click="ctrl.editFormula(null);"><i class="fal fa-plus"></i><span data-l10n-bind="'time.employee.payrollgroup.formula.new'"></span></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="formula in ctrl.priceFormulas | orderBy:'formulaName'">
+                <tr>
+                    <td><span>{{formula.formulaName}}</span></td>
+                    <td><span title="{{formula.formulaNames}}">{{formula.formulaPlain}}</span></td>
+                    <td><i class="fal fa-check-square" data-ng-if="formula.showOnEmployee"></i></td>
+                    <td><span>{{formula.fromDate | date:'shortDate'}}</span></td>
+                    <td><span>{{formula.toDate | date:'shortDate'}}</span></td>
+                    <td style="width: 74px">
+                    <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editFormula(formula);"></i></span></td>
+                    <td style="width: 28px"><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteFormula(formula);"></i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </soe-panel>
+</div>

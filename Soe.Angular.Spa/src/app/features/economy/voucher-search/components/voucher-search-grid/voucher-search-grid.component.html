@@ -1,0 +1,80 @@
+<soe-toolbar [itemGroups]="_toolbarService.toolbarItemGroups"></soe-toolbar>
+
+<soe-voucher-search-filter
+  [accountDims]="accountDimsFrom()"
+  [economyService]="economyService"
+  (searchClicked)="searchVouchers($event)"></soe-voucher-search-filter>
+
+@if (flowHandler.allowFetchGrid()) {
+  <div class="row">
+    <div class="col-sm-12 px-3">
+      <soe-expansion-panel
+        [labelKey]="'economy.accounting.vouchersearch'"
+        [static]="true"
+        [noPadding]="true">
+        <soe-grid-wrapper
+          [rows]="rowData"
+          [parentGuid]="guid()"
+          (editRowClicked)="edit($event)"
+          (selectionChanged)="selectionChanged($event)"
+          (selectedItemsChanged)="selectedItemsChanged($event)"
+          [height]="isDialog() ? 300 : 600"
+          [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+          <div
+            class="row mx-2 mb-3 information-container"
+            role="form"
+            [formGroup]="summaryForm"
+            footer>
+            <div class="col-sm-6 col-sm-offset-6">
+              <div class="row">
+                <div class="col-sm-2">
+                  <soe-numberbox
+                    [labelKey]="'economy.accounting.vouchersearch.debet'"
+                    formControlName="debitTotal"
+                    [decimals]="2"></soe-numberbox>
+                </div>
+                <div class="col-sm-2">
+                  <soe-numberbox
+                    [labelKey]="'economy.accounting.vouchersearch.credit'"
+                    formControlName="creditTotal"
+                    [decimals]="2"></soe-numberbox>
+                </div>
+                <div class="col-sm-2">
+                  <soe-numberbox
+                    [labelKey]="'economy.accounting.vouchersearch.balance'"
+                    formControlName="balance"
+                    [decimals]="2"></soe-numberbox>
+                </div>
+
+                <div class="col-sm-2">
+                  <soe-numberbox
+                    [labelKey]="
+                      'economy.accounting.vouchersearch.debet.selected'
+                    "
+                    formControlName="debitTotalSelected"
+                    [decimals]="2"></soe-numberbox>
+                </div>
+                <div class="col-sm-2">
+                  <soe-numberbox
+                    [labelKey]="
+                      'economy.accounting.vouchersearch.credit.selected'
+                    "
+                    formControlName="creditTotalSelected"
+                    [decimals]="2"></soe-numberbox>
+                </div>
+                <div class="col-sm-2">
+                  <soe-numberbox
+                    [labelKey]="
+                      'economy.accounting.vouchersearch.balance.selected'
+                    "
+                    formControlName="balanceSelected"
+                    [decimals]="2"></soe-numberbox>
+                </div>
+              </div>
+            </div>
+          </div>
+        </soe-grid-wrapper>
+      </soe-expansion-panel>
+    </div>
+  </div>
+}

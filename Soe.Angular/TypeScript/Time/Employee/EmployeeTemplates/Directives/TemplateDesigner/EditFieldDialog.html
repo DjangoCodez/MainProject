@@ -1,0 +1,72 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <span class="modal-title">
+            <span data-l10n-bind="'core.add'" data-ng-if="ctrl.isNew"></span>
+            <span data-l10n-bind="'core.edit'" data-ng-if="!ctrl.isNew"></span>
+            <span class="lowercase" data-l10n-bind="'time.employee.employeetemplate.designer.properties.selectedfield'"></span>
+        </span>
+    </div>
+    <div class="modal-body">
+        <div class="row margin-large-bottom">
+            <div class="col-sm-4">
+                <soe-typeahead label-key="common.field" model="ctrl.selectedFieldType" items="ctrl.fieldNames" options="item as item.name for item in items" limit="100" editable="true" required="true" on-selection-changed="ctrl.typeChanged();"></soe-typeahead>
+            </div>
+            <div class="col-sm-4" data-ng-if="ctrl.showExtraFieldSelector">
+                <soe-select label-key="common.extrafields.extrafield" model="ctrl.field.recordId" items="ctrl.extraFields" options="item.extraFieldId as item.text for item in items" on-changing="ctrl.extraFieldChanged();" enter="ctrl.ok();"></soe-select>
+            </div>
+            <div data-ng-class="{'col-sm-4': ctrl.showExtraFieldSelector, 'col-sm-8': !ctrl.showExtraFieldSelector}">
+                <soe-textbox label-key="common.subject" model="ctrl.field.title" maxlength="128" on-enter="ctrl.ok();"></soe-textbox>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.isExtraFieldAccountLinkable">
+            <div class="col-sm-4">
+                <soe-checkbox label-key="time.employee.employeetemplate.grouprow.linkextrafield" model="ctrl.linkExtraField"></soe-checkbox>
+            </div>
+            <div class="col-sm-4" data-ng-if="ctrl.linkExtraField">
+                <soe-select label-key="common.level" model="ctrl.selectedAccountDimId" items="ctrl.accountDims" options="item.accountDimId as item.name for item in items" on-changing="ctrl.accountDimChanged();"></soe-select>
+            </div>
+            <div class="col-sm-4" data-ng-if="ctrl.linkExtraField">
+                <soe-select label-key="common.extrafields.extrafield" model="ctrl.field.recordId" items="ctrl.accountExtraFields" options="item.extraFieldId as item.text for item in items"></soe-select>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.isTextAreaComponent">
+            <div class="col-sm-4">
+                <soe-textbox label-key="common.rows" model="ctrl.textAreaRows" numeric="true" decimals="0" on-enter="ctrl.ok();"></soe-textbox>
+            </div>
+        </div>
+        <div class="row margin-large-top">
+            <div class="col-sm-12">
+                <table>
+                    <tbody>
+                        <tr data-ng-if="!ctrl.isCheckBoxType">
+                            <td><span class="fal fa-asterisk fa-fw errorColor margin-small-top margin-small-right"></span></td>
+                            <td><soe-checkbox label-key="core.mandatory" model="ctrl.field.isMandatory" is-readonly="ctrl.isSystemRequired" enter="ctrl.ok();"></soe-checkbox></td>
+                        </tr>
+                        <tr>
+                            <td><span class="fal fa-user-slash fa-fw disabledTextColor margin-small-top margin-small-right"></span></td>
+                            <td><soe-checkbox label-key="time.employee.employeetemplate.grouprow.hideinregistration" model="ctrl.field.hideInRegistration" is-readonly="ctrl.isReadOnly || ctrl.fieldOptions.systemHideInRegistration" enter="ctrl.ok();"></soe-checkbox></td>
+                        </tr>
+                        <tr>
+                            <td><span class="fal fa-users-slash fa-fw disabledTextColor margin-small-top margin-small-right"></span></td>
+                            <td><soe-checkbox label-key="time.employee.employeetemplate.grouprow.hideinemploymentregistration" model="ctrl.field.hideInEmploymentRegistration" is-readonly="ctrl.isReadOnly || ctrl.fieldOptions.systemHideInEmploymentRegistration" enter="ctrl.ok();"></soe-checkbox></td>
+                        </tr>
+                        <tr>
+                            <td><span class="fal fa-print-slash fa-fw disabledTextColor margin-small-top margin-small-right"></span></td>
+                            <td><soe-checkbox label-key="time.employee.employeetemplate.grouprow.hideinreport" model="ctrl.field.hideInReport" is-readonly="ctrl.isSystemHideInReport" enter="ctrl.ok();"></soe-checkbox></td>
+                        </tr>
+                        <tr>
+                            <td><span class="fal fa-file fa-fw disabledTextColor margin-small-top margin-small-right"></span></td>
+                            <td><soe-checkbox label-key="time.employee.employeetemplate.grouprow.hideinreportifempty" model="ctrl.field.hideInReportIfEmpty" is-readonly="ctrl.isSystemHideInReport" enter="ctrl.ok();"></soe-checkbox></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.delete'" data-ng-click="ctrl.initDelete();" data-ng-if="!ctrl.isNew"></button>
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel();"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok();"></button>
+    </div>
+</div>

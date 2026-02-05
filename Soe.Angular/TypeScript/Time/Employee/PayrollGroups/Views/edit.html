@@ -1,0 +1,348 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+    <div data-ng-if="!ctrl.progress.progressBusy" payroll-group-validation ng-model="ctrl.payrollGroup" use-payroll="ctrl.usePayroll">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+            <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+        </soe-toolbar>
+        <uib-accordion close-others="false">
+            <soe-accordion label-key="time.employee.payrollgroup.payrollgroup" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-textbox label-key="common.name" model="ctrl.payrollGroup.name" required="true" maxlength="100" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-select label-key="time.employee.payrollgroup.timeperiod" model="ctrl.payrollGroup.timePeriodHeadId" items="ctrl.timePeriods" options="item.timePeriodHeadId as item.name for item in items" required="true" is-readonly="!ctrl.modifyPermission"></soe-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-textbox label-key="common.externalcodes" model="ctrl.payrollGroup.externalCodesString" maxlength="256" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="time.employee.payrollgroup.payrolltypesandformulas" is-open="true">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <payroll-group-price-types payroll-group-id="ctrl.payrollGroup.payrollGroupId" price-types="ctrl.payrollGroup.priceTypes" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></payroll-group-price-types>
+                        </div>
+                    </div>
+                    <div class="row margin-large-top">
+                        <div class="col-sm-8">
+                            <payroll-group-price-formulas payroll-group-id="ctrl.payrollGroup.payrollGroupId" price-formulas="ctrl.payrollGroup.priceFormulas" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></payroll-group-price-formulas>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <soe-panel label-key="time.employee.payrollgroup.formula.specific">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.formula.onetimetax" model="ctrl.payrollGroup.oneTimeTaxFormulaId" items="ctrl.payrollPriceFormulas" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.formula.experiencemonths" model="ctrl.payrollGroup.experienceMonthsFormula" items="ctrl.payrollPriceFormulas" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                                    </div>
+                                </div>
+                            </soe-panel>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.accounting">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <payroll-group-accounts payroll-group-id="ctrl.payrollGroup.payrollGroupId" accounts="ctrl.payrollGroup.accounts" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></payroll-group-accounts>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.settings">
+                <div class="form-group form-group-sm">
+                    <div class="row" data-ng-if="ctrl.useOverTimeCompensation">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="time.employee.payrollgroup.overtimecompensation" model="ctrl.payrollGroup.overTimeCompensation" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.useException2to6InWorkingAgreement">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="time.employee.payrollgroup.exceptioninworkingagreement" model="ctrl.payrollGroup.exceptionInWorkingAgreement" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.useTravelCompansation">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="time.employee.payrollgroup.travelcompensation" model="ctrl.payrollGroup.travelCompensation" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.useWorkTimeShiftCompensation">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="time.employee.payrollgroup.worktimeshiftcompensation" model="ctrl.payrollGroup.workTimeShiftCompensation" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="time.employee.payrollgroup.earnedholiday" model="ctrl.payrollGroup.earnedHoliday" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <soe-checkbox label-key="time.employee.payrollgroup.sicknesssalaryregulation" model="ctrl.payrollGroup.sicknessSalaryRegulation" is-readonly="!ctrl.modifyPermission"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.useVacationRights">
+                        <div class="col-sm-6">
+                            <soe-label label-key="time.employee.payrollgroup.vacationrights" label-value="ctrl.daysLabel" label-value-in-parentheses="true"></soe-label>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.useVacationRights">
+                        <div class="col-sm-1">
+                            <soe-textbox hidelabel="true" model="ctrl.payrollGroup.vacationRights" numeric="true" decimals="0" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                    </div>
+                    <div class="row margin-large-top" data-ng-if="ctrl.useGrossNetTimeInStaffing">
+                        <div class="col-sm-6">
+                            <soe-label label-key="time.employee.payrollgroup.monthlyworktimecalculationtype"></soe-label>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.useGrossNetTimeInStaffing">
+                        <div class="col-sm-2">
+                            <soe-select hidelabel="true" model="ctrl.payrollGroup.monthlyWorkTimeCalculationType" items="ctrl.monthlyWorkTimeCalculationTypes" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission"></soe-select>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.useGrossNetTimeInStaffing">
+                        <div class="col-sm-6">
+                            <soe-label label-key="time.employee.payrollgroup.monthlyworktime"></soe-label>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="ctrl.useGrossNetTimeInStaffing">
+                        <div class="col-sm-2">
+                            <soe-textbox hidelabel="true" model="ctrl.payrollGroup.monthlyWorkTime" numeric="true" decimals="2" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="row margin-large-top">
+                        <div class="col-sm-6">
+                            <payroll-group-vacation-groups payroll-group-id="ctrl.payrollGroup.payrollGroupId" vacation-groups="ctrl.payrollGroup.vacations" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></payroll-group-vacation-groups>
+                        </div>
+                        <div class="col-sm-6">
+                            <payroll-group-payroll-products payroll-group-id="ctrl.payrollGroup.payrollGroupId" payroll-group-payroll-products="ctrl.payrollGroup.payrollProducts" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></payroll-group-payroll-products>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="common.report.report.reports">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <payroll-group-reports payroll-group-id="ctrl.payrollGroup.payrollGroupId" report-ids="ctrl.payrollGroup.reportIds" read-only="!ctrl.modifyPermission" on-change="ctrl.setDirty();"></payroll-group-reports>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="time.employee.payrollgroup.statistics">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-panel label-value="'KPA'">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-textbox label-key="time.employee.payrollgroup.statistics.kpaagreementnumber" model="ctrl.payrollGroup.kpaAgreementNumber" maxlength="255"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.kpaagreementtype" model="ctrl.payrollGroup.kpaAgreementType" items="ctrl.kpaAgreementTypes" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.kpabelonging" model="ctrl.payrollGroup.kpaBelonging" items="ctrl.kpaBelongings" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-textbox label-key="time.employee.payrollgroup.statistics.kparetirementage" model="ctrl.payrollGroup.kpaRetirementAge" numeric="true" maxlength="2"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.kpadirektsalaryformula" model="ctrl.payrollGroup.kpaDirektSalaryFormula" items="ctrl.payrollPriceFormulas" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-checkbox label-key="time.employee.payrollgroup.statistics.kpafireman" model="ctrl.payrollGroup.kpaFireman"></soe-checkbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-textbox label-key="time.employee.payrollgroup.statistics.kpapercentbelowbaseamount" label-value="'%'" label-value-in-parentheses="true" model="ctrl.payrollGroup.kpaPercentBelowBaseAmount" numeric="true" decimals="2" update-on="blur"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-textbox label-key="time.employee.payrollgroup.statistics.kpapercentabovebaseamount" label-value="'%'" label-value-in-parentheses="true" model="ctrl.payrollGroup.kpaPercentAboveBaseAmount" numeric="true" decimals="2" update-on="blur"></soe-textbox>
+                                    </div>
+                                </div>
+                            </soe-panel>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-panel label-value="'SCB'">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.payrollreportspersonalcategory" model="ctrl.payrollGroup.payrollReportsPersonalCategory" items="ctrl.payrollReportsPersonalCategories" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.payrollreportsworktimecategory" model="ctrl.payrollGroup.payrollReportsWorkTimeCategory" items="ctrl.payrollReportsWorkTimeCategories" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.payrollreportssalarytype" model="ctrl.payrollGroup.payrollReportsSalaryType" items="ctrl.payrollReportsSalaryTypes" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.payrollformula" model="ctrl.payrollGroup.payrollFormula" items="ctrl.payrollPriceFormulas" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-textbox label-key="time.employee.payrollgroup.statistics.partnernumber" model="ctrl.payrollGroup.partnerNumber" maxlength="255"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-textbox label-key="time.employee.payrollgroup.statistics.agreementcode" model="ctrl.payrollGroup.agreementCode" maxlength="255"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.jobstatus" model="ctrl.payrollGroup.payrollReportsJobStatus" items="ctrl.jobStatuses" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                            </soe-panel>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-panel label-value="'FORA'">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.foracollectiveagreement" model="ctrl.payrollGroup.foraCollectiveAgreement" items="ctrl.foraCollectiveAgreements" options="item.id as item.longText for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.foracategory" model="ctrl.payrollGroup.foraCategory" items="ctrl.foraCategories" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-textbox label-key="time.employee.payrollgroup.statistics.forafok" model="ctrl.payrollGroup.foraFok" maxlength="255"></soe-textbox>
+                                    </div>
+                                </div>
+                            </soe-panel>
+                            <soe-panel label-value="'Bygglösen'">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.bygglosensalaryformula" model="ctrl.payrollGroup.bygglosenSalaryFormula" items="ctrl.payrollPriceFormulas" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-textbox label-key="time.employee.payrollgroup.statistics.bygglosenagreementarea" model="ctrl.payrollGroup.bygglosenAgreementArea" maxlength="10"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-textbox label-key="time.employee.payrollgroup.statistics.bygglosenallocationnumber" model="ctrl.payrollGroup.bygglosenAllocationNumber" maxlength="10"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.bygglosensalarytype" model="ctrl.payrollGroup.bygglosenSalaryType" items="ctrl.bygglosenSalaryType" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-textbox name="byggLosenWorkPlaceNr" label-key="time.employee.payrollgroup.statistics.bygglosenworkplacenr" model="ctrl.payrollGroup.byggLosenWorkPlaceNr" maxlength="100"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-textbox label-key="time.employee.payrollgroup.statistics.bygglosenagreedhourlypaylevel" model="ctrl.payrollGroup.bygglosenAgreedHourlyPayLevel" maxlength="10" numeric="true" decimals="2" update-on="blur"></soe-textbox>
+                                    </div>
+                                </div>
+                            </soe-panel>
+                            <soe-panel label-value="'Folksam'">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.gtpagreementnumber" model="ctrl.payrollGroup.gtpAgreementNumber" items="ctrl.gtpAgreementNumbers" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                            </soe-panel>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <soe-panel label-value="'Skandia pension'">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.skandiapensiontype" model="ctrl.payrollGroup.skandiaPensionType" items="ctrl.skandiaPensionTypes" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.skandiapensioncategory" model="ctrl.payrollGroup.skandiaPensionCategory" items="ctrl.skandiaPensionCategories" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-select label-key="time.employee.payrollgroup.statistics.skandiapensionsalaryformula" model="ctrl.payrollGroup.skandiaPensionSalaryFormula" items="ctrl.payrollPriceFormulas" options="item.id as item.name for item in items"></soe-select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-textbox label-key="time.employee.payrollgroup.statistics.skandiapensionpercentbelowbaseamount" label-value="'%'" label-value-in-parentheses="true" model="ctrl.payrollGroup.skandiaPensionPercentBelowBaseAmount" numeric="true" decimals="2" update-on="blur"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-textbox label-key="time.employee.payrollgroup.statistics.skandiapensionpercentabovebaseamount" label-value="'%'" label-value-in-parentheses="true" model="ctrl.payrollGroup.skandiaPensionPercentAboveBaseAmount" numeric="true" decimals="2" update-on="blur"></soe-textbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <soe-datepicker label-key="time.employee.payrollgroup.statistics.skandiapensionstartdate" model="ctrl.payrollGroup.skandiaPensionStartDate"></soe-datepicker>
+                                    </div>
+                                </div>
+                            </soe-panel>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.payrollGroup"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.payrollGroup.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

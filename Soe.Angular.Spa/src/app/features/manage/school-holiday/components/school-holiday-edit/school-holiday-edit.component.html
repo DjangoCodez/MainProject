@@ -1,0 +1,56 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-textbox
+            [labelKey]="'common.name'"
+            [maxLength]="100"
+            [required]="true"
+            formControlName="name">
+          </soe-textbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-datepicker
+            [labelKey]="'common.fromdate'"
+            [required]="true"
+            formControlName="dateFrom">
+          </soe-datepicker>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-datepicker 
+            [labelKey]="'common.todate'" 
+            [required]="true"
+            formControlName="dateTo">
+          </soe-datepicker>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <soe-checkbox
+            [labelKey]="'manage.calendar.schoolholiday.summerholiday'"
+            [checked]="form.value.isSummerHoliday"
+            formControlName="isSummerHoliday"></soe-checkbox>
+        </div>
+      </div>
+    </div>
+    <soe-edit-footer
+      [form]="form"
+      [idFieldName]="idFieldName"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      (saved)="performSave()"
+      (deleted)="triggerDelete()"></soe-edit-footer>
+  </form>
+}

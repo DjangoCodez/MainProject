@@ -1,0 +1,30 @@
+@if (flowHandler.allowFetchGrid()) {
+  <div class="row mx-clear">
+    <div class="col-sm-12">
+      <soe-toolbar [itemGroups]="toolbarService.toolbarItemGroups">
+        <div class="row" [formGroup]="form" toolbar-content-left>
+          <div class="d-sm-inline">
+            <soe-select
+              [items]="allItemsSelectionDict"
+              [inline]="true"
+              formControlName="allItemSelection"></soe-select>
+          </div>
+          <div class="d-sm-inline">
+            <soe-select
+              [items]="originTypes"
+              [inline]="true"
+              formControlName="originType"></soe-select>
+          </div>
+        </div>
+      </soe-toolbar>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-sm-12">
+      <soe-grid
+        [rows]="rowData"
+        [height]="500"
+        [parentGuid]="guid()"></soe-grid>
+    </div>
+  </div>
+}

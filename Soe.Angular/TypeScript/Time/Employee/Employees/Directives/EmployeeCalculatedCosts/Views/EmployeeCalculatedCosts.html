@@ -1,0 +1,24 @@
+﻿<div>
+    <soe-panel label-key="time.employee.employee.calculatedcost" condensed="true" button-icon="fa-plus" button-label-key="core.newrow" button-hidden="ctrl.readOnly" on-button-click="$event.stopPropagation();ctrl.editGroup();">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 20px"></th>
+                    <th scope="col" data-l10n-bind="'common.fromdate'"></th>
+                    <th scope="col" data-l10n-bind="'time.employee.employee.calculatedcost'"></th>
+                    <th scope="col" style="width: 28px"></th>
+                    <th scope="col" style="width: 28px"></th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="group in ctrl.activeCalculatedCosts | orderBy:'-sortableDate'">
+                <tr data-ng-class="{'table-selected-row': ctrl.selectedCalculatedCost === group}" data-ng-click="ctrl.selectedCalculatedCost = group">
+                    <td><i class="fas fa-caret-right" data-ng-if="ctrl.selectedCalculatedCost === group"></i></td>
+                    <td><span>{{group.fromDate | date:'shortDate'}}</span></td>
+                    <td><span>{{group.calculatedCostPerHour}}</span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'core.edit'"><i class="fal fa-pencil iconEdit link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.editGroup(group);"></i></span></td>
+                    <td><span data-l10n-bind data-l10n-bind-title="'core.delete'"><i class="fal fa-times iconDelete link" data-ng-if="!ctrl.readOnly" data-ng-click="ctrl.deleteGroup(group);"></i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </soe-panel>
+</div>

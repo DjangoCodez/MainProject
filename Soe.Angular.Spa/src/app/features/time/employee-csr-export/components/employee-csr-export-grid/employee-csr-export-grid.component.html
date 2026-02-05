@@ -1,0 +1,45 @@
+@if (flowHandler.allowFetchGrid() && form) {
+  <form [formGroup]="form">
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [parentGuid]="guid()"
+      (selectionChanged)="selectionChanged($event)"
+      [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+      [toolbarGroups]="toolbarUtils.toolbarGroups">
+      <div
+        toolbar-content-left
+        class="d-inline-flex align-items-baseline gap-3 text-nowrap">
+        <soe-select
+          formControlName="currentViewType"
+          [items]="this.viewTypes || []"
+          [inline]="true"
+          (valueChanged)="viewTypeChanged($event)"></soe-select>
+        <soe-radio
+          formControlName="selectedYearType"
+          [labelKey]="'time.employee.csr.currentyear'"
+          [noMargin]="true"
+          [group]="'selectedYearType'"
+          [value]="0"
+          (valueChanged)="yearTypeChanged($event)"></soe-radio>
+        <soe-radio
+          formControlName="selectedYearType"
+          [labelKey]="'time.employee.csr.nextyear'"
+          [noMargin]="true"
+          [group]="'selectedYearType'"
+          [value]="1"
+          (valueChanged)="yearTypeChanged($event)"></soe-radio>
+      </div>
+      <div class="row" footer>
+        <div class="col">
+          <div class="col-12 px-2 pb-2 d-flex justify-content-end">
+            <soe-button
+              [behaviour]="'primary'"
+              [caption]="'time.employee.csr.update'"
+              [disabled]="!somethingSelected"
+              (action)="updateButtonClicked()"></soe-button>
+          </div>
+        </div>
+      </div>
+    </soe-grid-wrapper>
+  </form>
+}

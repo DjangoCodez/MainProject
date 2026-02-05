@@ -1,0 +1,26 @@
+@if (isSupportAdmin()) {
+  <soe-inbound-email-grid-filter
+    [deliveryStatusOptions]="deliveryStatuses"
+    (searchEmails)="
+      triggerSearchEmails($event)
+    "></soe-inbound-email-grid-filter>
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [masterDetail]="true"
+      [parentGuid]="guid()"
+      [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+      (editRowClicked)="edit($event)">
+    </soe-grid-wrapper>
+  }
+} @else {
+  <div class="row">
+    <div class="col-sm-12 p-4">
+      <soe-instruction
+        [type]="'error'"
+        [iconName]="'ban'"
+        [showIcon]="true"
+        [text]="`You don't have permission to access this feature.`"></soe-instruction>
+    </div>
+  </div>
+}

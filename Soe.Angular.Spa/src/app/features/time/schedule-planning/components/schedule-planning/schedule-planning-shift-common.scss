@@ -1,0 +1,111 @@
+@use '../../../../../shared/styles/core-styles/colors.scss';
+@use '../../../../../shared/styles/core-styles/fonts.scss';
+@use './schedule-planning-common.scss' as sp-common;
+
+.shift {
+  font-size: fonts.$soe-font-size-md;
+  border-radius: 4px;
+  padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+  margin: 0 0 0.25rem 0;
+  overflow: hidden;
+  height: 48px;
+  position: relative; // Make .shift-icons absolute to this block
+  text-align: left;
+
+  &.is-clickable {
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .first-row {
+    display: flex;
+    align-items: center;
+
+    .shift-time {
+      font-weight: fonts.$font-weight-bold;
+    }
+  }
+
+  .deviation-cause {
+    font-weight: fonts.$font-weight-bold;
+  }
+
+  .shift-types {
+    opacity: 0.75;
+  }
+
+  .shift-description {
+    display: flex;
+    opacity: 0.75;
+
+    .description {
+      font-size: fonts.$soe-font-size-sm;
+    }
+  }
+
+  .shift-icons {
+    font-size: fonts.$soe-font-size-xl;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    fa-icon {
+      margin-right: 0.125rem;
+    }
+  }
+
+  &.is-selected {
+    border: 2px solid colors.$soe-color-semantic-information;
+    // Makes the border go inwards to prevent expanding the size of the shift
+    // Requires a fixed height
+    box-sizing: border-box;
+    // Compensate for the increased border size
+    padding-top: 2px;
+    padding-left: 6px;
+
+    .shift-icons {
+      bottom: -2px;
+      right: -2px;
+    }
+  }
+
+  &.is-preliminary,
+  &.is-absence-request,
+  &.is-onduty,
+  &.is-standby {
+    background: sp-common.$striped-background;
+  }
+
+  &.is-absence {
+    // Overlay a semi-transparent white layer
+    // If using opacity, the selected border would also be affected
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.5);
+      pointer-events: none;
+      border-radius: inherit;
+      z-index: 10;
+    }
+  }
+
+  &.is-leisure-code {
+    .shift-description {
+      height: 100%;
+
+      .description {
+        height: 100%;
+        width: 100%;
+        align-content: center;
+        font-size: fonts.$soe-font-size-xxl;
+        color: colors.$soe-color-neutral-dark-grey;
+      }
+    }
+  }
+}

@@ -1,0 +1,132 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        novalidate
+        autocomplete="off"
+        class="dialog-form">
+        <soe-toolbar
+          class="sticky-toolbar"
+          [itemGroups]="toolbarService.toolbarItemGroups">
+          <div
+            toolbar-content-left
+            select="[toolbar-content-left]"
+            class="me-2">
+            <sp-toolbar-employee-date
+              [employeeName]="form.controls.employeeName.value"
+              [dateFrom]="form.controls.date.value"
+              [showWeekdayColor]="true"></sp-toolbar-employee-date>
+          </div>
+        </soe-toolbar>
+        <div class="content">
+          <div class="shifts-list">
+            @if (form.shifts.controls.length > 0) {
+              <div class="mb-1" formArrayName="shifts">
+                @for (
+                  shiftCtrl of form.shifts.controls;
+                  track $index;
+                  let i = $index
+                ) {
+                  <div [formGroupName]="i">
+                    <sp-shift-edit-overview
+                      [form]="form.shifts.controls[i]"
+                      [dayForm]="form"
+                      [isSelected]="selectedShiftIndex() === i"
+                      (click)="selectShift(i)"></sp-shift-edit-overview>
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="mt-1 me-1 mb-2 ms-1">
+                <soe-instruction
+                  [text]="
+                    'time.schedule.planning.editshift.noshifts'
+                  "></soe-instruction>
+              </div>
+            }
+
+            <div class="ms-1">
+              <soe-button
+                [caption]="'time.schedule.planning.editshift.new'"
+                [iconName]="'plus'"
+                [behaviour]="'standard'"
+                (action)="addShift()"></soe-button>
+            </div>
+            @if (
+              form.summaryRow1 ||
+              form.summaryRow2 ||
+              form.summaryRow3 ||
+              form.summaryRow4
+            ) {
+              <div class="shift-summary information-container">
+                @if (form.summaryRow1) {
+                  <div>
+                    <span>{{ form.summaryRow1 }}</span>
+                  </div>
+                }
+                @if (form.summaryRow2) {
+                  <div>
+                    <span
+                      >{{
+                        'time.schedule.planning.scheduletypefactortime'
+                          | translate
+                      }}:</span
+                    >
+                    <span class="ms-1">{{ form.summaryRow2 }}</span>
+                  </div>
+                }
+                @if (settingService.showGrossTime() && form.summaryRow3) {
+                  <div>
+                    <span
+                      >{{
+                        'time.schedule.planning.grosstime' | translate
+                      }}:</span
+                    >
+                    <span class="ms-1">{{ form.summaryRow3 }}</span>
+                  </div>
+                }
+                @if (settingService.showTotalCost() && form.summaryRow4) {
+                  <div>
+                    <span
+                      >{{ 'time.schedule.planning.cost' | translate }}:</span
+                    >
+                    <span class="ms-1">{{ form.summaryRow4 }}</span>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+          <div class="shift-detail">
+            @if (selectedShiftIndex() !== undefined) {
+              <sp-shift-edit
+                [form]="form.shifts.controls[selectedShiftIndex()!]"
+                animate.enter
+                animate.leave></sp-shift-edit>
+            }
+          </div>
+        </div>
+      </form>
+    }
+  </ng-container>
+  <div dialog-footer class="footer-content">
+    @if (form.deletedShifts.length > 0) {
+      <soe-instruction
+        class="me-2"
+        [type]="'warning'"
+        [text]="deletedShiftsLabel()"
+        [fitToContent]="true"></soe-instruction>
+    }
+    <soe-button
+      [caption]="'core.cancel'"
+      [disabled]="executing()"
+      (action)="cancel()"></soe-button>
+    <soe-button
+      [caption]="'core.save'"
+      [behaviour]="'primary'"
+      [disabled]="
+        executing() ||
+        !(form.controls.shifts.dirty || form.deletedShifts.length > 0)
+      "
+      (action)="save()"></soe-button></div
+></soe-dialog>

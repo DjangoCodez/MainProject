@@ -1,0 +1,23 @@
+﻿<form class="form-inline">
+    <div>
+        <div class="form-group form-group-sm">
+            <soe-label label-key="billing.purchase.supplier"></soe-label>
+        </div>
+        <div class="form-group form-group-sm inputMinSize">
+            <soe-typeahead hide-label="true"
+                           placeholder-key="core.typetofilter"
+                           model="ctrl.selectedSupplier"
+                           items="ctrl.suppliers"
+                           options="item as item.name for item in items" />
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="btn-group">
+                <button type="button"
+                        class="btn btn-sm ngSoeMainButton"
+                        data-l10n-bind="'core.search'"
+                        data-l10n-bind-title="'core.search'"
+                        data-ng-click="$event.stopPropagation();ctrl.loadGridData()"></button>
+            </div>
+        </div>
+    </div>
+</form>

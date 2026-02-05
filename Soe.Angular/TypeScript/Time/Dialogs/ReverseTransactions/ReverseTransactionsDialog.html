@@ -1,0 +1,45 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="messagebox">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'time.time.attest.reversetransactions'"></h6>
+        </div>
+        <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+        <div class="modal-body">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <soe-instruction label-key="time.time.attest.reversetransactions.info"></soe-instruction>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <soe-radiobutton label-key="time.time.attest.reversetransactions.noabsence" model="ctrl.rbAbsenceType" group="percentageabsencetype" value="0"></soe-radiobutton>
+                        <soe-radiobutton label-key="time.time.attest.reversetransactions.absencewholeday" model="ctrl.rbAbsenceType" group="percentageabsencetype" value="1"></soe-radiobutton>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <soe-typeahead data-ng-if="ctrl.rbAbsenceType == 1" model="ctrl.selectedTimeDeviationCause" label-key="time.time.attest.reversetransactions.chooseabsencecause" required="true" items="ctrl.deviationCauses" options="item as item.name for item in items" limit="50"></soe-typeahead>
+                    </div>
+                </div>
+                <div ng-if="ctrl.showEmployeeChild()" class="row">
+                    <div class="col-sm-5">
+                        <soe-typeahead label-key="time.schedule.absencerequests.employeechild" model="ctrl.selectedEmployeeChild" items="ctrl.employeeChilds" options="item as item.name for item in items" required="true"></soe-typeahead>
+                    </div>
+                 </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <soe-typeahead data-ng-if="ctrl.usePayroll" model="ctrl.selectedTimePeriod" label-key="time.time.attest.reversetransactions.destinationperiod" required="true" items="ctrl.timePeriods" options="item as item.paymentDateString for item in items" filter-property="paymentDateString" limit="50"></soe-typeahead>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <div class="modal-footer" data-ng-if="!ctrl.progressBusy">
+            <div class="pull-right">
+                <div class="col pull-right margin-small-right" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                <button type="button" class="btn btn-sm btn-default pull-right margin-large-left" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+            </div>
+        </div>
+    </div>
+</form>

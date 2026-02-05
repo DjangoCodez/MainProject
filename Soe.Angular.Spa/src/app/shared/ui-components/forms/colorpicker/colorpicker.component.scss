@@ -1,0 +1,42 @@
+@use '../../../styles/core-styles/colors.scss';
+@use '../../../styles/core-styles/fonts.scss';
+@use '../../../styles/core-styles/variables.scss';
+
+.form-control {
+  border-radius: variables.$border-radius 1rem 1rem variables.$border-radius !important;
+}
+.input-label {
+  align-items: center;
+  font-weight: fonts.$font-weight-normal;
+
+  .placeholder {
+    color: colors.$soe-disabled-text-color;
+  }
+}
+
+input {
+  margin-top: -4px;
+  margin-right: -7px;
+  border-radius: 0 1rem 1rem 0;
+  height: 30px;
+  width: 30px;
+  border: none;
+  border-left: 1px solid colors.$soe-border-color;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input::-webkit-color-swatch {
+  border: none;
+  border-radius: 0 1rem 1rem 0;
+}
+
+.dropdown-icon {
+  position: absolute;
+  right: 11px;
+  font-size: fonts.$soe-font-size-xl;
+}

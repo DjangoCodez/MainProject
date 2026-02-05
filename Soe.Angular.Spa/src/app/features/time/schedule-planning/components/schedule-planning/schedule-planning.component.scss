@@ -1,0 +1,41 @@
+@use '../../../../../shared/styles/core-styles/colors.scss';
+
+.schedule-planning-container {
+  border: 2px solid colors.$soe-border-color;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+
+  sp-header {
+    flex-shrink: 0;
+    margin-bottom: -1px;
+  }
+
+  soe-split-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  sp-content {
+    overflow-y: auto;
+    min-height: 100px;
+    display: block;
+  }
+
+  sp-right-content {
+    overflow: auto;
+    min-height: 100px;
+    height: 100%;
+    display: block;
+  }
+
+  sp-footer {
+    flex-shrink: 0;
+  }
+
+  &.is-day-view {
+    sp-content {
+      overflow-x: hidden;
+    }
+  }
+}

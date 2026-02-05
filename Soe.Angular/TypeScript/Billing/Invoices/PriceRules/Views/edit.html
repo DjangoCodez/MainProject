@@ -1,0 +1,42 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="billing.invoices.pricerules.pricerule">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-select label-key="billing.invoices.pricerules.pricelisttypename" required="true" model="ctrl.priceRule.priceListTypeId" items="ctrl.compPricelists" options="item.id as item.name for item in items"></soe-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <soe-select label-key="billing.invoices.pricerules.syswholesellername" required="true" model="ctrl.selectedWholesellerPriceList" items="ctrl.wholesellerPriceLists" options="item as item.displayName for item in items"></soe-select>
+                    </div>                    
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="billing.invoices.pricerules.exampleamount" model="ctrl.example" readonly="true"></soe-textbox>
+                    </div>                    
+                </div>
+            </div>
+        </soe-panel>
+
+        <div class="row margin-large-bottom" style="min-height: 415px;">
+            <div class="col-fixed-200">
+                <expression-container is-readonly="!ctrl.modifyPermission" exp-widgets="ctrl.expWidgets" op-widgets="ctrl.opWidgets" on-drop="ctrl.widgetDropped(widget, containerIndex);"></expression-container>
+            </div>
+            <div class="col-sm-12 col-offset-200">
+                <formula-container is-readonly="!ctrl.modifyPermission" label-key="common.formulabuilder.formula" frm-widgets="ctrl.widgets" formula-valid="ctrl.formulaValid" formula-error="ctrl.formulaError" on-change="ctrl.setDirty();" on-validate="ctrl.evaluateRuleStructure(widgets, containerIndex);" ></formula-container>
+            </div>
+        </div>
+
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.priceList"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                        <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                        <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,13 @@
+﻿<div>
+    <div class="row margin-large-bottom" data-ng-if="!ctrl.readOnly && ctrl.delegateOwnRolesAndAttestRolesModifyPermission">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-sm btn-default pull-right" data-l10n-bind data-l10n-bind-title="'manage.user.user.delegatehistory.new'" data-ng-click="$event.stopPropagation();ctrl.addRow();"><span class="fal fa-plus margin-small-right"></span><span data-l10n-bind="'manage.user.user.delegatehistory.new'"></span></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="records-grid" ag-grid="ctrl.gridHandler.gridAg.options.gridOptions" class="ag-theme-balham" style="height: 100%; width: 100%;"></div>
+            <div id="records-totals-grid" class="ag-theme-balham" style="height: 25px; width: 100%;"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+﻿<div>
+    <div data-ng-if="!ctrl.widgetSettingsMode" data-ui-grid="ctrl.soeGridOptions.gridOptions" ui-grid-auto-resize ui-grid-resize-columns></div>
+    <div data-ng-if="ctrl.widgetSettingsMode" class="widget-settings">
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-checkbox label-key="common.dashboard.employeerequests.hiderequests" model="ctrl.hideRequests"></soe-checkbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-checkbox label-key="common.dashboard.employeerequests.hideavailability" model="ctrl.hideAvailability"></soe-checkbox>
+            </div>
+        </div>
+    </div>
+</div>

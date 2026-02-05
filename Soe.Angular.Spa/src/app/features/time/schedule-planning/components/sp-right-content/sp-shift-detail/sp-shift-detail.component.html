@@ -1,0 +1,107 @@
+@if ((shifts() ?? []).length > 0) {
+  <div class="detail-container">
+    @if (shifts()?.length === 1) {
+      <p>Markerat pass</p>
+    } @else {
+      <p>Markerade pass</p>
+    }
+
+    @for (shift of shifts(); track $index) {
+      <div class="group-container pt-1">
+        @if (isSupportAdmin) {
+          <div>
+            <span>[{{ shift.timeScheduleTemplateBlockId }}]</span>
+          </div>
+        }
+        <div>
+          <span class="me-1 font-bold">{{ 'common.from' | translate }}:</span>
+          <span>{{ shift.actualStartTime | date: 'shortDate' }}</span>
+          <span class="ms-1">{{
+            shift.actualStartTime | date: 'shortTime'
+          }}</span>
+        </div>
+        <div>
+          <span class="me-1 font-bold">{{ 'common.to' | translate }}:</span>
+          <span>{{ shift.actualStopTime | date: 'shortDate' }}</span>
+          <span class="ms-1">{{
+            shift.actualStopTime | date: 'shortTime'
+          }}</span>
+        </div>
+        <div>
+          <fa-icon
+            class="font-md"
+            [icon]="['fas', 'rectangle']"
+            [style.color]="shift.shiftTypeColor"></fa-icon>
+          <span class="ms-1">{{ shift.shiftTypeName }}</span>
+          @if (shift.shiftTypeTimeScheduleTypeName) {
+            <span class="mx-1">-</span>
+            <span>{{ shift.shiftTypeTimeScheduleTypeName }}</span>
+          }
+        </div>
+        <!-- Breaks -->
+        @if (shift.breaks.length > 0) {
+          <div class="group-container">
+            <div class="mt-1">
+              <p>{{ 'time.schedule.planning.breaks' | translate }}</p>
+              @for (brk of shift.breaks; track $index) {
+                <div class="mb-1">
+                  <div>
+                    <span>{{ brk.startTime | date: 'shortTime' }}</span>
+                    <span>-</span>
+                    <span>{{ brk.stopTime | date: 'shortTime' }}</span>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+        <!-- Time and cost -->
+        <div class="group-container">
+          <!-- TODO: New term -->
+          <p>Tid och kostnad</p>
+          <div class="time-cost-row">
+            <span class="time-cost-label"
+              >{{ 'time.schedule.planning.scheduletime' | translate }}:</span
+            ><span class="time-cost-value"
+              ><span>{{
+                shift.shiftLength - getBreakTimeWithinShift(shift) || 0
+                  | minutesToTimeSpan
+              }}</span
+              ><span> ({{ getBreakTimeWithinShift(shift) }})</span></span
+            >
+          </div>
+          @if (settingService.showGrossTime()) {
+            <div class="time-cost-row">
+              <span class="time-cost-label"
+                >{{ 'time.schedule.planning.grosstime' | translate }}:</span
+              ><span class="time-cost-value">{{
+                shift.grossTime || 0 | minutesToTimeSpan
+              }}</span>
+            </div>
+          }
+          @if (settingService.showTotalCost()) {
+            <div class="time-cost-row">
+              <span class="time-cost-label"
+                >{{ 'time.schedule.planning.cost' | translate }}:</span
+              ><span class="time-cost-value">{{
+                shift.totalCost || 0 | number: '1.0-0'
+              }}</span>
+            </div>
+          }
+          @if (settingService.showTotalCostIncEmpTaxAndSuppCharge()) {
+            <div class="time-cost-row">
+              <span class="time-cost-label"
+                >{{
+                  'time.schedule.planning.includeemptaxandsuppcharge'
+                    | translate
+                }}:</span
+              ><span class="time-cost-value">{{
+                shift.totalCostIncEmpTaxAndSuppCharge || 0 | number: '1.0-0'
+              }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+}

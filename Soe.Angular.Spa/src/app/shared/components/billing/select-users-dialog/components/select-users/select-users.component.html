@@ -1,0 +1,17 @@
+<div>
+  <div class="row" style="margin-bottom: 5px">
+    <soe-checkbox
+      [labelKey]="'core.selectall'"
+      (valueChanged)="selectAllChanged($event)"></soe-checkbox>
+  </div>
+  <div class="row dialog-row-top-padding">
+    @if (flowHandler.allowFetchGrid()) {
+      <soe-grid-wrapper
+        [parentGuid]="guid()"
+        [noMargin]="true"
+        [toolbarGroups]="toolbarUtils.toolbarGroups"
+        [height]="300">
+      </soe-grid-wrapper>
+    }
+  </div>
+</div>

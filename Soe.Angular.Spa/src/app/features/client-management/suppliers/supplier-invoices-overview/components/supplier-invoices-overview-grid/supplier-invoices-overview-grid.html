@@ -1,0 +1,30 @@
+@if (flowHandler.allowFetchGrid()) {
+<soe-grid-wrapper
+  [rows]="rowData"
+  [parentGuid]="guid()"
+  (editRowClicked)="edit($event)"
+  (selectedItemsChanged)="selectedItemsChanged($event)"
+  [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+  [toolbarGroups]="toolbarUtils.toolbarGroups">
+  @if(form){
+  <div class="row" header>
+    <div class="col-sm-12">
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-4">
+            <soe-select
+              [labelKey]="'clientmanagement.suppliers.invoices.overview.company'"
+              [items]="companies()"
+              formControlName="company"></soe-select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  }
+</soe-grid-wrapper>
+}

@@ -1,0 +1,121 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (editRowClicked)="edit($event)"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+    (selectionChanged)="triggerSelectedItemCalc()">
+    <soe-purchase-statistics-grid-filter
+      toolbar-content-left
+      (searchClick)="doSearch($event)"></soe-purchase-statistics-grid-filter>
+    <div class="row" footer>
+      <div class="col-sm-12">
+        <div class="information-container no-top-margin">
+          <div class="row">
+            <div class="col-sm-3">
+              <soe-label class="pull-right"> </soe-label>
+            </div>
+            <div class="col-sm-3">
+              <soe-label class="pull-right" [labelKey]="'common.quantity'">
+              </soe-label>
+            </div>
+            <div class="col-sm-3">
+              <soe-label
+                class="pull-right"
+                [labelKey]="'billing.purchaserow.totalexvat'">
+              </soe-label>
+            </div>
+            <div class="col-sm-3">
+              <soe-label
+                class="pull-right"
+                [labelKey]="'billing.purchase.foreignamount'">
+              </soe-label>
+            </div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-sm-3">
+              <soe-label
+                class="pull-right"
+                [labelKey]="'core.aggrid.totals.filtered'">
+              </soe-label>
+            </div>
+            <div class="col-sm-3">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  filteredQuantity.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-3">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  filteredAmount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-3">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  filteredCurrencyAmount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <soe-label
+                class="pull-right"
+                [labelKey]="'core.aggrid.totals.selected'">
+              </soe-label>
+            </div>
+            <div class="col-sm-3">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  selectedQuantity.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-3">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  selectedAmount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+            <div class="col-sm-3">
+              <soe-label
+                class="pull-right"
+                [labelValue]="
+                  selectedCurrencyAmount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                ">
+              </soe-label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </soe-grid-wrapper>
+}

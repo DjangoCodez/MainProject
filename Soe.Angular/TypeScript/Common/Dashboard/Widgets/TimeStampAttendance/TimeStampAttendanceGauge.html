@@ -1,0 +1,15 @@
+﻿<div>
+    <div data-ng-if="!ctrl.widgetSettingsMode" data-ui-grid="ctrl.soeGridOptions.gridOptions" ui-grid-auto-resize ui-grid-resize-columns></div>
+    <div data-ng-if="ctrl.widgetSettingsMode" class="widget-settings">
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-select label-key="common.dashboard.timestampattendance.settingshowmode" model="ctrl.settingShowMode" items="ctrl.showModes" options="item.id as item.name for item in items"></soe-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-checkbox label-key="common.dashboard.timestampattendance.settingonlyin" model="ctrl.settingOnlyIn"></soe-checkbox>
+            </div>
+        </div>
+    </div>
+</div>

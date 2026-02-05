@@ -1,0 +1,73 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" data-ng-click="ctrl.modal.close()" aria-hidden="true">&times;</button>
+        <h6 class="modal-title">{{ctrl.title}}</h6>
+    </div>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" class="edit-padding">
+        <div class="margin-small-bottom" data-ng-if="ctrl.isSwapRequest">
+            <div class="warning">
+                <span data-l10n-bind="'common.swapshift.approveinmobileinfo'"></span>
+            </div>
+        </div>
+        <div class="margin-small-bottom" data-ng-if="ctrl.isTimeWorkAccount">
+            <div class="warning">
+                <span data-l10n-bind="'common.timeworkaccount.mobileinfo'"></span>
+            </div>
+        </div>
+       
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" style="margin: -10px -10px 10px -10px;">
+            <data-ng-include src="ctrl.toolbar.toolbarInclude" />
+        </soe-toolbar>
+
+        <uib-accordion close-others="false">
+            <!-- Receivers -->
+            <soe-accordion label-key="common.messages.reciever" data-ng-if="(!ctrl.isPayrollSlip && !ctrl.isShiftRequest && !ctrl.isNeedsConfirmation) || ctrl.isOutgoing" is-open="ctrl.receiversInitiallyOpen">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <receivers-list-for-message parent-guid="ctrl.guid" recipients="ctrl.recipients" only-employee="ctrl.isShiftRequest" only-message-group="false" readOnly="ctrl.isSent" show-availability="ctrl.showAvailability" show-available-employees="ctrl.showAvailableEmployees" all-employees="ctrl.allEmployees" shifts="ctrl.shifts" preload-users="true" data-ng-if="ctrl.isNew"></receivers-list-for-message>
+                        <span data-ng-if="!ctrl.isNew">{{ctrl.recipientNames}}</span>
+                    </div>
+                </div>
+            </soe-accordion>
+
+            <!-- Message -->
+            <soe-accordion label-key="common.messages.message" data-ng-if="ctrl.message" is-open="ctrl.messageInitiallyOpen">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <soe-textbox label-key="common.messages.subject" model="ctrl.message.subject" required="true" auto-focus="true" is-readonly="!ctrl.isNew" max-length="255"></soe-textbox>
+                        </div>
+                        <div data-ng-class="{'col-sm-6': ctrl.isShiftRequest, 'col-sm-2': !ctrl.isShiftRequest}" data-ng-if="ctrl.isNew">
+                            <soe-checkbox label-key="common.messages.copytoemail" model="ctrl.copyToEmail" inline="true" is-disabled="ctrl.disableCopyToEmail"></soe-checkbox>
+                        </div>
+                        <div class="col-sm-2" data-ng-if="ctrl.sendSMSPermission && ctrl.isNew && !ctrl.isShiftRequest">
+                            <soe-checkbox label-key="common.messages.copytosms" model="ctrl.message.copyToSMS" inline="true"></soe-checkbox>
+                        </div>
+                        <div class="col-sm-2" data-ng-if="ctrl.isNew && !ctrl.isShiftRequest">
+                            <soe-checkbox label-key="common.messages.needsconfirmation" model="ctrl.needsConfirmation" inline="true"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row margin-large-top">
+                        <div class="col-sm-12">
+                            <textarea style="width: 100%;" data-ng-style="{'min-height': ctrl.messageMinHeight}" ng-model="ctrl.message.text" ui-tinymce="ctrl.tinyMceOptions" data-ng-if="!ctrl.isReadOnly"></textarea>
+                            <textarea style="width: 100%;" data-ng-style="{'min-height': ctrl.messageMinHeight}" ng-model="ctrl.message.text" ui-tinymce="ctrl.tinyMceOptionsReadOnly" data-ng-if="ctrl.isReadOnly"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </soe-accordion>
+
+            <!-- Files -->
+            <soe-accordion label-key="common.messages.files" data-ng-if="!ctrl.isShiftRequest && !ctrl.isShiftRequestAnswer && (ctrl.isNew || ctrl.files.length>0)">
+                <div class="row">
+                    <div class="col-sm-12" data-ng-if="!ctrl.sendersReadOnly">
+                        <soe-progressbar is-busy="ctrl.loadingFiles" message="ctrl.progressMessage"></soe-progressbar>
+                        <soe-file-display files="ctrl.files" nbr-of-files-changed="ctrl.nbrOfFilesChanged(nbrOfFiles)" file-name-changed="ctrl.fileNameChanged(file)"></soe-file-display>
+                        <soe-file-upload callback="ctrl.fileUploadedCallback(result)" entity="{{::ctrl.entity}}" image-type="{{::ctrl.type}}" data-ng-if="!ctrl.isLocked && ctrl.isNew"></soe-file-upload>
+                    </div>
+                </div>
+            </soe-accordion>
+        </uib-accordion>
+    </div>
+</form>

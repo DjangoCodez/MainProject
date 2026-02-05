@@ -1,0 +1,69 @@
+﻿<div class="row" ng-style="!ctrl.isSysReportTemplate && {'padding-top':'10px'}">
+    <div class="col-sm-12">
+        <soe-panel label-key="common.report.settings.fieldsetting">
+            <div class="row">
+                <div class="col-sm-12">
+                    <report-field-setting field-id="1" settings="ctrl.settings[1]" on-setting-changed="ctrl.settingsChanged(value)" label-key="common.report.reporttemplate.includeHistoricalData" sys-report-template-id="ctrl.sysReportTemplateId" field-type="1" is-sys-report-template-page="ctrl.isSysReportTemplate" hide="!ctrl.visibleOptionalFields['includeAllHistoricalData']">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-checkbox label-key="common.report.reporttemplate.includeHistoricalData" model="ctrl.report.includeAllHistoricalData"></soe-checkbox>
+                            </div>
+                        </div>
+                    </report-field-setting>
+                    <report-field-setting field-id="2" settings="ctrl.settings[2]" on-setting-changed="ctrl.settingsChanged(value)" label-key="common.report.reporttemplate.includeBudget" sys-report-template-id="ctrl.sysReportTemplateId" field-type="1" is-sys-report-template-page="ctrl.isSysReportTemplate" hide="!ctrl.visibleOptionalFields['includeBudget']">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-checkbox label-key="common.report.reporttemplate.includeBudget" model="ctrl.report.includeBudget"></soe-checkbox>
+                            </div>
+                        </div>
+                    </report-field-setting>
+                    <report-field-setting field-id="3" settings="ctrl.settings[3]" on-setting-changed="ctrl.settingsChanged(value)" label-key="common.report.reporttemplate.showrowsbyaccount" sys-report-template-id="ctrl.sysReportTemplateId" field-type="1" is-sys-report-template-page="ctrl.isSysReportTemplate" hide="!ctrl.visibleOptionalFields['showRowsByAccount']">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-checkbox label-key="common.report.reporttemplate.showrowsbyaccount" model="ctrl.report.showRowsByAccount"></soe-checkbox>
+                            </div>
+                        </div>
+                    </report-field-setting>
+                    <report-field-setting field-id="4" settings="ctrl.settings[4]" on-setting-changed="ctrl.settingsChanged(value)" label-key="common.report.reporttemplate.nrofdecimals" sys-report-template-id="ctrl.sysReportTemplateId" field-type="2" is-sys-report-template-page="ctrl.isSysReportTemplate" hide="!ctrl.visibleOptionalFields['nrOfDecimals']">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-label label-key="common.report.reporttemplate.nrofdecimals"></soe-label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <soe-textbox hidelabel="true" model="ctrl.report.nrOfDecimals" numeric="true" maxlength="1"></soe-textbox>
+                            </div>
+                        </div>
+                    </report-field-setting>
+                    <report-field-setting field-id="5" settings="ctrl.settings[5]" on-setting-changed="ctrl.settingsChanged(value)" label-key="common.report.reporttemplate.previousYears" sys-report-template-id="ctrl.sysReportTemplateId" field-type="2" is-sys-report-template-page="ctrl.isSysReportTemplate" hide="!ctrl.visibleOptionalFields['noOfYearsBackinPreviousYear']">
+                        <div class="row margin-large-top">
+                            <div class="col-sm-12">
+                                <soe-label label-key="common.report.reporttemplate.previousYears"></soe-label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <soe-textbox hidelabel="true" model="ctrl.report.noOfYearsBackinPreviousYear" numeric="true" maxlength="1"></soe-textbox>
+                            </div>
+                        </div>
+                    </report-field-setting>
+                    <report-field-setting field-id="6" settings="ctrl.settings[6]" on-setting-changed="ctrl.settingsChanged(value)" label-key="common.report.reporttemplate.includeDetailedInformation" sys-report-template-id="ctrl.sysReportTemplateId" field-type="1" is-sys-report-template-page="ctrl.isSysReportTemplate" hide="!ctrl.visibleOptionalFields['getDetailedInformation']">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-checkbox label-key="common.report.reporttemplate.includeDetailedInformation" model="ctrl.report.detailedInformation"></soe-checkbox>
+                            </div>
+                        </div>
+                    </report-field-setting>
+                    <report-field-setting field-id="7" settings="ctrl.settings[7]" on-setting-changed="ctrl.settingsChanged(value)" label-key="common.report.reporttemplate.showInAccountingReports" sys-report-template-id="ctrl.sysReportTemplateId" field-type="1" is-sys-report-template-page="ctrl.isSysReportTemplate" hide="!ctrl.visibleOptionalFields['showInAccountingReports']">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-checkbox label-key="common.report.reporttemplate.showInAccountingReports" model="ctrl.report.showInAccountingReports"></soe-checkbox>
+                            </div>
+                        </div>
+                    </report-field-setting>
+                </div>
+            </div>
+        </soe-panel>
+    </div>
+</div>

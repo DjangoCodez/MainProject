@@ -1,0 +1,180 @@
+﻿<SOE_StockAndProduct>
+  <xs:schema id="SOE_StockAndProduct" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="SOE_StockAndProduct" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="StockAndProduct">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="TimeLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="SortOrderLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="StockIntervalLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="StockShelfIntervalLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="StockProductIntervalLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateIntervalLabel" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="Company" type="xs:string" minOccurs="0" />
+                      <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountYear" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountPeriod" type="xs:string" minOccurs="0" />
+                      <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                      <xs:element name="SortOrder" type="xs:int" minOccurs="0" />
+                      <xs:element name="SortOrderName" type="xs:string" minOccurs="0" />
+                      <xs:element name="StockInterval" type="xs:string" minOccurs="0" />
+                      <xs:element name="StockShelfInterval" type="xs:string" minOccurs="0" />
+                      <xs:element name="StockProductInterval" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateInterval" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="StockIdLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="StockNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="StockCodeLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="StateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="StockProductIdLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="InvoiceProductIdLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="InvoiceProductNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="InvoiceProductNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="InvoiceProductUnitLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="QuantityLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OrderedQuantityLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReservedQuantityLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="IsInInventoryLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="WarningLevelLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="AvgPrice" type="xs:string" minOccurs="0" />
+                      <xs:element name="StockShelfIdLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="StockShelfNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="AmountLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="SumLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="TotalLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="AvailableLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="StockValueLabel" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="Stock" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="StockId" type="xs:int" minOccurs="0" />
+                      <xs:element name="Code" type="xs:string" minOccurs="0" />
+                      <xs:element name="Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="State" type="xs:int" minOccurs="0" />
+                      <xs:element name="StockProduct" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="StockProductId" type="xs:int" minOccurs="0" msdata:Ordinal="1" />
+                            <xs:element name="InvoiceProductId" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                            <xs:element name="InvoiceProductNr" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                            <xs:element name="InvoiceProductName" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                            <xs:element name="InvoiceProductUnitName" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                            <xs:element name="Quantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="6" />
+                            <xs:element name="OrderedQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="7" />
+                            <xs:element name="ReservedQuantity" type="xs:decimal" minOccurs="0" msdata:Ordinal="8" />
+                            <xs:element name="IsInInventory" type="xs:int" minOccurs="0" msdata:Ordinal="9" />
+                            <xs:element name="WarningLevel" type="xs:int" minOccurs="0" msdata:Ordinal="10" />
+                            <xs:element name="AvgPrice" type="xs:decimal" minOccurs="0" msdata:Ordinal="11" />
+                            <xs:element name="StockShelfId" type="xs:int" minOccurs="0" msdata:Ordinal="12" />
+                            <xs:element name="StockShelfName" type="xs:string" minOccurs="0" msdata:Ordinal="13" />
+							<xs:element name="ProductGroupCode" type="xs:string" minOccurs="0" msdata:Ordinal="14" />
+							<xs:element name="ProductGroupName" type="xs:string" minOccurs="0" msdata:Ordinal="15" />
+                          </xs:sequence>
+                          <xs:attribute name="id" type="xs:string" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <StockAndProduct>
+      <ReportHeaderLabels>
+        <LoginNameLabel>Användare:</LoginNameLabel>
+        <PageLabel>Sida:</PageLabel>
+        <DateLabel>Datum:</DateLabel>
+        <TimeLabel>Tid:</TimeLabel>
+        <SortOrderLabel>Sorteringsordning</SortOrderLabel>
+        <StockIntervalLabel>Lagerintervall:</StockIntervalLabel>
+        <StockShelfIntervalLabel>Hyllplatsintervall:</StockShelfIntervalLabel>
+        <StockProductIntervalLabel>Produktintervall:</StockProductIntervalLabel>
+        <DateIntervalLabel>Datumintervall:</DateIntervalLabel>
+      </ReportHeaderLabels>
+      <ReportHeader>
+        <ReportTitle />
+        <ReportDescription />
+        <ReportNr />
+        <Company />
+        <Orgnr />
+        <AccountYear />
+        <AccountPeriod />
+        <LoginName />
+        <SortOrder>0</SortOrder>
+        <SortOrderName />
+        <StockInterval />
+        <StockShelfInterval />
+        <StockProductInterval />
+        <DateInterval />
+      </ReportHeader>
+    <PageHeaderLabels>
+      <StockIdLabel>LagerId</StockIdLabel>
+      <StockNameLabel>Namn</StockNameLabel>
+      <StockCodeLabel>Kod</StockCodeLabel>
+      <StateLabel>Status</StateLabel>
+      <StockProductIdLabel>LagerProduktId</StockProductIdLabel>
+      <InvoiceProductIdLabel>FakturaProduktId</InvoiceProductIdLabel>
+      <InvoiceProductNrLabel>Artikelnr</InvoiceProductNrLabel>
+      <InvoiceProductNameLabel>Namn</InvoiceProductNameLabel>
+      <InvoiceProductUnitLabel>Enhet</InvoiceProductUnitLabel>
+      <QuantityLabel>Saldo</QuantityLabel>
+      <OrderedQuantityLabel>Order saldo</OrderedQuantityLabel>
+      <ReservedQuantityLabel>Reserverat saldo</ReservedQuantityLabel>
+      <IsInInventoryLabel>Inventering</IsInInventoryLabel>
+      <WarningLevelLabel>Warn</WarningLevelLabel>
+      <AvgPrice>Pris</AvgPrice>
+      <StockShelfIdLabel>PlatsId</StockShelfIdLabel>
+      <StockShelfNameLabel>Plats Namn</StockShelfNameLabel>
+	</PageHeaderLabels>
+    <Stock id="1">
+      <StockId>0</StockId>
+      <Code />
+      <Name />
+      <State>0</State>
+      <StockProduct id="1">
+        <StockProductId>0</StockProductId>
+        <InvoiceProductId>0</InvoiceProductId>
+        <InvoiceProductNr />
+        <InvoiceProductName />
+        <InvoiceProductUnitName />
+        <Quantity>0</Quantity>
+        <OrderedQuantity>0</OrderedQuantity>
+        <ReservedQuantity>0</ReservedQuantity>
+        <IsInInventory>0</IsInInventory>
+        <WarningLevel>0</WarningLevel>
+        <AvgPrice>0</AvgPrice>
+        <StockShelfId>0</StockShelfId>
+        <StockShelfName />
+      </StockProduct>
+   </Stock>
+  </StockAndProduct>
+</SOE_StockAndProduct>

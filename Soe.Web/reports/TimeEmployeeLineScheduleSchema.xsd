@@ -1,0 +1,268 @@
+﻿<xs:schema id="SOE_TimeEmployeeLineScheduleReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="SOE_TimeEmployeeLineScheduleReport">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="TimeEmployeeLineScheduleReport">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="TimeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="TimePeriodLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="DateIntervalLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="NoShowCostsPermissionLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="NoShowGrossNetTimeSettingLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScenarioLabel" type="xs:string" minOccurs="0" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+										<xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+										<xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+										<xs:element name="Company" type="xs:string" minOccurs="0" />
+										<xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+										<xs:element name="LoginName" type="xs:string" minOccurs="0" />
+										<xs:element name="TimePeriod" type="xs:string" minOccurs="0" />
+										<xs:element name="SortByLevel1" type="xs:string" minOccurs="0" />
+										<xs:element name="SortByLevel2" type="xs:string" minOccurs="0" />
+										<xs:element name="SortByLevel3" type="xs:string" minOccurs="0" />
+										<xs:element name="SortByLevel4" type="xs:string" minOccurs="0" />
+										<xs:element name="IsSortAscending" type="xs:string" minOccurs="0" />
+										<xs:element name="GroupByLevel1" type="xs:string" minOccurs="0" />
+										<xs:element name="GroupByLevel2" type="xs:string" minOccurs="0" />
+										<xs:element name="GroupByLevel3" type="xs:string" minOccurs="0" />
+										<xs:element name="GroupByLevel4" type="xs:string" minOccurs="0" />
+										<xs:element name="Special" type="xs:string" minOccurs="0" />
+										<xs:element name="DateInterval" type="xs:string" minOccurs="0" />
+										<xs:element name="HasShowCostsPermission" type="xs:int" minOccurs="0" />
+										<xs:element name="HasShowGrossNetTimeSetting" type="xs:int" minOccurs="0" />
+										<xs:element name="CompanyLogo" type="xs:string" minOccurs="0" />
+										<xs:element name="GroupTypeName" type="xs:string" minOccurs="0" />
+										<xs:element name="SortTypeName" type="xs:string" minOccurs="0" />
+										<xs:element name="AccountsName" type="xs:string" minOccurs="0" />
+										<xs:element name="ScenarioName" type="xs:string" minOccurs="0" />
+										<xs:element name="ScenarioDateInterval" type="xs:string" minOccurs="0" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="EmployeeNrLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="EmployeeNameLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="EmployeeCategoryLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleTypeFactorMinutesLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekDayMondayShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekDayTuesdayShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekDayWednesdayShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekDayThursdayShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekDayFridayShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekDaySaturdayShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="ScheduleWeekDaySundayShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="IsPreliminaryLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="IsPreliminaryShortLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="EmployeeWeekTotalLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="GrossTimeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="NetTimeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="CostLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="EmploymentWorkTimeWeekLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="EmploymentPercentLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="AgreedTimeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="SchemeTimeLabel" type="xs:string" minOccurs="0" />
+										<xs:element name="AverageTimeLabel" type="xs:string" minOccurs="0" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Sales" maxOccurs="unbounded" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="AccountNr"/>
+										<xs:element type="xs:string" name="AccountName"/>
+										<xs:element type="xs:decimal" name="Amount"/>
+										<xs:element type="xs:int" name="FrequencyType" />
+										<xs:element type="xs:dateTime" name="Date" />
+										<xs:element type="xs:int" name="Wk" />
+									</xs:sequence>
+									<xs:attribute type="xs:int" name="id"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ShiftTypes" maxOccurs="unbounded" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="ExternalCode"/>
+										<xs:element type="xs:string" name="Name"/>
+										<xs:element type="xs:string" name="Color"/>
+									</xs:sequence>
+									<xs:attribute type="xs:int" name="id" use="optional"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Day" maxOccurs="unbounded" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:dateTime" name="Date"/>
+										<xs:element type="xs:string" name="Name"/>
+										<xs:element name="Group" maxOccurs="unbounded" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element type="xs:string" name="Name"/>
+													<xs:element name="Employee" maxOccurs="unbounded" minOccurs="0">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element type="xs:string" name="ENr"/>
+																<xs:element type="xs:string" name="EN"/>
+																<!--<xs:element type="xs:string" name="EGN"/>-->
+																<xs:element type="xs:string" name="Info"/>
+																<xs:element name="Shifts" maxOccurs="unbounded" minOccurs="0">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element type="xs:int" name="S1Len"/>
+																			<xs:element type="xs:int" name="S1Start"/>
+																			<xs:element type="xs:int" name="S1Stop"/>
+																			<xs:element type="xs:int" name="S1STId"/>
+																			<xs:element type="xs:byte" name="S1IB"/>
+																			<xs:element type="xs:string" name="S1AbsTxt"/>
+																			<xs:element type="xs:string" name="S1Desc"/>
+																			<xs:element type="xs:int" name="S1Lended"/>
+																			<xs:element type="xs:int" name="S2Len"/>
+																			<xs:element type="xs:int" name="S2Start"/>
+																			<xs:element type="xs:int" name="S2Stop"/>
+																			<xs:element type="xs:int" name="S2STId"/>
+																			<xs:element type="xs:byte" name="S2IB"/>
+																			<xs:element type="xs:string" name="S2AbsTxt"/>
+																			<xs:element type="xs:string" name="S2Desc"/>
+																			<xs:element type="xs:int" name="S2Lended"/>
+																			<xs:element type="xs:int" name="S3Len"/>
+																			<xs:element type="xs:int" name="S3Start"/>
+																			<xs:element type="xs:int" name="S3Stop"/>
+																			<xs:element type="xs:int" name="S3STId"/>
+																			<xs:element type="xs:byte" name="S3IB"/>
+																			<xs:element type="xs:string" name="S3AbsTxt"/>
+																			<xs:element type="xs:string" name="S3Desc"/>
+																			<xs:element type="xs:int" name="S3Lended"/>
+																			<xs:element type="xs:int" name="S4Len"/>
+																			<xs:element type="xs:int" name="S4Start"/>
+																			<xs:element type="xs:int" name="S4Stop"/>
+																			<xs:element type="xs:int" name="S4STId"/>
+																			<xs:element type="xs:byte" name="S4IB"/>
+																			<xs:element type="xs:string" name="S4AbsTxt"/>
+																			<xs:element type="xs:string" name="S4Desc"/>
+																			<xs:element type="xs:int" name="S4Lended"/>
+																			<xs:element type="xs:int" name="S5Len"/>
+																			<xs:element type="xs:int" name="S5Start"/>
+																			<xs:element type="xs:int" name="S5Stop"/>
+																			<xs:element type="xs:int" name="S5STId"/>
+																			<xs:element type="xs:byte" name="S5IB"/>
+																			<xs:element type="xs:string" name="S5AbsTxt"/>
+																			<xs:element type="xs:string" name="S5Desc"/>
+																			<xs:element type="xs:int" name="S5Lended"/>
+																			<xs:element type="xs:int" name="S6Len"/>
+																			<xs:element type="xs:int" name="S6Start"/>
+																			<xs:element type="xs:int" name="S6Stop"/>
+																			<xs:element type="xs:int" name="S6STId"/>
+																			<xs:element type="xs:byte" name="S6IB"/>
+																			<xs:element type="xs:string" name="S6AbsTxt"/>
+																			<xs:element type="xs:string" name="S6Desc"/>
+																			<xs:element type="xs:int" name="S6Lended"/>
+																			<xs:element type="xs:int" name="S7Len"/>
+																			<xs:element type="xs:int" name="S7Start"/>
+																			<xs:element type="xs:int" name="S7Stop"/>
+																			<xs:element type="xs:int" name="S7STId"/>
+																			<xs:element type="xs:byte" name="S7IB"/>
+																			<xs:element type="xs:string" name="S7AbsTxt"/>
+																			<xs:element type="xs:string" name="S7Desc"/>
+																			<xs:element type="xs:int" name="S7Lended"/>
+																			<xs:element type="xs:int" name="S8Len"  minOccurs="0"/>
+																			<xs:element type="xs:int" name="S8Start"  minOccurs="0"/>
+																			<xs:element type="xs:int" name="S8Stop"  minOccurs="0"/>
+																			<xs:element type="xs:int" name="S8STId" minOccurs="0"/>
+																			<xs:element type="xs:byte" name="S8IB" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S8AbsTxt" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S8Desc" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S8Lended" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S9Len" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S9Start" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S9Stop" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S9STId" minOccurs="0"/>
+																			<xs:element type="xs:byte" name="S9IB" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S9AbsTxt" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S9Desc" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S9Lended" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S10Len" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S10Start" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S10Stop" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S10STId" minOccurs="0"/>
+																			<xs:element type="xs:byte" name="S10IB" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S10AbsTxt" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S10Desc" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S10Lended" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S11Len" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S11Start" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S11Stop" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S11STId" minOccurs="0"/>
+																			<xs:element type="xs:byte" name="S11IB" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S11AbsTxt" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S11Desc" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S11Lended" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S12Len" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S12Start" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S12Stop" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S12STId" minOccurs="0"/>
+																			<xs:element type="xs:byte" name="S12IB" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S12AbsTxt" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S12Desc" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S12Lended" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S13Len" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S13Start" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S13Stop" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S13STId" minOccurs="0"/>
+																			<xs:element type="xs:byte" name="S13IB" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S13AbsTxt" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S13Desc" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S13Lended" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S14Len" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S14Start" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S14Stop" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S14STId" minOccurs="0"/>
+																			<xs:element type="xs:byte" name="S14IB" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S14AbsTxt" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S14Desc" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S14Lended" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S15Len" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S15Start" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S15Stop" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S15STId" minOccurs="0"/>
+																			<xs:element type="xs:byte" name="S15IB" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S15AbsTxt" minOccurs="0"/>
+																			<xs:element type="xs:string" name="S15Desc" minOccurs="0"/>
+																			<xs:element type="xs:int" name="S15Lended" minOccurs="0"/>
+																		</xs:sequence>
+																		<xs:attribute type="xs:int" name="id" use="optional"/>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+															<xs:attribute type="xs:int" name="id" use="optional"/>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute type="xs:int" name="id"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute type="xs:int" name="id"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,47 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-textbox label-key="common.name" model="ctrl.dayType.name" required="true" maxlength="100"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-textbox label-key="common.description" model="ctrl.dayType.description" maxlength="100"></soe-textbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-select label-key="time.schedule.daytype.fromdaytype" model="ctrl.dayType.standardWeekdayFrom" items="ctrl.standardWeekdayFrom" options="item.id as item.name for item in items"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-select label-key="time.schedule.daytype.todaytype" model="ctrl.dayType.standardWeekdayTo" items="ctrl.standardWeekdayTo" options="item.id as item.name for item in items"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-checkbox label-key="time.schedule.daytype.weekendsalary" model="ctrl.dayType.weekendSalary" />
+                </div>
+            </div>
+        </div>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.dayType"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

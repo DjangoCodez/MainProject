@@ -1,0 +1,30 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ModalForm.Master.cs" Inherits="SoftOne.Soe.Web.modalforms.ModalFormMaster" %>
+<%@ Import Namespace="SoftOne.Soe.Util" %>
+<asp:ContentPlaceHolder ID="scripts" runat="server"></asp:ContentPlaceHolder>
+<h3><%=PageBase.Enc(HeaderText)%></h3>
+<form action="<%=Action %>" onsubmit="<%=OnSubmit %>" class="SoeForm" method="<%= FormMethod %>">
+	<div id="modalFormContent" style="<%=ContentStyle %>" class="content">
+	    <%if(!string.IsNullOrEmpty(InfoText)){ %>
+	        <p class="text"><%= InfoText %></p>
+	    <%} %>
+		<table>
+			<asp:ContentPlaceHolder ID="formContent" runat="server"></asp:ContentPlaceHolder>
+		</table>
+	</div>
+	<div class="buttons">
+		<input type="hidden" name="Url" value="<%=Request.QueryString["url"]%>" />
+		<% if (showSubmitButton){%>
+		    <button id="submit" onclick="<%= OnSubmitButtonClick %>" type="submit" class="btn btn-default"><%=PageBase.Enc(SubmitButtonText)%></button>
+		<%}%>
+		<% if (showActionButton){%>
+		    <button id="action" type="submit" class="btn btn-default"><%=PageBase.Enc(ActionButtonText)%></button>
+		<%}%>
+        <% if (showActionJsButton){%>
+		    <button id="actionJs" type="button" class="btn btn-default" onclick="<%=ActionJs%>"><%=PageBase.Enc(ActionButtonText)%></button>
+		<%}%>
+		<% if (showCancelButton){%>
+		    <button id="cancel" type="button" class="btn btn-default cancel"><%=PageBase.Enc(CancelButtonText)%></button>
+		<%}%>
+	</div>
+</form>	
+

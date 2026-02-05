@@ -1,0 +1,26 @@
+<div
+  [formGroup]="form()"
+  class="d-flex justify-content-between"
+  data-testid="dialog-footer">
+  @if (!hideCancel()) {
+    <soe-button
+      class="ms-3"
+      [caption]="cancelLabelKey()"
+      [tooltip]="cancelLabelKey()"
+      [behaviour]="'standard'"
+      (action)="onCancelled()"></soe-button>
+  }
+  @if (!hideOk()) {
+    <soe-save-button
+      class="ms-3"
+      [caption]="okLabelKey()"
+      [tooltip]="okLabelKey()"
+      [disabled]="okDisabled()"
+      [invalid]="form().invalid"
+      [dirty]="form().dirty"
+      (action)="onCommitted()"
+      (validationErrorsAction)="
+        form().openFormValidationErrors()
+      "></soe-save-button>
+  }
+</div>

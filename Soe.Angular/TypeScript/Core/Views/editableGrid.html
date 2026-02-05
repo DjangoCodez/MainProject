@@ -1,0 +1,17 @@
+﻿<div>
+    <div data-ng-if="!ctrl.progressBusy || ctrl.useProgressModal">
+        <data-ng-include src="ctrl.gridHeaderComponentUrl" />
+    </div>
+
+    <soe-toolbar buttons="ctrl.buttonGroups">
+        <data-ng-include src="ctrl.toolbarInclude" />
+    </soe-toolbar>
+
+    <soe-progressbar is-busy="ctrl.progressBusy && !ctrl.useProgressModal" message="ctrl.progressMessage"></soe-progressbar>
+    
+    <div data-ui-grid="ctrl.soeGridOptions.gridOptions" enableCellEdit="true" height-checker data-ui-grid-edit ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-save-state ui-grid-exporter ui-grid-cellNav grid-keypress="ctrl.handleKeyPressInEditCell" class="ngSoeGrid"></div>
+
+    <div data-ng-if="!ctrl.progressBusy">
+        <data-ng-include src="ctrl.gridFooterComponentUrl" />
+    </div>
+</div>

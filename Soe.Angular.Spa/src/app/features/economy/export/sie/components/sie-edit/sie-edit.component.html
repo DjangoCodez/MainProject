@@ -1,0 +1,241 @@
+@if (form) {
+  <form
+    [formGroup]="form"
+    name=""
+    class="soe-edit-form"
+    novalidate
+    autocomplete="off">
+    <div class="row mb-3">
+      <div class="col-sm-2">
+        <soe-select
+          [labelKey]="'economy.export.sie.type'"
+          [items]="sieExportTypes()"
+          formControlName="exportType"></soe-select>
+      </div>
+      @if (selectedExportType() > 0) {
+        <div class="col-sm-2 info-block">
+          <soe-instruction
+            [type]="'info'"
+            [text]="sieExportTypeInfoMessage()"></soe-instruction>
+        </div>
+      }
+    </div>
+    <soe-accounting-period-selection
+      [containerForm]="form"
+      [hideAccountingYearTo]="true"
+      (valueChanged)="accountingPeriodSelectionChanged($event)"
+      (loaded)="
+        accountingPeriodSelectionLoaded()
+      "></soe-accounting-period-selection>
+    @if (showVoucherSeries()) {
+      <soe-expansion-panel
+        [labelKey]="'economy.export.sie.voucherselection'"
+        [open]="true">
+        @for (
+          voucherSelect of form.voucherSelection.controls;
+          track idx;
+          let idx = $index
+        ) {
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-select
+                [labelKey]="'economy.export.sie.voucherseries'"
+                [items]="voucherSeries()"
+                [formControl]="voucherSelect.voucherSeriesId"
+                [optionIdField]="'id'"
+                [optionNameField]="'name'"></soe-select>
+            </div>
+            <div class="col-sm-1">
+              <soe-numberbox
+                [labelKey]="'economy.export.sie.vouchernofrom'"
+                [noFormatting]="true"
+                [decimals]="0"
+                [formControl]="voucherSelect.voucherNoFrom"></soe-numberbox>
+            </div>
+            <div class="col-sm-1">
+              <soe-numberbox
+                [labelKey]="'economy.export.sie.vouchernoto'"
+                [noFormatting]="true"
+                [decimals]="0"
+                [formControl]="voucherSelect.voucherNoTo"></soe-numberbox>
+            </div>
+            <div class="col-sm-1 pt-4">
+              <soe-icon-button
+                [iconName]="'times'"
+                [iconClass]="'icon-delete'"
+                (action)="removeVoucherSerie(idx)"
+                [noBorder]="true"
+                [disabled]="
+                  form.voucherSelection.length <= 1
+                "></soe-icon-button>
+            </div>
+          </div>
+        }
+        <div class="row">
+          <div class="col-sm-1">
+            <soe-button
+              [title]="'core.add'"
+              [caption]="'core.add'"
+              [inline]="true"
+              [iconName]="'plus'"
+              (action)="addVoucherSerie()">
+            </soe-button>
+          </div>
+        </div>
+      </soe-expansion-panel>
+    }
+    <soe-expansion-panel
+      [labelKey]="'economy.export.sie.accountselection'"
+      [open]="true">
+      @for (
+        accountSelect of form.accountSelection.controls;
+        track idx;
+        let idx = $index
+      ) {
+        <div class="row">
+          <div class="col-sm-2">
+            <soe-select
+              [labelKey]="
+                isSieType3Or4()
+                  ? 'economy.export.sie.baseselection'
+                  : 'economy.export.sie.account'
+              "
+              [items]="accountDims()"
+              [formControl]="accountSelect.accountDimId"
+              [optionIdField]="'accountDimId'"
+              [optionNameField]="'name'"
+              (valueChanged)="accountDimChanged($event, idx)"></soe-select>
+          </div>
+          <div class="col-sm-1">
+            <soe-autocomplete
+              [labelKey]="'common.from'"
+              [optionIdField]="'accountId'"
+              [optionNameField]="'numberName'"
+              [optionDisplayNameField]="'numberName'"
+              [limit]="10"
+              [items]="accountSelect.accounts"
+              [filterInput]="this.sortByService.sortByStartsWithFirst"
+              [formControl]="accountSelect.accountNrFromId"></soe-autocomplete>
+          </div>
+          <div class="col-sm-1">
+            <soe-autocomplete
+              [labelKey]="'common.to'"
+              [optionIdField]="'accountId'"
+              [optionNameField]="'numberName'"
+              [optionDisplayNameField]="'numberName'"
+              [limit]="10"
+              [items]="accountSelect.accounts"
+              [filterInput]="this.sortByService.sortByStartsWithFirst"
+              [formControl]="accountSelect.accountNrToId"></soe-autocomplete>
+          </div>
+          <div class="col-sm-1 pt-4">
+            <soe-icon-button
+              [iconName]="'times'"
+              [iconClass]="'icon-delete'"
+              (action)="removeAccountDim(idx)"
+              [noBorder]="true"
+              [disabled]="form.accountSelection.length <= 1"></soe-icon-button>
+          </div>
+        </div>
+      }
+      <div class="row">
+        <div class="col-sm-1">
+          <soe-button
+            [title]="'core.add'"
+            [caption]="'core.add'"
+            [inline]="true"
+            [iconName]="'plus'"
+            (action)="addAccountDim()"></soe-button>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    <soe-expansion-panel
+      [labelKey]="'economy.export.sie.includeinexport'"
+      [open]="true">
+      <div class="row">
+        <div class="d-sm-inline me-3">
+          <soe-checkbox
+            [labelKey]="'economy.export.sie.previousyearbalance'"
+            formControlName="exportPreviousYear"></soe-checkbox>
+        </div>
+        @if (isSieType3Or4()) {
+          <div class="d-sm-inline me-3">
+            <soe-checkbox
+              [labelKey]="'economy.export.sie.item'"
+              formControlName="exportObject"></soe-checkbox>
+          </div>
+        }
+        <div class="d-sm-inline me-3">
+          <soe-checkbox
+            [labelKey]="'economy.export.sie.account'"
+            formControlName="exportAccount"></soe-checkbox>
+        </div>
+        <div class="d-sm-inline me-3">
+          <soe-checkbox
+            [labelKey]="'economy.export.sie.accounttype'"
+            formControlName="exportAccountType"></soe-checkbox>
+        </div>
+        <div class="d-sm-inline me-3">
+          <soe-checkbox
+            [labelKey]="'economy.export.sie.srucodes'"
+            formControlName="exportSruCodes"></soe-checkbox>
+        </div>
+        @if (showBudget()) {
+          <div class="d-sm-inline me-3 mt-1">
+            <soe-select
+              [labelKey]="'economy.export.sie.budget'"
+              [items]="budgets()"
+              formControlName="budgetHeadId"
+              [inline]="true"
+              [width]="200"></soe-select>
+          </div>
+        }
+        @if (showVoucherSort()) {
+          <div class="d-sm-inline me-3 mt-1">
+            <soe-select
+              [labelKey]="'economy.export.sie.sortvoucher'"
+              [items]="voucherSortItems()"
+              formControlName="sortVoucherBy"
+              [inline]="true"
+              [width]="200"></soe-select>
+          </div>
+        }
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <soe-textbox
+            [labelKey]="'common.comment'"
+            formControlName="comment"></soe-textbox>
+        </div>
+      </div>
+    </soe-expansion-panel>
+    @if (showConflictGrid()) {
+      <div class="row mt-3">
+        <div class="col-sm-12">
+          <soe-sie-conflicts-grid
+            [conflictRows]="conflictRows()"></soe-sie-conflicts-grid>
+        </div>
+      </div>
+    }
+    <soe-edit-footer
+      [form]="form"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      [hideDelete]="true"
+      [hideSave]="true">
+      @if (showSaveButton()) {
+        <div class="row" pageButtons>
+          <div class="col-sm-12">
+            <soe-save-button
+              [title]="'core.export'"
+              [caption]="'core.export'"
+              [invalid]="form.invalid"
+              (validationErrorsAction)="form.openFormValidationErrors()"
+              (action)="triggerExport()"
+              class="pull-right"></soe-save-button>
+          </div>
+        </div>
+      }
+    </soe-edit-footer>
+  </form>
+}

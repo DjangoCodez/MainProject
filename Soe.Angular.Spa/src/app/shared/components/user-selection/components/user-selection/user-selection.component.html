@@ -1,0 +1,25 @@
+<form [formGroup]="form">
+  <soe-select
+    [labelKey]="labelKey()"
+    [selectedId]="form.value.selectedUserSelectionId"
+    [items]="userSelections"
+    (valueChanged)="onSelectionChanged($event)"
+    formControlName="selectedUserSelectionId">
+    <soe-icon-button
+      [iconName]="'floppy-disk'"
+      [tooltip]="'core.reportmenu.selection.save'"
+      [disabled]="!canSaveSelection()"
+      (action)="saveUserSelection(false)"></soe-icon-button
+    ><soe-icon-button
+      [iconName]="'clone'"
+      [tooltip]="'core.reportmenu.selection.copy'"
+      [disabled]="!canCopySelection()"
+      (action)="saveUserSelection(true)"></soe-icon-button
+    ><soe-icon-button
+      [iconName]="'xmark'"
+      [iconClass]="'error-color'"
+      [tooltip]="'core.reportmenu.selection.delete'"
+      [disabled]="!canDeleteSelection()"
+      (action)="initDeleteUserSelection()"></soe-icon-button
+  ></soe-select>
+</form>

@@ -1,0 +1,243 @@
+<?xml version="1.0" standalone="yes"?>
+<SOE_CertificateOfEmploymentReport>
+  <xs:schema id="SOE_CertificateOfEmploymentReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="SOE_CertificateOfEmploymentReport" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="CertificateOfEmploymentReport">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="Company" type="xs:string" minOccurs="0" />
+                      <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                      <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                      <xs:element name="TimePeriod" type="xs:string" minOccurs="0" />
+                      <xs:element name="SortByLevel1" type="xs:string" minOccurs="0" />
+                      <xs:element name="SortByLevel2" type="xs:string" minOccurs="0" />
+                      <xs:element name="SortByLevel3" type="xs:string" minOccurs="0" />
+                      <xs:element name="SortByLevel4" type="xs:string" minOccurs="0" />
+                      <xs:element name="IsSortAscending" type="xs:string" minOccurs="0" />
+                      <xs:element name="GroupByLevel1" type="xs:string" minOccurs="0" />
+                      <xs:element name="GroupByLevel2" type="xs:string" minOccurs="0" />
+                      <xs:element name="GroupByLevel3" type="xs:string" minOccurs="0" />
+                      <xs:element name="GroupByLevel4" type="xs:string" minOccurs="0" />
+                      <xs:element name="Special" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateInterval" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="Employee" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="EmployeeNr" type="xs:string" msdata:Ordinal="1" />
+                      <xs:element name="FirstName" type="xs:string" msdata:Ordinal="2" />
+                      <xs:element name="LastName" type="xs:string" msdata:Ordinal="3" />
+                      <xs:element name="SocialSec" type="xs:string" msdata:Ordinal="4" />
+                      <xs:element name="Note" type="xs:string" msdata:Ordinal="5" />
+                      <xs:element name="Employment" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="DateFrom" type="xs:dateTime" msdata:Ordinal="1" />
+                            <xs:element name="DateTo" type="xs:dateTime" msdata:Ordinal="2" />
+                            <xs:element name="PositionCode" type="xs:string" msdata:Ordinal="3" />
+                            <xs:element name="PositionName" type="xs:string" msdata:Ordinal="4" />
+                            <xs:element name="EmploymentType" type="xs:int" msdata:Ordinal="5" />
+                            <xs:element name="EmploymentTypeName" type="xs:string" msdata:Ordinal="6" />
+                            <xs:element name="WorkTime" type="xs:decimal" msdata:Ordinal="7" />
+                            <xs:element name="WorkTimeEmployeeGroup" type="xs:string" msdata:Ordinal="8" />
+                            <xs:element name="WorkPercent" type="xs:decimal" msdata:Ordinal="9" />
+                            <xs:element name="EndReason" type="xs:int" msdata:Ordinal="10" />
+                            <xs:element name="EndReasonName" type="xs:string" msdata:Ordinal="11" />
+                            <xs:element name="EndReasonCode" type="xs:int" msdata:Ordinal="12" />
+                            <xs:element name="PayrollYear" type="xs:int" msdata:Ordinal="13" />
+                            <xs:element name="TypeOfSalary" type="xs:string" msdata:Ordinal="14" />
+                            <xs:element name="PayrollAmount" type="xs:decimal" msdata:Ordinal="15" />
+                            <xs:element name="OverTimePerHour" type="xs:decimal" msdata:Ordinal="16" />
+                            <xs:element name="AddedTimePerHour" type="xs:decimal" msdata:Ordinal="17" />
+                            <xs:element name="HasOtherDisbursementTransactions" type="xs:int" msdata:Ordinal="18" />
+                            <xs:element name="GroupTrans" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="Type" type="xs:string" msdata:Ordinal="1" />
+                                  <xs:element name="DateFrom" type="xs:dateTime" msdata:Ordinal="2" />
+                                  <xs:element name="WorkSum" type="xs:decimal" msdata:Ordinal="3" />
+                                  <xs:element name="AbsenceSum" type="xs:decimal" msdata:Ordinal="4" />
+                                  <xs:element name="OverTimeSum" type="xs:decimal" msdata:Ordinal="5" />
+                                  <xs:element name="AddedTimeSum" type="xs:decimal" msdata:Ordinal="6" />
+                                  <xs:element name="Transactions" minOccurs="0" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                      <xs:sequence>
+                                        <xs:element name="PayrollProductNumber" type="xs:string" msdata:Ordinal="1" />
+                                        <xs:element name="Name" type="xs:string" msdata:Ordinal="2" />
+                                        <xs:element name="Date" type="xs:dateTime" msdata:Ordinal="3" />
+                                        <xs:element name="Quantity" type="xs:decimal" msdata:Ordinal="4" />
+                                        <xs:element name="Amount" type="xs:decimal" msdata:Ordinal="5" />
+                                        <xs:element type="xs:int" name="SysPayrollTypeLevel1" msdata:Ordinal="6" />
+                                        <xs:element type="xs:int" name="SysPayrollTypeLevel2" msdata:Ordinal="7" />
+                                        <xs:element type="xs:int" name="SysPayrollTypeLevel3" msdata:Ordinal="8" />
+                                        <xs:element type="xs:int" name="SysPayrollTypeLevel4" msdata:Ordinal="9" />
+                                        <xs:element type="xs:string" name="SysPayrollTypeLevel1Name" msdata:Ordinal="10" />
+                                        <xs:element type="xs:string" name="SysPayrollTypeLevel2Name" msdata:Ordinal="11" />
+                                        <xs:element type="xs:string" name="SysPayrollTypeLevel3Name" msdata:Ordinal="12" />
+                                        <xs:element type="xs:string" name="SysPayrollTypeLevel4Name" msdata:Ordinal="13"/>
+                                      </xs:sequence>
+                                      <xs:attribute name="Id" type="xs:int" />
+                                    </xs:complexType>
+                                  </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="Id" type="xs:int" />
+                              </xs:complexType>
+                            </xs:element>
+                            <xs:element name="GroupOtherTrans" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="Type" type="xs:string" msdata:Ordinal="1" />
+                                  <xs:element name="PayrollProductNumber" type="xs:string" msdata:Ordinal="2" />
+                                  <xs:element name="Name" type="xs:string" msdata:Ordinal="3" />
+                                  <xs:element name="DateFrom" type="xs:dateTime" msdata:Ordinal="4" />
+                                  <xs:element name="Days" type="xs:int" msdata:Ordinal="5" />
+                                  <xs:element name="Amount" type="xs:decimal" msdata:Ordinal="6" />
+                                  <xs:element name="Quantity" type="xs:decimal" msdata:Ordinal="7" />
+                                  <xs:element name="IsDutyOrStandby" type="xs:int" msdata:Ordinal="8" />
+                                  <xs:element name="OtherTransactions" minOccurs="0" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                      <xs:sequence>
+                                        <xs:element name="PayrollProductNumber" type="xs:string" msdata:Ordinal="1" />
+                                        <xs:element name="Name" type="xs:string" msdata:Ordinal="2" />
+                                        <xs:element name="Date" type="xs:dateTime" msdata:Ordinal="3" />
+                                        <xs:element name="Quantity" type="xs:decimal" msdata:Ordinal="4" />
+                                        <xs:element name="Amount" type="xs:decimal" msdata:Ordinal="5" />
+                                        <xs:element type="xs:int" name="SysPayrollTypeLevel1" msdata:Ordinal="6" />
+                                        <xs:element type="xs:int" name="SysPayrollTypeLevel2" msdata:Ordinal="7" />
+                                        <xs:element type="xs:int" name="SysPayrollTypeLevel3" msdata:Ordinal="8" />
+                                        <xs:element type="xs:int" name="SysPayrollTypeLevel4" msdata:Ordinal="9" />
+                                        <xs:element type="xs:string" name="SysPayrollTypeLevel1Name" msdata:Ordinal="10" />
+                                        <xs:element type="xs:string" name="SysPayrollTypeLevel2Name" msdata:Ordinal="11" />
+                                        <xs:element type="xs:string" name="SysPayrollTypeLevel3Name" msdata:Ordinal="12" />
+                                        <xs:element type="xs:string" name="SysPayrollTypeLevel4Name" msdata:Ordinal="13"/>
+                                      </xs:sequence>
+                                      <xs:attribute name="Id" type="xs:int" />
+                                    </xs:complexType>
+                                  </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="Id" type="xs:int" />
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                          <xs:attribute name="Id" type="xs:int" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="Id" type="xs:int" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <CertificateOfEmploymentReport>
+    <ReportHeader>
+      <ReportTitle></ReportTitle>
+      <ReportDescription></ReportDescription>
+      <ReportNr></ReportNr>
+      <Company></Company>
+      <Orgnr></Orgnr>
+      <LoginName></LoginName>
+      <TimePeriod></TimePeriod>
+      <SortByLevel1>Unknown</SortByLevel1>
+      <SortByLevel2>Unknown</SortByLevel2>
+      <SortByLevel3>Unknown</SortByLevel3>
+      <SortByLevel4>Unknown</SortByLevel4>
+      <IsSortAscending>false</IsSortAscending>
+      <GroupByLevel1>Unknown</GroupByLevel1>
+      <GroupByLevel2>Unknown</GroupByLevel2>
+      <GroupByLevel3>Unknown</GroupByLevel3>
+      <GroupByLevel4>Unknown</GroupByLevel4>
+      <Special />
+      <DateInterval>2017-04-01-2017-04-30</DateInterval>
+    </ReportHeader>
+    <Employee Id="1">
+      <EmployeeNr></EmployeeNr>
+      <FirstName></FirstName>
+      <LastName></LastName>
+      <SocialSec></SocialSec>
+      <Note></Note>
+      <Employment Id="1">
+        <DateFrom>1900-01-01T00:00:00</DateFrom>
+        <DateTo>1900-01-01T00:00:00</DateTo>
+        <PositionCode></PositionCode>
+        <PositionName></PositionName>
+        <EmploymentType>0</EmploymentType>
+        <EmploymentTypeName></EmploymentTypeName>
+        <WorkTime>0</WorkTime>
+        <WorkTimeEmployeeGroup>0</WorkTimeEmployeeGroup>
+        <WorkPercent>0</WorkPercent>
+        <EndReason>0</EndReason>
+        <EndReasonName />
+        <EndReasonCode>0</EndReasonCode>
+        <PayrollYear>2017</PayrollYear>
+        <TypeOfSalary>Custom</TypeOfSalary>
+        <PayrollAmount>0</PayrollAmount>
+        <OverTimePerHour>0</OverTimePerHour>
+        <AddedTimePerHour>0</AddedTimePerHour>
+        <HasOtherDisbursementTransactions>0</HasOtherDisbursementTransactions>
+        <GroupTrans Id="1">
+          <Type>Month</Type>
+          <DateFrom>1900-01-01T00:00:00</DateFrom>
+          <WorkSum>0</WorkSum>
+          <AbsenceSum>0</AbsenceSum>
+          <OverTimeSum>0</OverTimeSum>
+          <AddedTimeSum>0</AddedTimeSum>
+          <Transactions Id="0">
+            <PayrollProductNumber />
+            <Name />
+            <Date>1900-01-01T00:00:00</Date>
+            <Quantity>225.00</Quantity>
+            <Amount>0</Amount>
+            <SysPayrollTypeLevel1>0</SysPayrollTypeLevel1>
+            <SysPayrollTypeLevel2>0</SysPayrollTypeLevel2>
+            <SysPayrollTypeLevel3>0</SysPayrollTypeLevel3>
+            <SysPayrollTypeLevel4>0</SysPayrollTypeLevel4>
+            <SysPayrollTypeLevel1Name />
+            <SysPayrollTypeLevel2Name />
+            <SysPayrollTypeLevel3Name />
+            <SysPayrollTypeLevel4Name />
+          </Transactions>
+        </GroupTrans>
+        <GroupOtherTrans Id="1">
+          <Type>Month</Type>
+          <PayrollProductNumber></PayrollProductNumber>
+          <Name></Name>
+          <DateFrom>1900-01-01T00:00:00</DateFrom>
+          <Days>0</Days>
+          <Amount>0</Amount>
+          <Quantity>0</Quantity>
+          <IsDutyOrStandby>0</IsDutyOrStandby>
+          <OtherTransactions Id="0">
+            <PayrollProductNumber />
+            <Name />
+            <Date>1900-01-01T00:00:00</Date>
+            <Quantity>0</Quantity>
+            <Amount>0</Amount>
+            <SysPayrollTypeLevel1>0</SysPayrollTypeLevel1>
+            <SysPayrollTypeLevel2>0</SysPayrollTypeLevel2>
+            <SysPayrollTypeLevel3>0</SysPayrollTypeLevel3>
+            <SysPayrollTypeLevel4>0</SysPayrollTypeLevel4>
+            <SysPayrollTypeLevel1Name />
+            <SysPayrollTypeLevel2Name />
+            <SysPayrollTypeLevel3Name />
+            <SysPayrollTypeLevel4Name />
+          </OtherTransactions>
+        </GroupOtherTrans>
+      </Employment>
+    </Employee>
+  </CertificateOfEmploymentReport>
+</SOE_CertificateOfEmploymentReport>

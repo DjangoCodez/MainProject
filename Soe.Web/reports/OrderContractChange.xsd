@@ -1,0 +1,71 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="SOE_OrderContractChange" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SOE_OrderContractChange" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="OrderContractChanges">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="TimeLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjectNameLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="ProjectNrLabel" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                    <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                    <xs:element name="Company" type="xs:string" minOccurs="0" />
+                    <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                    <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjectName" type="xs:string" minOccurs="0" />
+                    <xs:element name="ProjectNr" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="HeaderTextLabel" type="xs:string" minOccurs="0" />
+                    <xs:element name="OrderNrLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="OrderDateLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="OrderDescrLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="OrderAmountLabel" type="xs:string" minOccurs="0" />
+					<xs:element name="InvoiceDateLabel" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="InvoiceElements" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+				  <xs:element name="InvoiceElement" minOccurs="0" maxOccurs="unbounded">
+				  <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="InvoiceId" type="xs:int" minOccurs="0" msdata:Ordinal="1" />
+                    <xs:element name="OrderNr" type="xs:string" minOccurs="0" msdata:Ordinal="2"/>
+					<xs:element name="OrderDate" type="xs:string" minOccurs="0" msdata:Ordinal="3"/>
+					<xs:element name="OrderAmount" type="xs:decimal" minOccurs="0" msdata:Ordinal="4"/>
+					<xs:element name="InvoiceLabel" type="xs:string" minOccurs="0" msdata:Ordinal="5"/>
+					<xs:element name="InvoiceDate" type="xs:string" minOccurs="0" msdata:Ordinal="6"/>
+                  </xs:sequence>
+                  </xs:complexType>
+				  </xs:element>
+				  </xs:sequence>
+				</xs:complexType>
+				</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			</xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

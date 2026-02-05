@@ -1,0 +1,54 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off"  data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="economy.accounting.vatcode.vatcode">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-textbox label-key="common.code" model="ctrl.vatCode.code" required="true" maxlength="50" auto-focus="true"></soe-textbox>
+                    </div>
+                    <div class="col-sm-6">
+                        <soe-textbox label-key="common.name" model="ctrl.vatCode.name" required="true" maxlength="100"></soe-textbox>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-typeahead label-key="economy.accounting.vatcode.account" model="ctrl.selectedAccount" items="ctrl.accountStdsDict" options="item as item.name for item in items" required="true" limit="10"></soe-typeahead>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="economy.accounting.vatcode.sysvatrate" model="ctrl.vatCode.accountSysVatRate" readonly="true"></soe-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <soe-typeahead label-key="economy.accounting.vatcode.purchasevataccount" model="ctrl.selectedPurchaseVATAccount" items="ctrl.accountStdsDict" options="item as item.name for item in items" limit="10"></soe-typeahead>
+                    </div>
+                    <div class="col-sm-2">
+                        <soe-textbox label-key="economy.accounting.vatcode.sysvatrate" model="ctrl.vatCode.purchaseVATAccountSysVatRate" readonly="true"></soe-textbox>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-1">
+                        <soe-textbox label-key="common.percentage" model="ctrl.vatCode.percent"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-6">
+                <created-modified model="ctrl.vatCode"></created-modified>
+            </div>
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

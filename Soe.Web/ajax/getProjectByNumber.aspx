@@ -1,0 +1,2 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="getProjectByNumber.aspx.cs" Inherits="SoftOne.Soe.Web.ajax.getProjectByNumber" %>
+<%@ outputcache Duration="1" Location="None" VaryByParam="*" %>

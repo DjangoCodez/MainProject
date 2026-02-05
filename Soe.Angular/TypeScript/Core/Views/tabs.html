@@ -1,0 +1,21 @@
+﻿<div class="container-fluid">
+
+    <uib-tabset data-ng-hide="ctrl.tabs.length==0" active="ctrl.activeTabIndex">
+        <uib-tab class="tab" index="tab.index" data-ng-repeat="tab in ctrl.tabs" disable="tab.disable" select="tab.selected()">
+            <uib-tab-heading>
+                <label data-ng-dblclick="ctrl.tabDblClicked(tab)">{{tab.label}}</label>
+                <!-- Icons -->
+                <span class="dirtyTabIcon" data-ng-if="tab.isDirty">*</span>
+                <i class="{{tab.disable ? 'addTabIconDisabled' : 'addTabIcon'}} fal fa-plus" title="{{tab.iconToolTip}}" data-ng-if="tab.isAddTab"></i>
+                <i class="removableTabIcon fal fa-times" title="{{tab.iconToolTip}}" data-ng-if="tab.isRemovableTab" data-ng-click="tab.remove();$event.stopPropagation();$event.preventDefault();"></i>
+                <i class="{{tab.disable ? 'removeAllTabIconDisabled' : 'removeAllTabIcon'}} fal fa-times" title="{{tab.iconToolTip}}" data-ng-if="tab.isRemoveAllTab"></i>
+            </uib-tab-heading>
+            <div data-ng-include="tab.templateUrl"></div>
+        </uib-tab>
+    </uib-tabset>
+
+    <!-- Show progress bar while tabs are beeing created-->
+    <div data-ng-hide="ctrl.tabs.length">
+        <progressbar class="progress-striped active" type="warning" />
+    </div>
+</div>

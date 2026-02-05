@@ -1,0 +1,51 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="">
+            <div class="form-group form-group-sm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textbox label-key="common.name" model="ctrl.messageGroup.name" required="true" maxlength="50"></soe-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <soe-textarea label-key="manage.registry.openinghours.description" model="ctrl.messageGroup.description" rows="5"></soe-textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 margin-large-left">
+                        <div class="row">
+                            <soe-checkbox label-key="manage.registry.receivergroups.ispublic" model="ctrl.messageGroup.isPublic" inline="true"></soe-checkbox>
+                            <soe-checkbox label-key="manage.registry.receivergroups.nouservalidation" model="ctrl.messageGroup.noUserValidation" inline="true" data-ng-if="ctrl.messageGroup.isPublic"></soe-checkbox>
+                        </div>
+                        <div class="row margin-large-top" data-ng-if="ctrl.messageGroup.isPublic">
+                            <div class="info">
+                                <span data-ng-bind-html="ctrl.noUserValidationInfoLabel | formatHtml"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <receivers-list parent-guid="ctrl.guid" recipients="ctrl.messageGroup.groupMembers" only-message-group="false" on-change="ctrl.setModified();"></receivers-list>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.messageGroup"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" data-ng-if="ctrl.messageGroup.groupMembers.length > 0" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

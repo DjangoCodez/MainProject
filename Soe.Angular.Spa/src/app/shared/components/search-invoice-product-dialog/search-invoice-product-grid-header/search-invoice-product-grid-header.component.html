@@ -1,0 +1,38 @@
+<form [formGroup]="form" novalidate autocomplete="off">
+  <div class="row">
+    @if (useExtendSearchInfo) {
+      <div class="d-sm-inline">
+        <soe-select
+          [inline]="true"
+          [labelKey]="'common.categories.category'"
+          [items]="firstTierCategories"
+          [optionIdField]="'sysProductGroupId'"
+          [optionNameField]="'name'"
+          [width]="125"
+          formControlName="selectedFirstTierCategoryId"
+          (valueChanged)="firstTierCategoryChanged.emit($event)" />
+      </div>
+      <div class="d-sm-inline">
+        <soe-select
+          [inline]="true"
+          [labelKey]="'common.categories.subcategory'"
+          [items]="secondTierCategories()"
+          [optionIdField]="'sysProductGroupId'"
+          [optionNameField]="'name'"
+          [width]="125"
+          formControlName="selectedSecondTierCategoryId"
+          (valueChanged)="secondTierCategoryChanged.emit($event)" />
+      </div>
+    }
+    <div class="d-sm-inline">
+      <soe-textbox
+        [inline]="true"
+        [labelKey]="'common.freetextsearch'"
+        [width]="250"
+        formControlName="freetextsearch" />
+    </div>
+    <div class="d-sm-inline">
+      <soe-button [caption]="'core.search'" (action)="search()"></soe-button>
+    </div>
+  </div>
+</form>

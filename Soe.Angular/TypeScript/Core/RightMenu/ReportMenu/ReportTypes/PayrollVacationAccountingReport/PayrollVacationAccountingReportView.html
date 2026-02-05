@@ -1,0 +1,49 @@
+﻿<div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-4">
+                <date-selection on-selected="$ctrl.onDateSelectionUpdated(selection)" label-key="common.dateto" date="$ctrl.date" user-selection-input="$ctrl.userSelectionInputDate" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="row">
+            <div class="col-sm-12">
+                <employees-selection on-selected="$ctrl.onEmployeeSelectionUpdated(employeeSelection)" report-template-type="100" label-key="common.employees" enable-filters="true" show-inactive="true" show-vacant="true" show-hidden="true" show-only-inactive="true" time-period-Ids="$ctrl.timePeriodIds" user-selection-input="$ctrl.userSelectionInputEmployee" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <div class="col-sm-2">
+                <bool-selection on-selected="$ctrl.onSkipQuantitySelectionUpdated(selection)" label-key="common.report.skipquantity" user-selection-input="$ctrl.userSkipQuantitySelection" />
+            </div>
+        </div>
+    </div>
+    <div ng-hide="$ctrl.noVoucherSeriesTypes">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <bool-selection on-selected="$ctrl.onBoolSelectionInputCreateVoucher(selection)" label-key="core.transfertovoucher" user-selection-input="$ctrl.userSelectionInputCreateVoucher" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-hide="$ctrl.hideVoucherSettings" class="form-group form-group-sm">
+        <div class="row">
+            <div>
+                <div class="col-sm-2">
+                    <id-selection ng-hide="$ctrl.hideVoucherSettings" on-selected="$ctrl.onVoucherRowMergeTypeSelectionUpdated(selection)" label-key="common.mergerows" items="$ctrl.voucherRowMergeTypes" selected="1" user-selection-input="$ctrl.userSelectionInputVoucherRowMergeType" />
+                </div>
+            </div>
+            <div">
+                <div class="col-sm-2">
+                    <id-selection ng-hide="$ctrl.hideVoucherSettings" on-selected="$ctrl.onVoucherSeriesTypeIdSelectionUpdated(selection)" label-key="common.voucherseries" items="$ctrl.voucherSeriesTypes" selected="1" user-selection-input="$ctrl.userSelectionInputVoucherSeriesType" />
+                </div>
+
+                <div class="col-sm-4">
+                    <date-selection ng-hide="$ctrl.hideVoucherSettings" on-selected="$ctrl.onVoucherDateSelectionUpdated(selection)" label-key="common.voucherdate" from="$ctrl.userSelectionInputVoucherDate" to="$ctrl.userSelectionInputVoucherDate" user-selection-input="$ctrl.userSelectionInputVoucherDate" />
+                </div>
+        </div>
+    </div>
+</div>

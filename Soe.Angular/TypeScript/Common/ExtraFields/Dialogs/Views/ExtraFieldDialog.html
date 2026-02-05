@@ -1,0 +1,51 @@
+﻿<form name="ctrl.dialogform">
+    <div class="messagebox">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'common.extrafields.createextrafield'" data-ng-if="ctrl.isNew"></h6>
+            <h6 class="modal-title" data-l10n-bind="'common.extrafields.editextrafield'" data-ng-if="!ctrl.isNew"></h6>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div ng-class="ctrl.isForAccountDim?'col-sm-6' : 'col-sm-9'">
+                    <soe-textbox label-key="common.appellation" model="ctrl.extraField.text" required="true"></soe-textbox>
+                </div>
+                <div class="col-sm-3">
+                    <soe-label label-key="common.extrafields.fieldtype"></soe-label>
+                    <div class="input-group">
+                        <soe-select model="ctrl.extraField.type" items="ctrl.fieldTypes" options="item.id as item.name for item in items" button-icon="'fa-pencil'" on-changing="ctrl.rowTypeChanged(item)"></soe-select>
+                    </div>
+                </div>
+                <div data-ng-if="ctrl.isForAccountDim" class="col-sm-3">                    
+                    <div class="input-group">
+                        <soe-select model="ctrl.extraField.connectedRecordId" label-key="common.accountdim" items="ctrl.accountDims" options="item.accountDimId as item.name for item in items" button-icon="'fa-pencil'" on-changing="ctrl.rowTypeChanged(item)" required="true"></soe-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <soe-textbox label-key="common.externalcode" model="ctrl.extraField.externalCodesString" maxlength="100"></soe-textbox>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-large-top">
+                <div class="col-sm-12">
+                    <uib-accordion close-others="false">
+                        <soe-accordion label-key="common.extrafields.translations">
+                            <div class="row form-group form-group-sm">
+                                <div class="col-sm-12">
+                                    <comp-terms comp-term-record-type="8" record-id="ctrl.extraField.extraFieldId" comp-term-rows="ctrl.translations" read-only="false" parent-guid="ctrl.guid"></comp-terms>
+                                </div>
+                            </div>
+                        </soe-accordion>
+                    </uib-accordion>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+            <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()" data-ng-disabled="ctrl.dialogform.$invalid"></button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,22 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    <div class="soe-edit-form">
+      <div class="row">
+        <div class="col-sm-12">
+          <soe-voucher-search-grid
+            [isDialog]="true"
+            (closeDialog)="closeVoucherSearchDialog($event)">
+          </soe-voucher-search-grid>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <div dialog-footer>
+    <soe-button
+      class="ms-3"
+      [caption]="'core.close'"
+      typeClass="btn btn-secondary"
+      [behaviour]="'standard'"
+      (action)="close()"></soe-button>
+  </div>
+</soe-dialog>

@@ -1,0 +1,131 @@
+﻿<form name="ctrl.editRetro" class="ngSoeForm" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.payroll.retroactive.review.dialog'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-checkbox label-key="time.payroll.retroactive.showerroremployees" model="ctrl.showOnlyEmployeesWithoutErrors" data-ng-hide="ctrl.isLoadingRetroEmployees"></soe-checkbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3">
+                    <div class="retroreview-list">
+                        <ul data-ng-hide="ctrl.isLoadingRetroEmployees">
+                            <li ng-repeat="retroEmployee in ctrl.getValidRetroEmployees()" data-ng-if="!ctrl.showOnlyEmployeesWithoutErrors || retroEmployee.status >= 100" >
+                                <div class="row" data-ng-click="$event.stopPropagation();ctrl.navigateTo(retroEmployee.employeeId)" data-ng-class="{active: ctrl.isRetroEmployeeActive(retroEmployee)}" style="padding-right:15px">
+                                    <div class="col-sm-2 retroreview-list-employee">
+                                        <span>{{::retroEmployee.employeeNr}}</span>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{::retroEmployee.employeeName}}</span>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <span>{{::ctrl.getRetroEmployeeAmount(retroEmployee)}}</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="row">
+                                            <div class="col-sm-3 retroreview-list-employee-icon" data-l10n-bind data-l10n-bind-title="'time.payroll.retroactive.employeehaserrors'">
+                                                <div class="circle"><span class="fal fa-exclamation-circle" data-ng-show="retroEmployee.status > 100" style="margin-left:3px"></span></div>
+                                            </div>                                                                              
+                                            <div class="col-sm-3 retroreview-list-employee-icon" data-l10n-bind data-l10n-bind-title="'time.payroll.retroactive.notcalculated'">
+                                                <div class="circle"><span class="fal fa-calculator-alt" data-ng-show="!retroEmployee.hasOutcomes" style="margin-left:3px"></span></div>
+                                            </div>
+                                            <div class="col-sm-3 retroreview-list-employee-icon" data-l10n-bind data-l10n-bind-title="'time.payroll.retroactive.hasnotransactions'">
+                                                <div class="circle"><span class="fal fa-file-alt" data-ng-show="!retroEmployee.hasTransactions" style="margin-left:3px"></span></div>
+                                            </div>
+                                            <div class="col-sm-3 retroreview-list-employee-icon" data-l10n-bind data-l10n-bind-title="'time.payroll.retroactive.isnotlocked'">
+                                                <div class="circle"><span class="fal fa-unlock-alt" data-ng-show="retroEmployee.status != 31" style="margin-left:3px"></span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="retroreview-list-progress-loading" data-ng-if="ctrl.isLoadingRetroEmployees">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div>
+                                        <soe-progressbar is-busy="ctrl.isLoadingRetroEmployees"></soe-progressbar>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="retroreview-list-footer">
+                            <div class="info">
+                                <div class="row">
+                                     <div class="col-sm-12">
+                                         <div class="btn-group pull-left timetree-header-toolbar-buttons-right">
+                                             <i data-l10n-bind data-l10n-bind-title="'core.reload_data'" class="btn btn-default fal fa-sync" data-ng-click="ctrl.loadRetroEmployees()"></i>
+                                        </div>
+                                        <div class="pull-right">
+                                            <span data-l10n-bind="'time.payroll.retroactive.total'" class="indiscreet"></span><br />
+                                            <span> {{ctrl.getRetroEmployeesTotalAmount()}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-9">
+                    <div class="retroreview-employee">
+                        <div class="form-group form-group-sm">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <soe-typeahead label-key="common.employee" model="ctrl.selectedEmployee" items="ctrl.employees" options="item as item.name for item in items" limit="50"></soe-typeahead>
+                                </div>
+                                <div class="col-sm-2 margin-small-top">
+                                    <soe-label></soe-label>
+                                    <soe-navigation-menu ids="ctrl.employeeIds" current-id="ctrl.selectedEmployee.id" navigate-to="ctrl.navigateTo(id)"></soe-navigation-menu>
+                                </div>
+                                <div class="col-sm-5">
+                                    <soe-checkbox label-key="time.payroll.retroactive.hideproductswithoutretroamount" model="ctrl.hideProductsWithoutRetroAmount" is-disabled="!ctrl.retroOutcomes || ctrl.retroOutcomes.length === 0" style="margin-top:27px"></soe-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-if="ctrl.isLoaded">
+                            <div class="col-sm-12">
+                                <div data-ui-grid="ctrl.soeGridOptions.gridOptions" style="height:500px" enableCellEdit="true" ui-grid-auto-resize data-ui-grid-edit ui-grid-expandable ui-grid-cellNav></div>
+                            </div>
+                        </div>
+                        <div class="retroreview-employee-footer">
+                            <div class="info">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="pull-left">
+                                            <span data-l10n-bind="'common.status'" class="indiscreet"></span><br />
+                                            <span ng-class="{'invalid-cell': ctrl.selectedRetroEmployee.status >=1000 }">{{ctrl.selectedRetroEmployee.statusName}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="pull-right">
+                                            <div class="form-group form-group-sm" style="margin-bottom:0">
+                                                <span data-l10n-bind="'time.payroll.retroactive.total'" class="indiscreet"></span>
+                                                <span class="indiscreet"> ({{ ctrl.selectedEmployee.name}})</span>
+                                            </div>
+                                            <span> {{ctrl.getCurrentRetroEmployeeAmount()}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" data-ng-if="!ctrl.progress.progressBusy">
+        <div class="col-sm-4">
+            <created-modified model="ctrl.selectedRetroactivePayrollEmployeeDTO"></created-modified>
+        </div>
+        <div class="pull-right">            
+            <div class="col">
+                <soe-splitbutton button-name="btnSave" label-key="core.save" options="ctrl.functions" main-button="true" drop-up="true" selected-option="ctrl.selectedOption" option-selected="ctrl.executeFunction(option)" is-disabled="ctrl.selectedRetroEmployee.status === 31"></soe-splitbutton>
+            </div>
+            <button type="button" class="btn btn-sm btn-default margin-large-left" data-l10n-bind="'core.close'" data-l10n-bind-title="'core.close'" data-ng-click="ctrl.close()"></button>
+        </div>
+    </div>
+</form>

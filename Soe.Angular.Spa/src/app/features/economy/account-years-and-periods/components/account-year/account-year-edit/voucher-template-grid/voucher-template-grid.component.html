@@ -1,0 +1,28 @@
+<form
+  [formGroup]="form"
+  class="soe-edit-form p-0"
+  novalidate
+  autocomplete="off">
+  <div class="row">
+    <div class="mt-2">
+      <div class="float-end">
+        <soe-button
+          [caption]="'economy.accounting.accountyear.copytemplates'"
+          [tooltip]="'economy.accounting.accountyear.copytemplatestooltip'"
+          [behaviour]="'standard'"
+          [disabled]="form.isNew || status > 2 || isDirty"
+          (action)="copyVoucherTemplates()">
+        </soe-button>
+      </div>
+    </div>
+  </div>
+
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [rows]="rows"
+      [height]="300"
+      (editRowClicked)="edit($event)"
+      [parentGuid]="guid()">
+    </soe-grid-wrapper>
+  }
+</form>

@@ -1,0 +1,25 @@
+<soe-dialog>
+  <div dialog-content>
+    <soe-purchase-set-purchase-date
+      [confirmedDeliveryDate]="confirmedDeliveryDate"
+      [newStatus]="newStatus"
+      [purchaseRowData]="rows"
+      [useConfirmed]="useConfirmed"
+      (dateChange)="dateChange($event)"></soe-purchase-set-purchase-date>
+  </div>
+  <div dialog-footer>
+    <soe-button
+      class="ms-3"
+      [caption]="'core.cancel'"
+      typeClass="btn btn-secondary"
+      [behaviour]="'standard'"
+      (action)="closeDialog()"></soe-button>
+
+    <soe-button
+      class="ms-3"
+      [caption]="'core.ok'"
+      typeClass="btn btn-primary"
+      [behaviour]="'primary'"
+      (action)="selectPurchaseDate()"></soe-button>
+  </div>
+</soe-dialog>

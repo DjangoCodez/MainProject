@@ -1,0 +1,96 @@
+<soe-dialog>
+  <ng-container dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        name=""
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-select
+              [labelKey]="'time.schedule.leisurecode.setting.settingtype'"
+              [selectedId]="form.value.type"
+              [items]="performTypes.data || []"
+              (valueChanged)="changeTypeDataType($event)"
+              formControlName="type">
+            </soe-select>
+          </div>
+          <div class="col-sm-3">
+            @if (selectedDataTypeIsString()) {
+              <soe-textbox
+                [labelKey]="'common.value'"
+                [maxLength]="100"
+                formControlName="strData">
+              </soe-textbox>
+            } @else if (selectedDataTypeIsInt()) {
+              @if (selectedSettingRendersSelect()) {
+                <soe-select
+                  [labelKey]="'common.value'"
+                  [selectedId]="form.value.intData"
+                  [items]="performSettingSelect.data || []"
+                  formControlName="intData">
+                </soe-select>
+              } @else if (selectedSettingRendersNumberbox()) {
+                <soe-numberbox
+                  [labelKey]="'common.value'"
+                  [decimals]="0"
+                  formControlName="intData">
+                </soe-numberbox>
+              }
+            } @else if (selectedDataTypeIsDecimal()) {
+              <soe-numberbox
+                [labelKey]="'common.value'"
+                [decimals]="2"
+                formControlName="decimalData">
+              </soe-numberbox>
+            } @else if (selectedDataTypeIsBool()) {
+              <soe-checkbox
+                [labelKey]="'time.schedule.leisurecode.setting.bool.true'"
+                [inline]="true"
+                formControlName="boolData">
+              </soe-checkbox>
+            } @else if (selectedDataTypeIsDate()) {
+              <soe-datepicker
+                [labelKey]="'common.value'"
+                formControlName="dateData">
+              </soe-datepicker>
+            } @else if (selectedDataTypeIsTime()) {
+              <soe-timebox
+                [labelKey]="'common.value'"
+                formControlName="timeData">
+              </soe-timebox>
+            }
+          </div>
+        </div>
+        <div class="soe-form-footer">
+          <div class="col-sm-12">
+            <div class="float-end">
+              @if (form.value[idFieldName] > 0) {
+                <soe-delete-button
+                  class="me-3"
+                  (action)="performDelete()"
+                  [disabled]="
+                    !flowHandler.modifyPermission()
+                  "></soe-delete-button>
+              }
+              <soe-save-button
+                [caption]="
+                  form.employeeGroupTimeLeisureCodeSettingId.value > 0
+                    ? 'core.edit'
+                    : 'core.add'
+                "
+                (action)="performAdd()"
+                (validationErrorsAction)="form.openFormValidationErrors()"
+                [invalid]="form.invalid"
+                [dirty]="form.dirty"
+                [disabled]="anyInvalidValue()"
+                [inProgress]="inProgress()"></soe-save-button>
+            </div>
+          </div>
+        </div>
+      </form>
+    }
+  </ng-container>
+</soe-dialog>

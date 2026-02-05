@@ -1,0 +1,107 @@
+@use '../../../styles/core-styles/colors.scss';
+@use '../../../styles/core-styles/fonts.scss';
+@use '../../../styles/core-styles/variables.scss';
+
+.icon-button.btn {
+  height: 32px !important;
+  min-width: 32px;
+  --bs-btn-line-height: 1rem;
+  border-color: colors.$soe-border-color !important;
+  border-radius: variables.$border-radius;
+  background-color: colors.$soe-background-color;
+  padding: 0.5rem 0.75rem;
+  font-size: fonts.$soe-font-size-md;
+  color: colors.$soe-text-color;
+
+  --bs-btn-active-color: colors.$soe-text-color;
+  --bs-btn-active-bg: colors.$soe-color-secondary-blue-70;
+  --bs-btn-disabled-color: colors.$soe-disabled-input-color;
+  --bs-btn-focus-shadow-rgb: unset;
+
+  &.btn:disabled,
+  &.btn.disabled {
+    border-color: colors.$soe-disabled-border-color;
+    background-color: colors.$soe-disabled-background-color;
+    color: colors.$soe-disabled-input-color;
+  }
+
+  &.btn:hover {
+    border-color: colors.$soe-border-color;
+    background-color: colors.$soe-button-hover-background-color;
+    color: colors.$soe-text-color;
+  }
+
+  &.btn:focus {
+    border-color: colors.$soe-color-secondary-blue;
+    color: colors.$soe-text-color;
+  }
+
+  &.btn.is-disabled,
+  &.btn.is-disabled:hover,
+  &.btn.is-disabled:focus,
+  &.btn.is-disabled:active {
+    border-color: colors.$soe-disabled-border-color;
+    background-color: colors.$soe-disabled-background-color;
+    color: colors.$soe-disabled-input-color;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  &:active {
+    outline: none;
+  }
+
+  fa-icon {
+    font-size: fonts.$soe-font-size-lg;
+  }
+}
+
+.icon-button.narrow {
+  padding-left: 2px;
+  padding-right: 2px;
+  min-width: 20px;
+}
+
+.icon-button.btn.no-border {
+  border-width: 0px !important;
+}
+
+.icon-button.btn.no-margins {
+  height: unset !important;
+  width: unset !important;
+  min-width: 0px !important;
+  padding: 0px !important;
+}
+
+.icon-button.btn.transparent {
+  background-color: transparent !important;
+}
+
+.icon-button.btn.outside-group {
+  border-radius: variables.$button-border-radius !important;
+}
+
+.icon-button.btn.inside-group {
+  border-radius: 0 !important;
+}
+
+.icon-button.btn.first-in-group {
+  border-radius: variables.$button-border-radius 0 0
+    variables.$button-border-radius !important;
+}
+
+.icon-button.btn.last-in-group {
+  border-radius: 0 variables.$button-border-radius
+    variables.$button-border-radius 0 !important;
+}
+
+.icon-button.btn.textarea-btn {
+  height: 100% !important;
+  padding: 6px 16px;
+}
+
+.textbox-btn {
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+  width: 20px;
+}

@@ -1,0 +1,18 @@
+﻿<form name="reportSelection" class="ngSoeForm form-group form-group-sm">
+    <soe-progressbar is-busy="ctrl.progressBusy" message="ctrl.progressMessage"></soe-progressbar>
+    <div class="row">
+        <soe-select class="col-sm-3" label-key="common.reports.drilldown.report" model="ctrl.selectedReport" items="ctrl.reports" options="item as item.reportName for item in items"></soe-select>
+        <soe-select class="col-sm-3" label-key="common.reports.drilldown.budget" model="ctrl.budgetId" items="ctrl.budgets" options="item.id as item.name for item in items"></soe-select>
+    </div>
+    <div class="row">
+        <soe-select class="col-sm-3" label-key="common.reports.drilldown.accountyearfrom" model="ctrl.accountYearFrom" items="ctrl.accountYearsFrom" options="item.id as item.name for item in items" on-changing="ctrl.accountYearFromChanged(item)"></soe-select>
+        <soe-select class="col-sm-3" label-key="common.reports.drilldown.accountyearto" model="ctrl.accountYearTo" items="ctrl.accountYearsTo" options="item.id as item.name for item in items" on-changing="ctrl.accountYearToChanged(item)"></soe-select>
+    </div>
+    <div class="row" style="margin-bottom: 25px;">
+        <soe-select class="col-sm-3" label-key="common.reports.drilldown.period" model="ctrl.periodFrom" items="ctrl.accountPeriodsFrom" options="item as item.startValue for item in items" on-changing="ctrl.accountPeriodFromChanged(item)"></soe-select>
+        <soe-select class="col-sm-3" label-key="common.reports.drilldown.period" model="ctrl.periodTo" items="ctrl.accountPeriodsTo" options="item as item.startValue for item in items"></soe-select>
+        <div class="col-sm-3" style="margin-top: 22px;">
+            <button type="button" class="btn ngSoeMainButton btn-sm" data-l10n-bind="'common.reports.drilldown.createDrilldown'" ng-click="ctrl.createDrilldown()"></button>
+        </div>
+    </div>
+</form>

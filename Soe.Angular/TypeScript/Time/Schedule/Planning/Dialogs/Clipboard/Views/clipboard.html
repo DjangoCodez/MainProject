@@ -1,0 +1,53 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'time.schedule.planning.clipboard.title'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row" style="margin: 0px;">
+            <div class="col-sm-12 info">
+                <span data-l10n-bind="'time.schedule.planning.clipboard.iscut'" data-ng-if="ctrl.isCut"></span>
+                <span data-l10n-bind="'time.schedule.planning.clipboard.iscopied'" data-ng-if="!ctrl.isCut"></span>
+                <span class="indiscreet"> {{::ctrl.employeeName}}</span><span>.</span>
+                <div class="margin-small-top">
+                    <span data-l10n-bind="'time.schedule.planning.clipboard.info.select'"></span>
+                </div>
+                <div>
+                    <span data-l10n-bind="'time.schedule.planning.clipboard.info.remove'"></span>
+                </div>
+            </div>
+        </div>
+        <div class="table-outer-bordered margin-large-top">
+            <div class="table-scrollable-wrapper">
+                <div class="table-scrollable" style="height: 203px;">
+                    <table class="table table-more-condensed table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 20px;"><span class="fal link" data-ng-class="{'fa-check-square':ctrl.allItemsSelected, 'fa-square':!ctrl.allItemsSelected}" data-ng-click="ctrl.selectAllItems()"></span></th>
+                                <th scope="col"><span data-l10n-bind="'common.shifttype'"></span></th>
+                                <th scope="col" style="width: 125px;"><span data-l10n-bind="'common.date'"></span></th>
+                                <th scope="col" style="width: 75px;"><span data-l10n-bind="'common.from'"></span></th>
+                                <th scope="col" style="width: 75px;"><span data-l10n-bind="'common.to'"></span></th>
+                                <th scope="col" style="width: 20px;"><span class="fal fa-times iconDelete link" style="margin-right: 5px;" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.clipboard.removeall'" data-ng-click="ctrl.deleteAllItems()"></span></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr data-ng-repeat="shift in ctrl.shifts" style="cursor: pointer;" data-ng-click="shift.selectedForPaste = !shift.selectedForPaste">
+                                <td><span class="fal link" data-ng-class="{'fa-check-square':shift.selectedForPaste, 'fa-square':!shift.selectedForPaste}"></span></td>
+                                <td><span>{{::shift.shiftTypeName}}</span></td>
+                                <td><span>{{::shift.actualStartTime | date:'shortDate'}}</span></td>
+                                <td><span>{{::shift.actualStartTime | date:'shortTime'}}</span></td>
+                                <td><span>{{::shift.actualStopTime | date:'shortTime'}}</span></td>
+                                <td><span class="fal fa-times iconDelete" data-l10n-bind data-l10n-bind-title="'time.schedule.planning.clipboard.remove'" data-ng-click="ctrl.deleteItem(shift)"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.close'" data-ng-click="ctrl.cancel()"></button>
+    </div>
+</div>

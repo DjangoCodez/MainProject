@@ -1,0 +1,29 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy" ng-class="ctrl.isModal ? 'edit-padding': ''">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+
+        <div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-toolbar buttons="ctrl.gridButtonGroups" hide-border="true"></soe-toolbar>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div data-ui-grid="ctrl.gridOptions.gridOptions" class="ui-grid-wrap-header" ui-grid-auto-resize ui-grid-resize-columns data-ui-grid-edit ui-grid-cellNav enableCellEdit="true" grid-keypress="ctrl.handleKeyPressInEditCell"></div>
+                </div>
+            </div>
+            <div class="ngSoeFormFooter margin-small-top">
+                <div class="row">
+                    <div class="col-sm-offset-6 col-sm-6">
+                        <div class="pull-right">
+                            <div class="col" style="margin: 0 10px 0 0;"><button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'time.schedule.timebreaktemplate.savebreaktemplates'" data-ng-click="$event.stopPropagation();ctrl.saveBreakTemplates()"></button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

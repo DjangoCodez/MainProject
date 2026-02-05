@@ -1,0 +1,13 @@
+<button
+  type="button"
+  [attr.data-testid]="'delete'"
+  [ngClass]="'btn btn-danger'"
+  [ngStyle]="inline() ? { 'margin-top': '1.5rem' } : {}"
+  [class.is-disabled]="isDisabled()"
+  (click)="!isDisabled() ? onAction($event) : null"
+  [title]="tooltip() | translate">
+  @if (icon()) {
+    <fa-icon [ngClass]="iconClass()" [icon]="icon()!"></fa-icon>
+  }
+  {{ caption() | translate }}
+</button>

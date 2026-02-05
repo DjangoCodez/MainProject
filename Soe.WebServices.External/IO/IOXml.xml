@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<IO>
+  <!--ImportEmployees/ExportEmployees: Tvåvägs-synch av anställda-->
+  <Employees>
+    <Employee>
+      <EmployeeId>Employeeid i XE. 0 vid nyupplägg. Tomt så används EmployeeNr som nyckel</EmployeeId> <!--int -->
+      <EmployeeNr></EmployeeNr><!--string-->
+      <Vacant></Vacant><!--int 0/1-->
+      <FirstName></FirstName><!--string-->
+      <LastName></LastName><!--string-->
+      <EmployeeGroupName>Namn i register</EmployeeGroupName><!--string-->
+      <SocialSec></SocialSec><!--string-->
+      <EmploymentDate></EmploymentDate><!--datetime-->
+      <EndDate></EndDate><!--datetime-->
+      <WorkPercentage>0-100</WorkPercentage><!--int-->
+      <TaxRate></TaxRate>><!--int-->
+      <Position>Ange alltid 0 tillsvidare</Position>><!--int-->
+      <Sex>0 = Okänd, 1 = Man, 2 = Kvinna</Sex><!--int 0-2-->
+      <Email></Email><!--string-->
+      <PhoneHome></PhoneHome><!--string-->
+      <PhoneMobile></PhoneMobile><!--string-->
+      <PhoneJob></PhoneJob><!--string-->
+      <ClosestRelativeNr>Telefonnr</ClosestRelativeNr><!--string-->
+      <ClosestRelativeName>För- och efternamn</ClosestRelativeName><!--string-->
+      <ClosestRelativeRelation>T.ex. "förälder"</ClosestRelativeRelation><!--string-->
+      <DistributionAddress></DistributionAddress><!--string-->
+      <DistributionCoAddress></DistributionCoAddress><!--string-->
+      <DistributionPostalCode></DistributionPostalCode><!--string-->
+      <DistributionPostalAddress></DistributionPostalAddress><!--string-->
+      <DistributionCountry></DistributionCountry><!--string-->
+      <CategoryCode1>Kod i registret. T.ex 10. Kassa --> skicka 10</CategoryCode1><!--string-->
+      <CategoryCode2>Kod i registret</CategoryCode2><!--string-->
+      <CategoryCode3>Kod i registret</CategoryCode3><!--string-->
+      <CategoryCode4>Kod i registret</CategoryCode4><!--string-->
+      <CategoryCode5>Kod i registret</CategoryCode5><!--string-->
+      <DefaultTimeDeviationCauseName>Namn i register</DefaultTimeDeviationCauseName><!--string-->
+      <DefaultTimeCodeName>Namn i register</DefaultTimeCodeName><!--string-->
+      <CostAccountStd>Kontonummer</CostAccountStd>
+      <CostAccountInternal1>Kontonamn. T.ex 10. Kassa --> skicka "Kassa"</CostAccountInternal1><!--string-->
+      <CostAccountInternal2>Kontonamn</CostAccountInternal2><!--string-->
+      <CostAccountInternal3>Kontonamn</CostAccountInternal3><!--string-->
+      <CostAccountInternal4>Kontonamn</CostAccountInternal4><!--string-->
+      <CostAccountInternal5>Kontonamn</CostAccountInternal5><!--string-->
+      <IncomeAccountStd>Kontonummer</IncomeAccountStd><!--string-->
+      <IncomeAccountInternal1>Kontonamn</IncomeAccountInternal1><!--string-->
+      <IncomeAccountInternal2>Kontonamn</IncomeAccountInternal2><!--string-->
+      <IncomeAccountInternal3>Kontonamn</IncomeAccountInternal3><!--string-->
+      <IncomeAccountInternal4>Kontonamn</IncomeAccountInternal4><!--string-->
+      <IncomeAccountInternal5>Kontonamn</IncomeAccountInternal5><!--string-->
+      <ExternalSchedule>Ange alltid 1 tillsvidare</ExternalSchedule> <!--int 1/0-->
+      <LoginName>Anställningsnumret för de anställda, de  som har inloggningsuppgifter får samma som tiltid</LoginName><!--string--> --- 
+      <Password>Om lösen finns använd det. Annars Anställningsnummer + Tiltid</Password><!--string-->
+      <ChangePassword>Ange alltid 1</ChangePassword> <!--int 1/0-->
+      <LangId>1 = Svenska, 2 = Engelska, 3 = Finska, 4 = Norska, 5 = Danska</LangId><!--int¨. 0-5-->
+      <DefaultCompanyName>Namn i registret</DefaultCompanyName><!--string-->
+      <RoleName1>Anställd / Attest (motsvarande användare) och om det går, admin</RoleName1><!--string-->
+      <RoleName2></RoleName2><!--string-->
+      <RoleName3></RoleName3><!--string-->
+      <AttestRoleName1>Namn i register. Vilka kategorier ska man attestera. För de som är användare i systemet. T.ex 10. Kassa --> skicka "Kassa"</AttestRoleName1><!--string--> -- 
+      <AttestRoleName2>Namn i register</AttestRoleName2><!--string-->
+      <AttestRoleName3>Namn i register</AttestRoleName3><!--string-->
+      <AttestRoleName4>Namn i register</AttestRoleName4><!--string-->
+      <AttestRoleName5>Namn i register</AttestRoleName5>
+      <AttestRoleShowAll>Om man ska ha rätt till samtlige attestroller. Om 1 anges behövs inte AttestRoleName1-5 anges.</AttestRoleShowAll><!--int 1/0-->
+      <Note>Måste till nytt fält i XE.</Note> <!--string-->
+      <State>0 = Aktiv, 1 = Inaktiv. Om inget anges blir det 0</State>
+    </Employee>
+  </Employees>
+
+  <!--ImportSchedules: Envägs (till XE) synch av schema och frånvaro -->
+  <TimeScheduleSyncEntry>
+    <Employee>
+      <EmployeeNr></EmployeeNr><!--string-->
+      <Date>
+        <ScheduleStartTime>2012-10-20 08:00</ScheduleStartTime><!--datetime-->
+        <ScheduleStopTime>2012-10-20 17:00</ScheduleStopTime><!--datetime-->
+        <BreakMinutesTotal>60</BreakMinutesTotal><!--int-->
+        <Break1Start>2012-10-20 12:00</Break1Start><!--datetime-->
+        <Break1Stop>2012-10-20 13:00</Break1Stop><!--datetime-->
+        <Break2Start></Break2Start><!--datetime-->
+        <Break2Stop></Break2Stop><!--datetime-->
+        <Break3Start></Break3Start><!--datetime-->
+        <Break3Stop></Break3Stop><!--datetime-->
+        <Break4Start></Break4Start><!--datetime-->
+        <Break4Stop></Break4Stop><!--datetime-->
+        <CostCentreExtCode></CostCentreExtCode><!--string-->
+        <LeaveReason>Frånvaroorsak</LeaveReason><!--string-->
+        <TimeScheduleSyncScheduelTask>
+          <StartTime>2012-10-20 15:00</StartTime><!--datetime-->
+          <StopTime>2012-10-20 17:00</StopTime><!--string-->
+          <CostCentreExtCode></CostCentreExtCode><!--string-->
+          <LeaveReason>Frånvaroorsak</LeaveReason><!--string-->
+        </TimeScheduleSyncScheduelTask>
+      </Date>
+    </Employee>
+  </TimeScheduleSyncEntry>
+
+  <!--Envägs (från XE) synch av godkända pass, byte av pass ska innehålla både from employee och to employee-->
+  <ApprovedShifts>
+    <NewShift>
+      <EmployeeNr></EmployeeNr><!--string-->
+      <StartTime>Nollschema ska också skickas</StartTime><!--string. yyyy-MM-dd HH:mm:ss-->
+      <StopTime>Nollschema ska också skickas</StopTime><!--string. yyyy-MM-dd HH:mm:ss-->
+      <IsBreak>1 eller 0</IsBreak><!--int-->
+      <CostCentreExtCode></CostCentreExtCode><!--string-->
+      <OriginEmployeeNr>Nytt pass via kopiering.</OriginEmployeeNr><!--string-->
+      <OriginDate>Nytt pass via kopiering.</OriginDate><!--string. yyyy-MM-dd HH:mm:ss-->
+      <Note>Skäl till frånvaro</Note><!--string-->
+      <TimeStamp>När skapades/uppdaterades posten</TimeStamp><!--string. yyyy-MM-dd HH:mm:ss-->
+      <BatchId>Unikt id för händelsen som skapades i XE</BatchId><!--string-->
+    </NewShift>
+    <ChangedShift>
+      <FromEmployee>
+        <EmployeeNr></EmployeeNr> <!--string-->
+        <StartTime></StartTime> <!--string. yyyy-MM-dd HH:mm:ss-->
+        <StopTime></StopTime> <!--string. yyyy-MM-dd HH:mm:ss-->
+        <IsBreak>1 eller 0</IsBreak><!--int-->
+        <CostCentreExtCode></CostCentreExtCode><!--string-->
+      </FromEmployee>
+      <ToEmployee>
+        <EmployeeNr></EmployeeNr> <!--string-->
+        <StartTime></StartTime> <!--string. yyyy-MM-dd HH:mm:ss-->
+        <StopTime></StopTime> <!--string. yyyy-MM-dd HH:mm:ss-->
+        <IsBreak>1 eller 0</IsBreak><!--int-->
+        <CostCentreExtCode></CostCentreExtCode><!--string-->
+      </ToEmployee>
+      <Note>Skäl till frånvaro</Note><!--string-->
+      <TimeStamp>När skapades/uppdaterades posten</TimeStamp><!--string. yyyy-MM-dd HH:mm:ss-->
+      <BatchId>Unikt id för händelsen som skapades i XE</BatchId><!--string-->
+    </ChangedShift>
+    <SwappedShift>
+      <FromEmployee>
+        <EmployeeNr></EmployeeNr><!--string-->
+        <StartTime></StartTime><!--string. yyyy-MM-dd HH:mm:ss-->
+        <StopTime></StopTime><!--string. yyyy-MM-dd HH:mm:ss-->
+        <IsBreak>1 eller 0</IsBreak><!--int-->
+        <CostCentreExtCode></CostCentreExtCode><!--string-->
+      </FromEmployee>
+      <ToEmployee>
+        <EmployeeNr></EmployeeNr><!--string-->
+        <StartTime></StartTime><!--string. yyyy-MM-dd HH:mm:ss-->
+        <StopTime></StopTime><!--string. yyyy-MM-dd HH:mm:ss-->
+        <IsBreak>1 eller 0</IsBreak><!--int-->
+        <CostCentreExtCode></CostCentreExtCode><!--string-->
+      </ToEmployee>
+      <Note>Skäl till frånvaro</Note><!--string-->
+      <TimeStamp>När skapades/uppdaterades posten</TimeStamp><!--string. yyyy-MM-dd HH:mm:ss-->
+      <BatchId>Unikt id för händelsen som skapades i XE</BatchId><!--string-->
+    </SwappedShift>
+    <DeletedShift>
+      <EmployeeNr></EmployeeNr> <!--string-->
+      <StartTime>Nollschema ska också skickas</StartTime> <!--string. yyyy-MM-dd HH:mm:ss-->
+      <StopTime>Nollschema ska också skickas</StopTime> <!--string. yyyy-MM-dd HH:mm:ss-->
+      <IsBreak>1 eller 0</IsBreak><!--int-->
+      <CostCentreExtCode></CostCentreExtCode><!--string-->
+      <Note>Skäl till frånvaro</Note> <!--string-->
+      <TimeStamp>När skapades/uppdaterades posten</TimeStamp> <!--string. yyyy-MM-dd HH:mm:ss-->
+      <BatchId>Unikt id för händelsen som skapades i XE</BatchId> <!--string-->
+    </DeletedShift>
+  </ApprovedShifts>
+
+  <!--Envägs (från XE) synch av godkänd frånvaro-->
+  <ApprovedAbsence>
+    <Absence id ="1">
+      <EmployeeNr></EmployeeNr> <!--string-->
+      <StartTime>Nollschema ska också skickas</StartTime> <!--string. yyyy-MM-dd HH:mm:ss-->
+      <StopTime>Nollschema ska också skickas</StopTime> <!--string. yyyy-MM-dd HH:mm:ss-->
+      <IsBreak>1 eller 0</IsBreak><!--int-->
+      <CostCentreExtCode></CostCentreExtCode><!--string-->
+      <LeaveReason>Frånvaroorsak</LeaveReason> <!--string-->
+      <LeaveReasonExtCode>Frånvaroorsak</LeaveReasonExtCode> <!--string-->
+      <TimeStamp>När skapades/uppdaterades posten</TimeStamp> <!--string. yyyy-MM-dd HH:mm:ss-->
+      <Note>Skäl till frånvaro</Note> <!--string-->
+      <BatchId>Unikt id för händelsen som skapades i XE</BatchId> <!--string-->
+    </Absence>
+  </ApprovedAbsence>
+  
+  <!--Envägs (från XE) synch av schemadagar som har ändrats-->
+  <Schedule>
+    <SynchTimeStamp></SynchTimeStamp><!--string. yyyy-MM-dd HH:mm:ss-->
+    <Employee id="1">
+      <EmployeeNr></EmployeeNr><!--string-->
+      <Date id="1">
+        <ScheduleStartTime>2012-10-20 08:00</ScheduleStartTime><!--datetime-->
+        <ScheduleStopTime>2012-10-20 17:00</ScheduleStopTime><!--datetime-->
+        <BreakMinutesTotal>60</BreakMinutesTotal><!--int-->
+        <Break1Start>2012-10-20 12:00</Break1Start><!--datetime-->
+        <Break1Stop>2012-10-20 13:00</Break1Stop><!--datetime-->
+        <Break2Start></Break2Start><!--datetime-->
+        <Break2Stop></Break2Stop><!--datetime-->
+        <Break3Start></Break3Start><!--datetime-->
+        <Break3Stop></Break3Stop><!--datetime-->
+        <Break4Start></Break4Start><!--datetime-->
+        <Break4Stop></Break4Stop><!--datetime-->
+        <TimeScheduleSyncScheduelTask>
+          <StartTime>2012-10-20 15:00</StartTime><!--datetime-->
+          <StopTime>2012-10-20 17:00</StopTime><!--string-->
+          <CostCentreExtCode></CostCentreExtCode><!--string-->
+          <LeaveReason>500</LeaveReason><!--string-->
+          <HasQueue>0</HasQueue><!--int (0/1)-->
+        </TimeScheduleSyncScheduelTask>
+      </Date>
+    </Employee>
+  </Schedule>
+  
+  <TimeScheduleSyncEntry>
+    <Employee>
+      <EmployeeNr>113</EmployeeNr>
+      <Date>
+        <ScheduleStartTime>2014-05-19 17:00:00</ScheduleStartTime>
+        <ScheduleStopTime>2014-05-20 01:00:00</ScheduleStopTime>
+        <BreakMinutesTotal>120</BreakMinutesTotal>
+        <Break1Start>2014-05-19 21:10:00</Break1Start>
+        <Break1Stop>2014-05-19 21:35:00</Break1Stop>
+        <Break2Start/>
+        <Break2Stop/>
+        <Break3Start/>
+        <Break3Stop/>
+        <Break4Start/>
+        <Break4Stop/>
+        <CostCentreExtCode/>
+        <LeaveReason/>
+        <TimeScheduleSyncScheduelTask>
+          <StartTime>2014-05-19 17:00:00</StartTime>
+          <StopTime>2014-05-19 21:15:00</StopTime>
+          <CostCentreExtCode>89</CostCentreExtCode>
+          <LeaveReason/>
+        </TimeScheduleSyncScheduelTask>
+        <TimeScheduleSyncScheduelTask>
+          <StartTime>2014-05-19 21:15:00</StartTime>
+          <StopTime>2014-05-20 01:00:00</StopTime>
+          <CostCentreExtCode>39</CostCentreExtCode>
+          <LeaveReason/>
+        </TimeScheduleSyncScheduelTask>
+      </Date>
+    </Employee>
+  </TimeScheduleSyncEntry>
+  </IO>
+

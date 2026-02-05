@@ -1,0 +1,51 @@
+﻿<form name="ctrl.edit" class="messagebox modal-wide" novalidate autocomplete="off">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'billing.invoices.householddeduction.editinfo'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-panel label-key="common.customer.customer.rot.personinfo">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.customer.customer.rot.property" model="ctrl.row.property" maxlength="50"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.customer.customer.rot.socialsecnr" placeholder-key="common.customer.customer.rot.socialsecnrinfo" model="ctrl.row.socialSecNr" maxlength="20" social-security-number="true" check-valid-date="true" must-specify-century="true" must-specify-dash="true"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.customer.customer.rot.name" model="ctrl.row.name" maxlength="50" required="true"></soe-textbox>
+                            </div>
+                        </div>
+                    </soe-panel>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-panel label-key="common.customer.customer.rot.brfinfo">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.customer.customer.rot.apartmentnr" model="ctrl.row.apartmentNr" maxlength="50"></soe-textbox>
+                            </div>
+                            <div class="col-sm-4">
+                                <soe-textbox label-key="common.customer.customer.rot.cooperativeorgnr" placeholder-key="common.customer.customer.rot.cooperativeorgnrinfo" model="ctrl.row.cooperativeOrgNr" maxlength="20" allow-empty="true" social-security-number="true" check-valid-date="false" must-specify-century="false" must-specify-dash="true"></soe-textbox>
+                            </div>
+                        </div>
+                    </soe-panel>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <soe-textarea label-key="common.customer.customer.rot.comment" model="ctrl.row.comment" rows="5"></soe-textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.buttonOkClick()" data-ng-disabled="ctrl.isLocked"></button>
+    </div>
+</form>
+

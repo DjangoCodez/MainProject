@@ -1,0 +1,70 @@
+<soe-toolbar
+  [recordConfig]="recordConfig"
+  [form]="form"
+  [itemGroups]="toolbarService.toolbarItemGroups"
+  (navigatorRecordChanged)="navigatorRecordChanged($event)">
+</soe-toolbar>
+
+@if (form) {
+<form [formGroup]="form" class="soe-edit-form" novalidate autocomplete="off">
+  <div class="row">
+    <div class="col-sm-6">
+      <soe-textbox
+        [labelKey]="'common.name'"
+        [maxLength]="100"
+        [autoFocus]="true"
+        [required]="true"
+        formControlName="name">
+      </soe-textbox>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <soe-textbox
+        [labelKey]="'common.description'"
+        [maxLength]="512"
+        [required]="true"
+        formControlName="description">
+      </soe-textbox>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <soe-datepicker [labelKey]="'common.date'" formControlName="date">
+      </soe-datepicker>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-sm-12">
+      <soe-label
+        class="d-block"
+        style="margin-bottom: 0.075rem"
+        [labelKey]="'time.schedule.timescheduleevent.choosegroups'">
+      </soe-label>
+      <soe-multi-select-grid
+        [rows]="recipientGroups"
+        [selectedIds]="form.value.messageGroupIds"
+        [idFieldName]="'id'"
+        [nameFieldName]="'name'"
+        [height]="400"
+        [showHeader]="true"
+        [showFilters]="true"
+        [showFooter]="true"
+        (selectedItemsChanged)="onRecipientGroupsChanged($event)">
+      </soe-multi-select-grid>
+    </div>
+  </div>
+
+  <soe-edit-footer
+    [form]="form"
+    [idFieldName]="idFieldName"
+    [modifyPermission]="flowHandler.modifyPermission()"
+    [inProgress]="performAction.inProgress()"
+    (saved)="performSave()"
+    (deleted)="triggerDelete()">
+  </soe-edit-footer>
+</form>
+}

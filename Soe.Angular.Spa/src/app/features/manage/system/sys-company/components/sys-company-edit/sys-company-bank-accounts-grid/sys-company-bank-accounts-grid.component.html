@@ -1,0 +1,9 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="bankAccounts"
+    [parentGuid]="guid()"
+    [height]="200"
+    [toolbarGroups]="toolbarUtils.toolbarGroups"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+  </soe-grid-wrapper>
+}

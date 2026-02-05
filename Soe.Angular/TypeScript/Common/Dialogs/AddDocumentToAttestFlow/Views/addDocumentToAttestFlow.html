@@ -1,0 +1,44 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'common.signdoc.init'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row margin-large-bottom">
+            <div class="col-sm-4">
+                <soe-select label-key="common.signdoc.selecttemplate" model="ctrl.attestWorkFlowHead.attestWorkFlowTemplateHeadId" items="ctrl.templates" options="item.attestWorkFlowTemplateHeadId as item.name for item in items" on-changing="ctrl.templateChanged(item)"></soe-select>
+            </div>
+        </div>
+        <div class="row margin-large-bottom" data-ng-if="ctrl.attestWorkFlowHead.attestWorkFlowTemplateHeadId">
+            <div class="col-sm-12">
+                <soe-instruction label-key="common.signdoc.stafftransitions" full-width="true"></soe-instruction>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" data-ng-if="ctrl.firstRow">
+                <add-document-to-attest-flow-user row="ctrl.firstRow" head="ctrl.attestWorkFlowHead" reg-user-id="ctrl.currentUser.userId" show-transition-arrow="true" register-control="ctrl.registerUserSelector(control)"></add-document-to-attest-flow-user>
+            </div>
+            <div data-ng-repeat="row in ctrl.selectableRows" class="col-sm-3">
+                <add-document-to-attest-flow-user row="row" head="ctrl.attestWorkFlowHead" show-transition-arrow="true" register-control="ctrl.registerUserSelector(control)"></add-document-to-attest-flow-user>
+            </div>
+            <div class="col-sm-3" data-ng-if="ctrl.lastRow">
+                <add-document-to-attest-flow-user row="ctrl.lastRow" head="ctrl.attestWorkFlowHead" end-user-id="ctrl.endUserId" register-control="ctrl.registerUserSelector(control)"></add-document-to-attest-flow-user>
+            </div>
+        </div>
+        <div class="row margin-large-bottom" data-ng-if="ctrl.attestWorkFlowHead.attestWorkFlowTemplateHeadId && ctrl.canSignInitial">
+            <div class="col-sm-12">
+                <soe-checkbox label-key="common.signdoc.signinitial" indiscreet="true" model="ctrl.signInitial"></soe-checkbox>
+            </div>
+        </div>
+        <div class="row" data-ng-if="ctrl.attestWorkFlowHead.attestWorkFlowTemplateHeadId">
+            <div class="col-sm-12">
+                <soe-textarea label-key="common.signdoc.admintext" model="ctrl.adminText" rows="3"></soe-textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <!--<soe-checkbox class="pull-left" label-key="common.signdoc.sendattestmessage" model="ctrl.sendMessage"></soe-checkbox>-->
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-disabled="ctrl.okClicked" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-disabled="ctrl.okClicked" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

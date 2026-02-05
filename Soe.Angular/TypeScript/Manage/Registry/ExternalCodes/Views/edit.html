@@ -1,0 +1,35 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div data-ng-if="!ctrl.progress.progressBusy">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups"></soe-toolbar>
+        <soe-panel label-key="">
+            <div class="row margin-large-top">
+                <div class="col-sm-2">
+                    <soe-select label-key="common.type" model="ctrl.selectedEntity" items="ctrl.entities" options="item as item.name for item in items" is-readonly="!ctrl.modifyPermission" on-changing="ctrl.entityChanged();"></soe-select>
+                </div>
+                <div class="col-sm-2">
+                    <soe-select label-value="ctrl.selectedEntity.name" label-value-indiscreet="true" model="ctrl.companyExternalCode.recordId" items="ctrl.records" options="item.id as item.name for item in items" is-readonly="!ctrl.modifyPermission || ctrl.companyExternalCode.entity === 0"></soe-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <soe-textbox label-key="manage.registry.externalcodes.externalcode" model="ctrl.companyExternalCode.externalCode" required="true" maxlength="50" auto-focus="true" is-readonly="!ctrl.modifyPermission"></soe-textbox>
+                </div>
+            </div>
+        </soe-panel>
+        <div class="ngSoeFormFooter">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.companyExternalCode"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-include src="ctrl.saveButtonTemplateUrl" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

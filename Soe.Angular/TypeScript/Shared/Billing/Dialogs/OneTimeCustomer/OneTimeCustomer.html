@@ -1,0 +1,58 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'common.customer.customer.onetimecustomer'" ng-if="!ctrl.isEmailMode"></h6>
+        <h6 class="modal-title" data-l10n-bind="'billing.invoices.cashsales.addemail'" ng-if="ctrl.isEmailMode"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row" ng-if="!ctrl.isEmailMode">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.name" model="ctrl.name" is-readonly="ctrl.isLocked"></soe-textbox>
+                </div>
+            </div>
+            <div class="row margin-small-bottom" ng-if="!ctrl.isEmailMode">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.customer.invoices.deliveryaddress" model="ctrl.address" is-readonly="ctrl.isLocked"></soe-textbox>
+                </div>
+            </div>
+            <div class="row margin-small-bottom" ng-if="!ctrl.isEmailMode">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.contactaddresses.addressrow.postalcode" model="ctrl.postalCode" is-readonly="ctrl.isLocked"></soe-textbox>
+                </div>
+            </div>
+            <div class="row margin-small-bottom" ng-if="!ctrl.isEmailMode">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.contactaddresses.addressrow.postaladdress" model="ctrl.postalAddress" is-readonly="ctrl.isLocked"></soe-textbox>
+                </div>
+            </div>
+            <div class="row margin-small-bottom" ng-if="!ctrl.isEmailMode">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.country" model="ctrl.country" is-readonly="ctrl.isLocked"></soe-textbox>
+                </div>
+            </div>
+            <div class="row margin-small-bottom" ng-if="!ctrl.isEmailMode">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.phone" model="ctrl.phone" is-readonly="ctrl.isLocked"></soe-textbox>
+                </div>
+            </div>
+            <div class="row margin-small-bottom">
+                <div class="col-sm-12">
+                    <soe-textbox label-key="common.email" model="ctrl.email" is-readonly="ctrl.isLocked"></soe-textbox>
+                </div>
+            </div>
+            <div class="info" data-ng-if="ctrl.isEmailMode">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <span data-l10n-bind="'common.customer.invoices.emailinfo'"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.buttonCancelClick()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.buttonOkClick()" data-ng-disabled="ctrl.isLocked"></button>
+    </div>
+</div>
+

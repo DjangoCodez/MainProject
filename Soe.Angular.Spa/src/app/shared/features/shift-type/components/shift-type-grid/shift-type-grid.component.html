@@ -1,0 +1,20 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    (editRowClicked)="edit($event)"
+    [toolbarGroups]="toolbarUtils.toolbarGroups"
+    (selectionChanged)="triggerSelectedItemCalc()">
+    @if (shiftTypeAccountDim) {
+      <div toolbar-content-left>
+        <soe-checkbox
+          [labelKey]="
+            'time.schedule.shifttype.loadShiftTypesWithInactivatedAccounts'
+          "
+          [checked]="service.showShiftTypesWithInactiveAccounts()"
+          (valueChanged)="setFilteredData($event)">
+        </soe-checkbox>
+      </div>
+    }
+  </soe-grid-wrapper>
+}

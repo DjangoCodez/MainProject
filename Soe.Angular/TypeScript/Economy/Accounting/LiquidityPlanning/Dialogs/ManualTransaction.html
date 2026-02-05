@@ -1,0 +1,36 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'economy.accounting.liquidityplanning.manualtransaction'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="row">
+                <div class="col-sm-6" ng-hide="ctrl.fromInventory">
+                    <soe-textbox label-key="economy.accounting.liquidityplanning.specification" model="ctrl.transaction.specification" required="true"></soe-textbox>
+                </div>
+                <div class="col-sm-6">
+                    <soe-datepicker label-key="common.date" model="ctrl.transaction.date" required="true"></soe-datepicker>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6" ng-hide="ctrl.fromInventory">
+                    <soe-textbox label-key="common.amount" model="ctrl.amount" numeric="true" decimals="2" required="true"></soe-textbox>
+                </div>
+                <div class="col-sm-6">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="col sm-4">
+                <created-modified model="ctrl.transaction"></created-modified>
+            </div>
+            <div class="col sm-8 pull-right">
+                <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.close()"></button>
+                <button type="button" class="btn btn-default" data-l10n-bind="'core.delete'" data-ng-click="ctrl.delete()" ng-if="ctrl.transaction.liquidityPlanningTransactionId"></button>
+                <button type="button" class="btn btn-primary" data-l10n-bind="'core.save'" data-ng-click="ctrl.save()" data-ng-disabled="!ctrl.validToSave"></button>
+            </div>
+        </div>
+    </div>
+</div>
+

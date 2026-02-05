@@ -1,0 +1,20 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+        <h6 class="modal-title">{{ctrl.title}}</h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-textarea label-key="billing.project.timesheet.note.internal" model="ctrl.noteInternal" rows="10"></soe-textarea>
+            </div>
+            <div class="col-sm-6">
+                <soe-textarea label-key="billing.project.timesheet.note.external" model="ctrl.noteExternal" rows="10"></soe-textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.cancel()"></button>
+        <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.ok()"></button>
+    </div>
+</div>

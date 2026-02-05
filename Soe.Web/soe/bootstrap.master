@@ -1,0 +1,51 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/base.Master" AutoEventWireup="true" CodeBehind="bootstrap.master.cs" Inherits="SoftOne.Soe.Web.soe.bootstrap" %>
+
+<%@ Register TagName="TopMenu" TagPrefix="SOE" Src="~/UserControls/Layout/TopMenu.ascx" %>
+<%@ Register TagName="LeftMenu" TagPrefix="SOE" Src="~/UserControls/Menu/LeftMenu.ascx" %>
+<%@ Register TagName="RemoteLogin" TagPrefix="SOE" Src="~/UserControls/RemoteLogin.ascx" %>
+<%@ Import Namespace="SoftOne.Soe.Util" %>
+
+<asp:Content ID="baseMasterBodcyContent" ContentPlaceHolderID="baseMasterBody" runat="server">
+
+    <div id="mainView" class="<%=MainViewClass()%>" style="display: none;">
+        <div class="row master-row">
+            <div id="wrapper" class="toggled">
+                <%if (!IsLegacy()) { %>
+                    <!-- Left menu -->
+                    <div id="leftMenu" class="left-menu <%=PageBase.BrandingCompanyClass%>">
+                        <div class="top-left-hamburger-menu">
+                            <%-- Menu --%>
+                            <div class="menu-icons-container">
+                                <a class="go-logo" href="/soe/?c=<%=PageBase.SoeActorCompanyId.ToString()%>">
+                                    <img src="<%=PageBase.BrandingCompanyLogo%>" />
+                                </a>
+                                <span id="ActiveHeader" class="active-text"></span>
+                                <span id="ActiveIcon" class="active-icon"></span>
+                                <a href="#menu-toggle" id="menu-toggle" class="menu-toggle">
+                                    <span class="fal fa-chevron-down hamburger-menu" />
+                                </a>
+                            </div>
+                        </div>
+                        <soe:leftmenu id="soeLeftMenu" runat="server" />
+                        <span id="CollapseMenu" class="fal fa-angle-double-left collapse-menu-button link" title="<%=PageBase.Enc(PageBase.GetText(70472, "Minimera/Expandera meny"))%>"></span>
+                    </div>
+                    <!-- Top menu -->
+                    <soe:topmenu id="soeTopMenu" runat="server" />
+                <% } %>
+                <!-- Main content -->
+                <div class="main-content">
+                    <div class="container-fluid main-container">
+                        <div class="row content">
+                            <div class="col-sm-12">
+                                <div id="LayoutLeftContent">
+                                    <asp:ContentPlaceHolder ID="soeLeftContent" Visible="false" runat="server" />
+                                </div>
+                                <asp:ContentPlaceHolder ID="soeMainContent" runat="server" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</asp:Content>

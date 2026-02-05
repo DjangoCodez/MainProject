@@ -1,0 +1,84 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <soe-expansion-panel
+          [labelKey]="'time.time.timeworkreduction.reconcilation'"
+          [addTopMargin]="true"
+          [static]="true">
+          <div class="row">
+            <div class="col-sm-2">
+              <soe-datepicker
+                labelKey="time.time.timeworkreduction.stopdate"
+                formControlName="stop">
+              </soe-datepicker>
+            </div>
+          </div>
+          <div class="row">
+            @if (usePension) {
+              <div class="col-sm-2">
+                <soe-select
+                  labelKey="time.payroll.worktimeaccount.pensionproduct"
+                  [items]="pensionPayrollProducts"
+                  formControlName="pensionDepositPayrollProductId"></soe-select>
+              </div>
+            }
+            @if (useDirectPayment) {
+              <div class="col-sm-2">
+                <soe-select
+                  labelKey="time.payroll.worktimeaccount.directpaymentproduct"
+                  [items]="directPaymentpayrollProducts"
+                  formControlName="directPaymentPayrollProductId">
+                </soe-select>
+              </div>
+            }
+          </div>
+          <div class="row">
+            <div
+              class="col-sm-12 d-flex justify-content-end align-items-center"
+              style="padding-right: 30px">
+              <soe-menu-button
+                class="float-end"
+                [caption]="'core.functions'"
+                [list]="menuList"
+                [hidden]="form.isNew"
+                [disabled]="!handler.modifyPermission() || menuList.length == 0"
+                [behaviour]="'secondary'"
+                (itemSelected)="peformAction($event)"
+                (selectedItem)="(menuList)"></soe-menu-button>
+            </div>
+          </div>
+        </soe-expansion-panel>
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-grid
+              #subGrid
+              [rows]="subData"
+              [height]="330"
+              (selectionChanged)="checkSelection()"
+              (cellValueChanged)="onCellValueChanged()">
+            </soe-grid>
+          </div>
+        </div>
+        <div class="row" style="padding: 1rem 0">
+          <div class="col-sm-12 d-flex justify-content-end align-items-center">
+            <soe-button
+              [caption]="'core.delete'"
+              [behaviour]="'standard'"
+              [hidden]="this.form.isNew"
+              (action)="triggerDelete()"></soe-button>
+            <soe-save-button
+              class="ms-2"
+              (action)="save()"
+              [dirty]="form.dirty">
+            </soe-save-button>
+          </div>
+        </div>
+      </form>
+    }
+  </div>
+</soe-dialog>

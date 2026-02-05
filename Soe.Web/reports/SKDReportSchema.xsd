@@ -1,0 +1,114 @@
+<xs:schema id="SOE_SKDReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SOE_SKDReport" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SKDReport">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportHeader">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="ReportTitle"/>
+                    <xs:element type="xs:string" name="ReportDescription"/>
+                    <xs:element type="xs:string" name="ReportNr"/>
+                    <xs:element type="xs:string" name="Company"/>
+                    <xs:element type="xs:string" name="Orgnr"/>
+                    <xs:element type="xs:string" name="LoginName"/>
+                    <xs:element type="xs:string" name="TimePeriod"/>
+                    <xs:element type="xs:string" name="SortByLevel1"/>
+                    <xs:element type="xs:string" name="SortByLevel2"/>
+                    <xs:element type="xs:string" name="SortByLevel3"/>
+                    <xs:element type="xs:string" name="SortByLevel4"/>
+                    <xs:element type="xs:string" name="IsSortAscending"/>
+                    <xs:element type="xs:string" name="GroupByLevel1"/>
+                    <xs:element type="xs:string" name="GroupByLevel2"/>
+                    <xs:element type="xs:string" name="GroupByLevel3"/>
+                    <xs:element type="xs:string" name="GroupByLevel4"/>
+                    <xs:element type="xs:string" name="Special"/>
+                    <xs:element type="xs:string" name="DateInterval"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Ag">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:decimal" name="LonBrutto"/>
+                    <xs:element type="xs:decimal" name="Forman"/>
+                    <xs:element type="xs:decimal" name="AvdrKostn"/>
+                    <xs:element type="xs:decimal" name="SumUlagAvg"/>
+                    <xs:element type="xs:decimal" name="UlagAvgHel"/>
+                    <xs:element type="xs:decimal" name="AvgHel"/>
+                    <xs:element type="xs:decimal" name="UlagAvgAldersp"/>
+                    <xs:element type="xs:decimal" name="AvgAldersp"/>
+                    <xs:element type="xs:decimal" name="UlagAlderspSkLon"/>
+                    <xs:element type="xs:decimal" name="AvgAlderspSkLon"/>
+                    <xs:element type="xs:decimal" name="UlagSkLonSarsk"/>
+                    <xs:element type="xs:decimal" name="SkLonSarsk" />
+                    <xs:element type="xs:decimal" name="UlagAvgAmbassad"/>
+                    <xs:element type="xs:decimal" name="AvgAmbassad"/>
+                    <xs:element type="xs:int" name="KodAmerika"/>
+                    <xs:element type="xs:decimal" name="UlagAvgAmerika"/>
+                    <xs:element type="xs:decimal" name="AvgAmerika"/>
+                    <xs:element type="xs:decimal" name="UlagStodForetag"/>
+                    <xs:element type="xs:decimal" name="AvdrStodForetag"/>
+                    <xs:element type="xs:decimal" name="UlagStodUtvidgat"/>
+                    <xs:element type="xs:decimal" name="AvdrStodUtvidgat"/>
+                    <xs:element type="xs:decimal" name="SumAvgBetala"/>
+                    <xs:element type="xs:decimal" name="UlagSkAvdrLon"/>
+                    <xs:element type="xs:decimal" name="SkAvdrLon"/>
+                    <xs:element type="xs:decimal" name="UlagSkAvdrPension"/>
+                    <xs:element type="xs:decimal" name="SkAvdrPension"/>
+                    <xs:element type="xs:decimal" name="UlagSkAvdrRanta"/>
+                    <xs:element type="xs:decimal" name="SkAvdrRanta"/>
+                    <xs:element type="xs:decimal" name="UlagSumSkAvdr"/>
+                    <xs:element type="xs:decimal" name="SumSkAvdr"/>
+                    <xs:element type="xs:decimal" name="SjukLonKostnEhs"/>
+                    <xs:element type="xs:string" name="TextUpplysningAg"/>
+                    <xs:element type="xs:decimal" name="SumAvg"/>
+                    <xs:element type="xs:decimal" name="UlagUngdom"/>
+                    <xs:element type="xs:decimal" name="AvgUngdom"/>
+                    <xs:element type="xs:decimal" name="AvgAlderspLessThanLimit"/>
+                    <xs:element type="xs:decimal" name="AvgUngdomLessThanLimit"/>
+                    <xs:element type="xs:decimal" name="AvgHelLessThanLimit"/>
+                    <xs:element type="xs:decimal" name="AvgAlderspFromPreviousPeriods"/>
+                    <xs:element type="xs:decimal" name="AvgUngdomFromPreviousPeriods"/>
+                    <xs:element type="xs:decimal" name="AvgHelFromPreviousPeriods"/>
+                    <xs:element type="xs:decimal" name="UlagAvgAlderspLessThanLimit"/>
+                    <xs:element type="xs:decimal" name="UlagUngdomLessThanLimit"/>
+                    <xs:element type="xs:decimal" name="UlagAvgHelLessThanLimit"/>
+                    <xs:element type="xs:decimal" name="UlagAvgAlderspFromPreviousPeriods"/>
+                    <xs:element type="xs:decimal" name="UlagUngdomFromPreviousPeriods"/>
+                    <xs:element type="xs:decimal" name="UlagAvgHelFromPreviousPeriods"/>
+                    <xs:element type="xs:string" name="TimePeriodName"/>
+                    <xs:element name="Transactions" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="EmployeeNr"/>
+                          <xs:element type="xs:string" name="EmployeeName"/>
+                          <xs:element type="xs:string" name="Type"/>
+                          <xs:element type="xs:string" name="PayrollProductNumber"/>
+                          <xs:element type="xs:string" name="PayrollProductName"/>
+                          <xs:element type="xs:decimal" name="Quantity"/>
+                          <xs:element type="xs:decimal" name="Amount"/>
+                          <xs:element type="xs:string" name="SysPayrollTypeLevel1"/>
+                          <xs:element type="xs:string" name="SysPayrollTypeLevel2"/>
+                          <xs:element type="xs:string" name="SysPayrollTypeLevel3"/>
+                          <xs:element type="xs:string" name="SysPayrollTypeLevel4"/>
+                          <xs:element type="xs:string" name="SysPayrollTypeLevel1Name"/>
+                          <xs:element type="xs:string" name="SysPayrollTypeLevel2Name"/>
+                          <xs:element type="xs:string" name="SysPayrollTypeLevel3Name"/>
+                          <xs:element type="xs:string" name="SysPayrollTypeLevel4Name"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:decimal" name="Id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

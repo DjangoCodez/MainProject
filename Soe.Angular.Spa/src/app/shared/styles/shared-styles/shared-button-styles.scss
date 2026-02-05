@@ -1,0 +1,127 @@
+@use '../core-styles/colors.scss';
+@use '../core-styles/fonts.scss';
+@use '../core-styles/variables.scss';
+
+.btn {
+  min-width: 100px;
+  height: 32px !important;
+  border-radius: variables.$button-border-radius;
+  --bs-btn-line-height: 1rem;
+  padding: 0.5rem 0.75rem;
+
+  &.is-disabled,
+  &.is-disabled:hover,
+  &.is-disabled:focus,
+  &.is-disabled:active {
+    border-color: colors.$soe-disabled-border-color;
+    background-color: colors.$soe-disabled-background-color;
+    color: colors.$soe-disabled-input-color;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  &:active {
+    outline: none;
+  }
+}
+
+.btn-primary {
+  border: 1px solid colors.$soe-color-secondary-blue;
+  background-color: colors.$soe-color-secondary-blue-70;
+  font-size: fonts.$soe-font-size-md;
+  color: colors.$soe-text-color;
+
+  --bs-btn-active-color: colors.$soe-text-color;
+  --bs-btn-active-bg: colors.$soe-color-secondary-blue-70;
+  --bs-btn-disabled-color: colors.$soe-disabled-input-color;
+  --bs-btn-focus-shadow-rgb: unset;
+
+  &.btn:disabled,
+  &.btn.disabled {
+    border-color: colors.$soe-disabled-border-color;
+    background-color: colors.$soe-disabled-background-color;
+    color: colors.$soe-disabled-input-color;
+  }
+
+  &.btn:not(.is-disabled):hover {
+    border-color: colors.$soe-color-secondary-blue;
+    background-color: colors.$soe-color-secondary-medium-blue;
+    color: colors.$soe-text-color;
+  }
+
+  &.btn:not(.is-disabled):focus {
+    border: 1px solid colors.$soe-color-neutral-white;
+    box-shadow:
+      0 0 0 0px colors.$soe-color-neutral-white,
+      0 0 0 1px colors.$soe-color-secondary-blue;
+    background-color: colors.$soe-color-secondary-blue-70;
+    color: colors.$soe-text-color;
+  }
+}
+
+.btn-secondary {
+  border: 1px solid colors.$soe-border-color;
+  background-color: colors.$soe-background-color;
+  font-size: fonts.$soe-font-size-md;
+  color: colors.$soe-text-color;
+
+  --bs-btn-active-color: colors.$soe-text-color;
+  --bs-btn-active-bg: colors.$soe-color-secondary-blue-70;
+  --bs-btn-disabled-color: colors.$soe-disabled-input-color;
+  --bs-btn-focus-shadow-rgb: unset;
+
+  &.btn:disabled,
+  &.btn.disabled {
+    border-color: colors.$soe-disabled-border-color;
+    background-color: colors.$soe-disabled-background-color;
+    color: colors.$soe-disabled-input-color;
+  }
+
+  &.btn:not(.is-disabled):hover {
+    border-color: colors.$soe-border-color;
+    background-color: colors.$soe-button-hover-background-color;
+    color: colors.$soe-text-color;
+  }
+
+  &.btn:not(.is-disabled):focus {
+    border-color: colors.$soe-color-secondary-blue;
+    background-color: colors.$soe-background-color;
+    color: colors.$soe-text-color;
+  }
+}
+
+.btn-danger {
+  border: 1px solid colors.$soe-color-semantic-error;
+  background-color: colors.$soe-background-color;
+  font-size: fonts.$soe-font-size-md;
+  color: colors.$soe-text-color;
+
+  --bs-btn-active-color: colors.$soe-text-color;
+  --bs-btn-active-bg: colors.$soe-color-secondary-blue-70;
+  --bs-btn-disabled-color: colors.$soe-disabled-text-color;
+  --bs-btn-focus-shadow-rgb: unset;
+
+  &.btn:disabled,
+  &.btn.disabled {
+    border-color: colors.$soe-disabled-border-color;
+    background-color: colors.$soe-disabled-background-color;
+    color: colors.$soe-disabled-text-color;
+  }
+
+  &.btn:not(.is-disabled):hover {
+    border-color: colors.$soe-color-semantic-error;
+    background-color: colors.$soe-color-semantic-error-20;
+    color: colors.$soe-text-color;
+  }
+
+  &.btn:not(.is-disabled):focus {
+    border-color: colors.$soe-color-semantic-error;
+    background-color: colors.$soe-color-semantic-error-20;
+    color: colors.$soe-text-color;
+  }
+}
+
+.btn:focus {
+  // Remove Bootstrap blur
+  outline: none;
+}

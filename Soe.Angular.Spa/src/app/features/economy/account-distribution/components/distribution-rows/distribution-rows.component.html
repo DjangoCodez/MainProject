@@ -1,0 +1,86 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="activeRows()"
+    [parentGuid]="guid()"
+    [noMargin]="true"
+    (editRowClicked)="edit($event)"
+    [height]="150"
+    [toolbarItemGroups]="toolbarService.toolbarItemGroups">
+  </soe-grid-wrapper>
+}
+<div class="row">
+  <div class="col-sm-12 p-0">
+    <div class="col-sm-4 p-0 pull-right">
+      <div class="col-sm-12 p-0">
+        <div class="information-container">
+          <div class="mx-3">
+            <div class="row">
+              <div class="col-sm-3">
+                <soe-label
+                  class="pull-left"
+                  [labelKey]="
+                    'economy.accounting.accountdistributionauto.samesign'
+                  ">
+                </soe-label>
+              </div>
+
+              <div class="col-sm-3">
+                <soe-label
+                  class="pull-left"
+                  [labelKey]="
+                    'economy.accounting.accountdistributionauto.oppositesign'
+                  ">
+                </soe-label>
+              </div>
+
+              <div class="col-sm-3">
+                <soe-label
+                  class="pull-left"
+                  [labelKey]="
+                    'economy.accounting.accountdistributionauto.difference'
+                  ">
+                </soe-label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-3">
+                <soe-label
+                  class="pull-left"
+                  [labelValue]="
+                    sameSum.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                    })
+                  ">
+                </soe-label>
+              </div>
+              <div class="col-sm-3">
+                <soe-label
+                  class="pull-left"
+                  [labelValue]="
+                    oppositeSum.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                    })
+                  ">
+                </soe-label>
+              </div>
+              <div class="col-sm-3">
+                <soe-label
+                  class="pull-left"
+                  [labelValue]="
+                    difference.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                    })
+                  ">
+                </soe-label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

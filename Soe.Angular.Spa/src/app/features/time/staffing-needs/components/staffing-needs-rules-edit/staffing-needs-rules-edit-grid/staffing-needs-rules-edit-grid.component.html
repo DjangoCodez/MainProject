@@ -1,0 +1,16 @@
+<div class="row">
+  <soe-toolbar
+    [itemGroups]="gridToolbarService.toolbarItemGroups"
+    [noPadding]="true"></soe-toolbar>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    @if (flowHandler.allowFetchGrid()) {
+      <soe-grid
+        [rows]="rowData"
+        [parentGuid]="guid()"
+        (cellValueChanged)="onCellValueChanged($event)"
+        (cellKeyDown)="onCellKeyDown($event)"></soe-grid>
+    }
+  </div>
+</div>

@@ -1,0 +1,18 @@
+﻿<div>
+    <div class="row">
+        <id-selection label-key="common.report.selection.taxdeductiontype" class="col-sm-4" on-selected="$ctrl.onTaxDeductionTypeChanged(selection)" items="$ctrl.taxDeductionTypes" user-selection-input="$ctrl.taxDeductionType" />
+    </div>
+    <div class="row">
+        <id-selection label-key="common.report.selection.applicationstatus" class="col-sm-4" on-selected="$ctrl.onApplicationStatusTypeChanged(selection)" items="$ctrl.applicationStatusTypes" user-selection-input="$ctrl.applicationStatusType" />
+    </div>
+    <div class="row">
+        <text-selection label-key="common.report.selection.customernr" class="col-sm-4" on-selected="$ctrl.onActorNumberFromChanged(selection)" user-selection-input="$ctrl.actorNrFrom"></text-selection>
+        <text-selection class="col-sm-4 margin-small-top" on-selected="$ctrl.onActorNumberToChanged(selection)" user-selection-input="$ctrl.actorNrTo"></text-selection>
+    </div>
+    <div class="row">
+        <date-selection label-key="common.report.selection.date" class="col-sm-8" show-range="true" as-range="true" on-selected="$ctrl.onDateRangeSelected(selection)" user-selection-input="$ctrl.selectedDateRange" use-min-max-if-empty="true"></date-selection>
+    </div>
+    <div class="row">
+        <id-selection label-key="common.report.selection.sorting" class="col-sm-4" items="$ctrl.selectableSortOrder" user-selection-input="$ctrl.sortOrder" on-selected="$ctrl.onSortOrderChanged(selection)" />
+    </div>
+</div>

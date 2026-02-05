@@ -1,0 +1,86 @@
+@if (flowHandler.allowFetchGrid()) {
+  <soe-grid-wrapper
+    [rows]="rowData"
+    [parentGuid]="guid()"
+    [toolbarGroups]="toolbarUtils.toolbarGroups">
+    <soe-handle-billing-grid-header
+      toolbar-content-left
+      (searchClick)="search($event)"></soe-handle-billing-grid-header>
+  </soe-grid-wrapper>
+
+  <div class="row" footer>
+    <div class="col-sm-12">
+      <div class="information-container no-top-margin">
+        <div class="row mt-3">
+          <div class="col-sm-8">
+            <soe-label class="pull-right"> </soe-label>
+          </div>
+          <div class="col-sm-2">
+            <soe-label
+              class="pull-right"
+              [labelKey]="'billing.order.handlebilling.amountreadyforinvoice'">
+            </soe-label>
+          </div>
+          <div class="col-sm-2">
+            <soe-label
+              class="pull-right"
+              [labelKey]="'billing.productrows.splitaccounting.totalamount'">
+            </soe-label>
+          </div>
+        </div>
+
+        <div class="row mb-1">
+          <div class="col-sm-8"></div>
+          <div class="col-sm-2">
+            <soe-label
+              class="pull-right"
+              [labelValue]="
+                filteredAmountValidForInvoice.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              ">
+            </soe-label>
+          </div>
+          <div class="col-sm-2">
+            <soe-label
+              class="pull-right"
+              [labelValue]="
+                filteredAmount.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })
+              ">
+            </soe-label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--<div class="row">
+      <div class="col-sm-6 d-flex flex-row align-items-start"></div>
+      <div class="col-sm-6 p-2 d-flex flex-row-reverse align-items-end">
+        <soe-select
+          [inline]="true"
+          [width]="150"
+          [items]="availableAttestStates || []"
+          [selectedId]="selectedAttestStateId"
+          formControlName="selectedAttestStateId">
+        </soe-select>
+
+        <soe-menu-button
+          class="me-4"
+          [list]="buttonFunctions"
+          [behaviour]="'secondary'"
+          [variant]="'split'"
+          [disabled]="noSelectedRows()"
+          [dropUp]="true"
+          [hidden]="
+            !hasTransferToPreliminaryPermission &&
+            !hasTransferToDefinitivePermission
+          "
+          (itemSelected)="transferFunctionSelected($event)"></soe-menu-button>
+      </div>
+    </div>-->
+  </div>
+}

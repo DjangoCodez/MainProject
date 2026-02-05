@@ -1,0 +1,52 @@
+@if (form) {
+  <form
+    [formGroup]="form"
+    name=""
+    class="soe-edit-form"
+    novalidate
+    autocomplete="off">
+    <!-- Title -->
+
+    <!--Invoice Head-->
+    @if (hasOtherIds()) {
+      <div class="d-flex">
+        <div class="ms-auto">
+          <soe-icon-button
+            [firstInGroup]="true"
+            [iconName]="'arrow-left'"
+            (action)="goToPreviousInvoice()"></soe-icon-button>
+          <soe-icon-button
+            [lastInGroup]="true"
+            [iconName]="'arrow-right'"
+            (action)="goToNextInvoice()"></soe-icon-button>
+        </div>
+      </div>
+    }
+    <div style="overflow: auto">
+      <soe-supplier-invoice-edit-head
+        [form]="form"
+        [isLocked]="true"></soe-supplier-invoice-edit-head>
+    </div>
+
+    <!-- Accounting Rows -->
+    <div>
+      <div class="d-flex">
+        <soe-button
+          [caption]="'economy.supplier.invoice.copycoding'"
+          class="ms-auto"
+          (action)="copyAccountingRows()"></soe-button>
+      </div>
+      <soe-supplier-invoice-accounting-rows
+        [form]="form"
+        [useSimplifiedView]="true"
+        [isLocked]="true">
+      </soe-supplier-invoice-accounting-rows>
+    </div>
+    <div class="mt-5" [style.height.px]="600">
+      <soe-supplier-invoice-edit-image-preview
+        [invoiceIds]="ids()"
+        [isReadOnly]="true">
+      </soe-supplier-invoice-edit-image-preview>
+    </div>
+  </form>
+}

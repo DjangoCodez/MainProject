@@ -1,0 +1,137 @@
+﻿<form name="ctrl.edit" class="messagebox" novalidate autocomplete="off">
+    <div import-time-rules-matching-validation ng-model="ctrl.importResult">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="ctrl.cancel()">&times;</button>
+            <h6 class="modal-title" data-l10n-bind="'time.time.timerule.import.matching'"></h6>
+        </div>
+        <div class="modal-body">
+            <div class="row margin-large-bottom" data-ng-if="ctrl.showInfo">
+                <div class="col-sm-12">
+                    <div class="info">
+                        <div><span data-l10n-bind="'time.time.timerule.import.matching.inforow1'"></span></div>
+                        <div><span data-l10n-bind="'time.time.timerule.import.matching.inforow2'"></span></div>
+                        <div><span data-l10n-bind="'time.time.timerule.import.matching.inforow3'"></span></div>
+                        <div><span data-l10n-bind="'time.time.timerule.import.matching.inforow4'"></span></div>
+                    </div>
+                    <div style="position: absolute; top: 4px; right: 20px;">
+                        <span class="fal fa-times link" data-ng-click="ctrl.showInfo = false;"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-bordered table-condensed" style="table-layout: fixed;">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="indiscreet" data-l10n-bind="'time.time.timecode.timecodes'"></th>
+                                <th scope="col" class="indiscreet" data-l10n-bind="'time.employee.employeegroup.employeegroups'"></th>
+                                <th scope="col" class="indiscreet" data-l10n-bind="'time.schedule.scheduletype.scheduletypes'"></th>
+                                <th scope="col" class="indiscreet" data-l10n-bind="'time.schedule.planning.deviationcauses'"></th>
+                                <th scope="col" class="indiscreet" data-l10n-bind="'time.schedule.daytype.daytypes'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="repeater-condensed" data-ng-repeat="timeCode in ctrl.importResult.timeCodes">
+                                        <div class="form-group form-group-sm">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <span>{{timeCode.name}}</span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="col-sm-12" style="padding-right: 20px;">
+                                                        <soe-select hidelabel="true" model="timeCode.matchedTimeCodeId" items="ctrl.allTimeCodes" options="item.id as item.name for item in items"></soe-select>
+                                                    </div>
+                                                    <span class="far" data-ng-class="{'fa-exclamation-triangle errorColor': !timeCode.matchedTimeCodeId, 'fa-check-circle okColor': timeCode.matchedTimeCodeId && timeCode.originallyUnmatched}" style="position: absolute; top: 4px; right: 3px;" data-ng-if="timeCode.originallyUnmatched"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="repeater-condensed" data-ng-repeat="employeeGroup in ctrl.importResult.employeeGroups">
+                                        <div class="form-group form-group-sm">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <span>{{employeeGroup.name}}</span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="col-sm-12" style="padding-right: 20px;">
+                                                        <soe-select hidelabel="true" model="employeeGroup.matchedEmployeeGroupId" items="ctrl.allEmployeeGroups" options="item.id as item.name for item in items"></soe-select>
+                                                    </div>
+                                                    <span class="far" data-ng-class="{'fa-exclamation-triangle errorColor': employeeGroup.matchedEmployeeGroupId < 0, 'fa-check-circle okColor': employeeGroup.matchedEmployeeGroupId >= 0 && employeeGroup.originallyUnmatched}" style="position: absolute; top: 4px; right: 3px;" data-ng-if="employeeGroup.originallyUnmatched"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="repeater-condensed" data-ng-repeat="timeScheduleType in ctrl.importResult.timeScheduleTypes">
+                                        <div class="form-group form-group-sm">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <span>{{timeScheduleType.name}}</span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="col-sm-12" style="padding-right: 20px;">
+                                                        <soe-select hidelabel="true" model="timeScheduleType.matchedTimeScheduleTypeId" items="ctrl.allScheduleTypes" options="item.id as item.name for item in items"></soe-select>
+                                                    </div>
+                                                    <span class="far" data-ng-class="{'fa-exclamation-triangle errorColor': timeScheduleType.matchedTimeScheduleTypeId < 0, 'fa-check-circle okColor': timeScheduleType.matchedTimeScheduleTypeId >= 0 && timeScheduleType.originallyUnmatched}" style="position: absolute; top: 4px; right: 3px;" data-ng-if="timeScheduleType.originallyUnmatched"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="repeater-condensed" data-ng-repeat="timeDeviationCause in ctrl.importResult.timeDeviationCauses">
+                                        <div class="form-group form-group-sm">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <span>{{timeDeviationCause.name}}</span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="col-sm-12" style="padding-right: 20px;">
+                                                        <soe-select hidelabel="true" model="timeDeviationCause.matchedTimeDeviationCauseId" items="ctrl.allTimeDeviationCauses" options="item.id as item.name for item in items"></soe-select>
+                                                    </div>
+                                                    <span class="far" data-ng-class="{'fa-exclamation-triangle errorColor': !timeDeviationCause.matchedTimeDeviationCauseId, 'fa-check-circle okColor': timeDeviationCause.matchedTimeDeviationCauseId && timeDeviationCause.originallyUnmatched}" style="position: absolute; top: 4px; right: 3px;" data-ng-if="timeDeviationCause.originallyUnmatched"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="repeater-condensed" data-ng-repeat="dayType in ctrl.importResult.dayTypes">
+                                        <div class="form-group form-group-sm">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <span>{{dayType.name}}</span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="col-sm-12" style="padding-right: 20px;">
+                                                        <soe-select hidelabel="true" model="dayType.matchedDayTypeId" items="ctrl.allDayTypes" options="item.id as item.name for item in items"></soe-select>
+                                                    </div>
+                                                    <span class="far" data-ng-class="{'fa-exclamation-triangle errorColor': !dayType.matchedDayTypeId, 'fa-check-circle okColor': dayType.matchedDayTypeId && dayType.originallyUnmatched}" style="position: absolute; top: 4px; right: 3px;" data-ng-if="dayType.originallyUnmatched"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-right">
+                <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.cancel'" data-l10n-bind-title="'core.cancel'" data-ng-click="$event.stopPropagation();ctrl.cancel()"></button>
+                <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'time.time.timerule.import.matching.next'" data-l10n-bind-title="'time.time.timerule.import.matching.next'" data-ng-show="ctrl.edit.$valid" data-ng-disabled="ctrl.edit.$invalid" data-ng-click="$event.stopPropagation();ctrl.ok()"></button>
+                <div class="btn-group" role="group" data-ng-show="ctrl.edit.$invalid">
+                    <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'time.time.timerule.import.matching.next'" data-ng-disabled="ctrl.edit.$invalid"></button>
+                    <button type="button" class="btn btn-sm ngSoeMainButtonInvalid" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

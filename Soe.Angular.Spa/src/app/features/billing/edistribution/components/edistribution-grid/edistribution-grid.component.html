@@ -1,0 +1,17 @@
+@if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+    [rows]="distributionItems"
+      [parentGuid]="guid()"
+      [toolbarItemGroups]="toolbarService.toolbarItemGroups"
+      >
+      <soe-edestribution-grid-header
+        toolbar-content-left
+        [distributionTypesDict]="distributionTypes"
+        [originTypesDict]="originTypes"
+        [allItemsSelectionDict]="allItemsSelectionDict"
+        (distributionTypefilterChanged)="setDistributionTypeSelection($event)"
+        (originTypefilterChanged)="setOriginTypeSelection($event)"
+        (allItemSelectionfilterChanged)="setAllItemSelection($event)"
+      ></soe-edestribution-grid-header>
+    </soe-grid-wrapper>
+  }

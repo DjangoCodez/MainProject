@@ -1,0 +1,39 @@
+﻿<div class="messagebox modal-wide">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.close()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'billing.stock.stocks.importfromfile'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-4" ng-hide="ctrl.fromInventory">
+                <soe-select label-key="common.customer.customer.wholesellername" required="true"
+                            model="ctrl.selectedWholeseller"
+                            items="ctrl.wholesellers"
+                            options="item as item.name for item in items"></soe-select>
+            </div>
+            <div class="col-sm-4" ng-hide="ctrl.fromInventory">
+                <soe-select label-key="billing.stock.stocks.stock" required="true" 
+                            model="ctrl.selectedStock"
+                            items="ctrl.stocksDict"
+                            options="item as item.name for item in items"></soe-select>
+            </div>
+            <div class="col-sm-4">
+                <soe-textbox label-key="core.filename" model="ctrl.importFileName" readonly="true"></soe-textbox>
+
+                <div class="pull-right">
+                    <button type="button" class="btn btn-sm ngSoeMainButton"
+                            data-l10n-bind="'core.chooseFile'" data-l10n-bind-title="'common.chooseFile'" data-ng-click="$event.stopPropagation();ctrl.addFile()"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="pull-right">
+            <div class="col">
+                <button type="button" class="btn btn-default" data-l10n-bind="'core.cancel'" data-ng-click="ctrl.close()"></button>
+                <button type="button" class="btn btn-primary" data-l10n-bind="'core.ok'" data-ng-click="ctrl.save()" data-ng-disabled="!ctrl.okValid()"></button>
+            </div>
+        </div>
+    </div>
+</div>
+

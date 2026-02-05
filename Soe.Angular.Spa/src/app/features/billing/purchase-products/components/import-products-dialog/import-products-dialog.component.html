@@ -1,0 +1,34 @@
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off">
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-autocomplete
+              [labelKey]="'billing.purchase.supplier'"
+              [items]="performSupplierLoad.data || []"
+              [optionIdField]="'id'"
+              [optionNameField]="'name'"
+              [limit]="10"
+              formControlName="supplierId">
+            </soe-autocomplete>
+          </div>
+        </div>
+      </form>
+    }
+  </div>
+  <div dialog-footer>
+    <soe-button
+      (action)="closeDialog()"
+      [caption]="'core.cancel'"
+      [behaviour]="'standard'"></soe-button>
+    <soe-button
+      [caption]="'core.ok'"
+      [behaviour]="'primary'"
+      (action)="triggerOk()"></soe-button>
+  </div>
+</soe-dialog>

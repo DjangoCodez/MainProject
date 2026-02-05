@@ -1,0 +1,28 @@
+﻿<div>
+    <div class="row">
+        <bool-selection class="col-sm-4" label-key="common.report.selection.shownotprinted" on-selected="$ctrl.onBoolSelectionShowNotPrinted(selection)" user-selection-input="$ctrl.showNotPrinted"></bool-selection>
+    </div>
+    <div class="row">
+        <bool-selection class="col-sm-4" label-key="common.report.selection.showcopies" on-selected="$ctrl.onBoolSelectionShowCopy(selection)" user-selection-input="$ctrl.showCopy"></bool-selection>
+    </div>
+    <div class="row">
+        <bool-selection class="col-sm-4" label-key="common.report.selection.showcopiesasoriginal" on-selected="$ctrl.onBoolSelectionInvoiceCopyAsOriginal(selection)" user-selection-input="$ctrl.invoiceCopyAsOriginal"></bool-selection>
+    </div>
+    <div class="row">
+        <id-selection label-key="Kundkategori" class="col-sm-4" on-selected="$ctrl.onCustomerGroupChanged(selection)" items="$ctrl.selectableCustomerGroup" user-selection-input="$ctrl.customerGroup" />
+    </div>
+    <div class="row">
+        <text-selection label-key="common.report.selection.customernr" class="col-sm-4" on-selected="$ctrl.onActorNumberFromChanged(selection)" user-selection-input="$ctrl.actorNrFrom"></text-selection>
+        <text-selection class="col-sm-4 margin-small-top" on-selected="$ctrl.onActorNumberToChanged(selection)" user-selection-input="$ctrl.actorNrTo"></text-selection>
+    </div>
+    <div class="row">
+        <text-selection label-key="common.report.selection.invoiceseqnr" class="col-sm-4" on-selected="$ctrl.onInvoiceSerialNumberFromChanged(selection)" user-selection-input="$ctrl.invoiceSeqNrFrom"></text-selection>
+        <text-selection class="col-sm-4 margin-small-top" on-selected="$ctrl.onInvoiceSerialNumberToChanged(selection)" user-selection-input="$ctrl.invoiceSeqNrTo"></text-selection>
+    </div>
+    <div class="row">
+        <date-selection label-key="common.report.selection.date" class="col-sm-8" show-range="true" as-range="true" on-selected="$ctrl.onDateRangeSelected(selection)" user-selection-input="$ctrl.selectedDateRange" use-min-max-if-empty="true"></date-selection>
+    </div>
+    <div class="row">
+        <id-selection label-key="common.report.selection.sorting" class="col-sm-4" items="$ctrl.selectableSortOrder" user-selection-input="$ctrl.sortOrder" on-selected="$ctrl.onSortOrderChanged(selection)" />
+    </div>
+</div>

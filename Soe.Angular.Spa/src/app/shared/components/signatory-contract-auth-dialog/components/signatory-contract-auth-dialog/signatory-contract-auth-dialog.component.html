@@ -1,0 +1,105 @@
+@if(isLoaded()) {
+<soe-dialog>
+  <div dialog-content>
+    @if (form) {
+    <div class="modal-body">
+      <form
+        [formGroup]="form"
+        class="soe-edit-form"
+        novalidate
+        autocomplete="off"
+      >
+        <div class="row">
+          @if (!hasPermission()) {
+          <div class="col-sm-12">
+            <soe-instruction [text]="'common.signatorycontract.nopermission'">
+            </soe-instruction>
+          </div>
+          }
+          @if (hasPermission() && !couldNotAuth()) {
+          <div class="col-sm-12">
+            <soe-instruction [text]="'common.signatorycontract.authrequired'">
+            </soe-instruction>
+          </div>
+          }
+        </div>
+
+        @if (showPassword()) {
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-textbox
+              [labelKey]="'common.username'"
+              formControlName="username"
+            >
+            </soe-textbox>
+          </div>
+          <div class="col-sm-6">
+            <soe-textbox
+              inputType="password"
+              [labelKey]="'common.password'"
+              formControlName="password"
+              [isPassword]="true"
+            >
+            </soe-textbox>
+          </div>
+        </div>
+        }
+
+        @if (showCode()) {
+        <div class="row mt-2">
+          <div class="col-sm-12">
+            <soe-instruction
+              [text]="'common.signatorycontract.codesenttophone'">
+            </soe-instruction>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <soe-textbox
+              [labelKey]="'common.code'"
+              formControlName="code"
+            >
+            </soe-textbox>
+          </div>
+        </div>
+        }
+
+        @if (message()) {
+        <div class="row">
+          <div class="col-sm-12">
+            <soe-instruction
+              [type]="'warning'"
+              [text]="message()!"
+            >
+            </soe-instruction>
+          </div>
+        </div>
+        }
+      </form>
+    </div>
+    }
+
+  </div>
+  <div dialog-footer>
+    <soe-button
+      [behaviour]="'standard'"
+      [caption]="'core.cancel'"
+      (action)="closeDialog()"
+    ></soe-button>
+
+    @if (hasPermission() && !couldNotAuth()) {
+    <soe-save-button
+      [behaviour]="'standard'"
+      [caption]="'core.ok'"
+      (action)="ok()"
+      [invalid]="form.invalid"
+      [dirty]="form.dirty"
+      (validationErrorsAction)="
+            form.openFormValidationErrors()
+          "
+    ></soe-save-button>
+    }
+  </div>
+</soe-dialog>
+}

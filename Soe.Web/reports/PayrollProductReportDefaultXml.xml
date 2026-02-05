@@ -1,0 +1,546 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SOE_PayrollProductReport>
+  <xs:schema id="SOE_PayrollProductReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="SOE_PayrollProductReport" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element name="PayrollProductReport">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ReportHeader" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="LoginName" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportTitle" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportDescription" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportNr" type="xs:string" minOccurs="0" />
+                      <xs:element name="Company" type="xs:string" minOccurs="0" />
+                      <xs:element name="Orgnr" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr1Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr1ShortName" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr2Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr2ShortName" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr3Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr3ShortName" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr4Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr4ShortName" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr5Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr5ShortName" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr6Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountDimNr6ShortName" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="ReportHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="LoginNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportTitleLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportDescriptionLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ReportNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="CompanyNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="OrgNrLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PageLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="DateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="TimeLabel" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="PageHeaderLabels" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ProductIdLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductTypeLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductNumberLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductStateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductAccountingPrioLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductFactorLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductPayrollTypeLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductShortNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductExportLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductExcludeInWorkTimeSummaryLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductPayedLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductResultTypeLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductAverageCalculatedLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductIncludeAmountInExportLabel" type="xs:string" minOccurs="0" />
+
+                      <xs:element name="ProductSettingPayrollGroupIdLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingPayrollGroupNameLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingCentRoundingTypeLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingCentRoundingLevelLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingTaxCalcTypeLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingPrintOnSalarySpecificationLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingPrintDateLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingPensionCompanyLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingVacationSalaryPromotedLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingUnionFeePromotedLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingWorkingTimePromotedLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingCalculateSupplementedChargeLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingTimeUnitLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingQuantityRoundingTypeLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingChildPayrollProductLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="ProductSettingPayrollProductPriceTypeLabel" type="xs:string" minOccurs="0"/>
+
+                      <xs:element name="PriceTypeIdLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductPriceTypeIdLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ProductSettingIdLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PriceTypeNameLabel" type="xs:string" minOccurs="0" />
+
+                      <xs:element name="PriceTypesPeriodsLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PriceTypesFromLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="PriceTypesAmountLabel" type="xs:string" minOccurs="0"/>
+
+                      <xs:element name="PriceFormulasLabel"  type="xs:string" minOccurs="0"/>
+                      <xs:element name="PriceFormulaNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PriceFormulaFromDateLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PriceFormulaIdLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PriceFormulaProductPriceFormulaIdLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PriceFormulaPayrollProductSettingIdLabel" type="xs:string" minOccurs="0" />
+
+                      <xs:element name="PurchaseAccountsLabel" type="xs:string" minOccurs="0"/>
+                      <xs:element name="PurchaseAccountsAccountIdLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PurchaseAccountsNumberLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PurchaseAccountsNameLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PurchaseAccountsDescriptionLabel" type="xs:string" minOccurs="0" />
+                      <xs:element name="PurchaseAccountsPercentLabel" type="xs:string" minOccurs="0" />
+
+                      <xs:element name="AccountingSettingLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingTypeLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingDimNrLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingDimNameLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount1NrLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount1NameLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount2NrLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount2NameLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount3NrLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount3NameLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount4NrLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount4NameLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount5NrLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount5NameLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount6NrLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount6NameLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount7NrLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount7NameLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount8NrLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount8NameLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount9NrLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount9NameLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount10NrLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingAccount10NameLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingPercent1Label" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingPercent2Label" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingPercent3Label" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingPercent4Label" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingPercent5Label" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingPercent6Label" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingPercent7Label" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingPercent8Label" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingPercent9Label" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="AccountingSettingPercent10Label" type="xs:string" msdata:Ordinal="0" />
+
+                      <xs:element name="CompanyCategoryRecordLabel"  type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="CompanyCategoryCategoryIdLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="CompanyCategoryCategoryLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="CompanyCategoryStartDateLabel" type="xs:string" msdata:Ordinal="0" />
+                      <xs:element name="CompanyCategoryEndDateLabel" type="xs:string" msdata:Ordinal="0" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="PayrollProduct" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ProductId" type="xs:string" minOccurs="1" />
+                      <xs:element name="Type" type="xs:string" minOccurs="0" />
+                      <xs:element name="Number" type="xs:string" minOccurs="0" />
+                      <xs:element name="Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="State" type="xs:string" minOccurs="0" />
+                      <xs:element name="AccountingPrio" type="xs:string" minOccurs="0" />
+                      <xs:element name="Factor" type="xs:string" minOccurs="0" />
+                      <xs:element name="PayrollType" type="xs:string" minOccurs="0" />
+                      <xs:element name="ShortName" type="xs:string" minOccurs="0" />
+                      <xs:element name="Export" type="xs:string" minOccurs="0" />
+                      <xs:element name="ExcludeInWorkTimeSummary" type="xs:string" minOccurs="0" />
+                      <xs:element name="Payed" type="xs:string" minOccurs="0" />
+                      <xs:element name="ResultType" type="xs:string" minOccurs="0" />
+                      <xs:element name="AverageCalculated" type="xs:string" minOccurs="0" />
+                      <xs:element name="IncludeAmountInExport" type="xs:string" minOccurs="0" />
+                      <xs:element name="SysPayrollTypeLevel1" type="xs:int" minOccurs="0" />
+                      <xs:element name="SysPayrollTypeLevel2" type="xs:int" minOccurs="0" />
+                      <xs:element name="SysPayrollTypeLevel3" type="xs:int" minOccurs="0" />
+                      <xs:element name="SysPayrollTypeLevel4" type="xs:int" minOccurs="0" />
+                      <xs:element name="SysPayrollTypeLevel1Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="SysPayrollTypeLevel2Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="SysPayrollTypeLevel3Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="SysPayrollTypeLevel4Name" type="xs:string" minOccurs="0" />
+                      <xs:element name="PayrollProductSetting" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="PayrollGroupId" type="xs:string" minOccurs="0" />
+                            <xs:element name="Name" type="xs:string" minOccurs="0" />
+                            <xs:element name="CentRoundingType" type="xs:string" minOccurs="0" />
+                            <xs:element name="CentRoundingLevel" type="xs:string" minOccurs="0" />
+                            <xs:element name="TaxCalculationType" type="xs:string" minOccurs="0" />
+                            <xs:element name="PrintOnSalarySpecification" type="xs:string" minOccurs="0" />
+                            <xs:element name="PrintDate" type="xs:string" minOccurs="0" />
+                            <xs:element name="PensionCompany" type="xs:string" minOccurs="0" />
+                            <xs:element name="VacationSalaryPromoted" type="xs:string" minOccurs="0" />
+                            <xs:element name="UnionFeePromoted" type="xs:string" minOccurs="0" />
+                            <xs:element name="WorkingTimePromoted" type="xs:string" minOccurs="0" />
+                            <xs:element name="CalculateSupplementCharge" type="xs:string" minOccurs="0" />
+                            <xs:element name="TimeUnit" type="xs:string" minOccurs="0" />
+                            <xs:element name="QuantityRoundingType" type="xs:string" minOccurs="0" />
+                            <xs:element name="ChildProductId" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr1Nr" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr1Name" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr1Prio" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr2Nr" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr2Name" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr2Prio" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr3Nr" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr3Name" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr3Prio" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr4Nr" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr4Name" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr4Prio" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr5Nr" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr5Name" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr5Prio" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr6Nr" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr6Name" type="xs:string" minOccurs="0" />
+                            <xs:element name="AccountDimNr6Prio" type="xs:string" minOccurs="0" />
+                            <xs:element name="PriceTypes" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="PayrollPriceTypeId" type="xs:string" minOccurs="0" />
+                                  <xs:element name="PayrollProductPriceTypeId" type="xs:string" minOccurs="0" />
+                                  <xs:element name="PayrollProductSettingId" type="xs:string" minOccurs="0" />
+                                  <xs:element name="PriceTypeName" type="xs:string" minOccurs="0" />
+                                  <xs:element name="Periods" minOccurs="0" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                      <xs:sequence>
+                                        <xs:element name="FromDate" type="xs:string" minOccurs="0"  />
+                                        <xs:element name="Amount" type="xs:string" minOccurs="0" />
+                                      </xs:sequence>
+                                    </xs:complexType>
+                                  </xs:element>
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                            <xs:element name="PriceFormulas" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="FormulaName" type="xs:string" minOccurs="0" />
+                                  <xs:element name="FromDate" type="xs:string" minOccurs="0" />
+                                  <xs:element name="PayrollPriceFormulaId" type="xs:string" minOccurs="0" />
+                                  <xs:element name="PayrollProductPriceFormulaId" type="xs:string" minOccurs="0" />
+                                  <xs:element name="PayrollProductSettingId" type="xs:string" minOccurs="0" />
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                            <xs:element name="PurchaseAccounts" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="AccountId" type="xs:string" minOccurs="0" />
+                                  <xs:element name="Number" type="xs:string" minOccurs="0" />
+                                  <xs:element name="Name" type="xs:string" minOccurs="0" />
+                                  <xs:element name="Description" type="xs:string" minOccurs="0" />
+                                  <xs:element name="Percent" type="xs:string" minOccurs="0" />
+                                  <xs:element name="DimNr" type="xs:string" minOccurs="0" />
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                            <xs:element name="AccountingSetting" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="Type" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="DimNr" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="DimName" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account1Id" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account1Nr" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account1Name" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account2Id" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account2Nr" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account2Name" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account3Id" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account3Nr" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account3Name" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account4Id" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account4Nr" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account4Name" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account5Id" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account5Nr" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account5Name" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account6Id" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account6Nr" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account6Name" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account7Id" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account7Nr" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account7Name" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account8Id" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account8Nr" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account8Name" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account9Id" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account9Nr" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account9Name" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account10Id" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account10Nr" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Account10Name" type="xs:string" msdata:Ordinal="0" />
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                            <xs:element name="CompanyCategoryRecord" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="CategoryId" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="Category" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="StartDate" type="xs:string" msdata:Ordinal="0" />
+                                  <xs:element name="EndDate" type="xs:string" msdata:Ordinal="0" />
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <PayrollProductReport>
+    <ReportHeader>
+      <LoginName></LoginName>
+      <ReportTitle></ReportTitle>
+      <ReportDescription></ReportDescription>
+      <ReportNr></ReportNr>
+      <Company></Company>
+      <Orgnr></Orgnr>
+    </ReportHeader>
+    <ReportHeaderLabels>
+      <LoginNameLabel></LoginNameLabel>
+      <ReportTitleLabel />
+      <ReportDescriptionLabel />
+      <ReportNrLabel />
+      <CompanyNameLabel></CompanyNameLabel>
+      <OrgNrLabel></OrgNrLabel>
+      <PageLabel></PageLabel>
+      <DateLabel></DateLabel>
+      <TimeLabel></TimeLabel>
+    </ReportHeaderLabels>
+    <PageHeaderLabels>
+      <ProductIdLabel />
+      <ProductTypeLabel />
+      <ProductNumberLabel />
+      <ProductNameLabel />
+      <ProductStateLabel />
+      <ProductAccountingPrioLabel />
+      <ProductFactorLabel />
+      <ProductPayrollTypeLabel />
+      <ProductShortNameLabel />
+      <ProductExportLabel />
+      <ProductExcludeInWorkTimeSummaryLabel />
+      <ProductPayedLabel />
+      <ProductResultTypeLabel />
+      <ProductAverageCalculatedLabel />
+      <ProductIncludeAmountInExportLabel />
+
+      <ProductSettingPayrollGroupIdLabel />
+      <ProductSettingPayrollGroupNameLabel />
+      <ProductSettingCentRoundingTypeLabel />
+      <ProductSettingCentRoundingLevelLabel />
+      <ProductSettingTaxCalcTypeLabel />
+      <ProductSettingPrintOnSalarySpecificationLabel />
+      <ProductSettingPrintDateLabel />
+      <ProductSettingPensionCompanyLabel />
+      <ProductSettingVacationSalaryPromotedLabel />
+      <ProductSettingUnionFeePromotedLabel />
+      <ProductSettingWorkingTimePromotedLabel />
+      <ProductSettingCalculateSupplementedChargeLabel />
+      <ProductSettingTimeUnitLabel />
+      <ProductSettingQuantityRoundingTypeLabel />
+      <ProductSettingChildPayrollProductLabel />
+      <ProductSettingPayrollProductPriceTypeLabel />
+
+      <PriceTypeIdLabel />
+      <ProductPriceTypeIdLabel />
+      <ProductSettingIdLabel />
+      <PriceTypeNameLabel />
+
+      <PriceTypesPeriodsLabel />
+      <PriceTypesFromLabel />
+      <PriceTypesAmountLabel />
+
+      <PriceFormulasLabel />
+      <PriceFormulaNameLabel />
+      <PriceFormulaFromDateLabel />
+      <PriceFormulaIdLabel />
+      <PriceFormulaProductPriceFormulaIdLabel />
+      <PriceFormulaPayrollProductSettingIdLabel />
+
+      <PurchaseAccountsLabel />
+      <PurchaseAccountsAccountIdLabel />
+      <PurchaseAccountsNumberLabel />
+      <PurchaseAccountsNameLabel />
+      <PurchaseAccountsDescriptionLabel />
+      <PurchaseAccountsPercentLabel />
+
+      <AccountingSettingLabel />
+      <AccountingSettingTypeLabel />
+      <AccountingSettingDimNrLabel />
+      <AccountingSettingDimNameLabel />
+      <AccountingSettingAccount1NrLabel />
+      <AccountingSettingAccount1NameLabel />
+      <AccountingSettingAccount2NrLabel />
+      <AccountingSettingAccount2NameLabel />
+      <AccountingSettingAccount3NrLabel />
+      <AccountingSettingAccount3NameLabel />
+      <AccountingSettingAccount4NrLabel />
+      <AccountingSettingAccount4NameLabel />
+      <AccountingSettingAccount5NrLabel />
+      <AccountingSettingAccount5NameLabel />
+      <AccountingSettingAccount6NrLabel />
+      <AccountingSettingAccount6NameLabel />
+      <AccountingSettingAccount7NrLabel />
+      <AccountingSettingAccount7NameLabel />
+      <AccountingSettingAccount8NrLabel />
+      <AccountingSettingAccount8NameLabel />
+      <AccountingSettingAccount9NrLabel />
+      <AccountingSettingAccount9NameLabel />
+      <AccountingSettingAccount10NrLabel />
+      <AccountingSettingAccount10NameLabel />
+      <AccountingSettingPercent1Label />
+      <AccountingSettingPercent2Label />
+      <AccountingSettingPercent3Label />
+      <AccountingSettingPercent4Label />
+      <AccountingSettingPercent5Label />
+      <AccountingSettingPercent6Label />
+      <AccountingSettingPercent7Label />
+      <AccountingSettingPercent8Label />
+      <AccountingSettingPercent9Label />
+      <AccountingSettingPercent10Label />
+
+      <CompanyCategoryRecordLabel />
+      <CompanyCategoryCategoryIdLabel />
+      <CompanyCategoryCategoryLabel />
+      <CompanyCategoryStartDateLabel />
+      <CompanyCategoryEndDateLabel />
+    </PageHeaderLabels>
+    <PayrollProduct>
+      <ProductId>1</ProductId>
+      <Type />
+      <Number />
+      <Name />
+      <State />
+      <AccountingPrio />
+      <Factor />
+      <PayrollType />
+      <ShortName />
+      <Export />
+      <ExcludeInWorkTimeSummary />
+      <Payed />
+      <ResultType />
+      <AverageCalculated></AverageCalculated>
+      <IncludeAmountInExport />
+      <PayrollProductSetting>
+          <PayrollGroupId />
+          <Name />
+          <CentRoundingType />
+          <CentRoundingLevel />
+          <TaxCalculationType />
+          <PrintOnSalarySpecification />
+          <PrintDate />
+          <PensionCompany />
+          <VacationSalaryPromoted />
+          <UnionFeePromoted />
+          <WorkingTimePromoted />
+          <CalculateSupplementCharge />
+          <TimeUnit />
+          <QuantityRoundingType />
+          <ChildProductId />
+          <PriceTypes>
+            <PayrollPriceTypeId></PayrollPriceTypeId>
+            <PayrollProductPriceTypeId></PayrollProductPriceTypeId>
+            <PayrollProductSettingId></PayrollProductSettingId>
+            <PriceTypeName></PriceTypeName>
+            <Periods>
+                <FromDate></FromDate>
+                <Amount></Amount>
+              </Periods>
+          </PriceTypes>
+          <PriceFormulas>
+             <FormulaName></FormulaName>
+             <FromDate></FromDate>
+             <PayrollPriceFormulaId></PayrollPriceFormulaId>
+             <PayrollProductPriceFormulaId></PayrollProductPriceFormulaId>
+             <PayrollProductSettingId></PayrollProductSettingId>
+          </PriceFormulas>
+          <PurchaseAccounts>
+            <AccountId />
+            <Number />
+            <Name />
+            <Description />
+            <Percent />
+          </PurchaseAccounts>
+          <AccountingSetting>
+            <Type />
+            <DimNr/>
+            <DimName/>
+            <Account1Id/>
+            <Account1Nr/>
+            <Account1Name/>
+            <Account2Id/>
+            <Account2Nr/>
+            <Account2Name/>
+            <Account3Id/>
+            <Account3Nr/>
+            <Account3Name/>
+            <Account4Id/>
+            <Account4Nr/>
+            <Account4Name/>
+            <Account5Id/>
+            <Account5Nr/>
+            <Account5Name/>
+            <Account6Id/>
+            <Account6Nr/>
+            <Account6Name/>
+            <AccountingPrioDim2/>
+            <Account7Id/>
+            <Account7Nr/>
+            <Account7Name/>
+            <Account8Id/>
+            <Account8Nr/>
+            <Account8Name/>
+            <Account9Id/>
+            <Account9Nr/>
+            <Account9Name/>
+            <Account10Id/>
+            <Account10Nr/>
+            <Account10Name/>
+            <percent1/>
+            <percent2/>
+            <percent3/>
+            <percent4/>
+            <percent5/>
+            <percent6/>
+            <percent7/>
+            <percent8/>
+            <percent9/>
+            <percent10/>
+          
+        </AccountingSetting>
+          <CompanyCategoryRecord>
+            <CategoryId />
+            <Category />
+            <StartDate />
+            <EndDate />
+          </CompanyCategoryRecord>
+      </PayrollProductSetting>
+    </PayrollProduct>
+  </PayrollProductReport>
+</SOE_PayrollProductReport>

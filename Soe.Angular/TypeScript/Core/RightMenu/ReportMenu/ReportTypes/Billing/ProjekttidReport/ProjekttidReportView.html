@@ -1,0 +1,33 @@
+﻿<div>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <project-selection label-key="common.report.selection.projectnr" on-project-from-selected="$ctrl.onProjectFromSelected(selection)" on-project-to-selected="$ctrl.onProjectToSelected(selection)" projects-dict="$ctrl.projectsDict" project-nr-from="$ctrl.projectNrFrom" project-nr-to="$ctrl.projectNrTo"></project-selection>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <id-selection label-key="common.report.selection.customercategory" on-selected="$ctrl.onCustomerCategoryOrderSelectionChanged(selection)" items="$ctrl.selectableCustomerCategorySorting" user-selection-input="$ctrl.selectedSortItem" model="$ctrl.selectedSortItem" />
+        </div>
+    </div>
+
+    <div class="row">
+        <soe-typeahead class="col-sm-4" label-key="common.report.selection.customernr" model="$ctrl.actorNrFrom" items="$ctrl.customerDict" options="item as item.name for item in items" editable="true" on-selection-changed="$ctrl.customerIDChangedFrom(item)"></soe-typeahead>
+        <soe-typeahead class="col-sm-4 margin-small-top" model="$ctrl.actorNrTo" items="$ctrl.customerDict" options="item as item.name for item in items" editable="true" on-selection-changed="$ctrl.customerIDChangedTo(item)"></soe-typeahead>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <employee-range-selection label-key="common.report.selection.employeenr" on-employee-from-selected="$ctrl.onEmployeeFromSelected(selection)" on-employee-to-selected="$ctrl.onEmployeeToSelected(selection)" employees-dict="$ctrl.employeesDict" employee-nr-from="$ctrl.employeeNrFrom" employee-nr-to="$ctrl.employeeNrTo"></employee-range-selection>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <date-selection label-key="common.report.selection.date" show-range="true" as-range="true" on-selected="$ctrl.onDateRangeSelected(selection)" user-selection-input="$ctrl.selectedDateRange" use-min-max-if-empty="true"></date-selection>
+        </div>
+    </div>
+
+    <account-range-selection filter-ranges="$ctrl.rangeFilters" selectable-range-names="$ctrl.selectableRangeNames"></account-range-selection>
+</div>

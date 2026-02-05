@@ -1,0 +1,26 @@
+﻿<div>
+    <div class="fileitemtoolbar">
+        <button type="button" class="gridCellIcon fal fa-user-tag" data-l10n-bind data-l10n-bind-title="'common.editroles'" data-ng-click="directiveCtrl.onEditRoles(directiveCtrl.file)" data-ng-if="!directiveCtrl.readOnly && directiveCtrl.showRoles"></button>
+        <i type="button" class="fal fa-check-square" data-ng-class="{'okColor': directiveCtrl.file.confirmed, 'errorColor': !directiveCtrl.file.confirmed}" data-ng-attr-title="{{directiveCtrl.file.confirmedMessage}}" data-ng-if="directiveCtrl.file.needsConfirmation"></i>
+        <button type="button" class="gridCellIcon iconDelete fal fa-times pull-right" data-l10n-bind data-l10n-bind-title="'core.delete'" data-ng-click="directiveCtrl.onDelete(directiveCtrl.file)" data-ng-if="!directiveCtrl.readOnly && !directiveCtrl.hideDelete()"></button>
+    </div>
+
+    <div class="fileitem">
+        <div class="fileitemimage" data-ng-if="directiveCtrl.file.image || directiveCtrl.file.isUploadedAsImage" ng-click="directiveCtrl.showImage()">
+            <img data-ng-src="data:image/jpg;base64,{{directiveCtrl.file.image}}" />
+        </div>
+        <a ng-href="{{directiveCtrl.getUrl()}}" target="_blank" data-ng-if="!directiveCtrl.file.image && !directiveCtrl.file.isUploadedAsImage">
+            <div class="fileitemimage">
+                <i class="fal" data-ng-class="{'fa-file-word': directiveCtrl.isWordDocument(), 'fa-file-excel': directiveCtrl.isExcelDocument(), 'fa-file-alt': directiveCtrl.isTextDocument(), 'fa-file-pdf': directiveCtrl.isPdfDocument(), 'fa-file-image': directiveCtrl.isImage(), 'fa-paperclip': directiveCtrl.isMiscDocument()}"></i>
+            </div>
+        </a>
+        <div class="fileitemheader">
+            <span class="errorColor nowrap" data-ng-if="directiveCtrl.file.isModified && !directiveCtrl.isEditingName">*&nbsp;</span>
+            <span class="link nowrap" data-ng-bind="directiveCtrl.file.description" title="{{directiveCtrl.file.description}}" data-ng-show="!directiveCtrl.isEditingName" data-ng-click="directiveCtrl.beginChangeName()"></span>
+            <input type="text" autofocus="" class="form-control" required data-ng-model="directiveCtrl.file.description" ng-model-options="{ updateOn: 'blur' }" title="{{directiveCtrl.file.description}}" data-ng-show="directiveCtrl.isEditingName" enter="directiveCtrl.endChangeName();" data-ng-blur="directiveCtrl.endChangeName();" />
+        </div>
+    </div>
+    <div class="fileitemcreated">
+        <span><span class="fal fa-upload margin-small-right"></span><span data-ng-bind="directiveCtrl.file.created | date:'shortDate'"></span></span>
+    </div>
+</div>

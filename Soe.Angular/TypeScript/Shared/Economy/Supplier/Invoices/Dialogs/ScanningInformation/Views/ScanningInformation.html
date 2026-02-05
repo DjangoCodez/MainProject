@@ -1,0 +1,39 @@
+﻿<div class="messagebox">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="ctrl.buttonCancelClick()">&times;</button>
+        <h6 class="modal-title" data-l10n-bind="'economy.supplier.invoice.metadata'"></h6>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <soe-textbox label-key="economy.supplier.invoice.documentprovider"
+                             model="ctrl.interpretation.metadata.provider"
+                             is-readonly="true">
+                </soe-textbox>
+            </div>
+            <div class="col-sm-6">
+                <soe-textbox label-key="economy.supplier.invoice.arrivaltime"
+                             model="ctrl.arrivalTimeFormatted"
+                             is-readonly="true">
+                </soe-textbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <soe-textarea label-key="economy.supplier.invoice.rawdata"
+                              model="ctrl.rawResponseFormatted"
+                              rows="24"
+                              is-readonly="true">
+                </soe-textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button 
+            type="button" 
+            class="btn btn-primary" 
+            data-l10n-bind="'core.ok'" 
+            data-ng-click="ctrl.buttonCancelClick()">
+        </button>
+    </div>
+</div>

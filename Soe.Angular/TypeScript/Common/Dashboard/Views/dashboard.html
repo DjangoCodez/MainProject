@@ -1,0 +1,25 @@
+﻿<div class="container-fluid">
+    <div class="assembly-container" data-ng-if="ctrl.showAssemblyDate">
+        <div class="info">
+            <span class="indiscreet" data-ng-class="{'errorColor':ctrl.oldAssembly}"><span data-l10n-bind="'core.version'"></span>: {{ctrl.assemblyDate | date:'shortDate'}} {{ctrl.assemblyDate | date:'shortTime'}}</span>
+        </div>
+    </div>
+
+    <div class="toolbar-container">
+        <soe-toolbar buttons="ctrl.buttonGroups" label="ctrl.header" is-refreshing="ctrl.loadingWidgets"></soe-toolbar>
+    </div>
+
+    <div class="content dashboard-widgets">
+        <div class="row" ui-sortable="ctrl.sortableOptions" ng-model="ctrl.widgets" data-ng-if="ctrl.isLoaded">
+            <widget data-ng-repeat="widget in ctrl.widgets" widget="widget" on-remove="ctrl.remove(widget)"></widget>
+        </div>
+
+        <div style="margin-left: -5px;" data-ng-if="ctrl.header && !ctrl.isLoaded">
+            <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'common.dashboard.loadwidgets'" ng-click="ctrl.loadGaugeHead()"></button>
+        </div>
+        <div class="info" style="margin-left: -5px; margin-right: -15px;" data-ng-if="ctrl.isLoaded && ctrl.widgets.length === 0">
+            <div class="largeFont" data-l10n-bind="'common.dashboard.nowidgets'"></div>
+            <div class="smallFont" data-l10n-bind="'common.dashboard.nowidgetsinfo'"></div>
+        </div>
+    </div>
+</div>

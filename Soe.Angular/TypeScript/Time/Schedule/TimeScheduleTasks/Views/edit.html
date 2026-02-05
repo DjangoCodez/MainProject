@@ -1,0 +1,150 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal(false)" aria-hidden="true">&times;</button>
+    </div>
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+    <div data-ng-if="!ctrl.progress.progressBusy" ng-class="ctrl.isModal ? 'edit-padding': ''">
+        <soe-toolbar buttons="ctrl.toolbar.buttonGroups" data-ng-if="!ctrl.isModal" navigator-records="ctrl.toolbar.navigatorRecords" navigator-selected-record="ctrl.toolbar.selectedRecord" navigator-show-position="true" navigator-show-dropdown="true" navigator-on-selection-changed="ctrl.toolbar.selectedRecordChanged(record);">
+        </soe-toolbar>
+        <soe-panel label-key="time.schedule.timescheduletask.task">
+            <div class="form-group form-group-sm">
+                <div time-schedule-task-validation ng-model="ctrl.timeScheduleTask" min-length="ctrl.companySettingMinLength">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="common.name" model="ctrl.timeScheduleTask.name" required="true" maxlength="100"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-select label-key="common.shifttype" model="ctrl.timeScheduleTask.shiftTypeId" items="ctrl.shiftTypes" options="item.shiftTypeId as item.name for item in items"></soe-select>
+                                </div>
+                                <div class="col-sm-4" data-ng-if="ctrl.taskTypes.length>0">
+                                    <soe-select label-key="time.schedule.timescheduletasktype.type" model="ctrl.timeScheduleTask.timeScheduleTaskTypeId" items="ctrl.taskTypes" options="item.id as item.name for item in items"></soe-select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <soe-timebox label-key="common.from" model="ctrl.timeScheduleTask.startTime" is-time="true" update-on="blur" on-change="ctrl.startTimeChanged()"></soe-timebox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-timebox label-key="common.to" model="ctrl.timeScheduleTask.stopTime" is-time="true" update-on="blur" on-change="ctrl.stopTimeChanged()"></soe-timebox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="time.schedule.timescheduletask.length" model="ctrl.timeScheduleTask.lengthFormatted" is-time="true" update-on="blur" on-change="ctrl.lengthChanged()"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4" data-ng-if="ctrl.companySettingMinLength > 0">
+                                    <soe-label></soe-label>
+                                    <div class="info margin-small-top">
+                                        <span data-l10n-bind="'common.insertformat'"></span> <span>{{ctrl.companySettingMinLength}}</span> <span data-l10n-bind="'core.time.short.minute'" class="lowercase"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="time.schedule.timescheduletasktype.nbrofpersons" model="1" numeric="true" decimals="0" readOnly="true"></soe-textbox>
+                                </div>
+                                <div class="col-sm-2">
+                                    <soe-textbox label-key="common.to" model="ctrl.timeScheduleTask.nbrOfPersons" numeric="true" decimals="0" update-on="blur" on-change="ctrl.numberOfPersonsChanged()"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4">
+                                    <soe-textbox label-key="time.schedule.timescheduletasktype.minsplitlength" model="ctrl.timeScheduleTask.minSplitLengthFormatted" is-time="true" is-readonly="ctrl.timeScheduleTask.onlyOneEmployee" update-on="blur" on-change="ctrl.minSplitLengthChanged()"></soe-textbox>
+                                </div>
+                                <div class="col-sm-4" data-ng-if="ctrl.companySettingMinLength > 0">
+                                    <soe-label></soe-label>
+                                    <div class="info margin-small-top">
+                                        <span data-l10n-bind="'common.insertformat'"></span> <span>{{ctrl.companySettingMinLength}}</span> <span data-l10n-bind="'core.time.short.minute'" class="lowercase"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row margin-large-top">
+                                <div class="col-sm-4" data-ng-if="ctrl.useAccountsHierarchy">
+                                    <soe-select label-key="common.user.attestrole.accounthierarchy" model="ctrl.selectedAccount" items="ctrl.accounts" options="item as item.name for item in items"></soe-select>
+                                </div>
+                                <div class="col-sm-12">
+                                    <soe-checkbox label-key="time.schedule.timescheduletasktype.onlyoneemployee" model="ctrl.timeScheduleTask.onlyOneEmployee" on-changing="ctrl.onlyOneEmployeeChanged(item)"></soe-checkbox>
+                                </div>
+                                <div class="col-sm-12">
+                                    <soe-checkbox label-key="time.schedule.timescheduletasktype.dontassignbreakleftovers" model="ctrl.timeScheduleTask.dontAssignBreakLeftovers"></soe-checkbox>
+                                </div>
+                                <div class="col-sm-12">
+                                    <soe-checkbox label-key="time.schedule.timescheduletasktype.allowoverlapping" model="ctrl.timeScheduleTask.allowOverlapping" on-changing="ctrl.allowOverLappingChanged(item)"></soe-checkbox>
+                                </div>
+                                <div class="col-sm-12">
+                                    <soe-checkbox label-key="time.schedule.timescheduletasktype.isstaffingneedsfrequency" model="ctrl.timeScheduleTask.isStaffingNeedsFrequency"></soe-checkbox>
+                                </div>
+                            </div>
+                            <div class="row margin-large-top" data-ng-if="ctrl.timeScheduleTask.isStaffingNeedsFrequency && ctrl.staffingNeedsReadPermission">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-sm btn-default" data-l10n-bind data-l10n-bind-title="'time.schedule.timescheduletask.showneed'" data-ng-click="$event.stopPropagation();ctrl.openGeneratedNeedsDialog();">
+                                        <span class="fal fa-poll-people margin-small-right"></span>
+                                        <span data-l10n-bind="'time.schedule.timescheduletask.generatedneed.show'"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <soe-textarea label-key="common.description" model="ctrl.timeScheduleTask.description" rows="7"></soe-textarea>
+                                </div>
+                            </div>
+                            <div class="row margin-large-top">
+                                <div class="col-sm-12">
+                                    <soe-panel label-key="common.dailyrecurrencepattern">
+                                        <div class="form-group form-group-sm">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <span>{{ctrl.timeScheduleTask.patternDescription}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-small-top">
+                                                <div class="col-sm-12">
+                                                    <span>{{ctrl.timeScheduleTask.startDateDescription}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-small-top">
+                                                <div class="col-sm-12">
+                                                    <span>{{ctrl.timeScheduleTask.stopDateDescription}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-small-top" data-ng-if="ctrl.timeScheduleTask.excludedDates && ctrl.timeScheduleTask.excludedDates.length>0">
+                                                <div class="col-sm-12">
+                                                    <span data-l10n-bind="'common.dailyrecurrencepattern.excludeddates'"></span>: <span>{{ctrl.timeScheduleTask.excludedDatesDescription}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-small-top">
+                                                <div class="col-sm-12">
+                                                    <button type="button" class="btn btn-sm btn-default" data-ng-click="ctrl.openRecurrencePatternDialog()">
+                                                        <span class="fal fa-repeat margin-small-right"></span>
+                                                        <span data-l10n-bind="'common.dailyrecurrencepattern.editpattern'" data-ng-if="ctrl.timeScheduleTask.recurrencePattern"></span>
+                                                        <span data-l10n-bind="'common.dailyrecurrencepattern.createpattern'" data-ng-if="!ctrl.timeScheduleTask.recurrencePattern"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </soe-panel>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </soe-panel>
+        <div class="ngSoeFormFooter" data-ng-class="{'modal-margin': ctrl.isModal}">
+            <div class="col-sm-4">
+                <created-modified model="ctrl.timeScheduleTask"></created-modified>
+            </div>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <div class="col"><soe-checkbox label-key="common.active" model="ctrl.timeScheduleTask.isActive" is-disabled="!ctrl.modifyPermission"></soe-checkbox></div>
+                    <div class="col" data-ng-include src="ctrl.deleteButtonTemplateUrl" />
+                    <div class="col" data-ng-class="{'no-border-radius-on-specified-last-button' : ctrl.edit.$invalid}">
+                        <soe-splitbutton button-name="btnSave" label-key="core.save" options="ctrl.saveFunctions" last-button-class="last-button" main-button="true" drop-up="true" data-ng-if="ctrl.modifyPermission && ctrl.saveFunctions && ctrl.saveFunctions.length > 0" is-disabled="ctrl.isDisabled()" option-selected="ctrl.executeSaveFunction(option)"></soe-splitbutton>
+                    </div>
+                    <button type="button" class="btn btn-sm ngSoeMainButtonInvalid no-left-border-radius" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.edit.$invalid" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

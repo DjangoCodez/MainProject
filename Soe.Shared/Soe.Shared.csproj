@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AssemblyName>SoftOne.Soe.Shared</AssemblyName>
+		<RootNamespace>SoftOne.Soe.Shared</RootNamespace>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DebugType>pdbonly</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>bin\Release\</OutputPath>
+		<DefineConstants>TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+		<DocumentationFile>bin\Release\netstandard2.0\SoftOne.Soe.Shared.XML</DocumentationFile>
+		<NoWarn>1591</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Azure.Core" Version="1.49.0" />
+		<PackageReference Include="Azure.Identity" Version="1.17.0" />
+		<PackageReference Include="communicator.shared" Version="2025.11.6.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Primitives" Version="9.0.10" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="SoftOne.CacheR" Version="2025.7.31.1" />
+		<PackageReference Include="softoneid.common" Version="2025.11.4.1" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+		<PackageReference Include="System.IO.Pipelines" Version="9.0.10" />
+		<PackageReference Include="System.Runtime.Caching" Version="9.0.10" />
+		<PackageReference Include="System.ServiceModel.Primitives" Version="8.1.2" />
+		<PackageReference Include="System.Text.Encodings.Web" Version="9.0.10" />
+		<PackageReference Include="System.Text.Json" Version="9.0.10" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Soe.Common\Soe.Common.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Cache\Model\" />
+	</ItemGroup>
+
+</Project>

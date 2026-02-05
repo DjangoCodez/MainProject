@@ -1,0 +1,913 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+  <!-- 
+  ********************************************** Förklaringar *******************************************************
+  * title = Ett SysTermId
+  * order = Den ordning de ordnas efter i behörighetsträdet.
+  * reliantOn = De querystrings som ska tolkas för sidan. Om de inte anges där kommer de ej med i url:n i SiteMap:en
+  * level = Sätts automatiskt
+  * isFeature = Om sidan ska läggas in som Feature i SysFeature. Dvs möjlighet att sätta behörighet för.
+  * featureId = Sätts automatiskt
+  *******************************************************************************************************************
+  -->
+  <!--home-->
+  <siteMapNode url="~/soe/default.aspx" title="1045" reliantOn="" level="1" order="0" isFeature="false" featureId="">
+    <!--economy-->
+    <siteMapNode url="~/soe/economy/default.aspx" title="1046" reliantOn="c, r" level="2" order="1" isFeature="true" featureId="1">
+      <!--accounting-->
+      <siteMapNode url="~/soe/economy/accounting/default.aspx" title="1797" reliantOn="c, r" level="3" order="2" isFeature="true" featureId="2">
+        <!--vouchers-->
+        <siteMapNode url="~/soe/economy/accounting/vouchers/default.aspx" title="1154" reliantOn="c, r, voucher" level="4" order="1" isFeature="true" featureId="11">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/accounting/vouchers/edit/default.aspx" title="1342" reliantOn="c, r, voucher" level="5" order="2" isFeature="true" featureId="9" />
+        </siteMapNode>
+        <!--vouchertemplates-->
+        <siteMapNode url="~/soe/economy/accounting/vouchertemplates/default.aspx" title="3044" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="12" />
+        <!--accountdistribution-->
+        <siteMapNode url="~/soe/economy/accounting/accountdistribution/default.aspx" title="3472" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="474" />
+        <!--balance-->
+        <siteMapNode url="~/soe/economy/accounting/balance/default.aspx" title="2201" reliantOn="c, r, dim" level="4" order="4" isFeature="true" featureId="17">
+          <!--balancechange-->
+          <siteMapNode url="~/soe/economy/accounting/balance/balancechange/default.aspx" title="2202" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="248" />
+        </siteMapNode>
+        <!--accounts-->
+        <siteMapNode url="~/soe/economy/accounting/accounts/default.aspx" title="1048" reliantOn="c, r, dim" level="4" order="5" isFeature="true" featureId="5">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/accounting/accounts/edit/default.aspx" title="1049" reliantOn="c, r, account, dim" level="5" order="1" isFeature="true" featureId="6">
+            <!--history-->
+            <siteMapNode url="~/soe/economy/accounting/accounts/edit/history/default.aspx" title="1095" reliantOn="c, r, account" level="6" order="1" isFeature="true" featureId="7" />
+          </siteMapNode>
+        </siteMapNode>
+        <!--accountroles-->
+        <siteMapNode url="~/soe/economy/accounting/accountroles/default.aspx" title="1068" reliantOn="c, r" level="4" order="6" isFeature="true" featureId="3">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/accounting/accountroles/edit/default.aspx" title="1069" reliantOn="c, r, dim" level="5" order="1" isFeature="true" featureId="4" />
+        </siteMapNode>
+        <!--voucherseries-->
+        <siteMapNode url="~/soe/economy/accounting/voucherseries/default.aspx" title="2085" reliantOn="c, r, dim" level="4" order="7" isFeature="true" featureId="13">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/accounting/voucherseries/edit/default.aspx" title="2086" reliantOn="c, r, type" level="5" order="1" isFeature="true" featureId="14" />
+        </siteMapNode>
+        <!--accountperiods-->
+        <siteMapNode url="~/soe/economy/accounting/accountperiods/default.aspx" title="2096" reliantOn="c, r" level="4" order="8" isFeature="true" featureId="15">
+          <!--mapping-->
+          <siteMapNode url="~/soe/economy/accounting/accountperiods/voucherseriesmapping/default.aspx" title="2108" reliantOn="c, r, year" level="5" order="1" isFeature="true" featureId="16" />
+        </siteMapNode>
+        <!--history-->
+        <siteMapNode url="~/soe/economy/accounting/voucherhistory/default.aspx" title="1153" reliantOn="c, r, voucher" level="4" order="9" isFeature="true" featureId="10" />
+      </siteMapNode>
+      <!--supplier-->
+      <siteMapNode url="~/soe/economy/supplier/default.aspx" title="1798" reliantOn="c, r" level="3" order="3" isFeature="true" featureId="18">
+        <!--suppliers-->
+        <siteMapNode url="~/soe/economy/supplier/suppliers/default.aspx" title="1052" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="19">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/supplier/suppliers/edit/default.aspx" title="1053" reliantOn="c, r, supplier" level="5" order="1" isFeature="true" featureId="20" />
+        </siteMapNode>
+        <!--categories-->
+        <siteMapNode url="~/soe/economy/supplier/categories/default.aspx" title="4122" reliantOn="c, r, type" level="4" order="0" isFeature="true" featureId="653">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/supplier/categories/edit/default.aspx" title="4110" reliantOn="c, r, type, category" level="5" order="1" isFeature="true" featureId="658" />
+        </siteMapNode>
+        <!--invoice-->
+        <siteMapNode url="~/soe/economy/supplier/invoice/default.aspx" title="1745" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="21">
+          <!--status-->
+          <siteMapNode url="~/soe/economy/supplier/invoice/status/default.aspx" title="1820" reliantOn="c, r, change, invoice, type" level="5" order="2" isFeature="true" featureId="23" />
+          <!--attestflow-->
+          <siteMapNode url="~/soe/economy/supplier/invoice/attestflow/default.aspx" title="1820" reliantOn="c, r" level="5" order="3" isFeature="true" featureId="605" />
+          <!--matching-->
+          <siteMapNode url="~/soe/economy/supplier/invoice/matching/default.aspx" title="1820" reliantOn="c, r" level="5" order="5" isFeature="true" featureId="625" />
+          <!--matches-->
+          <siteMapNode url="~/soe/economy/supplier/invoice/matches/default.aspx" title="1820" reliantOn="c, r" level="5" order="6" isFeature="true" featureId="626" />
+          <!--agedistribution-->
+          <siteMapNode url="~/soe/economy/supplier/invoice/agedistribution/default.aspx" title="1820" reliantOn="c, r" level="5" order="2" isFeature="true" featureId="610" />
+          <!--liquidityplanning-->
+          <siteMapNode url="~/soe/economy/supplier/invoice/liquidityplanning/default.aspx" title="1820" reliantOn="c, r" level="5" order="2" isFeature="true" featureId="628" />
+        </siteMapNode>
+        <!--payment-->
+        <siteMapNode url="~/soe/economy/supplier/payment/default.aspx" title="3098" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="126">
+          <!--payments-->
+          <siteMapNode url="~/soe/economy/supplier/payment/payments/default.aspx" title="3095" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="128">
+            <!--edit-->
+            <siteMapNode url="~/soe/economy/supplier/payment/payments/edit/default.aspx" title="1841" reliantOn="c, r" level="6" order="1" isFeature="true" featureId="127" />
+          </siteMapNode>
+        </siteMapNode>
+      </siteMapNode>
+      <!--customer-->
+      <siteMapNode url="~/soe/economy/customer/default.aspx" title="1799" reliantOn="c, r" level="3" order="4" isFeature="true" featureId="24">
+        <!--customers-->
+        <siteMapNode url="~/soe/economy/customer/customers/default.aspx" title="1050" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="25">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/customer/customers/edit/default.aspx" title="1051" reliantOn="c, r, customer" level="5" order="1" isFeature="true" featureId="26" />
+        </siteMapNode>
+        <!--categories-->
+        <siteMapNode url="~/soe/economy/customer/categories/default.aspx" title="4121" reliantOn="c, r, type" level="4" order="0" isFeature="true" featureId="652">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/customer/categories/edit/default.aspx" title="4110" reliantOn="c, r, type, category" level="5" order="1" isFeature="true" featureId="657" />
+        </siteMapNode>
+        <!--invoice-->
+        <siteMapNode url="~/soe/economy/customer/invoice/default.aspx" title="1767" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="27">
+          <!--status-->
+          <siteMapNode url="~/soe/economy/customer/invoice/status/default.aspx" title="1820" reliantOn="c, r, change, invoice, type" level="5" order="2" isFeature="true" featureId="29" />
+          <!--insecuredebts-->
+          <siteMapNode url="~/soe/economy/customer/invoice/insecuredebts/default.aspx" title="9014" reliantOn="c, r" level="5" order="3" isFeature="true" featureId="630" />
+          <!--matching-->
+          <siteMapNode url="~/soe/economy/customer/invoice/matching/default.aspx" title="7113" reliantOn="c, r" level="5" order="4" isFeature="true" featureId="633" />
+          <!--matches-->
+          <siteMapNode url="~/soe/economy/customer/invoice/matches/default.aspx" title="7116" reliantOn="c, r" level="5" order="5" isFeature="true" featureId="634" />
+          <!--agedistribution-->
+          <siteMapNode url="~/soe/economy/customer/invoice/agedistribution/default.aspx" title="3844" reliantOn="c, r" level="5" order="6" isFeature="true" featureId="609" />
+          <!--liquidityplanning-->
+          <siteMapNode url="~/soe/economy/customer/invoice/liquidityplanning/default.aspx" title="3860" reliantOn="c, r" level="5" order="7" isFeature="true" featureId="627" />
+        </siteMapNode>
+        <!--payment-->
+        <siteMapNode url="~/soe/economy/customer/payment/default.aspx" title="3098" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="132">
+          <!--payments-->
+          <siteMapNode url="~/soe/economy/customer/payment/payments/default.aspx" title="5463" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="134">
+            <!--edit-->
+            <siteMapNode url="~/soe/economy/customer/payment/payments/edit/default.aspx" title="1842" reliantOn="c, r" level="6" order="1" isFeature="true" featureId="133" />
+          </siteMapNode>
+        </siteMapNode>
+      </siteMapNode>
+      <!--inventory-->
+      <siteMapNode url="~/soe/economy/inventory/default.aspx" title="3476" reliantOn="c, r" level="3" order="5" isFeature="true" featureId="479">
+        <!--inventories-->
+        <siteMapNode url="~/soe/economy/inventory/inventories/default.aspx" title="3477" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="480" />
+        <!--categories-->
+        <siteMapNode url="~/soe/economy/inventory/inventories/categories/default.aspx" title="3487" reliantOn="c, r, type" level="4" order="2" isFeature="true" featureId="490">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/inventory/inventories/categories/edit/default.aspx" title="4110" reliantOn="c, r, type, category" level="5" order="1" isFeature="true" featureId="491" />
+        </siteMapNode>
+        <!--write offs-->
+        <siteMapNode url="~/soe/economy/inventory/writeoffs/default.aspx" title="3480" reliantOn="c, r" level="4" order="5" isFeature="true" featureId="483" />
+        <!--inventory templates-->
+        <siteMapNode url="~/soe/economy/inventory/writeofftemplates/default.aspx" title="3478" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="481" />
+        <!--write off methods-->
+        <siteMapNode url="~/soe/economy/inventory/writeoffmethods/default.aspx" title="3479" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="482" />
+      </siteMapNode>
+      <!--import-->
+      <siteMapNode url="~/soe/economy/import/default.aspx" title="1803" reliantOn="c, r" level="3" order="6" isFeature="true" featureId="30">
+        <!--payments-->
+        <siteMapNode url="~/soe/economy/import/payments/default.aspx" title="1859" reliantOn="c, r, type" level="4" order="3" isFeature="true" featureId="129">
+          <!--test-->
+          <siteMapNode url="~/soe/economy/import/payments/test/default.aspx" title="4141" reliantOn="c, r, type" level="5" order="1" isFeature="false" featureId="509" />
+        </siteMapNode>
+        <!--invoices-->
+        <siteMapNode url="~/soe/economy/import/invoices/default.aspx" title="5498" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="478">
+          <!--test-->
+          <siteMapNode url="~/soe/economy/import/invoices/finvoice/default.aspx" title="8173" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="509" />
+        </siteMapNode>
+        <!--sie-->
+        <siteMapNode url="~/soe/economy/import/sie/default.aspx" title="1180" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="31" />
+        <!--excelimport-->
+        <siteMapNode url="~/soe/economy/import/excelimport/default.aspx" title="4258" reliantOn="c, r" level="4" order="4" isFeature="true" featureId="246" />
+      </siteMapNode>
+      <!--export-->
+      <siteMapNode url="~/soe/economy/export/default.aspx" title="1800" reliantOn="c, r" level="3" order="7" isFeature="true" featureId="32">
+        <!--payments-->
+        <siteMapNode url="~/soe/economy/export/payments/default.aspx" title="4022" reliantOn="c, r, type" level="4" order="2" isFeature="true" featureId="181" />
+        <!--invoices-->
+        <siteMapNode url="~/soe/economy/export/invoices/default.aspx" title="8248" reliantOn="c, r, type" level="4" order="3" isFeature="true" featureId="564">
+          <!--sop-->
+          <siteMapNode url="~/soe/economy/export/invoices/sop/default.aspx" title="8247" reliantOn="c, r, type" level="5" order="1" isFeature="true" featureId="561" />
+        </siteMapNode>
+        <!--sie-->
+        <siteMapNode url="~/soe/economy/export/sie/default.aspx" title="1425" reliantOn="c, r, type" level="4" order="1" isFeature="true" featureId="33">
+          <!--download-->
+          <!-- No need to be a SysFeature (isFeature=false)-->
+          <siteMapNode url="~/soe/economy/export/sie/download/default.aspx" title="1800" reliantOn="c, r" level="5" order="0" isFeature="false" featureId="" />
+        </siteMapNode>
+      </siteMapNode>
+      <!--distribution-->
+      <siteMapNode url="~/soe/economy/distribution/default.aspx" title="1299" reliantOn="c, r" level="3" order="8" isFeature="true" featureId="34">
+        <!--reports-->
+        <siteMapNode url="~/soe/economy/distribution/reports/default.aspx" title="2043" reliantOn="c, r, package" level="4" order="1" isFeature="true" featureId="35">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/distribution/reports/edit/default.aspx" title="1323" reliantOn="c, r, report" level="5" order="1" isFeature="true" featureId="36" />
+          <!--selection-->
+          <siteMapNode url="~/soe/economy/distribution/reports/selection/default.aspx" title="1300" reliantOn="c, r, report, account, dim" level="5" order="2" isFeature="true" featureId="37">
+            <!--preview-->
+            <siteMapNode url="~/soe/economy/distribution/reports/selection/preview/default.aspx" title="1298" reliantOn="c, r" level="6" order="1" isFeature="true" featureId="38" />
+            <!--download-->
+            <siteMapNode url="~/soe/economy/distribution/reports/selection/download/default.aspx" title="1553" reliantOn="c, r" level="6" order="2" isFeature="true" featureId="39" />
+          </siteMapNode>
+          <!--ReportGroupMapping-->
+          <siteMapNode url="~/soe/economy/distribution/reports/reportgroupmapping/default.aspx" title="2179" reliantOn="c, r, report" level="5" order="3" isFeature="true" featureId="40" />
+          <!--Permissions-->
+          <siteMapNode url="~/soe/economy/distribution/reports/permissions/default.aspx" title="5668" reliantOn="c, r, report" level="5" order="4" isFeature="true" featureId="556" />
+        </siteMapNode>
+        <!--packages-->
+        <siteMapNode url="~/soe/economy/distribution/packages/default.aspx" title="2079" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="41">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/distribution/packages/edit/default.aspx" title="1480" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="42" />
+        </siteMapNode>
+        <!--groups-->
+        <siteMapNode url="~/soe/economy/distribution/groups/default.aspx" title="2020" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="43">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/distribution/groups/edit/default.aspx" title="2163" reliantOn="c, r, group" level="5" order="1" isFeature="true" featureId="44" />
+        </siteMapNode>
+        <!--headers-->
+        <siteMapNode url="~/soe/economy/distribution/headers/default.aspx" title="2211" reliantOn="c, r" level="4" order="4" isFeature="true" featureId="45">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/distribution/headers/edit/default.aspx" title="2212" reliantOn="c, r, header" level="5" order="1" isFeature="true" featureId="46" />
+        </siteMapNode>
+        <!--templates-->
+        <siteMapNode url="~/soe/economy/distribution/templates/default.aspx" title="1348" reliantOn="c, r" level="4" order="5" isFeature="true" featureId="47">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/distribution/templates/edit/default.aspx" title="1349" reliantOn="c, r, template" level="5" order="1" isFeature="true" featureId="48">
+            <!--download-->
+            <siteMapNode url="~/soe/economy/distribution/templates/edit/download/default.aspx" title="1886" reliantOn="c, r, template" level="6" order="1" isFeature="true" featureId="201" />
+          </siteMapNode>
+        </siteMapNode>
+        <!--systemplates-->
+        <siteMapNode url="~/soe/economy/distribution/systemplates/default.aspx" title="1350" reliantOn="c, r" level="4" order="6" isFeature="true" featureId="49">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/distribution/systemplates/edit/default.aspx" title="1351" reliantOn="c, r, systemplate" level="5" order="1" isFeature="true" featureId="50">
+            <!--download-->
+            <siteMapNode url="~/soe/economy/distribution/systemplates/edit/download/default.aspx" title="1887" reliantOn="c, r, systemplate" level="6" order="1" isFeature="true" featureId="202" />
+          </siteMapNode>
+        </siteMapNode>
+      </siteMapNode>
+      <!--preferences-->
+      <siteMapNode url="~/soe/economy/preferences/default.aspx" title="2084" reliantOn="c, r" level="3" order="9" isFeature="true" featureId="51">
+        <!--compsettings-->
+        <siteMapNode url="~/soe/economy/preferences/compsettings/default.aspx" title="5415" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="52" />
+        <!--advcompsettings-->
+        <siteMapNode url="~/soe/economy/preferences/advcompsettings/default.aspx" title="3025" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="53" />
+        <!--usersettings-->
+        <!-- Can not be a SysFeature. Must be able to access its own usersettings (isFeature=false)-->
+        <siteMapNode url="~/soe/economy/preferences/usersettings/default.aspx" title="5414" reliantOn="c, r" level="4" order="0" isFeature="false" featureId="" />
+        <!--vouchersettings-->
+        <siteMapNode url="~/soe/economy/preferences/vouchersettings/default.aspx" title="5420" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="54">
+          <!--vouchersettings accounts-->
+          <siteMapNode url="~/soe/economy/preferences/vouchersettings/accounts/default.aspx" title="3222" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="148" />
+          <!--vouchersettings account distribution auto-->
+          <siteMapNode url="~/soe/economy/preferences/vouchersettings/accountdistributionauto/default.aspx" title="3473" reliantOn="c, r" level="5" order="2" isFeature="true" featureId="475" />
+          <!--vouchersettings account distribution period-->
+          <siteMapNode url="~/soe/economy/preferences/vouchersettings/accountdistributionperiod/default.aspx" title="3474" reliantOn="c, r" level="5" order="3" isFeature="true" featureId="476" />
+        </siteMapNode>
+        <!--suppinvoicesettings-->
+        <siteMapNode url="~/soe/economy/preferences/suppinvoicesettings/default.aspx" title="5421" reliantOn="c, r" level="4" order="4" isFeature="true" featureId="55">
+          <!--accounts-->
+          <siteMapNode url="~/soe/economy/preferences/suppinvoicesettings/accounts/default.aspx" title="3223" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="149" />
+          <!--paymentsettings-->
+          <siteMapNode url="~/soe/economy/preferences/suppinvoicesettings/paymentmethods/default.aspx" title="1790" reliantOn="c, r" level="5" order="2" isFeature="true" featureId="56">
+            <!--edit-->
+            <siteMapNode url="~/soe/economy/preferences/suppinvoicesettings/paymentmethods/edit/default.aspx" title="1789" reliantOn="c, r, method" level="6" order="1" isFeature="true" featureId="57" />
+          </siteMapNode>
+        </siteMapNode>
+        <!--custinvoicesettings-->
+        <siteMapNode url="~/soe/economy/preferences/custinvoicesettings/default.aspx" title="5422" reliantOn="c, r" level="4" order="6" isFeature="true" featureId="121">
+          <!--accounts-->
+          <siteMapNode url="~/soe/economy/preferences/custinvoicesettings/accounts/default.aspx" title="3224" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="150" />
+          <!--paymentsettings-->
+          <siteMapNode url="~/soe/economy/preferences/custinvoicesettings/paymentmethods/default.aspx" title="1845" reliantOn="c, r" level="5" order="2" isFeature="true" featureId="178">
+            <!--edit-->
+            <siteMapNode url="~/soe/economy/preferences/custinvoicesettings/paymentmethods/edit/default.aspx" title="1846" reliantOn="c, r, method" level="6" order="1" isFeature="true" featureId="179" />
+          </siteMapNode>
+        </siteMapNode>
+        <!--inventorysettings-->
+        <siteMapNode url="~/soe/economy/preferences/inventorysettings/default.aspx" title="3486" reliantOn="c, r" level="4" order="7" isFeature="true" featureId="489">
+          <!--accounts-->
+          <siteMapNode url="~/soe/economy/preferences/inventorysettings/accounts/default.aspx" title="3489" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="492" />
+        </siteMapNode>
+        <!--attestsettings-->
+        <siteMapNode url="~/soe/economy/preferences/attestsettings/default.aspx" title="5221" reliantOn="c, r" level="4" order="8" isFeature="true" featureId="302" />
+        <!--currency-->
+        <siteMapNode url="~/soe/economy/preferences/currency/default.aspx" title="3208" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="141">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/preferences/currency/edit/default.aspx" title="3209" reliantOn="c, r, condition" level="5" order="1" isFeature="true" featureId="142" />
+        </siteMapNode>
+        <!--payment condition-->
+        <siteMapNode url="~/soe/economy/preferences/paycondition/default.aspx" title="3081" reliantOn="c, r" level="4" order="9191" isFeature="true" featureId="60">
+          <!--edit-->
+          <siteMapNode url="~/soe/economy/preferences/paycondition/edit/default.aspx" title="3082" reliantOn="c, r, condition" level="5" order="1" isFeature="true" featureId="61" />
+        </siteMapNode>
+      </siteMapNode>
+    </siteMapNode>
+    <!--billing-->
+    <siteMapNode url="~/soe/billing/default.aspx" title="1829" reliantOn="c, r" level="2" order="2" isFeature="true" featureId="161">
+      <!--contract-->
+      <siteMapNode url="~/soe/billing/contract/default.aspx" title="3445" reliantOn="c, r" level="3" order="3" isFeature="true" featureId="447">
+        <!--groups-->
+        <siteMapNode url="~/soe/billing/contract/groups/default.aspx" title="3452" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="454">
+          <!--edit-->
+          <siteMapNode url="~/soe/billing/contract/groups/edit/default.aspx" title="3453" reliantOn="c, r, group" level="5" order="1" isFeature="true" featureId="455" />
+        </siteMapNode>
+        <!--edit-->
+        <siteMapNode url="~/soe/billing/contract/edit/default.aspx" title="3446" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="448" />
+        <!--user-->
+        <siteMapNode url="~/soe/billing/contract/user/default.aspx" title="3447" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="449" />
+        <!--status-->
+        <siteMapNode url="~/soe/billing/contract/status/default.aspx" title="3448" reliantOn="c, r, change, contract, type" level="4" order="4" isFeature="true" featureId="450" />
+      </siteMapNode>
+      <!--offer-->
+      <siteMapNode url="~/soe/billing/offer/default.aspx" title="5321" reliantOn="c, r" level="3" order="2" isFeature="true" featureId="399">
+        <!--edit-->
+        <siteMapNode url="~/soe/billing/offer/edit/default.aspx" title="5322" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="400" />
+        <!--user-->
+        <siteMapNode url="~/soe/billing/offer/user/default.aspx" title="5323" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="401" />
+        <!--status-->
+        <siteMapNode url="~/soe/billing/offer/status/default.aspx" title="5324" reliantOn="c, r, change, offert, type" level="4" order="4" isFeature="true" featureId="402" />
+      </siteMapNode>
+      <!--order-->
+      <siteMapNode url="~/soe/billing/order/default.aspx" title="5327" reliantOn="c, r" level="3" order="4" isFeature="true" featureId="405">
+        <!--edit-->
+        <siteMapNode url="~/soe/billing/order/edit/default.aspx" title="5328" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="406" />
+        <!--user-->
+        <siteMapNode url="~/soe/billing/order/user/default.aspx" title="5329" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="407" />
+        <!--status-->
+        <siteMapNode url="~/soe/billing/order/status/default.aspx" title="5330" reliantOn="c, r, change, order, type" level="4" order="4" isFeature="true" featureId="408" />
+      </siteMapNode>
+      <!--invoice-->
+      <siteMapNode url="~/soe/billing/invoice/default.aspx" title="1830" reliantOn="c, r" level="3" order="5" isFeature="true" featureId="162">
+        <!--edit-->
+        <siteMapNode url="~/soe/billing/invoice/edit/default.aspx" title="1835" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="167" />
+        <!--user-->
+        <siteMapNode url="~/soe/billing/invoice/user/default.aspx" title="1961" reliantOn="c, r" level="4" order="4" isFeature="true" featureId="245" />
+        <!--status-->
+        <siteMapNode url="~/soe/billing/invoice/status/default.aspx" title="1820" reliantOn="c, r, change, invoice, type" level="4" order="5" isFeature="true" featureId="168" />
+        <!--household-->
+        <siteMapNode url="~/soe/billing/invoice/household/default.aspx" title="3292" reliantOn="c, r" level="4" order="6" isFeature="true" featureId="262" />
+      </siteMapNode>
+      <!--product-->
+      <siteMapNode url="~/soe/billing/product/default.aspx" title="5447" reliantOn="c, r" level="3" order="6" isFeature="true" featureId="472">
+        <!--products-->
+        <siteMapNode url="~/soe/billing/product/products/default.aspx" title="1860" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="185">
+          <!--edit-->
+          <siteMapNode url="~/soe/billing/product/products/edit/default.aspx" title="1861" reliantOn="c, r, product" level="5" order="1" isFeature="true" featureId="186" />
+        </siteMapNode>
+        <!--categories-->
+        <siteMapNode url="~/soe/billing/product/categories/default.aspx" title="4121" reliantOn="c, r, type" level="4" order="0" isFeature="true" featureId="656">
+          <!--edit-->
+          <siteMapNode url="~/soe/billing/product/categories/edit/default.aspx" title="4110" reliantOn="c, r, type, category" level="5" order="1" isFeature="true" featureId="661" />
+        </siteMapNode>
+      </siteMapNode>
+      <!--customer-->
+      <siteMapNode url="~/soe/billing/customer/default.aspx" title="1799" reliantOn="c, r" level="3" order="7" isFeature="true" featureId="182">
+        <!--customers-->
+        <siteMapNode url="~/soe/billing/customer/customers/default.aspx" title="1050" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="183">
+          <!--edit-->
+          <siteMapNode url="~/soe/billing/customer/customers/edit/default.aspx" title="1051" reliantOn="c, r, customer" level="5" order="1" isFeature="true" featureId="184" />
+        </siteMapNode>
+        <!--categories-->
+        <siteMapNode url="~/soe/billing/customer/categories/default.aspx" title="4121" reliantOn="c, r, type" level="4" order="0" isFeature="true" featureId="652">
+          <!--edit-->
+          <siteMapNode url="~/soe/billing/customer/categories/edit/default.aspx" title="4110" reliantOn="c, r, type, category" level="5" order="1" isFeature="true" featureId="657" />
+        </siteMapNode>
+      </siteMapNode>
+      <!--import-->
+      <siteMapNode url="~/soe/billing/import/default.aspx" title="1803" reliantOn="c, r" level="3" order="8" isFeature="true" featureId="234">
+        <!--edi-->
+        <siteMapNode url="~/soe/billing/import/edi/default.aspx" title="5349" reliantOn="c, r, type" level="4" order="1" isFeature="true" featureId="428" />
+        <!--supplieragreement-->
+        <siteMapNode url="~/soe/billing/import/supplieragreement/default.aspx" title="4170" reliantOn="c, r, type" level="4" order="2" isFeature="true" featureId="235" />
+        <!--execel import-->
+        <siteMapNode url="~/soe/billing/import/excelimport/default.aspx" title="4258" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="247" />
+      </siteMapNode>
+      <!--export-->
+      <siteMapNode url="~/soe/billing/export/default.aspx" title="1800" reliantOn="c, r" level="3" order="9" isFeature="true" featureId="187">
+        <!--invoice-->
+        <siteMapNode url="~/soe/billing/export/invoices/default.aspx" title="8248" reliantOn="c, r, type" level="4" order="2" isFeature="true" featureId="562">
+          <!--sop-->
+          <siteMapNode url="~/soe/billing/export/invoices/sop/default.aspx" title="8247" reliantOn="c, r, type" level="5" order="1" isFeature="true" featureId="563" />
+        </siteMapNode>
+        <!--email-->
+        <siteMapNode url="~/soe/billing/export/email/default.aspx" title="4126" reliantOn="c, r, type" level="4" order="1" isFeature="true" featureId="188" />
+      </siteMapNode>
+      <!--distribution-->
+      <siteMapNode url="~/soe/billing/distribution/default.aspx" title="1299" reliantOn="c, r" level="3" order="10" isFeature="true" featureId="164">
+        <!--reports-->
+        <siteMapNode url="~/soe/billing/distribution/reports/default.aspx" title="2043" reliantOn="c, r, package" level="4" order="1" isFeature="true" featureId="209">
+          <!--edit-->
+          <siteMapNode url="~/soe/billing/distribution/reports/edit/default.aspx" title="1323" reliantOn="c, r, report" level="5" order="1" isFeature="true" featureId="210" />
+          <!--selection-->
+          <siteMapNode url="~/soe/billing/distribution/reports/selection/default.aspx" title="1300" reliantOn="c, r, report, account, dim" level="5" order="2" isFeature="true" featureId="211">
+            <!--preview-->
+            <siteMapNode url="~/soe/billing/distribution/reports/selection/preview/default.aspx" title="1298" reliantOn="c, r" level="6" order="1" isFeature="true" featureId="212" />
+            <!--download-->
+            <siteMapNode url="~/soe/billing/distribution/reports/selection/download/default.aspx" title="1553" reliantOn="c, r" level="6" order="2" isFeature="true" featureId="213" />
+          </siteMapNode>
+          <!--ReportGroupMapping-->
+          <siteMapNode url="~/soe/billing/distribution/reports/reportgroupmapping/default.aspx" title="2179" reliantOn="c, r, report" level="5" order="3" isFeature="true" featureId="214" />
+          <!--Permissions-->
+          <siteMapNode url="~/soe/billing/distribution/reports/permissions/default.aspx" title="5668" reliantOn="c, r, report" level="5" order="4" isFeature="true" featureId="557" />
+        </siteMapNode>
+        <!--packages-->
+        <siteMapNode url="~/soe/billing/distribution/packages/default.aspx" title="2079" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="215">
+          <!--edit-->
+          <siteMapNode url="~/soe/billing/distribution/packages/edit/default.aspx" title="1480" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="216" />
+        </siteMapNode>
+        <!--groups-->
+        <siteMapNode url="~/soe/billing/distribution/groups/default.aspx" title="2020" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="217">
+          <!--edit-->
+          <siteMapNode url="~/soe/billing/distribution/groups/edit/default.aspx" title="2163" reliantOn="c, r, group" level="5" order="1" isFeature="true" featureId="218" />
+        </siteMapNode>
+        <!--headers-->
+        <siteMapNode url="~/soe/billing/distribution/headers/default.aspx" title="2211" reliantOn="c, r" level="4" order="4" isFeature="true" featureId="219">
+          <!--edit-->
+          <siteMapNode url="~/soe/billing/distribution/headers/edit/default.aspx" title="2212" reliantOn="c, r, header" level="5" order="1" isFeature="true" featureId="220" />
+        </siteMapNode>
+        <!--templates-->
+        <siteMapNode url="~/soe/billing/distribution/templates/default.aspx" title="1348" reliantOn="c, r" level="4" order="5" isFeature="true" featureId="221">
+          <!--edit-->
+          <siteMapNode url="~/soe/billing/distribution/templates/edit/default.aspx" title="1349" reliantOn="c, r, template" level="5" order="1" isFeature="true" featureId="222">
+            <!--download-->
+            <siteMapNode url="~/soe/billing/distribution/templates/edit/download/default.aspx" title="1886" reliantOn="c, r, template" level="6" order="1" isFeature="true" featureId="223" />
+          </siteMapNode>
+        </siteMapNode>
+        <!--systemplates-->
+        <siteMapNode url="~/soe/billing/distribution/systemplates/default.aspx" title="1350" reliantOn="c, r" level="4" order="6" isFeature="true" featureId="224">
+          <!--edit-->
+          <siteMapNode url="~/soe/billing/distribution/systemplates/edit/default.aspx" title="1351" reliantOn="c, r, systemplate" level="5" order="1" isFeature="true" featureId="225">
+            <!--download-->
+            <siteMapNode url="~/soe/billing/distribution/systemplates/edit/download/default.aspx" title="1887" reliantOn="c, r, systemplate" level="6" order="1" isFeature="true" featureId="226" />
+          </siteMapNode>
+        </siteMapNode>
+      </siteMapNode>
+      <!--preferences-->
+      <siteMapNode url="~/soe/billing/preferences/default.aspx" title="2084" reliantOn="c, r" level="3" order="11" isFeature="true" featureId="163">
+        <!--usersettings-->
+        <!-- Can not be a SysFeature. Must be able to access its own usersettings (isFeature=false)-->
+        <siteMapNode url="~/soe/billing/preferences/usersettings/default.aspx" title="5414" reliantOn="c, r" level="4" order="0" isFeature="false" featureId="" />
+        <!--compsettings-->
+        <siteMapNode url="~/soe/billing/preferences/compsettings/default.aspx" title="5415" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="165" />
+        <!--productsettings-->
+        <siteMapNode url="~/soe/billing/preferences/productsettings/default.aspx" title="5429" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="281">
+          <!--base accounts-->
+          <siteMapNode url="~/soe/billing/preferences/productsettings/accounts/default.aspx" title="4085" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="176" />
+          <!--base products-->
+          <siteMapNode url="~/soe/billing/preferences/productsettings/products/default.aspx" title="3266" reliantOn="c, r" level="5" order="2" isFeature="true" featureId="203" />
+        </siteMapNode>
+        <!--invoicesettings-->
+        <siteMapNode url="~/soe/billing/preferences/invoicesettings/default.aspx" title="5430" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="166" />
+        <!--edisettings-->
+        <siteMapNode url="~/soe/billing/preferences/edisettings/default.aspx" title="5431" reliantOn="c, r" level="4" order="4" isFeature="true" featureId="429" />
+        <!--registry-->
+        <siteMapNode url="~/soe/billing/preferences/registry/default.aspx" title="1801" reliantOn="c, r" level="4" order="5" isFeature="true" featureId="169">
+          <!--productgroup -->
+          <siteMapNode url="~/soe/billing/preferences/registry/productgroup/default.aspx" title="4236" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="241">
+            <!--edit-->
+            <siteMapNode url="~/soe/billing/preferences/registry/productgroup/edit/default.aspx" title="4237" reliantOn="c, r" level="6" order="1" isFeature="true" featureId="242" />
+          </siteMapNode>
+          <!--product unit-->
+          <siteMapNode url="~/soe/billing/preferences/registry/productunit/default.aspx" title="3228" reliantOn="c, r" level="5" order="2" isFeature="true" featureId="170">
+            <!--edit-->
+            <siteMapNode url="~/soe/billing/preferences/registry/productunit/edit/default.aspx" title="3230" reliantOn="c, r, unit" level="6" order="1" isFeature="true" featureId="171" />
+          </siteMapNode>
+          <!--payment condition-->
+          <siteMapNode url="~/soe/billing/preferences/registry/paycondition/default.aspx" title="3081" reliantOn="c, r" level="5" order="3" isFeature="true" featureId="243">
+            <!--edit-->
+            <siteMapNode url="~/soe/billing/preferences/registry/paycondition/edit/default.aspx" title="3082" reliantOn="c, r, condition" level="6" order="1" isFeature="true" featureId="244" />
+          </siteMapNode>
+          <!--delivery condition-->
+          <siteMapNode url="~/soe/billing/preferences/registry/deliverycondition/default.aspx" title="3231" reliantOn="c, r" level="5" order="4" isFeature="true" featureId="172">
+            <!--edit-->
+            <siteMapNode url="~/soe/billing/preferences/registry/deliverycondition/edit/default.aspx" title="3233" reliantOn="c, r, condition" level="6" order="1" isFeature="true" featureId="173" />
+          </siteMapNode>
+          <!--delivery type-->
+          <siteMapNode url="~/soe/billing/preferences/registry/deliverytype/default.aspx" title="3234" reliantOn="c, r" level="5" order="5" isFeature="true" featureId="174">
+            <!--edit-->
+            <siteMapNode url="~/soe/billing/preferences/registry/deliverytype/edit/default.aspx" title="3236" reliantOn="c, r, type" level="6" order="1" isFeature="true" featureId="175" />
+          </siteMapNode>
+          <!--pricelists-->
+          <siteMapNode url="~/soe/billing/invoice/pricelists/default.aspx" title="1888" reliantOn="c, r" level="5" order="6" isFeature="true" featureId="204">
+            <!--edit-->
+            <siteMapNode url="~/soe/billing/invoice/pricelists/edit/default.aspx" title="1892" reliantOn="c, r, pricelist" level="6" order="1" isFeature="true" featureId="205" />
+          </siteMapNode>
+          <!--whole seller price list-->
+          <siteMapNode url="~/soe/billing/preferences/registry/wholesellerpricelist/default.aspx" title="4166" reliantOn="c, r" level="5" order="7" isFeature="true" featureId="233" />
+          <!--supplier agreement list-->
+          <siteMapNode url="~/soe/billing/preferences/registry/supplieragreement/default.aspx" title="4170" reliantOn="c, r" level="5" order="8" isFeature="true" featureId="236">
+            <!--edit-->
+            <siteMapNode url="~/soe/billing/preferences/registry/supplieragreement/edit/default.aspx" title="2272" reliantOn="c, r" level="6" order="8" isFeature="true" featureId="283" />
+          </siteMapNode>
+          <!-- Markup list -->
+          <siteMapNode url="~/soe/billing/preferences/registry/markup/default.aspx" title="7002" reliantOn="c, r" level="5" order="9" isFeature="true" featureId="395"></siteMapNode>
+          <!--pricerules -->
+          <siteMapNode url="~/soe/billing/preferences/registry/pricerule/default.aspx" title="4176" reliantOn="c, r" level="5" order="10" isFeature="true" featureId="239" />
+          <!--email template-->
+          <siteMapNode url="~/soe/billing/preferences/registry/emailtemplate/default.aspx" title="4142" reliantOn="c, r" level="5" order="11" isFeature="true" featureId="207">
+            <!--edit-->
+            <siteMapNode url="~/soe/billing/preferences/registry/emailtemplate/edit/default.aspx" title="4144" reliantOn="c, r, type" level="6" order="1" isFeature="true" featureId="208" />
+          </siteMapNode>
+        </siteMapNode>
+        <!--categorytypes-->
+        <siteMapNode url="~/soe/billing/preferences/categorytypes/default.aspx" title="4118" reliantOn="c, r, type" level="4" order="6" isFeature="true" featureId="189">
+          <!--edit-->
+          <siteMapNode url="~/soe/billing/preferences/categorytypes/edit/default.aspx" title="4119" reliantOn="c, r, type, category" level="5" order="1" isFeature="true" featureId="190" />
+        </siteMapNode>
+      </siteMapNode>
+    </siteMapNode>
+    <!--time-->
+    <siteMapNode url="~/soe/time/default.aspx" title="5002" reliantOn="c, r" level="2" order="3" isFeature="true" featureId="249">
+      <!--employee-->
+      <siteMapNode url="~/soe/time/employee/default.aspx" title="5005" reliantOn="c, r" level="3" order="1" isFeature="true" featureId="253">
+        <!--employees-->
+        <siteMapNode url="~/soe/time/employee/employees/default.aspx" title="5018" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="263">
+          <!--edit-->
+          <siteMapNode url="~/soe/time/employee/employees/edit/default.aspx" title="5019" reliantOn="c, r, employee" level="5" order="1" isFeature="true" featureId="264" />
+        </siteMapNode>
+        <!--categories-->
+        <siteMapNode url="~/soe/time/employee/categories/default.aspx" title="4121" reliantOn="c, r, type" level="4" order="0" isFeature="true" featureId="655">
+          <!--edit-->
+          <siteMapNode url="~/soe/time/employee/categories/edit/default.aspx" title="4110" reliantOn="c, r, type, category" level="5" order="1" isFeature="true" featureId="660" />
+        </siteMapNode>
+        <!--groups-->
+        <siteMapNode url="~/soe/time/employee/groups/default.aspx" title="5036" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="265">
+          <!--edit-->
+          <siteMapNode url="~/soe/time/employee/groups/edit/default.aspx" title="5037" reliantOn="c, r, group" level="5" order="1" isFeature="true" featureId="266" />
+        </siteMapNode>
+      </siteMapNode>
+      <!--schedule-->
+      <siteMapNode url="~/soe/time/schedule/default.aspx" title="5690" reliantOn="c, r" level="3" order="2" isFeature="true" featureId="252">
+        <!--planning-->
+        <siteMapNode url="~/soe/time/schedule/planning/default.aspx" title="3777" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="531" />
+        <!--absencerequestuser-->
+        <siteMapNode url="~/soe/time/schedule/absencerequestuser/default.aspx" title="8216" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="532" />
+        <!--absencerequest-->
+        <siteMapNode url="~/soe/time/schedule/absencerequest/default.aspx" title="5459" reliantOn="c, r" level="4" order="4" isFeature="true" featureId="533" />
+        <!--templates-->
+        <siteMapNode url="~/soe/time/schedule/template/list/default.aspx" title="5124" reliantOn="c, r" level="4" order="5" isFeature="true" featureId="280" />
+        <!--placement-->
+        <siteMapNode url="~/soe/time/schedule/placement/default.aspx" title="5123" reliantOn="c, r" level="4" order="6" isFeature="true" featureId="282" />
+        <!--sync-->
+        <siteMapNode url="~/soe/time/schedule/sync/default.aspx" title="3528" reliantOn="c, r" level="4" order="7" isFeature="true" featureId="506" />
+      </siteMapNode>
+      <!--time-->
+      <siteMapNode url="~/soe/time/attest/default.aspx" title="5689" reliantOn="c, r" level="3" order="3" isFeature="true" featureId="304">
+        <!--attestuser-->
+        <siteMapNode url="~/soe/time/attest/attestuser/default.aspx" title="5003" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="250" />
+        <!--attest-->
+        <siteMapNode url="~/soe/time/attest/attest/default.aspx" title="5217" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="304" />
+        <!--adjusttimestamps-->
+        <siteMapNode url="~/soe/time/attest/adjusttimestamps/default.aspx" title="3794" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="554" />
+        <!--recalculate-->
+        <siteMapNode url="~/soe/time/attest/recalculate/default.aspx" title="9020" reliantOn="c, r" level="4" order="4" isFeature="true" featureId="643" />
+      </siteMapNode>
+      <!--project-->
+      <siteMapNode url="~/soe/time/project/default.aspx" title="3357" reliantOn="c, r" level="3" order="4" isFeature="true" featureId="315">
+        <!--projects-->
+        <siteMapNode url="~/soe/time/project/list/default.aspx" title="3358" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="316" />
+      </siteMapNode>
+      <!--salary-->
+      <!--import-->
+      <siteMapNode url="~/soe/time/import/default.aspx" title="5006" reliantOn="c, r" level="3" order="7" isFeature="true" featureId="254">
+        <!--import-->
+        <siteMapNode url="~/soe/time/import/salary/default.aspx" title="5562" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="512" />
+        <!--execel import-->
+        <siteMapNode url="~/soe/time/import/excelimport/default.aspx" title="4258" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="520" />
+      </siteMapNode>
+      <!--export-->
+      <siteMapNode url="~/soe/time/export/default.aspx" title="5007" reliantOn="c, r" level="3" order="8" isFeature="true" featureId="255">
+        <!--salary-->
+        <siteMapNode url="~/soe/time/export/salary/default.aspx" title="4483" reliantOn="c, r, type" level="4" order="1" isFeature="true" featureId="358" />
+      </siteMapNode>
+      <!--distribution-->
+      <siteMapNode url="~/soe/time/distribution/default.aspx" title="5008" reliantOn="c, r" level="3" order="9" isFeature="true" featureId="256">
+        <!--reports-->
+        <siteMapNode url="~/soe/time/distribution/reports/default.aspx" title="2043" reliantOn="c, r, package" level="4" order="1" isFeature="true" featureId="338">
+          <!--edit-->
+          <siteMapNode url="~/soe/time/distribution/reports/edit/default.aspx" title="1323" reliantOn="c, r, report" level="5" order="1" isFeature="true" featureId="339" />
+          <!--selection-->
+          <siteMapNode url="~/soe/time/distribution/reports/selection/default.aspx" title="1300" reliantOn="c, r, report, account, dim" level="5" order="2" isFeature="true" featureId="340">
+            <!--preview-->
+            <siteMapNode url="~/soe/time/distribution/reports/selection/preview/default.aspx" title="1298" reliantOn="c, r" level="6" order="1" isFeature="true" featureId="341" />
+            <!--download-->
+            <siteMapNode url="~/soe/time/distribution/reports/selection/download/default.aspx" title="1553" reliantOn="c, r" level="6" order="2" isFeature="true" featureId="342" />
+          </siteMapNode>
+          <!--ReportGroupMapping-->
+          <siteMapNode url="~/soe/time/distribution/reports/reportgroupmapping/default.aspx" title="2179" reliantOn="c, r, report" level="5" order="3" isFeature="true" featureId="343" />
+          <!--Permissions-->
+          <siteMapNode url="~/soe/time/distribution/reports/permissions/default.aspx" title="5668" reliantOn="c, r, report" level="5" order="4" isFeature="true" featureId="558" />
+        </siteMapNode>
+        <!--packages-->
+        <siteMapNode url="~/soe/time/distribution/packages/default.aspx" title="2079" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="344">
+          <!--edit-->
+          <siteMapNode url="~/soe/time/distribution/packages/edit/default.aspx" title="1480" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="345" />
+        </siteMapNode>
+        <!--groups-->
+        <siteMapNode url="~/soe/time/distribution/groups/default.aspx" title="2020" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="346">
+          <!--edit-->
+          <siteMapNode url="~/soe/time/distribution/groups/edit/default.aspx" title="2163" reliantOn="c, r, group" level="5" order="1" isFeature="true" featureId="347" />
+        </siteMapNode>
+        <!--headers-->
+        <siteMapNode url="~/soe/time/distribution/headers/default.aspx" title="2211" reliantOn="c, r" level="4" order="4" isFeature="true" featureId="348">
+          <!--edit-->
+          <siteMapNode url="~/soe/time/distribution/headers/edit/default.aspx" title="2212" reliantOn="c, r, header" level="5" order="1" isFeature="true" featureId="349" />
+        </siteMapNode>
+        <!--templates-->
+        <siteMapNode url="~/soe/time/distribution/templates/default.aspx" title="1348" reliantOn="c, r" level="4" order="5" isFeature="true" featureId="350">
+          <!--edit-->
+          <siteMapNode url="~/soe/time/distribution/templates/edit/default.aspx" title="1349" reliantOn="c, r, template" level="5" order="1" isFeature="true" featureId="351">
+            <!--download-->
+            <siteMapNode url="~/soe/time/distribution/templates/edit/download/default.aspx" title="1886" reliantOn="c, r, template" level="6" order="1" isFeature="true" featureId="352" />
+          </siteMapNode>
+        </siteMapNode>
+        <!--systemplates-->
+        <siteMapNode url="~/soe/time/distribution/systemplates/default.aspx" title="1350" reliantOn="c, r" level="4" order="6" isFeature="true" featureId="353">
+          <!--edit-->
+          <siteMapNode url="~/soe/time/distribution/systemplates/edit/default.aspx" title="1351" reliantOn="c, r, systemplate" level="5" order="1" isFeature="true" featureId="354">
+            <!--download-->
+            <siteMapNode url="~/soe/time/distribution/systemplates/edit/download/default.aspx" title="1887" reliantOn="c, r, systemplate" level="6" order="1" isFeature="true" featureId="355" />
+          </siteMapNode>
+        </siteMapNode>
+      </siteMapNode>
+      <!--preferences-->
+      <siteMapNode url="~/soe/time/preferences/default.aspx" title="5009" reliantOn="c, r" level="3" order="10" isFeature="true" featureId="257">
+        <!--usersettings-->
+        <!-- Can not be a SysFeature. Must be able to access its own usersettings (isFeature=false)-->
+        <siteMapNode url="~/soe/time/preferences/usersettings/default.aspx" title="5414" reliantOn="c, r" level="4" order="0" isFeature="false" featureId="" />
+        <!--timesetupwizard-->
+        <siteMapNode url="~/soe/time/preferences/timesetupwizard/default.aspx" title="3560" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="515" />
+        <!--compsettings-->
+        <siteMapNode url="~/soe/time/preferences/compsettings/default.aspx" title="5415" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="258" />
+        <!--projectsettings-->
+        <siteMapNode url="~/soe/time/preferences/projectsettings/default.aspx" title="4520" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="391" />
+        <!--schedulesettings-->
+        <siteMapNode url="~/soe/time/schedule/schedulesettings/default.aspx" title="5690" reliantOn="c, r" level="4" order="4" isFeature="true" featureId="362">
+          <!--shifttype-->
+          <siteMapNode url="~/soe/time/preferences/schedulesettings/shifttype/default.aspx" title="3791" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="547" />
+          <!--skilltype-->
+          <siteMapNode url="~/soe/time/preferences/v/skilltype/default.aspx" title="3578" reliantOn="c, r" level="5" order="2" isFeature="true" featureId="549" />
+          <!--skill-->
+          <siteMapNode url="~/soe/time/preferences/schedulesettings/skill/default.aspx" title="3579" reliantOn="c, r" level="5" order="3" isFeature="true" featureId="550" />
+          <!--daytypes-->
+          <siteMapNode url="~/soe/time/preferences/schedulesettings/daytypes/default.aspx" title="3055" reliantOn="c, r" level="5" order="4" isFeature="true" featureId="363">
+            <!--edit-->
+            <siteMapNode url="~/soe/time/preferences/schedulesettings/daytypes/edit/default.aspx" title="1749" reliantOn="c, r, name, dayType" level="6" order="1" isFeature="true" featureId="364" />
+            <!--import-->
+            <siteMapNode url="~/soe/time/preferences/schedulesettings/daytypes/import/default.aspx" title="4294" reliantOn="c, r" level="6" order="2" isFeature="true" featureId="364" />
+          </siteMapNode>
+          <!--holidays-->
+          <siteMapNode url="~/soe/time/preferences/schedulesettings/holidays/default.aspx" title="3054" reliantOn="c, r" level="5" order="5" isFeature="true" featureId="366">
+            <!--edit-->
+            <siteMapNode url="~/soe/time/preferences/schedulesettings/holidays/edit/default.aspx" title="1748" reliantOn="c, r, name, holiday" level="6" order="1" isFeature="true" featureId="367" />
+            <!--import-->
+            <siteMapNode url="~/soe/time/preferences/schedulesettings/holidays/import/default.aspx" title="4293" reliantOn="c, r" level="6" order="2" isFeature="true" featureId="367" />
+          </siteMapNode>
+          <!--halfdays-->
+          <siteMapNode url="~/soe/time/preferences/schedulesettings/halfdays/default.aspx" title="4409" reliantOn="c, r" level="5" order="6" isFeature="true" featureId="288">
+            <!--edit-->
+            <siteMapNode url="~/soe/time/preferences/schedulesettings/halfdays/edit/default.aspx" title="4410" reliantOn="c, r, halfday" level="6" order="1" isFeature="true" featureId="289" />
+          </siteMapNode>
+        </siteMapNode>
+        <!--timesettings-->
+        <siteMapNode url="~/soe/time/preferences/timesettings/default.aspx" title="5012" reliantOn="c, r" level="4" order="5" isFeature="true" featureId="259">
+          <!--accounts-->
+          <siteMapNode url="~/soe/time/preferences/timesettings/accounts/default.aspx" title="5201" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="292" />
+          <!--timeterminals-->
+          <siteMapNode url="~/soe/time/preferences/timesettings/timeterminals/default.aspx" title="3406" reliantOn="c, r" level="5" order="2" isFeature="true" featureId="389">
+            <!--edit-->
+            <siteMapNode url="~/soe/time/preferences/timesettings/timeterminals/edit/default.aspx" title="3409" reliantOn="c, r" level="6" order="1" isFeature="true" featureId="390" />
+          </siteMapNode>
+          <!--timeperiod-->
+          <siteMapNode url="~/soe/time/preferences/registry/timeperiod/default.aspx" title="5272" reliantOn="c, r" level="5" order="3" isFeature="true" featureId="312">
+            <!--edit-->
+            <siteMapNode url="~/soe/time/preferences/registry/timeperiod/edit/default.aspx" title="5273" reliantOn="c, r, timePeriodHead" level="6" order="1" isFeature="true" featureId="313" />
+          </siteMapNode>
+          <!--timeaccumulator-->
+          <siteMapNode url="~/soe/time/preferences/registry/timeaccumulator/default.aspx" title="4318" reliantOn="c, r" level="5" order="4" isFeature="true" featureId="286">
+            <!--edit-->
+            <siteMapNode url="~/soe/time/preferences/registry/timeaccumulator/edit/default.aspx" title="4321" reliantOn="c, r" level="6" order="1" isFeature="true" featureId="287" />
+          </siteMapNode>
+          <!--invoiceproduct-->
+          <siteMapNode url="~/soe/time/preferences/registry/invoiceproduct/default.aspx" title="1860" reliantOn="c, r" level="5" order="5" isFeature="true" featureId="359">
+            <!--edit-->
+            <siteMapNode url="~/soe/time/preferences/registry/invoiceproduct/edit/default.aspx" title="1861" reliantOn="c, r, product" level="6" order="1" isFeature="true" featureId="360" />
+          </siteMapNode>
+          <!--timecodework-->
+          <siteMapNode url="~/soe/time/preferences/registry/timecodework/default.aspx" title="5057" reliantOn="c, r" level="5" order="6" isFeature="true" featureId="269">
+            <!--edit-->
+            <siteMapNode url="~/soe/time/preferences/registry/timecodework/edit/default.aspx" title="5060" reliantOn="c, r, timecode" level="6" order="1" isFeature="true" featureId="270" />
+          </siteMapNode>
+          <!--timecodeabsense-->
+          <siteMapNode url="~/soe/time/preferences/registry/timecodeabsense/default.aspx" title="5058" reliantOn="c, r" level="5" order="7" isFeature="true" featureId="271">
+            <!--edit-->
+            <siteMapNode url="~/soe/time/preferences/registry/timecodeabsense/edit/default.aspx" title="5091" reliantOn="c, r, timecode" level="6" order="1" isFeature="true" featureId="272" />
+          </siteMapNode>
+          <!--timedeviationcause-->
+          <siteMapNode url="~/soe/time/preferences/registry/timedeviationcause/default.aspx" title="4304" reliantOn="c, r" level="5" order="8" isFeature="true" featureId="275">
+            <!--edit-->
+            <siteMapNode url="~/soe/time/preferences/registry/timedeviationcause/edit/default.aspx" title="4313" reliantOn="c, r" level="6" order="1" isFeature="true" featureId="276" />
+          </siteMapNode>
+          <!--timecodebreak-->
+          <siteMapNode url="~/soe/time/preferences/registry/timecodebreak/default.aspx" title="5059" reliantOn="c, r" level="5" order="9" isFeature="true" featureId="273">
+            <!--edit-->
+            <siteMapNode url="~/soe/time/preferences/registry/timecodebreak/edit/default.aspx" title="5073" reliantOn="c, r, timecode" level="6" order="1" isFeature="true" featureId="274" />
+          </siteMapNode>
+          <!--timecodeaddition-->
+          <siteMapNode url="~/soe/time/preferences/registry/timecodedddition/default.aspx" title="7039" reliantOn="c, r" level="5" order="10" isFeature="true" featureId="501">
+            <!--edit-->
+            <siteMapNode url="~/soe/time/preferences/registry/timecodedddition/edit/default.aspx" title="7040" reliantOn="c, r, timecode" level="6" order="1" isFeature="true" featureId="502" />
+          </siteMapNode>
+          <!--timecodededuction-->
+          <siteMapNode url="~/soe/time/preferences/registry/timecodededuction/default.aspx" title="7041" reliantOn="c, r" level="5" order="11" isFeature="true" featureId="503">
+            <!--edit-->
+            <siteMapNode url="~/soe/time/preferences/registry/timecodededuction/edit/default.aspx" title="7042" reliantOn="c, r, timecode" level="6" order="1" isFeature="true" featureId="504" />
+          </siteMapNode>
+          <!--timerulegroup-->
+          <siteMapNode url="~/soe/time/preferences/registry/timerulegroup/default.aspx" title="4455" reliantOn="c, r" level="5" order="12" isFeature="true" featureId="290" />
+          <!--timeabsencerule-->
+          <siteMapNode url="~/soe/time/preferences/registry/timeabsencerule/default.aspx" title="3517" reliantOn="c, r" level="5" order="13" isFeature="true" featureId="499" />
+          <!--timerule-->
+          <siteMapNode url="~/soe/time/preferences/registry/timerule/default.aspx" title="4322" reliantOn="c, r" level="5" order="14" isFeature="true" featureId="284" />
+        </siteMapNode>
+        <!--salarysettings-->
+        <siteMapNode url="~/soe/time/preferences/salarysettings/default.aspx" title="5590" reliantOn="c, r" level="4" order="6" isFeature="true" featureId="261">
+          <!--payrollproduct-->
+          <siteMapNode url="~/soe/time/preferences/salarysettings/payrollproduct/default.aspx" title="6000" reliantOn="c, r" level="5" order="2" isFeature="true" featureId="268">
+            <!--edit-->
+            <siteMapNode url="~/soe/time/preferences/salarysettings/payrollproduct/edit/default.aspx" title="6002" reliantOn="c, r, product" level="6" order="1" isFeature="true" featureId="277" />
+          </siteMapNode>
+      </siteMapNode>
+    </siteMapNode>
+    </siteMapNode>
+    <!--communication-->
+    <siteMapNode url="~/soe/communication/default.aspx" title="5588" reliantOn="c, r" level="2" order="5" isFeature="true" featureId="538">
+      <!--xemail-->
+      <siteMapNode url="~/soe/communication/xemail/default.aspx" title="5590" reliantOn="c, r" level="3" order="2" isFeature="true" featureId="539"></siteMapNode>
+    </siteMapNode>
+    <!--estatus-->
+    <siteMapNode url="~/soe/estatus/default.aspx" title="2246" reliantOn="c, r" level="2" order="6" isFeature="true" featureId="62"></siteMapNode>
+    <!--manage-->
+    <siteMapNode url="~/soe/manage/default.aspx" title="1054" reliantOn="c, r" level="2" order="7" isFeature="true" featureId="63">
+      <!--contracts-->
+      <siteMapNode url="~/soe/manage/contracts/default.aspx" title="1055" reliantOn="c, r" level="3" order="2" isFeature="true" featureId="64">
+        <!--edit-->
+        <siteMapNode url="~/soe/manage/contracts/edit/default.aspx" title="1056" reliantOn="c, r, license, licenseNr" level="4" order="1" isFeature="true" featureId="65">
+          <!--permission-->
+          <siteMapNode url="~/soe/manage/contracts/edit/permission/default.aspx" title="1083" reliantOn="c, r, license, licenseNr, permission" level="5" order="1" isFeature="true" featureId="66" />
+        </siteMapNode>
+      </siteMapNode>
+      <!--companies-->
+      <siteMapNode url="~/soe/manage/companies/default.aspx" title="1057" reliantOn="c, r, licenseId, licenseNr" level="3" order="3" isFeature="true" featureId="67">
+        <!--edit-->
+        <siteMapNode url="~/soe/manage/companies/edit/default.aspx" title="1058" reliantOn="c, r, license, licenseNr, company" level="4" order="1" isFeature="true" featureId="68">
+          <!--permission-->
+          <siteMapNode url="~/soe/manage/companies/edit/permission/default.aspx" title="1081" reliantOn="c, r, license, licenseNr, company, permission" level="5" order="1" isFeature="true" featureId="69" />
+          <!--remote-->
+          <!-- Can not be a SysFeature. Must be able to access the page from every Company to be able to logout from remote (isFeature=false)-->
+          <siteMapNode url="~/soe/manage/companies/edit/remote/default.aspx" title="1652" reliantOn="c, r, company, login, logout" level="5" order="0" isFeature="false" featureId="" />
+        </siteMapNode>
+      </siteMapNode>
+      <!--roles-->
+      <siteMapNode url="~/soe/manage/roles/default.aspx" title="2045" reliantOn="c, r, license, licenseNr, company" level="3" order="4" isFeature="true" featureId="70">
+        <!--edit-->
+        <siteMapNode url="~/soe/manage/roles/edit/default.aspx" title="2046" reliantOn="c, r, license, licenseNr, company, role" level="4" order="1" isFeature="true" featureId="71">
+          <!--permission-->
+          <siteMapNode url="~/soe/manage/roles/edit/permission/default.aspx" title="1078" reliantOn="c, r, license, licenseNr, company, role, permission" level="5" order="1" isFeature="true" featureId="72" />
+        </siteMapNode>
+      </siteMapNode>
+      <!--users-->
+      <siteMapNode url="~/soe/manage/users/default.aspx" title="1062" reliantOn="c, r, license, licenseNr, company, role" level="3" order="5" isFeature="true" featureId="73">
+        <!--edit-->
+        <siteMapNode url="~/soe/manage/users/edit/default.aspx" title="1063" reliantOn="c, r, license, licenseNr, company, role, user" level="4" order="1" isFeature="true" featureId="74">
+          <!--connect to company/role-->
+          <siteMapNode url="~/soe/manage/users/edit/usermapping/default.aspx" title="2066" reliantOn="c, r, company, user" level="5" order="1" isFeature="true" featureId="75" />
+          <!--connect to attestrole-->
+          <siteMapNode url="~/soe/manage/users/edit/attestrolemapping/default.aspx" title="5238" reliantOn="c, r, company, user" level="5" order="2" isFeature="true" featureId="303" />
+          <!--password-->
+          <siteMapNode url="~/soe/manage/users/edit/password/default.aspx" title="1573" reliantOn="c, r, user" level="5" order="3" isFeature="true" featureId="76" />
+          <!--usersession-->
+          <siteMapNode url="~/soe/manage/users/edit/sessions/default.aspx" title="1690" reliantOn="c, r, user" level="5" order="4" isFeature="true" featureId="77" />
+        </siteMapNode>
+      </siteMapNode>
+      <!--contactpersons-->
+      <siteMapNode url="~/soe/manage/contactpersons/default.aspx" title="1588" reliantOn="c, r, actor" level="3" order="6" isFeature="true" featureId="78">
+        <!--edit-->
+        <siteMapNode url="~/soe/manage/contactpersons/edit/default.aspx" title="1589" reliantOn="c, r, contactperson, actor" level="4" order="1" isFeature="true" featureId="79" />
+        <!--categories-->
+        <siteMapNode url="~/soe/manage/contactpersons/categories/default.aspx" title="4124" reliantOn="c, r, type" level="4" order="2" isFeature="true" featureId="654">
+          <!--edit-->
+          <siteMapNode url="~/soe/manage/contactpersons/categories/edit/default.aspx" title="4110" reliantOn="c, r, type, category" level="5" order="1" isFeature="true" featureId="659" />
+        </siteMapNode>
+      </siteMapNode>
+      <!--attest-->
+      <siteMapNode url="~/soe/manage/attest/default.aspx" title="5217" reliantOn="c, r, actor" level="3" order="7" isFeature="true" featureId="649">
+        <!--time-->
+        <siteMapNode url="~/soe/manage/attest/time/default.aspx" title="5731" reliantOn="c, r, actor" level="4" order="1" isFeature="true" featureId="305">
+          <!--role-->
+          <siteMapNode url="~/soe/manage/attest/time/role/default.aspx" title="5214" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="306">
+            <!--edit-->
+            <siteMapNode url="~/soe/manage/attest/time/role/edit/default.aspx" title="5218" reliantOn="c, r, role" level="6" order="1" isFeature="true" featureId="307" />
+          </siteMapNode>
+          <!--state-->
+          <siteMapNode url="~/soe/manage/attest/time/state/default.aspx" title="5215" reliantOn="c, r" level="5" order="2" isFeature="true" featureId="308">
+            <!--edit-->
+            <siteMapNode url="~/soe/manage/attest/time/state/edit/default.aspx" title="5219" reliantOn="c, r, state" level="6" order="1" isFeature="true" featureId="309" />
+          </siteMapNode>
+          <!--transition-->
+          <siteMapNode url="~/soe/manage/attest/time/transition/default.aspx" title="5216" reliantOn="c, r" level="5" order="3" isFeature="true" featureId="310">
+            <!--edit-->
+            <siteMapNode url="~/soe/manage/attest/time/transition/edit/default.aspx" title="5220" reliantOn="c, r, transition" level="6" order="1" isFeature="true" featureId="311" />
+          </siteMapNode>
+          <!--rule-->
+          <siteMapNode url="~/soe/manage/attest/time/rule/default.aspx" title="3469" reliantOn="c, r" level="5" order="4" isFeature="true" featureId="464" />
+        </siteMapNode>
+        <!--customer-->
+        <siteMapNode url="~/soe/manage/attest/customer/default.aspx" title="5727" reliantOn="c, r, actor" level="4" order="2" isFeature="true" featureId="430">
+          <!--role-->
+          <siteMapNode url="~/soe/manage/attest/customer/role/default.aspx" title="5214" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="431">
+            <!--edit-->
+            <siteMapNode url="~/soe/manage/attest/customer/role/edit/default.aspx" title="5218" reliantOn="c, r, role" level="6" order="1" isFeature="true" featureId="432" />
+          </siteMapNode>
+          <!--state-->
+          <siteMapNode url="~/soe/manage/attest/customer/state/default.aspx" title="5215" reliantOn="c, r" level="5" order="2" isFeature="true" featureId="433">
+            <!--edit-->
+            <siteMapNode url="~/soe/manage/attest/customer/state/edit/default.aspx" title="5219" reliantOn="c, r, state" level="6" order="1" isFeature="true" featureId="434" />
+          </siteMapNode>
+          <!--transition-->
+          <siteMapNode url="~/soe/manage/attest/customer/transition/default.aspx" title="5216" reliantOn="c, r" level="5" order="3" isFeature="true" featureId="435">
+            <!--edit-->
+            <siteMapNode url="~/soe/manage/attest/customer/transition/edit/default.aspx" title="5216" reliantOn="c, r, transition" level="6" order="1" isFeature="true" featureId="436" />
+          </siteMapNode>
+        </siteMapNode>
+        <!--supplier-->
+        <siteMapNode url="~/soe/manage/attest/supplier/default.aspx" title="5731" reliantOn="c, r, actor" level="4" order="3" isFeature="true" featureId="295">
+          <!--role-->
+          <siteMapNode url="~/soe/manage/attest/supplier/role/default.aspx" title="5214" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="296">
+            <!--edit-->
+            <siteMapNode url="~/soe/manage/attest/supplier/role/edit/default.aspx" title="5218" reliantOn="c, r, role" level="6" order="1" isFeature="true" featureId="297" />
+          </siteMapNode>
+          <!--state-->
+          <siteMapNode url="~/soe/manage/attest/supplier/state/default.aspx" title="5215" reliantOn="c, r" level="5" order="2" isFeature="true" featureId="298">
+            <!--edit-->
+            <siteMapNode url="~/soe/manage/attest/supplier/state/edit/default.aspx" title="5219" reliantOn="c, r, state" level="6" order="1" isFeature="true" featureId="299" />
+          </siteMapNode>
+          <!--transition-->
+          <siteMapNode url="~/soe/manage/attest/supplier/transition/default.aspx" title="5216" reliantOn="c, r" level="5" order="3" isFeature="true" featureId="300">
+            <!--edit-->
+            <siteMapNode url="~/soe/manage/attest/supplier/transition/edit/default.aspx" title="5220" reliantOn="c, r, transition" level="6" order="1" isFeature="true" featureId="301" />
+          </siteMapNode>
+          <!--workflowtemplate-->
+          <siteMapNode url="~/soe/manage/attest/supplier/workflowtemplate/default.aspx" title="4568" reliantOn="c, r" level="5" order="3" isFeature="true" featureId="606">
+            <!--edit-->
+            <siteMapNode url="~/soe/manage/attest/supplier/workflowtemplate/edit/default.aspx" title="4569" reliantOn="c, r, transition" level="6" order="1" isFeature="true" featureId="607" />
+          </siteMapNode>
+        </siteMapNode>
+      </siteMapNode>
+      <!--preferences-->
+      <siteMapNode url="~/soe/manage/preferences/default.aspx" title="2084" reliantOn="c, r" level="3" order="8" isFeature="true" featureId="80">
+        <!--usersettings-->
+        <!-- Can not be a SysFeature. Must be able to access its own usersettings (isFeature=false)-->
+        <siteMapNode url="~/soe/manage/preferences/usersettings/default.aspx" title="5414" reliantOn="c, r" level="4" order="0" isFeature="false" featureId="" />
+        <!--checksettings-->
+        <siteMapNode url="~/soe/manage/preferences/checksettings/default.aspx" title="3465" reliantOn="c, r" level="4" order="1" isFeature="true" featureId="457" />
+        <!--compsettings-->
+        <siteMapNode url="~/soe/manage/preferences/compsettings/default.aspx" title="5415" reliantOn="c, r" level="4" order="2" isFeature="true" featureId="81" />
+        <!--logotypesettings-->
+        <siteMapNode url="~/soe/manage/preferences/logotype/default.aspx" title="5417" reliantOn="c, r" level="4" order="3" isFeature="true" featureId="177" />
+        <!--calendarsettings-->
+        <siteMapNode url="~/soe/manage/preferences/calendarsettings/default.aspx" title="3053" reliantOn="c, r" level="4" order="4" isFeature="true" featureId="82" />
+        <!--Fieldsettings-->
+        <siteMapNode url="~/soe/manage/preferences/registry/fieldsettings/default.aspx" title="5710" reliantOn="c, r" level="4" order="5" isFeature="true" featureId="631" />
+        <!--registry-->
+        <siteMapNode url="~/soe/manage/preferences/registry/default.aspx" title="5710" reliantOn="c, r" level="4" order="4" isFeature="true" featureId="83">
+          <!--daytypes-->
+          <siteMapNode url="~/soe/manage/preferences/registry/daytypes/default.aspx" title="3055" reliantOn="c, r" level="5" order="1" isFeature="true" featureId="84">
+            <!--edit-->
+            <siteMapNode url="~/soe/manage/preferences/registry/daytypes/edit/default.aspx" title="1749" reliantOn="c, r, name, dayTypeId" level="6" order="1" isFeature="true" featureId="85" />
+            <!--import-->
+            <siteMapNode url="~/soe/manage/preferences/registry/daytypes/import/default.aspx" title="4294" reliantOn="c, r" level="6" order="2" isFeature="true" featureId="85" />
+          </siteMapNode>
+          <!--holidays-->
+          <siteMapNode url="~/soe/manage/preferences/registry/holidays/default.aspx" title="3054" reliantOn="c, r" level="5" order="2" isFeature="true" featureId="86">
+            <!--edit-->
+            <siteMapNode url="~/soe/manage/preferences/registry/holidays/edit/default.aspx" title="1748" reliantOn="c, r, name, holidayId" level="6" order="1" isFeature="true" featureId="87" />
+            <!--import-->
+            <siteMapNode url="~/soe/manage/preferences/registry/holidays/import/default.aspx" title="4293" reliantOn="c, r" level="6" order="2" isFeature="true" featureId="87" />
+          </siteMapNode>
+          <!--Checklists-->
+          <siteMapNode url="~/soe/manage/preferences/registry/checklists/default.aspx" title="5695" reliantOn="c, r" level="5" order="3" isFeature="true" featureId="611" />
+        </siteMapNode>
+        <!--categorytypes-->
+        <siteMapNode url="~/soe/manage/preferences/categorytypes/default.aspx" title="4118" reliantOn="c, r, type" level="4" order="5" isFeature="true" featureId="193">
+          <!--edit-->
+          <siteMapNode url="~/soe/manage/preferences/categorytypes/edit/default.aspx" title="4119" reliantOn="c, r, type, category" level="5" order="1" isFeature="true" featureId="194" />
+        </siteMapNode>
+      </siteMapNode>
+      <!--support-->
+      <siteMapNode url="~/soe/manage/support/default.aspx" title="1059" reliantOn="c, r" level="3" order="9" isFeature="true" featureId="88">
+        <!--logs-->
+        <siteMapNode url="~/soe/manage/support/logs/default.aspx" title="1060" reliantOn="c, r, type" level="4" order="9" isFeature="true" featureId="89">
+          <!--edit-->
+          <siteMapNode url="~/soe/manage/support/logs/edit/default.aspx" title="1061" reliantOn="c, r, log" level="5" order="1" isFeature="true" featureId="90" />
+        </siteMapNode>
+      </siteMapNode>
+      <!--system-->
+      <siteMapNode url="~/soe/manage/system/default.aspx" title="1059" reliantOn="c, r" level="3" order="10" isFeature="true" featureId="88">
+        <!--pricelists-->
+        <siteMapNode url="~/soe/manage/system/pricelists/default.aspx" title="4163" reliantOn="c, r" level="4" order="1" isFeature="false" featureId="" />
+        <!--xearticles-->
+        <siteMapNode url="~/soe/manage/system/xearticles/default.aspx" title="1997" reliantOn="c, r, permission" level="4" order="2" isFeature="false" featureId="" />
+      </siteMapNode>
+    </siteMapNode>
+    <!--settings-->
+    <siteMapNode url="~/settings/Settings.aspx" title="1817" reliantOn="c, r, form, field, tab" level="2" order="8" isFeature="true" featureId="91">
+      <!--fieldsettings-->
+      <siteMapNode url="~/settings/FieldSettings.aspx" title="1025" reliantOn="c, r, form, field, tab" level="3" order="1" isFeature="true" featureId="92" />
+      <!--formsettings-->
+      <siteMapNode url="~/settings/FormSettings.aspx" title="1024" reliantOn="c, r, form" level="3" order="2" isFeature="true" featureId="93" />
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>

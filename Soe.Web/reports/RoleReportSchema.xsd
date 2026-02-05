@@ -1,0 +1,105 @@
+﻿<xs:schema id="SOE_RoleReport" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SOE_RoleReport">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="RoleReport">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportHeader">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="ReportTitle"/>
+                    <xs:element type="xs:string" name="ReportDescription"/>
+                    <xs:element type="xs:string" name="ReportNr"/>
+                    <xs:element type="xs:string" name="Company"/>
+                    <xs:element type="xs:string" name="Orgnr"/>
+                    <xs:element type="xs:string" name="LoginName"/>
+                    <xs:element type="xs:string" name="TimePeriod"/>
+                    <xs:element type="xs:string" name="SortByLevel1"/>
+                    <xs:element type="xs:string" name="SortByLevel2"/>
+                    <xs:element type="xs:string" name="SortByLevel3"/>
+                    <xs:element type="xs:string" name="SortByLevel4"/>
+                    <xs:element type="xs:string" name="IsSortAscending"/>
+                    <xs:element type="xs:string" name="GroupByLevel1"/>
+                    <xs:element type="xs:string" name="GroupByLevel2"/>
+                    <xs:element type="xs:string" name="GroupByLevel3"/>
+                    <xs:element type="xs:string" name="GroupByLevel4"/>
+                    <xs:element type="xs:string" name="Special"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ReportHeaderLabels">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="LoginNameLabel"/>
+                    <xs:element type="xs:string" name="PageLabel"/>
+                    <xs:element type="xs:string" name="DateLabel"/>
+                    <xs:element type="xs:string" name="TimeLabel"/>
+                    <xs:element type="xs:string" name="TimePeriodLabel"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="AttestRole" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="Name"/>
+                    <xs:element type="xs:string" name="Description"/>
+                    <xs:element type="xs:string" name="ExternalCodes"/>
+                    <xs:element type="xs:string" name="ShowUncategorized"/>
+                    <xs:element type="xs:string" name="ShowAllCategories"/>
+                    <xs:element name="AttestRoleUser" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="UserName"/>
+                          <xs:element type="xs:string" name="EmployeeNr"/>
+                          <xs:element type="xs:string" name="FirstName"/>
+                          <xs:element type="xs:string" name="LastName"/>
+                          <xs:element type="xs:dateTime" name="DateFrom"/>
+                          <xs:element type="xs:dateTime" name="DateTo"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:byte" name="id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="EmployeeOnAttestRole" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="EmployeeNr"/>
+                          <xs:element type="xs:string" name="FirstName"/>
+                          <xs:element type="xs:string" name="LastName"/>
+                          <xs:element type="xs:dateTime" name="DateFrom"/>
+                          <xs:element type="xs:dateTime" name="DateTo"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:int" name="id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:int" name="id" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Role" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="Name"/>
+                    <xs:element type="xs:string" name="ExternalCodes"/>
+                    <xs:element name="RoleUser" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="UserName"/>
+                          <xs:element type="xs:string" name="EmployeeNr"/>
+                          <xs:element type="xs:string" name="FirstName"/>
+                          <xs:element type="xs:string" name="LastName"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:int" name="id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:int" name="id" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

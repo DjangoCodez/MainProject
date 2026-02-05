@@ -1,0 +1,12 @@
+<div>
+  <form [formGroup]="formSearch" novalidate autocomplete="off">
+    <soe-datepicker
+      formControlName="periodDate"
+      [view]="'month'"
+      [showArrows]="true"
+      [inline]="true"
+      [lastInPeriod]="false"
+      (valueChanged)="filterByDate($event)">
+    </soe-datepicker>
+  </form>
+</div>

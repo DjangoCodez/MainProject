@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-sm-12">
+    <soe-expansion-panel
+      [labelKey]="'billing.products.products.accountingprio'"
+      [noPadding]="true"
+      [noMargin]="true"
+      [static]="true">
+      @if (flowHandler.allowFetchGrid()) {
+        <soe-grid-wrapper
+          [rows]="rowData"
+          [parentGuid]="guid()"
+          [noMargin]="true"
+          [toolbarGroups]="[]">
+        </soe-grid-wrapper>
+      }
+    </soe-expansion-panel>
+  </div>
+</div>

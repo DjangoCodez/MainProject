@@ -1,0 +1,339 @@
+﻿@import (reference) "../variables.less";
+@import (reference) "../../../../../node_modules/bootstrap/less/bootstrap";
+@import "../../../../../node_modules/bootstrap/less/variables";
+
+.assembly-container {
+    margin-bottom: 20px;
+}
+
+.toolbar-container {
+    margin: 10px 15px 10px 15px;
+}
+
+.dashboard-widgets {
+    padding-left: 5px;
+    padding-right: 15px;
+}
+
+.widget-container {
+    margin-bottom: @padding-small-vertical;
+    padding-right: 0;
+    padding-left: 10px;
+}
+
+.widget {
+    .panel-heading {
+        padding: 5px;
+    }
+
+    .panel-title {
+        cursor: pointer;
+    }
+
+    .panel-body {
+        border-top: 0;
+        padding: 0;
+        margin: 0px;
+
+        .ui-grid {
+            border: 0;
+            height: 241px;
+        }
+    }
+
+    .panel-footer {
+        height: 50px;
+        width: 100%;
+        display: inline-block;
+        margin-bottom: -4px;
+
+        .btn {
+            min-width: 100px;
+            padding: 4px 8px;
+        }
+    }
+}
+
+.widget-toolbar {
+    margin-right: 10px;
+
+    i {
+        margin-left: 5px;
+        cursor: pointer;
+    }
+
+    .fal {
+        color: @soe-text-color;
+        opacity: 0.15;
+    }
+
+    .fal:hover {
+        opacity: 1;
+    }
+}
+
+.widget-settings {
+    padding: 10px;
+}
+
+// Widgets
+
+.linked-shifts {
+    background-color: @accentColorLight;
+}
+
+.myschedule-schedule {
+    margin-right: -1px;
+
+    table {
+        width: 100% !important;
+
+        thead tr th:first-child,
+        tbody tr td:first-child {
+            width: 130px;
+            min-width: 130px;
+            max-width: 130px;
+        }
+    }
+}
+
+.myschedule-schedule-day-header {
+    background-color: @soe-header-background-color;
+    text-align: left;
+    font-size: 10px;
+    padding: 2px;
+    margin-top: -1px;
+}
+
+.myschedule-schedule-day-header.iconcolumn {
+    width: 20px;
+}
+
+.myschedule-schedule-row {
+    .saturday:not(span) {
+        background-color: @saturdayBackgroundColor;
+    }
+
+    .sunday:not(span) {
+        background-color: @sundayBackgroundColor;
+    }
+
+    .subrow {
+        background-color: @soe-header-background-color;
+    }
+
+    .fal {
+        cursor: pointer;
+        margin-right: 5px;
+    }
+}
+
+.myschedule-schedule-rowlabel {
+    background-color: @soe-header-background-color;
+    font-size: 12px;
+    padding: 2px 5px 2px 5px;
+    vertical-align: middle;
+    cursor: pointer;
+
+    span {
+        color: @soe-text-color;
+        font-size: @mediumFontSize;
+        font-weight: bold;
+    }
+
+    span.today {
+        color: @accentColor;
+    }
+
+    span.saturday {
+        color: @saturdayColor;
+        background-color: @soe-header-background-color;
+    }
+
+    span.sunday {
+        color: @sundayColor;
+        background-color: @soe-header-background-color;
+    }
+
+    span.subrow {
+        margin-left: 16px;
+        font-weight: normal;
+    }
+}
+
+.myschedule-schedule-horizontal-separator {
+    border-bottom-width: 2px !important;
+}
+
+.myschedule-schedule-horizontal-separator-top {
+    border-top-width: 2px !important;
+}
+
+.myschedule-schedule-day {
+    text-align: center;
+    font-size: 10px;
+    padding: 0px;
+    margin-top: -1px;
+    margin-bottom: -1px;
+    vertical-align: top;
+    position: relative;
+}
+
+.myschedule-schedule-day.iconcolumn {
+    vertical-align: middle;
+
+    .fal {
+        margin-right: unset;
+    }
+}
+
+.myschedule-schedule-shift {
+    height: 21px;
+    cursor: pointer;
+    position: absolute;
+    z-index: 100;
+
+    span {
+        display: block;
+        text-align: left;
+        font-size: 10px;
+        padding: 3px 4px;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .shift-time-start {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .shift-time-stop {
+        position: absolute;
+        top: 0;
+        right: 0;
+        text-align: right;
+    }
+
+    .shift-break {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        padding: 0;
+        background: white;
+        opacity: 0.5;
+    }
+}
+
+.planning-day-available {
+    background-color: @availableBackgroundColor !important;
+}
+
+.planning-day-unavailable {
+    background-color: @unavailableBackgroundColor !important;
+}
+
+.planning-day-partly-available {
+    background: @partlyAvailableBackground !important;
+}
+
+.planning-day-partly-unavailable {
+    background: @partlyUnavailableBackground !important;
+}
+
+.planning-day-mixed-available {
+    background: @mixedAvailableBackground !important;
+}
+
+.shift-striped-background {
+    background: @shiftStripedBackground !important;
+    height: 100%;
+}
+
+.shift-standby-background {
+    background: @shiftStandbyBackground !important;
+    height: 100%;
+}
+
+.shift-unwanted.shift-wanted {
+    background: linear-gradient(180deg, @shiftWantedBackgroundColor 50%, @shiftUnwantedBackgroundColor 50%);
+}
+
+.shift-unwanted {
+    background-color: @shiftUnwantedBackgroundColor;
+    border-right: 1px solid @soe-border-color;
+    width: 8px;
+    height: 100%;
+}
+
+.shift-wanted {
+    background-color: @shiftWantedBackgroundColor;
+    color: @soe-color-neutral-white;
+    border-right: 1px solid @soe-border-color;
+    width: 8px;
+    height: 100%;
+
+    .shift-queue {
+        position: absolute;
+        top: -4px;
+        left: 0;
+        padding: 2px 0;
+    }
+}
+
+.shift-absence-requested {
+    background: @shiftAbsenceRequestedBackground;
+    border-right: 1px solid @soe-border-color;
+    width: 8px;
+    height: 100%;
+}
+
+.shift-absence-approved {
+    background-color: @shiftAbsenceBackgroundColor;
+    border-right: 1px solid @soe-border-color;
+    width: 8px;
+    height: 100%;
+}
+
+.selected-shift {
+    border: 2px solid @accentColor;
+    background: @slotStripedBackground;
+}
+
+// Edit shift
+.edit-shift-wanted, .edit-shift-unwanted {
+    position: absolute;
+    margin: 0 0 0 -2px;
+    height: 30px;
+    width: 8px;
+    border: 1px solid @soe-border-color;
+}
+
+.edit-shift-wanted.edit-shift-unwanted {
+    background: linear-gradient(180deg, @shiftWantedBackgroundColor 50%, @shiftUnwantedBackgroundColor 50%) !important;
+}
+
+.edit-shift-wanted {
+    background-color: @shiftWantedBackgroundColor;
+}
+
+.edit-shift-unwanted {
+    background-color: @shiftUnwantedBackgroundColor;
+}
+
+.edit-shift-standby {
+    background-color: @shiftStandby !important;
+    height: 38px;
+    margin: -4px -25px -34px -31px;
+}
+
+.edit-shift-standby-first-row {
+    margin: 20px -25px -58px -31px;
+}
+
+.edit-shift-standby-button {
+    background-color: @shiftStandby !important;
+}

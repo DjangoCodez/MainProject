@@ -1,0 +1,42 @@
+﻿<form name="searchFilter" class="ngSoeForm form-group form-group-sm">
+    <soe-progressbar is-busy="ctrl.progress.progressBusy" message="ctrl.progress.progressMessage"></soe-progressbar>
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <soe-multiselect label-key="common.customer.invoices.status" options="ctrl.appliedStatuses" model="ctrl.selectedStatuses" limit-to="20"></soe-multiselect>
+        </div>
+        <div class="col-sm-2">
+            <soe-datepicker label-key="billing.invoices.householddeduction.appliedfrom" model="ctrl.appliedDateFrom" form="searchFilter"></soe-datepicker>
+        </div>
+        <div class="col-sm-2">
+            <soe-datepicker label-key="billing.invoices.householddeduction.approvedfrom" model="ctrl.receivedDateFrom" form="searchFilter"></soe-datepicker>
+        </div>
+        <div class="col-sm-2">
+            <soe-datepicker label-key="billing.invoices.householddeduction.deniedfrom" model="ctrl.deniedDateFrom" form="searchFilter"></soe-datepicker>
+        </div>
+        <div class="col-sm-2">
+            <soe-datepicker label-key="billing.invoices.householddeduction.paidfrom" model="ctrl.paidDateFrom" form="searchFilter"></soe-datepicker>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <soe-multiselect label-key="common.type" options="ctrl.taxDeductionTypes" display-prop="name" model="ctrl.selectedTypes" limit-to="20"></soe-multiselect>
+        </div>
+        <div class="col-sm-2">
+            <soe-datepicker label-key="billing.invoices.householddeduction.appliedto" model="ctrl.appliedDateTo" form="searchFilter"></soe-datepicker>
+        </div>
+        <div class="col-sm-2">
+            <soe-datepicker label-key="billing.invoices.householddeduction.approvedto" model="ctrl.receivedDateTo" form="searchFilter"></soe-datepicker>
+        </div>
+        <div class="col-sm-2">
+            <soe-datepicker label-key="billing.invoices.householddeduction.deniedto" model="ctrl.deniedDateTo" form="searchFilter"></soe-datepicker>
+        </div>
+        <div class="col-sm-2">
+            <soe-datepicker label-key="billing.invoices.householddeduction.paidto" model="ctrl.paidDateTo" form="searchFilter"></soe-datepicker>
+        </div>
+        <div class="col-sm-2 margin-small-top">
+            <soe-label></soe-label>
+            <button type="button" class="btn btn-sm ngSoeMainButton" data-l10n-bind="'core.search'" data-l10n-bind-title="'core.search'" inline="true" data-ng-click="$event.stopPropagation();ctrl.filter()"></button>
+        </div>
+    </div>
+</form>

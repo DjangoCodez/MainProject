@@ -1,0 +1,153 @@
+<div class="soe-dialog" [ngClass]="data.size" [attr.data-testid]="data.title">
+  <div
+    cdkDrag
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDragHandle
+    class="soe-dialog-header d-flex justify-content-between align-items-center"
+    [ngClass]="headerClass">
+    <span class="soe-dialog-header__title mb-0">{{
+      data.title | translate
+    }}</span>
+    @if (!data.hideCloseButton) {
+      <button
+        type="button"
+        class="btn-close close float-end"
+        aria-label="Close"
+        tabindex="-1"
+        (click)="closeDialog()">
+        <fa-icon [icon]="['fal', 'xmark']"></fa-icon>
+      </button>
+    }
+  </div>
+
+  <div class="soe-dialog__content">
+    @if ((!noIcon && iconName) || data.text) {
+      <div class="row">
+        <div class="col-sm-12 soe-dialog__icon-text-content">
+          @if (!noIcon && iconName) {
+            <span class="soe-dialog__icon-content">
+              <fa-icon
+                [icon]="[iconPrefix, iconName]"
+                class="soe-dialog__icon"
+                [ngClass]="data.iconClass"
+                [animation]="iconAnimation"
+                (dblclick)="iconDoubleClick()"></fa-icon
+            ></span>
+          }
+          @if (data.text) {
+            <span
+              class="soe-dialog__text-content"
+              [innerHTML]="data.text"></span>
+          }
+        </div>
+      </div>
+    }
+    @if (data.showInputText) {
+      <div class="row mt-2">
+        <div class="col-sm-12">
+          <label class="form-label" for="input-text">{{
+            data.inputTextLabel | translate
+          }}</label>
+          @if (data.inputTextRows === 1) {
+            <input
+              [type]="data.isPassword ? 'password' : 'text'"
+              class="form-control"
+              id="input-text"
+              [(ngModel)]="data.inputTextValue"
+              (keyup.enter)="enterPressed()" />
+          }
+          @if (data.inputTextRows > 1) {
+            <textarea
+              type="text"
+              class="form-control"
+              id="input-text"
+              [rows]="data.inputTextRows"
+              [(ngModel)]="data.inputTextValue">
+            </textarea>
+          }
+        </div>
+      </div>
+    }
+    @if (data.showInputNumber) {
+      <div class="row mt-2">
+        <div class="col-sm-12">
+          <soe-numberbox
+            id="input-number"
+            [labelKey]="data.inputNumberLabel"
+            [decimals]="data.inputNumberDecimals || 0"
+            [showArrows]="data.inputNumberShowArrows"
+            [(ngModel)]="data.inputNumberValue"
+            (valueChanged)="onNumberChanged($event)"
+            (keyUp)="onNumberKeyUp($event)"></soe-numberbox>
+        </div>
+      </div>
+    }
+    @if (data.showInputDate) {
+      <div class="row mt-2">
+        <div class="col-sm-12">
+          <soe-datepicker
+            id="input-date"
+            [labelKey]="data.inputDateLabel"
+            [(ngModel)]="data.inputDateValue"
+            (valueChanged)="onDateChanged($event)"></soe-datepicker>
+        </div>
+      </div>
+    }
+    @if (data.showInputCheckbox) {
+      <div class="row mt-2">
+        <div class="col-sm-12">
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="input-checkbox"
+              [(ngModel)]="data.inputCheckboxValue" />
+            <label class="form-check-label" for="input-checkbox">
+              {{ data.inputCheckboxLabel | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (showHiddenText) {
+    <div class="soe-dialog__hidden-content">
+      <div [innerHTML]="data.hiddenText"></div>
+    </div>
+  }
+
+  @if (showButtonCancel || showButtonOk || showButtonNo || showButtonYes) {
+    <div
+      class="soe-dialog__footer d-flex justify-content-end align-items-center">
+      @if (showButtonCancel) {
+        <soe-button
+          id="button-cancel"
+          [caption]="buttonCancelLabel"
+          [behaviour]="'standard'"
+          (action)="closeDialog()"></soe-button>
+      }
+      @if (showButtonOk) {
+        <soe-button
+          id="button-ok"
+          [caption]="buttonOkLabel"
+          [behaviour]="'primary'"
+          (action)="closeDialog(true)"></soe-button>
+      }
+      @if (showButtonNo) {
+        <soe-button
+          id="button-no"
+          [caption]="buttonNoLabel"
+          [behaviour]="'standard'"
+          (action)="closeDialog(false)"></soe-button>
+      }
+      @if (showButtonYes) {
+        <soe-button
+          id="button-yes"
+          [caption]="buttonYesLabel"
+          [behaviour]="'primary'"
+          (action)="closeDialog(true)"></soe-button>
+      }
+    </div>
+  }
+</div>

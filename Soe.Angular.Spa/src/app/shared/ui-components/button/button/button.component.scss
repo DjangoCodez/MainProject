@@ -1,0 +1,49 @@
+@use '../../../styles/core-styles/colors.scss';
+@use '../../../styles/core-styles/fonts.scss';
+
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle),
+.btn-group > .btn.dropdown-toggle-split:first-child,
+.btn-group > .btn-group:not(:last-child) > .btn {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn-group > .btn:nth-child(n + 3),
+.btn-group > :not(.btn-check) + .btn,
+.btn-group > .btn-group:not(:first-child) > .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.btn-group {
+  .btn-primary:first-child:nth-last-child(2),
+  .btn-primary:first-child:nth-last-child(2) ~ li {
+    // Makes whole button 100px when btn-invalid is displayed
+    min-width: 77px;
+  }
+}
+
+.btn:focus {
+  // Remove Bootstrap blur
+  outline: none;
+}
+
+.btn-invalid {
+  min-width: 24px;
+  max-width: 24px;
+  padding: 0px;
+  background-color: colors.$soe-color-primary-tone-75;
+  border-color: colors.$soe-color-neutral-grey;
+  color: colors.$soe-inverted-text-color;
+  font-weight: fonts.$font-weight-bold;
+  font-size: fonts.$soe-font-size-xl;
+}
+
+.btn-invalid:last-of-type {
+  margin-right: 0px;
+}
+
+fa-icon {
+  float: left;
+  margin-right: 0.25rem;
+}

@@ -1,0 +1,43 @@
+<form
+[formGroup]="form"
+  novalidate
+  autocomplete="off">
+  <div class="row">
+    <div class="d-sm-inline">
+        <soe-select
+        [labelKey]="'billing.projects.list.projectpricelist'"
+        [items]="projectPriceLists"
+        (valueChanged)="priceListOnChange($event)"
+        formControlName="priceListTypeId">
+        <soe-icon-button
+          [iconName]="'plus'"
+          (action)="addPriceList(false)">
+        </soe-icon-button>
+        <!-- enable -->
+        <soe-icon-button
+          [iconName]="'pen'"
+          (action)="addPriceList(true)"
+          [disabled]="!form.get('priceListTypeId')?.value">
+        </soe-icon-button>
+        <!-- disable when origin -->
+      </soe-select>
+    </div>
+    <div class="d-sm-inline">
+      <soe-select [labelKey]="'billing.projects.list.comparisonpricelist'" [items]="comparisonPriceLists"
+        formControlName="comparisonPricelistId"
+        (valueChanged)="comparisonPricelistChanged.emit($event)">
+      </soe-select>
+    </div>
+    <div class="d-sm-inline">
+      <soe-datepicker
+      [labelKey]="'billing.projects.list.pricedate'"
+      formControlName="priceDate"
+      (valueChanged)="priceDateChanged.emit($event)"></soe-datepicker>
+    </div>
+    <div class="d-sm-inline">
+      <soe-checkbox [labelKey]="'billing.projects.list.loadallproducts'"
+        formControlName="isLoadAllProducts" [inline]="true" (valueChanged)="loadAllProductsChanged.emit($event)"
+      ></soe-checkbox>
+    </div>
+  </div>
+</form>

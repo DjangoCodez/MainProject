@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:loneandring="http://collectum.se/paket/pa/loneandring/3.0" xmlns:avanmalan="http://collectum.se/paket/pa/avanmalan/2.0" xmlns:nyanmalan="http://collectum.se/paket/pa/nyanmalan/2.0" xmlns:flyttAnstalldaInomKoncern="http://collectum.se/paket/pa/flyttAnstalldaInomKoncern/3.0" xmlns:arkitekturella="http://collectum.se/arkitekturella/2.0" xmlns:granssnitt="http://collectum.se/granssnitt/pa/grunduppgifterITP/3.0" xmlns:typer="http://collectum.se/typer/2.0" xmlns:ns1="http://collectum.se/granssnitt/grunduppgifterITP/3.0" targetNamespace="http://collectum.se/granssnitt/grunduppgifterITP/3.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://collectum.se/paket/pa/avanmalan/2.0" schemaLocation="..\..\..\..\paket\pa\avanmalan\2.0\avanmalan.xsd"/>
+	<xs:import namespace="http://collectum.se/paket/pa/loneandring/3.0" schemaLocation="..\..\..\..\paket\pa\loneandring\3.0\loneandring.xsd"/>
+	<xs:import namespace="http://collectum.se/paket/pa/nyanmalan/2.0" schemaLocation="..\..\..\..\paket\pa\nyanmalan\2.0\nyanmalan.xsd"/>
+	<xs:import namespace="http://collectum.se/paket/pa/flyttAnstalldaInomKoncern/3.0" schemaLocation="..\..\..\..\paket\pa\flyttAnstalldaInomKoncern\3.0\flyttAnstalldaInomKoncern.xsd"/>
+	<xs:import namespace="http://collectum.se/arkitekturella/2.0" schemaLocation="..\..\..\..\arkitekturella\2.0\header.xsd"/>
+	<xs:import namespace="http://collectum.se/typer/2.0" schemaLocation="..\..\..\..\typer\2.0\centrala typer.xsd"/>
+	<xs:element name="GrunduppgifterITP">
+		<xs:annotation>
+			<xs:documentation>
+			2008-05-15 korrekt revision 3.0
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header" type="arkitekturella:Header"/>
+				<xs:element name="Organisationsnummer" type="typer:Organisationsnummer"/>
+				<xs:element name="User" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="12"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Filnamn" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:string"/>
+					</xs:simpleType>
+				</xs:element>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element name="AvanmalanHandelse" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Avanmalan" type="avanmalan:Avanmalan"/>
+							</xs:sequence>
+							<xs:attribute name="Handelsenummer" type="typer:Handelsenummer" use="required"/>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="FlyttAnstalldaInomKoncernHandelse" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="FlyttAnstalldaInomKoncern" type="flyttAnstalldaInomKoncern:FlyttAnstalldaInomKoncern"/>
+							</xs:sequence>
+							<xs:attribute name="Handelsenummer" type="typer:Handelsenummer" use="required"/>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="LoneandringHandelse" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Loneandring" type="loneandring:Loneandring"/>
+							</xs:sequence>
+							<xs:attribute name="Handelsenummer" type="typer:Handelsenummer" use="required"/>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="NyanmalanHandelse" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Nyanmalan" type="nyanmalan:Nyanmalan"/>
+							</xs:sequence>
+							<xs:attribute name="Handelsenummer" type="typer:Handelsenummer" use="required"/>
+						</xs:complexType>
+					</xs:element>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="version" default="3.0.0.0"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

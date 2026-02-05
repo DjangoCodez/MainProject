@@ -1,0 +1,88 @@
+﻿<form name="ctrl.edit" class="ngSoeForm" novalidate autocomplete="off" data-form-state="ctrl.dirtyHandler.isDirty" confirm-on-exit>
+    <!-- Must use ng-show here instead of ng-if, otherwise the DraggableDialogDirective won't find it -->
+    <div class="modal-header" data-ng-show="ctrl.isModal">
+        <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.closeModal()" aria-hidden="true">&times;</button>
+        <h6 class="modal-title">{{ctrl.modalTitle}}</h6>
+    </div>
+
+    <div purchase-validation ng-class="ctrl.isModal ? 'edit-padding': ''" ng-model="ctrl.purchase" edit-permission="ctrl.modifyPermission" data-ng-if="!ctrl.progressBusy">
+        <div class="row btn-toolbar">
+            <div class="col-sm-6">
+                <div class="pull-left">
+                    <soe-toolbar buttons="ctrl.toolbar.navigationMenuButtons" hide-border="true" no-margin="true" ng-if="ctrl.showNavigationButtons"></soe-toolbar>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <soe-toolbar buttons="ctrl.toolbar.buttonGroups" hide-border="true" no-margin="true"></soe-toolbar>
+            </div>
+        </div>
+        <uib-accordion close-others="false">
+            <soe-panel label-key="billing.purchase.delivery.delivery">
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-textbox label-key="billing.purchase.delivery.deliveryno" model="ctrl.purchaseDelivery.deliveryNr" readonly="true"></soe-textbox>
+                        </div>
+                        <div class="col-sm-4">
+                            <soe-typeahead is-disabled="!ctrl.isNew || ctrl.purchaseId" use-ignore-dirty="true" label-key="billing.purchase.supplier" placeholder-key="core.typetofilter" model="ctrl.supplierHelper.selectedSupplier" items="ctrl.supplierHelper.suppliers" options="item as item.name for item in items" on-edit="ctrl.supplierHelper.openSupplier()" edit-tooltip-key="core.edit" edit-disabled="!ctrl.supplierHelper.editSupplierPermission" use-only-edit-disabled="true"></soe-typeahead>
+                        </div>
+                        <div class="col-sm-4" ng-if="ctrl.isNew">
+                            <soe-typeahead is-disabled="!ctrl.isNew || ctrl.purchaseId" use-ignore-dirty="true" label-key="billing.purchase.purchasenr" placeholder-key="core.typetofilter" model="ctrl.selectedPurchase" items="ctrl.filteredPurchaseOrders" options="item as item.name for item in items"></soe-typeahead>
+                        </div>
+                        <div class="col-sm-2" ng-if="ctrl.isNew && !ctrl.purchaseId" style="margin-top: 21px;">
+                            <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'billing.purchase.delivery.fetchrows'" data-l10n-bind-title="'billing.purchase.delivery.fetchrows'" data-ng-click="$event.stopPropagation();ctrl.loadPurchase()" ng-disabled="!ctrl.selectedPurchase" inline="true" use-ignore-dirty="true"></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <soe-datepicker label-key="billing.purchase.delivery.deliverydate" model="ctrl.defaultDeliveryDate" use-ignore-dirty="true" on-change="" is-disabled="!ctrl.isNew"></soe-datepicker>
+                        </div>
+                        <div class="col-sm-2" ng-if="ctrl.isNew">
+                            <soe-checkbox label-key="billing.purchase.delivery.finaldelivery" model="ctrl.setFinalDelivery" inline="true" use-ignore-dirty="true"></soe-checkbox>
+                        </div>
+                        <div class="col-sm-2" ng-if="ctrl.isNew">
+                            <soe-checkbox label-key="billing.purchase.delivery.copyqty" model="ctrl.copyQty" inline="true" use-ignore-dirty="true"></soe-checkbox>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="ctrl.isNew || ctrl.purchaseId">
+                        <div class="col-sm-4">
+                            <soe-textbox label-key="billing.purchase.origindescription" model="ctrl.originDescription" readonly="true"></soe-textbox>
+                        </div>
+                    </div>
+                </div>
+            </soe-panel>
+            <soe-accordion label-key="billing.purchase.rows" label-value="ctrl.purchaseRowsExpanderLabel" is-open="true">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <delivery-rows parent-guid="ctrl.guid"
+                                       purchase-delivery-id="ctrl.purchaseDeliveryId"
+                                       delivery-rows="ctrl.deliveryRows">
+                        </delivery-rows>
+                    </div>
+                </div>
+            </soe-accordion>
+            <soe-accordion label-key="billing.purchase.orderrows" ng-if="ctrl.orderRowsPermission && ctrl.purchaseDeliveryId" is-open="ctrl.customerInvoiceRowsRendered">
+                <purchase-customer-invoice-rows purchase-delivery-id="ctrl.purchaseDeliveryId" perform-reload-cb="ctrl.reloadCustomerInvoiceRows" ng-if="ctrl.customerInvoiceRowsRendered" />
+            </soe-accordion>
+        </uib-accordion>
+        <div class="ngSoeFormFooter">
+            <div class="margin-large-left pull-left">
+                <div class="col">
+                    <created-modified model="ctrl.purchase"></created-modified>
+                </div>
+            </div>
+            <div class="pull-right margin-large-right">
+                <div>
+                    <div class="col" data-ng-if="ctrl.modifyPermission && ctrl.purchase && !ctrl.isNew">
+                        <button type="button" class="btn btn-sm btn-default" data-l10n-bind="'core.delete'" data-l10n-bind-title="'core.delete'" data-ng-click="$event.stopPropagation();ctrl.delete()"></button>
+                    </div>
+                    <div class="col" data-ng-if="ctrl.modifyPermission" data-ng-class="{'no-border-radius-on-specified-last-button' : ctrl.edit.$invalid}">
+                        <soe-splitbutton label-key="core.save" last-button-class="last-button" options="ctrl.saveFunctions" main-button="true" drop-up="true" is-disabled="ctrl.isDisabled()" option-selected="ctrl.executeSaveFunction(option)"></soe-splitbutton>
+                    </div>
+                    <button type="button" class="btn btn-sm ngSoeMainButtonInvalid no-left-border-radius" data-l10n-bind data-l10n-bind-title="'error.unabletosave_tooltip'" data-ng-if="ctrl.modifyPermission" data-ng-show="ctrl.edit.$invalid" data-ng-click="$event.stopPropagation();ctrl.showValidationError()">!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>

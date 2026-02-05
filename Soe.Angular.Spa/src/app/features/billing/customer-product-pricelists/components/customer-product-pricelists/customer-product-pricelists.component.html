@@ -1,0 +1,17 @@
+<form [formGroup]="parentForm">
+  @if (flowHandler.allowFetchGrid()) {
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [parentGuid]="guid()"
+      (editRowClicked)="edit($event)"
+      [toolbarGroups]="toolbarUtils.toolbarGroups">
+      <div toolbar-content-left>
+        <soe-checkbox
+          [labelKey]="'billing.product.pricelist.showhistoric'"
+          [checked]="showHistoricPrices"
+          [inToolbar]="true"
+          (valueChanged)="showHistoricPrices = $event"></soe-checkbox>
+      </div>
+    </soe-grid-wrapper>
+  }
+</form>

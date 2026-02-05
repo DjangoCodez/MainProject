@@ -1,0 +1,43 @@
+@if (flowHandler.allowFetchGrid()) {
+<div class="user-selector-for-template-head-row">
+  @if(form) {
+
+  <div class="row">
+    <div class="col-sm-4">
+      <form
+        [formGroup]="form"
+        novalidate
+        autocomplete="off"
+      >
+        <soe-select
+          [labelKey]="'economy.supplier.attestgroup.type'"
+          [items]="attestWorkFlowTypes()"
+          formControlName="type"
+        ></soe-select>
+      </form>
+    </div>
+  </div>
+  }
+
+  <div class="row mt-2">
+    <soe-instruction
+      [text]="row().attestTransitionName"
+      [textStyles]="{ 'font-weight': 'bold' }"
+    ></soe-instruction>
+  </div>
+
+  <div class="row">
+
+    <soe-grid-wrapper
+      [rows]="rowData"
+      [height]="300"
+      [parentGuid]="guid()"
+      [toolbarItemGroups]="
+            toolbarService.toolbarItemGroups
+          "
+      (cellClicked)="onCellClicked($event)"
+    ></soe-grid-wrapper>
+
+  </div>
+</div>
+}

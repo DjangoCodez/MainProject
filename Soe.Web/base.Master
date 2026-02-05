@@ -1,0 +1,59 @@
+﻿<%="" %>
+
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="base.Master.cs" Inherits="SoftOne.Soe.Web.BaseMaster" %>
+
+<!DOCTYPE HTML>
+
+<html>
+<head id="Head" runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+    <title><%=PageBase.Enc(PageBase.PageTitle)%></title>
+</head>
+<body id="baseMasterHtmlBody" runat="server">
+
+    <noscript>
+        <meta http-equiv="Refresh" content="10;URL=/errors/JavascriptDisabled.aspx" />
+    </noscript>
+
+    <script type="text/javascript">
+        var soeConfig = {
+            apiPrefix: '<%= SoftOne.Soe.Web.AngularConfig.ApiPrefix %>',
+            baseUrl: '<%= SoftOne.Soe.Web.AngularConfig.Prefix %>',
+            termVersionNr: '<%= PageBase.SysTermVersion %>',
+            token: '<%= PageBase.UserToken %>',
+            licenseId: <%= PageBase.SoeLicense != null ? PageBase.SoeLicense.LicenseId : 0 %>,
+            licenseNr: '<%= PageBase.SoeLicense != null ? PageBase.SoeLicense.LicenseNr : "" %>',
+            actorCompanyId: <%= PageBase.SoeCompany != null ? PageBase.SoeCompany.ActorCompanyId : 0 %>,
+            roleId: <%= PageBase.RoleId %>,
+            userId: <%= PageBase.SoeUser != null ? PageBase.UserId : 0 %>,
+            loginName: '<%= PageBase.SoeUser != null ? PageBase.SoeUser.LoginName : "" %>',
+            language: '<%=PageBase.Language%>',
+            sysCountryId: <%= PageBase.SoeCompany != null && PageBase.SoeCompany.SysCountryId.HasValue ? PageBase.SoeCompany.SysCountryId : (int)SoftOne.Soe.Common.Util.TermGroup_Languages.Swedish %>,
+            isSupportAdmin: <%= PageBase.IsSupportAdmin.ToString().ToLower() %>,
+            isSupportSuperAdmin: <%= PageBase.IsSupportSuperAdmin.ToString().ToLower() %>,
+            supportUserId: <%= PageBase.SoeSupportUser != null ? PageBase.SoeSupportUser.UserId : 0 %>,
+            soeParameters: '<%= GetParametersString() %>'
+        }
+        
+    </script>
+
+    <asp:ContentPlaceHolder ID="baseMasterBody" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <input type="hidden" value="0" id="showWarningMessage" />
+    <%
+        foreach (string s in PageBase.StyleSheets)
+        {
+    %><link rel="stylesheet" type="text/css" media="screen" href="<%=s%>" /><%
+    }
+    foreach (string s in PageBase.Scripts)
+    {
+
+    %><script type="text/javascript" src="<%=s%>"></script><%
+    }
+    %>
+</body>
+</html>
+

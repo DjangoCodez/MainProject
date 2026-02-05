@@ -1,0 +1,36 @@
+<div>
+  <div>
+    <div class="row">
+      <div class="col-sm-6" style="padding-top: 15px">
+        @if (!isCompany && !isForeign) {
+          <soe-label
+            [labelKey]="'economy.supplier.supplier.nativepayments'"></soe-label>
+        }
+        @if (!isCompany && isForeign) {
+          <soe-label
+            [labelKey]="
+              'economy.supplier.supplier.foreginpayments'
+            "></soe-label>
+        }
+      </div>
+      <div class="col-sm-6">
+        <soe-button
+          class="pull-right"
+          [caption]="'common.newrow'"
+          [behaviour]="'standard'"
+          (action)="addRow()"></soe-button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        @if (flowHandler.allowFetchGrid()) {
+          <soe-grid-wrapper
+            [toolbarGroups]="[]"
+            [rows]="rowData"
+            [height]="250"
+            [parentGuid]="guid()"></soe-grid-wrapper>
+        }
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+@if (form) {
+  <form [formGroup]="form" class="soe-edit-form" novalidate>
+    <div class="row mb-3">
+      <div class="col-12">
+        <soe-instruction [text]="'manage.serviceuser.about'"></soe-instruction>
+      </div>
+    </div>
+    @if (!isAddMode()) {
+      <soe-expansion-panel
+        [static]="true"
+        [labelKey]="'manage.serviceuser.serviceprovider'">
+        <form [formGroupName]="'serviceProvider'">
+          <div class="row mb-3">
+            <div class="col-4">
+              <soe-textbox
+                formControlName="companyName"
+                [manualReadOnly]="true"
+                [labelKey]="'common.company'"></soe-textbox>
+            </div>
+            <div class="col-4">
+              <soe-textbox
+                formControlName="licenseNumber"
+                [manualReadOnly]="true"
+                [labelKey]="'common.licensenr'"></soe-textbox>
+            </div>
+            <div class="col-4">
+              <soe-textbox
+                formControlName="licenseName"
+                [manualReadOnly]="true"
+                [labelKey]="'common.licensename'"></soe-textbox>
+            </div>
+          </div>
+        </form>
+      </soe-expansion-panel>
+    }
+
+    <soe-expansion-panel
+      [static]="true"
+      [labelKey]="
+        isAddMode()
+          ? 'manage.serviceuser.newserviceproviderconnection'
+          : 'common.user'
+      ">
+      @if (isAddMode()) {
+        <div class="row mb-3">
+          <div class="col-12">
+            <soe-instruction
+              [text]="'manage.serviceuser.connectionhelp'"></soe-instruction>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-4">
+            <soe-textbox
+              formControlName="connectionCode"
+              [labelKey]="'common.code'"
+              [required]="true">
+            </soe-textbox>
+          </div>
+        </div>
+      }
+
+      <div class="row">
+        <div class="col-sm-4">
+          <soe-textbox
+            formControlName="userName"
+            [labelKey]="'common.username'"
+            [required]="true">
+          </soe-textbox>
+        </div>
+        <div class="col-sm-4">
+          <soe-select
+            formControlName="roleId"
+            [labelKey]="'common.role'"
+            [items]="roles()"
+            [selectedId]="form.roleId"
+            [required]="true">
+          </soe-select>
+        </div>
+        <div class="col-sm-4">
+          <!-- Attest Roles Multi-Select -->
+          <soe-multi-select
+            formControlName="attestRoleIds"
+            [labelKey]="'common.user.attestroles'"
+            [items]="attestRoles()"
+            [showSelectedItemsInline]="true">
+          </soe-multi-select>
+        </div>
+      </div>
+    </soe-expansion-panel>
+
+    <soe-edit-footer
+      [form]="form"
+      [modifyPermission]="flowHandler.modifyPermission()"
+      [inProgress]="performAction.inProgress()"
+      [hideDelete]="isAddMode()"
+      (saved)="onSave()"
+      (deleted)="triggerDelete()">
+    </soe-edit-footer>
+  </form>
+}

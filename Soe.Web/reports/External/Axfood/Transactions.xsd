@@ -1,0 +1,100 @@
+﻿<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Transactions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="StoreId" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Nr"/>
+              <xs:element type="xs:string" name="Name"/>
+              <xs:element type="xs:int" name="External"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DepartmentId" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Nr"/>
+              <xs:element type="xs:string" name="Name"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ShiftType" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Nr"/>
+              <xs:element type="xs:string" name="Name"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PaymentType" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="ProductNr"/>
+              <xs:element type="xs:string" name="ProductName"/>
+              <xs:element type="xs:decimal" name="Factor"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Employee" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="EmployeeNr"/>
+              <xs:element name="Day" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded" minOccurs="0">
+                    <xs:element type="xs:dateTime" name="Date"/>
+                    <xs:element name="Transaction">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="PaymentType"/>
+                          <xs:element type="xs:string" name="StoreId"/>
+                          <xs:element type="xs:string" name="DepartmentId"/>
+                          <xs:element type="xs:string" name="ShiftType"/>
+                          <xs:element type="xs:int" name="Minutes"/>
+                          <xs:element type="xs:decimal" name="Amount"/>
+                          <xs:element type="xs:dateTime" name="StartTime"/>
+                          <xs:element type="xs:dateTime" name="StopTime"/>
+                          <xs:element type="xs:int" name="Approved"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:int" name="id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="OBTransaction">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="PaymentType"/>
+                          <xs:element type="xs:string" name="StoreId"/>
+                          <xs:element type="xs:string" name="DepartmentId"/>
+                          <xs:element type="xs:string" name="ShiftType"/>
+                          <xs:element type="xs:decimal" name="Amount"/>
+                          <xs:element type="xs:int" name="Minutes"/>
+                          <xs:element type="xs:int" name="Approved"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:int" name="id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="AbTransaction">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="PaymentType"/>
+                          <xs:element type="xs:string" name="StoreId"/>
+                          <xs:element type="xs:string" name="DepartmentId"/>
+                          <xs:element type="xs:string" name="ShiftType"/>
+                          <xs:element type="xs:int" name="Minutes"/>
+                          <xs:element type="xs:int" name="Approved"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:int" name="id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                  <xs:attribute type="xs:int" name="id" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,907 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appcmd>
+    <SITE SITE.name="s1d1" bindings="http/*:80:s8s1d1.softone.se,https/*:443:s8s1d1.softone.se" state="Started">
+        <site name="s1d1" serverAutoStart="true">
+            <bindings>
+                <binding protocol="http" bindingInformation="*:80:s8s1d1.softone.se" />
+                <binding protocol="https" bindingInformation="*:443:s8s1d1.softone.se" sslFlags="0" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <hsts />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="s1d1">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d1\web" />
+            </application>
+            <application path="/api" applicationPool="s1d1_api">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d1\api" />
+            </application>
+            <application path="/ApiInternal" applicationPool="s1d1_apiinternal" preloadEnabled="true">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d1\ApiInternal" />
+            </application>
+            <application path="/TS" applicationPool="s1d1">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d1\TS" />
+            </application>
+            <application path="/WSX" applicationPool="s1d1_wsx">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d1\WSX" />
+            </application>
+        </site>
+    </SITE>
+    <SITE SITE.name="s1d8" bindings="https/*:443:s8s1d8.softone.se,http/*:80:s8s1d8.softone.se" state="Started">
+        <site name="s1d8" serverAutoStart="true">
+            <bindings>
+                <binding protocol="https" bindingInformation="*:443:s8s1d8.softone.se" sslFlags="0" />
+                <binding protocol="http" bindingInformation="*:80:s8s1d8.softone.se" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <hsts />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="s1d8">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d8\web" />
+            </application>
+            <application path="/api" applicationPool="s1d8_api">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d8\api" />
+            </application>
+            <application path="/ApiInternal" applicationPool="s1d8_apiinternal">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d8\ApiInternal" />
+            </application>
+            <application path="/WSX" applicationPool="s1d8_wsx">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d8\WSX" />
+            </application>
+            <application path="/TS" applicationPool="s1d8">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d8\TS" />
+            </application>
+        </site>
+    </SITE>
+    <SITE SITE.name="s1sys" bindings="https/*:443:s8s1sys.softone.se" state="Started">
+        <site name="s1sys" serverAutoStart="true">
+            <bindings>
+                <binding protocol="https" bindingInformation="*:443:s8s1sys.softone.se" sslFlags="0" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <hsts />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="s1sys">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1sys" />
+            </application>
+        </site>
+    </SITE>
+    <SITE SITE.name="crgen" bindings="https/*:443:s8crgen.softone.se" state="Started">
+        <site name="crgen" serverAutoStart="true">
+            <bindings>
+                <binding protocol="https" bindingInformation="*:443:s8crgen.softone.se" sslFlags="0" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <hsts />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="CrGen">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\CrGen" />
+            </application>
+        </site>
+    </SITE>
+    <SITE SITE.NAME="s1d18" bindings="https/*:443:s8s1d18.softone.se,http/*:80:s8s1d18.softone.se" state="Started">
+        <site name="s1d18" serverAutoStart="true">
+            <bindings>
+                <binding protocol="https" bindingInformation="*:443:s8s1d18.softone.se" sslFlags="0" />
+                <binding protocol="http" bindingInformation="*:80:s8s1d18.softone.se" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <hsts />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="s1d18">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d18\Web" />
+            </application>
+            <application path="/api" applicationPool="s1d18_Api">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d18\api" />
+            </application>
+            <application path="/WSX" applicationPool="s1d18_Wsx">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d18\wsx" />
+            </application>
+            <application path="/ApiInternal" applicationPool="s1d18_ApiInternal">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d18\ApiInternal" />
+            </application>
+            <application path="/ts" applicationPool="s1d18">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d18\TS" />
+            </application>
+        </site>
+    </SITE>
+    <SITE SITE.NAME="s1d19" bindings="http/*:80:s8s1d19.softone.se,https/*:443:s8s1d19.softone.se" state="Started">
+        <site name="s1d19" serverAutoStart="true">
+            <bindings>
+                <binding protocol="http" bindingInformation="*:80:s8s1d19.softone.se" />
+                <binding protocol="https" bindingInformation="*:443:s8s1d19.softone.se" sslFlags="0" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <hsts />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="s1d19">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d19\Web" />
+            </application>
+            <application path="/api" applicationPool="s1d19_Api">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d19\api" />
+            </application>
+            <application path="/WSX" applicationPool="s1d19_Wsx">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d19\wsx" />
+            </application>
+            <application path="/ApiInternal" applicationPool="s1d19_ApiInternal">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d19\ApiInternal" />
+            </application>
+            <application path="/ts" applicationPool="s1d19">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d19\TS" />
+            </application>
+        </site>
+    </SITE>
+    <SITE SITE.NAME="s1d40" bindings="https/*:443:s8s1d40.softone.se,http/*:80:s8s1d40.softone.se" state="Started">
+        <site name="s1d40" serverAutoStart="true">
+            <bindings>
+                <binding protocol="https" bindingInformation="*:443:s8s1d40.softone.se" sslFlags="0" />
+                <binding protocol="http" bindingInformation="*:80:s8s1d40.softone.se" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <hsts />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="s1d40">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d40\Web" />
+            </application>
+            <application path="/api" applicationPool="s1d40_Api">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d40\api" />
+            </application>
+            <application path="/WSX" applicationPool="s1d40_Wsx">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d40\wsx" />
+            </application>
+            <application path="/ApiInternal" applicationPool="s1d40_ApiInternal">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d40\ApiInternal" />
+            </application>
+        </site>
+    </SITE>
+    <SITE SITE.NAME="s1d39" bindings="http/*:80:s8s1d39.softone.se,https/*:443:s8s1d39.softone.se" state="Started">
+        <site name="s1d39" serverAutoStart="true">
+            <bindings>
+                <binding protocol="http" bindingInformation="*:80:s8s1d39.softone.se" />
+                <binding protocol="https" bindingInformation="*:443:s8s1d39.softone.se" sslFlags="0" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <hsts />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="s1d39">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d39\Web" />
+            </application>
+            <application path="/api" applicationPool="s1d39_api">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d39\api" />
+            </application>
+            <application path="/ApiInternal" applicationPool="s1d39_apiinternal">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d39\ApiInternal" />
+            </application>
+            <application path="/WSX" applicationPool="s1d39">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d39\WSX" />
+            </application>
+        </site>
+    </SITE>
+    <SITE SITE.NAME="s1d2" bindings="http/*:80:s8s1d2.softone.se,https/*:443:s8s1d2.softone.se" state="Started">
+        <site name="s1d2" serverAutoStart="true">
+            <bindings>
+                <binding protocol="http" bindingInformation="*:80:s8s1d2.softone.se" />
+                <binding protocol="https" bindingInformation="*:443:s8s1d2.softone.se" sslFlags="0" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <hsts />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="s1d2">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d2\Web" />
+            </application>
+            <application path="/api" applicationPool="s1d2_Api">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d2\api" />
+            </application>
+            <application path="/ApiInternal" applicationPool="s1d2_ApiInternal">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d2\ApiInternal" />
+            </application>
+            <application path="/WSX" applicationPool="s1d2_Wsx">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d2\WSX" />
+            </application>
+        </site>
+    </SITE>
+    <SITE SITE.NAME="s1d7" bindings="http/*:80:s8s1d7.softone.se,https/*:443:s8s1d7.softone.se" state="Started">
+        <site name="s1d7" serverAutoStart="true">
+            <bindings>
+                <binding protocol="http" bindingInformation="*:80:s8s1d7.softone.se" />
+                <binding protocol="https" bindingInformation="*:443:s8s1d7.softone.se" sslFlags="0" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <hsts />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="s1d7">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d7\Web" />
+            </application>
+            <application path="/api" applicationPool="s1d7_Api">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d7\api" />
+            </application>
+            <application path="/ApiInternal" applicationPool="s1d7_Api">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d7\ApiInternal" />
+            </application>
+            <application path="/WSX" applicationPool="s1d7_Wsx">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d7\WSX" />
+            </application>
+        </site>
+    </SITE>
+    <SITE SITE.NAME="Bridge" bindings="https/*:443:s8bridge.softone.se" state="Started">
+        <site name="Bridge" serverAutoStart="true">
+            <bindings>
+                <binding protocol="https" bindingInformation="*:443:s8bridge.softone.se" sslFlags="0" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <hsts />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="Bridge">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\Bridge" />
+            </application>
+        </site>
+    </SITE>
+    <SITE SITE.NAME="s1d51" bindings="https/*:443:s8s1d51.softone.se,http/*:80:s8s1d51.softone.se" state="Started">
+        <site name="s1d51" serverAutoStart="true">
+            <bindings>
+                <binding protocol="https" bindingInformation="*:443:s8s1d51.softone.se" sslFlags="0" />
+                <binding protocol="http" bindingInformation="*:80:s8s1d51.softone.se" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <hsts />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="s1d51">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d51\Web" />
+            </application>
+            <application path="/api" applicationPool="s1d51_Api">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d51\api" />
+            </application>
+            <application path="/WSX" applicationPool="s1d51_Wsx">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d51\wsx" />
+            </application>
+            <application path="/ApiInternal" applicationPool="s1d51_ApiInternal">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d51\ApiInternal" />
+            </application>
+        </site>
+    </SITE>
+    <SITE SITE.NAME="s1d50" bindings="https/*:443:s8s1d50.softone.se,http/*:80:s8s1d50.softone.se" state="Started">
+        <site name="s1d50" serverAutoStart="true">
+            <bindings>
+                <binding protocol="https" bindingInformation="*:443:s8s1d50.softone.se" sslFlags="0" />
+                <binding protocol="http" bindingInformation="*:80:s8s1d50.softone.se" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <hsts />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="s1d50">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d50\Web" />
+            </application>
+            <application path="/api" applicationPool="s1d50_Api">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d50\api" />
+            </application>
+            <application path="/WSX" applicationPool="s1d50_Wsx">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d50\wsx" />
+            </application>
+            <application path="/ApiInternal" applicationPool="s1d50_ApiInternal">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\s1d50\ApiInternal" />
+            </application>
+        </site>
+    </SITE>
+    <SITE SITE.NAME="App" bindings="http/*:80:app.softone.se,https/*:443:app.softone.se,https/*:443:apps8.softone.se" state="Started">
+        <site name="App" serverAutoStart="true">
+            <bindings>
+                <binding protocol="http" bindingInformation="*:80:app.softone.se" />
+                <binding protocol="https" bindingInformation="*:443:app.softone.se" sslFlags="0" />
+                <binding protocol="https" bindingInformation="*:443:apps8.softone.se" sslFlags="0" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <hsts />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="App">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="E:\Sites\App" />
+            </application>
+        </site>
+    </SITE>
+</appcmd>
